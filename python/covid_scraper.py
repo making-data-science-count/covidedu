@@ -98,7 +98,6 @@ class WebpageParser(object):
         """Returns lxml HTML root"""
         return lxml.html.fromstring(self.html)
 
-
     def _get_anchor_elements(self) -> List[lxml.html.HtmlElement]:
         return self.root.xpath('//a')
 
