@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- <hs:metatags> --><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="Homestead SiteBuilder">
+<!-- </hs:metatags> --><!-- START of freefind onpage results html --><!-- position these div's right after your body tag --><!--  FreeFind on-page results divs  -->
+</head>
+<body>
+<div id="ffresult_win" style=" z-index:1; padding: 20px 0 16px 0; margin:0px; width:538px; height:728px; border:none; display:none; position:absolute; top:0px; left:0px;">
+	<div id="ffresult_bar" onmousedown="ffresults.drag(event,false)" style="cursor: move; z-index:5; position:absolute; top:0px; left:0px; background-color:maroon; padding:0; text-align: right; width:100%; height:20px; display:block;  border:solid; border-width: 1px; border-bottom: 0px; border-color:maroon;">
+	<a id="ffrclose" style="z-index:6; font-family: arial, verdana, sans-serif; font-size:8pt; color:white; " href="javascript:ffresults.hide()">Close window [X]</a>   
+	</div>
+	<div id="ffresult_2" style="z-index:7; position: relative; height: 100%; background-color:white;  display:block;">
+	<div id="ffresult_cvr" style="z-index:0; position:absolute; top:0px; left:0px; display:block; width:100%; height:100%;">
+	</div>
+	<iframe id="ffresult_ifr" name="ffresult_frame" style="z-index:1; position:absolute; top:0px; left:0px; border:solid; border-width: 0px 1px 0px 1px; border-color:gray;" src="" width="100%" height="100%" scrolling="auto" frameborder="0">
+	</iframe>
+	</div>
+	<div id="ffresult_btm" style=" position:absolute; bottom:-1; left:0px; border:solid; border-color:gray; border-width: 1px; border-top: 0px; display: block; z-index:18; background-color:#d0d0d0; width:100%; height:16px; ">
+		<div id="ffresult_sbx" onmousedown="ffresults.drag(event,true);" style="cursor: se-resize; float:right; border:none; border-color:gray; border-width: 0px; width:16px; height:16px; "><img style="" id="ffresult_szimg" height="16" width="16" border="0" src="" alt=""></div>
+	</div>
+</div>
+
+
+<!--  FreeFind on-page results handler  -->
+
+<script type="text/javascript">
+<!--
+var ffresults = {
+
+	// copyright 2008 - 2014 FreeFind.com - authorized for use with the FreeFind service only
+
+	// Start of config settings
+
+    autoPos : true,			// automatic initial window position / size. 
+
+	// if autoPos if false, the following four numbers are used as initial window position and size
+
+	initialX : 78,			// left position (pixels)
+	initialY : 66,			// right position (pixels)
+	initialH : 395,			// height of window
+	initialW : 622,			// width of window
+
+	// choose a number for z-index that is high enough so the results window appears above other windows on your page
+
+	initialZ : 10000000,    // initial z-index of the results window
+	
+	// the following value controls the color of the window's drag bar (top area of window)
+	
+	barColor : 'gray',
+
+	// end of config settings
+
+	element : undefined,
+	cover : undefined,
+	mouseDownX : 0,
+	mouseDownY : 0,
+	objectX : 0,
+	objectY : 0,
+	objectH : 0,
+	objectW : 0,
+    ipos : false,
+	resize : false,
+	
+	sizeImageUrl : 'http://search.freefind.com/img/rsize.gif',
+
+	selectFunc : undefined,
+	selectState : undefined,
+	mozSelect : undefined,
+
+	noSelect : function()
+	{
+	    var obj = document.body;
+
+        ffresults.selectFunc = obj.onselectstart;
+		ffresults.selectState = obj.unselectable;
+		ffresults.mozSelect = obj.style.MozUserSelect;
+
+		obj.onselectstart = function(){ return false; };
+		obj.unselectable = 'on';
+		obj.style.MozUserSelect = 'none';
+	},
+
+	restoreSelect : function()
+	{
+	    var obj = document.body;
+
+		obj.onselectstart = ffresults.selectFunc;
+		obj.unselectable = ffresults.selectState;
+		obj.style.MozUserSelect = ffresults.mozSelect;
+	},
+
+
+	drag : function (e,size)
+	{
+		if(!document.getElementById) return;
+		
+		if(!e) e = window.event;
+		var targ = e.target || e.srcElement;
+	    ffresults.resize = size;
+
+		if(targ.id != 'ffresult_bar' && targ.id != 'ffresult_szimg') return true;
+		ffresults.noSelect();
+
+		ffresults.element = document.getElementById('ffresult_win');
+		ffresults.objectX = parseInt(ffresults.element.style.left,10);
+		ffresults.objectY = parseInt(ffresults.element.style.top,10);
+		ffresults.objectH = parseInt(ffresults.element.style.height,10);
+		ffresults.objectW = parseInt(ffresults.element.style.width,10);
+
+		ffresults.cover = document.getElementById('ffresult_cvr');
+		ffresults.cover.style.zIndex = '40';
+		ffresults.mouseDownX = e.clientX;
+		ffresults.mouseDownY = e.clientY;
+		if(e.preventDefault) e.preventDefault();
+		e.returnValue = false;
+		e.cancelBubble = true;
+		ffresults.attach(document,"mouseup",ffresults.drop);
+		ffresults.attach(document,"mousemove",ffresults.move);
+	},
+
+
+
+
+	attach : function(to,eventname,func)
+	{
+		if(to.addEventListener) 
+			to.addEventListener(eventname,func,false);
+		else
+			to.attachEvent("on" + eventname,func);
+	},
+
+	detach : function(to,eventname,func)
+	{
+		if(to.removeEventListener) 
+			to.removeEventListener(eventname,func,false);
+		else
+			to.detachEvent("on" + eventname,func);
+	},
+
+	drop : function(e)
+	{
+		ffresults.detach(document,"mouseup",ffresults.drop);
+		ffresults.detach(document,"mousemove",ffresults.move);
+		ffresults.cover.style.zIndex = 0;	
+		ffresults.element = null;
+		ffresults.restoreSelect();
+	},
+
+	move: function(e)
+	{
+	   if(!e) e = window.event;
+
+	   e.returnValue = false;
+	   e.cancelBubble = true;
+	   if(e.preventDefault) e.preventDefault();
+
+		var x = e.clientX;
+		var y = e.clientY; 
+
+		if(ffresults.resize)
+		{
+			var winW = ffresults.objectW + x - ffresults.mouseDownX;
+			var winH = ffresults.objectH + y - ffresults.mouseDownY;
+			
+			if(winH < 128) winH = 128;
+			if(winW < 128) winW = 128;
+
+			ffresults.element.style.width = winW + "px";
+			ffresults.element.style.height = winH + "px";
+		}
+		else
+		{
+			var left = ffresults.objectX + x - ffresults.mouseDownX;
+			var top = ffresults.objectY + y - ffresults.mouseDownY;
+
+			ffresults.element.style.left = left + "px";
+			ffresults.element.style.top = top + "px";
+		}
+		
+
+	},
+
+	hide : function()
+	{
+		var rStyle = document.getElementById('ffresult_win').style;
+		rStyle.display = "none";
+		rStyle.zIndex = 0;
+		var ifr = document.getElementById('ffresult_ifr');
+		if(ifr) ifr.src="";
+		var szImg = document.getElementById('ffresult_szimg');
+		if(szImg) szImg.src = "";
+
+	},
+
+
+	show : function(num)
+	{
+		if(!document.getElementById) return;
+
+		var searchForm = document.getElementById('ffresult_sbox'+num);
+		var idxLink = document.getElementById('ffresult_idx'+num);
+		var smpLink = document.getElementById('ffresult_smp'+num);
+		var advLink = document.getElementById('ffresult_adv'+num);
+
+		if(searchForm) searchForm.target = 'ffresult_frame';
+		if(idxLink) idxLink.target = 'ffresult_frame';
+		if(smpLink) smpLink.target = 'ffresult_frame';
+		if(advLink) advLink.target = 'ffresult_frame';
+
+		var rDiv = document.getElementById('ffresult_win');
+
+		if(!ffresults.ipos)
+		{
+		    if(ffresults.autoPos)
+			{
+			    ffresults.computePos(rDiv); 
+			}
+			else
+			{
+				rDiv.style.top = ffresults.initialY + 'px';
+				rDiv.style.left = ffresults.initialX + 'px';
+				rDiv.style.width = ffresults.initialW + 'px';
+				rDiv.style.height = (ffresults.initialH - 36) + 'px';	
+			}
+			ffresults.ipos = true;
+		}
+
+		var szImg = document.getElementById('ffresult_szimg');
+		if(szImg) szImg.src = ffresults.sizeImageUrl;
+
+		var dragBar = document.getElementById('ffresult_bar');
+		if(dragBar) 
+		{
+			dragBar.style.backgroundColor = ffresults.barColor;
+			dragBar.style.borderColor = ffresults.barColor;
+		}
+
+		rDiv.style.zIndex = ffresults.initialZ;
+		rDiv.style.display = "block";
+	},
+
+
+
+	computePos : function(rDiv)
+	{
+
+		var view = ffresults.viewSize();
+		var w = parseInt(view.width * 0.75,10);
+		var h = parseInt(view.height * 0.75,10);
+		if(w < 220) w = 220;
+		if(h < 220) h = 220;
+
+
+		var left = parseInt((view.width - w ) / 2,10);
+		var top = parseInt((view.height - (h + 36)) / 2,10);
+
+
+		if(left < 0) left = 0;
+		if(top < 0) top = 0;
+
+		rDiv.style.top = (top + view.scrollY) + 'px';
+		rDiv.style.left =  (left + view.scrollX) + 'px';
+		rDiv.style.width =  w + 'px';
+		rDiv.style.height =  h + 'px';
+
+	},
+	
+	viewSize : function()
+	{   
+		var w = 0;
+		var h = 0;
+		var sx = 0;
+		var sy = 0;
+
+	    if(window.innerWidth)	
+		{  // non-ie
+		   w = window.innerWidth;
+		   h = window.innerHeight;
+		   sx = window.pageXOffset;
+		   sy = window.pageYOffset;
+		}
+		else
+		{
+		    var elem;
+			if(document.documentElement && document.documentElement.clientWidth != 0)
+			{   // ie strict
+				elem = document.documentElement;
+			}
+			else
+			{	// ie quirks
+				elem = document.body;
+			}
+			w = elem.clientWidth;
+			h = elem.clientHeight;
+			sx = elem.scrollLeft;
+			sy = elem.scrollTop;
+			
+		}
+		  
+		
+		return {width: w,height: h, scrollX: sx, scrollY: sy};
+		
+	}
+
+
+};
+
+//-->
+</script><!-- END of freefind onpage results html --><!-- <hs:title> --><title>Corbin Schools | Corbin, KY 40701</title>
+<!-- </hs:title> --><script type="text/javascript">
+			<!--
+						function reDo() {
+						        top.location.reload();
+						}
+						if (navigator.appName == 'Netscape' && parseInt(navigator.appVersion) < 5) {
+						        top.onresize = reDo;
+						}
+						dom=document.getElementById
+					//-->
+		</script><script type="text/javascript">
+			<!--
+							  
+						
+  var strRelativePagePath = "index.html".toLowerCase();
+  
+						
+  var strRelativePathToRoot = "";
+  
+
+
+
+						//-->
+		</script><link rel="stylesheet" href="/~media/elements/Text/font_styles_ns4.css" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface%7CAllerta%7CArvo%7CBitter%7CBree+Serif%7CCabin%7CCookie%7CDomine%7CDroid+Sans%7CDroid+Serif%7CGrand+Hotel%7CJosefin+Slab%7CLato%7CLobster%7CLora%7CMerriweather%7CMonda%7CMontserrat%7COffside%7COld+Standard+TT%7COpen+Sans%7COpen+Sans+Condensed%7COswald%7CPlayfair+Display%7CPT+Sans%7CPT+Serif%7CRaleway%7CRoboto%7CRoboto+Condensed%7CRoboto+Slab%7CSanchez%7CSource+Sans+Pro%7CTangerine%7CUbuntu%7CVollkorn%7CYanone+Kaffeesatz" type="text/css">
+<style type="text/css">
+			@import url(/~media/elements/Text/font_styles.css);
+			div.lpxcenterpageouter { text-align: center; position: absolute; top: 0px; left: 0px; width: 100% }
+			div.lpxcenterpageinner { position: relative; margin: 0 auto; text-align: left; width: 985px; }
+			div#element166outer { position:absolute; 
+			width: 941px;
+			height: 52px; }
+			.corner_999999_10_topleft { background-image: url(
+			publishImages/index~~999999~~10~~topleft.png); top: 0px; left: 0px; }
+			.corner_999999_10_topright { background-image: url(
+			publishImages/index~~999999~~10~~topright.png); top: 0px; right: 0px; }
+			.corner_999999_10_bottomleft { background-image: url(
+			publishImages/index~~999999~~10~~bottomleft.png); bottom: 0px; left: 0px; }
+			.corner_999999_10_bottomright { background-image: url(
+			publishImages/index~~999999~~10~~bottomright.png); bottom: 0px; right: 0px; }
+			.corner_999999_10_topleft,
+			.corner_999999_10_topright,
+			.corner_999999_10_bottomleft,
+			.corner_999999_10_bottomright {
+			position: absolute; width: 10px; height: 10px; }
+			div#element166horiz { background-color:#999999; position: absolute;
+			top: 10px;
+			width: 941px;
+			height: 32px; }
+			div#element166vert { background-color: #999999; color: #999999; position: absolute;
+			left: 10px;
+			width: 921px;
+			height: 52px; }
+		</style>
+<script type="text/javascript">
+			<!--
+							var unique_id = new Array();
+			var form_name = new Array();
+			var required = new Array();
+			var req_message = new Array();
+
+						//-->
+		</script><style type="text/css">
+			<!--
+							.navBackgroundResources { background-image:url('/~media/elements/LayoutClipart/undefined'); background-position: undefined; background-repeat:no-repeat }
+							.navBackgroundSelectedResources { background-image:url('/~media/elements/LayoutClipart/undefined'); background-position: undefined; background-repeat:no-repeat }
+						-->
+		</style>
+<style type="text/css">
+			<!--
+							.navBackgroundMainMenu { background-image:url('/~media/elements/LayoutClipart/undefined'); background-position: undefined; background-repeat:no-repeat }
+							.navBackgroundSelectedMainMenu { background-image:url('/~media/elements/LayoutClipart/undefined'); background-position: undefined; background-repeat:no-repeat }
+						-->
+		</style>
+<style type="text/css">
+			<!--
+							.navBackgroundQuickLinksHome { background-image:url('/~media/elements/LayoutClipart/undefined'); background-position: undefined; background-repeat:no-repeat }
+							.navBackgroundSelectedQuickLinksHome { background-image:url('/~media/elements/LayoutClipart/undefined'); background-position: undefined; background-repeat:no-repeat }
+						-->
+		</style>
+<script type="text/javascript" src="/~site/Elements/HCUser_Forms_Submit/FormValidation.js">
+		</script><!--[if lt IE 5.5]>
+		<style type="text/css">
+			.corner_999999_10_topleft,
+			.corner_999999_10_topright,
+			.corner_999999_10_bottomleft,
+			.corner_999999_10_bottomright {
+			background-image: none; background-color: #999999;}
+		</style>
+		<![endif]--><!--[if gte IE 5.5]>
+		<style type="text/css">
+			.corner_999999_10_topleft,
+			.corner_999999_10_topright,
+			.corner_999999_10_bottomleft,
+			.corner_999999_10_bottomright { background-image: none; }
+			.corner_999999_10_topleft { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="publishImages/index~~999999~~10~~topleft.png"; sizingMethod="scale"); }
+			.corner_999999_10_topright { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="publishImages/index~~999999~~10~~topright.png"; sizingMethod="scale"); }
+			.corner_999999_10_bottomleft { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="publishImages/index~~999999~~10~~bottomleft.png"; sizingMethod="scale"); }
+			.corner_999999_10_bottomright { filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="publishImages/index~~999999~~10~~bottomright.png"; sizingMethod="scale"); }
+		</style>
+		<![endif]--><noscript>
+			<img height="40" width="373" border="0" alt="" src="/~media/elements/shared/javascript_disabled.gif">
+</noscript>
+		<div class="lpxcenterpageouter"><div class="lpxcenterpageinner">
+<!-- <hs:element230> --><div id="element230" style="position: absolute; top: 1109px; left: 25px; width: 454px; height: 590px; z-index: 0;"><table cellspacing="0" border="0" cellpadding="0"><tr><td height="590" bgcolor="#B91806" width="454"><img height="590" width="454" title="" alt="" style="display: block;" src="/~site/siteapps/shapes.action?CMD=GetRectangleGif&amp;r=185&amp;g=24&amp;b=6"></td></tr></table></div>
+<!-- </hs:element230> --><!-- <hs:element166> --><div id="element166" style="position: absolute; top: 28px; left: 32px; width: 941px; height: 52px; z-index: 1;"><div id="element166outer">
+<div class="corner_999999_10_topleft"></div>
+<div class="corner_999999_10_topright"></div>
+<div class="corner_999999_10_bottomleft"></div>
+<div class="corner_999999_10_bottomright"></div>
+<div id="element166horiz"></div>
+<div id="element166vert"></div>
+</div></div>
+<!-- </hs:element166> --><!-- <hs:element206> --><div id="element206" style="position: absolute; top: 58px; left: 213px; width: 9px; height: 10px; z-index: 2;"><div style="overflow: hidden; height: 10px; width: 9px; border: 0px solid #52A8EC; border-radius: 0px; box-shadow: none;"><img height="10" width="9" style="display: block; border-radius: 0px;" title="" alt="" src="arrow-down-small-16.png"></div></div>
+<!-- </hs:element206> --><!-- <hs:element207> --><div id="element207" style="position: absolute; top: 58px; left: 560px; width: 9px; height: 10px; z-index: 3;"><div style="overflow: hidden; height: 10px; width: 9px; border: 0px solid #52A8EC; border-radius: 0px; box-shadow: none;"><img height="10" width="9" style="display: block; border-radius: 0px;" title="" alt="" src="arrow-down-small-16.png"></div></div>
+<!-- </hs:element207> --><!-- <hs:element170> --><div id="element170" style="position: absolute; top: 95px; left: 26px; width: 933px; height: 325px; z-index: 4;"><table cellspacing="0" border="0" cellpadding="0"><tr><td height="325" bgcolor="#EBEBEB" width="933"><img height="325" width="933" title="" alt="" style="display: block;" src="/~site/siteapps/shapes.action?CMD=GetRectangleGif&amp;r=235&amp;g=235&amp;b=235"></td></tr></table></div>
+<!-- </hs:element170> --><!-- <hs:element171> --><div id="element171" style="position: absolute; top: 217px; left: 26px; width: 933px; height: 245px; z-index: 5;"><table cellspacing="0" border="0" cellpadding="0"><tr><td height="245" bgcolor="#B91806" width="933"><img height="245" width="933" title="" alt="" style="display: block;" src="/~site/siteapps/shapes.action?CMD=GetRectangleGif&amp;r=185&amp;g=24&amp;b=6"></td></tr></table></div>
+<!-- </hs:element171> --><!-- <hs:element164> --><div id="element164" style="position: absolute; top: 1661px; left: 731px; width: 223px; height: 16px; z-index: 6;"><table cellspacing="0" border="0" cellpadding="0"><tr><td height="16" bgcolor="#F5F502" width="223"><img height="16" width="223" title="" alt="" style="display: block;" src="/~site/siteapps/shapes.action?CMD=GetRectangleGif&amp;r=245&amp;g=245&amp;b=2"></td></tr></table></div>
+<!-- </hs:element164> --><!-- <hs:element165> --><div id="element165" style="position: absolute; top: 1065px; left: 26px; width: 338px; height: 112px; z-index: 7;"><div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size36 Helvetica36"><b>District News</b><br></font></div></div>
+<!-- </hs:element165> --><!-- <hs:element167> --><div id="element167" style="position: absolute; top: 1px; left: 48px; width: 930px; height: 41px; z-index: 8;"><table cellspacing="0" border="0" cellpadding="0"><tr><td height="41" bgcolor="#9E0704" width="930"><img height="41" width="930" title="" alt="" style="display: block;" src="/~site/siteapps/shapes.action?CMD=GetRectangleGif&amp;r=158&amp;g=7&amp;b=4"></td></tr></table></div>
+<!-- </hs:element167> --><!-- <hs:element168> --><div id="element168" style="position: absolute; top: 5px; left: 91px; width: 434px; height: 33px; z-index: 9;"><div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#ffffff" class="size22 Helvetica22"><b>Corbin Schools</b><br></font></div></div>
+<!-- </hs:element168> --><!-- <hs:element169> --><div id="element169" style="position: absolute; top: 14px; left: 506px; width: 351px; height: 20px; z-index: 10;"><div style="font-size: 1px; line-height: 1px;" align="left"><font face="Helvetica, Arial, sans-serif" color="#ffffff" class="size9 Helvetica9">Resources:<br></font></div></div>
+<!-- </hs:element169> --><!-- <hs:element175> --><div id="element175" style="position: absolute; top: 1109px; left: 739px; width: 209px; height: 38px; z-index: 11;"><div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#707070" class="size14 Helvetica14"><b>Upcoming Events</b><br></font></div></div>
+<!-- </hs:element175> --><!-- <hs:element180> --><div id="element180" style="position: absolute; top: 1138px; left: 495px; width: 219px; height: 187.11111450195312px; z-index: 12;">
+<div style="font-size: 1px; line-height: 1px;">
+<font face="Helvetica, Arial, sans-serif" color="#575757" class="size10 Helvetica10">Parents may receive information on events, school closings, and emergency situations via our phone/ email notification system </font><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size10 Helvetica10"><a target="_self" href="Edulink.html">Edulink</a></font><font face="Helvetica, Arial, sans-serif" color="#575757" class="size10 Helvetica10">. To receive these notifications please update your contact information in your Infinite Campus Parent Portal.<br></font>
+</div>
+<div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#575757" class="size10 Helvetica10"><br></font></div>
+<div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#575757" class="size10 Helvetica10">Follow Us!<br></font></div>
+<div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#575757" class="size10 Helvetica10">Twitter @CHSRedhounds<br></font></div>
+<div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#575757" class="size10 Helvetica10">Facebook: Corbin Schools<br></font></div>
+<div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#575757" class="size10 Helvetica10"><br></font></div>
+</div>
+<!-- </hs:element180> --><!-- <hs:element181> --><div id="element181" style="position: absolute; top: 1729px; width: 985px; height: 2px; z-index: 13;"><table cellspacing="0" border="0" cellpadding="0"><tr><td height="2" bgcolor="#B91806" width="985"><img height="2" width="985" title="" alt="" style="display: block;" src="/~site/siteapps/shapes.action?CMD=GetRectangleGif&amp;r=185&amp;g=24&amp;b=6"></td></tr></table></div>
+<!-- </hs:element181> --><!-- <hs:element182> --><div id="element182" style="position: absolute; top: 1754px; width: 985px; height: 2px; z-index: 14;"><table cellspacing="0" border="0" cellpadding="0"><tr><td height="2" bgcolor="#B91806" width="985"><img height="2" width="985" title="" alt="" style="display: block;" src="/~site/siteapps/shapes.action?CMD=GetRectangleGif&amp;r=185&amp;g=24&amp;b=6"></td></tr></table></div>
+<!-- </hs:element182> --><!-- <hs:element183> --><div id="element183" style="position: absolute; top: 1736px; left: 13px; width: 300px; height: 16px; z-index: 15;"><div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#575757" class="size10 Helvetica10">Corbin Independent School District © 2013<br></font></div></div>
+<!-- </hs:element183> --><!-- <hs:element184> --><div id="element184" style="position: absolute; top: 1734px; left: 603px; width: 373px; height: 16px; z-index: 16;"><div style="font-size: 1px; line-height: 1px;" align="right"><font face="Helvetica, Arial, sans-serif" color="#575757" class="size10 Helvetica10">108 Roy Kidd Ave. Corbin, KY 40701    l   606-528-1303<br></font></div></div>
+<!-- </hs:element184> --><!-- <hs:element186> --><div id="element186" style="position: absolute; top: 1764px; width: 985px; height: 32px; z-index: 17;"><div style="overflow: hidden; height: 32px; width: 985px; border: 0px solid #52A8EC; border-radius: 0px; box-shadow: none;"><img height="32" width="985" style="display: block; border-radius: 0px;" title="" alt="" src="publishImages/index~~element186.gif"></div></div>
+<!-- </hs:element186> --><!-- <hs:element187> --><div id="element187" style="position: absolute; width: 93px; height: 89px; z-index: 18;"><div style="overflow: hidden; height: 89px; width: 93px; border: 0px solid #52A8EC; border-radius: 0px; box-shadow: none;"><a target="_self" href="index.html"><img height="89" width="93" style="display: block; border-radius: 0px; border-width: 0;" title="redhound mascot" alt="redhound mascot" src="publishImages/index~~element187.png"></a></div></div>
+<!-- </hs:element187> --><!-- <hs:element188> --><div id="element188" style="position: absolute; top: 3px; left: 52px; width: 252px; height: 30px; z-index: 19;"><div style="overflow: hidden; height: 30px; width: 252px; border: 0px solid #52A8EC; border-radius: 0px; box-shadow: none;"><a target="_self" href="index.html"><img height="30" width="252" style="display: block; border-radius: 0px; border-width: 0;" title="corbin schools" alt="corbin schools" src="publishImages/index~~element188.gif"></a></div></div>
+<!-- </hs:element188> --><!-- <hs:element189> --><div id="element189" style="position: absolute; top: 15px; left: 587px; width: 379px; height: 15px; z-index: 20;"><div align="left">
+<script type="text/javascript">var nav_element_id="element189";</script><div id="nav_version" style="display:none;">1</div>
+<script type="text/javascript" src="~navs/Resources.js"></script><table id="ntb" cellspacing="0" cellpadding="0" border="0"><tr align="CENTER" valign="MIDDLE"><td><table cellspacing="0" cellpadding="0" border="0"><tr>
+<td align="center" valign="MIDDLE" nowrap id="Resources_Link1" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_Resources,this,'1',true);" onmouseout="doMouseChange(nav_Resources,this,'1',false);"><a href="/Students.html" target="_self" style="text-decoration:none;" name="Students"><font id="Resources_f1" face="Helvetica, Arial, sans-serif" class="size9 Helvetica9" style="color:#FFFFFF">Students</font><img src="/tp.gif" width="15.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="Resources_Link2" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_Resources,this,'2',true);" onmouseout="doMouseChange(nav_Resources,this,'2',false);"><a href="/Parents.html" target="_self" style="text-decoration:none;" name="Parents"><img src="/tp.gif" width="15.0" height="1" border="0"><font id="Resources_f2" face="Helvetica, Arial, sans-serif" class="size9 Helvetica9" style="color:#FFFFFF">Parents</font><img src="/tp.gif" width="15.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="Resources_Link3" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_Resources,this,'3',true);" onmouseout="doMouseChange(nav_Resources,this,'3',false);"><a href="/Staff.html" target="_self" style="text-decoration:none;" name="Staff"><img src="/tp.gif" width="15.0" height="1" border="0"><font id="Resources_f3" face="Helvetica, Arial, sans-serif" class="size9 Helvetica9" style="color:#FFFFFF">Staff</font><img src="/tp.gif" width="15.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="Resources_Link4" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_Resources,this,'4',true);" onmouseout="doMouseChange(nav_Resources,this,'4',false);"><a href="/Employment-Opportunities.html" target="_self" style="text-decoration:none;" name="Job%20Vacancies"><img src="/tp.gif" width="15.0" height="1" border="0"><font id="Resources_f4" face="Helvetica, Arial, sans-serif" class="size9 Helvetica9" style="color:#FFFFFF">Job Vacancies</font><img src="/tp.gif" width="15.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="Resources_Link5" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_Resources,this,'5',true);" onmouseout="doMouseChange(nav_Resources,this,'5',false);"><a href="/Central-Office-Directory.html" target="_self" style="text-decoration:none;" name="Contact%20Us"><img src="/tp.gif" width="15.0" height="1" border="0"><font id="Resources_f5" face="Helvetica, Arial, sans-serif" class="size9 Helvetica9" style="color:#FFFFFF">Contact Us</font></a></td>
+</tr></table></td></tr></table>
+<br><script type="text/javascript">
+	if(typeof(addMouseAndStyleSupportResources) == 'undefined' && typeof(nav_element_id) != 'undefined'){
+		var elementDefnDiv = document.getElementById(nav_element_id);
+		var tbWasIdentified = 'false';
+		for(var i=0;i<elementDefnDiv.childNodes.length;i++){
+			if(elementDefnDiv.childNodes[i].tagName == 'DIV') {
+				var childDiv = elementDefnDiv.childNodes[i];
+				for(var j=0;j<childDiv.childNodes.length;j++){
+					if(childDiv.childNodes[j].tagName == 'TABLE' && childDiv.childNodes[j].id == 'ntb'){
+						childDiv.childNodes[j].style.display='none';
+						tbWasIdentified = 'true';
+					}
+					if(tbWasIdentified == 'true'){
+						break;
+					}
+				}
+			}
+			if(tbWasIdentified == 'true'){
+				break;
+			}
+		}
+	} else {
+		addMouseAndStyleSupportResources(nav_Resources);
+	}
+</script>
+</div></div>
+<!-- </hs:element189> --><!-- <hs:element190> --><div id="element190" style="position: absolute; top: 1662px; left: 731px; width: 223px; height: 16px; z-index: 21;"><div style="font-size: 1px; line-height: 1px;" align="center"><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size9 Helvetica9"><b>*Click the Event for more information*</b><br></font></div></div>
+<!-- </hs:element190> --><!-- <hs:element192> --><div id="element192" style="position: absolute; top: 1761px; left: 755px; width: 230px; height: 20px; z-index: 22;">
+<!-- start of freefind search box html -->
+<table cellpadding="0" cellspacing="0" border="0">
+<tr>
+<td colspan="2" style="font-family: Arial, Helvetica, sans-serif; font-size: 7.5pt;">
+		<form id="ffresult_sbox0" style="margin:0px; margin-top:4px;" action="http://search.freefind.com/find.html" method="get" accept-charset="utf-8" onsubmit="ffresults.show(0);">
+		<input type="hidden" name="si" value="34829372"><input type="hidden" name="pid" value="r"><input type="hidden" name="n" value="0"><input type="hidden" name="_charset_" value=""><input type="hidden" name="bcd" value="÷"><input type="hidden" name="sbv" value="j1"><input type="text" name="query" size="15"><input type="submit" value="search">
+</form>
+	</td>
+</tr>
+<tr>
+<td style="text-align:left; font-family: Arial, Helvetica, sans-serif;	font-size: 4pt; padding-top:1px;">
+		<a style="text-decoration:none; color:gray;" href="http://www.freefind.com" onmouseover="this.style.textDecoration='underline'" onmouseout="this.style.textDecoration='none'">site search by
+		<span style="color: #585858;">freefind</span></a>
+	</td>
+	<td style="text-align:right; font-family: Arial, Helvetica, sans-serif;	font-size: 4pt; padding-top:1px;">
+		<a id="ffresult_adv0" onclick="ffresults.show(0);" href="http://search.freefind.com/find.html?si=34829372&amp;pid=a&amp;sbv=j1">advanced</a>
+	</td>
+</tr>
+</table>
+<!-- end of freefind search box html -->
+</div>
+<!-- </hs:element192> --><!-- <hs:element195> --><div id="element195" style="position: absolute; top: 1113px; left: 29px; width: 447px; height: 583px; z-index: 23;"><iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FCorbinSchools%2F&amp;tabs=timeline&amp;width=447&amp;height=581&amp;small_header=true&amp;adapt_container_width=true&amp;hide_cover=true&amp;show_facepile=false&amp;appId" width="447" height="581" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe></div>
+<!-- </hs:element195> --><!-- <hs:element200> --><div id="element200" style="position: absolute; top: 1682px; left: 733px; width: 185px; height: 14px; z-index: 24;"><div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size9 Helvetica9"><b><a target="_blank" href="Calendars.html">View More School Calendars</a></b><br></font></div></div>
+<!-- </hs:element200> --><!-- <hs:element193> --><div id="element193" style="position: absolute; top: 54px; left: 95px; width: 871px; height: 16px; z-index: 25;"><div align="left">
+<script type="text/javascript">var nav_element_id="element193";</script><div id="nav_version" style="display:none;">1</div>
+<script type="text/javascript" src="~navs/MainMenu.js"></script><table id="ntb" cellspacing="0" cellpadding="0" border="0"><tr align="CENTER" valign="MIDDLE"><td><table cellspacing="0" cellpadding="0" border="0"><tr>
+<td align="center" valign="MIDDLE" nowrap id="MainMenu_Link1" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_MainMenu,this,'1',true);" onmouseout="doMouseChange(nav_MainMenu,this,'1',false);"><a href="/index.html" target="_self" style="text-decoration:none;" name="Home"><font id="MainMenu_f1" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">Home</font><img src="/tp.gif" width="12.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="MainMenu_Link2" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_MainMenu,this,'2',true);" onmouseout="doMouseChange(nav_MainMenu,this,'2',false);"><a href="/AboutUs.html" target="_self" style="text-decoration:none;" name="About%20Us%20%20"><img src="/tp.gif" width="12.0" height="1" border="0"><font id="MainMenu_f2" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">About Us  </font><img src="/tp.gif" width="12.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="MainMenu_Link3" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_MainMenu,this,'3',true);" onmouseout="doMouseChange(nav_MainMenu,this,'3',false);"><a href="/OurSchools.html" target="_self" style="text-decoration:none;" name="Our%20Schools"><img src="/tp.gif" width="12.0" height="1" border="0"><font id="MainMenu_f3" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">Our Schools</font><img src="/tp.gif" width="12.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="MainMenu_Link4" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_MainMenu,this,'4',true);" onmouseout="doMouseChange(nav_MainMenu,this,'4',false);"><a href="/BoardOfEducation.html" target="_self" style="text-decoration:none;" name="Board%20Of%20Education"><img src="/tp.gif" width="12.0" height="1" border="0"><font id="MainMenu_f4" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">Board Of Education</font><img src="/tp.gif" width="12.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="MainMenu_Link5" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_MainMenu,this,'5',true);" onmouseout="doMouseChange(nav_MainMenu,this,'5',false);"><a href="/SchoolNews.html" target="_self" style="text-decoration:none;" name="District%20News%20%20"><img src="/tp.gif" width="12.0" height="1" border="0"><font id="MainMenu_f5" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">District News  </font><img src="/tp.gif" width="12.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="MainMenu_Link6" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_MainMenu,this,'6',true);" onmouseout="doMouseChange(nav_MainMenu,this,'6',false);"><a href="/Policies-Procedures.html" target="_self" style="text-decoration:none;" name="District%20Documents"><img src="/tp.gif" width="12.0" height="1" border="0"><font id="MainMenu_f6" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">District Documents</font><img src="/tp.gif" width="12.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="MainMenu_Link7" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_MainMenu,this,'7',true);" onmouseout="doMouseChange(nav_MainMenu,this,'7',false);"><a href="/Calendars.html" target="_self" style="text-decoration:none;" name="District%20Calendars"><img src="/tp.gif" width="12.0" height="1" border="0"><font id="MainMenu_f7" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">District Calendars</font><img src="/tp.gif" width="12.0" height="1" border="0"></a></td>
+<td width="1" bgcolor="#FFFFFF"><img style="display: block;" src="/tp.gif" width="1"></td>
+<td align="center" valign="MIDDLE" nowrap id="MainMenu_Link8" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;" onmouseover="doMouseChange(nav_MainMenu,this,'8',true);" onmouseout="doMouseChange(nav_MainMenu,this,'8',false);"><a href="https://calendar.google.com/calendar/embed?src=andrew.roark%40corbin.kyschools.us&amp;ctz=America%2FNew_York" target="_blank" style="text-decoration:none;" name="Redhound%20Athletics"><img src="/tp.gif" width="12.0" height="1" border="0"><font id="MainMenu_f8" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">Redhound Athletics</font></a></td>
+</tr></table></td></tr></table>
+<br><script type="text/javascript">
+	if(typeof(addMouseAndStyleSupportMainMenu) == 'undefined' && typeof(nav_element_id) != 'undefined'){
+		var elementDefnDiv = document.getElementById(nav_element_id);
+		var tbWasIdentified = 'false';
+		for(var i=0;i<elementDefnDiv.childNodes.length;i++){
+			if(elementDefnDiv.childNodes[i].tagName == 'DIV') {
+				var childDiv = elementDefnDiv.childNodes[i];
+				for(var j=0;j<childDiv.childNodes.length;j++){
+					if(childDiv.childNodes[j].tagName == 'TABLE' && childDiv.childNodes[j].id == 'ntb'){
+						childDiv.childNodes[j].style.display='none';
+						tbWasIdentified = 'true';
+					}
+					if(tbWasIdentified == 'true'){
+						break;
+					}
+				}
+			}
+			if(tbWasIdentified == 'true'){
+				break;
+			}
+		}
+	} else {
+		addMouseAndStyleSupportMainMenu(nav_MainMenu);
+	}
+</script>
+</div></div>
+<!-- </hs:element193> --><!-- <hs:element216> --><div id="element216" style="position: absolute; top: 1326px; left: 495px; width: 216px; height: 38px; z-index: 26;"><div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#707070" class="size12 Helvetica12"><b>Quick Links</b><br></font></div></div>
+<!-- </hs:element216> --><!-- <hs:element215> --><div id="element215" style="position: absolute; top: 1344px; left: 492px; width: 226px; height: 355px; z-index: 27;"><table cellspacing="0" border="0" cellpadding="0"><tr><td height="355" bgcolor="#585858" width="226"><img height="355" width="226" title="" alt="" style="display: block;" src="/~site/siteapps/shapes.action?CMD=GetRectangleGif&amp;r=88&amp;g=88&amp;b=88"></td></tr></table></div>
+<!-- </hs:element215> --><!-- <hs:element214> --><div id="element214" style="position: absolute; top: 1349px; left: 496px; width: 218px; height: 346px; z-index: 28;"><table cellspacing="0" border="0" cellpadding="0"><tr><td height="346" bgcolor="#999999" width="218"><img height="346" width="218" title="" alt="" style="display: block;" src="/~site/siteapps/shapes.action?CMD=GetRectangleGif&amp;r=153&amp;g=153&amp;b=153"></td></tr></table></div>
+<!-- </hs:element214> --><!-- <hs:element217> --><div id="element217" style="position: absolute; top: 1359px; left: 499px; width: 210px; height: 320px; z-index: 29;"><div align="left">
+<script type="text/javascript">var nav_element_id="element217";</script><div id="nav_version" style="display:none;">1</div>
+<script type="text/javascript" src="~navs/QuickLinksHome.js"></script><table id="ntb" cellspacing="0" cellpadding="0" border="0">
+<tr id="vNavTR_Link_QuickLinksHome1"><td align="left" valign="MIDDLE" nowrap id="QuickLinksHome_Link1" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;font-weight: bold;" onmouseover="doMouseChange(nav_QuickLinksHome,this,'1',true);" onmouseout="doMouseChange(nav_QuickLinksHome,this,'1',false);"><a href="/Attendance_Policy__19-20.pdf" target="_blank" style="text-decoration:none;" name="%E2%80%A2%20%202019%20-%202020%20Attendance%20Policy"><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"><font id="QuickLinksHome_f1" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">•  2019 - 2020 Attendance Policy</font><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"></a></td></tr>
+<tr id="vNavTR_Link_QuickLinksHome2"><td align="left" valign="MIDDLE" nowrap id="QuickLinksHome_Link2" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;font-weight: bold;" onmouseover="doMouseChange(nav_QuickLinksHome,this,'2',true);" onmouseout="doMouseChange(nav_QuickLinksHome,this,'2',false);"><a href="https://calendar.google.com/calendar/embed?src=andrew.roark%40corbin.kyschools.us&amp;ctz=America%2FNew_York" target="_blank" style="text-decoration:none;" name="%E2%80%A2%20%20Redhound%20Athletics%20Calendar"><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"><font id="QuickLinksHome_f2" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">•  Redhound Athletics Calendar</font><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"></a></td></tr>
+<tr id="vNavTR_Link_QuickLinksHome3"><td align="left" valign="MIDDLE" nowrap id="QuickLinksHome_Link3" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;font-weight: bold;" onmouseover="doMouseChange(nav_QuickLinksHome,this,'3',true);" onmouseout="doMouseChange(nav_QuickLinksHome,this,'3',false);"><a href="https://www.kyschoolreportcard.com/organization/5543?year=2019" target="_blank" style="text-decoration:none;" name="%E2%80%A2%20%20Corbin%20District%20Report%20Card"><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"><font id="QuickLinksHome_f3" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">•  Corbin District Report Card</font><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"></a></td></tr>
+<tr id="vNavTR_Link_QuickLinksHome4"><td align="left" valign="MIDDLE" nowrap id="QuickLinksHome_Link4" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;font-weight: bold;" onmouseover="doMouseChange(nav_QuickLinksHome,this,'4',true);" onmouseout="doMouseChange(nav_QuickLinksHome,this,'4',false);"><a href="/Knox_County_Enrollment_Guidelines_2020_2021.pdf" target="_blank" style="text-decoration:none;" name="%E2%80%A2%20%20Knox%20Enrollment%20Regulations"><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"><font id="QuickLinksHome_f4" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">•  Knox Enrollment Regulations</font><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"></a></td></tr>
+<tr id="vNavTR_Link_QuickLinksHome5"><td align="left" valign="MIDDLE" nowrap id="QuickLinksHome_Link5" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;font-weight: bold;" onmouseover="doMouseChange(nav_QuickLinksHome,this,'5',true);" onmouseout="doMouseChange(nav_QuickLinksHome,this,'5',false);"><a href="http://www.corbininnovate.org/" target="_blank" style="text-decoration:none;" name="%E2%80%A2%20%20School%20of%20Innovation"><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"><font id="QuickLinksHome_f5" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">•  School of Innovation</font><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"></a></td></tr>
+<tr id="vNavTR_Link_QuickLinksHome6"><td align="left" valign="MIDDLE" nowrap id="QuickLinksHome_Link6" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;font-weight: bold;" onmouseover="doMouseChange(nav_QuickLinksHome,this,'6',true);" onmouseout="doMouseChange(nav_QuickLinksHome,this,'6',false);"><a href="https://wrhr.viebit.com/" target="_blank" style="text-decoration:none;" name="%E2%80%A2%20%20The%20RBS%20Channel"><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"><font id="QuickLinksHome_f6" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">•  The RBS Channel</font><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"></a></td></tr>
+<tr id="vNavTR_Link_QuickLinksHome7"><td align="left" valign="MIDDLE" nowrap id="QuickLinksHome_Link7" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;font-weight: bold;" onmouseover="doMouseChange(nav_QuickLinksHome,this,'7',true);" onmouseout="doMouseChange(nav_QuickLinksHome,this,'7',false);"><a href="/Directions.html" target="_blank" style="text-decoration:none;" name="%E2%80%A2%20%20School%20Facility%20Directions"><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"><font id="QuickLinksHome_f7" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">•  School Facility Directions</font><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"></a></td></tr>
+<tr id="vNavTR_Link_QuickLinksHome8"><td align="left" valign="MIDDLE" nowrap id="QuickLinksHome_Link8" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;font-weight: bold;" onmouseover="doMouseChange(nav_QuickLinksHome,this,'8',true);" onmouseout="doMouseChange(nav_QuickLinksHome,this,'8',false);"><a href="http://www.corbinfoodservices.com/Our-Menu.html" target="_blank" style="text-decoration:none;" name="%E2%80%A2%20%20Breakfast%20&amp;%20Lunch%20Menus"><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"><font id="QuickLinksHome_f8" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">•  Breakfast &amp; Lunch Menus</font><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"></a></td></tr>
+<tr id="vNavTR_Link_QuickLinksHome9"><td align="left" valign="MIDDLE" nowrap id="QuickLinksHome_Link9" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;font-weight: bold;" onmouseover="doMouseChange(nav_QuickLinksHome,this,'9',true);" onmouseout="doMouseChange(nav_QuickLinksHome,this,'9',false);"><a href="/SchoolHealth.html" target="_self" style="text-decoration:none;" name="%E2%80%A2%20%20School%20Health%20Information"><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"><font id="QuickLinksHome_f9" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">•  School Health Information</font><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"></a></td></tr>
+<tr id="vNavTR_Link_QuickLinksHome10"><td align="left" valign="MIDDLE" nowrap id="QuickLinksHome_Link10" style="cursor: pointer;cursor: hand;color:#FFFFFF;font-size: 1px; line-height: 1px;font-weight: bold;" onmouseover="doMouseChange(nav_QuickLinksHome,this,'10',true);" onmouseout="doMouseChange(nav_QuickLinksHome,this,'10',false);"><a href="/Non_Traditional_Day_1.pdf" target="_blank" style="text-decoration:none;" name="%E2%80%A2%20%20Non-Traditional%20Day%20Information"><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"><font id="QuickLinksHome_f10" face="Helvetica, Arial, sans-serif" class="size10 Helvetica10" style="color:#FFFFFF">•  Non-Traditional Day Information</font><img style="display: block;" src="/tp.gif" width="1" height="8.0" border="0"></a></td></tr>
+</table>
+<br><script type="text/javascript">
+	if(typeof(addMouseAndStyleSupportQuickLinksHome) == 'undefined' && typeof(nav_element_id) != 'undefined'){
+		var elementDefnDiv = document.getElementById(nav_element_id);
+		var tbWasIdentified = 'false';
+		for(var i=0;i<elementDefnDiv.childNodes.length;i++){
+			if(elementDefnDiv.childNodes[i].tagName == 'DIV') {
+				var childDiv = elementDefnDiv.childNodes[i];
+				for(var j=0;j<childDiv.childNodes.length;j++){
+					if(childDiv.childNodes[j].tagName == 'TABLE' && childDiv.childNodes[j].id == 'ntb'){
+						childDiv.childNodes[j].style.display='none';
+						tbWasIdentified = 'true';
+					}
+					if(tbWasIdentified == 'true'){
+						break;
+					}
+				}
+			}
+			if(tbWasIdentified == 'true'){
+				break;
+			}
+		}
+	} else {
+		addMouseAndStyleSupportQuickLinksHome(nav_QuickLinksHome);
+	}
+</script>
+</div></div>
+<!-- </hs:element217> --><!-- <hs:element224> --><div id="element224" style="position: absolute; top: 479px; width: 985px; height: 2px; z-index: 30;"><table cellspacing="0" border="0" cellpadding="0"><tr><td height="2" bgcolor="#B91806" width="985"><img height="2" width="985" title="" alt="" style="display: block;" src="/~site/siteapps/shapes.action?CMD=GetRectangleGif&amp;r=185&amp;g=24&amp;b=6"></td></tr></table></div>
+<!-- </hs:element224> --><!-- <hs:element185> --><div id="element185" style="position: absolute; top: 1129px; left: 731px; width: 223px; height: 525px; z-index: 31;"><iframe src="https://www.google.com/calendar/embed?title=Corbin%20Schools%20Events&amp;showTitle=0&amp;showNav=0&amp;showDate=0&amp;showPrint=0&amp;showTabs=0&amp;showCalendars=0&amp;showTz=0&amp;mode=AGENDA&amp;height=403&amp;wkst=1&amp;bgcolor=%23ffffff&amp;src=corbin.schools%40corbinschools.org&amp;color=%23711616&amp;ctz=America%2FNew_York" style=" border:solid 3px #777 " width="223" height="525" frameborder="0" scrolling="no"></iframe></div>
+<!-- </hs:element185> --><!-- <hs:element229> --><div id="element229" style="position: absolute; top: 102px; left: 32px; width: 920px; height: 352px; z-index: 32;"><div style="overflow: hidden; height: 352px; width: 920px; border: 0px solid #52A8EC; border-radius: 0px; box-shadow: none;"><img height="352" width="920" style="display: block; border-radius: 0px;" title="Students with teacher performing classroom experiment" alt="Students with teacher performing classroom experiment" src="publishImages/index~~element229.jpg"></div></div>
+<!-- </hs:element229> --><!-- <hs:element233> --><div id="element233" style="position: absolute; top: 1109px; left: 495px; width: 209px; height: 26px; z-index: 33;"><div style="font-size: 1px; line-height: 1px;"><font face="Helvetica, Arial, sans-serif" color="#707070" class="size14 Helvetica14"><b>District Announcements</b><br></font></div></div>
+<!-- </hs:element233> --><!-- <hs:element238> --><div id="element238" style="position: absolute; top: 507px; left: 72px; width: 263px; height: 155px; z-index: 34;"><div style="overflow: hidden; height: 147px; width: 255px; border: 4px solid #b91806; border-radius: 0px; box-shadow: none;"><img height="147" width="255" style="display: block; border-radius: 0px;" title="" alt="" src="publishImages/index~~element238.jpg"></div></div>
+<!-- </hs:element238> --><!-- <hs:element239> --><div id="element239" style="position: absolute; top: 546px; left: 354px; width: 571px; height: 48px; z-index: 35;"><div style="font-size: 1px; line-height: 1px;" align="center"><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size16 Helvetica16"><b>COVID-19 Response: Schools are closed until May 1, 2020</b><br></font></div></div>
+<!-- </hs:element239> --><!-- <hs:element240> --><div id="element240" style="position: absolute; top: 590px; left: 354px; width: 570px; height: 37px; z-index: 36;"><div style="font-size: 1px; line-height: 1px;" align="center"><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size12 Helvetica12"><b><a target="_blank" href="Announcements.html">Click here for the latest information from Corbin Schools regarding the school closure, students meals and resources, and student enrollment.</a></b><br></font></div></div>
+<!-- </hs:element240> --><!-- <hs:element241> --><div id="element241" style="position: absolute; top: 694px; left: 72px; width: 263px; height: 155px; z-index: 37;"><div style="overflow: hidden; height: 147px; width: 255px; border: 4px solid #b91806; border-radius: 0px; box-shadow: none;"><img height="147" width="255" style="display: block; border-radius: 0px;" title="" alt="" src="publishImages/index~~element241.JPG"></div></div>
+<!-- </hs:element241> --><!-- <hs:element242> --><div id="element242" style="position: absolute; top: 725px; left: 354px; width: 570px; height: 24px; z-index: 38;"><div style="font-size: 1px; line-height: 1px;" align="center"><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size16 Helvetica16"><b>2020-2021 Knox County Enrollment Regulations</b><br></font></div></div>
+<!-- </hs:element242> --><!-- <hs:element244> --><div id="element244" style="position: absolute; top: 883px; left: 72px; width: 263px; height: 155px; z-index: 39;"><div style="overflow: hidden; height: 147px; width: 255px; border: 4px solid #b91806; border-radius: 0px; box-shadow: none;"><img height="147" width="255" style="display: block; border-radius: 0px;" title="" alt="" src="publishImages/index~~element244.jpg"></div></div>
+<!-- </hs:element244> --><!-- <hs:element245> --><div id="element245" style="position: absolute; top: 912px; left: 354px; width: 570px; height: 25px; z-index: 40;"><div style="font-size: 1px; line-height: 1px;" align="center"><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size16 Helvetica16"><b>2020-2021 Kindergarten Enrollment Begins April 13, 2020</b><br></font></div></div>
+<!-- </hs:element245> --><!-- <hs:element246> --><div id="element246" style="position: absolute; top: 955px; left: 354px; width: 570px; height: 56px; z-index: 41;"><div style="font-size: 1px; line-height: 1px;" align="center"><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size12 Helvetica12"><b><a target="_blank" href="Kindergarten_Registration.pdf">Due to Schools Currently being closed, Corbin Primary Kindergarten registration for the 2020 - 2021 school year will be online. For more information or to register your child for Kindergarten please click here.</a></b><br></font></div></div>
+<!-- </hs:element246> --><!-- <hs:element247> --><div id="element247" style="position: absolute; top: 768px; left: 354px; width: 570px; height: 50.666656494140625px; z-index: 42;">
+<div style="font-size: 1px; line-height: 1px;" align="center"><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size12 Helvetica12"><b><a target="_blank" href="Knox_County_Enrollment_Guidelines_2020_2021.pdf">Please click here for 2020 - 2021 Knox County Enrollment Regulations</a></b><br></font></div>
+<div style="font-size: 1px; line-height: 1px;" align="center"><font face="Helvetica, Arial, sans-serif" color="#B91806" class="size10 Helvetica10"><i>*Please note: Specific dates relating to when the online enrollment application will be available is listed at the bottom of the regulations document.</i><br></font></div>
+</div>
+<!-- </hs:element247> --><!-- <hs:footer> --><!-- </hs:footer> -->
+</div></div>
+		<!-- <hs:realtracker> -->
+		<script type="text/javascript">
+			var user='1760591465',pp='index',
+			to=-360,cl=1,id='',r='https://web4.realtracker.com/';
+		</script><script src="/~site/Scripts_ExternalRedirect/ExternalRedirect.dll?CMD=CMDGetJavaScript&amp;H_SITEID=RTK3&amp;H_AltURL=%2F~site%2FRealTracker%2Fibc90006.js&amp;HSGOTOURL=https%3A%2F%2Fweb4.realtracker.com%2Fnetpoll%2Fjs%2Fibc90006.js" type="text/javascript">
+		</script><noscript>
+			<img height="1" width="1" border="0" alt="" src="/~site/Scripts_ExternalRedirect/ExternalRedirect.dll?CMD=CMDGetGif&amp;H_SITEID=RTK4&amp;H_AltURL=%2F~site%2Ftp.gif&amp;H_HSGOTOURL=https%3A%2F%2Fweb4.realtracker.com%2Fnetpoll%2Fimulti.asp%3Fuser%3D1760591465%26pn%3D90006%26pp%3Dindex%26js%3D0%26b%3D0%26to%3D-360">
+</noscript>
+		<!-- </hs:realtracker> -->
+	
+</body>
+</html>

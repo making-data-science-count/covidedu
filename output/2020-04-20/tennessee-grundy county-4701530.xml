@@ -1,0 +1,936 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<link rel="Shortcut Icon" type="image/ico" href="images/favicon.ico">
+<link rel="icon" href="images/favicon.ico" type="image/x-icon">
+<title>Grundy County Department of Education</title>
+<meta name="Keywords" content="Grundy County Department of Education">
+<meta name="Description" content="Grundy County Department of Education">
+<meta name="Author" content="Grundy County Department of Education">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta property="og:image" content="http://images.schoolinsites.com/images/education.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="200">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/css.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/demo4/style.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src="JavaScripts/jquery-1.8.3.min.js"></script><link href="/CommonTemplates/SiteElements/Styles/Include-Styles.asp" type="text/css" rel="stylesheet">
+<link href="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Styles.css" rel="stylesheet" type="text/css">
+<!--script src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/JavaScripts.js" type="text/javascript"></script--><script type="text/javascript">
+	//-----------------------------------------------------------------------------------------------
+	//Edit CSS, currently set up for Pirobox fix
+	//-----------------------------------------------------------------------------------------------
+		function getCSSRule(ruleName, deleteFlag) {               // Return requested style obejct
+		   ruleName=ruleName.toLowerCase();    
+		   
+			if (document.styleSheets) {                            
+				for (var i=0; i<document.styleSheets.length; i++) { 
+					var styleSheet=document.styleSheets[i];
+					var styleSheetHref = styleSheet.href;
+					if ((styleSheetHref != null) && (styleSheetHref.indexOf("pirobox") != -1))
+						piroStyle = i;
+				}
+
+				var styleSheet=document.styleSheets[piroStyle];
+				 var ii=0;                                        // Initialize subCounter.
+				 var cssRule=false;                               // Initialize cssRule. 
+
+				 do {                                             // For each rule in stylesheet
+					if (styleSheet.cssRules) {                    // Browser uses cssRules?
+					   cssRule = styleSheet.cssRules[ii];         // Yes --Mozilla Style
+					} else {                                      // Browser usses rules?
+					   cssRule = styleSheet.rules[ii];            // Yes IE style. 
+					}                                             // End IE check.
+
+					if (cssRule)  {                               // If we found a rule...
+					   if ((typeof(cssRule.selectorText) != 'undefined') && (cssRule.selectorText.toLowerCase()==ruleName)) { //  match ruleName?
+						  if (deleteFlag=='delete') {             // Yes.  Are we deleteing?
+							 if (styleSheet.cssRules) {           // Yes, deleting...
+								styleSheet.deleteRule(ii);        // Delete rule, Moz Style
+							 } else {                             // Still deleting.
+								styleSheet.removeRule(ii);        // Delete rule IE style.
+							 }                                    // End IE check.
+							 return true;                         // return true, class deleted.
+						  } else {                                // found and not deleting.
+							 return cssRule;                      // return the style object.
+						  }                                       // End delete Check
+					   }                                          // End found rule name
+					}                                             // end found cssRule
+					ii++;                                         // Increment sub-counter
+				 } while (cssRule)  
+			}
+			return false;
+		}
+
+
+		function killCSSRule(ruleName) {                          // Delete a CSS rule   
+		   return getCSSRule(ruleName,'delete');                  // just call getCSSRule w/delete flag.
+		}                                                         // end killCSSRule
+
+		function addCSSRule(ruleName) {                           // Create a new css rule
+		   if (document.styleSheets) {                            // Can browser do styleSheets?
+			  if (!getCSSRule(ruleName)) {                        // if rule doesn't exist...
+				 if (document.styleSheets[0].addRule) {           // Browser is IE?
+					document.styleSheets[0].addRule(ruleName, null,0);      // Yes, add IE style
+				 } else {                                         // Browser is IE?
+					document.styleSheets[0].insertRule(ruleName+' { }', 0); // Yes, add Moz style.
+				 }                                                // End browser check
+			  }                                                   // End already exist check.
+		   }                                                      // End browser ability check.
+		   return getCSSRule(ruleName);                           // return rule we just created.
+		} 
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//Get/Set cookies for mobile site
+	//-----------------------------------------------------------------------------------------------
+		function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			createCookie(name,"",-1);
+		}
+		
+		
+		
+		var fullSite = readCookie('FullSite');
+		var mobileDev = readCookie('MobileDevice');
+		var mobileNoRedirect = readCookie('MobileNoRedirect');
+		
+		if(fullSite && mobileDev) {
+			if((fullSite != 'True') && (mobileNoRedirect != '1') && (mobileDev == 'True'))
+				window.location = 'http://www.grundycoschools.com/mobile/default.asp';
+		}
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//photo album / lightbox init
+	//-----------------------------------------------------------------------------------------------
+		$(document).ready(function() {
+			if ($("a[class^='pirobox']").length > 0) {
+				$().piroBox({
+						my_speed: 400, //animation speed
+						bg_alpha: 0.7, //background opacity
+						slideShow : true, // true == slideshow on, false == slideshow off
+						slideSpeed : 4, //slideshow duration in seconds(3 to 6 Recommended)
+						close_all : '.piro_close,.piro_overlay'// add class .piro_overlay(with comma)if you want overlay click close piroBox
+				});
+			}
+		});
+
+		var UserAgent = navigator.userAgent;
+		//alert(UserAgent);
+		if (UserAgent.indexOf("MSIE 10") != -1)
+			TheAgent = "IE10"
+		else{
+			if (UserAgent.indexOf("MSIE") != -1)
+				TheAgent = "IE"
+			else
+				TheAgent = ""
+		}
+		
+		//Pirobox + Google Translate workaround for non-IE browsers. Dynamically changes CSS for pirobox after the translate widget has loaded.
+		if (TheAgent == ""){
+			theTimeout = setTimeout('GoogleCountdown()', 2000);	
+		}
+		
+		function GoogleCountdown() {
+			var element =  document.getElementById('google_translate_element');
+			if ((typeof(element) != 'undefined') && (element != null))
+			{
+				var PiroContent = getCSSRule('.pirobox_content');
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					//x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+					
+				
+				if(y < 700)
+					PiroContent.style.top = "16%";
+				else{
+					if(y > 900)
+						PiroContent.style.top = "23%";
+					else
+						PiroContent.style.top = "20%";
+				}
+				
+			}
+		}
+	//-----------------------------------------------------------------------------------------------
+		
+		
+		//Use onClick=SlideLink() in the slide show overlay for slide links work
+		function SlideLink() {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			//figure out which div is showing and set Link var
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			//if an anchor exists store values to "h" (for HREF) and "t" (for Target)
+			if (Link.firstChild.nodeName == "A") {
+				h = Link.firstChild.href;
+				t = Link.firstChild.target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				h = Link.getElementsByTagName('A')[0].href;
+				t = Link.getElementsByTagName('A')[0].target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+		}
+		//Make sure the cursor is a link pointer when a link exists (called by function SlideCursor())
+		function SlideCursorCheck(me) {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			if (Link.firstChild.nodeName == "A") {
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.firstChild.href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.etElementsByTagName('A')[0].href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+		}
+		//Function to change cursor on slide show overlay
+		var CursorCheck = false;
+		function SlideCursor(me) {
+			Elem = me;			
+			if (CursorCheck == false) {
+				var Start_SlideCursor = setInterval("SlideCursorCheck(Elem)", 500);
+				CursorCheck = true;
+			}
+		}
+		
+		function Login()
+		{
+			var loginPage = 'https://securesite.schoolinsites.com/loginv2/common/?p=1';
+			var loginDomain = 'http://www.grundycoschools.com';
+			loginPage = loginPage + '&login_for=' + loginDomain;
+			
+			window.location.href = loginPage;
+		}
+		
+		var imgAltTagsFix = function() {
+			$('img.gsc-branding-img').attr("alt", "Google Custom Search Branding");
+			$('input.gsc-search-button').attr('alt', "Google Custom Search Button");
+		};
+		
+		window.__gcse = {
+			callback: imgAltTagsFix
+		};
+		
+		function a11yClick(event){
+			if(event.type === 'click'){
+				return true;
+			}
+			else if(event.type === 'keypress'){
+				var code = event.charCode || event.keyCode;
+				if((code === 32)|| (code === 13)){
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	</script><style type="text/css" media="screen">
+		body{
+	margin: 0;
+	padding: 25px 0 0 0;}
+div#ToggleNav{
+	position:absolute; /* only effects browsers that cannot accept Fixed positioning */
+	top: 0; /* only effects browsers that cannot accept Fixed positioning */
+	left: 0; /* only effects browsers that cannot accept Fixed positioning */
+	background: #000 url(/images/Admin/Skins/HardCandyBlack/images/ToggleLoginBg.gif) repeat-x top left;
+	border-bottom: 0px solid #333;
+	border-top: 0px solid #FFFFFF;
+	width:100%;
+	height:25px;
+	z-index: 1000;
+	overflow:hidden;}
+div#ToggleNav td{
+	font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #9EA8C3;}
+div#ToggleNav input {
+	margin: 0;
+	padding: 0;
+	font: normal 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #303040;
+	vertical-align:middle;}
+div#ToggleNav .loginWrapper {
+	float: right;
+	height: 100%;
+}
+div#ToggleNav .formWrapper {
+	padding-right: 3px;
+	padding-left: 3px;
+	display: inline-block; 
+	*display: inline;}
+div#ToggleNav .formUsername {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/UsernameBg.gif) no-repeat top left;}
+div#ToggleNav .formPassword {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/PasswordBg.gif) no-repeat top left;}
+div#ToggleNav .formSelected {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/LoginFieldBlank.gif) repeat-x top left;}
+div#ToggleNav .formButton {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat 0 0;}
+div#ToggleNav .formButtonHover {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat -46px 0;}
+div#ToggleNav a.help:link, div#ToggleNav a.help:visited {
+	display:block;
+	height: 16px;
+	color: #D9D8E6;
+	border: 0;
+	margin: 4px 5px 0 1px;}
+div#ToggleNav a.help:hover, div#ToggleNav a.help:active {
+	display: block;
+	height: 16px;
+	border: 0;}
+body > div#ToggleNav .formUsername {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formPassword {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formSelected {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formButton {margin-bottom: 3px;}/* non-IE browsers only */
+body > div#ToggleNav .formButtonHover {margin-bottom: 3px;}/* non-IE browsers only */
+@media screen {
+	body > div#ToggleNav{
+		position:fixed;}
+}
+
+* html div#AdminDefaultIncludes{
+	position: fixed;
+	top: 25px;
+	bottom:0;
+ 	width: 100%;
+	_position: absolute;
+	_top: expression( ( 25 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+	_height: expression( ( -25 + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );}
+				* html body {
+					overflow:hidden;}
+				* html div#AdminDefaultIncludes{
+					overflow: auto;	}
+			
+	</style>
+<!--[if lte IE 9]>
+	<style type="text/css" media="screen">
+		* html body {
+			overflow:auto;}
+	</style>
+	<![endif]--><script type="text/javascript" src="/JavaScripts/JavaScripts.js"></script><script type="text/javascript">
+			TopBar = '<div class="loginWrapper">' +
+						'<div class="formWrapper"><a href="/admin1/securelogin.asp" aria-label="Log In" title="Go to Secure Login Page" alt="Log In" class="formButton" border="0" onFocus="this.className=\'formButtonHover\'"  onMouseOver="this.className=\'formButtonHover\'" onblur="this.className=\'formButton\'" onMouseOut="this.className=\'formButton\'">Login button</a></div>' +
+					 '</div>';
+		</script><script type="text/javascript">
+		if(typeof(BottomBar) == 'undefined')
+			var BottomBar = ' ';
+		$(document).ready(function() {
+			$("body").prepend('<div id="ToggleNav">' + TopBar + '</div>' + BottomBar);	
+		});
+	
+	</script><!--[if lte IE 9]>
+	<div id="AdminDefaultIncludes">
+	<![endif]--><!--[if IE]>
+		<link href="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/StylesIE.css" rel="stylesheet" type="text/css" />
+	<![endif]--><link href="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Styles2018.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/js/skipnav.js"></script><script type="text/javascript">
+//Show hide search drop down
+		function ShowSearch() {
+			var SearchDropDown = document.getElementById("SearchDropDown");
+			if (SearchDropDown.style.display != "block") {
+				SearchDropDown.style.display = "block";
+			}else {
+				SearchDropDown.style.display = "none";
+			}
+		}
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+    </script><!-- This fixes the issue where drop down menus are hidden behind embedded YouTube videos  --><script> 
+$(document).ready(function() { 
+$("iframe").each(function(){ 
+var ifr_source = $(this).attr('src'); 
+var wmode = "wmode=transparent"; 
+if(ifr_source.indexOf('?') != -1) { 
+var getQString = ifr_source.split('?'); 
+var oldString = getQString[1]; 
+var newString = getQString[0]; 
+$(this).attr('src',newString+'?'+wmode+'&'+oldString); 
+} 
+else $(this).attr('src',ifr_source+'?'+wmode); 
+}); 
+}); 
+</script><!-- End YouTube fix --><link href="http://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Cinzel+Decorative" rel="stylesheet" type="text/css">
+</head>
+<body onload="MM_preloadImages('http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/facebook_rollover.png','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/twitter_rollover.png','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/rss_rollover.png','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon1Drop.png','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon2Drop.png','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon3Drop.png','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon4Drop.png')">
+<div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+<center>
+<table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0" align="center" id="SiteWrapper"><tr>
+<td align="center" valign="top">
+            <table role="presentation" style="width:1212px;" border="0" cellspacing="0" cellpadding="0" align="center" id="SiteBody"><tr align="center" width="1212">
+<td valign="top" height="42" width="1212">
+                <div style="height: 42px; float: right; margin-right: 110px;">
+                    <form action="Default.asp?PN=AdvancedSearch&amp;Act=SearchNow" method="post" name="frmSearch" target="_top" style="margin:0; padding:0;">
+                                          <div id="SearchDefaultWrapper">
+                                            <div id="SearchDefault">
+                                              <input name="SearchModule" type="hidden" value="0"><input name="Keyword" aria-label="Search" type="text" value="Search" id="SearchDefaultInput" style="vertical-align:middle;" onblur="if(this.value.length == 0) this.value='Search';" onclick="if(this.value == 'Search') this.value='';"><input type="image" src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/images/spacer.gif" alt="search" width="25" height="25" style="vertical-align:middle;" name="Search" onclick="if(Keyword.length&lt;3){alert('Your Keyword has to be atleast 3 characters long.\n\nPlease enter a valid Keyword.');};" value="Go">
+</div>
+                                          </div>
+                                        </form>
+
+                   </div>  
+               
+                   <div style="height: 42px; float: right;">
+                   <a href="http://www.facebook.com" target="_blank"><img src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/facebook.png" alt="Facebook" name="facebook" border="0" width="33" height="33" id="facebook" style="padding-right: 10px;" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('facebook','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/facebook_rollover.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('facebook','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/facebook_rollover.png',1)"></a>
+                   <a href="http://www.twitter.com" target="_blank"><img src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/twitter.png" alt="Twitter" name="twitter" border="0" width="33" height="33" id="twitter" style="padding-right: 10px;" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('twitter','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/twitter_rollover.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('twitter','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/twitter_rollover.png',1)"></a>
+                   <a href="/RSS/Default.asp" target="_blank"><img src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/rss.png" alt="RSS" name="rss" border="0" width="33" height="33" id="rss" style="padding-right: 20px;" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('rss','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/rss_rollover.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('rss','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/rss_rollover.png',1)"></a> 
+                   </div>
+                  
+                </td>
+              </tr></table>
+<!--MainPageArea --><table role="presentation" style="width:1212px;" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="transparent"><tr style="width:1212px;" align="center">
+<td align="center" valign="top" style="width:1212px;">
+                    <table role="presentation" cellpadding="0" cellspacing="0" align="center" id="PageWrapper" valign="top" style="width:1212px;">
+<tr valign="top" align="center">
+<!-- Ribbons in Header --><td align="center" style="width: 1212px;" colspan="2">
+       
+       <div style="height: 228px; z-index: 600; width: 925px; margin-left: 0px;" align="right">
+         <a href="/"><img src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/HomeClick.gif" alt="home" border="0" width="285" height="220" align="left"></a>
+         <a href="/Default.asp?PN=Pages&amp;SubP=Level1&amp;PageID=26610"><img src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon1.png" alt="Parents" name="ribbon1" style="margin-right: -5px;" border="0" width="158" height="228" id="ribbon1" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('ribbon1','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon1Drop.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('ribbon1','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/ribbon1drop.png',1)"></a>
+         <a href="/Default.asp?PN=Pages&amp;SubP=Level1&amp;PageID=26611"><img src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon2.png" alt="Students" name="ribbon2" style="margin-right: -5px;" border="0" width="158" height="228" id="ribbon2" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('ribbon2','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon2Drop.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('ribbon2','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/ribbon2drop.png',1)"></a>
+         <a href="/Default.asp?PN=Pages&amp;SubP=Level1&amp;PageID=26612"><img src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon3.png" alt="Upcoming Events" name="ribbon3" style="margin-right: -5px;" border="0" width="158" height="228" id="ribbon3" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('ribbon3','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon3Drop.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('ribbon3','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/ribbon3drop.png',1)"></a> 
+         <a href="/?PN=StaffList&amp;L=0&amp;DivisionID=''&amp;DepartmentID=''&amp;SubDepartmentID=''&amp;iRead=''&amp;iAdd=''&amp;iEdit=''&amp;iDelete=''&amp;LMID='823536'&amp;ClientModuleID='29975'&amp;TabNo=2"><img src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon4.png" alt="GCBOE Supervisors" name="ribbon4" border="0" width="158" height="228" id="ribbon4" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('ribbon4','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/Ribbon4Drop.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('ribbon4','','http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/ribbon4drop.png',1)"></a> 
+       </div>
+    </td>
+    <!-- End Ribbons in Header -->
+ </tr>
+<tr>
+<!-- Slideshow Area --><td align="left" valign="top" style="height: 331px;" colspan="2">
+        <div id="SlideShow" style="height:319px; width:675px; overflow:hidden;">
+           
+			<div>
+			<script src="/JavaScripts/fotorama-4.6.4/fotorama.js"></script><style>
+.fotorama__html div,
+.fotorama__html a {
+  display: block;
+  height: 100%;
+  /* Transparent links are not clickable in IE,
+     but non-existent background fixes this.
+    (Put an empty 1×1 image here to avoid
+     errors in console.)
+  background: url(_.gif); */
+}
+
+</style>
+<div class="fotorama" data-width="100%" data-fit="cover" data-maxheight="319" data-transition="crossfade" data-autoplay="1000" data-loop="true" data-transitionduration="500" data-stopautoplayontouch="false" data-arrows="true" data-click="false" data-swipe="true" data-nav="false">
+	 
+	 
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1197/da58495210ffc9a7727515a0b07a987b.jpg" data-caption="" alt="Slideshow Image 0">
+		
+		</div>
+			
+</div>
+
+
+
+			</div>
+		
+        </div>
+        <div class="SlideShowOverlay"></div>
+    </td>
+    <!-- End Slideshow Area -->
+ </tr>
+<tr align="center">
+<!-- Top Nav Area --><td id="TopNavBar" align="center" valign="top" colspan="2">
+      <div id="topnavcontainer">
+<div role="navigation" aria-label="Main menu">
+<ul class="nav">
+<li><a href="/">Home</a></li>
+         
+	<!--School Drop Down Main Link Include -->
+		<li class="TopNav">
+<a href="/?PN=Schools2">Schools</a>
+		<ul>
+<li class="DropTitle">Elementary Schools</li>
+							
+				<li><a href="http://ces.grundycoschools.com" target="_blank">Coalmont Elementary</a></li>
+				
+				<li><a href="http://nes.grundycoschools.com" target="_blank">North Elementary</a></li>
+				
+				<li><a href="http://palmer.grundycoschools.com" target="_blank">Palmer Elementary</a></li>
+				
+				<li><a href="http://pelham.grundycoschools.com" target="_blank">Pelham Elementary	</a></li>
+				
+				<li><a href="http://smes.grundycoschools.com" target="_blank">Swiss Memorial Elementary</a></li>
+				
+				<li><a href="http://tces.grundycoschools.com" target="_blank">Tracy City Elementary	</a></li>
+				
+							<li class="DropTitle">High Schools</li>
+							
+				<li><a href="http://gchs.grundycoschools.com" target="_blank">Grundy County High	</a></li>
+				
+		</ul>
+</li>	
+               
+    <!--Division Main Link Include -->
+	
+    
+    <li><a href="/?PN=ParentInfo">Parent Info</a></li>
+	<li>
+<a href="/?PN=News2">News</a>
+	</li>
+<li><a href="?PN=Calendar">Calendar</a></li>
+    <li><a href="/?PN=AboutUs">GCBOE Staff</a></li>	
+    <li>
+<a href="/?PN=Directory">Directory</a>
+	</li>
+<li><a href="/?PN=Contact">Contact</a></li>
+             
+	
+	
+</ul>
+</div>
+</div>
+    </td>
+    <!-- End Top Nav Area -->
+ </tr>
+<tr align="center" valign="top" style="width: 1212px;">
+<!-- Main Area --><td align="left" style="padding-left: 112px; width: 310px;" id="PageBGSide">
+      <!-- Side Nav -->
+      <!--- Begin Google Translate Code --->
+<div id="google_translate_element" align="center"></div>
+<script>
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    autoDisplay: false,
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  }, 'google_translate_element');
+}
+</script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script><!--- End Google Translate Code ---><!-- Links --><span class="SideNavHeaders">Links</span>
+          <div id="SideNavContainer">
+			  <div id="maincontent"></div>
+			  
+
+            <div id="SideNavigation">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+
+	<div id="NavDivisions">
+	
+		<a href="/?DivisionID=21337" class="IncNavDivision">
+			2019-2020 School Calendar
+		</a>
+			
+		<a href="/?DivisionID=24291" class="IncNavDivision">
+			2020-2021 School Calendar
+		</a>
+			
+		<a href="/?DivisionID=21478" class="IncNavDivision">
+			Athletic Code of Conduct
+		</a>
+			
+		<a href="/?DivisionID=21232" class="IncNavDivision">
+			Attendance
+		</a>
+			
+		<a href="/?DivisionID=23688" class="IncNavDivision">
+			Busing/Transportation
+		</a>
+			
+		<a href="/?DivisionID=20757" class="IncNavDivision">
+			Cafeteria Menus
+		</a>
+			
+		<a href="/?DivisionID=22333" class="IncNavDivision">
+			College Access
+		</a>
+			
+		<a href="/?DivisionID=19618" class="IncNavDivision">
+			Coordinated School Health Wellness
+		</a>
+			
+		<a href="/?DivisionID=18690" class="IncNavDivision">
+			Employment
+		</a>
+			
+		<a href="/?DivisionID=23165" class="IncNavDivision">
+			Families Experiencing Homelessness
+		</a>
+			
+		<a href="/?DivisionID=23239" class="IncNavDivision">
+			Federal Programs 
+		</a>
+			
+		<a href="/?DivisionID=18687" class="IncNavDivision">
+			GCBOE 
+		</a>
+			
+		<a href="/?DivisionID=21141" class="IncNavDivision">
+			Grundy County Health Council
+		</a>
+			
+		<a href="/?DivisionID=18688" class="IncNavDivision">
+			Grundy County School Board
+		</a>
+			
+		<a href="/?DivisionID=19339" class="IncNavDivision">
+			Grundy County Schools Testing 
+		</a>
+			
+		<a href="/?DivisionID=24223" class="IncNavDivision">
+			Missing Children's Bulletiin
+		</a>
+			
+		<a href="/?DivisionID=22575" class="IncNavDivision">
+			Pre-K 
+		</a>
+			
+		<a href="/?DivisionID=24194" class="IncNavDivision">
+			Student Concerns, Complaints &amp; Grievances
+		</a>
+			
+		<a href="/?DivisionID=22360" class="IncNavDivision">
+			Substitute Teacher Training
+		</a>
+			
+		<a href="/?DivisionID=19200" class="IncNavDivision">
+			Tennessee State Immunization Requirements 
+		</a>
+			
+		<a href="/?DivisionID=22980" class="IncNavDivision">
+			Tn Statutory Rights of Students &amp; Parents
+		</a>
+			
+		<a href="/?DivisionID=20869" class="IncNavDivision">
+			Transcript Request
+		</a>
+			
+	</div> <!-- End: id="NavDivisions" -->
+	
+	<span id="UserLinksMenu">
+		
+	</span>
+	</td></tr></table>
+</div>
+          </div>
+        <!-- End Links -->
+        <div style="height: 10px;"></div>
+       
+      
+      <!-- End Side Nav -->
+    </td>
+    <td align="left" style="padding-left: 25px; width: 787px;" id="PageBGMain">
+
+        <!-- Main Content Area -->
+        
+          <!-- Home Page Greeting -->
+             <div align="left" style="width: 623px; overflow: hidden;" id="DefaultIncludes">
+				    <span class="header" style="display:block; padding: 0; margin:0;"></span>
+				    <div style="text-align: center;">
+<div class="gmail_default">
+<div class="gmail_default">
+<div class="gmail_default">
+<div>
+<p> </p>
+<p><img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/grab.png" border="0" width="635" height="857"> </p>
+<p> </p>
+<p><span style="font-size: 18px; background-color: #ffff00;">Coronavirus School Plan </span></p>
+<p><span style="font-size: 18px; background-color: #ffff00;">Please see below</span></p>
+<p> </p>
+<p><img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/coronavirus.png" border="0" width="549" height="710">   </p>
+<p> </p>
+<p> <img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/corona1a.jpg" border="0" width="514" height="677"></p>
+<p><img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/corona2.png" border="0" width="515" height="707"></p>
+<p><img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/corona3.png" border="0" width="469" height="615"></p>
+<p> </p>
+<div><span style="font-size: 16px; font-family: helvetica;">Click On Titles Below To Access Training Videos</span></div>
+<div><span style="font-size: 16px; color: #3366ff;"><a href="https://youtu.be/W4lUM38w3Is" target="_blank"><span style="color: #3366ff;">STOP The Threat: School Safety &amp; Security Best Practices</span></a></span></div>
+<div><span style="font-size: 16px; color: #3366ff;"><a href="https://youtu.be/PCL4-3JSGx4"><span style="color: #3366ff;">Facilities Operations and Maintenance for Districts</span></a></span></div>
+<div><span style="font-size: 16px; color: #3366ff;"><span style="color: #3366ff;"><a href="https://youtu.be/vQlLuxQdPQU" target="_blank"><span style="color: #3366ff;">Teacher Code of Ethics</span></a>  </span></span></div>
+<div></div>
+<div></div>
+<h2><span style="font-size: 18px; color: #339966; font-family: 'arial black', 'avant garde';"> </span></h2>
+<div></div>
+<div></div>
+<div></div>
+<h2> </h2>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div><img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/00-Final-logos_CTE-color-logo-1.jpg" border="0" width="192" height="96" style="border: 2px solid black; float: left;"></div>
+<div></div>
+<div></div>
+<div><span style="font-size: 18px;"><span style="font-size: xx-small;"></span><span style="font-size: xx-small;"></span>To view video of Grundy County CTE Programs of Study, click <a href="http://images.pcmac.org/Uploads/GrundyCountyDOE/GrundyCountyDOE/Sites/Videos/recruit-cte_%7BSIS23DFDD16A717%7D.wmv"><span style="color: #ff0000;">here</span></a>. </span></div>
+<div><span style="color: #ffffff;">2</span></div>
+<div><span style="color: #ffffff;">2</span></div>
+<div><span style="color: #ffffff;">2</span></div>
+<div><span style="color: #ffffff;">2</span></div>
+<div></div>
+<div></div>
+<div></div>
+<div><span style="color: #ffffff;">1</span></div>
+<div><span style="color: #ffffff;">1</span></div>
+<div><span style="color: #ffffff;">1</span></div>
+<div><span style="color: #ffffff;">1</span></div>
+<div><span style="color: #ffffff;">1</span></div>
+<div><span style="color: #ffffff;">1</span></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div> <img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/reward_22.jpg" border="0" width="216" height="201" style="border-width: 1.5px; border-style: solid; border-color: black; float: right;"><strong style="font-family: 'times new roman', times; font-size: 24px; background-color: #ffff99;"><img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/reward_schools1.jpg" border="0" width="240" height="199" style="border: 2px solid black;"></strong>
+</div>
+<div></div>
+<div><span style="color: #ffffff;"><strong><span style="font-size: 16px;">*</span></strong></span></div>
+<div></div>
+<div>****************************************************************</div>
+<div></div>
+<div></div>
+<div><span style="font-size: 18px;">For calendar in various languages, <a href="http://www.gchs.grundycoschools.com/?PageName=LatestNews&amp;Section=LatestNews&amp;ItemID=552356&amp;ISrc=School&amp;Itype=News&amp;IFrom=&amp;SID="><span style="color: #ff0000;">click here</span></a> then select language above left menu.</span></div>
+<div>
+<p> </p>
+</div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div><span style="font-size: 18px; color: #ffffff;">***********************</span></div>
+</div>
+<div></div>
+<div><img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/is.jpg" border="0" width="243" height="162" style="border: 2px solid black;"></div>
+<div><span style="font-size: 18px;">Missing Children in Tennessee</span></div>
+<div><span style="font-size: 18px;">Click <span style="color: #ff0000;"><a href="https://www.tn.gov/tbi/tennessees-missing-children.html"><span style="color: #ff0000;">here</span></a> </span>to access TBI Missing Children Bulletin</span></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div><span style="color: #ffffff;">***************************************</span></div>
+<div></div>
+<div></div>
+<div><span style="color: #9900ff; font-family: georgia, serif; font-size: large;"><span><strong> </strong></span></span></div>
+<div></div>
+<div></div>
+</div>
+<div class="gmail_default"></div>
+<div class="gmail_default"></div>
+<div class="gmail_default"><span style="color: #ffffff;">*</span></div>
+<div class="gmail_default"><span style="color: #ffffff;">*</span></div>
+<div class="gmail_default"><span style="color: #ffffff;">*</span></div>
+<div class="gmail_default"></div>
+<div class="gmail_default"></div>
+<div class="gmail_default"></div>
+<div class="gmail_default"></div>
+</div>
+</div>
+</div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"><img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/glenda.png" border="0" width="558" height="328"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"><span style="font-size: 18px;"><strong><span style="color: #000000; text-decoration: blink;"><span style="color: #ff0000; text-decoration: blink;">Click to view →</span> <a href="http://images.pcmac.org/Uploads/GrundyCountyDOE/GrundyCountyDOE/Sites/Videos/Lip%20Sync%20School_%7BSIS0D30F4BE709D%7D.mp4" target="_New">Lip Sync School.mp4</a></span></strong></span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"><span style="color: #ffffff; text-decoration: blink;">*</span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"><span style="color: #ffffff; text-decoration: blink;">*</span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"><span style="color: #ffffff; text-decoration: blink;">*</span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"><span style="color: #ffffff; text-decoration: blink;">*</span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"><span style="color: #ffffff; font-size: 10px; text-decoration-line: blink; text-align: left;"> </span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: left;"><span style="font-size: 10px; color: #ffffff; text-decoration: blink;">*</span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: left;"><span style="font-size: 10px; color: #ffffff; text-decoration: blink;"><span style="text-decoration-line: blink;">*</span></span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: left;"><span style="font-size: 10px; color: #ffffff; text-decoration: blink;">*</span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: left;"><span style="color: #ffffff; font-size: 10px; text-decoration: blink;"> </span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: left;"><span style="color: #ffffff; font-size: 10px; text-decoration: blink;"> </span></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: left;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"></div>
+<div style="font-family: Georgia, 'Times New Roman', Times, serif; font-size: large; font-style: normal; line-height: normal; color: #ec8927; text-decoration: blink; text-align: center;"><strong><span style="color: #000000; text-decoration: blink;">**************************************</span></strong></div>
+<div>
+<p align="center"><span style="font-size: 16px;"> <strong>PowerSchool Links</strong> </span></p>
+<p align="center"> </p>
+<p align="center"><span style="font-size: 16px;">Parents/Students  <a href="https://grundycoschools.powerschool.com/public" target="_blank"><strong>https://grundycoschools.powerschool.com/public</strong></a></span></p>
+<p align="center"> </p>
+<p align="center">  </p>
+<p align="center"> </p>
+<p align="center"> </p>
+</div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"><img src="http://images.pcmac.org//images/Users/gsons@grundyk12.com/unnamed.jpg" border="0" width="197" height="266" style="border: 2px solid black;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;">*</div>
+<div style="text-align: center;"></div>
+<div style="text-align: center;"><span style="font-size: 18px;"><strong>Glenda Dykes, Director of Schools</strong></span></div>
+<div style="text-align: center;"></div>
+<div style="text-align: left;"><span style="color: #0000ff; font-size: 10px;"><strong>*</strong></span></div>
+<div style="text-align: left;"></div>
+<div style="text-align: left;"></div>
+<div style="text-align: left;"><span style="color: #0000ff;"><strong><span style="font-size: 16px;">Mission:  <span><span>Grundy County Schools instills a love of learning in its students and prepares them to be responsible and productive global citizens.</span></span></span></strong></span></div>
+<div style="text-align: left;"><span style="font-size: 16px; color: #0000ff;"> </span></div>
+<div style="text-align: left;"></div>
+<div style="text-align: left;"><span style="color: #800080;"><strong><span style="font-size: 16px;">Vision:  <span><span>Every Student, Every Day!</span></span></span></strong></span></div>
+<div style="text-align: left;"><span style="font-size: 16px; color: #800080;"> </span></div>
+<div style="text-align: center;"><span style="font-size: 16px; text-align: left;"> </span></div>
+<div style="text-align: center;"> </div>
+<p align="center"> </p>
+<p align="center"> </p>
+<p align="center">   </p>
+<p style="text-align: center;"><span style="font-size: 18px; color: #3366ff;"><strong> </strong></span></p>
+			 </div>
+          <!-- End Home Page Greeting -->
+               <div style="padding-top: 0px;">
+                      <img src="http://images.pcmac.org/Websites/GrundyCountyDOE/GrundyCountyDOE/Images/NewsHorizontalLine.png" alt="horizontal line">
+</div>
+          
+
+        <!-- End Main Content Area -->
+
+
+    </td>
+    
+    <!-- End Main Area -->
+   
+ </tr>
+</table>
+</td>
+                </tr></table>
+<!--- Back To Top Button ---><a href="#" class="back-to-top">Back to Top</a>
+              <!--- End Back To Top Button --->
+               <script>            
+			jQuery(document).ready(function() {
+				var offset = 220;
+				var duration = 500;
+				jQuery(window).scroll(function() {
+					if (jQuery(this).scrollTop() > offset) {
+						jQuery('.back-to-top').fadeIn(duration);
+					} else {
+						jQuery('.back-to-top').fadeOut(duration);
+					}
+				});
+				
+				jQuery('.back-to-top').click(function(event) {
+					event.preventDefault();
+					jQuery('html, body').animate({scrollTop: 0}, duration);
+					return false;
+				})
+			});
+		</script><!--Footer --><div id="FooterBackground">
+                     <div class="footeraddress">1376 Main Street | P.O. Box 97 | Altamont, TN 37301 | Phone: 931.692.3467 | Fax: 931.692.2188</div>
+                     <div style="width: 990px; padding-top: 5px;" align="center">
+                      <div id="Legal">
+	<a href="http://www.schoolinsites.com/"><img src="/images/SisPoweredSmall.png" id="PoweredBy" height="30" width="120" alt="Powered and Designed by SCHOOLinSITES"></a>
+	
+	<p class="right">
+		Copyright © 2020  Grundy County Department of Education
+	</p>
+</div>
+
+                    </div>
+             </div>
+    </td>
+  </tr></table>
+</center>
+</body>
+</html>

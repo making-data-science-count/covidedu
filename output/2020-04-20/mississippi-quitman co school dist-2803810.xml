@@ -1,0 +1,1220 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Quitman County Public Schools</title>
+<link href="https://fonts.googleapis.com/css?family=Hammersmith+One%7CRoboto" rel="stylesheet">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Quitman County Public Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Madison Shannon Palmer High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Quitman County Career and Technical Center - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Quitman County Middle School - News" href="/rssNews.ashx?schoolId=3">
+<link rel="alternate" type="application/rss+xml" title="Quitman County Elementary School - News" href="/rssNews.ashx?schoolId=4">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "MS_QuitmanCntySd",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=-62135596800000">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""><input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value=""><input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTIxMzA1MDMyMzQPZBYCZg9kFgJmD2QWBGYPZBYGAgEPZBYCZg9kFgICAQ8WAh4EVGV4dAUdUXVpdG1hbiBDb3VudHkgUHVibGljIFNjaG9vbHNkAgMPZBYCAgEPFgIeC18hSXRlbUNvdW50AgQWCGYPZBYCZg8VAiJNYWRpc29uIFNoYW5ub24gUGFsbWVyIEhpZ2ggU2Nob29sATFkAgEPZBYCZg8VAipRdWl0bWFuIENvdW50eSBDYXJlZXIgYW5kIFRlY2huaWNhbCBDZW50ZXIBMmQCAg9kFgJmDxUCHFF1aXRtYW4gQ291bnR5IE1pZGRsZSBTY2hvb2wBM2QCAw9kFgJmDxUCIFF1aXRtYW4gQ291bnR5IEVsZW1lbnRhcnkgU2Nob29sATRkAgQPFgIeBGhyZWYFMi9zaXRlY3NzLmFzaHg/JmludHJhbmV0PTAmY2hlY2tzdW09LTYyMTM1NTk2ODAwMDAwZAIBDxYCHgZhY3Rpb24FAS8WCmYPZBYEAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwQFATBkAgMPD2QWAh8EBQEwZAIEDw9kFgIfBAUBMGQCBQ8PZBYCHwQFATBkAgMPZBYCAgIPZBYCZg8WAh8ABRs8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PC91bD5kAgEPZBYCAgEPZBYCAgEPZBYEAgcPDxYCHwAFWzxzcGFuIGNsYXNzPSJibG9ja1NwYW4iPlF1aXRtYW4gQ291bnR5PC9zcGFuPjxzcGFuIGNsYXNzPSJibG9ja1NwYW4iPlNjaG9vbCBEaXN0cmljdDwvc3Bhbj5kZAIJDw8WAh8ABR1RdWl0bWFuIENvdW50eSBQdWJsaWMgU2Nob29sc2RkAgIPZBYCAgEPZBYCAgEPZBYCZg8WAh8BAgMWBmYPZBYEZg8VAjdKb3VybmFsaXNtIFN0dWRlbnRzIEhlYWRlZCB0byBPbGUgTWlzcyB0aGlzIDIwMTkgU3VtbWVyN0pvdXJuYWxpc20gU3R1ZGVudHMgSGVhZGVkIHRvIE9sZSBNaXNzIHRoaXMgMjAxOSBTdW1tZXJkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTAzL2Q2ZmJlNzE3LTdkZGEtNGRjNy1hYzkzLWE2NzViODJhYmJhYS5wbmdkAgEPZBYEZg8VAgAuUXVpdG1hbiBDb3VudHkgU2Nob29sIERpc3RyaWN0IFJlY2VpdmVzIEF3YXJkLmQCAQ8VATwvdXNlcmZpbGVzLzIwMTktMDIvMjJlMzI2ZmEtNjk5NS00YzEwLWI0OGUtNTNlODBmOGZhYTE5LmpwZWdkAgIPZBYEZg8VAgAWU2Nob29sIEJvYXJkIFBpY3R1cmUgMWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDIvYjUyNzFlZGItYWViMy00YjYyLTg4OGMtZTkzM2YyNzc4ZjQzLmpwZ2QCBQ9kFgYCAQ9kFgICAQ9kFgJmDxYCHwAF+gs8dWwgY2xhc3M9J3NmLXZlcnRpY2FsJyA+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvJyAgIHRpdGxlPSdIb21lJz5Ib21lPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvRGlzdHJpY3QvUHJvZmlsZScgICB0aXRsZT0nQ29udGFjdCc+Q29udGFjdDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2xvZ2luJyAgIHRpdGxlPSdMb2cgaW50byBDTVMnPkxvZyBpbnRvIENNUzwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2FkbWluaXN0cmF0aW9uLzQnICAgdGl0bGU9J0NoaWxkIE51dHJpdGlvbic+Q2hpbGQgTnV0cml0aW9uPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29udGVudC9yZWdpc3RyYXRpb24nICAgdGl0bGU9J1JlZ2lzdHJhdGlvbic+UmVnaXN0cmF0aW9uPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29udGVudC8xMicgICB0aXRsZT0nRW1wbG95bWVudCBPcHBvcnR1bml0aWVzJz5FbXBsb3ltZW50IE9wcG9ydHVuaXRpZXM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9EaXN0cmljdEdhbGxlcnkuYXNweCcgICB0aXRsZT0nUGhvdG8gR2FsbGVyaWVzJz5QaG90byBHYWxsZXJpZXM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9EaXN0cmljdG5ld3NBcnRpY2xlcy5hc3B4JyAgIHRpdGxlPSdEaXN0cmljdCBOZXdzJz5EaXN0cmljdCBOZXdzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY2FsTW9udGhWaWV3LmFzcHg/cz0wJyAgIHRpdGxlPSdEaXN0cmljdCBFdmVudHMnPkRpc3RyaWN0IEV2ZW50czwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL3N1cGVyTXNnLmFzcHgnICAgdGl0bGU9J1N1cGVyaW50ZW5kZW50JiMzOTtzIE1lc3NhZ2UnPlN1cGVyaW50ZW5kZW50J3MgTWVzc2FnZTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2Rpc3RyaWN0Qm9hcmRFZC5hc3B4JyAgIHRpdGxlPSdCb2FyZCBvZiBFZHVjYXRpb24nPkJvYXJkIG9mIEVkdWNhdGlvbjwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2F0aGxldGljcy5hc3B4JyAgIHRpdGxlPSdBdGhsZXRpY3MnPkF0aGxldGljczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0VtcGxveW1lbnQuYXNweCcgICB0aXRsZT0nRW1wbG95bWVudCc+RW1wbG95bWVudDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2xpbmtzRm9ybXMuYXNweCcgICB0aXRsZT0nRm9ybXMgJmFtcDsgTGlua3MnPkZvcm1zICYgTGlua3M8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50L3BvbGljaWVzJyAgIHRpdGxlPSdQb2xpY2VzJz5Qb2xpY2VzPC9hPjwvbGk+PC91bD5kAgMPZBYCAgEPZBYEZg8PFgIeB1Zpc2libGVoZGQCAg9kFgQCAw8WAh8FaGQCBQ8WAh8BAgZkAgUPZBYGAgEPZBYIZg8WAh8ABRhTdXBlcmludGVuZGVudCdzIE1lc3NhZ2VkAgEPFgIfAAWXBDxwPkRlYXIgUGFyZW50cywgU3R1ZGVudHMsIGFuZCBTdGFrZWhvbGRlcnM6PC9wPg0KDQo8cD5XZWxjb21lIHRvIHRoZSBuZXcgUXVpdG1hbiBDb3VudHkgU2Nob29sIERpc3RyaWN0IHdlYnNpdGUhIFdlIGFyZSBleHRyZW1lbHkgZXhjaXRlZCBhYm91dCB0aGUgbWFueSBncmVhdCB0aGluZ3MgaGFwcGVuaW5nIGluIHRoZSBkaXN0cmljdC4gVGhlIHdlYiBzaXRlIGlzIG9uZSBvZiBzZXZlcmFsIHRvb2xzIHdlIHdpbGwgdXNlIHRvIGtlZXAgdGhlIGNvbW11bml0eSBpbmZvcm1lZCBvZiBjdXJyZW50IG5ld3MgYW5kIGV2ZW50cyB3aXRoaW4gdGhlIHNjaG9vbCBkaXN0cmljdC4gV2Ugc3RyaXZlIGRhaWx5IHRvIHByb3ZpZGUgYSBmYWlyIGFuZCBlcXVpdGFibGUgZWR1Y2F0aW9uIHRvIGFsbCBzdHVkZW50cyB0byBzdXBwb3J0IG91ciB2aXNpb24gb2YgZWR1Y2F0aW9uYWwgZXhjZWxsZW5jZSB0aGF0IHdpbGwgbGVhZCB0byB0aGUgcG9zaXRpdmUgZGV2ZWxvcG1lbnQgb2YgMjFzdCBDZW50dXJ5IGxlYXJuZXJzIGFuZCBsZWFkZXJzLjwvcD5kAgIPFgIfBWgWAgIDD2QWAgIBDw8WAh8FaGRkAgMPDxYEHwAFSVJlYWQgTW9yZTxzcGFuIGNsYXNzPSJvYnNjdXJlIj4gYWJvdXQgdGhlIHN1cGVyaW50ZW5kZW50J3MgbWVzc2FnZTwvc3Bhbj4eC05hdmlnYXRlVXJsBQ4vc3VwZXJtc2cuYXNweGRkAgMPZBYGZg8WAh8BZmQCBA8PFgIfBgUhL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00ZGQCBg8PFgQfBgVFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAmc2Nob29saWQ9MCZ0eXBlcz0mdmlld0RhdGU9NC8yMC8yMDIwHwAFD1ZpZXcgQWxsIEV2ZW50c2RkAgUPZBYEZg88KwAKAQAPFgoeDU5leHRNb250aFRleHQFYzxpIGNsYXNzPSdmYSBmYS1jaGV2cm9uLXJpZ2h0JyBhcmlhLWhpZGRlbj0ndHJ1ZSc+PC9pPjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5HbyB0byBuZXh0IG1vbnRoPC9zcGFuPh4CU0QWAQYAwIKa9OPXCB4LVGl0bGVGb3JtYXQLKiVTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLlRpdGxlRm9ybWF0AB4NRGF5TmFtZUZvcm1hdAsqJ1N5c3RlbS5XZWIuVUkuV2ViQ29udHJvbHMuRGF5TmFtZUZvcm1hdAIeDVByZXZNb250aFRleHQFZjxpIGNsYXNzPSdmYSBmYS1jaGV2cm9uLWxlZnQnIGFyaWEtaGlkZGVuPSd0cnVlJz48L2k+PHNwYW4gY2xhc3M9J29ic2N1cmUnPkdvIHRvIHByZXZpb3VzIG1vbnRoPC9zcGFuPmRkAgEPDxYGHgZUYXJnZXQFBl9ibGFuax8ABRJWaWV3IEZ1bGwgQ2FsZW5kYXIfBgUlL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00JnQ9MGRkAggPZBYEZg9kFgZmDxYCHwAFDkFEQSBEaXNjbGFpbWVyZAIBDxYCHwAFJDxwPlF1aXRtYW4gQ291bnR5IEFEQSBEaXNjbGFpbWVyPC9wPmQCAw8PFgIfBgUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0yZGQCAQ9kFgJmDxYCHwECAxYGZg9kFgJmDxUFBi9sb2dpbhhDb250ZW50IE1hbmFnZW1lbnQgTG9naW4FX3NlbGYmPHNwYW4gY2xhc3M9J29ic2N1cmUnPkNNUyBMb2dpbjwvc3Bhbj4NZmEgZmEtc2lnbi1pbmQCAQ9kFgJmDxUFT2h0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9RdWl0bWFuLUNvdW50eS1QdWJsaWMtU2Nob29sLURpc3RyaWN0LTU1MDk2NTczMTcwNTM2NC8QUXVpdG1hbiBGYWNlYm9vawVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+RmFjZWJvb2s8L3NwYW4+FWZhIGZhLWZhY2Vib29rLXNxdWFyZWQCAg9kFgJmDxUFCy9hZGEtcmVwb3J0DUFEQSBSZXBvcnRpbmcFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBMaW5rPC9zcGFuPhZmYSBmYS11bml2ZXJzYWwtYWNjZXNzZGSzUV/0HSVv9CAPV1bascpsj7TmSw==">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script><script src="/WebResource.axd?d=ciQs-AUcGllikzvJxOn4IY9qdpn5WXYfT_PMnTK91Xt8dksb258BJxYsmn4olEPTocq6JTsZH-_-9MV4tnJ7755rEvo1&amp;t=635875512900000000" type="text/javascript"></script><a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'uRMXnKgsMe' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><header id="site-head"><div id="DesktopHeader" class="hidden-xs">
+	<div class="bg-header1">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 noPad">
+					<nav id="TopNav"><ul class="">
+<li class="without-image"><a href="/Content/2" title="Parents">Parents</a></li>
+<li class="without-image"><a href="/Content/4" title="Students">Students</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/employee-handbook-2016-2017.pdf?id=4" title="Staff">Staff</a></li>
+<li class="without-image"><a href="/Content/8" title="Alumni">Alumni</a></li>
+<li class="without-image"><a href="#" title="Registration">Registration</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Contact">Contact  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/District/Profile" title="District Contact">District Contact</a></li>
+<li class="without-image"><a href="/1/profile" title="High School Contact">High School Contact</a></li>
+<li class="without-image"><a href="/2/profile" title="Career &amp; Technical Center Contact">Career &amp; Technical Center Contact</a></li>
+<li class="without-image"><a href="/3/profile" title="Middle School Contact">Middle School Contact</a></li>
+<li class="without-image"><a href="/4/profile" title="Elementary Contact">Elementary Contact</a></li>
+</ul>
+</li>
+</ul></nav><div class="wrap-searchHeader">
+						
+
+<div class="search-box">
+	<label for="txtSearchBox" class="obscure">Search site using Google</label><input id="txtSearchBox" type="text" class="search-box-input" placeholder="Search" onkeyup="return tableInputKeyPress(event)"><i class="search-box-go fa fa-search bSearch3"></i>
+</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-header2">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 noPad">
+					<a id="ctl00_ctl00_header_header_ctl00_LogoLink" class="LogoLink" href="/"><span class="obscure">link to homepage</span></a>
+
+					<div class="wrap-nameLink">
+						<a id="ctl00_ctl00_header_header_ctl00_NameLink" class="NameLink" href="/"><span class="blockSpan">Quitman County</span><span class="blockSpan">School District</span></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="MobileHeader" class="hidden-sm hidden-md hidden-lg clearfix">
+	<div class="menuBar clearfix">
+		<div class="wrap-mobileName">
+			<a id="ctl00_ctl00_header_header_ctl00_MobileNameLink" class="mobileNameLink" href="/">Quitman County Public Schools</a>
+		</div>
+
+		<div class="wrap-MenuButton">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#MobileNavBar">
+				Menu
+			</button>
+		</div>
+
+		<div class="collapse navbar-collapse clearfix" id="MobileNavBar">
+			<h1>Quick Links</h1>
+
+			<nav id="MobileNav"><ul class="">
+<li class="without-image"><a href="/Content/2" title="Parents">Parents</a></li>
+<li class="without-image"><a href="/Content/4" title="Students">Students</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/employee-handbook-2016-2017.pdf?id=4" title="Staff">Staff</a></li>
+<li class="without-image"><a href="/Content/8" title="Alumni">Alumni</a></li>
+<li class="without-image"><a href="#" title="Registration">Registration</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Contact">Contact  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/District/Profile" title="District Contact">District Contact</a></li>
+<li class="without-image"><a href="/1/profile" title="High School Contact">High School Contact</a></li>
+<li class="without-image"><a href="/2/profile" title="Career &amp; Technical Center Contact">Career &amp; Technical Center Contact</a></li>
+<li class="without-image"><a href="/3/profile" title="Middle School Contact">Middle School Contact</a></li>
+<li class="without-image"><a href="/4/profile" title="Elementary Contact">Elementary Contact</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="About">About  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Trustees">Board of Trustees</a></li></ul>
+</li>
+<li class="without-image"><a href="/Administration" title="Departments">Departments</a></li>
+<li class="without-image"><a href="#" title="Athletics/Band">Athletics/Band</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Madison Shannon Palmer High School">Madison Shannon Palmer High School</a></li>
+<li class="without-image"><a href="/2/home" title="Career and Technical Center">Career and Technical Center</a></li>
+<li class="without-image"><a href="/3/home" title="Quitman County Middle School">Quitman County Middle School</a></li>
+<li class="without-image"><a href="/4/home" title="Quitman County Elementary School">Quitman County Elementary School</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+</ul>
+<hr>
+<ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/District/Profile" title="Contact">Contact</a></li>
+<li class="without-image"><a href="/login" title="Log into CMS">Log into CMS</a></li>
+<li class="without-image"><a href="/administration/4" title="Child Nutrition">Child Nutrition</a></li>
+<li class="without-image"><a href="/content/registration" title="Registration">Registration</a></li>
+<li class="without-image"><a href="/content/12" title="Employment Opportunities">Employment Opportunities</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/Athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/content/policies" title="Polices">Polices</a></li>
+</ul></nav>
+</div>
+	</div>
+</div>
+
+	
+
+        </header><div class="container">
+		<div class="row">
+			<div class="slideshowWrapper">
+				
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({
+			effect: 'fade',
+			pauseTime: 3000,
+			prevText: 'Prev',
+			nextText: 'Next',
+			animSpeed: 500,
+			afterLoad: function () {
+				if (typeof nivoAfterLoad === 'function' && nivoAfterLoad !== 'undefined') {
+					nivoAfterLoad();
+				}
+			},
+			beforeChange: function () {
+				if (typeof nivoBeforeChange === 'function' && nivoBeforeChange !== 'undefined') {
+					nivoBeforeChange();
+				}
+			},
+			afterChange: function () {
+				if (typeof nivoAfterChange === 'function' && nivoAfterChange !== 'undefined') {
+					nivoAfterChange();
+				}
+			}
+		});
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+		var slider = jQuery('.slides');
+
+		var nivoStartStopControl = jQuery('<div class="nivo-startstopNav"></div>');
+		$('#slideshow').append(nivoStartStopControl);
+        nivoStartStopControl.append('<span tabindex="0" href="#" id="nivoStart" title="Play Slideshow"><span><i class="fa fa-play" aria-hidden="true"></i></span><span class="obscure">play slideshow</span></span> <span tabindex="0" href="#" id="nivoStop" title="Pause Slideshow"><span><i class="fa fa-pause" aria-hidden="true"></i><span class="obscure">stop slideshow</span></span></span>');
+
+		jQuery('#nivoStop').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').stop();
+		});
+
+		jQuery('#nivoStart').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').start();
+		});
+	});
+</script><style type="text/css">
+	.nivo-startstopNav {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		z-index: 3;
+	}
+
+	.nivo-startstopNav .fa {
+		width: 25px;
+		height: 25px;
+		color: #000;
+		background-color: #fff;
+		border-radius: 50%;
+		font-size: 15px;
+		text-align: center;
+		line-height: 25px;
+	}
+
+	.nivo-startstopNav .fa:hover {
+		cursor: pointer;
+	}
+</style>
+<div id="slideshow" class="">
+	<div class="slides">
+		
+				<img title="Journalism Students Headed to Ole Miss this 2019 Summer" alt="Journalism Students Headed to Ole Miss this 2019 Summer" src="/images/full//userfiles/2019-03/d6fbe717-7dda-4dc7-ac93-a675b82abbaa.png"><img title="" alt="Quitman County School District Receives Award." src="/images/full//userfiles/2019-02/22e326fa-6995-4c10-b48e-53e80f8faa19.jpeg"><img title="" alt="School Board Picture 1" src="/images/full//userfiles/2019-02/b5271edb-aeb3-4b62-888c-e933f2778f43.jpg">
+</div>
+	
+</div>
+
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			$('<div class="slideshowOverlay"></div>').appendTo($('#slideshow .slides'));
+		});
+	</script><style>
+		#calendar * {
+			color: #E00000 !important;
+			font-weight: bold;
+		}
+	</style>
+<div class="hidden-xs wrap-mainNav">
+            <div class="container">
+                <div class="row">
+                    <div class="bg-header3 negMargin">
+                        <nav id="MainNav"><ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="About">About  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Trustees">Board of Trustees</a></li></ul>
+</li>
+<li class="without-image"><a href="/Administration" title="Departments">Departments</a></li>
+<li class="without-image"><a href="#" title="Athletics/Band">Athletics/Band</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Madison Shannon Palmer High School">Madison Shannon Palmer High School</a></li>
+<li class="without-image"><a href="/2/home" title="Career and Technical Center">Career and Technical Center</a></li>
+<li class="without-image"><a href="/3/home" title="Quitman County Middle School">Quitman County Middle School</a></li>
+<li class="without-image"><a href="/4/home" title="Quitman County Elementary School">Quitman County Elementary School</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+</ul></nav>
+</div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        <div class="body-content-container">
+            <div class="container">
+                <div class="masterC alignment-stretch">
+                    <div class="row">
+                        
+	<div class="content-section content-section-1">
+		<div class="hidden-xs col-sm-4 col-md-3 col-lg-3 backgroundcolor qlLeft">
+			<div class="clearfix panel content">
+				
+					<h1>Quick Links</h1>
+					<ul class="sf-vertical">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/District/Profile" title="Contact">Contact</a></li>
+<li class="without-image"><a href="/login" title="Log into CMS">Log into CMS</a></li>
+<li class="without-image"><a href="/administration/4" title="Child Nutrition">Child Nutrition</a></li>
+<li class="without-image"><a href="/content/registration" title="Registration">Registration</a></li>
+<li class="without-image"><a href="/content/12" title="Employment Opportunities">Employment Opportunities</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/Athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/content/policies" title="Polices">Polices</a></li>
+</ul>
+</div>
+		</div>
+		<div class="col-xs-12 col-sm-8 col-md-6  col-lg-6 backgroundcolor center3column">
+			<div class="clearfix panel content">
+				
+	<div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+	<h1>District News</h1>
+
+	<div class="news">
+		
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/grabgoflyer">Grab and Go Lunch</a>
+
+				<span class="news-post-date">Posted On: Monday, March 23, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lblSummary" class="news-summary"><p><a href="/docs/district/depts/16/documents/foodservicemessage/quitman%20county%20school%20district%20cn%20covid-19%20grab%20and%20go%20flyer.pdf?id=443">Grab and Go Lunch Flyer</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkViewAll" title="Click to read more about: Grab and Go Lunch" class="view-all" href="/News/grabgoflyer">Read More <span class="sr-only">about Grab and Go Lunch</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/76">QCSD Calendar 2019-2020 </a>
+
+				<span class="news-post-date">Posted On: Thursday, November 21, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lblSummary" class="news-summary"><p><a href="/docs/district/depts/16/documents/qcsd%202019-2020%20tentative%20copy%20for%20board%20approval%20(002).pdf?id=430">QCSD Calendar 2019-2020 </a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkViewAll" title="Click to read more about: QCSD Calendar 2019-2020 " class="view-all" href="/News/76">Read More <span class="sr-only">about QCSD Calendar 2019-2020 </span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/71">2019-2020 21ST CENTURY COMMUNITY LEARNING CENTERS EVALUATION REPORT</a>
+
+				<span class="news-post-date">Posted On: Tuesday, October 1, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lblSummary" class="news-summary"><p>2019-2020<br>
+21ST CENTURY COMMUNITY LEARNING CENTERS EVALUATION REPORT</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkViewAll" title="Click to read more about: 2019-2020 21ST CENTURY COMMUNITY LEARNING CENTERS EVALUATION REPORT" class="view-all" href="/News/71">Read More <span class="sr-only">about 2019-2020 21ST CENTURY COMMUNITY LEARNING CENTERS EVALUATION REPORT</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/65">Bid Notice for QCSD RFP 2019 2020</a>
+
+				<span class="news-post-date">Posted On: Friday, August 23, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lblSummary" class="news-summary"><p>Bid Notice for QCSD RFP 2019 2020</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkViewAll" title="Click to read more about: Bid Notice for QCSD RFP 2019 2020" class="view-all" href="/News/65">Read More <span class="sr-only">about Bid Notice for QCSD RFP 2019 2020</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lnkTitle" class="news-title" href="/News/64">QUITMAN COUNTY SCHOOL DISTRICT REQUEST FOR PROPOSAL Professional Development Services</a>
+
+				<span class="news-post-date">Posted On: Friday, August 23, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lblSummary" class="news-summary"><p>QUITMAN COUNTY SCHOOL DISTRICT REQUEST FOR PROPOSAL Professional Development Services</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lnkViewAll" title="Click to read more about: QUITMAN COUNTY SCHOOL DISTRICT REQUEST FOR PROPOSAL Professional Development Services" class="view-all" href="/News/64">Read More <span class="sr-only">about QUITMAN COUNTY SCHOOL DISTRICT REQUEST FOR PROPOSAL Professional Development Services</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lnkTitle" class="news-title" href="/News/48">Why Choose Quitman County School District</a>
+
+				<span class="news-post-date">Posted On: Friday, February 1, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lblSummary" class="news-summary"></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lnkViewAll" title="Click to read more about: Why Choose Quitman County School District" class="view-all" href="/News/48">Read More <span class="sr-only">about Why Choose Quitman County School District</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+
+	<a href="/districtNewsArticles.aspx" class="view-all-news">View All News</a>
+
+	<div class="clr"></div>
+
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 backgroundcolor right3column">
+			<div class="clearfix panel content">
+				
+	<div class="wrap-superMsg">
+		
+<h1 class="super-message-title">
+    Superintendent's Message
+</h1>
+
+<div class="super-message">
+    <p>Dear Parents, Students, and Stakeholders:</p>
+
+<p>Welcome to the new Quitman County School District website! We are extremely excited about the many great things happening in the district. The web site is one of several tools we will use to keep the community informed of current news and events within the school district. We strive daily to provide a fair and equitable education to all students to support our vision of educational excellence that will lead to the positive development of 21st Century learners and leaders.</p>
+</div>
+
+
+
+<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_readMore" class="superReadmore view-all" href="/Superintendent">Read More<span class="obscure"> about the superintendent's message</span></a>
+
+	</div>
+
+	<h1>Upcoming Events</h1>
+
+	
+		<section id="upcoming-events"><ul></ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_hl_viewAllEvents" class="view-all" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/20/2020">View All Events</a>
+</footer><style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl02_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl02%24cal_events','V7365')" style="color:Black" title="Go to the previous month"><i class="fa fa-chevron-left" aria-hidden="true"></i><span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl02%24cal_events','V7426')" style="color:Black" title="Go to the next month"><i class="fa fa-chevron-right" aria-hidden="true"></i><span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">S</th>
+<th align="center" abbr="Monday" scope="col">M</th>
+<th align="center" abbr="Tuesday" scope="col">T</th>
+<th align="center" abbr="Wednesday" scope="col">W</th>
+<th align="center" abbr="Thursday" scope="col">T</th>
+<th align="center" abbr="Friday" scope="col">F</th>
+<th align="center" abbr="Saturday" scope="col">S</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/29/2020">29</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/31/2020">31</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/1/2020">1</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/2/2020">2</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/3/2020">3</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/5/2020">5</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/6/2020">6</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/7/2020">7</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/8/2020">8</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/9/2020">9</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/10/2020">10</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/12/2020">12</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/13/2020">13</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/14/2020">14</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/15/2020">15</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/16/2020">16</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/19/2020">19</a></td>
+<td class=" today" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/20/2020">20</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/21/2020">21</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/23/2020">23</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/26/2020">26</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/27/2020">27</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/28/2020">28</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/29/2020">29</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl02_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+		</div>
+		<div class="clr">
+		</div>
+	</div>
+
+                    </div>
+
+                    <div class="clr"></div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+	<div class="MiddleTop">
+		<div class="shadowoverlay">
+		</div>
+		<div class="container">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 backgroundcolor">
+				<div class="clearfix panel2 content">
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		<div class="wrap-logo">
+			<span class="footer-logo"></span>
+		</div>
+
+		<div class="wrap-info">
+			
+
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer-address">
+				<div>
+					<h6>Quitman County Public Schools</h6>
+				</div>
+
+				<div>
+					1362 Martin Luther King Drive
+				</div>
+
+				<div>
+					Marks,
+					MS
+					38646
+				</div>
+
+				<div>
+					 
+				</div>
+
+				
+				<div>
+					Phone:
+				
+					662-326-5451
+				</div>
+				
+				<div>
+					Fax:
+				
+					662-326-3694
+				</div>
+				
+			</div>
+		</div>
+		
+	</div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        ADA Disclaimer
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>Quitman County ADA Disclaimer</p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+    </div>
+	<div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+		<h6 class="stay-connected-header">Stay Connected</h6>
+
+		<div class="row">
+			<div id="social-links" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				
+        <a href="/login" title="Content Management Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/Quitman-County-Public-School-District-550965731705364/" title="Quitman Facebook" target="_self">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook-square"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-100716415-38', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><div class="footer-branding-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <span style="padding-top: 10px; display: inline-block;">© Copyright 2020 SchoolPointe, Inc.</span>
+
+                            <a href="http://www.schoolpointe.com" target="_blank" class="pull-right" alt="SchoolPointe">
+                                <img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPblack.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0"><input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC2EboMsRPzomO96BjuQvR9SFLxMGV21hKuByP/akOxtOZwfYDPz2n5vF84WqoLgkRZQ16Xj4oP3S5zaOoUYxaVtQF+85BNS+lBmEBU0K/0Y8U5IRTUYVdHN04x2j04IhZcoxSrh+1xBbVbJEX5Aem5CM7KRFOOv84eEaLopkPu666ThUaGHnn4xKn3eeXfiiSDM5B7P7ag2FhtfiwGcftlqD77qxoqXfM5MRuymH6hLLruGExdRRXz9GAetfgavvGMli8FYA2NE4crYBSYvx22BOIjNdC6awfWtb+WVm91rUGQ3JMqw8kRV3UFposATaWGjxeGCDXzXO3XpQR2PVR+fz8ahwgl8DeysHxY1BJrd5Lx+mH5rAGuT5mKkGC/e5k2WGbJRTCSn2vO/joB9ibZtUOQiwcA1tHuS/t1901we4WtEt8Jt7x0oGndOM3w4fVNQ9jQ3hfOHFBvyi94m52hOfYzWUyinN6/Kmnhxhr3KSQa77MoqvXJug8UdydsGMVxVhINgMDPeXPMIMxTxOgtfoZK1NEQ9UBd8rq2P0G/QloTMA/0AmshQPJaqgCEQIDYzhgKDsEgks2+lVDSmPoeY0pF1Pk1oxyI/iM9I8GPe/au4DQ5GKnys2PbcY9lFgQfikEBhxdLpHLdP3kr8RtlvHDYMxHZncaxTrekxeUEG89fMZz7Hcl900ayYOOjeIKDUU/sAJDOxJrdBgd1uBttY6Yte0xCzH1DyNy8m/C7EXWUJ46GmvPUJ8gMSXHzuNWqprFrAGIF5E3XfrO9tMbwHQNiSgs3mI38rrEO2QsviUr1lnLqMDa80wAv/S353r/YuewR2j5Z+OZpQrwkSWAOuRgzjIo3+qg4VWEptFWVuUMlaXp8/qAK0hteQ6Wk2tV0hUBf9rgrhgFAdCv5SmShTq7/zzXj28xmL00o7M60igZdfE9qC6NjkY5flczDcoPqI/wpCN4t8WDf2oZbZkCshXaAiNw==">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+
+    <script>
+        $(document).ready(function () {
+            $('.sf-vertical > li > a').append($('<i class="fa fa-caret-right quicklinksArrow" aria-hidden="true"></i>'))
+        });
+    </script>
+</body>
+</html>

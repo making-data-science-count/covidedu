@@ -1,0 +1,2661 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home - Wyoming City Schools</title>
+<link href="/css/fixes.css" type="text/css" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/ohv7nzl.css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Wyoming City Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Wyoming High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Wyoming Middle School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Wyoming Primary Schools - News" href="/rssNews.ashx?schoolId=3">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "OH_WyomingCitySchs",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1579530682610">
+<script src="/js/functions/prevNext.js"></script><script>
+        function moveNews() {
+            $('.hidden-xs > #news-list .article.row').each(function () {
+                var container = $('<div class="newsArticle" />');
+
+                var image = $(this).find('.news-image');
+
+                if (image.length > 0) {
+                    var imageSrc = image.find('img').attr('src');
+
+                    if (imageSrc.indexOf('&thumbwidth') > 0) {
+                        imageSrc = imageSrc.substring(0, imageSrc.indexOf('&thumbwidth'));
+                    }
+
+                    if (imageSrc.indexOf('&fullwidth') > 0) {
+                        imageSrc = imageSrc.substring(0, imageSrc.indexOf('&fullwidth'));
+                    }
+
+                    image.find('img').attr('src', imageSrc);
+
+                    container.append(image);
+                }
+
+                var title = $(this).find('.news-title');
+                container.append(title);
+                title.wrap($('<div class="wrap-newsTitle" />'));
+
+                var subheader = $(this).find('.news-summary-container');
+                subheader.addClass('clearfix');
+                container.append(subheader);
+
+                var readMore = $(this).find('.view-all-link-container');
+                container.append(readMore);
+
+                $('.wrap-news.hidden-xs').append(container);
+            });
+        }
+
+        function fixCalendar() {
+            $('section#calendar > table.calendar > tbody > tr:nth-child(1) table.calendar td:nth-child(1) a').html('<i class="fa fa-chevron-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+            $('section#calendar > table.calendar > tbody > tr:nth-child(1) table.calendar td:nth-child(3) a').html('<i class="fa fa-chevron-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+            var monthText = $('section#calendar > table.calendar table.calendar td:nth-child(2)').text();
+            monthText = monthText.substring(0, monthText.indexOf(" "));
+            $('section#calendar > table.calendar > tbody > tr:nth-child(1) table.calendar td:nth-child(2)').text(monthText);
+
+            $('section#calendar > table.calendar > tbody > tr:nth-child(1) table.calendar td:nth-child(1)').appendTo($('section#calendar > table.calendar > tbody > tr:nth-child(1) table.calendar tr'));
+            $('section#calendar > table.calendar > tbody > tr:nth-child(1) table.calendar td:nth-child(2)').appendTo($('section#calendar > table.calendar > tbody > tr:nth-child(1) table.calendar tr'));
+        }
+
+        $(function () {
+            moveNews();
+            prevNext('.wrap-news .newsArticle', '.prevNews', '.nextNews', 4);
+            fixCalendar();
+        });
+    </script><style>
+        #news-list {
+            display: none;
+        }
+
+        @media only screen and (max-width: 767px) {
+            #news-list {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body class="school-0 index  ">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUENTM4MQ9kFgJmD2QWAmYPZBYEZg9kFgQCBA9kFgICAQ8WAh4LXyFJdGVtQ291bnQCAxYGZg9kFgJmDxUCE1d5b21pbmcgSGlnaCBTY2hvb2wBMWQCAQ9kFgJmDxUCFVd5b21pbmcgTWlkZGxlIFNjaG9vbAEyZAICD2QWAmYPFQIXV3lvbWluZyBQcmltYXJ5IFNjaG9vbHMBM2QCBQ8WAh4EaHJlZgUwL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0xNTc5NTMwNjgyNjEwZAIBDxYCHgZhY3Rpb24FAS8WCgIBD2QWBAIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8DBQEwZAIDDw9kFgIfAwUBMGQCBA8PZBYCHwMFATBkAgUPD2QWAh8DBQEwZAIDD2QWAgICD2QWAmYPFgIeBFRleHQFGzx1bCBjbGFzcz0nYWxlcnRMaXN0Jz48L3VsPmQCAw9kFgICAQ9kFgQCAw8PFgQfBAUxPHNwYW4gY2xhc3M9InNyLW9ubHkiPld5b21pbmcgQ2l0eSBTY2hvb2xzPC9zcGFuPh4LTmF2aWdhdGVVcmwFAS9kZAIFDw8WBB8EBRRXeW9taW5nIENpdHkgU2Nob29scx8FBQEvZGQCBQ9kFgICAQ9kFgRmDxYCHwACAWQCAQ8WAh8EBTY8c3R5bGU+I3NsaWRlc2hvd3twb3NpdGlvbjpyZWxhdGl2ZTt6LWluZGV4OjE7PC9zdHlsZT5kAgkPZBYOAgEPZBYEZg8PFgIeB1Zpc2libGVoZGQCAg9kFgQCAw8WAh8GaGQCBQ8WAh8AAghkAgIPZBYEZg8PFgIfBmhkZAICD2QWBAIDDxYCHwZoZAIFDxYCHwACBGQCAw9kFgRmDzwrAAoBAA8WCB4NRGF5TmFtZUZvcm1hdAsqJ1N5c3RlbS5XZWIuVUkuV2ViQ29udHJvbHMuRGF5TmFtZUZvcm1hdAIeDU5leHRNb250aFRleHQFLz4+PHNwYW4gY2xhc3M9J29ic2N1cmUnPkdvIHRvIG5leHQgbW9udGg8L3NwYW4+Hg1QcmV2TW9udGhUZXh0BTM8PDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5HbyB0byBwcmV2aW91cyBtb250aDwvc3Bhbj4eAlNEFgEGAIDsxL3k1whkZAIBDw8WBh4GVGFyZ2V0BQZfYmxhbmsfBAUSVmlldyBGdWxsIENhbGVuZGFyHwUFJS9jYWxNb250aFZpZXcuYXNweD9zPTAmeT0yMDIwJm09NCZ0PTBkZAIED2QWBgIBDxYCHwACCBYQAgEPZBYCZg8VCQMyNzMDQXByAjIwAHMvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDI0LDI1LDI2LDMyLDUxLDUyLDUzLDU0LDU1LDU2JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjczJnZpZXdEYXRlPUFwciAyMCAyMDIwGlJlbW90ZSBFZHVjYXRpb24gUGxhbiBXZWVrGlJlbW90ZSBFZHVjYXRpb24gUGxhbiBXZWVrcy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMjQsMjUsMjYsMzIsNTEsNTIsNTMsNTQsNTUsNTYmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yNzMmdmlld0RhdGU9QXByIDIwIDIwMjAaUmVtb3RlIEVkdWNhdGlvbiBQbGFuIFdlZWtkAgIPZBYCZg8VCQIyNANBcHICMjAQQmVnaW5zIEAgNzozMCBQTXIvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDI0LDI1LDI2LDMyLDUxLDUyLDUzLDU0LDU1LDU2JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjQmdmlld0RhdGU9QXByIDIwIDIwMjAcV3lvbWluZyBDaXR5IENvdW5jaWwgTWVldGluZxxXeW9taW5nIENpdHkgQ291bmNpbCBNZWV0aW5nci9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMjQsMjUsMjYsMzIsNTEsNTIsNTMsNTQsNTUsNTYmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yNCZ2aWV3RGF0ZT1BcHIgMjAgMjAyMBxXeW9taW5nIENpdHkgQ291bmNpbCBNZWV0aW5nZAIDD2QWAmYPFQkDMTMzA0FwcgIyMRBCZWdpbnMgQCA2OjMwIFBNcy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMjQsMjUsMjYsMzIsNTEsNTIsNTMsNTQsNTUsNTYmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0xMzMmdmlld0RhdGU9QXByIDIxIDIwMjAYNHRoIEdyYWRlIFBhcmVudCBNZWV0aW5nGDR0aCBHcmFkZSBQYXJlbnQgTWVldGluZ3MvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDI0LDI1LDI2LDMyLDUxLDUyLDUzLDU0LDU1LDU2JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MTMzJnZpZXdEYXRlPUFwciAyMSAyMDIwGDR0aCBHcmFkZSBQYXJlbnQgTWVldGluZ2QCBA9kFgJmDxUJAzE5MANBcHICMjEQQmVnaW5zIEAgNjozMCBQTXMvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDI0LDI1LDI2LDMyLDUxLDUyLDUzLDU0LDU1LDU2JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MTkwJnZpZXdEYXRlPUFwciAyMSAyMDIwEVdTRiBCb2FyZCBNZWV0aW5nEVdTRiBCb2FyZCBNZWV0aW5ncy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMjQsMjUsMjYsMzIsNTEsNTIsNTMsNTQsNTUsNTYmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0xOTAmdmlld0RhdGU9QXByIDIxIDIwMjARV1NGIEJvYXJkIE1lZXRpbmdkAgUPZBYCZg8VCQMxMDMDQXByAjI0EEJlZ2lucyBAIDc6MzAgUE1zL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwyNCwyNSwyNiwzMiw1MSw1Miw1Myw1NCw1NSw1NiZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTEwMyZ2aWV3RGF0ZT1BcHIgMjQgMjAyMBBXSFMgUGxheTogUnVtb3JzEFdIUyBQbGF5OiBSdW1vcnNzL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwyNCwyNSwyNiwzMiw1MSw1Miw1Myw1NCw1NSw1NiZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTEwMyZ2aWV3RGF0ZT1BcHIgMjQgMjAyMBBXSFMgUGxheTogUnVtb3JzZAIGD2QWAmYPFQkDMTA0A0FwcgIyNRBCZWdpbnMgQCA3OjMwIFBNcy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMjQsMjUsMjYsMzIsNTEsNTIsNTMsNTQsNTUsNTYmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0xMDQmdmlld0RhdGU9QXByIDI1IDIwMjAQV0hTIFBsYXk6IFJ1bW9ycxBXSFMgUGxheTogUnVtb3Jzcy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMjQsMjUsMjYsMzIsNTEsNTIsNTMsNTQsNTUsNTYmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0xMDQmdmlld0RhdGU9QXByIDI1IDIwMjAQV0hTIFBsYXk6IFJ1bW9yc2QCBw9kFgJmDxUJAzE5MQNBcHICMjYQQmVnaW5zIEAgMTowMCBQTXMvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDI0LDI1LDI2LDMyLDUxLDUyLDUzLDU0LDU1LDU2JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MTkxJnZpZXdEYXRlPUFwciAyNiAyMDIwFUNBTkNFTEVELSBXU0YgRnVuIFJ1bhVDQU5DRUxFRC0gV1NGIEZ1biBSdW5zL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwyNCwyNSwyNiwzMiw1MSw1Miw1Myw1NCw1NSw1NiZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTE5MSZ2aWV3RGF0ZT1BcHIgMjYgMjAyMBVDQU5DRUxFRC0gV1NGIEZ1biBSdW5kAggPZBYCZg8VCQMyNzQDQXByAjI3AHMvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDI0LDI1LDI2LDMyLDUxLDUyLDUzLDU0LDU1LDU2JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9Mjc0JnZpZXdEYXRlPUFwciAyNyAyMDIwGlJlbW90ZSBFZHVjYXRpb24gUGxhbiBXZWVrGlJlbW90ZSBFZHVjYXRpb24gUGxhbiBXZWVrcy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMjQsMjUsMjYsMzIsNTEsNTIsNTMsNTQsNTUsNTYmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yNzQmdmlld0RhdGU9QXByIDI3IDIwMjAaUmVtb3RlIEVkdWNhdGlvbiBQbGFuIFdlZWtkAgMPDxYCHwUFKC9jYWxNb250aFZpZXcuYXNweD9zY2hvb2xpZD0wJnk9MjAyMCZtPTRkZAIFDw8WBB8FBUUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCZzY2hvb2xpZD0wJnR5cGVzPSZ2aWV3RGF0ZT00LzIwLzIwMjAfBAUIVmlldyBBbGxkZAIFD2QWBgIBD2QWBmYPFgIfBAUVRm9sbG93IHVzIG9uIEZhY2Vib29rZAIBDxYCHwQFrQU8ZGl2IGlkPSJmYi1yb290Ij4mbmJzcDs8L2Rpdj4NCjxzY3JpcHQgYXN5bmMgZGVmZXIgY3Jvc3NvcmlnaW49ImFub255bW91cyIgc3JjPSJodHRwczovL2Nvbm5lY3QuZmFjZWJvb2submV0L2VuX1VTL3Nkay5qcyN4ZmJtbD0xJnZlcnNpb249djUuMCIgPjwvc2NyaXB0ID4NCg0KPGRpdiBjbGFzcz0iZmItcGFnZSIgZGF0YS1hZGFwdC1jb250YWluZXItd2lkdGg9InRydWUiIGRhdGEtaGVpZ2h0PSIiIGRhdGEtaGlkZS1jb3Zlcj0iZmFsc2UiIGRhdGEtaHJlZj0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3d5b21pbmdjaXR5c2Nob29scy8/aGNfcmVmPU5FV1NGRUVEJmFtcDtmcmVmPW5mIiBkYXRhLXNob3ctZmFjZXBpbGU9ImZhbHNlIiBkYXRhLXNtYWxsLWhlYWRlcj0iZmFsc2UiIGRhdGEtdGFicz0idGltZWxpbmUiIGRhdGEtd2lkdGg9IiIgPg0KPGJsb2NrcXVvdGUgY2l0ZT0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3d5b21pbmdjaXR5c2Nob29scy8/aGNfcmVmPU5FV1NGRUVEJmFtcDtmcmVmPW5mIiBjbGFzcz0iZmIteGZibWwtcGFyc2UtaWdub3JlIiA+PGEgaHJlZj0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3d5b21pbmdjaXR5c2Nob29scy8/aGNfcmVmPU5FV1NGRUVEJmFtcDtmcmVmPW5mIiA+V3lvbWluZyBDaXR5IFNjaG9vbHM8L2EgPjwvYmxvY2txdW90ZSA+DQo8L2RpdiA+ZAIDDw8WAh8FBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTFkZAIDD2QWBmYPFgIfBAUMUHVibGljYXRpb25zZAIBDxYCHwQFlgw8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PGEgaHJlZj0iaHR0cHM6Ly9tYWlsY2hpLm1wLzY3NWZmMmFhODJhMC9jb3dib3ktY2x1Yi1tYXJjaC1zY2hvb2wtY2hhdHRlcj9lPWE0OWE1NGE1ZGMiIHRhcmdldD0iX2JsYW5rIj48aW1nIGFsdD0ic2Nob29sIGNoYXR0ZXIiIGNsYXNzPSIiIHNyYz0iL3VzZXJmaWxlcy8tMTYvbXklMjBmaWxlcy9hcnRib2FyZCUyMDIucG5nP2lkPTI3MCZhbXA7d2lkdGg9NTAiIHN0eWxlPSJ3aWR0aDogNTBweDsiIC8+PC9hPjwvcD4NCg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxhIGhyZWY9Imh0dHBzOi8vbWFpbGNoaS5tcC82NzVmZjJhYTgyYTAvY293Ym95LWNsdWItbWFyY2gtc2Nob29sLWNoYXR0ZXI/ZT1hNDlhNTRhNWRjIiB0YXJnZXQ9Il9ibGFuayI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToyMHB4OyI+PHNwYW4gc3R5bGU9ImNvbG9yOiMxMTJkNWY7Ij48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6UmF0aW8gTW9kZXJuIFNtYWxsIENhcHM7Ij5TQ0hPT0wgQ0hBVFRFUjwvc3Bhbj48L3NwYW4+PC9zcGFuPjwvYT48L3A+DQoNCjxociAvPg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxhIGhyZWY9Ii9kb2NzL2Rpc3RyaWN0L2Rpc3RyaWN0IHB1YmxpY2F0aW9ucy93b3cgd2ludGVyIDIwMTlmaW5hbC5wZGY/aWQ9Mjk1IiB0YXJnZXQ9Il9ibGFuayI+PGltZyBhbHQ9Imtub3cgeW91ciBzY2hvb2xzIiBzcmM9Ii91c2VyZmlsZXMvLTE2L215JTIwZmlsZXMvYXJ0Ym9hcmQlMjAxLnBuZz9pZD0yNzEmYW1wO3dpZHRoPTUwIiBzdHlsZT0id2lkdGg6IDUwcHg7IiAvPjwvYT48L3A+DQoNCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48YSBocmVmPSIvZG9jcy9kaXN0cmljdC9kaXN0cmljdCBwdWJsaWNhdGlvbnMvd293IHdpbnRlciAyMDE5ZmluYWwucGRmP2lkPTI5NSIgdGFyZ2V0PSJfYmxhbmsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MjBweDsiPjxzcGFuIHN0eWxlPSJjb2xvcjojMTEyZDVmOyI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5OlJhdGlvIE1vZGVybiBTbWFsbCBDYXBzOyI+S05PVyBZT1VSIFNDSE9PTFM8L3NwYW4+PC9zcGFuPjwvc3Bhbj48L2E+PC9wPg0KDQo8aHIgLz4NCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48aW1nIGFsdD0icmVwcm90IGNhcmQiIHNyYz0iL3VzZXJmaWxlcy8tMTYvbXklMjBmaWxlcy9yZXBvcnRjYXJkQDJ4LnBuZz9pZD0yNzgmYW1wO3dpZHRoPTUwIiBzdHlsZT0id2lkdGg6IDUwcHg7IiAvPjwvcD4NCg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxhIGhyZWY9Imh0dHBzOi8vcmVwb3J0Y2FyZC5lZHVjYXRpb24ub2hpby5nb3YvZGlzdHJpY3Qvb3ZlcnZpZXcvMDQ1MTQ2IiB0YXJnZXQ9Il9ibGFuayI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToyMHB4OyI+PHNwYW4gc3R5bGU9ImNvbG9yOiMxMTJkNWY7Ij48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6UmF0aW8gTW9kZXJuIFNtYWxsIENhcHM7Ij5TVEFURSBSRVBPUlQgQ0FSRDwvc3Bhbj48L3NwYW4+PC9zcGFuPjwvYT48L3A+ZAIDDw8WAh8FBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTJkZAIFD2QWBmYPFgIfBAUURm9sbG93IFVzIG9uIFR3aXR0ZXJkAgEPFgIfBAXjATxwPjxhIGNsYXNzPSJ0d2l0dGVyLXRpbWVsaW5lIiBocmVmPSJodHRwczovL3R3aXR0ZXIuY29tL1d5b21pbmdDaXR5P3JlZl9zcmM9dHdzcmMlNUV0ZnciPlR3ZWV0cyBieSBXeW9taW5nQ2l0eTwvYT4gPHNjcmlwdCBhc3luYyBzcmM9Imh0dHBzOi8vcGxhdGZvcm0udHdpdHRlci5jb20vd2lkZ2V0cy5qcyIgY2hhcnNldD0idXRmLTgiID48L3NjcmlwdCA+PC9wID48L3AgPjwvcCA+PC9wID48L3A+ZAIDDw8WAh8FBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTNkZAIGD2QWAgIBD2QWBmYPFgIfBAUYT3VyIDxzcGFuPk1pc3Npb248L3NwYW4+ZAIBDxYCHwQF/QE8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+V3lvbWluZyBDaXR5IFNjaG9vbHMgd2lsbCBwcm9tb3RlJm5ic3A7YWNhZGVtaWMgYWNoaWV2ZW1lbnQsJm5ic3A7c2VsZi13b3J0aCwmbmJzcDttdXR1YWwgcmVzcGVjdCwmbmJzcDthbmQmbmJzcDttdWx0aS1mYWNldGVkIHN0dWRlbnQgZGV2ZWxvcG1lbnQmbmJzcDtzbyB0aGF0IG91ciBzdHVkZW50cyB3aWxsIGJlIHBvc2l0aXZlIGNvbnRyaWJ1dG9ycyB0byBvdXIgc29jaWV0eS48L3A+ZAIDDw8WAh8FBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTRkZAIHD2QWAgIBD2QWBmYPFgIfBAUeRGlzdHJpY3QgPHNwYW4+U25hcHNob3Q8L3NwYW4+ZAIBDxYCHwQFzAw8ZGl2IGNsYXNzPSJidGdyaWQiPg0KPGRpdiBjbGFzcz0icm93IHJvdy0xIj4NCjxkaXYgY2xhc3M9ImNvbCBjb2wtbWQtNCI+DQo8ZGl2IGNsYXNzPSJjb250ZW50Ij4NCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjM2cHg7Ij48c3Ryb25nPjc2LjklPC9zdHJvbmc+PC9zcGFuPjwvcD4NCg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPkZ1bmRzIHNwZW50IG9uIGNsYXNzcm9vbSBpbnN0cnVjdGlvbjxiciAvPg0KLSBSYW5rZWQgIzEgYW1vbmcgZGlzdHJpY3RzIG9mIHNpbWlsYXIgc2l6ZTwvcD4NCjwvZGl2Pg0KPC9kaXY+DQoNCjxkaXYgY2xhc3M9ImNvbCBjb2wtbWQtNCI+DQo8ZGl2IGNsYXNzPSJjb250ZW50Ij4NCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjM2cHg7Ij48Yj44NSs8L2I+PC9zcGFuPjwvcD4NCg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPkV4dHJhY3VycmljdWxhciBhY3Rpdml0aWVzIG9mZmVyZWQgYWNyb3NzIGRpc3RyaWN0PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCg0KPGRpdiBjbGFzcz0iY29sIGNvbC1tZC00Ij4NCjxkaXYgY2xhc3M9ImNvbnRlbnQiPg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MzZweDsiPjxiPjk4JTwvYj48L3NwYW4+PC9wPg0KDQo8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+R3JhZHVhdGlvbiBSYXRlPC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KDQo8ZGl2IGNsYXNzPSJyb3cgcm93LTIiPg0KPGRpdiBjbGFzcz0iY29sIGNvbC1tZC00Ij4NCjxkaXYgY2xhc3M9ImNvbnRlbnQiPg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MzZweDsiPjxiPjk5JTwvYj48L3NwYW4+PC9wPg0KDQo8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+V0hTIHN0dWRlbnRzIHBhcnRpY2lwYXRlIGluIGF0IGxlYXN0IG9uZSBleHRyYWN1cnJpY3VsYXIgYWN0aXZpdHk8L3A+DQo8L2Rpdj4NCjwvZGl2Pg0KDQo8ZGl2IGNsYXNzPSJjb2wgY29sLW1kLTQiPg0KPGRpdiBjbGFzcz0iY29udGVudCI+DQo8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTozNnB4OyI+PHN0cm9uZz4yNi42PC9zdHJvbmc+PC9zcGFuPjwvcD4NCg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPkFDVCBDb21wb3NpdGUgZm9yIENsYXNzIG9mIDIwMTg8YnIgLz4NCi0gU2l4IHBvaW50cyBhYm92ZSBuYXRpb25hbCBhdmVyYWdlPC9wPg0KPC9kaXY+DQo8L2Rpdj4NCg0KPGRpdiBjbGFzcz0iY29sIGNvbC1tZC00Ij4NCjxkaXYgY2xhc3M9ImNvbnRlbnQiPg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MzZweDsiPjxiPiQxNS41IG1pbGxpb248L2I+PC9zcGFuPjwvcD4NCg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPk1lcml0IGFpZCBlYXJuZWQgYnkgbWVtYmVycyBvZiBDbGFzcyBvZiAyMDE5PC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+ZAIDDw8WAh8FBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTVkZAIPD2QWBGYPDxYEHwUFAS8fBAVIPHNwYW4gY2xhc3M9InRvcCI+V3lvbWluZzwvc3Bhbj48c3BhbiBjbGFzcz0iYm90dG9tIj5DaXR5IFNjaG9vbHM8L3NwYW4+ZGQCAQ9kFgJmDxYCHwACAxYGZg9kFgJmDxUFBi9sb2dpbgpDTVMgTG9naW4gBV9zZWxmJjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5DTVMgTG9naW48L3NwYW4+DWZhIGZhLXNpZ24taW5kAgEPZBYCZg8VBRdodHRwOi8vd3d3LnR3aXR0ZXIuY29tIAdUd2l0dGVyBV9zZWxmJDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5Ud2l0dGVyPC9zcGFuPhRmYSBmYS10d2l0dGVyLXNxdWFyZWQCAg9kFgJmDxUFCy9hZGEtcmVwb3J0DUFEQSBSZXBvcnRpbmcFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBMaW5rPC9zcGFuPhZmYSBmYS11bml2ZXJzYWwtYWNjZXNzZGTar7OhZgIdlI9yVqLkycChRzd8qA==">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'ILxAaM2Kec' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><header id="site-head"><div id="DesktopHeader" class="hidden-xs">
+    <div class="bg-header0 clearfix">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="wrap-search">
+                        
+
+<div class="search-box">
+	<label for="txtSearchBox" class="obscure">Search site using Google</label><input id="txtSearchBox" type="text" class="search-box-input" placeholder="Search" onkeyup="return tableInputKeyPress(event)"><i class="search-box-go fa fa-search bSearch3"></i>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-header1">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="wrap-logoHeader">
+                        <a id="ctl00_ctl00_header_ctl00_logo" class="logoHeader" href="/"><span class="sr-only">Wyoming City Schools</span></a>
+                    </div>
+
+                    <div class="wrap-schools">
+                        <a aria-label="Wyoming City Schools homepage" href="/">
+                            <span class="schoolTable">
+                                <span class="schoolCell">
+                                    <span class="schoolImage"></span>
+                                </span>
+
+                                <span class="schoolCell">
+                                    Wyoming<br>City<br>Schools
+                                </span>
+                            </span>
+                        </a>
+                        
+                        <a aria-label="Wyoming High School homepage" href="/1/home">
+                            <span class="schoolTable">
+                                <span class="schoolCell">
+                                    <span class="schoolImage"></span>
+                                </span>
+
+                                <span class="schoolCell">
+                                    Wyoming<br>High<br>School
+                                </span>
+                            </span>
+                        </a>
+                        
+                        <a aria-label="Wyoming Middle School homepage" href="/2/home">
+                            <span class="schoolTable">
+                                <span class="schoolCell">
+                                    <span class="schoolImage"></span>
+                                </span>
+
+                                <span class="schoolCell">
+                                    Wyoming<br>Middle<br>School
+                                </span>
+                            </span>
+                        </a>
+                        
+                        <a aria-label="Wyoming Primary Schools homepage" href="/3/home">
+                            <span class="schoolTable">
+                                <span class="schoolCell">
+                                    <span class="schoolImage"></span>
+                                </span>
+
+                                <span class="schoolCell">
+                                    Wyoming<br>Primary<br>Schools
+                                </span>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="MobileHeader" class="hidden-sm hidden-md hidden-lg">
+    <div class="wrap-mobileMenu">
+        <div class="table">
+            <div class="cell name">
+                <a id="ctl00_ctl00_header_ctl00_mobileName" class="mobileName" href="/">Wyoming City Schools</a>
+            </div>
+
+            <div class="cell button">
+                <a class="expandMobileButton" href="#mobileNavs" data-toggle="collapse">
+                    <i class="fa fa-bars" aria-hidden="true"></i>
+                    <span class="sr-only">expand mobile navigation</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="mobileNavs" class="collapse">
+        <div class="wrap-schools">
+                        <a aria-label="Wyoming City Schools homepage" href="/">
+                            <span class="schoolTable">
+                                <span class="schoolCell">
+                                    <span class="schoolImage"></span>
+                                    <span>  Wyoming<br>City<br>Schools</span>
+                                </span>
+
+                            </span>
+                        </a>
+                        
+                        <a aria-label="Wyoming High School homepage" href="/1/home">
+                            <span class="schoolTable">
+                                <span class="schoolCell">
+                                    <span class="schoolImage"></span>
+                                    <span>    Wyoming<br>High<br>School</span>
+                                </span>
+
+                         
+                            </span>
+                        </a>
+                        
+                        <a aria-label="Wyoming Middle School homepage" href="/2/home">
+                            <span class="schoolTable">
+                                <span class="schoolCell">
+                                    <span class="schoolImage"></span>
+                                    <span>  Wyoming<br>Middle<br>School</span>
+                                </span>
+
+                             
+                            </span>
+                        </a>
+                        
+                        <a aria-label="Wyoming Primary Schools homepage" href="/3/home">
+                            <span class="schoolTable">
+                                <span class="schoolCell">
+                                    <span class="schoolImage"></span>
+                                    <span>  Wyoming<br>Primary<br>Schools</span>
+                                </span>
+
+                            </span>
+                        </a>
+                    </div>
+        <ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/administration/6" title="Academics">Academics</a></li>
+<li class="without-image"><a href="/administration/8" title="Arts">Arts</a></li>
+<li class="without-image"><a href="https://wyomingathletics.org/" target="_blank" title="Athletics">Athletics</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Central Office ">Central Office   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/about-our-office" title="About Our Office">About Our Office</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Education">Board of Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/board" title="Agendas &amp; Minutes">Agendas &amp; Minutes</a></li>
+<li class="without-image"><a href="/board" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/content/4" target="_blank" title="Citizens Advisory Committee">Citizens Advisory Committee</a></li>
+<li class="without-image"><a href="https://go.boarddocs.com/oh/wycsdoh/Board.nsf/Public?open&amp;id=policies" target="_blank" title="Policy Manual">Policy Manual</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Communication &amp; Connection">Communication &amp; Connection  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/126" title="Communication &amp; Connection">Communication &amp; Connection</a></li>
+<li class="without-image"><a href="/content/60" title="District Publications">District Publications</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content2/14" title="Finances">Finances</a></li>
+<li class="without-image"><a href="/content/22" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="/administration/4" title="Pupil Services">Pupil Services</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Find It Fast ">Find It Fast   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendars">Calendars  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/calendar" title="District Calendar">District Calendar</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board-Approved School Calendars">Board-Approved School Calendars  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/2019-2020%20revised%20district%20calendar%20board%20approved%202.24.2020.pdf?id=351" target="_blank" aria-label="" title="2019-2020">2019-2020</a></li>
+<li class="without-image"><a href="/userfiles/-32/My%20Files/2020-21%20Board%20Approved%20Calendar.pdf?id=60" target="_blank" title="2020-2021">2020-2021</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content2/114" target="_blank" title="Canvas Login">Canvas Login</a></li>
+<li class="without-image"><a href="/Content/60" title="District Publications">District Publications</a></li>
+<li class="without-image"><a href="/Administration2/10" title="Other Parent &amp; Student Resources">Other Parent &amp; Student Resources</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Prospective Families">Prospective Families  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content2/24" title="Welcome!">Welcome!</a></li>
+<li class="without-image"><a href="/Content2/26" title="Enrollment Forms &amp; Process">Enrollment Forms &amp; Process</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/70" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Content2/28" title="Supporting Organizations">Supporting Organizations</a></li>
+</ul>
+</li>
+</ul>
+<ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/administration/6" title="Academics">Academics</a></li>
+<li class="without-image"><a href="/administration/8" title="Arts">Arts</a></li>
+<li class="without-image"><a href="https://wyomingathletics.org/" target="_blank" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Central Office">Central Office  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/Content2/126" title="Communication &amp; Connection">Communication &amp; Connection</a></li>
+<li class="without-image"><a href="/Content2/14" title="Finances">Finances</a></li>
+<li class="without-image"><a href="/content/22" aria-label="" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="#" aria-label="" title="Pupil Services">Pupil Services</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+</ul>
+</div>
+</div>
+
+            
+        </header><script type="text/javascript" src="/admin/js/Cycle2/jquery.cycle2.dev.js"></script><script src="https://player.vimeo.com/api/player.js"></script><script type="text/javascript">
+    // https://stackoverflow.com/a/51789311/5629100
+    var YoutubeVideos = (function () {
+        var playersYoutube = [],	// players array (to control players individually)
+            queueYoutube = [];		// videos queue (once api is ready, transform this into YT player)
+
+        // Constructor
+        function YoutubeVideos() { }
+
+        // Add elements to queue
+        YoutubeVideos.prototype.add = function ($video) {
+            queueYoutube.push($video);
+        };
+
+        // Finds player based on the id of the iframe element
+        YoutubeVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersYoutube.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Load Youtube API
+        YoutubeVideos.prototype.loadApi = function () {
+            $.getScript("https://www.youtube.com/iframe_api", function () {
+                window.onYouTubeIframeAPIReady = function () {
+                    queueYoutube.forEach(function ($video) {
+                        var loopBit = function () {
+                            if ($video.data('loop-video') == true) {
+                                return 1;
+                            }
+                            return 0;
+                        };
+
+                        var player = new YT.Player($video.get(0), {
+                            width: $video.data('frame-width'),
+                            height: $video.data('frame-height'),
+                            videoId: $video.data('video-id'),
+                            events: {
+                                'onStateChange': onPlayerStateChange,
+                                'onReady': onPlayerReady
+                            },
+                            playerVars: {
+                                autoplay: 0,
+                                rel: 0,
+                                enablejsapi: 1,
+                                loop: loopBit
+                            },
+                            origin: window.location.origin
+                        });
+
+                        playersYoutube.push({
+                            playerId: $video.attr('id'),
+                            player: player
+                        });
+                    });
+                };
+            });
+        };
+
+        return YoutubeVideos;
+    })();
+
+    // Modified from https://stackoverflow.com/a/51789311/5629100
+    var VimeoVideos = (function () {
+        var queueVimeo = [],		// queue of elements which will become players.
+            playersVimeo = [];		// players array (to control players individually)
+
+        // Constructor
+        function VimeoVideos() { }
+
+        // Add elements to queue
+        VimeoVideos.prototype.add = function ($video) {
+            queueVimeo.push($video);
+        };
+
+        // Converts queue to players.
+        VimeoVideos.prototype.loadPlayers = function () {
+            queueVimeo.forEach(function (item, index) {
+                var vimeoOptions = {
+                    id: $(item).data('video-id'),
+                    autoplay: false,
+                    muted: ($(item).data('autoplay') == true) ? true : false
+                };
+
+                playersVimeo[index] = {
+                    playerId: $(item).attr('id'),
+                    player: new Vimeo.Player(item, vimeoOptions)
+                };
+            });
+        };
+
+        // Finds player based on the id of the iframe element
+        VimeoVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersVimeo.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Adds listeners to the players that have been created now so they interact
+        // correctly with the header galleries.
+        VimeoVideos.prototype.bindListeners = function () {
+            playersVimeo.forEach(function (item) {
+                item.player.on('play', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+                    $wrapSlideshow.find('.cycle-pager').fadeOut();
+                    $wrapSlideshow.find('.playPause').fadeOut();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('pause', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                    $(this.element.parentNode).data('paused', true);
+                    $wrapSlideshow.find('.cycle-pager').fadeIn();
+                    $wrapSlideshow.find('.playPause').fadeIn();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('ended', function () {
+                    if ($(this.element.parentNode).data('loop-video') == true) {
+                        this.play();
+                    } else {
+                        var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                        $(this.element.parentNode).data('paused', true);
+                        $wrapSlideshow.find('.cycle-pager').fadeIn();
+                        $wrapSlideshow.find('.playPause').fadeIn();
+                        $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                    }
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.ready().then(function () {
+                    if ($(this).parents('.cycle-slide-active').length > 0 && $(this).data('autoplay') == true) {
+                        this.play();
+                    }
+                });
+            });
+        };
+
+        return VimeoVideos;
+    })();
+
+    // When the Youtube video is paused, ends, or begins, we need to either
+    // show or hide the slideshow controls and either pause or resume the
+    // slideshow. We also handle looping the Youtube videos here because the
+    // Youtube API is not 100% reliable for that function.
+    function onPlayerStateChange(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        var $wrapSlideshow = $videoElem.parents('.wrap-slideshow').first();
+        var videoState = e.data;
+
+        if (videoState == YT.PlayerState.PAUSED) {
+            $videoElem.data('paused', true);
+            $wrapSlideshow.find('.cycle-pager').fadeIn();
+            $wrapSlideshow.find('.playPause').fadeIn();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+        }
+
+        if (videoState == YT.PlayerState.ENDED) {
+            if ($videoElem.data('loop-video') == true) {
+                playYoutubePlayerById($videoElem.attr('id'));
+            } else {
+                $videoElem.siblings('.youtubeVideoThumbnail').show();
+                $videoElem.siblings('.youtubeVideoThumbnailPlay').show();
+                $wrapSlideshow.find('.cycle-pager').fadeIn();
+                $wrapSlideshow.find('.playPause').fadeIn();
+                $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+            }
+        }
+
+        if (videoState == YT.PlayerState.PLAYING) {
+            $videoElem.data('paused', false);
+            $videoElem.siblings('.youtubeVideoThumbnail').fadeOut();
+            $videoElem.siblings('.youtubeVideoThumbnailPlay').fadeOut();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+            $wrapSlideshow.find('.cycle-pager').fadeOut();
+            $wrapSlideshow.find('.playPause').fadeOut();
+        }
+    }
+
+    function onPlayerReady(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        if ($videoElem.parent('.cycle-slide-active').length > 0 && $videoElem.data('autoplay') == true) {
+            e.target.mute();
+            forcePlayYoutubePlayer(e.target);
+        }
+    }
+
+    function pauseYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            forcePauseYoutubePlayer(player);
+        }
+    }
+
+    function forcePauseYoutubePlayer(player) {
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePauseYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function playYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        forcePlayYoutubePlayer(player);
+    }
+
+    function muteYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.mute();
+    }
+
+    function forcePlayYoutubePlayer(player) {
+        player.playVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePlayYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function pauseVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.pause();
+        }
+    }
+
+    function playVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.play();
+        }
+    }
+
+    function addYouTubeStyles(videoId, containerWidth, containerHeight, videoWidth, videoHeight, videoZoom) {
+        var containerRatio = containerWidth / containerHeight;
+        var videoRatio = videoWidth / videoHeight;
+        var trueSize = $('#' + videoId).parents('.headerGalleryV2').innerWidth() / containerWidth;
+        var styles = '#' + videoId + ' {';
+
+        if (containerRatio === videoRatio) { // Video already fits the size of the container.
+            styles += 'top: 0;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+            styles += 'height: 100%;';
+        } else if (containerRatio > videoRatio) { // Container wider than video, needs to cut off top and bottom of video to scale.
+            var scale = (containerWidth / videoWidth);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateY(-' + (((videoHeight * scale) - containerHeight) / (videoHeight * scale) * 50) + '%);'
+            }
+        } else { // Container taller than video, needs to cut off left and right of video to scale.
+            var scale = (containerHeight / videoHeight);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'height: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateX(-' + (((videoWidth * scale) - containerWidth) / (videoWidth * scale) * 50) + '%);'
+            }
+        }
+
+        styles += '}';
+
+        if ($('#youtubeVideo' + videoId + 'Styles').length > 0) {
+            $('#youtubeVideo' + videoId + 'Styles').remove();
+        }
+
+        var styleTag = $('<style id="#youtubeVideo' + videoId + 'Styles"></style>')
+        $('head').append(styleTag);
+        $(styleTag).append(styles);
+    }
+
+    // Global Variables
+    var youtubes = new YoutubeVideos();
+    var vimeos = new VimeoVideos();
+
+    $(document).ready(function () {
+        $('.youtubeVideoSlide').each(function () {
+            youtubes.add($(this));
+        });
+
+        youtubes.loadApi();
+
+        $('.vimeoVideoSlide').each(function () {
+            vimeos.add($(this));
+        });
+
+        vimeos.loadPlayers();
+        vimeos.bindListeners();
+
+        $('.wrap-slideshow').on('click', '.youtubeVideoThumbnailPlay, .youtubeVideoThumbnail', function () {
+            playYoutubePlayerById($(this).data('player-id'));
+        });
+    });
+
+    $(document).on('cycle-initialized', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+        var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+        var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+        if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true) {
+            youtubeSlide.parents('.headerGalleryV2').cycle('pause');
+        }
+
+        if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true) {
+            vimeoSlide.parents('.headerGalleryV2').cycle('pause');
+            playVimeoPlayerById(vimeoSlide.attr('id'));
+        }
+
+        $('.cycle-pager > span').attr('tabindex', 0);
+    });
+
+    $(document).ready(function () {
+        // For ADA Compliance
+        $('.wrap-slideshow').on('keydown', '.prevNext > i, .cycle-pager > span, .playPause > i', function (e) {
+            if (e.keyCode === 32 || e.keyCode === 13) {
+                e.preventDefault();
+                $(this).click();
+            }
+        });
+    });
+</script><script>
+    $(document).ready(function () {
+        $slideshow = $('#slideshow').cycle({
+            'pauseOnHover': '#slideshow',
+            'slides': '> .slide',
+            'pager': '.slideshow.cycle-pager',
+            'pagerTemplate': '<span class="page"><span class="obscure">slide number {{slideNum}}</span></span>',
+            'autoHeight': '1900:650',
+            'timeout': 5500,
+            'fx': 'fade',
+            'log': false
+        });
+
+        setTimeout(function () {
+            $('.wrap-slideshow.slideshow .playPause .fa-play').on('click', function () {
+                $slideshow.cycle('resume');
+                $('#slideshow').data('paused', false);
+            });
+
+            $('.wrap-slideshow.slideshow .playPause .fa-pause').on('click', function () {
+                $slideshow.cycle('pause');
+                $('#slideshow').data('paused', true);
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-left').on('click', function () {
+                $slideshow.cycle('prev');
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-right').on('click', function () {
+                $slideshow.cycle('next');
+            });
+        }, 500);
+
+        $slideshow.on('cycle-before', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0) {
+                pauseYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0) {
+                pauseVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+        $slideshow.on('cycle-after', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true && youtubeSlide.data('paused') != true) {
+                muteYoutubePlayerById(youtubeSlide.attr('id'))
+                playYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true && vimeoSlide.data('paused') != true) {
+                playVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+	
+    });
+</script><div class="wrap-slideshow slideshow">
+    <div id="slideshow" class="headerGalleryV2">
+        
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl00_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-01/8b749adb-973e-4b8d-a371-d1da8aa0e077.jpg" alt="Committee members wield shovels at site of future athletic facility" style="border-width:0px;"><div class="caption">
+		<div class="captionTop">
+			<a href="http://www.wyomingcityschs.oh.schools.bz/News/13#sthash.5wxJrGmF.dpbs" target="_blank">Construction begins on indoor athletic center on Wyoming High School campus! Read more...</a>
+		</div>
+	</div>
+</div>
+            
+    </div>
+
+    <div class="prevNext">
+        <i class="fa fa-chevron-left" aria-label="previous slide" tabindex="0"></i>
+        <i class="fa fa-chevron-right" aria-label="next slide" tabindex="0"></i>
+    </div>
+
+    <div class="cycle-pager slideshow"></div>
+
+    <div class="playPause">
+        <i class="fa fa-play" aria-label="play, resume header gallery" tabindex="0"></i>
+        <i class="fa fa-pause" aria-label="pause, stop header gallery" tabindex="0"></i>
+    </div>
+</div>
+
+
+<style>
+    .caption {
+        position: absolute;
+        bottom: 25%;
+        left: 0;
+        width: 100%;
+        padding: 0 20%;
+        z-index: 2;
+    }
+</style>
+<style>#slideshow{position:relative;z-index:1;</style>
+<style type="text/css">
+    .wrap-slideshow {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .slide {
+        display: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide.cycle-slide-active {
+        display: block;
+        animation-name: fadeIn;
+        animation-duration: 1000ms;
+    }
+
+    .slide img {
+        width: 100%;
+        display: block;
+    }
+
+    .caption,
+    .caption a {
+        color: #fff;
+    }
+
+    .captionTop,
+    .captionBottom {
+        display: none;
+    }
+
+    .cycle-slide-active .captionTop {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        animation-name: none;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-slide-active .captionBottom {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.4);
+        text-align: center;
+        animation-name: none;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-pager {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        z-index: 2;
+    }
+
+    .cycle-pager .page {
+        display: inline-block;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+    .cycle-pager .page:before {
+        display: inline-block;
+        content: '';
+        width: 12px;
+        height: 12px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        line-height: 1px;
+    }
+
+    .cycle-pager .page.cycle-pager-active:before {
+        background-color: white;
+    }
+
+    .playPause {
+        position: absolute;
+        bottom: 0px;
+        right: 10px;
+        padding: 0;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .playPause i {
+        margin-bottom: 3px;
+    }
+
+    .playPause i.fa-play {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 8px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause i.fa-play:before {
+        margin-top: -1px;
+        margin-right: -2px;
+    }
+
+    .playPause i.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 9px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause svg.fa-play,
+    .playPause svg.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 11px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -15px;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .prevNext svg {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+    }
+
+    .prevNext svg.fa-chevron-left {
+        padding-left: 3px;
+    }
+
+    .prevNext svg.fa-chevron-right {
+        padding-right: 3px;
+    }
+
+    .prevNext i {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext .fa-chevron-left {
+        left: 20px;
+    }
+
+    .prevNext svg:first-child,
+    .prevNext .fa-chevron-left:before {
+        margin-left: -2px;
+    }
+
+    .prevNext .fa-chevron-right {
+        right: 20px;
+    }
+
+    .prevNext svg:last-child,
+    .prevNext .fa-chevron-right:before {
+        margin-right: -2px;
+    }
+
+    .wrap-slideshow .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('');
+        background-size: contain;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+
+    .vimeoVideoSlide {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+    }
+
+    .vimeoVideoSlide iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .youtubeVideoSlide {
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide .youtubeVideoThumbnail {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        object-fit: contain;
+        object-position: center;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .youtubeVideoThumbnailPlay {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background-color: #f00;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    .youtubeVideoThumbnailPlay i {
+        margin: 0 -2px 0 0;
+        line-height: 100%;
+    }
+
+    @keyframes none {
+        from {
+            display: block;
+        }
+
+        to {
+            display: block;
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            left: 100%;
+        }
+
+        60% {
+            left: -10px;
+        }
+
+        to {
+            left: 0;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            right: 100%;
+        }
+
+        60% {
+            right: -10px;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+<style id="youtubeStyles"></style>
+<section id="site-body"><div id="start-content"></div>
+    <div id="uw_skip_to_main_content_anchor"></div>
+
+    <div class="bg-body1 hidden-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <nav id="topNav"><ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/administration/6" title="Academics">Academics</a></li>
+<li class="without-image"><a href="/administration/8" title="Arts">Arts</a></li>
+<li class="without-image"><a href="https://wyomingathletics.org/" target="_blank" title="Athletics">Athletics</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Central Office ">Central Office   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/about-our-office" title="About Our Office">About Our Office</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Education">Board of Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/board" title="Agendas &amp; Minutes">Agendas &amp; Minutes</a></li>
+<li class="without-image"><a href="/board" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/content/4" target="_blank" title="Citizens Advisory Committee">Citizens Advisory Committee</a></li>
+<li class="without-image"><a href="https://go.boarddocs.com/oh/wycsdoh/Board.nsf/Public?open&amp;id=policies" target="_blank" title="Policy Manual">Policy Manual</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Communication &amp; Connection">Communication &amp; Connection  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/126" title="Communication &amp; Connection">Communication &amp; Connection</a></li>
+<li class="without-image"><a href="/content/60" title="District Publications">District Publications</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content2/14" title="Finances">Finances</a></li>
+<li class="without-image"><a href="/content/22" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="/administration/4" title="Pupil Services">Pupil Services</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Find It Fast ">Find It Fast   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendars">Calendars  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/calendar" title="District Calendar">District Calendar</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board-Approved School Calendars">Board-Approved School Calendars  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/2019-2020%20revised%20district%20calendar%20board%20approved%202.24.2020.pdf?id=351" target="_blank" aria-label="" title="2019-2020">2019-2020</a></li>
+<li class="without-image"><a href="/userfiles/-32/My%20Files/2020-21%20Board%20Approved%20Calendar.pdf?id=60" target="_blank" title="2020-2021">2020-2021</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content2/114" target="_blank" title="Canvas Login">Canvas Login</a></li>
+<li class="without-image"><a href="/Content/60" title="District Publications">District Publications</a></li>
+<li class="without-image"><a href="/Administration2/10" title="Other Parent &amp; Student Resources">Other Parent &amp; Student Resources</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Prospective Families">Prospective Families  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content2/24" title="Welcome!">Welcome!</a></li>
+<li class="without-image"><a href="/Content2/26" title="Enrollment Forms &amp; Process">Enrollment Forms &amp; Process</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/70" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Content2/28" title="Supporting Organizations">Supporting Organizations</a></li>
+</ul>
+</li>
+</ul></nav>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-body2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="homepageHeader">
+                        <span class="blockHeader">
+                            Wyoming City Schools
+                        </span>
+                        <br><span class="large">News &amp; Announcements</span>
+                    </h2>
+
+                    <div class="wrap-news hidden-xs">
+                        
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/27">District Updates: COVID-19</a>
+
+				<span class="news-post-date">Posted On: Thursday, March 12, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl01_lnkImage" class="news-image" href="/News/27"><img id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl01_articleImage" src="/docs/_Thumb_/district/covid-19/black%20and%20green%20gradients%20automotive%20business%20card%20(1).png?id=366&amp;thumbwidth=190&amp;fullwidth=500" alt="COVID-19 Graphic" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl01_lblSummary" class="news-summary"><p>COVID-19 information, including communications and actions of the district, can be found on the <a href="https://www.wyomingcityschools.org/Content/166" target="_blank">District Updates: COVID-19 section</a> of the district website.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl01_lnkViewAll" title="Click to read more about: District Updates: COVID-19" class="view-all" href="/News/27">Read More <span class="sr-only">about District Updates: COVID-19</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/15">District receives Auditor of State Award</a>
+
+				<span class="news-post-date">Posted On: Monday, February 3, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl02_lnkImage" class="news-image" href="/News/15"><img id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl02_articleImage" src="/docs/_Thumb_/district/district%20news/auditor%20award.jpg?id=288&amp;thumbwidth=190&amp;fullwidth=500" alt="Wyoming City Schools Treasurer Ronda Johnson receives the Auditor of State Award from Ryan Holiday, Southwest Regional Liaison for Ohio Auditor of State Keith Faber." style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl02_lblSummary" class="news-summary"><p>Wyoming City Schools has earned the Auditor of State Award for excellence in financial reporting. This award is presented to local governments and school districts upon completion of a “clean” audit report. <br>
+ <br>
+"We are so proud to earn this award again!” said Wyoming City Schools Treasurer Ronda Johnson. "Our goal is to be good stewards of our taxpayers’ dollars and this award is testimony to the dedication and excellent work of all staff members across the District who handle public funds."</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl02_lnkViewAll" title="Click to read more about: District receives Auditor of State Award" class="view-all" href="/News/15">Read More <span class="sr-only">about District receives Auditor of State Award</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/16">Bugs and Beetles and Butterflies, Oh My!</a>
+
+				<span class="news-post-date">Posted On: Monday, February 3, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl03_lnkImage" class="news-image" href="/News/16"><img id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl03_articleImage" src="/docs/_Thumb_/district/wms%20news/rainbarrel.jpg?id=289&amp;thumbwidth=190&amp;fullwidth=500" alt="Fifth and sixth grade students in Wyoming Middle School's Art Club's drawings of bugs, beetles and butterflies" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl03_lblSummary" class="news-summary"><p>Fifth and sixth grade students in Wyoming Middle School's Art Club have been working hard on drawing bugs, beetles and butterflies! Their creations were featured on the rain barrel design they submitted to the Cincinnati Zoo and, out of 240 applications, their design was one of the 40 chosen!</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl03_lnkViewAll" title="Click to read more about: Bugs and Beetles and Butterflies, Oh My!" class="view-all" href="/News/16">Read More <span class="sr-only">about Bugs and Beetles and Butterflies, Oh My!</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/14">Owl pellet dissection brings fascinating finds into fourth grade</a>
+
+				<span class="news-post-date">Posted On: Monday, February 3, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl04_lnkImage" class="news-image" href="/News/14"><img id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl04_articleImage" src="/docs/_Thumb_/district/primary%20news/owl%20pellets%202.jpg?id=284&amp;thumbwidth=190&amp;fullwidth=500" alt="Sharing their discoveries" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl04_lblSummary" class="news-summary"><p>This month, students in Ms. Fox's class dissected owl pellets as part of the 4th grade science curriculum. A pellet, in ornithology, is the mass of undigested parts of a bird's food that some bird species occasionally regurgitate. The contents of a bird's pellet depend on its diet, but can include the exoskeletons of insects, indigestible plant matter, bones, fur, feathers, bills, claws, and teeth.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl04_lnkViewAll" title="Click to read more about: Owl pellet dissection brings fascinating finds into fourth grade" class="view-all" href="/News/14">Read More <span class="sr-only">about Owl pellet dissection brings fascinating finds into fourth grade</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl05_lnkTitle" class="news-title" href="/News/coomer-hixson-teacher-of-the-year">Laura Coomer finalist for Hixson Teacher of the Year Award</a>
+
+				<span class="news-post-date">Posted On: Friday, December 27, 2019</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl05_lnkImage" class="news-image" href="/News/coomer-hixson-teacher-of-the-year"><img id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl05_articleImage" src="/docs/_Thumb_/district/whs%20news/news%20feed%20-%20hixson.jpg?id=275&amp;thumbwidth=190&amp;fullwidth=500" alt="Annabell and Laura Coomer, Hixson Teacher of the Year Finalist" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl05_lblSummary" class="news-summary"><p>The Hixson Teacher of the Year Award recognizes full-time teachers who are making outstanding contributions to students' lives. Since 1991, Hixson has sponsored the Teacher of the Year Award, which is presented annually to a current teacher of a Hixson associate’s child or grandchild. Mrs. Coomer was nominated by sisters Lauren and Annabelle Montgomery. Mrs. Coomer was recognized for her ability to inspire students of all backgrounds and abilities; earn the respect and admiration of students, parents and co-workers; and for playing an active role in her community, as well as her school's community activities.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl05_lnkViewAll" title="Click to read more about: Laura Coomer finalist for Hixson Teacher of the Year Award" class="view-all" href="/News/coomer-hixson-teacher-of-the-year">Read More <span class="sr-only">about Laura Coomer finalist for Hixson Teacher of the Year Award</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl06_lnkTitle" class="news-title" href="/News/18">Share your impact story!</a>
+
+				<span class="news-post-date">Posted On: Tuesday, February 4, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl06_lnkImage" class="news-image" href="/News/18"><img id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl06_articleImage" src="/docs/_Thumb_/district/district%20news/impact.jpg?id=291&amp;thumbwidth=190&amp;fullwidth=500" alt="#ImpactWyoming logo" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl06_lblSummary" class="news-summary"><p>Our theme for this school year is #ImpactWyoming.  This is our way to realize that no matter what our role is within the district, we each have the incredible opportunity to make a difference for our students, staff, and families.  When we each realize the potential we have to #ImpactWyoming, the possibilities are endless for our students!</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl06_lnkViewAll" title="Click to read more about: Share your impact story!" class="view-all" href="/News/18">Read More <span class="sr-only">about Share your impact story!</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl07_lnkTitle" class="news-title" href="/News/students-excel-at-math-competition">Primary &amp; Middle School students excel at math competition</a>
+
+				<span class="news-post-date">Posted On: Friday, December 27, 2019</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl07_lnkImage" class="news-image" href="/News/students-excel-at-math-competition"><img id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl07_articleImage" src="/docs/_Thumb_/district/primary%20news/news%20feed%20-%20perennial%20math%201st%20place-4th%20grade.jpg?id=276&amp;thumbwidth=190&amp;fullwidth=500" alt="Perennial Math 1st Place Team" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl07_lblSummary" class="news-summary"><p>Forty-one (41) Wyoming Primary REACH students and 20 Middle School MathCounts club members had an extremely impressive showing at this weekend’s Perennial Math Competition. </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl07_lnkViewAll" title="Click to read more about: Primary &amp; Middle School students excel at math competition" class="view-all" href="/News/students-excel-at-math-competition">Read More <span class="sr-only">about Primary &amp; Middle School students excel at math competition</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl08_lnkTitle" class="news-title" href="/News/primary-students-helping-others">Primary school students working hard to help others!</a>
+
+				<span class="news-post-date">Posted On: Friday, December 27, 2019</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl08_lnkImage" class="news-image" href="/News/primary-students-helping-others"><img id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl08_articleImage" src="/docs/_Thumb_/district/primary%20news/icyo%202nd%20grade.jpg?id=211&amp;thumbwidth=190&amp;fullwidth=500" alt="Second graders test their board games" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl08_lblSummary" class="news-summary"><p>First-grade students participated in the annual chore chart project to benefit the current residents of the Ronald McDonald House Charities - Greater Cincinnati and students created board games that were packaged with books for Inner City Youth Opportunities in some of our second grade classes.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl08_lnkViewAll" title="Click to read more about: Primary school students working hard to help others!" class="view-all" href="/News/primary-students-helping-others">Read More <span class="sr-only">about Primary school students working hard to help others!</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section><a href="javascript:void(0);" class="prevNews"><i class="fa fa-caret-left" aria-hidden="true"></i><span class="sr-only">previous page of news articles</span></a>
+                        <a href="javascript:void(0);" class="nextNews"><i class="fa fa-caret-right" aria-hidden="true"></i><span class="sr-only">next page of news articles</span></a>
+                    </div>
+                    <div class="wrap-news hidden-sm hidden-md hidden-lg hidden-xl">
+                        
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl01_lnkTitle" class="news-title" href="/News/27">District Updates: COVID-19</a>
+
+				<span class="news-post-date">Posted On: Thursday, March 12, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl01_lnkImage" class="news-image" href="/News/27"><img id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl01_articleImage" src="/docs/_Thumb_/district/covid-19/black%20and%20green%20gradients%20automotive%20business%20card%20(1).png?id=366&amp;thumbwidth=190&amp;fullwidth=500" alt="COVID-19 Graphic" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl01_lblSummary" class="news-summary"><p>COVID-19 information, including communications and actions of the district, can be found on the <a href="https://www.wyomingcityschools.org/Content/166" target="_blank">District Updates: COVID-19 section</a> of the district website.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl01_lnkViewAll" title="Click to read more about: District Updates: COVID-19" class="view-all" href="/News/27">Read More <span class="sr-only">about District Updates: COVID-19</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_lnkTitle" class="news-title" href="/News/15">District receives Auditor of State Award</a>
+
+				<span class="news-post-date">Posted On: Monday, February 3, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_lnkImage" class="news-image" href="/News/15"><img id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_articleImage" src="/docs/_Thumb_/district/district%20news/auditor%20award.jpg?id=288&amp;thumbwidth=190&amp;fullwidth=500" alt="Wyoming City Schools Treasurer Ronda Johnson receives the Auditor of State Award from Ryan Holiday, Southwest Regional Liaison for Ohio Auditor of State Keith Faber." style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_lblSummary" class="news-summary"><p>Wyoming City Schools has earned the Auditor of State Award for excellence in financial reporting. This award is presented to local governments and school districts upon completion of a “clean” audit report. <br>
+ <br>
+"We are so proud to earn this award again!” said Wyoming City Schools Treasurer Ronda Johnson. "Our goal is to be good stewards of our taxpayers’ dollars and this award is testimony to the dedication and excellent work of all staff members across the District who handle public funds."</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_lnkViewAll" title="Click to read more about: District receives Auditor of State Award" class="view-all" href="/News/15">Read More <span class="sr-only">about District receives Auditor of State Award</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl03_lnkTitle" class="news-title" href="/News/16">Bugs and Beetles and Butterflies, Oh My!</a>
+
+				<span class="news-post-date">Posted On: Monday, February 3, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl03_lnkImage" class="news-image" href="/News/16"><img id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl03_articleImage" src="/docs/_Thumb_/district/wms%20news/rainbarrel.jpg?id=289&amp;thumbwidth=190&amp;fullwidth=500" alt="Fifth and sixth grade students in Wyoming Middle School's Art Club's drawings of bugs, beetles and butterflies" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl03_lblSummary" class="news-summary"><p>Fifth and sixth grade students in Wyoming Middle School's Art Club have been working hard on drawing bugs, beetles and butterflies! Their creations were featured on the rain barrel design they submitted to the Cincinnati Zoo and, out of 240 applications, their design was one of the 40 chosen!</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl03_lnkViewAll" title="Click to read more about: Bugs and Beetles and Butterflies, Oh My!" class="view-all" href="/News/16">Read More <span class="sr-only">about Bugs and Beetles and Butterflies, Oh My!</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl04_lnkTitle" class="news-title" href="/News/14">Owl pellet dissection brings fascinating finds into fourth grade</a>
+
+				<span class="news-post-date">Posted On: Monday, February 3, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl04_lnkImage" class="news-image" href="/News/14"><img id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl04_articleImage" src="/docs/_Thumb_/district/primary%20news/owl%20pellets%202.jpg?id=284&amp;thumbwidth=190&amp;fullwidth=500" alt="Sharing their discoveries" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl04_lblSummary" class="news-summary"><p>This month, students in Ms. Fox's class dissected owl pellets as part of the 4th grade science curriculum. A pellet, in ornithology, is the mass of undigested parts of a bird's food that some bird species occasionally regurgitate. The contents of a bird's pellet depend on its diet, but can include the exoskeletons of insects, indigestible plant matter, bones, fur, feathers, bills, claws, and teeth.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl04_lnkViewAll" title="Click to read more about: Owl pellet dissection brings fascinating finds into fourth grade" class="view-all" href="/News/14">Read More <span class="sr-only">about Owl pellet dissection brings fascinating finds into fourth grade</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+
+                    <div class="wrap-viewAllNews">
+                        <a href="/news">View All News</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-body3">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-4">
+                    <div class="wrap-calendar">
+                        <div class="calendarHeader">
+                            <span class="year">2020</span>
+                        </div>
+
+                        
+
+<style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ctl02_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl02%24cal_events','V7365')" style="color:Black" title="Go to the previous month">&lt;&lt;<span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April 2020</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl02%24cal_events','V7426')" style="color:Black" title="Go to the next month">&gt;&gt;<span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">S</th>
+<th align="center" abbr="Monday" scope="col">M</th>
+<th align="center" abbr="Tuesday" scope="col">T</th>
+<th align="center" abbr="Wednesday" scope="col">W</th>
+<th align="center" abbr="Thursday" scope="col">T</th>
+<th align="center" abbr="Friday" scope="col">F</th>
+<th align="center" abbr="Saturday" scope="col">S</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=3/29/2020">29</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=3/30/2020">30</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=3/31/2020">31</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/1/2020">1</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/2/2020">2</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/3/2020">3</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/5/2020">5</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/6/2020">6</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/7/2020">7</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/8/2020">8</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/9/2020">9</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/10/2020">10</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/12/2020">12</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/13/2020">13</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/14/2020">14</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/15/2020">15</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/16/2020">16</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/17/2020">17</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/19/2020">19</a></td>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/20/2020">20</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/21/2020">21</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/22/2020">22</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/23/2020">23</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/24/2020">24</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/26/2020">26</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/27/2020">27</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/28/2020">28</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/29/2020">29</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=4/30/2020">30</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52,53,54,55,56&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ctl02_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-8">
+                    <div class="wrap-events">
+                        
+
+<style type="text/css">
+    .upcoming-events-list {
+        display: block;
+        padding: 0;
+    }
+
+    .upcoming-events-event {
+        display: block;
+        height: 107px;
+        padding: 5px 10px;
+        margin-bottom: 5px;
+        background-color: #fff;
+        overflow: hidden;
+    }
+
+    .eventDate {
+        color: #666;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+    .wrap-viewAllEvents {
+        text-align: right;
+    }
+
+    .viewFullCalendarLink {
+        display: inline-block;
+        padding: 10px 15px;
+    }
+
+    .eventNameLink {
+        display: inline-block;
+        max-height: 1.8em;
+        color: #000;
+        font-size: 2em;
+        line-height: .9em;
+        text-transform: uppercase;
+        overflow: hidden;
+    }
+
+    .eventDirections {
+        display: block;
+        max-height: 1em;
+        color: #666;
+        font-size: 1em;
+        font-weight: 600;
+        line-height: 1em;
+    }
+
+    .eventTime {
+        min-height: 10px;
+    }
+</style>
+<section id="upcoming-events"><ul class="upcoming-events-list">
+<li class="upcoming-events-event event-273">
+            <div class="eventDate">
+                <div class="eventDateInner">
+                    <div class="month">
+                        Apr
+                    </div>
+
+                    <div class="day">
+                        20
+                    </div>
+                </div>
+            </div>
+
+            <div class="eventPanel">
+                <div class="eventTime">
+                    
+                </div>
+
+                <div class="eventName">
+                    <a class="eventNameLink" href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=273&amp;viewDate=Apr%2020%202020" title="Remote Education Plan Week">
+                        Remote Education Plan Week
+                    </a>
+                </div>
+
+                <div class="eventReadMore">
+                    <a href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=273&amp;viewDate=Apr%2020%202020" title="Remote Education Plan Week">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </li>
+    
+        <li class="upcoming-events-event event-24">
+            <div class="eventDate">
+                <div class="eventDateInner">
+                    <div class="month">
+                        Apr
+                    </div>
+
+                    <div class="day">
+                        20
+                    </div>
+                </div>
+            </div>
+
+            <div class="eventPanel">
+                <div class="eventTime">
+                    Begins @ 7:30 PM
+                </div>
+
+                <div class="eventName">
+                    <a class="eventNameLink" href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=24&amp;viewDate=Apr%2020%202020" title="Wyoming City Council Meeting">
+                        Wyoming City Council Meeting
+                    </a>
+                </div>
+
+                <div class="eventReadMore">
+                    <a href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=24&amp;viewDate=Apr%2020%202020" title="Wyoming City Council Meeting">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </li>
+    
+        <li class="upcoming-events-event event-133">
+            <div class="eventDate">
+                <div class="eventDateInner">
+                    <div class="month">
+                        Apr
+                    </div>
+
+                    <div class="day">
+                        21
+                    </div>
+                </div>
+            </div>
+
+            <div class="eventPanel">
+                <div class="eventTime">
+                    Begins @ 6:30 PM
+                </div>
+
+                <div class="eventName">
+                    <a class="eventNameLink" href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=133&amp;viewDate=Apr%2021%202020" title="4th Grade Parent Meeting">
+                        4th Grade Parent Meeting
+                    </a>
+                </div>
+
+                <div class="eventReadMore">
+                    <a href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=133&amp;viewDate=Apr%2021%202020" title="4th Grade Parent Meeting">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </li>
+    
+        <li class="upcoming-events-event event-190">
+            <div class="eventDate">
+                <div class="eventDateInner">
+                    <div class="month">
+                        Apr
+                    </div>
+
+                    <div class="day">
+                        21
+                    </div>
+                </div>
+            </div>
+
+            <div class="eventPanel">
+                <div class="eventTime">
+                    Begins @ 6:30 PM
+                </div>
+
+                <div class="eventName">
+                    <a class="eventNameLink" href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=190&amp;viewDate=Apr%2021%202020" title="WSF Board Meeting">
+                        WSF Board Meeting
+                    </a>
+                </div>
+
+                <div class="eventReadMore">
+                    <a href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=190&amp;viewDate=Apr%2021%202020" title="WSF Board Meeting">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </li>
+    
+        <li class="upcoming-events-event event-103">
+            <div class="eventDate">
+                <div class="eventDateInner">
+                    <div class="month">
+                        Apr
+                    </div>
+
+                    <div class="day">
+                        24
+                    </div>
+                </div>
+            </div>
+
+            <div class="eventPanel">
+                <div class="eventTime">
+                    Begins @ 7:30 PM
+                </div>
+
+                <div class="eventName">
+                    <a class="eventNameLink" href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=103&amp;viewDate=Apr%2024%202020" title="WHS Play: Rumors">
+                        WHS Play: Rumors
+                    </a>
+                </div>
+
+                <div class="eventReadMore">
+                    <a href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=103&amp;viewDate=Apr%2024%202020" title="WHS Play: Rumors">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </li>
+    
+        <li class="upcoming-events-event event-104">
+            <div class="eventDate">
+                <div class="eventDateInner">
+                    <div class="month">
+                        Apr
+                    </div>
+
+                    <div class="day">
+                        25
+                    </div>
+                </div>
+            </div>
+
+            <div class="eventPanel">
+                <div class="eventTime">
+                    Begins @ 7:30 PM
+                </div>
+
+                <div class="eventName">
+                    <a class="eventNameLink" href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=104&amp;viewDate=Apr%2025%202020" title="WHS Play: Rumors">
+                        WHS Play: Rumors
+                    </a>
+                </div>
+
+                <div class="eventReadMore">
+                    <a href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=104&amp;viewDate=Apr%2025%202020" title="WHS Play: Rumors">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </li>
+    
+        <li class="upcoming-events-event event-191">
+            <div class="eventDate">
+                <div class="eventDateInner">
+                    <div class="month">
+                        Apr
+                    </div>
+
+                    <div class="day">
+                        26
+                    </div>
+                </div>
+            </div>
+
+            <div class="eventPanel">
+                <div class="eventTime">
+                    Begins @ 1:00 PM
+                </div>
+
+                <div class="eventName">
+                    <a class="eventNameLink" href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=191&amp;viewDate=Apr%2026%202020" title="CANCELED- WSF Fun Run">
+                        CANCELED- WSF Fun Run
+                    </a>
+                </div>
+
+                <div class="eventReadMore">
+                    <a href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=191&amp;viewDate=Apr%2026%202020" title="CANCELED- WSF Fun Run">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </li>
+    
+        <li class="upcoming-events-event event-274">
+            <div class="eventDate">
+                <div class="eventDateInner">
+                    <div class="month">
+                        Apr
+                    </div>
+
+                    <div class="day">
+                        27
+                    </div>
+                </div>
+            </div>
+
+            <div class="eventPanel">
+                <div class="eventTime">
+                    
+                </div>
+
+                <div class="eventName">
+                    <a class="eventNameLink" href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=274&amp;viewDate=Apr%2027%202020" title="Remote Education Plan Week">
+                        Remote Education Plan Week
+                    </a>
+                </div>
+
+                <div class="eventReadMore">
+                    <a href="/calendarWeekView.aspx?schools=1,2,24,25,26,32,51,52,53,54,55,56&amp;schoolid=0&amp;types=&amp;eventID=274&amp;viewDate=Apr%2027%202020" title="Remote Education Plan Week">
+                        Read More
+                    </a>
+                </div>
+            </div>
+        </li>
+    
+        </ul></section><div class="wrap-viewAllEvents">
+    
+
+    <a id="ctl00_ctl00_MasterContent_ctl03_hl_viewAllEvents" class="view-all-events" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/20/2020">View All</a>
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ctl00_ctl00_MasterContent_wrapFeature123" class="bg-body4">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-md-4">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Follow us on Facebook
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <div id="fb-root"> </div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v5.0"></script><div class="fb-page" data-adapt-container-width="true" data-height="" data-hide-cover="false" data-href="https://www.facebook.com/wyomingcityschools/?hc_ref=NEWSFEED&amp;fref=nf" data-show-facepile="false" data-small-header="false" data-tabs="timeline" data-width="">
+<blockquote cite="https://www.facebook.com/wyomingcityschools/?hc_ref=NEWSFEED&amp;fref=nf" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/wyomingcityschools/?hc_ref=NEWSFEED&amp;fref=nf">Wyoming City Schools</a></blockquote>
+</div>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+
+                <div class="col-xs-12 col-md-4">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Publications
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p style="text-align: center;"><a href="https://mailchi.mp/675ff2aa82a0/cowboy-club-march-school-chatter?e=a49a54a5dc" target="_blank"><img alt="school chatter" class="" src="/userfiles/-16/my%20files/artboard%202.png?id=270&amp;width=50" style="width: 50px;"></a></p>
+
+<p style="text-align: center;"><a href="https://mailchi.mp/675ff2aa82a0/cowboy-club-march-school-chatter?e=a49a54a5dc" target="_blank"><span style="font-size:20px;"><span style="color:#112d5f;"><span style="font-family:Ratio Modern Small Caps;">SCHOOL CHATTER</span></span></span></a></p>
+
+<hr>
+<p style="text-align: center;"><a href="/docs/district/district%20publications/wow%20winter%202019final.pdf?id=295" target="_blank"><img alt="know your schools" src="/userfiles/-16/my%20files/artboard%201.png?id=271&amp;width=50" style="width: 50px;"></a></p>
+
+<p style="text-align: center;"><a href="/docs/district/district%20publications/wow%20winter%202019final.pdf?id=295" target="_blank"><span style="font-size:20px;"><span style="color:#112d5f;"><span style="font-family:Ratio Modern Small Caps;">KNOW YOUR SCHOOLS</span></span></span></a></p>
+
+<hr>
+<p style="text-align: center;"><img alt="reprot card" src="/userfiles/-16/my%20files/reportcard@2x.png?id=278&amp;width=50" style="width: 50px;"></p>
+
+<p style="text-align: center;"><a href="https://reportcard.education.ohio.gov/district/overview/045146" target="_blank"><span style="font-size:20px;"><span style="color:#112d5f;"><span style="font-family:Ratio Modern Small Caps;">STATE REPORT CARD</span></span></span></a></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+
+                <div class="col-xs-12 col-md-4">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Follow Us on Twitter
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p><a class="twitter-timeline" href="https://twitter.com/WyomingCity?ref_src=twsrc%5Etfw">Tweets by WyomingCity</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ctl00_ctl00_MasterContent_wrapFeature4" class="bg-body5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Our <span>Mission</span>
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p style="text-align: center;">Wyoming City Schools will promote academic achievement, self-worth, mutual respect, and multi-faceted student development so that our students will be positive contributors to our society.</p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ctl00_ctl00_MasterContent_wrapFeature5" class="bg-body6">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        District <span>Snapshot</span>
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <div class="btgrid">
+<div class="row row-1">
+<div class="col col-md-4">
+<div class="content">
+<p style="text-align: center;"><span style="font-size:36px;"><strong>76.9%</strong></span></p>
+
+<p style="text-align: center;">Funds spent on classroom instruction<br>
+- Ranked #1 among districts of similar size</p>
+</div>
+</div>
+
+<div class="col col-md-4">
+<div class="content">
+<p style="text-align: center;"><span style="font-size:36px;"><b>85+</b></span></p>
+
+<p style="text-align: center;">Extracurricular activities offered across district</p>
+</div>
+</div>
+
+<div class="col col-md-4">
+<div class="content">
+<p style="text-align: center;"><span style="font-size:36px;"><b>98%</b></span></p>
+
+<p style="text-align: center;">Graduation Rate</p>
+</div>
+</div>
+</div>
+
+<div class="row row-2">
+<div class="col col-md-4">
+<div class="content">
+<p style="text-align: center;"><span style="font-size:36px;"><b>99%</b></span></p>
+
+<p style="text-align: center;">WHS students participate in at least one extracurricular activity</p>
+</div>
+</div>
+
+<div class="col col-md-4">
+<div class="content">
+<p style="text-align: center;"><span style="font-size:36px;"><strong>26.6</strong></span></p>
+
+<p style="text-align: center;">ACT Composite for Class of 2018<br>
+- Six points above national average</p>
+</div>
+</div>
+
+<div class="col col-md-4">
+<div class="content">
+<p style="text-align: center;"><span style="font-size:36px;"><b>$15.5 million</b></span></p>
+
+<p style="text-align: center;">Merit aid earned by members of Class of 2019</p>
+</div>
+</div>
+</div>
+</div>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </section><footer id="site-foot"><div class="bg-footer1">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<a id="ctl00_ctl00_ctl07_name" class="nameFooter" href="/"><span class="top">Wyoming</span><span class="bottom">City Schools</span></a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+                <div class="wrap-contact">
+                    420 Springfield Pike<br>Wyoming, OH 45215<br>Phone: <a href="tel:513-206-7000" class="phoneNumber">513-206-7000</a><br>Fax: 513-672-3355
+                </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+                <div class="footerTable">
+                    <div class="cell">
+                        <div class="wrap-socialFooter">
+                            
+        <a href="/login" title="CMS Login " target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="http://www.twitter.com%20" title="Twitter" target="_self">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter-square"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+                        </div>
+                    </div>
+
+                    <div class="cell">
+                        <div class="wrap-branding">
+                            
+
+<div id="schoolpointe-branding">
+    <a target="_blank" href="https://schoolpointe.com/">Powered By
+    <svg style="width:120px; height:22px;" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewbox="0 0 3999.23 722.78"><path d="M736.06,795.14l-187-39.9a48.32,48.32,0,0,1-34.56-28.78L441.35,549.8c-13.67-33-59.26-36-77.15-5.1L268.47,710.22a48.32,48.32,0,0,1-38.05,24l-190.62,15C4.18,752-12.77,794.4,11.11,821L134.83,958.59a60.05,60.05,0,0,1,13.73,54.16l-43.23,179.93c-8.35,34.74,26.76,64,59.42,49.47l41.38-18.39a72,72,0,0,0,42.79-65.83v-110.4A14.55,14.55,0,0,0,234.37,1033h0c-13.54,0-19.74-16.87-9.42-25.63l121.3-103.11a9.06,9.06,0,0,0,3.19-6.9V841a9.05,9.05,0,0,0-9-9.06A9.06,9.06,0,0,1,334,816.47l87.55-87.56a18.35,18.35,0,0,1,25.94,0L535,816.47a9.06,9.06,0,0,1-6.42,15.46,9.05,9.05,0,0,0-9,9.06v56.35a9.06,9.06,0,0,0,3.19,6.9l49.61,42.17a72,72,0,0,0,93.43-.1l89.27-76.22C782.23,846.89,771,802.6,736.06,795.14Z" transform="translate(0 -523.17)"></path><path class="a" d="M1040.47,1003l-62.76-16.84q-34.71-10.2-48-27.81t-13.27-48.74q0-39.29,24.24-55.62t82.92-16.33q55.74.84,98.39,6.84a18.82,18.82,0,0,1,16.09,20.64l-.71,6.75c-1.41,13.44-13.62,24.08-27.11,23.56-43.81-1.68-77.71-.68-103.6,1.47-19,1.58-21.32,28.42-2.86,33.17l83.08,21.37q33.69,9.71,48,25.77t14.29,47.71q0,44.91-26,61t-89.3,16.07a738.65,738.65,0,0,1-76.78-3.8,36.67,36.67,0,0,1-32.72-39.88h0a14.86,14.86,0,0,1,15.14-13.5q23.38.54,73.44.54,39.28,0,51.28-3.32t12-15.57a37.5,37.5,0,0,0-.28-4.75,9.82,9.82,0,0,0-1.28-3.71,14.52,14.52,0,0,0-2-2.76,15.78,15.78,0,0,0-3.32-2.3c-1.53-.84-2.73-1.53-3.58-2a31.66,31.66,0,0,0-4.84-2q-3.59-1.27-5.62-1.79l-7.14-1.78A61.48,61.48,0,0,1,1040.47,1003Z" transform="translate(0 -523.17)"></path><path class="a" d="M1412.58,1051.63l1.23,9.12a30.63,30.63,0,0,1-22.77,33.76q-31,8-71.33,8-69.4,0-97.72-29.85t-28.32-102.32q0-73,28.57-102.83t98.49-29.85q43.27,0,74.27,9.07a22.18,22.18,0,0,1,15.42,25.12l-.49,2.79a30.6,30.6,0,0,1-30.66,25.33q-33.33-.56-45.78-.56-34.71,0-47.71,14.8t-13,56.13q0,41.34,13,56.13t47.71,14.8a619.55,619.55,0,0,0,62.42-2.82A15.3,15.3,0,0,1,1412.58,1051.63Z" transform="translate(0 -523.17)"></path><path class="a" d="M1696.67,855.49q-18.11-17.85-52.3-17.86c-30.53,0-58.85,8.58-90,30.69a5.37,5.37,0,0,1-8.52-4.34V749.7a10.56,10.56,0,0,0-10.55-10.56H1480.4a10.56,10.56,0,0,0-10.56,10.56V1089a7.34,7.34,0,0,0,7.34,7.34h49.9a18.29,18.29,0,0,0,18.29-18.29V944.88a32.92,32.92,0,0,1,19.34-30q29.89-13.41,50.57-13.41,13.79,0,19.14,6.38t5.35,23.22v158a7.34,7.34,0,0,0,7.34,7.34h49.39a18.29,18.29,0,0,0,18.29-18.29V907.54Q1714.79,873.36,1696.67,855.49Z" transform="translate(0 -523.17)"></path><path class="a" d="M1901.16,837.63q70.42,0,99.76,30.36t29.34,102.83q0,72.46-29.34,102.32T1901.16,1103q-70.94,0-100.28-29.85t-29.34-102.32q0-73,29.34-103.08T1901.16,837.63Zm0,56.65q-30.12,0-40.32,15.3t-10.2,61.24q0,44.91,10.2,60.22t40.32,15.31q29.08,0,39.55-15.31t10.46-60.22q0-45.42-10.21-61T1901.16,894.28Z" transform="translate(0 -523.17)"></path><path class="a" d="M2207.44,837.63q70.42,0,99.76,30.36t29.35,102.83q0,72.46-29.35,102.32T2207.44,1103q-70.93,0-100.27-29.85t-29.35-102.32q0-73,29.35-103.08T2207.44,837.63Zm0,56.65q-30.12,0-40.31,15.3t-10.21,61.24q0,44.91,10.21,60.22t40.31,15.31q29.08,0,39.55-15.31t10.46-60.22q0-45.42-10.21-61T2207.44,894.28Z" transform="translate(0 -523.17)"></path><path class="a" d="M2470.38,749.66l1,328.82a20.45,20.45,0,0,1-20.45,20.5h-48.23a7.33,7.33,0,0,1-7.33-7.33v-342a10.55,10.55,0,0,1,10.55-10.56h53.94A10.56,10.56,0,0,1,2470.38,749.66Z" transform="translate(0 -523.17)"></path><path class="a" d="M2778.63,873.7c-13.8-22.06-36-33.25-65.89-33.25-18.13,0-36.84,4.16-55.62,12.35A146.35,146.35,0,0,0,2618,877.72a4.83,4.83,0,0,1-5.07.9,4.92,4.92,0,0,1-3.15-4.2L2608,854.69a8.86,8.86,0,0,0-8.88-8.12H2578a8.93,8.93,0,0,0-8.92,8.92v335.78a8.93,8.93,0,0,0,8.92,8.92h20.58a16.42,16.42,0,0,0,16.41-16.4V1127c0-15.44-.27-28.51-.78-38.84a4.81,4.81,0,0,1,2.23-4.35,4.92,4.92,0,0,1,5-.22,177.56,177.56,0,0,0,82.61,20.18c32.92,0,57.29-10,72.44-29.83s22.72-53.52,22.72-100.54C2799.23,929.12,2792.3,895.59,2778.63,873.7Zm-80.17,7c19.49,0,33.46,6.83,41.52,20.31,8.18,13.69,12.32,38,12.32,72.32,0,35.29-4.38,59.43-13,71.74s-24,18.34-45.91,18.34c-17.19,0-42-4.59-73.77-13.66a6.36,6.36,0,0,1-4.57-6.09V930.49A24,24,0,0,1,2625.08,911c13.42-9.54,25.33-16.75,35.38-21.45A89.69,89.69,0,0,1,2698.46,880.74Z" transform="translate(0 -523.17)"></path><path class="a" d="M2975.46,876.39c20.82,0,48.21,3,60.41,17,6.31,7.27,16.88,27,16.88,77.43,0,50.28-10.44,69.62-16.64,76.65-12.25,13.86-39.74,16.77-60.65,16.77-30.28,0-51.38-5.79-61.07-16.77-6.22-7-16.67-26.37-16.67-76.65,0-50.81,10.52-70.4,16.78-77.55,9.67-11,30.75-16.88,61-16.88m0-38.75q-63.74,0-90.11,30.09T2859,970.82q0,72.5,26.38,102.32t90.11,29.85q63.3,0,89.69-29.85t26.35-102.32q0-72.44-26.35-102.82t-89.69-30.36Z" transform="translate(0 -523.17)"></path><path class="a" d="M3196.44,1096.36h-23.82a7.66,7.66,0,0,1-7.65-7.66V856.44a8.6,8.6,0,0,1,8.6-8.6h29a8.6,8.6,0,0,1,8.6,8.6V1081.6A14.76,14.76,0,0,1,3196.44,1096.36Z" transform="translate(0 -523.17)"></path><path class="a" d="M3330.14,854.9l1.76,22.61a5.37,5.37,0,0,0,8.47,4q55.77-39.75,103.52-39.76,67.37,0,67.37,68.38v171.12a15.14,15.14,0,0,1-15.14,15.15h-20.59a7.66,7.66,0,0,1-7.65-7.66V922.34q0-24.5-8.17-34.19t-27.55-9.69q-20.41,0-41.08,9.18-16.71,7.43-42.26,22.53a25.61,25.61,0,0,0-12.6,22v149a15.14,15.14,0,0,1-15.14,15.15H3300.5a7.66,7.66,0,0,1-7.66-7.66V855.49a7.65,7.65,0,0,1,7.66-7.65h22A7.65,7.65,0,0,1,3330.14,854.9Z" transform="translate(0 -523.17)"></path><path class="a" d="M3657.77,882a2.81,2.81,0,0,0-2.82,2.81V1028q0,17.87,7.66,25.51t26,7.65h28.49a10.81,10.81,0,0,1,10.68,9.16h0a25.21,25.21,0,0,1-21.69,28.94,258,258,0,0,1-30.75,1.71q-31.14,0-47.46-17.35t-16.33-50V884.84a2.81,2.81,0,0,0-2.81-2.81H3571a4.33,4.33,0,0,1-4.33-4.34V860.45a4.34,4.34,0,0,1,3.2-4.19l31.43-8.5a13.9,13.9,0,0,0,10.27-13.42V782a7.66,7.66,0,0,1,7.65-7.66h28.07A7.65,7.65,0,0,1,3655,782v59.65a2.81,2.81,0,0,0,2.82,2.81h68.63a7.64,7.64,0,0,1,7.65,7.65v22.26a7.65,7.65,0,0,1-7.65,7.65Z" transform="translate(0 -523.17)"></path><path class="a" d="M3940,993.27H3827.08a2.67,2.67,0,0,0-2.64,2.92q3.9,40.45,20.66,54.75,17.34,14.8,57.66,14.8a618.32,618.32,0,0,0,75.11-4.67,11.57,11.57,0,0,1,12.89,9.64h0a21.29,21.29,0,0,1-15.55,24q-30.54,7.77-78.06,7.77-64.29,0-91.6-29.85t-27.3-101.3q0-72,26.53-100.78t87.78-28.84q55.62,0,81.14,20.16t25.51,61Q4000.23,993.27,3940,993.27Zm-116.28-36.43a2.67,2.67,0,0,0,2.65,2.75h102.4q27,0,27.05-36.74-.53-24-14.29-34.19t-47-10.2q-39.3,0-54.6,17.09Q3825.14,912.16,3823.74,956.84Z" transform="translate(0 -523.17)"></path><circle class="a" cx="3189.23" cy="255.65" r="26.96"></circle></svg></a>
+</div>
+
+                        </div>
+                    </div>
+                </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-141181991-26', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC0N+0DoV+059IE1oV2FouPI58P4AGZ8kLUND1Qx/JkALIqceKcKB/wyTAQK+AB4qQ8Y3jHx7saTrkPMIrbigWbFPv+GEvsZmWdojkAuPmsF3qNiZsU1z+O2modzzVOeshKPm7pQHxtuV7m6h11w/7u5kPnMNnOUd+w3Q+esjLgPS5a3wwFnQIoVKKEN7JqjvfPy9n2SJIZEyk+Nq2o0otOVzOscsgZq80jwDOFY7R+7yge+tN0SV174f8TnDb8HeLi4o+kZWzmsP2Ccw8BYtQ5V35bmkiIa2lc1Po8mj325PAFsfpfxlytcPIbUdVgB+lW5ug1h07iCjmSu9YFQpwMI42mlLlGXNqbcpKg5qA4fIGRIgyd/8jkXdjDnFS+I+ZomDiiu8hO6ZfXvwV3VT/HAKhX/Yr08akoX5VlZBrY+q4DrNotpYvWmdoYoPrO2h4k5RCW8Vj807HZbFeMDe22IFmk4OdFjLzzM5vJBNjS3dxlfPEEHrkLFQV+D6Lw7XPEuQlXluHR9pO8e1v87Dmm26IlaDgzupTV0Smsoc4JH39y7PxAVZRsDTusjg+npNaun/9qvG+fGv0znLZ20PBjwO7ibf0N4WmRK9Y1olAM4HqXlmKXj2UmG3iS5wqPq4gSEys8B0MdpyX2EciRPeCYHbNiTark++U0VoFguNMU/QH2e4IqkpMJl4WOnEU8qU+n66PukbEdcWJlerctC7mRDhLMKZZsKsbLnfygcbsDxGSV3vDwo9fSxirf4g3WoEO9J3Nhxl+MjftL3cm14j92bUv8/f6k21clweO2QZZQ2FsCdAXWCWVPIgrrI4z2FVMdsNWhTNkck1MdbBybnapD+HhAmCQMKHRBe6eGSRm4RqLaJbzH9R+qgJnSXVQkWRqliuF1mMqBD1vXbbjvoYk2gxSTtg68wAxYPZ5WvpbwmLBT/AhMa7WvFovBSKKVhHhWtCu63OV7YJGTCyfJFzkPkE2jhzg==">
+</div>
+</form>
+</body>
+</html>
