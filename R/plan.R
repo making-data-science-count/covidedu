@@ -34,5 +34,11 @@ table_of_output = scrape_and_process_sites(
          processed_data$state,
          processed_data$nces_id,
          processed_data$url))
+
+table_of_output <- table_of_output %>% 
+  mutate(link = map(link, ~as.character(.))) %>% 
+  unnest(link)
+
+write_csv(table_of_output, "output/2020-04-19/table-of-output.csv")
   
-scraped_links = proc_links_and_attachments(table_of_output[1:100, ], "2020-04-19")
+scraped_links = proc_links_and_attachments(table_of_output, "2020-04-19")

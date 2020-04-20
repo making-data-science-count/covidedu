@@ -145,9 +145,9 @@ proc_links_and_attachments <- function(table_of_output, my_date) {
   if (!fs::dir_exists(str_c("output/", my_date, "/links"))) fs::dir_create(str_c("output/", my_date, "/links"))
   if (!fs::dir_exists(str_c("output/", my_date, "/attachments"))) fs::dir_create(str_c("output/", my_date, "/attachments"))
   
-  table_of_output <- table_of_output %>% 
-    unnest(link)
-  
+  # table_of_output <- table_of_output %>% 
+  #   unnest(link)
+
   table_of_output$file_ext <- tools::file_ext(table_of_output$link)
   
   attachments <- filter(table_of_output, file_ext %in% c("pdf", ".docx", ".png", ".doc"))
