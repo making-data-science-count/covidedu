@@ -31,7 +31,7 @@ def main():
         webpage = WebpageParser(url)
 
         for keyword in keywords:
-            for text in webpage.text_surrounding_keyword(keyword, n_char_buffer=30):
+            for text in webpage.generate_text_surrounding_keyword(keyword, n_char_buffer=30):
                 print(nces_id, keyword, text)
 
         for link in webpage.generate_links(contains=keywords):
@@ -46,8 +46,8 @@ def main():
 class WebpageParser(object):
     def __init__(self, url: str):
         self.url = url
-        self.html = self.get_html()
-        self.root = self.get_html_root_element()
+        self.html = self._get_html()
+        self.root = self._get_html_root_element()
         self.links = list(self.generate_links())
 
     def count_mentions_of_keyword(self, keyword: str, case_sensitive: bool = False) -> int:
@@ -56,10 +56,10 @@ class WebpageParser(object):
         text = self.html if case_sensitive else self.html.lower()
         return text.count(keyword)
 
-    def text_surrounding_keyword(self,
-                                 keyword: str,
-                                 n_char_buffer: int = 25,
-                                 case_sensitive: bool = False) -> Generator[str, None, None]:
+    def generate_text_surrounding_keyword(self,
+                                          keyword: str,
+                                          n_char_buffer: int = 25,
+                                          case_sensitive: bool = False) -> Generator[str, None, None]:
 
         match_length = len(keyword)
         starting_locations = self._find_keyword_start_locations(
@@ -69,22 +69,12 @@ class WebpageParser(object):
         for start_index in starting_locations:
             yield self.html[start_index - n_char_buffer:start_index + match_length + n_char_buffer].replace('\n', '')
 
-    def get_html(self) -> str:
-        """Returns HTML as text"""
-        logging.info('requesting %s', self.url)
-        response = requests.get(self.url)
-        return response.text
-
-    def get_html_root_element(self) -> lxml.html.HtmlElement:
-        """Returns lxml HTML root"""
-        return lxml.html.fromstring(self.html)
-
     def generate_links(self,
                        contains: Optional[Union[str, List[str]]] = None) -> Generator[str, None, None]:
         """Generate properly resolved links from anchor elements from root HTML"""
         contains = contains if isinstance(contains, (type(None), list)) else [contains]  # Sorry this is convoluted for now
 
-        for anchor in self.get_anchor_elements():
+        for anchor in self._get_anchor_elements():
             try:
                 href: str = anchor.attrib['href']
 
@@ -98,7 +88,18 @@ class WebpageParser(object):
             except KeyError:
                 logging.debug('no href, skipping anchor element ... ')
 
-    def get_anchor_elements(self) -> List[lxml.html.HtmlElement]:
+    def _get_html(self) -> str:
+        """Returns HTML as text"""
+        logging.info('requesting %s', self.url)
+        response = requests.get(self.url)
+        return response.text
+
+    def _get_html_root_element(self) -> lxml.html.HtmlElement:
+        """Returns lxml HTML root"""
+        return lxml.html.fromstring(self.html)
+
+
+    def _get_anchor_elements(self) -> List[lxml.html.HtmlElement]:
         return self.root.xpath('//a')
 
     def _find_keyword_start_locations(self, keyword: str, case_sensitive: bool = False) -> List[int]:
