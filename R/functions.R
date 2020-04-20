@@ -1,11 +1,163 @@
-# Custom functions are an important part of a drake workflow.
-# This is where you write them.
-# Details: https://books.ropensci.org/drake/plans.html#functions
-
-generate_data <- function() {
-  tibble(x = rnorm(1e5), y = rnorm(1e5))
+read_data <- function(f) {
+  
+  d <- read_csv(f)
+  
+  d <- d %>% 
+    arrange(state, district)
+  
+  d
 }
 
-fit_model <- function(data) {
-  summary(lm(y ~ x, data = data))
+detector <- function(x) {
+  str_detect(x, "coron*") |
+    str_detect(x, "covid*") |
+    str_detect(x, "closure")
 }
+
+access_site <- function(my_date, name, state, id, url) {
+  
+  h <- read_html(url)
+  
+  base_dir <- str_c("output/", my_date, "/")
+  
+  write_xml(h, str_c(base_dir, state, "-", name, "-", id, ".xml"))
+
+  t <- h %>%
+    html_text()
+
+  links <- h %>%
+    html_nodes("a")
+
+  corona <- str_detect(tolower(t), "corona*")
+  covid <- str_detect(tolower(t), "covid*")
+  closure <- str_detect(tolower(t), "closure")
+
+  link_found <- links %>%
+    html_text() %>%
+    tolower() %>%
+    detector() %>%
+    any()
+
+  link_logical_to_index <- links %>%
+    html_text() %>%
+    tolower() %>%
+    detector()
+
+  link_urls <- links %>%
+    rvest::html_attr("href")
+
+  # adding base
+  link_urls <- ifelse(str_detect(link_urls, "http"), link_urls, str_c(url, link_urls))
+
+  link_urls <- link_urls[link_logical_to_index]
+
+  print(str_c("Processed", base_dir, "-", state, "-", name, "-", id, "; ",
+              "found", corona, " ", covid, " ", closure))
+
+  tibble(district_name = name, state = state, nces_id = id, url = url,
+         corona = corona, covid = covid, closure = closure,
+         scraping_failed = FALSE,
+         link_found = link_found,
+         link = list(link_urls))
+
+}
+
+scrape_and_process_sites <- function(list_of_args) {
+  
+  base_dir_exists <- fs::dir_exists(str_c("output/", list_of_args[[1]], "/"))
+  
+  if (!base_dir_exists) {
+    fs::dir_create(str_c("output/", list_of_args[[1]], "/"))
+  }
+  
+  output <- pmap(list(my_date = list_of_args[[1]], 
+                      name = list_of_args[[2]], state = list_of_args[[3]],
+                      id = list_of_args[[4]], url = list_of_args[[5]]), 
+                 possibly(access_site,
+                          otherwise = tibble(district_name = NA, 
+                                             state = NA, 
+                                             nces_id = NA, 
+                                             url = NA, 
+                                             corona = NA,
+                                             covid = NA,
+                                             closure = NA,
+                                             scraping_failed = TRUE, 
+                                             link_found = NA,
+                                             link = NA)))
+  
+  output_df <- map_df(output, ~.)
+  
+  return(output_df)
+  
+}
+
+download_link <- function(link, district, state, nces_id, my_date) {
+  i <- 1
+  h <- read_html(link)
+  
+  base_dir <- str_c("output/", my_date, "/")
+  
+  f <-str_c(base_dir, "LINK-", state, "-", district, "-", nces_id, "-",i,".xml")
+  
+  while (fs::file_exists(f)) {
+    i <- i + 1
+    f <-str_c(base_dir, "LINK-", state, "-", district, "-", nces_id, "-",i,".xml")
+  }
+  
+  write_xml(h, f)
+  tibble(link = link, district = district, state = state, nces_id = nces_id, type = "LINK", found = TRUE)
+}
+
+download_attachment <- function(link, district, state, nces_id, my_date) {
+  i <- 1
+  file_ext <- tools::file_ext(link)
+  print(file_ext)
+  base_dir <- str_c("output/", my_date, "/")
+  
+  f <-str_c(base_dir, "ATTACHMENT-", state, "-", district, "-", nces_id, "-",i, ".", file_ext)
+  
+  while (fs::file_exists(f)) {
+    i <- i + 1
+    f <-str_c(base_dir, "ATTACHMENT", state, "-", district, "-", nces_id, "-",i, ".", file_ext)
+  }
+  print(str_c("processed attachment", link, "from ", nces_id))
+  download.file(link, destfile = f)
+  tibble(link = link, district = district, state = state, nces_id = nces_id, type = "ATTACHMENT", found = TRUE)
+}
+
+proc_links_and_attachments <- function(table_of_output, my_date) {
+  
+  table_of_output <- table_of_output %>% 
+    unnest(link)
+  
+  table_of_output$file_ext <- tools::file_ext(table_of_output$link)
+  
+  attachments <- filter(table_of_output, file_ext %in% c("pdf", ".docx", ".png", ".doc"))
+  all_other <- filter(table_of_output, !file_ext %in% c("pdf", ".docx", ".png", ".doc"))
+  
+  link_output <- pmap(list(link = all_other$link,
+                           district = all_other$district_name, 
+                           state = all_other$state,
+                           nces_id = all_other$nces_id,
+                           my_date = my_date),
+                      possibly(download_link,
+                               otherwise = tibble(link = NA, district = NA, state = NA, nces_id = NA, 
+                                                  type = "LINK", found = FALSE)))
+  
+  attachment_output <- pmap(list(link = attachments$link,
+                                 district = attachments$district_name, 
+                                 state = attachments$state,
+                                 nces_id = attachments$nces_id,
+                                 my_date = my_date),
+                            possibly(download_attachment,
+                                     otherwise = tibble(link = NA, district = NA, state = NA, nces_id = NA, 
+                                                        type = "ATTACHMENT", found = FALSE)))
+  
+  output_df <- map_df(link_output, ~.)
+  attachment_df <- map_df(attachment_output, ~.)
+  
+  return(list(output_df, attachment_df))
+  
+}
+# testing
+# proc_links_and_attachments(table_of_output[1:10, ], my_date = Sys.Date())

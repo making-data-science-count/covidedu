@@ -1,0 +1,1378 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><!--[if IE 7]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Conneaut School District</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Conneaut School District - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Conneaut Area Senior High - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Conneaut Lake Middle - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Conneaut Valley Middle - News" href="/rssNews.ashx?schoolId=3">
+<link rel="alternate" type="application/rss+xml" title="Conneaut Lake Elementary - News" href="/rssNews.ashx?schoolId=4">
+<link rel="alternate" type="application/rss+xml" title="Conneaut Valley Elementary - News" href="/rssNews.ashx?schoolId=5">
+<link rel="alternate" type="application/rss+xml" title="Fundraiser - News" href="/rssNews.ashx?schoolId=7">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "PA_ConneautSD",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display:900%7CRoboto%7CYesteryear" rel="stylesheet">
+<link rel="icon" href="/userfiles/-2/My%20Files/Logo.png?id=647" type="image/x-icon">
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=-62135596800000">
+<style type="text/css">
+        .panel {
+            min-height: 100px;
+        }
+
+        .inside-padding2, .inside-padding {
+            padding: 0;
+        }
+
+        .usercontent {
+            padding: 0px;
+        }
+
+
+        #quick-links {
+        }
+
+        ul.district-left-nav {
+            -moz-column-count: 4;
+            -webkit-column-count: 4;
+            column-count: 4;
+            margin-top: 40px;
+        }
+
+            ul.district-left-nav > li {
+                display: block;
+                margin-bottom: 10px;
+                border-bottom: solid 1px #BBBFC2;
+                margin-right: 5px;
+            }
+
+                ul.district-left-nav > li > ul {
+                    position: absolute;
+                    left: 0;
+                    top: 20px;
+                }
+
+                    ul.district-left-nav > li > ul > li {
+                        padding: 10px;
+                        background-color: white;
+                        display: block;
+                    }
+
+        #body-shape1.artifact {
+            display: block;
+            background: url('/customers/AL/PollyFoxAcad/sysimages/custom/Butler-WaterMark.png') no-repeat;
+            position: absolute;
+            right: 0px;
+            top: 450px;
+            width: 795px;
+            height: 1400px;
+        }
+        @media only screen and (min-width: 768px) {
+            .dropdown-menu .dropdown-menu, .panel .dropdown-menu{
+                left:-88%;
+            }
+        }
+    </style>
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJOTM2ODM4Mjc5D2QWAmYPZBYCZg9kFgRmD2QWBgIBD2QWAmYPZBYCAgEPFgIeBFRleHQFGENvbm5lYXV0IFNjaG9vbCBEaXN0cmljdGQCAg9kFgICAQ8WAh4LXyFJdGVtQ291bnQCBhYMZg9kFgJmDxUCGUNvbm5lYXV0IEFyZWEgU2VuaW9yIEhpZ2gBMWQCAQ9kFgJmDxUCFENvbm5lYXV0IExha2UgTWlkZGxlATJkAgIPZBYCZg8VAhZDb25uZWF1dCBWYWxsZXkgTWlkZGxlATNkAgMPZBYCZg8VAhhDb25uZWF1dCBMYWtlIEVsZW1lbnRhcnkBNGQCBA9kFgJmDxUCGkNvbm5lYXV0IFZhbGxleSBFbGVtZW50YXJ5ATVkAgUPZBYCZg8VAgpGdW5kcmFpc2VyATdkAgUPFgIeBGhyZWYFMi9zaXRlY3NzLmFzaHg/JmludHJhbmV0PTAmY2hlY2tzdW09LTYyMTM1NTk2ODAwMDAwZAIBDxYCHgZhY3Rpb24FAS8WDmYPZBYEAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwQFATBkAgMPD2QWAh8EBQEwZAIEDw9kFgIfBAUBMGQCBQ8PZBYCHwQFATBkAgMPZBYCAgIPDxYCHgdWaXNpYmxlZ2QWAmYPFgIfAAWcBTx1bCBjbGFzcz0nYWxlcnRMaXN0Jz48bGk+PHNwYW4gY2xhc3M9J2FsZXJ0RGFuZ2VyQ29sb3InIHN0eWxlPSdiYWNrZ3JvdW5kLWNvbG9yOiNhYTExMTE7IGNvbG9yOiNmZmZmZmY7Jz5TY2hvb2wgQ2xvc2luZ3MvRGVsYXlzOjwvc3Bhbj4gPHNwYW4gY2xhc3M9J2FsZXJ0VGV4dEluZm8nPjxwPlVQREFURSBBcyBwZXIgR292ZXJub3IgV29sZmUmIzM5O3Mgb3JkZXJzIGR1ZSB0byZuYnNwO3RoZSBDb3JvbmF2aXJ1cyBjb25jZXJucywgdGhlIENvbm5lYXV0IFNjaG9vbCBEaXN0cmljdCB3aWxsIGJlIENMT1NFRCBmb3IgdGhlIHJlbWFpbmRlciBvZiB0aGUgMjAxOS8yMDIwIFNjaG9vbCBZZWFyLiAmbmJzcDtPZmZpY2VzIGNhbiBiZSByZWFjaGVkIHZpYSBwaG9uZSBhbmQgYWNjZXNzIHRvIGJ1aWxkaW5ncyBoYXMgYmVlbiByZXN0cmljdGVkIHRvIGVzc2VudGlhbCBwZXJzb25uZWwgb25seS4gSWYgeW91IHdpc2ggdG8gY29udGFjdCBhIHNjaG9vbCBidWlsZGluZyBvciBkZXBhcnRtZW50IHBsZWFzZSBjYWxsIDxhIGhyZWY9InRlbDo4MTQtNjgzLTU5MDAiPjgxNC02ODMtNTkwMDwvYT4gYW5kIGZvbGxvdyB0aGUgcHJvbXB0cyBmb3IgdGhlIHNjaG9vbCBidWlsZGluZyBvciB0aGUgZGVwYXJ0bWVudCB5b3Ugd2lzaCB0byByZWFjaC48L3A+IDwvc3Bhbj48L2xpPjwvdWw+ZAIBD2QWAgIBD2QWAgIFDw8WAh4LTmF2aWdhdGVVcmwFAS9kZAICD2QWAgIBD2QWAgIBDw8WAh8FaGQWAmYPFgIfAWZkAgUPZBYCAgEPZBYCAgEPZBYGZg8WAh8ABQtPdXIgTWlzc2lvbmQCAQ8WAh8ABcQBPHA+VGhlIE1pc3Npb24gb2YgdGhlIENvbm5lYXV0IFNjaG9vbCBEaXN0cmljdCBpcyB0byBwcm92aWRlIGEgc2FmZSBhbmQgc3VwcG9ydGl2ZSBlbnZpcm9ubWVudCB3aGVyZSBhbGwgYWNxdWlyZSB0aGUgc2tpbGxzIHRvIGJlY29tZSBwcm9kdWN0aXZlIGNpdGl6ZW5zIG9mIGEgZ2xvYmFsbHkgY29ubmVjdGVkIHNvY2lldHkuJm5ic3A7PC9wPmQCAw8PFgIfBgUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0xZGQCBg9kFgQCAQ9kFgICAQ9kFgRmDw8WAh8FaGRkAgIPZBYEAgMPFgIfBWhkAgUPFgIfAQIDZAIDD2QWAgIBD2QWBgIBDxYCHwECBRYKAgEPZBYKAgEPDxYCHwAFOzxzcGFuIGNsYXNzPSdtb250aCc+QXByPC9zcGFuPjxzcGFuIGNsYXNzPSdkYXRlJz4gMjA8L3NwYW4+ZGQCAg8PFgIfAAUFMzE3NTdkZAIEDw8WAh8ABSBCdWRnZXQvRmluYW5jZSBDb21taXR0ZWUgTWVldGluZ2RkAgYPDxYCHwAFIkBBbGljZSBTY2hhZmVyIEFubmV4IGNhZmV0ZXJpYS9neW1kZAIHDxUBEEJlZ2lucyBAIDU6MzAgUE1kAgIPZBYKAgEPDxYCHwAFOzxzcGFuIGNsYXNzPSdtb250aCc+TWF5PC9zcGFuPjxzcGFuIGNsYXNzPSdkYXRlJz4gMDY8L3NwYW4+ZGQCAg8PFgIfAAUFMzE3NDBkZAIEDw8WAh8ABSBCdWRnZXQvRmluYW5jZSBDb21taXR0ZWUgTWVldGluZ2RkAgYPDxYCHwAFIkBBbGljZSBTY2hhZmVyIEFubmV4IGNhZmV0ZXJpYS9neW1kZAIHDxUBFzU6MzAgUE0gJm1kYXNoOyA3OjAwIFBNZAIDD2QWCgIBDw8WAh8ABTs8c3BhbiBjbGFzcz0nbW9udGgnPk1heTwvc3Bhbj48c3BhbiBjbGFzcz0nZGF0ZSc+IDA2PC9zcGFuPmRkAgIPDxYCHwAFBTMxNzEyZGQCBA8PFgIfAAVAQm9hcmQgb2YgRGlyZWN0b3JzIFdvcmsgU2Vzc2lvbiBhbmQgU3BlY2lhbCBCb2FyZCBWb3RpbmcgTWVldGluZ2RkAgYPDxYCHwAFIkBBbGljZSBTY2hhZmVyIEFubmV4IGNhZmV0ZXJpYS9neW1kZAIHDxUBEEJlZ2lucyBAIDc6MDAgUE1kAgQPZBYKAgEPDxYCHwAFOzxzcGFuIGNsYXNzPSdtb250aCc+TWF5PC9zcGFuPjxzcGFuIGNsYXNzPSdkYXRlJz4gMTM8L3NwYW4+ZGQCAg8PFgIfAAUFMzE3MjRkZAIEDw8WAh8ABSFCb2FyZCBvZiBEaXJlY3RvcnMgVm90aW5nIE1lZXRpbmdkZAIGDw8WAh8ABSJAQWxpY2UgU2NoYWZlciBBbm5leCBjYWZldGVyaWEvZ3ltZGQCBw8VAQBkAgUPZBYKAgEPDxYCHwAFOzxzcGFuIGNsYXNzPSdtb250aCc+TWF5PC9zcGFuPjxzcGFuIGNsYXNzPSdkYXRlJz4gMTM8L3NwYW4+ZGQCAg8PFgIfAAUFMzE3NDRkZAIEDw8WAh8ABRhQb2xpY3kgQ29tbWl0dGVlIE1lZXRpbmdkZAIGDw8WAh8ABSJAQWxpY2UgU2NoYWZlciBBbm5leCBjYWZldGVyaWEvZ3ltZGQCBw8VARc1OjAwIFBNICZtZGFzaDsgNzowMCBQTWQCBQ8PFgIfBgUhL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00ZGQCBw8PFgQfBgVFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAmc2Nob29saWQ9MCZ0eXBlcz0mdmlld0RhdGU9NC8xOS8yMDIwHwAFCFZpZXcgQWxsZGQCCQ9kFgYCAQ9kFgICAQ8WAh8BAgUWCmYPZBYEAgEPDxYEHghJbWFnZVVybAUrL2RvY3MvYnVpbGRpbmcvMS9jYXNoMS5qcGc/aWQ9NjcwJndpZHRoPTIwMB4NQWx0ZXJuYXRlVGV4dAUZQ29ubmVhdXQgQXJlYSBTZW5pb3IgSGlnaGRkAgMPDxYEHwYFBy8xL2hvbWUfAAU3PGRpdiBjbGFzcz0ibmFtZWJvdHRvbSI+Q29ubmVhdXQgQXJlYSBTZW5pb3IgSGlnaDwvZGl2PmRkAgEPZBYEAgEPDxYEHwcFKi9kb2NzL2J1aWxkaW5nLzIvY2xtcy5qcGc/aWQ9NjY0JndpZHRoPTIwMB8IBRtDb25uZWF1dCBMYWtlIE1pZGRsZSBTY2hvb2xkZAIDDw8WBB8GBQcvMi9ob21lHwAFMjxkaXYgY2xhc3M9Im5hbWVib3R0b20iPkNvbm5lYXV0IExha2UgTWlkZGxlPC9kaXY+ZGQCAg9kFgQCAQ8PFgQfBwUyL2RvY3MvYnVpbGRpbmcvMy92YWxsZXltaWRkbGUuanBnP2lkPTY2OSZ3aWR0aD0yMDAfCAUdQ29ubmVhdXQgVmFsbGV5IE1pZGRsZSBTY2hvb2xkZAIDDw8WBB8GBQcvMy9ob21lHwAFNDxkaXYgY2xhc3M9Im5hbWVib3R0b20iPkNvbm5lYXV0IFZhbGxleSBNaWRkbGU8L2Rpdj5kZAIDD2QWBAIBDw8WBB8HBS4vZG9jcy9idWlsZGluZy80L2xha2VlbGVtLmpwZz9pZD02Njgmd2lkdGg9MjAwHwgFGENvbm5lYXV0IExha2UgRWxlbWVudGFyeWRkAgMPDxYEHwYFBy80L2hvbWUfAAU2PGRpdiBjbGFzcz0ibmFtZWJvdHRvbSI+Q29ubmVhdXQgTGFrZSBFbGVtZW50YXJ5PC9kaXY+ZGQCBA9kFgQCAQ8PFgQfBwU6L2RvY3MvYnVpbGRpbmcvNS9jb25uZWF1dCB2YWxsZXkgZWxlbS5qcGc/aWQ9NjY2JndpZHRoPTIwMB8IBSFDb25uZWF1dCBWYWxsZXkgRWxlbWVudGFyeSBTY2hvb2xkZAIDDw8WBB8GBQcvNS9ob21lHwAFODxkaXYgY2xhc3M9Im5hbWVib3R0b20iPkNvbm5lYXV0IFZhbGxleSBFbGVtZW50YXJ5PC9kaXY+ZGQCAw9kFgICAQ9kFgZmDxYCHwAFCEZhY2Vib29rZAIBDxYCHwAF7gY8ZGl2IGlkPSJmYi1yb290Ij4mbmJzcDs8L2Rpdj4NCjxzY3JpcHQ+KGZ1bmN0aW9uKGQsIHMsIGlkKSB7DQogIHZhciBqcywgZmpzID0gZC5nZXRFbGVtZW50c0J5VGFnTmFtZShzKVswXTsNCiAgaWYgKGQuZ2V0RWxlbWVudEJ5SWQoaWQpKSByZXR1cm47DQogIGpzID0gZC5jcmVhdGVFbGVtZW50KHMpOyBqcy5pZCA9IGlkOw0KICBqcy5zcmMgPSAiLy9jb25uZWN0LmZhY2Vib29rLm5ldC9lbl9VUy9zZGsuanMjeGZibWw9MSZ2ZXJzaW9uPXYyLjkiOw0KICBmanMucGFyZW50Tm9kZS5pbnNlcnRCZWZvcmUoanMsIGZqcyk7DQp9KGRvY3VtZW50LCAnc2NyaXB0JywgJ2ZhY2Vib29rLWpzc2RrJykpOzwvc2NyaXB0Pg0KDQo8ZGl2IGNsYXNzPSJmYi1wYWdlIiBkYXRhLWFkYXB0LWNvbnRhaW5lci13aWR0aD0idHJ1ZSIgZGF0YS1oaWRlLWNvdmVyPSJmYWxzZSIgZGF0YS1ocmVmPSJodHRwczovL3d3dy5mYWNlYm9vay5jb20vQ29ubmVhdXQtU2Nob29sLURpc3RyaWN0LTI3MzIyMjEwOTQ4MzM0NC8/aGNfcmVmPU5FV1NGRUVEIiBkYXRhLXNob3ctZmFjZXBpbGU9ImZhbHNlIiBkYXRhLXNtYWxsLWhlYWRlcj0iZmFsc2UiIGRhdGEtdGFicz0idGltZWxpbmUiPg0KPGJsb2NrcXVvdGUgY2l0ZT0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL0Nvbm5lYXV0LVNjaG9vbC1EaXN0cmljdC0yNzMyMjIxMDk0ODMzNDQvP2hjX3JlZj1ORVdTRkVFRCIgY2xhc3M9ImZiLXhmYm1sLXBhcnNlLWlnbm9yZSI+PGEgaHJlZj0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL0Nvbm5lYXV0LVNjaG9vbC1EaXN0cmljdC0yNzMyMjIxMDk0ODMzNDQvP2hjX3JlZj1ORVdTRkVFRCI+Q29ubmVhdXQgU2Nob29sIERpc3RyaWN0PC9hPjwvYmxvY2txdW90ZT4NCjwvZGl2PmQCAw8PFgIfBgUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0yZGQCBQ9kFgICAQ9kFgZmDxYCHwAFB1R3aXR0ZXJkAgEPFgIfAAXYATxwPjxhIGNsYXNzPSJ0d2l0dGVyLXRpbWVsaW5lIiBkYXRhLWhlaWdodD0iNDUwIiBkYXRhLXdpZHRoPSIzMDAiIGhyZWY9Imh0dHBzOi8vdHdpdHRlci5jb20vQ29ubmVhdXRTRFBBIj5Ud2VldHMgYnkgQ29ubmVhdXRTRFBBPC9hPiA8c2NyaXB0IGFzeW5jIHNyYz0iLy9wbGF0Zm9ybS50d2l0dGVyLmNvbS93aWRnZXRzLmpzIiBjaGFyc2V0PSJ1dGYtOCI+PC9zY3JpcHQ+PC9wPmQCAw8PFgIfBgUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0zZGQCCg9kFgwCAQ8WAh4JaW5uZXJodG1sBRhDb25uZWF1dCBTY2hvb2wgRGlzdHJpY3RkAgMPFgIfCQUuMjE5IFdlc3QgU2Nob29sIERyaXZlPGJyLz5MaW5lc3ZpbGxlLCBQQSAxNjQyNGQCBQ8WAh8CBUdodHRwOi8vbWFwcy5nb29nbGUuY29tL21hcHM/cT0yMTkgV2VzdCBTY2hvb2wgRHJpdmUrTGluZXN2aWxsZStQQSsxNjQyNGQCBw9kFgICAQ8WAh8JBRNQaG9uZTogODE0LTY4My01OTAwZAIJD2QWAgIBDxYCHwkFEUZheDogODE0LTY4My00MTI3ZAILD2QWAmYPFgIfAQIFFgpmD2QWAmYPFQUGL2xvZ2luGENvbnRlbnQgTWFuYWdlbWVudCBMb2dpbgVfc2VsZiY8c3BhbiBjbGFzcz0nb2JzY3VyZSc+Q01TIExvZ2luPC9zcGFuPg1mYSBmYS1zaWduLWluZAIBD2QWAmYPFQUtaHR0cHM6Ly9jb25uZWF1dC5pbnN0cnVjdHVyZS5jb20vbG9naW4vY2FudmFzCkNhbnZhcyBMTVMFX3NlbGY9PHNwYW4gY2xhc3M9J29ic2N1cmUnPkxlYXJuaW5nIE1hbmFnZW1lbnQgU3lzdGVtIChMTVMpPC9zcGFuPgZmYSBsbXNkAgIPZBYCZg8VBSVodHRwczovL291dGxvb2sub2ZmaWNlLmNvbS9tYWlsL2luYm94B1dlYk1haWwFX3NlbGYhPHNwYW4gY2xhc3M9J29ic2N1cmUnPk1haWw8L3NwYW4+DmZhIGZhLWVudmVsb3BlZAIDD2QWAmYPFQUYaHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tDEdvb2dsZSBEcml2ZQVfc2VsZik8c3BhbiBjbGFzcz0nb2JzY3VyZSc+R29vZ2xlIERyaXZlPC9zcGFuPg9mYSBnb29nbGUtZHJpdmVkAgQPZBYCZg8VBQsvYWRhLXJlcG9ydA1BREEgUmVwb3J0aW5nBV9zZWxmJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5BREEgTGluazwvc3Bhbj4WZmEgZmEtdW5pdmVyc2FsLWFjY2Vzc2RkOPilAm+Mewk0TxrBp2qcHHqIIGQ=">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+<style type="text/css">
+    .alertdiv,
+    .alertReShow,
+    .alertList {
+        display: none;
+    }
+
+    .alertTab {
+        margin-left: 20px;
+    }
+
+    .alertTitle {
+        display: inline-block;
+        padding: 2px 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    .nextAlert {
+        background: #676767;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .alertCount {
+        position: absolute;
+        left: -115px;
+    }
+
+    .textalert {
+        color: #ffffff;
+        position: relative;
+    }
+
+    .alertBar {
+        z-index: 10;
+        font-weight: normal;
+        background: #373737;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#373737), to(#202020)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#373737, #202020); /* Chrome 10+, Saf5.1+ */
+        background-image: -moz-linear-gradient(#373737, #202020); /* FF3.6 */
+        background-image: -ms-linear-gradient(#373737, #202020); /* IE10 */
+        background-image: -o-linear-gradient(#373737, #202020); /* Opera 11.10+ */
+        background-image: linear-gradient(#373737, #202020);
+    }
+
+    a.closeAlert {
+        color: #fff;
+        font-size: 20px;
+    }
+
+    a.openAlert {
+        color: #fff;
+        font-size: 20px;
+        padding-right: 18px;
+        padding-top: 3px;
+    }
+
+    .alertDangerColor {
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .alertPrefix {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+        margin: 0;
+        border-radius: 3px;
+        font-size: 18px;
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+    .alertText {
+        display: inline-block;
+        width: 100%;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    #alertTicker > .alertTextInfo,
+    #alertTicker > .alertTextInfo > p:first-child, .alertTextInfo > span:first-child{display:inline;}
+    .popExclam {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .dark.alertBar{color:#fff;}
+     .dark.alertBar a{color:#fff; text-decoration:underline;}
+         .light.alertBar a{ text-decoration:underline;}
+        .popExclam i {
+            color: #aa1111 !important;
+            font-size: 55px;
+        }
+        .exclamText{padding-top:15px;}
+        .bottomRightEcxlam{position:fixed;z-index:1001;bottom:55px; right:25px;display:none;}
+</style>
+<!--[if lte IE 9]>
+	<style type="text/css">
+	    .alertBar {
+            background: #202020;
+        }
+	</style>
+<![endif]--><div id="ctl00_ctl00_ctl05_ctl01_BarAlert">
+	
+    <script>
+        $(document).ready(function () {
+            var startColor = "373737";
+            if (startColor == "ffffff") {
+                $(".alertBar").addClass("light");
+            }
+            else {
+                $(".alertBar").addClass("dark");
+            }
+        });
+
+    </script><div class="alert-margin">
+        <div style="position: relative; padding: 10px 45px 10px 10px;" class="alertdiv alertBar">
+            <div style="max-width: 980px; margin: 0 auto; font-size: 18px" class="textalert">
+                
+
+                <div id="alertTicker" tabindex="0"></div>
+            </div>
+
+            <ul class="alertList"><li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff;">School Closings/Delays:</span> <span class="alertTextInfo"><p>UPDATE As per Governor Wolfe's orders due to the Coronavirus concerns, the Conneaut School District will be CLOSED for the remainder of the 2019/2020 School Year.  Offices can be reached via phone and access to buildings has been restricted to essential personnel only. If you wish to contact a school building or department please call <a href="tel:814-683-5900">814-683-5900</a> and follow the prompts for the school building or the department you wish to reach.</p> </span>
+</li></ul>
+<div style="position: absolute; right: 20px; top: 5px; z-index: 20;">
+                <a href="javascript:hideAlert()" class="closeAlert">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <span class="obscure">Close alert</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="alertReShow alertBar" style="position: relative; width: 100%; padding: 2px;">
+            <a style="float: right;" href="javascript:loadAlert()" class="openAlert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <span class="obscure">Open alert</span>
+            </a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>
+<div>
+      <a id="exclamationAlert" class="popExclam bottomRightEcxlam"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+</div>
+<script type="text/javascript" src="/admin/js/alert/alertDown.js?version=4"></script><script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: '2ywk7sLCO2' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="headerback">
+            <header id="site-head"><div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="header-elements">
+                
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+<div class="search-box">
+	<label for="txtSearchBox" class="obscure">Search site using Google</label><input id="txtSearchBox" type="text" class="search-box-input" placeholder="Search" onkeyup="return tableInputKeyPress(event)"><i class="search-box-go fa fa-search bSearch3"></i>
+</div>
+               
+            </div>
+        </div>
+
+        <div class="col-xs-12">
+            <a id="ctl00_ctl00_header_ctl00_lnkSchoolHome" class="logo" href="/"><span class="obscure">Logo link to home page</span></a>
+            <a id="ctl00_ctl00_header_ctl00_lnkSchoolHome2" class="schoolName" href="/"><span class="obscure">link to home page</span></a>
+          </div>
+    </div>
+</div>
+
+                
+            </header>
+</div>
+
+        <div class="slideshowback">
+            
+    
+        
+    
+
+        </div>
+
+        <div class=" Navback navBackground">
+            <div class="container">
+                <div class="navigation">
+                    <nav class="navbar navbar-default" role="navigation"><!-- Brand and toggle get grouped for better mobile display --><div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                            </button>
+                            <a class="navbar-brand hidden-sm hidden-md hidden-lg" href="#">
+                                Conneaut School District
+                            </a>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav distict-top-nav">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Conneaut Area Senior High School">Conneaut Area Senior High School</a></li>
+<li class="without-image"><a href="/2/home" title="Conneaut Lake Middle School">Conneaut Lake Middle School</a></li>
+<li class="without-image"><a href="/3/home" title="Conneaut Valley Middle School">Conneaut Valley Middle School</a></li>
+<li class="without-image"><a href="/4/home" title="Conneaut Lake Elementary School">Conneaut Lake Elementary School</a></li>
+<li class="without-image"><a href="/5/home" title="Conneaut Valley Elementary School">Conneaut Valley Elementary School</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="About">About  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/2" title="About Conneaut School District">About Conneaut School District</a></li>
+<li class="without-image"><a href="/Content/4" title="Mission Statement">Mission Statement</a></li>
+<li class="without-image"><a href="/Content/6" title="Shared Values">Shared Values</a></li>
+<li class="without-image"><a href="/Content/8" title="Vision Statement">Vision Statement</a></li>
+<li class="without-image"><a href="/Content/136" title="Map of School District">Map of School District</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar">Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/121/my%20files/2019-2020%20school%20calendar%20revised.pdf?id=3348" title="2019-2020 School Calendar">2019-2020 School Calendar</a></li>
+<li class="without-image"><a href="/userfiles/121/my%20files/2020_2021%20school%20calendar.pdf?id=3603" title="2020-2021 School Calendar">2020-2021 School Calendar</a></li>
+<li class="without-image"><a href="/calendar" title="Events Calendar">Events Calendar</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/18" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/Administration" title="Departments">Departments</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms">Forms</a></li>
+<li class="without-image"><a href="/Content/70" title="Policies">Policies</a></li>
+</ul>
+<div class="hidden-lg hidden-md hidden-sm">
+                                <hr>
+<ul class="nav navbar-nav quicklinks">
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Faculty &amp; Staff">Faculty &amp; Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://outlook.office.com/mail/inbox" aria-label="" title='"New" District Email Access'>"New" District Email Access</a></li>
+<li class="without-image"><a href="https://mail.conneautsd.org/owa/auth/logon.aspx?replaceCurrent=1&amp;url=https%3a%2f%2fmail.conneautsd.org%2fowa%2f" aria-label="" title='"Old" District Email Access - do not use after 4/9/20'>"Old" District Email Access - do not use after 4/9/20</a></li>
+<li class="without-image"><a href="https://start.spihost.net/eschoolplus/cnn" title="District eSchool Plus (Admin and Teacher Access Center)">District eSchool Plus (Admin and Teacher Access Center)</a></li>
+<li class="without-image"><a href="https://adminweb.aesoponline.com/access" title="Kelly Services Aesop Access">Kelly Services Aesop Access</a></li>
+<li class="without-image"><a href="https://www.paetep.com/conneaut/" title="PAETEP">PAETEP</a></li>
+<li class="without-image"><a href="https://conneaut.instructure.com/login/canvas" title="Student Textbooks/Canvas">Student Textbooks/Canvas</a></li>
+<li class="without-image"><a href="/Content/132" title="Conneaut School District Handbooks">Conneaut School District Handbooks</a></li>
+<li class="without-image"><a href="https://launch.lightspeedsystems.com/users/sign_in" title="Lightspeed Dashboard">Lightspeed Dashboard</a></li>
+<li class="without-image"><a href="/Content/154" title="Digital Textbook and  Assessment Login Websites">Digital Textbook and  Assessment Login Websites</a></li>
+<li class="without-image"><a href="http://www.coursewhere.com/iu5/cw/main.asp" title="Coursewhere">Coursewhere</a></li>
+<li class="without-image"><a href="https://conneaut-pa.myedinsight.com/EdInsight/Login.aspx" title="OnHand Schools - EdInsight">OnHand Schools - EdInsight</a></li>
+<li class="without-image"><a href="https://efp52pe.efinanceplus.powerschool.com/eFP5.2/eFinancePLUS/SunGard.eFinancePLUS.Web/Account/LogOn" title="eFinance Plus ">eFinance Plus </a></li>
+<li class="without-image"><a href="https://secure4.saashr.com/ta/6153868.login" title="Timesheet Management">Timesheet Management</a></li>
+<li class="without-image"><a href="/Content/158" target="_blank" title="Staff Video">Staff Video</a></li>
+<li class="without-image"><a href="http://app.readysub.com" title="ReadySub">ReadySub</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents &amp; Students">Parents &amp; Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://esp41pehac.eschoolplus.powerschool.com/HomeAccess/SessionReset?sitecode=cnnlive" title="Home Access Center">Home Access Center</a></li>
+<li class="without-image"><a href="/Content/124" title="Bullying Program">Bullying Program</a></li>
+<li class="without-image"><a href="http://www.mylocker.net/pennsylvania/linesville/conneaut-area-senior-high/index.html" title="Spirit Wear">Spirit Wear</a></li>
+<li class="without-image"><a href="https://www.schoolcafe.com/" title="SchoolCafe">SchoolCafe</a></li>
+<li class="without-image"><a href="/Content/126" title="Sports Schedules">Sports Schedules</a></li>
+<li class="without-image"><a href="/Administration2/104" title="Athletic Boosters">Athletic Boosters</a></li>
+<li class="without-image"><a href="http://www.crawfordctc.org/" title="Crawford County Career Technical Center">Crawford County Career Technical Center</a></li>
+<li class="without-image"><a href="https://conneaut.instructure.com/login/canvas" title="Canvas/Student Textbooks">Canvas/Student Textbooks</a></li>
+<li class="without-image"><a href="#" title="Conneaut School District Handbooks">Conneaut School District Handbooks</a></li>
+<li class="without-image"><a href="http://paschoolperformance.org/" title="PA School Performance Web link">PA School Performance Web link</a></li>
+<li class="without-image"><a href="/Content/130" title="CSD Snow Day Lesson Samples K - 4">CSD Snow Day Lesson Samples K - 4</a></li>
+<li class="without-image"><a href="http://campus.conneautsd.org/" title="Lightspeed Campus Library">Lightspeed Campus Library</a></li>
+<li class="without-image"><a href="http://conneautsd.nutrislice.com" title="NUTRIslice Program">NUTRIslice Program</a></li>
+<li class="without-image"><a href="https://conneaut.pacareerzone.org/signin" title="PA Career Zone">PA Career Zone</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community">Community  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/126" title="Sports Schedules">Sports Schedules</a></li>
+<li class="without-image"><a href="/Content/128" title="Right to Know/Open Records Requests">Right to Know/Open Records Requests</a></li>
+<li class="without-image"><a href="http://www.crawfordctc.org/" title="Crawford County Career Technical Center">Crawford County Career Technical Center</a></li>
+<li class="without-image"><a href="http://www.fccafamily.com/#!apply/ch5u" title="Pre-K Experience">Pre-K Experience</a></li>
+<li class="without-image"><a href="http://www.education.pa.gov/Pages/default.aspx#tab-1" title="PA. Dept of Education">PA. Dept of Education</a></li>
+<li class="without-image"><a href="https://www2.ed.gov/nclb/landing.jhtml?src=pb" title="No Child Left Behind">No Child Left Behind</a></li>
+<li class="without-image"><a href="/Content/172" title="Middle Schools Analysis">Middle Schools Analysis</a></li>
+<li class="without-image"><a href="http://paschoolperformance.org/" title="PA School Performance Web link">PA School Performance Web link</a></li>
+<li class="without-image"><a href="/Content/130" title="CSD Snow Day Lesson Samples K - 4">CSD Snow Day Lesson Samples K - 4</a></li>
+<li class="without-image"><a href="https://www.facebook.com/Conneaut.Eagles.Foundation/" title="Conneaut Eagle Foundation">Conneaut Eagle Foundation</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.conneautsd.org/Staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/calendar" title="Events Calendars">Events Calendars</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1XxrM9wJmHGa6V7HnuXx8hHA0mpBF3_1k88b_2hY4684/edit?usp=sharing_eil&amp;ts=5e834cd7" aria-label="" title="COVID-19 Community Resources">COVID-19 Community Resources</a></li>
+<li class="without-image"><a href="/Content/272" aria-label="" title="Canvas Getting Started Videos">Canvas Getting Started Videos</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/continuity%20of%20education%20plan%20(phase%202)-%20conneaut%20school%20district.pdf?id=3643" aria-label="" title="Continuity of Education Plan">Continuity of Education Plan</a></li>
+</ul>
+</div>
+                        </div>
+                    </nav>
+</div>
+            </div>
+        </div>
+
+        
+    
+    <div class="ourmission">
+        <div class="container ">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 backgroundcolor">
+                
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Our Mission
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>The Mission of the Conneaut School District is to provide a safe and supportive environment where all acquire the skills to become productive citizens of a globally connected society. </p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+        <div class="bodyContent">
+            <div class="container masterC">
+                <div class="row border-bottom-panel">
+                    
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 backgroundcolor">
+        <div class="clearfix panel content">
+            
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+
+    <div class="quick-links-header headerImages">
+        <div class="quick-text">
+            District
+        </div>
+        <br><div class="quick-text2">
+            NEWS
+        </div>
+    </div>
+
+    <div class="home-news">
+        
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnLeft_ucDnews_rep_news_ctl01_lnkTitle" class="news-title" href="/News/1123">Superintendent Update on Covid-19 and Planned Instruction</a>
+
+				<span class="news-post-date">Posted On: Friday, April 17, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnLeft_ucDnews_rep_news_ctl01_lblSummary" class="news-summary"></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnLeft_ucDnews_rep_news_ctl01_lnkViewAll" title="Click to read more about: Superintendent Update on Covid-19 and Planned Instruction" class="view-all" href="/News/1123">Read More <span class="sr-only">about Superintendent Update on Covid-19 and Planned Instruction</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnLeft_ucDnews_rep_news_ctl02_lnkTitle" class="news-title" href="/News/1122">Information Regarding Meal Delivery</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 15, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnLeft_ucDnews_rep_news_ctl02_lblSummary" class="news-summary">The Conneaut School District is excited to offer meal delivery via school bus beginning Friday, ...</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnLeft_ucDnews_rep_news_ctl02_lnkViewAll" title="Click to read more about: Information Regarding Meal Delivery" class="view-all" href="/News/1122">Read More <span class="sr-only">about Information Regarding Meal Delivery</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnLeft_ucDnews_rep_news_ctl03_lnkTitle" class="news-title" href="/News/1121">Masks MUST be worn if entering District Building(s)</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 8, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnLeft_ucDnews_rep_news_ctl03_lblSummary" class="news-summary">As per the Governor Wolfe directive, if you are entering a school district building you MUST be ...</span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+
+    <a href="/districtNewsArticles.aspx" class="view-all-news">View All</a>
+
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 backgroundcolor">
+        <div class="clearfix panel content">
+            
+
+    <div class="quick-links-header headerImages">
+        <div class="quick-text">
+            Upcoming
+        </div>
+        <br><div class="quick-text2">
+            EVENTS
+        </div>
+    </div>
+
+
+    
+
+<style type="text/css">
+    section#upcoming-events .event-location { display: none;}
+</style>
+<section id="upcoming-events"><ul>
+<li>
+         <span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_events_ctl01_rep_startDate" class="event-date"><span class="month">Apr</span><span class="date"> 20</span></span>
+        <a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_events_ctl01_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnMiddle%24ctl00%24rep_events%24ctl01%24lb_eventName','')">Budget/Finance Committee Meeting</a>
+        <span class="event-location">@Alice Schafer Annex cafeteria/gym</span>
+       <br><div class="">
+		    <span>Begins @ 5:30 PM</span>
+	   </div>
+
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_events_ctl02_rep_startDate" class="event-date"><span class="month">May</span><span class="date"> 06</span></span>
+        <a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_events_ctl02_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnMiddle%24ctl00%24rep_events%24ctl02%24lb_eventName','')">Budget/Finance Committee Meeting</a>
+        <span class="event-location">@Alice Schafer Annex cafeteria/gym</span>
+       <br><div class="">
+		    <span>5:30 PM — 7:00 PM</span>
+	   </div>
+
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_events_ctl03_rep_startDate" class="event-date"><span class="month">May</span><span class="date"> 06</span></span>
+        <a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_events_ctl03_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnMiddle%24ctl00%24rep_events%24ctl03%24lb_eventName','')">Board of Directors Work Session and Special Board Voting Meeting</a>
+        <span class="event-location">@Alice Schafer Annex cafeteria/gym</span>
+       <br><div class="">
+		    <span>Begins @ 7:00 PM</span>
+	   </div>
+
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_events_ctl04_rep_startDate" class="event-date"><span class="month">May</span><span class="date"> 13</span></span>
+        <a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_events_ctl04_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnMiddle%24ctl00%24rep_events%24ctl04%24lb_eventName','')">Board of Directors Voting Meeting</a>
+        <span class="event-location">@Alice Schafer Annex cafeteria/gym</span>
+       <br><div class="">
+		    <span></span>
+	   </div>
+
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_events_ctl05_rep_startDate" class="event-date"><span class="month">May</span><span class="date"> 13</span></span>
+        <a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_events_ctl05_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnMiddle%24ctl00%24rep_events%24ctl05%24lb_eventName','')">Policy Committee Meeting</a>
+        <span class="event-location">@Alice Schafer Annex cafeteria/gym</span>
+       <br><div class="">
+		    <span>5:00 PM — 7:00 PM</span>
+	   </div>
+
+        </li>
+    </ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_hl_viewAllEvents" class="view-all" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/19/2020">View All</a>
+</footer>
+</div>
+    </div>
+
+    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 backgroundcolor">
+        <div class="clearfix panel content">
+            
+    <div class="quick-links-header headerImages">
+        <div class="quick-text">
+            Quick
+        </div>
+        <br><div class="quick-text2">
+            LINKS
+        </div>
+    </div>
+
+
+    <ul class="nav navbar-nav quicklinks">
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Faculty &amp; Staff">Faculty &amp; Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://outlook.office.com/mail/inbox" aria-label="" title='"New" District Email Access'>"New" District Email Access</a></li>
+<li class="without-image"><a href="https://mail.conneautsd.org/owa/auth/logon.aspx?replaceCurrent=1&amp;url=https%3a%2f%2fmail.conneautsd.org%2fowa%2f" aria-label="" title='"Old" District Email Access - do not use after 4/9/20'>"Old" District Email Access - do not use after 4/9/20</a></li>
+<li class="without-image"><a href="https://start.spihost.net/eschoolplus/cnn" title="District eSchool Plus (Admin and Teacher Access Center)">District eSchool Plus (Admin and Teacher Access Center)</a></li>
+<li class="without-image"><a href="https://adminweb.aesoponline.com/access" title="Kelly Services Aesop Access">Kelly Services Aesop Access</a></li>
+<li class="without-image"><a href="https://www.paetep.com/conneaut/" title="PAETEP">PAETEP</a></li>
+<li class="without-image"><a href="https://conneaut.instructure.com/login/canvas" title="Student Textbooks/Canvas">Student Textbooks/Canvas</a></li>
+<li class="without-image"><a href="/Content/132" title="Conneaut School District Handbooks">Conneaut School District Handbooks</a></li>
+<li class="without-image"><a href="https://launch.lightspeedsystems.com/users/sign_in" title="Lightspeed Dashboard">Lightspeed Dashboard</a></li>
+<li class="without-image"><a href="/Content/154" title="Digital Textbook and  Assessment Login Websites">Digital Textbook and  Assessment Login Websites</a></li>
+<li class="without-image"><a href="http://www.coursewhere.com/iu5/cw/main.asp" title="Coursewhere">Coursewhere</a></li>
+<li class="without-image"><a href="https://conneaut-pa.myedinsight.com/EdInsight/Login.aspx" title="OnHand Schools - EdInsight">OnHand Schools - EdInsight</a></li>
+<li class="without-image"><a href="https://efp52pe.efinanceplus.powerschool.com/eFP5.2/eFinancePLUS/SunGard.eFinancePLUS.Web/Account/LogOn" title="eFinance Plus ">eFinance Plus </a></li>
+<li class="without-image"><a href="https://secure4.saashr.com/ta/6153868.login" title="Timesheet Management">Timesheet Management</a></li>
+<li class="without-image"><a href="/Content/158" target="_blank" title="Staff Video">Staff Video</a></li>
+<li class="without-image"><a href="http://app.readysub.com" title="ReadySub">ReadySub</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents &amp; Students">Parents &amp; Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://esp41pehac.eschoolplus.powerschool.com/HomeAccess/SessionReset?sitecode=cnnlive" title="Home Access Center">Home Access Center</a></li>
+<li class="without-image"><a href="/Content/124" title="Bullying Program">Bullying Program</a></li>
+<li class="without-image"><a href="http://www.mylocker.net/pennsylvania/linesville/conneaut-area-senior-high/index.html" title="Spirit Wear">Spirit Wear</a></li>
+<li class="without-image"><a href="https://www.schoolcafe.com/" title="SchoolCafe">SchoolCafe</a></li>
+<li class="without-image"><a href="/Content/126" title="Sports Schedules">Sports Schedules</a></li>
+<li class="without-image"><a href="/Administration2/104" title="Athletic Boosters">Athletic Boosters</a></li>
+<li class="without-image"><a href="http://www.crawfordctc.org/" title="Crawford County Career Technical Center">Crawford County Career Technical Center</a></li>
+<li class="without-image"><a href="https://conneaut.instructure.com/login/canvas" title="Canvas/Student Textbooks">Canvas/Student Textbooks</a></li>
+<li class="without-image"><a href="#" title="Conneaut School District Handbooks">Conneaut School District Handbooks</a></li>
+<li class="without-image"><a href="http://paschoolperformance.org/" title="PA School Performance Web link">PA School Performance Web link</a></li>
+<li class="without-image"><a href="/Content/130" title="CSD Snow Day Lesson Samples K - 4">CSD Snow Day Lesson Samples K - 4</a></li>
+<li class="without-image"><a href="http://campus.conneautsd.org/" title="Lightspeed Campus Library">Lightspeed Campus Library</a></li>
+<li class="without-image"><a href="http://conneautsd.nutrislice.com" title="NUTRIslice Program">NUTRIslice Program</a></li>
+<li class="without-image"><a href="https://conneaut.pacareerzone.org/signin" title="PA Career Zone">PA Career Zone</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community">Community  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/126" title="Sports Schedules">Sports Schedules</a></li>
+<li class="without-image"><a href="/Content/128" title="Right to Know/Open Records Requests">Right to Know/Open Records Requests</a></li>
+<li class="without-image"><a href="http://www.crawfordctc.org/" title="Crawford County Career Technical Center">Crawford County Career Technical Center</a></li>
+<li class="without-image"><a href="http://www.fccafamily.com/#!apply/ch5u" title="Pre-K Experience">Pre-K Experience</a></li>
+<li class="without-image"><a href="http://www.education.pa.gov/Pages/default.aspx#tab-1" title="PA. Dept of Education">PA. Dept of Education</a></li>
+<li class="without-image"><a href="https://www2.ed.gov/nclb/landing.jhtml?src=pb" title="No Child Left Behind">No Child Left Behind</a></li>
+<li class="without-image"><a href="/Content/172" title="Middle Schools Analysis">Middle Schools Analysis</a></li>
+<li class="without-image"><a href="http://paschoolperformance.org/" title="PA School Performance Web link">PA School Performance Web link</a></li>
+<li class="without-image"><a href="/Content/130" title="CSD Snow Day Lesson Samples K - 4">CSD Snow Day Lesson Samples K - 4</a></li>
+<li class="without-image"><a href="https://www.facebook.com/Conneaut.Eagles.Foundation/" title="Conneaut Eagle Foundation">Conneaut Eagle Foundation</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.conneautsd.org/Staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/calendar" title="Events Calendars">Events Calendars</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1XxrM9wJmHGa6V7HnuXx8hHA0mpBF3_1k88b_2hY4684/edit?usp=sharing_eil&amp;ts=5e834cd7" aria-label="" title="COVID-19 Community Resources">COVID-19 Community Resources</a></li>
+<li class="without-image"><a href="/Content/272" aria-label="" title="Canvas Getting Started Videos">Canvas Getting Started Videos</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/continuity%20of%20education%20plan%20(phase%202)-%20conneaut%20school%20district.pdf?id=3643" aria-label="" title="Continuity of Education Plan">Continuity of Education Plan</a></li>
+</ul>
+</div>
+    </div>
+
+                </div>
+
+                
+            </div>
+        </div>
+
+        
+        
+    
+        <div class="featured-ourschools contentsection">
+        <div class="container">
+            <div class="our-schools">
+                   <div class="quick-links-header headerImages">
+        <div class="quick-text">
+            Our
+        </div>
+        <br><div class="quick-text2">
+            SCHOOLS
+        </div>
+    </div>
+                
+                        <div class=" schoolblockwrapper">
+                            <div class="schoolblock">
+                                <img id="ctl00_ctl00_BottomContent_VeryBottomContent_rpt_schools_ctl00_schoolImage" class="schoolimage" src="/docs/building/1/cash1.jpg?id=670&amp;width=200" alt="Conneaut Area Senior High" style="border-width:0px;"><a id="ctl00_ctl00_BottomContent_VeryBottomContent_rpt_schools_ctl00_schoolLink" class="schoollink" href="/1/home"><div class="namebottom">Conneaut Area Senior High</div></a>
+                            </div>
+                        </div>
+                    
+                        <div class=" schoolblockwrapper">
+                            <div class="schoolblock">
+                                <img id="ctl00_ctl00_BottomContent_VeryBottomContent_rpt_schools_ctl01_schoolImage" class="schoolimage" src="/docs/building/2/clms.jpg?id=664&amp;width=200" alt="Conneaut Lake Middle School" style="border-width:0px;"><a id="ctl00_ctl00_BottomContent_VeryBottomContent_rpt_schools_ctl01_schoolLink" class="schoollink" href="/2/home"><div class="namebottom">Conneaut Lake Middle</div></a>
+                            </div>
+                        </div>
+                    
+                        <div class=" schoolblockwrapper">
+                            <div class="schoolblock">
+                                <img id="ctl00_ctl00_BottomContent_VeryBottomContent_rpt_schools_ctl02_schoolImage" class="schoolimage" src="/docs/building/3/valleymiddle.jpg?id=669&amp;width=200" alt="Conneaut Valley Middle School" style="border-width:0px;"><a id="ctl00_ctl00_BottomContent_VeryBottomContent_rpt_schools_ctl02_schoolLink" class="schoollink" href="/3/home"><div class="namebottom">Conneaut Valley Middle</div></a>
+                            </div>
+                        </div>
+                    
+                        <div class=" schoolblockwrapper">
+                            <div class="schoolblock">
+                                <img id="ctl00_ctl00_BottomContent_VeryBottomContent_rpt_schools_ctl03_schoolImage" class="schoolimage" src="/docs/building/4/lakeelem.jpg?id=668&amp;width=200" alt="Conneaut Lake Elementary" style="border-width:0px;"><a id="ctl00_ctl00_BottomContent_VeryBottomContent_rpt_schools_ctl03_schoolLink" class="schoollink" href="/4/home"><div class="namebottom">Conneaut Lake Elementary</div></a>
+                            </div>
+                        </div>
+                    
+                        <div class=" schoolblockwrapper">
+                            <div class="schoolblock">
+                                <img id="ctl00_ctl00_BottomContent_VeryBottomContent_rpt_schools_ctl04_schoolImage" class="schoolimage" src="/docs/building/5/conneaut%20valley%20elem.jpg?id=666&amp;width=200" alt="Conneaut Valley Elementary School" style="border-width:0px;"><a id="ctl00_ctl00_BottomContent_VeryBottomContent_rpt_schools_ctl04_schoolLink" class="schoollink" href="/5/home"><div class="namebottom">Conneaut Valley Elementary</div></a>
+                            </div>
+                        </div>
+                    
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-content ">
+        <div class="container ">
+
+            <div class="row border-bottom-panel second-panel">
+                <div class=" col-sm-6 backgroundcolor borderRight">
+                    <div class="clearfix panel content">
+                        
+    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Facebook
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <div id="fb-root"> </div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.9";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script><div class="fb-page" data-adapt-container-width="true" data-hide-cover="false" data-href="https://www.facebook.com/Conneaut-School-District-273222109483344/?hc_ref=NEWSFEED" data-show-facepile="false" data-small-header="false" data-tabs="timeline">
+<blockquote cite="https://www.facebook.com/Conneaut-School-District-273222109483344/?hc_ref=NEWSFEED" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Conneaut-School-District-273222109483344/?hc_ref=NEWSFEED">Conneaut School District</a></blockquote>
+</div>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-6 backgroundcolor borderLeft">
+                    <div class="clearfix panel content">
+                        
+    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Twitter
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p><a class="twitter-timeline" data-height="450" data-width="300" href="https://twitter.com/ConneautSDPA">Tweets by ConneautSDPA</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="container-info">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 backgroundcolor footer-left">
+        <h6>Contact Us</h6>
+        <div id="school-map" class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <div>
+                    <span id="ctl00_ctl00_ctl07_hName">Conneaut School District</span>
+                    <span id="ctl00_ctl00_ctl07_hAddress">219 West School Drive<br>Linesville, PA 16424</span>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <span id="AddInfo"><a href="http://maps.google.com/maps?q=219%20West%20School%20Drive+Linesville+PA+16424" id="ctl00_ctl00_ctl07_mapLink">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>  View Map &amp; Directions</a></span>
+                <span id="AddInfo">
+                    <div id="ctl00_ctl00_ctl07_dphone">
+                        <i class="fa fa-phone" aria-hidden="true"></i>  <span id="ctl00_ctl00_ctl07_hPhone" style="display: inline;">Phone: 814-683-5900</span>
+                    </div>
+                </span><span id="AddInfo">
+                    <div id="ctl00_ctl00_ctl07_dfax">
+                        <i class="fa fa-fax" aria-hidden="true"></i>  <span id="ctl00_ctl00_ctl07_hfax" style="display: inline;">Fax: 814-683-4127</span>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 backgroundcolor footer-right">
+        <div id="social-links">
+            <h6>Stay Connected</h6>
+            <div id="social-links-bottom">
+                
+        <a href="/login" title="Content Management Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="https://conneaut.instructure.com/login/canvas" title="Canvas LMS" target="_self">
+            <span class="obscure">Learning Management System (LMS)</span>
+            <i class="fa lms"></i>
+        </a>
+    
+        <a href="https://outlook.office.com/mail/inbox" title="WebMail" target="_self">
+            <span class="obscure">Mail</span>
+            <i class="fa fa-envelope"></i>
+        </a>
+    
+        <a href="https://drive.google.com" title="Google Drive" target="_self">
+            <span class="obscure">Google Drive</span>
+            <i class="fa google-drive"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-sp-logo">
+    <a href="http://www.schoolpointe.com" target="_blank" title="SchoolPointe" class="schoolpointe">
+        <img src="https://cdn.schoolpointe.com/images/new/SPwhite.png" alt="SchoolPointe white logo"></a>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-84033228-42', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer>
+</div>
+
+        <script>
+            $(document).ready(function () {
+                var menuAnchors = $('ul.distict-top-nav > li > a');
+                var cnt = menuAnchors.length;
+
+                $('ul.distict-top-nav > li').css({
+                    "width": (100 / cnt) + "%"
+                });
+            });
+        </script><div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAZEJ/OuNanztOXs+qbKDG8PVk2OTphaLuDjhcg1gueCtAnqQCeY/GFAD9PJaSjGXswa5Mi2Fk9UQkWTDTMqZG1FmfdzrDX31Bj5JVSEvwkjXovyiX+ODkFNlMwhivUpY2ztwGRt2BTqrOAcv4uvyjmOnvrkUg==">
+</div>
+</form>
+</body>
+</html>

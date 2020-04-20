@@ -1,0 +1,157 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="null" class="login">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="ROBOTS" content="NOINDEX">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<base href="https://mtdecloud1.infinitecampus.org/campus/">
+<title>Campus Portal Login</title>
+<script language="Javascript" src="scripts/portal.js"></script><script type="text/javascript" src="scripts/jquery/jquery-1.7.2/jquery-campus-1.7.2.min.js"></script><link rel="stylesheet" type="text/css" href="styles/portalLogin.css">
+<link rel="stylesheet" type="text/css" href="apps/portal/assets/login.css">
+<link rel="stylesheet" type="text/css" href="apps/search-ui/css/global.css">
+<script type="text/javascript">
+        $(document).ready(function(){
+            var contextComm = parent.campusContextCommunicator;
+            if(contextComm){
+                contextComm.redirectToLogin();
+            }
+
+            $(window).load(function() {
+
+                $("#lang2").change(function () {
+                    var selectedLang = $('#lang2').val();
+                    if(!selectedLang) {
+                        selectedLang='en';
+                    }
+
+                    
+                    changeLang(selectedLang); // Refresh page to update language selection
+                    
+                });
+            });
+        });
+
+        var getUrlParameter = function getUrlParameter(sParam) {
+            var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+                sURLVariables = sPageURL.split('&'),
+                sParameterName,
+                i;
+
+            for (i = 0; i < sURLVariables.length; i++) {
+                sParameterName = sURLVariables[i].split('=');
+
+                if (sParameterName[0] === sParam) {
+                    return sParameterName[1] === undefined ? true : sParameterName[1];
+                }
+            }
+        };
+    </script>
+</head>
+<body>
+<div class="login-container login-container--old-portal">
+    <img src="apps/search-ui/img/logo.svg" class="logo" style="margin-bottom:48px"><div class="login-card">
+    <div class="login-form login-form--old-portal">
+        <h1>Thompson Falls Pub Schls</h1>
+        <p style="font-size: small">Log in to</p>
+        <br><a href="portal/students/thompsonFalls.jsp" class="info button block" aria-label="Button to navigate to Campus Student">Campus Student</a>
+        <div class="line-separator"><span>or</span></div>
+        <a href="portal/parents/thompsonFalls.jsp" class="info button block" aria-label="Button to navigate to Campus Parent">Campus Parent</a>
+    </div>
+</div>
+
+</div>
+<!--[if lt IE 10]>
+<div class="frmcontainer2">
+    <div class="editionbox">
+        <table id="editionlayout" border="0" cellpadding="0" cellspacing="0">
+            <tr valign="top">
+                <td class="fillertd">&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="lefteditionbox"></td>
+                <td class="centereditionbox" align="right"><div class="editiontext">Notice</div></td>
+                <td class="righteditionbox"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="notice"> <p><b>If you are using Internet Explorer 7 or 8, the browsers will no longer be supported as of June, 2015. Internet Explorer 9 has only limited support. <br> Please refer to the <a href="https://community.infinitecampus.com/kb/display/DOC/Supported+Platforms">Supported Platforms article</a> on the Campus Community.</b><p></div>
+</div>
+<div>&nbsp;</div>
+<![endif]-->
+<div> </div>
+<div class="appinfo">
+    
+    <div>©2003-2020 Infinite Campus, Inc.</div>
+    <div><a href="http://www.infinitecampus.com" target="_blank">www.infinitecampus.com</a></div>
+    <div class="appserver">a=c1411MT-APP001</div>
+    <script type="text/javascript">
+        var languageList = [];
+        
+        languageList.push('en');   //Here is the latest update check it sravan .Put single quotes.
+        
+        languageList.push('es');   //Here is the latest update check it sravan .Put single quotes.
+        
+        languageList.push('zh-Hans');   //Here is the latest update check it sravan .Put single quotes.
+        
+        languageList.push('zh-Hant');   //Here is the latest update check it sravan .Put single quotes.
+        
+        $(document).ready(function(){
+            var language = getLanguage();
+            $('#lang').val(language);
+            $('#lang2').val(language);
+        });
+        function getLanguage() {
+            paramLang = getUrlParameter('lang');
+
+            if(paramLang) {
+                var foundit = false;
+                for(var v = 0; v < languageList.length; v++) {
+                    if(languageList[v] === paramLang) {
+                        foundit = true;
+                        return paramLang;
+                    }
+                }
+                if(!foundit) {
+                    return 'en';
+                }
+            } else {
+                var langCookie = getCookie('lang');
+                // There was no language cookie set and nothing specified in the request/session, fall back to the default
+                if(!langCookie) {
+                    return "en";
+                } else {
+                    return langCookie;
+                }
+            }
+        }
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') {
+                    c = c.substring(1);
+                }
+
+                if (c.indexOf(name) == 0) {
+                    var foundit = false;
+                    for(var v = 0; v < languageList.length; v++) {
+                        if(languageList[v] === c.substring(name.length,c.length)) {
+                            foundit=true;
+                            return c.substring(name.length,c.length);
+                        }
+                    }
+                    if(!foundit) {
+                        return "";
+                    }
+                }
+            }
+            return "";
+        }
+    </script>
+</div>
+</body>
+</html>

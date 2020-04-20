@@ -1,0 +1,715 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Wyndmere Public School</title>
+<meta name="Keywords" content="Wyndmere Public School">
+<meta name="Description" content="Wyndmere Public School">
+<meta name="Author" content="Wyndmere Public School">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta property="og:image" content="http://images.schoolinsites.com/images/education.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="200">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/css.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/demo4/style.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src="JavaScripts/jquery-1.8.3.min.js"></script><link href="/CommonTemplates/SiteElements/Styles/Include-Styles.asp" type="text/css" rel="stylesheet">
+<link href="http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/Styles.css" rel="stylesheet" type="text/css">
+<!--script src="http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/JavaScripts.js" type="text/javascript"></script--><script type="text/javascript">
+	//-----------------------------------------------------------------------------------------------
+	//Edit CSS, currently set up for Pirobox fix
+	//-----------------------------------------------------------------------------------------------
+		function getCSSRule(ruleName, deleteFlag) {               // Return requested style obejct
+		   ruleName=ruleName.toLowerCase();    
+		   
+			if (document.styleSheets) {                            
+				for (var i=0; i<document.styleSheets.length; i++) { 
+					var styleSheet=document.styleSheets[i];
+					var styleSheetHref = styleSheet.href;
+					if ((styleSheetHref != null) && (styleSheetHref.indexOf("pirobox") != -1))
+						piroStyle = i;
+				}
+
+				var styleSheet=document.styleSheets[piroStyle];
+				 var ii=0;                                        // Initialize subCounter.
+				 var cssRule=false;                               // Initialize cssRule. 
+
+				 do {                                             // For each rule in stylesheet
+					if (styleSheet.cssRules) {                    // Browser uses cssRules?
+					   cssRule = styleSheet.cssRules[ii];         // Yes --Mozilla Style
+					} else {                                      // Browser usses rules?
+					   cssRule = styleSheet.rules[ii];            // Yes IE style. 
+					}                                             // End IE check.
+
+					if (cssRule)  {                               // If we found a rule...
+					   if ((typeof(cssRule.selectorText) != 'undefined') && (cssRule.selectorText.toLowerCase()==ruleName)) { //  match ruleName?
+						  if (deleteFlag=='delete') {             // Yes.  Are we deleteing?
+							 if (styleSheet.cssRules) {           // Yes, deleting...
+								styleSheet.deleteRule(ii);        // Delete rule, Moz Style
+							 } else {                             // Still deleting.
+								styleSheet.removeRule(ii);        // Delete rule IE style.
+							 }                                    // End IE check.
+							 return true;                         // return true, class deleted.
+						  } else {                                // found and not deleting.
+							 return cssRule;                      // return the style object.
+						  }                                       // End delete Check
+					   }                                          // End found rule name
+					}                                             // end found cssRule
+					ii++;                                         // Increment sub-counter
+				 } while (cssRule)  
+			}
+			return false;
+		}
+
+
+		function killCSSRule(ruleName) {                          // Delete a CSS rule   
+		   return getCSSRule(ruleName,'delete');                  // just call getCSSRule w/delete flag.
+		}                                                         // end killCSSRule
+
+		function addCSSRule(ruleName) {                           // Create a new css rule
+		   if (document.styleSheets) {                            // Can browser do styleSheets?
+			  if (!getCSSRule(ruleName)) {                        // if rule doesn't exist...
+				 if (document.styleSheets[0].addRule) {           // Browser is IE?
+					document.styleSheets[0].addRule(ruleName, null,0);      // Yes, add IE style
+				 } else {                                         // Browser is IE?
+					document.styleSheets[0].insertRule(ruleName+' { }', 0); // Yes, add Moz style.
+				 }                                                // End browser check
+			  }                                                   // End already exist check.
+		   }                                                      // End browser ability check.
+		   return getCSSRule(ruleName);                           // return rule we just created.
+		} 
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//Get/Set cookies for mobile site
+	//-----------------------------------------------------------------------------------------------
+		function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			createCookie(name,"",-1);
+		}
+		
+		
+		
+		var fullSite = readCookie('FullSite');
+		var mobileDev = readCookie('MobileDevice');
+		var mobileNoRedirect = readCookie('MobileNoRedirect');
+		
+		if(fullSite && mobileDev) {
+			if((fullSite != 'True') && (mobileNoRedirect != '1') && (mobileDev == 'True'))
+				window.location = 'http://wyndmere.schoolinsites.com/mobile/default.asp';
+		}
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//photo album / lightbox init
+	//-----------------------------------------------------------------------------------------------
+		$(document).ready(function() {
+			if ($("a[class^='pirobox']").length > 0) {
+				$().piroBox({
+						my_speed: 400, //animation speed
+						bg_alpha: 0.7, //background opacity
+						slideShow : true, // true == slideshow on, false == slideshow off
+						slideSpeed : 4, //slideshow duration in seconds(3 to 6 Recommended)
+						close_all : '.piro_close,.piro_overlay'// add class .piro_overlay(with comma)if you want overlay click close piroBox
+				});
+			}
+		});
+
+		var UserAgent = navigator.userAgent;
+		//alert(UserAgent);
+		if (UserAgent.indexOf("MSIE 10") != -1)
+			TheAgent = "IE10"
+		else{
+			if (UserAgent.indexOf("MSIE") != -1)
+				TheAgent = "IE"
+			else
+				TheAgent = ""
+		}
+		
+		//Pirobox + Google Translate workaround for non-IE browsers. Dynamically changes CSS for pirobox after the translate widget has loaded.
+		if (TheAgent == ""){
+			theTimeout = setTimeout('GoogleCountdown()', 2000);	
+		}
+		
+		function GoogleCountdown() {
+			var element =  document.getElementById('google_translate_element');
+			if ((typeof(element) != 'undefined') && (element != null))
+			{
+				var PiroContent = getCSSRule('.pirobox_content');
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					//x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+					
+				
+				if(y < 700)
+					PiroContent.style.top = "16%";
+				else{
+					if(y > 900)
+						PiroContent.style.top = "23%";
+					else
+						PiroContent.style.top = "20%";
+				}
+				
+			}
+		}
+	//-----------------------------------------------------------------------------------------------
+		
+		
+		//Use onClick=SlideLink() in the slide show overlay for slide links work
+		function SlideLink() {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			//figure out which div is showing and set Link var
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			//if an anchor exists store values to "h" (for HREF) and "t" (for Target)
+			if (Link.firstChild.nodeName == "A") {
+				h = Link.firstChild.href;
+				t = Link.firstChild.target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				h = Link.getElementsByTagName('A')[0].href;
+				t = Link.getElementsByTagName('A')[0].target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+		}
+		//Make sure the cursor is a link pointer when a link exists (called by function SlideCursor())
+		function SlideCursorCheck(me) {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			if (Link.firstChild.nodeName == "A") {
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.firstChild.href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.etElementsByTagName('A')[0].href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+		}
+		//Function to change cursor on slide show overlay
+		var CursorCheck = false;
+		function SlideCursor(me) {
+			Elem = me;			
+			if (CursorCheck == false) {
+				var Start_SlideCursor = setInterval("SlideCursorCheck(Elem)", 500);
+				CursorCheck = true;
+			}
+		}
+		
+		function Login()
+		{
+			var loginPage = 'https://securesite.schoolinsites.com/loginv2/common/?p=1';
+			var loginDomain = 'http://wyndmere.schoolinsites.com';
+			loginPage = loginPage + '&login_for=' + loginDomain;
+			
+			window.location.href = loginPage;
+		}
+		
+		var imgAltTagsFix = function() {
+			$('img.gsc-branding-img').attr("alt", "Google Custom Search Branding");
+			$('input.gsc-search-button').attr('alt', "Google Custom Search Button");
+		};
+		
+		window.__gcse = {
+			callback: imgAltTagsFix
+		};
+		
+		function a11yClick(event){
+			if(event.type === 'click'){
+				return true;
+			}
+			else if(event.type === 'keypress'){
+				var code = event.charCode || event.keyCode;
+				if((code === 32)|| (code === 13)){
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	</script><style type="text/css" media="screen">
+		body{
+	margin: 0;
+	padding: 25px 0 0 0;}
+div#ToggleNav{
+	position:absolute; /* only effects browsers that cannot accept Fixed positioning */
+	top: 0; /* only effects browsers that cannot accept Fixed positioning */
+	left: 0; /* only effects browsers that cannot accept Fixed positioning */
+	background: #000 url(/images/Admin/Skins/HardCandyBlack/images/ToggleLoginBg.gif) repeat-x top left;
+	border-bottom: 0px solid #333;
+	border-top: 0px solid #FFFFFF;
+	width:100%;
+	height:25px;
+	z-index: 1000;
+	overflow:hidden;}
+div#ToggleNav td{
+	font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #9EA8C3;}
+div#ToggleNav input {
+	margin: 0;
+	padding: 0;
+	font: normal 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #303040;
+	vertical-align:middle;}
+div#ToggleNav .loginWrapper {
+	float: right;
+	height: 100%;
+}
+div#ToggleNav .formWrapper {
+	padding-right: 3px;
+	padding-left: 3px;
+	display: inline-block; 
+	*display: inline;}
+div#ToggleNav .formUsername {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/UsernameBg.gif) no-repeat top left;}
+div#ToggleNav .formPassword {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/PasswordBg.gif) no-repeat top left;}
+div#ToggleNav .formSelected {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/LoginFieldBlank.gif) repeat-x top left;}
+div#ToggleNav .formButton {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat 0 0;}
+div#ToggleNav .formButtonHover {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat -46px 0;}
+div#ToggleNav a.help:link, div#ToggleNav a.help:visited {
+	display:block;
+	height: 16px;
+	color: #D9D8E6;
+	border: 0;
+	margin: 4px 5px 0 1px;}
+div#ToggleNav a.help:hover, div#ToggleNav a.help:active {
+	display: block;
+	height: 16px;
+	border: 0;}
+body > div#ToggleNav .formUsername {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formPassword {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formSelected {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formButton {margin-bottom: 3px;}/* non-IE browsers only */
+body > div#ToggleNav .formButtonHover {margin-bottom: 3px;}/* non-IE browsers only */
+@media screen {
+	body > div#ToggleNav{
+		position:fixed;}
+}
+
+* html div#AdminDefaultIncludes{
+	position: fixed;
+	top: 25px;
+	bottom:0;
+ 	width: 100%;
+	_position: absolute;
+	_top: expression( ( 25 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+	_height: expression( ( -25 + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );}
+				* html body {
+					overflow:hidden;}
+				* html div#AdminDefaultIncludes{
+					overflow: auto;	}
+			
+	</style>
+<!--[if lte IE 9]>
+	<style type="text/css" media="screen">
+		* html body {
+			overflow:auto;}
+	</style>
+	<![endif]--><script type="text/javascript" src="/JavaScripts/JavaScripts.js"></script><script type="text/javascript">
+			TopBar = '<div class="loginWrapper">' +
+						'<div class="formWrapper"><a href="/admin1/securelogin.asp" aria-label="Log In" title="Go to Secure Login Page" alt="Log In" class="formButton" border="0" onFocus="this.className=\'formButtonHover\'"  onMouseOver="this.className=\'formButtonHover\'" onblur="this.className=\'formButton\'" onMouseOut="this.className=\'formButton\'">Login button</a></div>' +
+					 '</div>';
+		</script><script type="text/javascript">
+		if(typeof(BottomBar) == 'undefined')
+			var BottomBar = ' ';
+		$(document).ready(function() {
+			$("body").prepend('<div id="ToggleNav">' + TopBar + '</div>' + BottomBar);	
+		});
+	
+	</script><!--[if lte IE 9]>
+	<div id="AdminDefaultIncludes">
+	<![endif]--><link href="http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/StylesNew.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+NiceTitles.autoCreated = null;
+NiceTitles = null;
+	function colNavShow(el) {
+		var col = document.getElementById(el);
+		//col.style.display='block';
+		col.style.visibility='visible';
+	}
+	function colNavHide(el) {
+		var col = document.getElementById(el);
+		//col.style.display='none';
+		col.style.visibility='hidden';
+	}
+
+</script><script type="text/javascript">
+// search input label effect
+// to activate, at the end of the page call inputLabel('ElementIdTag','Default Input Text') for each input field to show text.
+function inputLabel(id, defaultTxt) {
+	var inputId = document.getElementById(id);
+	// onFocus action
+	inputId.onfocus = function() {
+		if (inputId.value == defaultTxt) {
+			inputId.value = '';
+			inputId.style.color = '#333';
+		}else {
+			inputId.select();
+		}
+	};
+	// onBlur action
+	inputId.onblur = function() {
+		if (inputId.value == '') {
+			inputId.value = defaultTxt;
+			inputId.style.color = '#ccc';
+		}
+	};
+	// enter default text at page load
+	if (inputId.value == '') {
+		inputId.value = defaultTxt;
+		inputId.style.color = '#ccc';
+	}
+}
+</script>
+</head>
+<body>
+<div class="IndexPage">
+	<table align="center" cellpadding="0" cellspacing="0" width="962" border="0" id="PageWrapper"><tr><td valign="top">
+               <div id="LogoTitle">
+               <a href="https://www.facebook.com/WyndmerePublicSchool/" title="Like Us on Facebook" target="_blank"><img src="http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/Images/facebook.png" alt="Facebook" width="50" style="margin-left: 900px; margin-top: 15px; float: left;"></a>
+			   <a href="https://twitter.com/WarbirdsNest" title="Follow Us on Twitter" target="_blank"><img src="http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/Images/twitter.png" alt="Twitter" width="50" style="margin-left: 900px; float: left;"></a>
+               </div>
+	
+        <!--Begin Main Links -->
+				<div id="TopNav">
+					<!-- Main Navigation -->
+	
+		<a href="/">Home</a>
+		<!--<a href="?PN=Schools2">Schools</a> -->
+			
+					<a href="Default.asp?PN=&amp;DivisionID=16391">Employment</a>
+				
+					<a href="Default.asp?PN=&amp;DivisionID=23651">About Us</a>
+				
+					<a href="Default.asp?PN=&amp;DivisionID=11436">Activities</a>
+				
+					<a href="Default.asp?PN=&amp;DivisionID=11918">Wyndmere Library</a>
+				
+					<a href="Default.asp?PN=&amp;DivisionID=11281">District</a>
+				
+					<a href="Default.asp?PN=&amp;DivisionID=11282">Lesson Plans</a>
+				
+					<a href="Default.asp?PN=&amp;DivisionID=11297">Websites</a>
+				
+					<a href="Default.asp?PN=&amp;DivisionID=11296">Community</a>
+				
+		<!--<a href="?PN=ParentInfo">Parent Info</a> -->
+		<!--<a href="?PN=AboutUs">About WS</a> -->
+		<!--<a href="?PN=News2">News</a> -->
+		<!--<a href="?PN=Directory">Directory</a> -->
+		<!--<a href="Default.asp?PN=AdvancedSearch">Search</a> -->
+		<a href="?PN=Calendar&amp;ShowNav=Yes&amp;">Calendar</a>
+		<a href="?PN=Contact">Contact</a>
+        
+	
+<!-- End Main Navigation -->
+				</div>
+		<!--Begin Main/Default Split -->
+							<!--Begin Slideshow -->
+				<div id="Header">
+					<div id="Slideshow2">
+						<div style="width:990px; height:260px; overflow:hidden; position:absolute; z-index:10;">
+						
+			<div>
+			<script src="/JavaScripts/fotorama-4.6.4/fotorama.js"></script><style>
+.fotorama__html div,
+.fotorama__html a {
+  display: block;
+  height: 100%;
+  /* Transparent links are not clickable in IE,
+     but non-existent background fixes this.
+    (Put an empty 1×1 image here to avoid
+     errors in console.)
+  background: url(_.gif); */
+}
+
+</style>
+<div class="fotorama" data-width="100%" data-fit="cover" data-maxheight="260" data-transition="crossfade" data-autoplay="10000" data-loop="true" data-transitionduration="500" data-stopautoplayontouch="false" data-arrows="true" data-click="false" data-swipe="true" data-nav="false">
+	 
+	 
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_770/b5482a0be5ba22eaf23ee3dacf855da9.jpg" data-caption="" alt="Slideshow Image 0">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_770/62d66a2ce7fde5ac88cdf0af3e56c17c.jpg" data-caption="" alt="Slideshow Image 1">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_770/54599e287f20ea232066a183fa376783.jpg" data-caption="" alt="Slideshow Image 2">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_770/d74162aae2308d957a301535a569d0a6.jpg" data-caption="" alt="Slideshow Image 3">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_770/8487aef881b54350c0d4d357eea4798a.jpg" data-caption="" alt="Slideshow Image 4">
+		
+		</div>
+			
+</div>
+
+
+
+			</div>
+		
+						</div>
+						<div id="SlideOverlay3"></div>
+					</div>
+					</div>
+				
+
+				
+  <!--Begin 3 Columns -->
+  <table width="990" border="0" align="center" cellpadding="0" cellspacing="0"><tr>
+<td>
+  <div id="MiddleWrapper2">
+      <table width="990" border="0" cellspacing="0" cellpadding="0"><tbody><tr>
+<td align="left" valign="top">
+              <a onfocus="document.getElementById('column_1').style.display='';" onmouseover="document.getElementById('column_1').style.display='';" href="" onclick="return false;" style="text-decoration:none;">
+              <img src="http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/images/HeaderColumn1.gif" alt="Faculty and Staff"></a>
+              <br><div id="column_1" style="display:none;margin:0px; padding:5px; background-color:#FFFFFF; height: 408px;" onfocus="document.getElementById('column_1').style.display='';" onmouseover="document.getElementById('column_1').style.display='';" onblur="document.getElementById('column_1').style.display='none';" onmouseout="document.getElementById('column_1').style.display='none';">
+                    <p style="text-align: left;"><span style="font-family: helvetica; font-size: 18px;"><a href="https://wyndmere.ps.state.nd.us/admin/pw.html" target="_blank">Admin PowerSchool</a></span></p>
+<p><span style="font-family: helvetica; font-size: 18px;"><a href="https://wyndmere.ps.state.nd.us/teachers" target="_blank">Staff PowerSchool</a></span></p>
+<p><span style="font-family: helvetica; font-size: 18px;"><a href="https://sts.k12.nd.us/adfs/ls/?wa=wsignin1.0&amp;wtrealm=urn:federation:MicrosoftOnline&amp;wctx=wa%3Dwsignin1.0%26rpsnv%3D4%26ct%3D1414598380%26rver%3D6.1.6206.0%26wp%3DMBI_SSL%26wreply%3Dhttps:%252F%252Foutlook.office365.com%252Fowa%252F%253Frealm%253Dk12.nd.us%2526wa%253Dwsignin1.0%2526authRedirect%253Dtrue%26id%3D260563%26whr%3Dk12.nd.us%26CBCXT%3Dout" target="_blank">Office365</a></span></p>
+<p><a href="http://wyndmere.schoolinsites.com/Download.asp?L=0&amp;LMID=435889&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=Documents&amp;Act=Download&amp;T=1&amp;I=737078" target="_blank"><span style="font-family: helvetica; font-size: 18px;">Bullying Form (Staff)</span></a></p>
+<p><a href="https://wl.sui-online.com/WyndmereND/Login.aspx" target="_blank"><span style="font-family: helvetica; font-size: 18px;">SUI-Online (Request forms)</span></a></p>
+<p><span style="font-family: helvetica; font-size: 18px;"><a href="http://www.edutech.nodak.edu/" target="_blank">EDUTECH</a></span></p>
+<p><span style="font-family: helvetica; font-size: 18px;"><a href="https://www-k6.thinkcentral.com/ePC/start.do" target="_blank">Think Central</a></span></p>
+<p><span style="font-family: helvetica; font-size: 18px;"><a href="https://global-zone50.renaissance-go.com/welcomeportal/315236" target="_blank">Renaissance Place</a></span></p>
+<p><span style="font-family: helvetica; font-size: 18px;"><a href="https://mp.sso.airast.org/auth/SSORedirect/metaAlias/measuredprogress/idp?SAMLRequest=fZFNb8IwDIb%2fSpX7aKCwlqhFKk2ZKo1RtWyHXVBUPIjUJl2cbuzfL4D2dZmUg2P7sfW%2bjlF0bc%2fSwR5VBa8DoPVOXauQXQoJGYxiWqBEpkQHyGzD6nR9zyYjynqjrW50S34h%2fxMCEYyVWhGv4AmpJzwPKV3OgyiLeBqFqyXlYRSGfHy7zOk8nC2DYB5mUUC8JzDowIS4OY5GHKBQaIWyLkXH4Q0N3NuOZ2xCWTB%2fPveUbp98g4S8iBaBeCttGrho%2fU5xp1gqYS%2bjj9b2yHy%2f60eIeiSkEWhH2hzYdBr4woF%2bXW8q2EsDjfU7sCJtpUAXCRwM7J0jBwOIvtz3xEu%2f1GZa4dCBKdQeTgmhZBGfvWIXFWZRl7t1ntaPVc7LanNX5XW92xY837kfj%2f3frfH1Xg%2fO2YKXupXNh5e2rX7PDAj7o9RfXLm%2fp118Ag%3d%3d" target="_blank">Geomotiontv</a></span></p>
+<p><span style="font-family: helvetica; font-size: 18px;"><a href="http://www.mobymax.com/nd712">MobyMax</a><br></span></p>
+<p><span style="font-family: helvetica; font-size: 18px;"><a href="https://www.edutyping.com" target="_blank">EDUTYPING</a><br></span></p>
+<p><span style="font-family: helvetica; font-size: 18px;"><a href="https://www.ixl.com/standards/north-dakota/ela" target="_blank">IXL ND Standards</a></span></p>
+<p><span style="font-family: helvetica; font-size: 18px;"><a href="https://cas.advanc-ed.org/cas/login?service=http%3A%2F%2Fwww.advanc-ed.org%2Foasis%2Fdo%2Fsecure%2Fhome" target="_blank">ASSIST</a></span></p>
+              </div>
+      </td> 
+      <td align="left" valign="top">
+      <img src="http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/images/spacer.gif" alt="space1" width="15">
+</td>
+      <td align="left" valign="top">
+              <a onfocus="document.getElementById('column_2').style.display='';" onmouseover="document.getElementById('column_2').style.display='';" href="" onclick="return false;" style="text-decoration:none;">
+              <img src="http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/images/HeaderColumn2.gif" alt="Parents and Students"></a>
+              <br><div id="column_2" style="display:none;margin:0px; padding:5px; background-color:#FFFFFF; height: 408px;" onfocus="document.getElementById('column_2').style.display='';" onmouseover="document.getElementById('column_2').style.display='';" onblur="document.getElementById('column_2').style.display='none';" onmouseout="document.getElementById('column_2').style.display='none';">
+                      <p style="text-align: center;"><span style="font-size: 13px;"><a href="https://wyndmereonline.weebly.com/" target="_blank"><span style="background-color: #ffffff; color: #ff6600;"><span style="background-color: #ffffff; color: #ff6600;">Distance Learning Website</span></span></a></span></p>
+<p style="text-align: center;"><span style="font-size: 13px;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/Submitted%20Application%20for%20Distance%20Learning%20Plan%20for%20Wyndmere%20School%20District%203-25-20_%7BSIS85288F52ECE0%7D.pdf" target="_blank"><span style="background-color: #ffffff; color: #ff6600;"><span style="background-color: #ffffff; color: #ff6600;">WPS Approved Distance Ed Plan</span></span></a></span></p>
+<p style="text-align: center;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/Transition%20to%20Dist.%20Ed.%203-23-20%20%281%29_%7BSIS5DFCFECADAB2%7D.pdf" target="_blank"><span style="background-color: #ffffff; color: #ff6600;"><span style="font-size: 13px; background-color: #ffffff; color: #ff6600;">Letter From Superintendent</span></span></a></p>
+<p style="text-align: center;"><span style="background-color: #ffffff; color: #ff6600;"><span style="font-size: 13px; background-color: #ffffff; color: #ff6600;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/School%20Lunches_%7BSIS05D9D6380F2C%7D.pdf" target="_blank"><span style="background-color: #ffffff; color: #ff6600;"><span style="font-size: 13px; background-color: #ffffff; color: #ff6600;">Update On FREE Lunch</span></span></a></span></span></p>
+<p style="text-align: center;"><span style="font-size: 13px;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/Mission.pdf" target="_blank">Mission Statement</a></span></p>
+<p style="text-align: center;"><span style="font-size: 13px;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/Mission.pdf" target="_blank"><span style="font-family: helvetica; color: #000000;"><span style="color: #000000;">Medication Authorization Form</span></span></a></span></p>
+<p style="text-align: center;"><span style="font-size: 13px;"><span style="font-family: helvetica; color: #000000;"><span style="color: #000000;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/WHO%20DO%20I%20CONTACT_%7BSISFE65158EEEFD%7D.pdf" target="_blank">Who Should I Contact? (Information form)</a></span></span></span></p>
+<p style="text-align: center;"><span style="font-size: 13px;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/IVC%20form%2009_%7BSISD3B656901E7B%7D.pdf" target="_blank"><span style="font-family: helvetica; color: #000000;"><span style="color: #000000;">IVC form (Print then fill out)</span></span></a></span></p>
+<p style="text-align: center;"><span style="font-size: 13px; color: #000000;"><span style="color: #000000;"><span style="font-family: helvetica; color: #000000;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/HS%20Schedules_%7BSIS15BC17CE9214%7D.pdf" target="_blank">JH-HS Schedules</a><br></span></span></span></p>
+<p style="text-align: center;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/2019-20%20Wyndmere%20Student%20Handbook%20Final_%7BSISC98E630EAC9C%7D.pdf" target="_blank"><span style="font-size: 13px;"><span style="text-decoration: underline;"><span style="color: #000000; text-decoration: underline;"><span style="color: #000000; text-decoration: underline;"><span style="font-family: helvetica; color: #000000; text-decoration: underline;">High School Parent-Student Handbook</span></span></span></span></span></a></p>
+<p style="text-align: center;"><span style="font-size: 13px;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/ParentStudentHandbook1920_%7BSISE521B3CC9FF2%7D.pdf" target="_blank"><span style="text-decoration: underline;"><span style="color: #000000; text-decoration: underline;"><span style="color: #000000; text-decoration: underline;"><span style="font-family: helvetica; color: #000000; text-decoration: underline;">Elem School Parent-Student Handbook</span></span></span></span></a></span></p>
+<p style="text-align: center;"><span style="font-size: 13px;"><a href="http://wyndmere.schoolinsites.com/Download.asp?L=0&amp;LMID=435889&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=737066" target="_blank"><span style="text-decoration: underline;"><span style="color: #000000; text-decoration: underline;"><span style="color: #000000; text-decoration: underline;"><span style="font-family: helvetica; color: #000000; text-decoration: underline;">Bullying Reporting Form</span></span></span></span></a></span></p>
+<p style="text-align: center;"><span style="font-family: helvetica; color: #000000; font-size: 13px;"><span style="color: #000000;"><a href="http://wyndmere.schoolinsites.com/?DivisionID=11280&amp;ToggleSideNav=ShowAll">Parents Links</a></span></span></p>
+<p style="text-align: center;"><span style="font-family: helvetica; color: #000000; font-size: 13px;"><a href="https://payments.efundsforschools.com/v3/districts/55715" target="_blank"><span style="color: #000000;">E-FUNDS</span></a></span></p>
+<p style="text-align: center;"><span style="font-family: helvetica; color: #000000; font-size: 13px;"><span style="color: #000000;"><a href="http://larryholmstrom.zenfolio.com/">Flash Memories Photography</a></span></span></p>
+<p style="text-align: center;"><span style="font-size: 13px;"><span style="font-family: helvetica; color: #000000;"><span style="color: #000000;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/Wyndmere_Scholarship_Application_for_Payment.pdf" target="_blank">Wyndmere School Scholarship</a></span></span></span></p>
+              </div>
+      </td>
+      <td align="left" valign="top">
+      <img src="http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/images/spacer.gif" alt="space2" width="15">
+</td>
+      <td align="left" valign="top">
+              <a onfocus="document.getElementById('column_3').style.display='';" onmouseover="document.getElementById('column_3').style.display='';" href="" onclick="return false;" style="text-decoration:none;">
+              <img src="http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/images/HeaderColumn3.gif" alt="News &amp; Events"></a>
+              <br><div id="column_3" style="display:none;margin:0px; padding:5px; background-color:#FFFFFF; height: 408px;" onfocus="document.getElementById('column_3').style.display='';" onmouseover="document.getElementById('column_3').style.display='';" onblur="document.getElementById('column_3').style.display='none';" onmouseout="document.getElementById('column_3').style.display='none';">
+                  <p style="text-align: left;"><span style="font-size: 13px;"><a href="https://wyndmereonline.weebly.com/" target="_blank"><span style="color: #ff6600;"><span style="font-family: helvetica; color: #ff6600;">Distance Learning Website</span></span></a></span></p>
+<p style="text-align: left;"><span style="font-size: 13px;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/Submitted%20Application%20for%20Distance%20Learning%20Plan%20for%20Wyndmere%20School%20District%203-25-20_%7BSIS85288F52ECE0%7D.pdf" target="_blank"><span style="color: #ff6600;"><span style="font-family: helvetica; color: #ff6600;">WPS Approved Distance Ed Plan</span></span></a></span></p>
+<p style="text-align: left;"><span style="font-family: helvetica; color: #ff6600; font-size: 13px;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/Transition%20to%20Dist.%20Ed.%203-23-20%20%281%29_%7BSIS5DFCFECADAB2%7D.pdf" target="_blank"><span style="color: #ff6600;">Letter from Superintendent</span></a></span></p>
+<p style="text-align: left;"><span style="font-size: 13px;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/School%20Lunches_%7BSIS05D9D6380F2C%7D.pdf" target="_blank"><span style="color: #ff6600;"><span style="font-family: helvetica; color: #ff6600;">Update On FREE Lunch</span></span></a></span></p>
+<p style="text-align: left;"><span style="font-family: helvetica; color: #000000; font-size: 13px;"><a href="http://wyndmere.schoolinsites.com/?PN=Pages&amp;SubP=Level1Page&amp;L=1&amp;DivisionID=11281&amp;PageID=16513&amp;ToggleSideNav=ShowAll">Daily Announcements</a></span></p>
+<p><span style="font-family: helvetica; color: #000000; font-size: 13px;"><a href="http://wyndmere.schoolinsites.com/Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=11998&amp;LMID=510143&amp;ToggleSideNav=ShowAll" target="_blank"><span style="color: #000000;">Breakfast/Lunch Menus</span></a><br></span></p>
+<p><span style="font-size: 13px;"><a href="http://www.wyndmere.k12.nd.us/Web/PDF%20Files/NewWebDrop/wyndmereweekly" target="_blank"><span style="font-family: helvetica; color: #000000;"><span style="color: #000000;">Wyndmere Weekly</span></span></a></span></p>
+<p><span style="font-family: helvetica; color: #000000; font-size: 13px;"><span style="color: #000000;"><a href="http://wyndmere.schoolinsites.com/Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=11281&amp;LMID=476528&amp;ToggleSideNav=ShowAll">Newsletters</a></span></span></p>
+<p><span style="color: #000000; font-size: 13px;"><span style="font-family: helvetica; color: #000000;"><a href="http://images.pcmac.org/Uploads/WyndmereSchool/WyndmereSchool/Sites/DocumentsCategories/Documents/1920wyndmerecalendar_%7BSISBE5E6E870FF3%7D.pdf" target="_blank">Yearly Calendar</a> (2019-2020)<a href="http://www.wyndmere.k12.nd.us/Web/PDF%20Files/NewWebDrop/1819CalendarFinal.pdf" target="_blank"></a></span></span></p>
+<p><span style="font-size: 13px;"><a href="http://wyndmereadvanced.weebly.com"><span style="color: #000000;"><span style="font-family: helvetica; color: #000000;">Wyndmere External Review Site</span></span></a></span></p>
+<p><span style="font-family: helvetica; color: #000000; font-size: 13px;"><a href="https://wyndmere.ps.state.nd.us/public/home.html"><span style="color: #000000;">PowerSchool Parent/Student Link</span></a></span></p>
+<p><span style="font-family: helvetica; color: #000000; font-size: 13px;"><span style="color: #000000;"><a href="http://ndsba.org/policies/wyndmere/">Wyndmere Public School Policies</a></span></span></p>
+<p><span style="font-size: 13px;"><a href="http://www.srctc.k12.nd.us/"><span style="color: #ff0000;"><span style="color: #ff0000;"><span style="color: #000000;"><span style="font-family: helvetica;">South East Region Career &amp; Technology Center</span> </span></span></span></a></span></p>
+<p><span style="font-size: 13px;"><span style="color: #ff0000;"><span style="color: #ff0000;"><span style="color: #000000;"><a href="https://insights.nd.gov" title="ND Insights Dashboard">ND Insights Dashboard</a></span></span></span></span></p>
+<p><span style="font-size: 13px;"><span style="color: #ff0000;"><span style="color: #ff0000;"><span style="color: #000000;"> </span></span></span></span></p>
+              </div>
+      </td>
+      </tr></tbody></table>
+<!--End Main/Default Split -->
+</div>
+</td>
+		</tr></table>
+<table align="center" cellpadding="0" cellspacing="0" width="962" border="0" id="BottomWrapper">
+<tr><td align="right">
+		<div id="PageFooter"><div id="FooterAddress" align="center" style="padding-top: 11px;">101 DATE AVENUE | WYNDMERE, ND 58081 | PH: 701-439-2287 | FX: 701-439-2804</div></div>
+	</td></tr>
+<tr>
+<td valign="top">
+				<div id="LegalInfo">
+<div id="Legal">
+	<a href="http://www.schoolinsites.com/"><img src="/images/SisPoweredSmall.png" id="PoweredBy" height="30" width="120" alt="Powered and Designed by SCHOOLinSITES"></a>
+	
+	<p class="right">
+		Copyright © 2020  Wyndmere Public School
+	</p>
+</div>
+</div>
+			</td>
+		</tr>
+</table>
+<script type="text/javascript">
+	inputLabel('SearchIndexInput','Search');
+</script><script type="text/javascript">
+	// search input function
+	inputLabel('SearchDefaultInput','Search');
+	// side navigation show/hide all function
+	function ToggleSideNav() {
+		var NavDiv = document.getElementById("ToggleSideNavDivision");
+		var NavAll = document.getElementById("ToggleSideNavShowAll");
+		var NavLoad = "<span style='background:#c44; color:#fff; font: 12px/2 Arial, sans-serif;'>Loading...</span>"
+		if (NavAll.style.display == "block") {
+			if (NavDiv.innerHTML == "") {
+				NavDiv.innerHTML = NavLoad;
+				NavAll.style.display = "none";
+				NavDiv.style.display = "block";
+				doPost('CommonTemplates/SiteElements/Navigation/Include-AjaxToggle.asp?&ToggleSideNav=DivisionOnly&NavFile=2', "", "processResultDivNav");
+			}else {
+				SideNavSwitch();
+			}
+			NavAll.style.display = "none";
+			NavDiv.style.display = "block";
+		}else {
+			if (NavAll.innerHTML == "") {
+				NavAll.innerHTML = NavLoad;
+				doPost('CommonTemplates/SiteElements/Navigation/Include-AjaxToggle.asp?&ToggleSideNav=ShowAll&NavFile=2', "", "processResultShowAll");
+			}
+			NavAll.style.display = "block";
+			NavDiv.style.display = "none";
+			SideNavSwitch("open");
+		}
+	}
+	function SideNavSwitch(Show) {
+		var Link = document.getElementById("ToggleSideNavLink");
+		var NavTitle = document.getElementById("DivNavTitle");
+		if (Show == "open") {
+			//Link.style.backgroundImage = "url(http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/images/opentriangle.gif)";
+			Link.innerHTML = "Hide other sections";
+			NavTitle.innerHTML = "&nbsp;";
+		}else {
+			//Link.style.backgroundImage = "url(http://images.pcmac.org/Websites/WyndmereSchool/WyndmereSchool/images/triangle.gif)";
+			ActiveTitle = document.getElementById("IncNavDivisionOnlyTitle");
+			Link.innerHTML = "Show all";
+			NavTitle.innerHTML = ActiveTitle.innerHTML;
+			ActiveTitle.style.display = "none";
+		}
+	}
+	
+	function doPost(url, content, callback_name){
+		var async_request = false;
+		// IE
+		if (window.ActiveXObject) {
+		    async_request = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		// Mozilla/Safari
+		else if (window.XMLHttpRequest) {
+		    async_request = new XMLHttpRequest();
+		    async_request.overrideMimeType('text/xml');
+		}
+		async_request.open('POST', url, true);
+		async_request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		async_request.onreadystatechange = function(){
+		    if (async_request.readyState == 4) {
+		        response_content = async_request.responseText;
+		        eval(callback_name + '(response_content);');
+		    }
+		}
+		async_request.send(content);
+	}
+	function processResultDivNav(result) {
+		//alert(result);
+		document.getElementById('ToggleSideNavDivision').innerHTML = result;
+		SideNavSwitch();
+	}
+	function processResultShowAll(result) {
+		//alert(result);
+		document.getElementById('ToggleSideNavShowAll').innerHTML = result;
+	}
+</script>
+</td></tr></table>
+</div>
+</body>
+</html>

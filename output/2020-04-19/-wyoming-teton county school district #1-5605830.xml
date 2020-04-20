@@ -1,0 +1,2491 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home - Teton County School District #1</title>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800" rel="stylesheet">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1043073721">
+<meta name="google-play-app" content="app-id=com.schoolpointe.stayconnected">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="https://cdn.schoolpointe.com/images/apple-touch-icon.jpg">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Stay Connected", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "https://cdn.schoolpointe.com/images/apple-touch-icon.jpg", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><link rel="alternate" type="application/rss+xml" title="Teton County School District #1 - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Summit Innovations School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Jackson Hole High School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Jackson Hole Middle School - News" href="/rssNews.ashx?schoolId=3">
+<link rel="alternate" type="application/rss+xml" title="Alta K-5 Elementary School - News" href="/rssNews.ashx?schoolId=4">
+<link rel="alternate" type="application/rss+xml" title="Colter K-5 Elementary School - News" href="/rssNews.ashx?schoolId=5">
+<link rel="alternate" type="application/rss+xml" title="Jackson Elementary School - News" href="/rssNews.ashx?schoolId=6">
+<link rel="alternate" type="application/rss+xml" title="Kelly K-5 Elementary School - News" href="/rssNews.ashx?schoolId=7">
+<link rel="alternate" type="application/rss+xml" title="Moran K-5 Elementary School - News" href="/rssNews.ashx?schoolId=8">
+<link rel="alternate" type="application/rss+xml" title="Munger Mountain K-5 Elementary School - News" href="/rssNews.ashx?schoolId=9">
+<link rel="alternate" type="application/rss+xml" title="Wilson K-5 Elementary School - News" href="/rssNews.ashx?schoolId=10">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "WY_TetonCntySD1",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1570819222337">
+<script>
+        $(document).ready(function () {
+            // Homepage Quick Links
+
+
+            if ($('#TopNav > ul').length < 1) {
+                $('#TopNav').append('<ul />');
+            }
+
+            $('#GrabQuickLinks > li').appendTo($('#TopNav > ul'));
+        });
+    </script>
+</head>
+<body class="school-0 index  ">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUENTM4MQ9kFgJmD2QWAmYPZBYEZg9kFgYCAQ9kFgJmD2QWAgIBDxYCHgRUZXh0BR9UZXRvbiBDb3VudHkgU2Nob29sIERpc3RyaWN0ICMxZAIDD2QWAgIBDxYCHgtfIUl0ZW1Db3VudAIKFhRmD2QWAmYPFQIZU3VtbWl0IElubm92YXRpb25zIFNjaG9vbAExZAIBD2QWAmYPFQIYSmFja3NvbiBIb2xlIEhpZ2ggU2Nob29sATJkAgIPZBYCZg8VAhpKYWNrc29uIEhvbGUgTWlkZGxlIFNjaG9vbAEzZAIDD2QWAmYPFQIaQWx0YSBLLTUgRWxlbWVudGFyeSBTY2hvb2wBNGQCBA9kFgJmDxUCHENvbHRlciBLLTUgRWxlbWVudGFyeSBTY2hvb2wBNWQCBQ9kFgJmDxUCGUphY2tzb24gRWxlbWVudGFyeSBTY2hvb2wBNmQCBg9kFgJmDxUCG0tlbGx5IEstNSBFbGVtZW50YXJ5IFNjaG9vbAE3ZAIHD2QWAmYPFQIbTW9yYW4gSy01IEVsZW1lbnRhcnkgU2Nob29sAThkAggPZBYCZg8VAiVNdW5nZXIgTW91bnRhaW4gSy01IEVsZW1lbnRhcnkgU2Nob29sATlkAgkPZBYCZg8VAhxXaWxzb24gSy01IEVsZW1lbnRhcnkgU2Nob29sAjEwZAIEDxYCHgRocmVmBTAvc2l0ZWNzcy5hc2h4PyZpbnRyYW5ldD0wJmNoZWNrc3VtPTE1NzA4MTkyMjIzMzdkAgEPFgIeBmFjdGlvbgUBLxYKAgEPZBYEAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwQFATBkAgMPD2QWAh8EBQEwZAIEDw9kFgIfBAUBMGQCBQ8PZBYCHwQFATBkAgMPZBYCAgIPZBYCZg8WAh8ABRs8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PC91bD5kAgMPZBYCAgEPZBYCAgEPZBYIAgEPZBYCZg9kFgJmDxYCHwAFugI8cD5BbGwgVENTRCAjMSBTY2hvb2xzIGNsb3NlZCB1bnRpbCBmdXJ0aGVyIG5vdGljZSZuYnNwOyBkdWUgdG8gQ09WSUQtMTkuJm5ic3A7PHNwYW4gc3R5bGU9ImNvbG9yOiNGRkZGRkY7Ij4gPC9zcGFuPjxhIGhyZWY9Imh0dHBzOi8vd3d3LnRldG9uY250eXNkMS53eS5zY2hvb2xzLmJ6L0NvbnRlbnQyLzg4OCIgdGFyZ2V0PSJfYmxhbmsiPjxzcGFuIHN0eWxlPSJjb2xvcjojRkZGRkZGOyI+U2VlIERpc3RhbmNlIExlYXJuaW5nIFBhZ2VzJm5ic3A7PC9zcGFuPjwvYT5mb3IgYWNjZXNzIHRvIG9ubGluZSByZXNvdXJjZXMuJm5ic3A7Jm5ic3A7PC9wPmQCBw8PFgIeC05hdmlnYXRlVXJsBQEvZGQCCQ8PFgQfAAUtPHNwYW4gY2xhc3M9Im9ic2N1cmUiPmxpbmsgdG8gaG9tZXBhZ2U8L3NwYW4+HwUFAS9kZAINDw8WBB8FBQEvHwAFH1RldG9uIENvdW50eSBTY2hvb2wgRGlzdHJpY3QgIzFkZAIFD2QWAgIBD2QWBGYPFgIfAQIFZAIBDxYCHwAFNjxzdHlsZT4jc2xpZGVzaG93e3Bvc2l0aW9uOnJlbGF0aXZlO3otaW5kZXg6MTs8L3N0eWxlPmQCCQ9kFhYCAQ9kFgICAQ8WAh8BAgIWBGYPZBYEZg8VAQVBcHJpbGQCAQ8WAh8BAgEWAmYPZBYEZg8VAQIyOWQCAQ8WAh8BAgEWAmYPZBYCZg8VBC8vY2FsZW5kYXJ3ZWVrdmlldy5hc3B4P2V2ZW50SUQ9MTQ1MjUmc2Nob29saWQ9MAlXZWRuZXNkYXkaQm9hcmQgb2YgVHJ1c3RlZXMgV29ya3Nob3AQU3RhcnRzIEAgNjowMCBQTWQCAQ9kFgRmDxUBA01heWQCAQ8WAh8BAggWEGYPZBYEZg8VAQIxMmQCAQ8WAh8BAgEWAmYPZBYCZg8VBC8vY2FsZW5kYXJ3ZWVrdmlldy5hc3B4P2V2ZW50SUQ9MTQ2MzEmc2Nob29saWQ9MAdUdWVzZGF5JEtFUyBJbmNvbWluZyBLaW5kZXJnYXJ0ZW4gT3BlbiBIb3VzZRE0OjAwIFBNIC0gNjowMCBQTWQCAQ9kFgRmDxUBAjEzZAIBDxYCHwECARYCZg9kFgJmDxUELy9jYWxlbmRhcndlZWt2aWV3LmFzcHg/ZXZlbnRJRD0xNDUwNSZzY2hvb2xpZD0wCVdlZG5lc2RheSFCb2FyZCBvZiBUcnVzdGVlcyBSZWd1bGFyIE1lZXRpbmcQU3RhcnRzIEAgNjowMCBQTWQCAg9kFgRmDxUBAjE4ZAIBDxYCHwECARYCZg9kFgJmDxUELy9jYWxlbmRhcndlZWt2aWV3LmFzcHg/ZXZlbnRJRD0xNDYzMCZzY2hvb2xpZD0wBk1vbmRheStXRVMgSW5jb21pbmcgS2luZGVyZ2FydGVuIEluZm9ybWF0aW9uIE5pZ2h0ETU6MTUgUE0gLSA2OjAwIFBNZAIDD2QWBGYPFQECMTlkAgEPFgIfAQIBFgJmD2QWAmYPFQQvL2NhbGVuZGFyd2Vla3ZpZXcuYXNweD9ldmVudElEPTE0NDI2JnNjaG9vbGlkPTAHVHVlc2RheR1KSE1TL0pISFMgU3ByaW5nIEJhbmQgQ29uY2VydBBTdGFydHMgQCA2OjAwIFBNZAIED2QWBGYPFQECMjBkAgEPFgIfAQIBFgJmD2QWAmYPFQQvL2NhbGVuZGFyd2Vla3ZpZXcuYXNweD9ldmVudElEPTE0MTgzJnNjaG9vbGlkPTAJV2VkbmVzZGF5GE9yY2hlc3RyYSBTcHJpbmcgQ29uY2VydBBTdGFydHMgQCA2OjMwIFBNZAIFD2QWBGYPFQECMjVkAgEPFgIfAQIBFgJmD2QWAmYPFQQvL2NhbGVuZGFyd2Vla3ZpZXcuYXNweD9ldmVudElEPTEzOTcyJnNjaG9vbGlkPTAGTW9uZGF5H01lbW9yaWFsIERheSBIb2xpZGF5LSBObyBTY2hvb2wAZAIGD2QWBGYPFQECMjZkAgEPFgIfAQICFgRmD2QWAmYPFQQvL2NhbGVuZGFyd2Vla3ZpZXcuYXNweD9ldmVudElEPTE0NDAxJnNjaG9vbGlkPTAHVHVlc2RheRlKSE1TIFNwcmluZyBDaG9pciBDb25jZXJ0EFN0YXJ0cyBAIDY6MDAgUE1kAgIPZBYCZg8VBC8vY2FsZW5kYXJ3ZWVrdmlldy5hc3B4P2V2ZW50SUQ9MTQ0MDImc2Nob29saWQ9MAdUdWVzZGF5GUpISFMgQ2hvaXIgU3ByaW5nIENvbmNlcnQQU3RhcnRzIEAgNzowMCBQTWQCBw9kFgRmDxUBAjI3ZAIBDxYCHwECARYCZg9kFgJmDxUELy9jYWxlbmRhcndlZWt2aWV3LmFzcHg/ZXZlbnRJRD0xNDUyNiZzY2hvb2xpZD0wCVdlZG5lc2RheRpCb2FyZCBvZiBUcnVzdGVlcyBXb3Jrc2hvcBBTdGFydHMgQCA2OjAwIFBNZAICDw8WAh8FBR0vY2FsbW9udGh2aWV3LmFzcHg/c2Nob29saWQ9MGRkAgUPZBYCAgEPFgIfAQICFgRmD2QWBGYPFQEFQXByaWxkAgEPFgIfAQIBFgJmD2QWBGYPFQECMjlkAgEPFgIfAQIBFgJmD2QWAmYPFQQvL2NhbGVuZGFyd2Vla3ZpZXcuYXNweD9ldmVudElEPTE0NTI1JnNjaG9vbGlkPTAJV2VkbmVzZGF5GkJvYXJkIG9mIFRydXN0ZWVzIFdvcmtzaG9wEFN0YXJ0cyBAIDY6MDAgUE1kAgEPZBYEZg8VAQNNYXlkAgEPFgIfAQIIFhBmD2QWBGYPFQECMTJkAgEPFgIfAQIBFgJmD2QWAmYPFQQvL2NhbGVuZGFyd2Vla3ZpZXcuYXNweD9ldmVudElEPTE0NjMxJnNjaG9vbGlkPTAHVHVlc2RheSRLRVMgSW5jb21pbmcgS2luZGVyZ2FydGVuIE9wZW4gSG91c2URNDowMCBQTSAtIDY6MDAgUE1kAgEPZBYEZg8VAQIxM2QCAQ8WAh8BAgEWAmYPZBYCZg8VBC8vY2FsZW5kYXJ3ZWVrdmlldy5hc3B4P2V2ZW50SUQ9MTQ1MDUmc2Nob29saWQ9MAlXZWRuZXNkYXkhQm9hcmQgb2YgVHJ1c3RlZXMgUmVndWxhciBNZWV0aW5nEFN0YXJ0cyBAIDY6MDAgUE1kAgIPZBYEZg8VAQIxOGQCAQ8WAh8BAgEWAmYPZBYCZg8VBC8vY2FsZW5kYXJ3ZWVrdmlldy5hc3B4P2V2ZW50SUQ9MTQ2MzAmc2Nob29saWQ9MAZNb25kYXkrV0VTIEluY29taW5nIEtpbmRlcmdhcnRlbiBJbmZvcm1hdGlvbiBOaWdodBE1OjE1IFBNIC0gNjowMCBQTWQCAw9kFgRmDxUBAjE5ZAIBDxYCHwECARYCZg9kFgJmDxUELy9jYWxlbmRhcndlZWt2aWV3LmFzcHg/ZXZlbnRJRD0xNDQyNiZzY2hvb2xpZD0wB1R1ZXNkYXkdSkhNUy9KSEhTIFNwcmluZyBCYW5kIENvbmNlcnQQU3RhcnRzIEAgNjowMCBQTWQCBA9kFgRmDxUBAjIwZAIBDxYCHwECARYCZg9kFgJmDxUELy9jYWxlbmRhcndlZWt2aWV3LmFzcHg/ZXZlbnRJRD0xNDE4MyZzY2hvb2xpZD0wCVdlZG5lc2RheRhPcmNoZXN0cmEgU3ByaW5nIENvbmNlcnQQU3RhcnRzIEAgNjozMCBQTWQCBQ9kFgRmDxUBAjI1ZAIBDxYCHwECARYCZg9kFgJmDxUELy9jYWxlbmRhcndlZWt2aWV3LmFzcHg/ZXZlbnRJRD0xMzk3MiZzY2hvb2xpZD0wBk1vbmRheR9NZW1vcmlhbCBEYXkgSG9saWRheS0gTm8gU2Nob29sAGQCBg9kFgRmDxUBAjI2ZAIBDxYCHwECAhYEZg9kFgJmDxUELy9jYWxlbmRhcndlZWt2aWV3LmFzcHg/ZXZlbnRJRD0xNDQwMSZzY2hvb2xpZD0wB1R1ZXNkYXkZSkhNUyBTcHJpbmcgQ2hvaXIgQ29uY2VydBBTdGFydHMgQCA2OjAwIFBNZAICD2QWAmYPFQQvL2NhbGVuZGFyd2Vla3ZpZXcuYXNweD9ldmVudElEPTE0NDAyJnNjaG9vbGlkPTAHVHVlc2RheRlKSEhTIENob2lyIFNwcmluZyBDb25jZXJ0EFN0YXJ0cyBAIDc6MDAgUE1kAgcPZBYEZg8VAQIyN2QCAQ8WAh8BAgEWAmYPZBYCZg8VBC8vY2FsZW5kYXJ3ZWVrdmlldy5hc3B4P2V2ZW50SUQ9MTQ1MjYmc2Nob29saWQ9MAlXZWRuZXNkYXkaQm9hcmQgb2YgVHJ1c3RlZXMgV29ya3Nob3AQU3RhcnRzIEAgNjowMCBQTWQCBw9kFgQCAQ9kFgICAQ8WAh8ABQdUd2l0dGVyZAIDD2QWBmYPFgIfAAUHVHdpdHRlcmQCAQ8WAh8ABc4DPGEgY2xhc3M9InR3aXR0ZXItdGltZWxpbmUiIGhyZWY9Imh0dHBzOi8vdHdpdHRlci5jb20vVGV0b25TY2hvb2xzP3JlZl9zcmM9dHdzcmMlNUV0ZnciPlR3ZWV0cyBieSBUZXRvblNjaG9vbHM8L2E+IDxzY3JpcHQgYXN5bmMgc3JjPSJodHRwczovL3BsYXRmb3JtLnR3aXR0ZXIuY29tL3dpZGdldHMuanMiIGNoYXJzZXQ9InV0Zi04Ij48L3NjcmlwdD4NCjxwPlR3aXR0ZXI8L3A+DQoNCjxwPjxhIGNsYXNzPSJ0d2l0dGVyLXRpbWVsaW5lIiBocmVmPSJodHRwczovL3R3aXR0ZXIuY29tL2hvbWU/cmVmX3NyYz10d3NyYyU1RXRmdyI+VHdlZXRzIGJ5IGhvbWU8L2E+IDxzY3JpcHQgYXN5bmMgc3JjPSJodHRwczovL3BsYXRmb3JtLnR3aXR0ZXIuY29tL3dpZGdldHMuanMiIGNoYXJzZXQ9InV0Zi04IiA+PC9zY3JpcHQgPjxwID4mbmJzcDs8L3AgPg0KDQo8cCA+Jm5ic3A7PC9wID48L3AgPjwvcCA+PC9wID48L3A+ZAIDDw8WAh8FBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTJkZAIID2QWBAIBD2QWAgIBDxYCHwAFCEZhY2Vib29rZAIDD2QWBmYPFgIfAAUIRmFjZWJvb2tkAgEPFgIfAAW5BDxkaXYgaWQ9ImZiLXJvb3QiPjwvZGl2Pg0KPHNjcmlwdCBhc3luYyBkZWZlciBjcm9zc29yaWdpbj0iYW5vbnltb3VzIiBzcmM9Imh0dHBzOi8vY29ubmVjdC5mYWNlYm9vay5uZXQvZW5fVVMvc2RrLmpzI3hmYm1sPTEmdmVyc2lvbj12NC4wIj48L3NjcmlwdD48ZGl2IGNsYXNzPSJmYi1wYWdlIiBkYXRhLWhyZWY9Imh0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9UZXRvblNjaG9vbHMvIiBkYXRhLXRhYnM9InRpbWVsaW5lIiBkYXRhLXdpZHRoPSIiIGRhdGEtaGVpZ2h0PSIiIGRhdGEtc21hbGwtaGVhZGVyPSJmYWxzZSIgZGF0YS1hZGFwdC1jb250YWluZXItd2lkdGg9InRydWUiIGRhdGEtaGlkZS1jb3Zlcj0iZmFsc2UiIGRhdGEtc2hvdy1mYWNlcGlsZT0iZmFsc2UiPjxibG9ja3F1b3RlIGNpdGU9Imh0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9UZXRvblNjaG9vbHMvIiBjbGFzcz0iZmIteGZibWwtcGFyc2UtaWdub3JlIj48YSBocmVmPSJodHRwczovL3d3dy5mYWNlYm9vay5jb20vVGV0b25TY2hvb2xzLyI+VGV0b24gQ291bnR5IFNjaG9vbCBEaXN0cmljdDwvYT48L2Jsb2NrcXVvdGU+PC9kaXY+ZAIDDw8WAh8FBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTFkZAIJD2QWAmYPDxYEHgxCYWNrSW1hZ2VVcmwFRmh0dHBzOi8vY2RuLnNjaG9vbHBvaW50ZS5jb20vaW1hZ2VzL0dlbmVyaWMtRmVhdHVyZWQtQ29udGVudC1JbWFnZS5qcGceBF8hU0ICgIAEZBYEAgEPFgIfAgUJL05ld3MvMTk5ZAIDDw8WBB8ABcEEPHNwYW4gY2xhc3M9ImdyaWROZXdzSGVhZGVyIj4yMDIwLTIwMjEgRHVhbCBJbW1lcnNpb24gUHJvZ3JhbSBBcHBsaWNhdGlvbiBQZXJpb2QgT3BlbnM8L3NwYW4+PHNwYW4gY2xhc3M9ImdyaWROZXdzU3ViaGVhZGVyIj5BbGwgZmFtaWxpZXMgaW50ZXJlc3RlZCBpbiBraW5kZXJnYXJ0ZW4gYXQgTU1FUyBuZXh0IHllYXIgbXVzdCBjb21wbGV0ZSBhbiBhcHBsaWNhdGlvbiZuYnNwO3RvIGJlIGVsaWdpYmxlIGZvciBlbnJvbGxtZW50LCBpbmNsdWRpbmcgdGhvc2Ugd2hvIGhhdmUgb2xkZXIgc2libGluZ3MgaW4gdGhlIGR1YWwgaW1tZXJzaW9uIHByb2dyYW0uIC8mbmJzcDtUb2RhcyBsYXMgZmFtaWxpYXMgaW50ZXJlc2FkYXMgZW4ga2luZGVyZ2FydGVuIGVuIE1NRVMgZWwgcHImb2FjdXRlO3hpbW8gYSZudGlsZGU7byBkZWJlbiBjb21wbGV0YXIgZXN0ZSBmb3JtdWxhcmlvIHBhcmEgc2VyIGVsZWdpYmxlcyBwYXJhIGxhIGluc2NyaXBjaSZvYWN1dGU7biwgaW5jbHVpZGFzIGFxdWVsbGFzIGNvbiBoZXJtYW5vcyBtYXlvcmVzIGVuIGVsIHByb2dyYW1hIGRlIGRvYmxlIGlubWVyc2kmb2FjdXRlO24uPC9zcGFuPh8FBQkvTmV3cy8xOTlkZAIKD2QWAmYPDxYEHwYFRmh0dHBzOi8vY2RuLnNjaG9vbHBvaW50ZS5jb20vaW1hZ2VzL0dlbmVyaWMtRmVhdHVyZWQtQ29udGVudC1JbWFnZS5qcGcfBwKAgARkFgQCAQ8WAh8CBQkvTmV3cy8xOThkAgMPDxYEHwAFYTxzcGFuIGNsYXNzPSJncmlkTmV3c0hlYWRlciI+VHVuZSBpbiB0byBLSE9MIHRvIGxpc3RlbiB0byBUZWFjaGVyIHJlYWRpbmcgRXNwZXJhbnphIFJpc2luZzwvc3Bhbj4fBQUJL05ld3MvMTk4ZGQCCw9kFgJmDw8WBB8GBUZodHRwczovL2Nkbi5zY2hvb2xwb2ludGUuY29tL2ltYWdlcy9HZW5lcmljLUZlYXR1cmVkLUNvbnRlbnQtSW1hZ2UuanBnHwcCgIAEZBYEAgEPFgIfAgUJL05ld3MvMTk2ZAIDDw8WBB8ABXs8c3BhbiBjbGFzcz0iZ3JpZE5ld3NIZWFkZXIiPlRDU0QgaGFzIG9wZW5lZCBraW5kZXJnYXJ0ZW4gYW5kIG5ldyBzdHVkZW50IHJlZ2lzdHJhdGlvbiBmb3IgdGhlIDIwMjAtMjAyMSBTY2hvb2wgWWVhcjwvc3Bhbj4fBQUJL05ld3MvMTk2ZGQCDA9kFgJmDw8WBB8GBWAvZG9jcy9fZnVsbF8vdXNlcmZpbGVzLzMvbXkgZmlsZXMvY29yb25hdmlydXMtYmFkZ2UtMzAwLnBuZz9pZD0zMjc5JnRodW1id2lkdGg9MTkwJmZ1bGx3aWR0aD01MDAfBwKAgARkFgQCAQ8WAh8CBQkvTmV3cy8xOTNkAgMPDxYEHwAFUTxzcGFuIGNsYXNzPSJncmlkTmV3c0hlYWRlciI+Q09WSUQtMTkgVXBkYXRlIHRvIEZhbWlsaWVzIGFuZCB0aGUgQ29tbXVuaXR5PC9zcGFuPh8FBQkvTmV3cy8xOTNkZAIND2QWAmYPDxYEHwYFRmh0dHBzOi8vY2RuLnNjaG9vbHBvaW50ZS5jb20vaW1hZ2VzL0dlbmVyaWMtRmVhdHVyZWQtQ29udGVudC1JbWFnZS5qcGcfBwKAgARkFgQCAQ8WAh8CBQkvTmV3cy8xODdkAgMPDxYEHwAFaTxzcGFuIGNsYXNzPSJncmlkTmV3c0hlYWRlciI+VENTRCBBbm5vdW5jZXMgSW5jb21pbmcgS2luZGVyZ2FydGVuIFNjcmVlbmluZyBhbmQgUmVnaXN0cmF0aW9uIERhdGVzPC9zcGFuPh8FBQkvTmV3cy8xODdkZAIPD2QWBAIBDxYCHwAFEldlbGNvbWUgdG8gVENTRCAjMWQCAw8PFgIfAAW2CDxwPjxzdHJvbmc+PGEgaHJlZj0iaHR0cDovL3d3dy50ZXRvbmNudHlzZDEud3kuc2Nob29scy5iei9Db250ZW50L2FwcC1kb3dubG9hZC1pbnN0cnVjdGlvbnMiPkRvd25sb2FkIHRoZSBUQ1NEIGFwcCBmcm9tIHlvdXIgQXBwIFN0b3JlPC9hPjwvc3Ryb25nPjxiciAvPg0KR2V0IGRpc3RyaWN0IG5ld3MsIGV2ZW50cyBhbmQgaW1wb3J0YW50IHVwZGF0ZXMgb24geW91ciBtb2JpbGUgZGV2aWNlIGJ5IGRvd25sb2FkaW5nIG91ciBuZXcgYXBwIHRvZGF5ITwvcD4NCg0KPHAgZGlyPSJsdHIiPjxzdHJvbmc+VENTRCBTaGFyZXMgSW1wb3J0YW50IERpc3RyaWN0IERhdGEgYW5kIFJlcG9ydHMmbmJzcDs8L3N0cm9uZz48YnIgLz4NCjxhIGhyZWY9Imh0dHA6Ly93d3cudGV0b25jbnR5c2QxLnd5LnNjaG9vbHMuYnovQ29udGVudDIvNzYwIj5WaXNpdCBvdXIgU2Nob29sJm5ic3A7RGlzdHJpY3QgYW5kIFNjaG9vbCBEYXRhIGFuZCBSZXBvcnRpbmcmbmJzcDtwYWdlPC9hPiB0byBsZWFybiBtb3JlIGFib3V0IGhvdyBvdXIgc2Nob29scyBhcmUgcGVyZm9ybWluZy4mbmJzcDs8L3A+DQoNCjxwIGRpcj0ibHRyIj48c3Ryb25nPkNvbW11bml0eS1iYXNlZCBhZnRlci1zY2hvb2wgcHJvZ3JhbXM8L3N0cm9uZz48YnIgLz4NCk1hbnkgbG9jYWwgb3JnYW5pemF0aW9ucyBwcm92aWRlJm5ic3A7YWZ0ZXItc2Nob29sIHByb2dyYW1zIGFuZCBzZXJ2aWNlIHRoYXQgYXJlIG5vdCBhZmZpbGlhdGVkIHdpdGggVENTRC4mbmJzcDsgQXMgd2UgYmVjb21lIGF3YXJlIG9mIHRoZXNlIHByb2dyYW1zIHdlIHBvc3QgdGhlbSBvbiB0aGUgPGEgaHJlZj0iaHR0cDovL3d3dy50ZXRvbmNudHlzZDEud3kuc2Nob29scy5iei9Db250ZW50Mi82OTgiPkNvbW11bml0eSBBZnRlci1zY2hvb2wgUHJvZ3JhbXMgYW5kIFNlcnZpY2VzIHBhZ2UgYXZhaWxhYmxlIGhlcmUuPC9hPiZuYnNwOyBCZSBzdXJlIHRvIGNoZWNrIHRoZSBwYWdlIG9mdGVuIGFzIHVwZGF0ZXMgYXJlIG1hZGUgdG8gdGhpcyBwYWdlIHJlZ3VsYXJseSwgZXNwZWNpYWxseSBpbiB0aGUgc3ByaW5nIGFuZCBmYWxsLiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOzwvcD5kZAIPD2QWCmYPDxYEHwAFLTxzcGFuIGNsYXNzPSJvYnNjdXJlIj5saW5rIHRvIGhvbWVwYWdlPC9zcGFuPh8FBQEvZGQCAQ8PFgQfAAVpPGkgY2xhc3M9ImZhIGZhLW1hcC1tYXJrZXIiIGFyaWEtaGlkZGVuPSJ0cnVlIj48L2k+IDEyMzUgR3JlZ29yeSBMYW5lLCBQTyBCb3ggNTY4LDwvYnI+IEphY2tzb24sIFdZIDgzMDAxHwUFXmh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vbWFwcy9zZWFyY2gvP2FwaT0xJnF1ZXJ5PTEyMzUgR3JlZ29yeSBMYW5lLCBQTyBCb3ggNTY4K0phY2tzb24rV1krODMwMDFkZAICDw8WAh8ABa4BPHNwYW4+PGkgY2xhc3M9ImZhIGZhLXBob25lIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PC9pPiBQaG9uZTogKDMwNykgNzMzLTI3MDQ8L3NwYW4+PHNwYW4gY2xhc3M9J2ZheHNwYW4nPjxpIGNsYXNzPSJmYSBmYS1mYXgiIGFyaWEtaGlkZGVuPSJ0cnVlIj48L2k+IEZheDogKDMwNykgNzM0LTEyMTk8L3NwYW4+ZGQCAw9kFgJmDxYCHwECBRYKZg9kFgJmDxUFCy9sb2dpbi5hc3B4CWNtcyBsb2dpbgVfc2VsZiY8c3BhbiBjbGFzcz0nb2JzY3VyZSc+Q01TIExvZ2luPC9zcGFuPg1mYSBmYS1zaWduLWluZAIBD2QWAmYPFQUUL2ludHJhbmV0X2xvZ2luLmFzcHgOaW50cmFuZXQgbG9naW4FX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkludHJhbmV0PC9zcGFuPg1mYSBmYS1zaXRlbWFwZAICD2QWAmYPFQU+aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL1RldG9uU2Nob29scy8/cmVmPWF5bXRfaG9tZXBhZ2VfcGFuZWwSVENTRCBGYWNlYm9vayBQYWdlBV9zZWxmJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5GYWNlYm9vazwvc3Bhbj4OZmEgZmEtZmFjZWJvb2tkAgMPZBYCZg8VBRRodHRwczovL3R3aXR0ZXIuY29tLwdUd2l0dGVyBV9zZWxmJDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5Ud2l0dGVyPC9zcGFuPg1mYSBmYS10d2l0dGVyZAIED2QWAmYPFQULL2FkYS1yZXBvcnQNQURBIFJlcG9ydGluZwVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+QURBIExpbms8L3NwYW4+FmZhIGZhLXVuaXZlcnNhbC1hY2Nlc3NkAgQPFgIfAAUfVGV0b24gQ291bnR5IFNjaG9vbCBEaXN0cmljdCAjMWRk7+TSDD5xDw8eywzIcLZSqpJ4bHg=">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: '10trxb7job' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><header id="site-head"><div id="DesktopHeader" class="hidden-xs">
+    <div class="bg-header1">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="ctl00_ctl00_header_header_ctl00_ctl00_pnlTicker" class="content-ticker-container">
+	
+	<style type="text/css">
+		#newsTicker {
+			background-repeat: repeat-x;
+			background-position: top;
+			padding-top: 3px;
+			padding-bottom: 3px;
+			overflow: hidden;
+			max-width: 980px;
+		}
+
+		#newsTickerInner {
+			background-color: #000;
+			height: 30px;
+			overflow: hidden;
+			max-width: 1960px;
+			position: relative;
+		}
+
+		#newsTicker .tickerItemWrapper {
+			position: absolute;
+			top: 5px;
+			height: 30px;
+			width: 100%;
+			overflow: hidden;
+		}
+
+		#newsTicker .tickerItem {
+			color: #ddd;
+			font-size: 14px;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		#expandTicker {
+			display: block;
+			position: absolute;
+			right: 5px;
+			top: 5px;
+			width: 24px;
+			height: 24px;
+			font-size: 21px;
+		}
+
+		#newsTickerContent {
+			padding: 15px;
+		}
+
+		.tickerImpHide {
+			display: none !important;
+		}
+
+		.tickerImpShow {
+			display: block !important;
+		}
+	</style>
+<div style="position: relative;">
+		<div id="newsTicker">
+			<div id="newsTickerInner">
+			</div>
+		</div>
+
+		<a href="javascript:void(0)" id="expandTicker"><span class="obscure">expand the news ticker</span><i class="fa fa-bars"></i></a>
+
+		<div id="newsTickerContent" style="display: none;">
+			<p>All TCSD #1 Schools closed until further notice  due to COVID-19. <span style="color:#FFFFFF;"> </span><a href="https://www.tetoncntysd1.wy.schools.bz/Content2/888" target="_blank"><span style="color:#FFFFFF;">See Distance Learning Pages </span></a>for access to online resources.  </p>
+		</div>
+	</div>
+	<script type="text/javascript">
+		/* Function for Copying CSS */
+		(function ($) {
+
+			$.fn.getStyles = function (only, except) {
+
+				// the map to return with requested styles and values as KVP
+				var product = {};
+
+				// the style object from the DOM element we need to iterate through
+				var style;
+
+				// recycle the name of the style attribute
+				var name;
+
+				// if it's a limited list, no need to run through the entire style object
+				if (only && only instanceof Array) {
+
+					for (var i = 0, l = only.length; i < l; i++) {
+						// since we have the name already, just return via built-in .css method
+						name = only[i];
+						product[name] = this.css(name);
+					}
+
+				} else {
+
+					// prevent from empty selector
+					if (this.length) {
+
+						// otherwise, we need to get everything
+						var dom = this.get(0);
+
+						// standards
+						if (window.getComputedStyle) {
+
+							// convenience methods to turn css case ('background-image') to camel ('backgroundImage')
+							var pattern = /\-([a-z])/g;
+							var uc = function (a, b) {
+								return b.toUpperCase();
+							};
+							var camelize = function (string) {
+								return string.replace(pattern, uc);
+							};
+
+							// make sure we're getting a good reference
+							if (style = window.getComputedStyle(dom, null)) {
+								var camel, value;
+								// opera doesn't give back style.length - use truthy since a 0 length may as well be skipped anyways
+								if (style.length) {
+									for (var i = 0, l = style.length; i < l; i++) {
+										name = style[i];
+										camel = camelize(name);
+										value = style.getPropertyValue(name);
+										product[camel] = value;
+									}
+								} else {
+									// opera
+									for (name in style) {
+										camel = camelize(name);
+										value = style.getPropertyValue(name) || style[name];
+										product[camel] = value;
+									}
+								}
+							}
+						}
+						// IE - first try currentStyle, then normal style object - don't bother with runtimeStyle
+						else if (style = dom.currentStyle) {
+							for (name in style) {
+								product[name] = style[name];
+							}
+						}
+						else if (style = dom.style) {
+							for (name in style) {
+								if (typeof style[name] != 'function') {
+									product[name] = style[name];
+								}
+							}
+						}
+					}
+				}
+
+				// remove any styles specified...
+				// be careful on blacklist - sometimes vendor-specific values aren't obvious but will be visible...  e.g., excepting 'color' will still let '-webkit-text-fill-color' through, which will in fact color the text
+				if (except && except instanceof Array) {
+					for (var i = 0, l = except.length; i < l; i++) {
+						name = except[i];
+						delete product[name];
+					}
+				}
+
+				// one way out so we can process blacklist in one spot
+				return product;
+
+			};
+
+			// sugar - source is the selector, dom element or jQuery instance to copy from - only and except are optional
+			$.fn.copyCSS = function (source, only, except) {
+				var styles = $(source).getStyles(only, except);
+				this.css(styles);
+
+				return this;
+			};
+		})(jQuery);
+
+		var expanded = false;
+
+		$(window).load(function () {
+			$('#newsTickerContent').copyCSS('#newsTicker .tickerItem', ['color', 'background-color']);
+			$('#newsTickerContent').copyCSS('#newsTicker', ['background-color']);
+			$('#expandTicker').copyCSS('#newsTicker .tickerItem', ['color']);
+		});
+
+		$('#expandTicker').click(function () {
+			if (expanded) {
+				$('#newsTicker').addClass('tickerImpShow').removeClass('tickerImpHide');
+				$('#newsTickerContent').addClass('tickerImpHide').removeClass('tickerImpShow');
+				expanded = false;
+			}
+			else {
+				$('#newsTicker').addClass('tickerImpHide').removeClass('tickerImpShow');
+				$('#newsTickerContent').addClass('tickerImpShow').removeClass('tickerImpHide');
+				expanded = true;
+			}
+		});
+
+		$(function () {
+			var items = $('#newsTickerContent li');
+			var index = 0;
+			var tickerTimeout = null;
+			var paused = false;
+
+			tickerCycle();
+
+			$('#newsTicker').hover(function () {
+				paused = true;
+				if (tickerTimeout) {
+					window.clearTimeout(tickerTimeout);
+					tickerTimeout = null;
+				}
+			}, function () {
+				if (paused && !tickerTimeout) {
+					tickerTimeout = window.setTimeout(function () {
+						paused = false;
+						tickerCycle();
+					}, 3000);
+				}
+			});
+
+			function tickerCycle() {
+				var target = $('#newsTickerInner');
+				var startOffset = 1024;
+				var item = items[index];
+				if (++index >= items.length) index = 0;
+
+				removeCurrentTickerItem(function () {
+					var tickerItemWrapper = $("<div>")
+						.addClass("tickerItemWrapper")
+						.css('left', startOffset + 'px');
+					$("<div>")
+						.addClass("tickerItem")
+						.html($(item).html())
+						.appendTo(tickerItemWrapper);
+					$(tickerItemWrapper).appendTo(target);
+
+					var targetOffset = '0px';
+					$(tickerItemWrapper).animate({ left: targetOffset }, 1500, 'easeOutCirc', function () {
+						if (!paused) {
+							tickerTimeout = window.setTimeout(function () {
+								tickerCycle();
+								tickerTimeout = null;
+							}, 3000);
+						}
+					});
+				});
+			}
+
+			function removeCurrentTickerItem(callback) {
+				if ($('#newsTickerInner .tickerItemWrapper').length > 0) {
+					var targetOffset = '-1024px';
+					$('#newsTickerInner .tickerItemWrapper').animate({ left: targetOffset }, 1500, 'easeOutCirc', function () {
+						$(this).remove();
+					});
+					callback();
+				} else {
+					callback();
+				}
+			}
+		});
+	</script>
+</div>
+
+                </div>
+                <div>
+                    <ul class="Search-wrapper">
+<li>
+                            
+
+<div class="search-box2">
+	<label for="txtSearch2" class="obscure">Search site using Google</label><input id="txtSearch2" type="text" class="search-box-input" placeholder="Search"><i class="search-box-go fa fa-search bSearch2"></i>
+</div>
+
+                        </li>
+                        <li>
+                            
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+</li>
+                    </ul>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-header2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <a id="ctl00_ctl00_header_header_ctl00_lnkLogo2" href="/">
+                        <div class="bgWhiteStretch"><span class="obscure">Building Logo</span></div>
+                    </a>
+
+                    <a id="ctl00_ctl00_header_header_ctl00_lnkLogo" class="logo" href="/"><span class="obscure">link to homepage</span></a>
+
+                    <table class="wrap-topNav"><tbody><tr>
+<td>
+                                    <nav id="TopNav"><ul class="">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District ">District   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.tcsd.org" title="District Home">District Home</a></li>
+<li class="without-image"><a href="/Content/146" title="About Our District">About Our District</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Superintendent of Schools">Superintendent of Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/62" title="Superintendent's Office">Superintendent's Office</a></li>
+<li class="without-image"><a href="/superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.tcsd.org/board" title="Board of Trustees">Board of Trustees</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/18qgWULdGUMwE7_tdcVpB7CwLNuo5PZqCTXSOoVJe1bw" title="District Office Staff">District Office Staff</a></li>
+<li class="without-image"><a href="/Content/142" title="Fund for Public Education (formerly Teton County Education Foundation)">Fund for Public Education (formerly Teton County Education Foundation)</a></li>
+<li class="without-image"><a href="/content/recdistrict" target="_blank" aria-label="" title="TCSD #1 Recreation District">TCSD #1 Recreation District</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community Partners">Community Partners  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/158" title="Community Partners">Community Partners</a></li>
+<li class="without-image"><a href="/Content/140" title="BOCES">BOCES</a></li>
+<li class="without-image"><a href="/Content/134" title="Wyoming Dept of Ed Programs">Wyoming Dept of Ed Programs</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1fpBz51CPAUFmSZlaP47KO3ZpuybvHYwhIFWjj2OqHLU/edit?usp=sharing" title="Annual Public Notice of Non-Discrimination">Annual Public Notice of Non-Discrimination</a></li>
+<li class="without-image"><a href="/District/Links-Forms" target="_blank" title="District Links/Forms">District Links/Forms</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar Events">Calendar Events  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Calendar/0" title="District Calendar">District Calendar</a></li>
+<li class="without-image"><a href="/Content/136" title="School Year Calendars">School Year Calendars</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/schools" title="Our Schools">Our Schools</a></li>
+<li class="without-image"><a href="/4/Home" title="Alta Elementary School">Alta Elementary School</a></li>
+<li class="without-image"><a href="/5/Home" title="Colter Elementary School">Colter Elementary School</a></li>
+<li class="without-image"><a href="/6/Home" title="Jackson Elementary School">Jackson Elementary School</a></li>
+<li class="without-image"><a href="/3/Home" title="Jackson Hole Middle School">Jackson Hole Middle School</a></li>
+<li class="without-image"><a href="/2/Home" title="Jackson Hole High School">Jackson Hole High School</a></li>
+<li class="without-image"><a href="/7/Home" title="Kelly Elementary School">Kelly Elementary School</a></li>
+<li class="without-image"><a href="/8/Home" title="Moran Elementary School">Moran Elementary School</a></li>
+<li class="without-image"><a href="/9/home" target="_blank" title="Munger Mountain Elementary School">Munger Mountain Elementary School</a></li>
+<li class="without-image"><a href="/1/Home" title="Summit Innovations School">Summit Innovations School</a></li>
+<li class="without-image"><a href="/10/Home" title="Wilson Elementary School">Wilson Elementary School</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.tetoncntysd1.wy.schools.bz/Content2/888" aria-label="" title="Distance Learning Pages">Distance Learning Pages</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/athletics" title="Activities">Activities</a></li>
+<li class="without-image"><a href="/Content/670" target="_blank" title="Educational Services">Educational Services</a></li>
+<li class="without-image"><a href="/Content/516" title="Facilities &amp; Maintenance">Facilities &amp; Maintenance</a></li>
+<li class="without-image"><a href="http://www.tcsd.org/Content/506" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="/Content/660" target="_blank" title="Health Services">Health Services</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Human &amp; Fiscal Resources">Human &amp; Fiscal Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/82" title="Business Office">Business Office</a></li>
+<li class="without-image"><a href="/Content/84" title="Human Resources">Human Resources</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/406" title="Library Media Centers">Library Media Centers</a></li>
+<li class="without-image"><a href="/Content/672" title="Communications and Media Relations">Communications and Media Relations</a></li>
+<li class="without-image"><a href="http://www.tetoncntysd1.wy.schools.bz/Content/666" title="School Improvement and Accountability">School Improvement and Accountability</a></li>
+<li class="without-image"><a href="https://www.tcsd.org/Content/226" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/administration/4" title="Transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Parents">Parents  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/214" title="Welcome Parents">Welcome Parents</a></li>
+<li class="without-image"><a href="https://www.tcsd.org/Content/362#" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/Content/54" aria-label="" title="Student Registration">Student Registration</a></li>
+<li class="without-image"><a href="https://tcsd.instructure.com/login/ldap" target="_blank" title="Canvas LMS Login">Canvas LMS Login</a></li>
+<li class="without-image"><a href="/Content/52" title="Power School">Power School</a></li>
+<li class="without-image"><a href="/Content/490" title="Canvas/PS Account Setup">Canvas/PS Account Setup</a></li>
+<li class="without-image"><a href="http://www.tetoncntysd1.wy.schools.bz/Content/app-download-instructions" title="TCSD App">TCSD App</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/19qKvXfRKlzmAZDWGrJvALgFvQOWQlxpI2vSCtNRf8Ng/edit?usp=sharing" title="School Boundary Areas">School Boundary Areas</a></li>
+<li class="without-image"><a href="/Content/60" title="CREST Registration">CREST Registration</a></li>
+<li class="without-image"><a href="/Content/760" title="District and School Data and Reporting">District and School Data and Reporting</a></li>
+<li class="without-image"><a href="/Content/56" title="Crisis and Safety Information">Crisis and Safety Information</a></li>
+<li class="without-image"><a href="http://www.tcsd.org/Content/382" target="_blank" aria-label="" title="Home Schooling">Home Schooling</a></li>
+<li class="without-image"><a href="/Content/50" title="Parent Resources">Parent Resources</a></li>
+<li class="without-image"><a href="/Content/400" title="Parent-Teacher Organization (PTO)">Parent-Teacher Organization (PTO)</a></li>
+<li class="without-image"><a href="/Content/698" title="After-School &amp; Community Services">After-School &amp; Community Services</a></li>
+<li class="without-image"><a href="/Content/872" title="Mindfulness for Children">Mindfulness for Children</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Students">Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://drive.google.com/a/student.tcsd.org" target="_blank" title="Student Google Drive">Student Google Drive</a></li>
+<li class="without-image"><a href="https://tcsd.instructure.com" target="_blank" title="Student Canvas LMS Login">Student Canvas LMS Login</a></li>
+<li class="without-image"><a href="https://mail.google.com/a/student.tcsd.org%20" target="_blank" title="Student Gmail Login">Student Gmail Login</a></li>
+<li class="without-image"><a href="/Content/126" title="Blended Learning ">Blended Learning </a></li>
+<li class="without-image"><a href="/Content/130" title="Student Learning Resources">Student Learning Resources</a></li>
+<li class="without-image"><a href="/Content2/362" target="_blank" title="Lunch Menus">Lunch Menus</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff">Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/116" target="_blank" title="Staff Resource Links">Staff Resource Links</a></li>
+<li class="without-image"><a href="https://tcsd.instructure.com" target="_blank" title="Canvas LMS Login">Canvas LMS Login</a></li>
+<li class="without-image"><a href="https://drive.google.com/a/tcsd.org" target="_blank" title="Google Login">Google Login</a></li>
+<li class="without-image"><a href="http://www.tcsd.org/Content/512" target="_blank" title="Substitute Teachers &amp; Support Staff">Substitute Teachers &amp; Support Staff</a></li>
+<li class="without-image"><a href="http://www.boarddocs.com/wy/teton1/Board.nsf/Public" title="Board Docs (Policies &amp; Forms)">Board Docs (Policies &amp; Forms)</a></li>
+<li class="without-image"><a href="http://www.tetoncntysd1.wy.schools.bz/login.aspx" target="_blank" title="Website Login">Website Login</a></li>
+<li class="without-image"><a href="/Content/876" aria-label="" title="TCSD Employee Webex Series">TCSD Employee Webex Series</a></li>
+<li class="without-image"><a href="/Content/108" target="_blank" title="Professional Development">Professional Development</a></li>
+<li class="without-image"><a href="/Content/232" title="Staff Apple ID Management">Staff Apple ID Management</a></li>
+<li class="without-image"><a href="https://www.tcsd.org/Content2/806" target="_blank" title="Field Trip Permit">Field Trip Permit</a></li>
+<li class="without-image"><a href="/Content/110" title="Grants &amp; Scholarships">Grants &amp; Scholarships</a></li>
+<li class="without-image"><a href="/Content/148" title="Staff Recognition">Staff Recognition</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/120" title="Employment">Employment</a></li>
+</ul></nav>
+</td>
+                            </tr></tbody></table>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="MobileHeader" class="hidden-sm hidden-md hidden-lg">
+    <div class="wrap-mobileNavBar clearfix">
+        <a id="ctl00_ctl00_header_header_ctl00_MobileName" class="mobileName" href="/">Teton County School District #1</a>
+
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MobileNav">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+            <span class="obscure">toggle menu</span>
+        </button>
+    </div>
+
+    <nav id="MobileNav" class="collapse"><ul class="">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District ">District   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.tcsd.org" title="District Home">District Home</a></li>
+<li class="without-image"><a href="/Content/146" title="About Our District">About Our District</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Superintendent of Schools">Superintendent of Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/62" title="Superintendent's Office">Superintendent's Office</a></li>
+<li class="without-image"><a href="/superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.tcsd.org/board" title="Board of Trustees">Board of Trustees</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/18qgWULdGUMwE7_tdcVpB7CwLNuo5PZqCTXSOoVJe1bw" title="District Office Staff">District Office Staff</a></li>
+<li class="without-image"><a href="/Content/142" title="Fund for Public Education (formerly Teton County Education Foundation)">Fund for Public Education (formerly Teton County Education Foundation)</a></li>
+<li class="without-image"><a href="/content/recdistrict" target="_blank" aria-label="" title="TCSD #1 Recreation District">TCSD #1 Recreation District</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community Partners">Community Partners  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/158" title="Community Partners">Community Partners</a></li>
+<li class="without-image"><a href="/Content/140" title="BOCES">BOCES</a></li>
+<li class="without-image"><a href="/Content/134" title="Wyoming Dept of Ed Programs">Wyoming Dept of Ed Programs</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1fpBz51CPAUFmSZlaP47KO3ZpuybvHYwhIFWjj2OqHLU/edit?usp=sharing" title="Annual Public Notice of Non-Discrimination">Annual Public Notice of Non-Discrimination</a></li>
+<li class="without-image"><a href="/District/Links-Forms" target="_blank" title="District Links/Forms">District Links/Forms</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar Events">Calendar Events  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Calendar/0" title="District Calendar">District Calendar</a></li>
+<li class="without-image"><a href="/Content/136" title="School Year Calendars">School Year Calendars</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/schools" title="Our Schools">Our Schools</a></li>
+<li class="without-image"><a href="/4/Home" title="Alta Elementary School">Alta Elementary School</a></li>
+<li class="without-image"><a href="/5/Home" title="Colter Elementary School">Colter Elementary School</a></li>
+<li class="without-image"><a href="/6/Home" title="Jackson Elementary School">Jackson Elementary School</a></li>
+<li class="without-image"><a href="/3/Home" title="Jackson Hole Middle School">Jackson Hole Middle School</a></li>
+<li class="without-image"><a href="/2/Home" title="Jackson Hole High School">Jackson Hole High School</a></li>
+<li class="without-image"><a href="/7/Home" title="Kelly Elementary School">Kelly Elementary School</a></li>
+<li class="without-image"><a href="/8/Home" title="Moran Elementary School">Moran Elementary School</a></li>
+<li class="without-image"><a href="/9/home" target="_blank" title="Munger Mountain Elementary School">Munger Mountain Elementary School</a></li>
+<li class="without-image"><a href="/1/Home" title="Summit Innovations School">Summit Innovations School</a></li>
+<li class="without-image"><a href="/10/Home" title="Wilson Elementary School">Wilson Elementary School</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.tetoncntysd1.wy.schools.bz/Content2/888" aria-label="" title="Distance Learning Pages">Distance Learning Pages</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/athletics" title="Activities">Activities</a></li>
+<li class="without-image"><a href="/Content/670" target="_blank" title="Educational Services">Educational Services</a></li>
+<li class="without-image"><a href="/Content/516" title="Facilities &amp; Maintenance">Facilities &amp; Maintenance</a></li>
+<li class="without-image"><a href="http://www.tcsd.org/Content/506" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="/Content/660" target="_blank" title="Health Services">Health Services</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Human &amp; Fiscal Resources">Human &amp; Fiscal Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/82" title="Business Office">Business Office</a></li>
+<li class="without-image"><a href="/Content/84" title="Human Resources">Human Resources</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/406" title="Library Media Centers">Library Media Centers</a></li>
+<li class="without-image"><a href="/Content/672" title="Communications and Media Relations">Communications and Media Relations</a></li>
+<li class="without-image"><a href="http://www.tetoncntysd1.wy.schools.bz/Content/666" title="School Improvement and Accountability">School Improvement and Accountability</a></li>
+<li class="without-image"><a href="https://www.tcsd.org/Content/226" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/administration/4" title="Transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Parents">Parents  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/214" title="Welcome Parents">Welcome Parents</a></li>
+<li class="without-image"><a href="https://www.tcsd.org/Content/362#" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/Content/54" aria-label="" title="Student Registration">Student Registration</a></li>
+<li class="without-image"><a href="https://tcsd.instructure.com/login/ldap" target="_blank" title="Canvas LMS Login">Canvas LMS Login</a></li>
+<li class="without-image"><a href="/Content/52" title="Power School">Power School</a></li>
+<li class="without-image"><a href="/Content/490" title="Canvas/PS Account Setup">Canvas/PS Account Setup</a></li>
+<li class="without-image"><a href="http://www.tetoncntysd1.wy.schools.bz/Content/app-download-instructions" title="TCSD App">TCSD App</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/19qKvXfRKlzmAZDWGrJvALgFvQOWQlxpI2vSCtNRf8Ng/edit?usp=sharing" title="School Boundary Areas">School Boundary Areas</a></li>
+<li class="without-image"><a href="/Content/60" title="CREST Registration">CREST Registration</a></li>
+<li class="without-image"><a href="/Content/760" title="District and School Data and Reporting">District and School Data and Reporting</a></li>
+<li class="without-image"><a href="/Content/56" title="Crisis and Safety Information">Crisis and Safety Information</a></li>
+<li class="without-image"><a href="http://www.tcsd.org/Content/382" target="_blank" aria-label="" title="Home Schooling">Home Schooling</a></li>
+<li class="without-image"><a href="/Content/50" title="Parent Resources">Parent Resources</a></li>
+<li class="without-image"><a href="/Content/400" title="Parent-Teacher Organization (PTO)">Parent-Teacher Organization (PTO)</a></li>
+<li class="without-image"><a href="/Content/698" title="After-School &amp; Community Services">After-School &amp; Community Services</a></li>
+<li class="without-image"><a href="/Content/872" title="Mindfulness for Children">Mindfulness for Children</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Students">Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://drive.google.com/a/student.tcsd.org" target="_blank" title="Student Google Drive">Student Google Drive</a></li>
+<li class="without-image"><a href="https://tcsd.instructure.com" target="_blank" title="Student Canvas LMS Login">Student Canvas LMS Login</a></li>
+<li class="without-image"><a href="https://mail.google.com/a/student.tcsd.org%20" target="_blank" title="Student Gmail Login">Student Gmail Login</a></li>
+<li class="without-image"><a href="/Content/126" title="Blended Learning ">Blended Learning </a></li>
+<li class="without-image"><a href="/Content/130" title="Student Learning Resources">Student Learning Resources</a></li>
+<li class="without-image"><a href="/Content2/362" target="_blank" title="Lunch Menus">Lunch Menus</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff">Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/116" target="_blank" title="Staff Resource Links">Staff Resource Links</a></li>
+<li class="without-image"><a href="https://tcsd.instructure.com" target="_blank" title="Canvas LMS Login">Canvas LMS Login</a></li>
+<li class="without-image"><a href="https://drive.google.com/a/tcsd.org" target="_blank" title="Google Login">Google Login</a></li>
+<li class="without-image"><a href="http://www.tcsd.org/Content/512" target="_blank" title="Substitute Teachers &amp; Support Staff">Substitute Teachers &amp; Support Staff</a></li>
+<li class="without-image"><a href="http://www.boarddocs.com/wy/teton1/Board.nsf/Public" title="Board Docs (Policies &amp; Forms)">Board Docs (Policies &amp; Forms)</a></li>
+<li class="without-image"><a href="http://www.tetoncntysd1.wy.schools.bz/login.aspx" target="_blank" title="Website Login">Website Login</a></li>
+<li class="without-image"><a href="/Content/876" aria-label="" title="TCSD Employee Webex Series">TCSD Employee Webex Series</a></li>
+<li class="without-image"><a href="/Content/108" target="_blank" title="Professional Development">Professional Development</a></li>
+<li class="without-image"><a href="/Content/232" title="Staff Apple ID Management">Staff Apple ID Management</a></li>
+<li class="without-image"><a href="https://www.tcsd.org/Content2/806" target="_blank" title="Field Trip Permit">Field Trip Permit</a></li>
+<li class="without-image"><a href="/Content/110" title="Grants &amp; Scholarships">Grants &amp; Scholarships</a></li>
+<li class="without-image"><a href="/Content/148" title="Staff Recognition">Staff Recognition</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/120" title="Employment">Employment</a></li>
+</ul>
+<h2>Quick Links</h2>
+        <ul class="">
+<li class="without-image"><a href="http://www.tcsd.org/" title="Home">Home</a></li>
+<li class="without-image"><a href="/Athletics/Content/340" target="_blank" title="Activities">Activities</a></li>
+<li class="without-image"><a href="/news" title="District News">District News</a></li>
+<li class="without-image"><a href="/District/Links-Forms" target="_blank" title="District Links-Forms">District Links-Forms</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Event Calendars">Event Calendars  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content2/136" target="_blank" title="School Year Calendar">School Year Calendar</a></li>
+<li class="without-image"><a href="/calendar" target="_blank" title="District Event Calendar">District Event Calendar</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/362" target="_blank" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/Content/674" target="_blank" title="District Telephone Numbers">District Telephone Numbers</a></li>
+<li class="without-image"><a href="/staff" target="_blank" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="https://helpdesk.k12itc.com/helpdesk/WebObjects/Helpdesk.woa/wa/TicketActions/view?ticket=205917" target="_blank" title="K12ITC/Albert Tech Help Desk ">K12ITC/Albert Tech Help Desk </a></li>
+<li class="without-image"><a href="https://helpdesk.tcsd.org/helpdesk/WebObjects/Helpdesk.woa" target="_blank" title="TCSD HELP Desk (Maintenance, Food Service, Instructional Tech, PowerSchool and TCSD Website requests)">TCSD HELP Desk (Maintenance, Food Service, Instructional Tech, PowerSchool and TCSD Website requests)</a></li>
+<li class="with-image"><a href="https://go.boarddocs.com/wy/teton1/Board.nsf/Public" target="_blank" title="BoardDocs"><img src="/docs/district/board%20of%20education/screen%20shot%202017-10-31%20at%205.02.06%20pm.png?id=847&amp;width=210" alt="BoardDocs" title="BoardDocs" border="0"></a></li>
+<li class="with-image"><a href="http://www.cheytech.co/~safeschools/index.php" title="Safe2Tell Wyoming"><img src="/userfiles/3/my%20files/screen%20shot%202018-02-26%20at%203.48.27%20pm.png?id=1983&amp;width=210" alt="Safe2Tell Wyoming" title="Safe2Tell Wyoming" border="0"></a></li>
+<li class="with-image"><a href="http://www.tetoncntysd1.wy.schools.bz/Content2/698" target="_blank" title="PeachJar"><img src="/userfiles/3/my%20files/screen%20shot%202019-08-12%20at%202.10.11%20pm.png?id=2967&amp;width=210" alt="PeachJar" title="PeachJar" border="0"></a></li>
+</ul>
+<h2>Middle Links</h2>
+        <ul class="">
+<li class="with-image"><a href="https://go.boarddocs.com/wy/teton1/Board.nsf/Public" title="BoardDocs"><img src="/docs/district/board%20of%20education/board%20doc%20logo%20with%20green%20tree.png?id=85&amp;height=50" alt="BoardDocs" title="BoardDocs" border="0"></a></li>
+<li class="with-image"><a href="https://www.cheytech.co/~safeschools/index.php" target="_blank" title="Safe2Tell"><img src="/userfiles/3/my%20files/screen%20shot%202018-02-26%20at%203.48.27%20pm.png?id=1983&amp;height=50" alt="Safe2Tell" title="Safe2Tell" border="0"></a></li>
+<li class="without-image"><a href="https://helpdesk.k12itc.com/helpdesk/WebObjects/Helpdesk.woa/wa/TicketActions/view?ticket=205917" target="_blank" aria-label="" title="K12 ITC/Albert Staff Tech Help Desk">K12 ITC/Albert Staff Tech Help Desk</a></li>
+<li class="without-image"><a href="https://helpdesk.tcsd.org/helpdesk/WebObjects/Helpdesk.woa" target="_blank" title="TCSD Help Desk ">TCSD Help Desk </a></li>
+<li class="with-image"><a href="https://tetoncountysd.powerschool.com/public/" target="_blank" title="PowerSchool "><img src="/userfiles/3/my%20files/screen%20shot%202020-02-21%20at%2012.13.41%20pm.png?id=3240&amp;height=50" alt="PowerSchool " title="PowerSchool " border="0"></a></li>
+<li class="with-image"><a href="http://www.tcsd.org/Content/870" target="_blank" title="Canvas"><img src="/userfiles/3/my%20files/screen%20shot%202020-02-21%20at%2012.17.09%20pm.png?id=3241&amp;height=50" alt="Canvas" title="Canvas" border="0"></a></li>
+<li class="with-image"><a href="/Content/888" aria-label="" title="Distance Learning Pages"><img src="/userfiles/-16/my%20files/screen%20shot%202020-03-16%20at%204.20.57%20pm.png?id=3278&amp;height=50" alt="Distance Learning Pages" title="Distance Learning Pages" border="0"></a></li>
+</ul></nav>
+</div>
+
+    
+
+        </header><div class="slideshowmargin">
+        
+<script type="text/javascript" src="/admin/js/Cycle2/jquery.cycle2.dev.js"></script><script src="https://player.vimeo.com/api/player.js"></script><script type="text/javascript">
+    // https://stackoverflow.com/a/51789311/5629100
+    var YoutubeVideos = (function () {
+        var playersYoutube = [],	// players array (to control players individually)
+            queueYoutube = [];		// videos queue (once api is ready, transform this into YT player)
+
+        // Constructor
+        function YoutubeVideos() { }
+
+        // Add elements to queue
+        YoutubeVideos.prototype.add = function ($video) {
+            queueYoutube.push($video);
+        };
+
+        // Finds player based on the id of the iframe element
+        YoutubeVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersYoutube.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Load Youtube API
+        YoutubeVideos.prototype.loadApi = function () {
+            $.getScript("https://www.youtube.com/iframe_api", function () {
+                window.onYouTubeIframeAPIReady = function () {
+                    queueYoutube.forEach(function ($video) {
+                        var loopBit = function () {
+                            if ($video.data('loop-video') == true) {
+                                return 1;
+                            }
+                            return 0;
+                        };
+
+                        var player = new YT.Player($video.get(0), {
+                            width: $video.data('frame-width'),
+                            height: $video.data('frame-height'),
+                            videoId: $video.data('video-id'),
+                            events: {
+                                'onStateChange': onPlayerStateChange,
+                                'onReady': onPlayerReady
+                            },
+                            playerVars: {
+                                autoplay: 0,
+                                rel: 0,
+                                enablejsapi: 1,
+                                loop: loopBit
+                            },
+                            origin: window.location.origin
+                        });
+
+                        playersYoutube.push({
+                            playerId: $video.attr('id'),
+                            player: player
+                        });
+                    });
+                };
+            });
+        };
+
+        return YoutubeVideos;
+    })();
+
+    // Modified from https://stackoverflow.com/a/51789311/5629100
+    var VimeoVideos = (function () {
+        var queueVimeo = [],		// queue of elements which will become players.
+            playersVimeo = [];		// players array (to control players individually)
+
+        // Constructor
+        function VimeoVideos() { }
+
+        // Add elements to queue
+        VimeoVideos.prototype.add = function ($video) {
+            queueVimeo.push($video);
+        };
+
+        // Converts queue to players.
+        VimeoVideos.prototype.loadPlayers = function () {
+            queueVimeo.forEach(function (item, index) {
+                var vimeoOptions = {
+                    id: $(item).data('video-id'),
+                    autoplay: false,
+                    muted: ($(item).data('autoplay') == true) ? true : false
+                };
+
+                playersVimeo[index] = {
+                    playerId: $(item).attr('id'),
+                    player: new Vimeo.Player(item, vimeoOptions)
+                };
+            });
+        };
+
+        // Finds player based on the id of the iframe element
+        VimeoVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersVimeo.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Adds listeners to the players that have been created now so they interact
+        // correctly with the header galleries.
+        VimeoVideos.prototype.bindListeners = function () {
+            playersVimeo.forEach(function (item) {
+                item.player.on('play', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+                    $wrapSlideshow.find('.cycle-pager').fadeOut();
+                    $wrapSlideshow.find('.playPause').fadeOut();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('pause', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                    $(this.element.parentNode).data('paused', true);
+                    $wrapSlideshow.find('.cycle-pager').fadeIn();
+                    $wrapSlideshow.find('.playPause').fadeIn();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('ended', function () {
+                    if ($(this.element.parentNode).data('loop-video') == true) {
+                        this.play();
+                    } else {
+                        var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                        $(this.element.parentNode).data('paused', true);
+                        $wrapSlideshow.find('.cycle-pager').fadeIn();
+                        $wrapSlideshow.find('.playPause').fadeIn();
+                        $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                    }
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.ready().then(function () {
+                    if ($(this).parents('.cycle-slide-active').length > 0 && $(this).data('autoplay') == true) {
+                        this.play();
+                    }
+                });
+            });
+        };
+
+        return VimeoVideos;
+    })();
+
+    // When the Youtube video is paused, ends, or begins, we need to either
+    // show or hide the slideshow controls and either pause or resume the
+    // slideshow. We also handle looping the Youtube videos here because the
+    // Youtube API is not 100% reliable for that function.
+    function onPlayerStateChange(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        var $wrapSlideshow = $videoElem.parents('.wrap-slideshow').first();
+        var videoState = e.data;
+
+        if (videoState == YT.PlayerState.PAUSED) {
+            $videoElem.data('paused', true);
+            $wrapSlideshow.find('.cycle-pager').fadeIn();
+            $wrapSlideshow.find('.playPause').fadeIn();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+        }
+
+        if (videoState == YT.PlayerState.ENDED) {
+            if ($videoElem.data('loop-video') == true) {
+                playYoutubePlayerById($videoElem.attr('id'));
+            } else {
+                $videoElem.siblings('.youtubeVideoThumbnail').show();
+                $videoElem.siblings('.youtubeVideoThumbnailPlay').show();
+                $wrapSlideshow.find('.cycle-pager').fadeIn();
+                $wrapSlideshow.find('.playPause').fadeIn();
+                $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+            }
+        }
+
+        if (videoState == YT.PlayerState.PLAYING) {
+            $videoElem.data('paused', false);
+            $videoElem.siblings('.youtubeVideoThumbnail').fadeOut();
+            $videoElem.siblings('.youtubeVideoThumbnailPlay').fadeOut();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+            $wrapSlideshow.find('.cycle-pager').fadeOut();
+            $wrapSlideshow.find('.playPause').fadeOut();
+        }
+    }
+
+    function onPlayerReady(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        if ($videoElem.parent('.cycle-slide-active').length > 0 && $videoElem.data('autoplay') == true) {
+            e.target.mute();
+            forcePlayYoutubePlayer(e.target);
+        }
+    }
+
+    function pauseYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            forcePauseYoutubePlayer(player);
+        }
+    }
+
+    function forcePauseYoutubePlayer(player) {
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePauseYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function playYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        forcePlayYoutubePlayer(player);
+    }
+
+    function muteYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.mute();
+    }
+
+    function forcePlayYoutubePlayer(player) {
+        player.playVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePlayYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function pauseVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.pause();
+        }
+    }
+
+    function playVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.play();
+        }
+    }
+
+    function addYouTubeStyles(videoId, containerWidth, containerHeight, videoWidth, videoHeight, videoZoom) {
+        var containerRatio = containerWidth / containerHeight;
+        var videoRatio = videoWidth / videoHeight;
+        var trueSize = $('#' + videoId).parents('.headerGalleryV2').innerWidth() / containerWidth;
+        var styles = '#' + videoId + ' {';
+
+        if (containerRatio === videoRatio) { // Video already fits the size of the container.
+            styles += 'top: 0;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+            styles += 'height: 100%;';
+        } else if (containerRatio > videoRatio) { // Container wider than video, needs to cut off top and bottom of video to scale.
+            var scale = (containerWidth / videoWidth);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateY(-' + (((videoHeight * scale) - containerHeight) / (videoHeight * scale) * 50) + '%);'
+            }
+        } else { // Container taller than video, needs to cut off left and right of video to scale.
+            var scale = (containerHeight / videoHeight);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'height: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateX(-' + (((videoWidth * scale) - containerWidth) / (videoWidth * scale) * 50) + '%);'
+            }
+        }
+
+        styles += '}';
+
+        if ($('#youtubeVideo' + videoId + 'Styles').length > 0) {
+            $('#youtubeVideo' + videoId + 'Styles').remove();
+        }
+
+        var styleTag = $('<style id="#youtubeVideo' + videoId + 'Styles"></style>')
+        $('head').append(styleTag);
+        $(styleTag).append(styles);
+    }
+
+    // Global Variables
+    var youtubes = new YoutubeVideos();
+    var vimeos = new VimeoVideos();
+
+    $(document).ready(function () {
+        $('.youtubeVideoSlide').each(function () {
+            youtubes.add($(this));
+        });
+
+        youtubes.loadApi();
+
+        $('.vimeoVideoSlide').each(function () {
+            vimeos.add($(this));
+        });
+
+        vimeos.loadPlayers();
+        vimeos.bindListeners();
+
+        $('.wrap-slideshow').on('click', '.youtubeVideoThumbnailPlay, .youtubeVideoThumbnail', function () {
+            playYoutubePlayerById($(this).data('player-id'));
+        });
+    });
+
+    $(document).on('cycle-initialized', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+        var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+        var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+        if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true) {
+            youtubeSlide.parents('.headerGalleryV2').cycle('pause');
+        }
+
+        if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true) {
+            vimeoSlide.parents('.headerGalleryV2').cycle('pause');
+            playVimeoPlayerById(vimeoSlide.attr('id'));
+        }
+
+        $('.cycle-pager > span').attr('tabindex', 0);
+    });
+
+    $(document).ready(function () {
+        // For ADA Compliance
+        $('.wrap-slideshow').on('keydown', '.prevNext > i, .cycle-pager > span, .playPause > i', function (e) {
+            if (e.keyCode === 32 || e.keyCode === 13) {
+                e.preventDefault();
+                $(this).click();
+            }
+        });
+    });
+</script><script>
+    $(document).ready(function () {
+        $slideshow = $('#slideshow').cycle({
+            'pauseOnHover': '#slideshow',
+            'slides': '> .slide',
+            'pager': '.slideshow.cycle-pager',
+            'pagerTemplate': '<span class="page"><span class="obscure">slide number {{slideNum}}</span></span>',
+            'autoHeight': '1920:400',
+            'timeout': 3000,
+            'fx': 'fade',
+            'log': false
+        });
+
+        setTimeout(function () {
+            $('.wrap-slideshow.slideshow .playPause .fa-play').on('click', function () {
+                $slideshow.cycle('resume');
+                $('#slideshow').data('paused', false);
+            });
+
+            $('.wrap-slideshow.slideshow .playPause .fa-pause').on('click', function () {
+                $slideshow.cycle('pause');
+                $('#slideshow').data('paused', true);
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-left').on('click', function () {
+                $slideshow.cycle('prev');
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-right').on('click', function () {
+                $slideshow.cycle('next');
+            });
+        }, 500);
+
+        $slideshow.on('cycle-before', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0) {
+                pauseYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0) {
+                pauseVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+        $slideshow.on('cycle-after', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true && youtubeSlide.data('paused') != true) {
+                muteYoutubePlayerById(youtubeSlide.attr('id'))
+                playYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true && vimeoSlide.data('paused') != true) {
+                playVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+	
+    });
+</script><div class="wrap-slideshow slideshow">
+    <div id="slideshow" class="headerGalleryV2">
+        
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl00_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2019-12/446506fe-5625-4494-baff-b9710bc76fa5.jpg?rotate=180" alt="Isabelle Dragoo with her parents, principal. members of Jackson Hole Fire/EMS and Grant Teton National Park" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl01_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2019-12/2f3e296f-613a-444a-a091-c3f86d1cde0b.jpg" alt="Summit Innovations students pictured with teacher Brian Harger" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl02_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2019-09/f6466147-e2d8-4fcd-93e7-065a720a04c9.jpg" alt="students arriving to school on bikes" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl03_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2019-06/ad3e1ab4-1958-445c-9817-39221a2a8c90.jpeg" alt="Jackson Hole High School Seniors recognized as rotary foundation scholarship recipients" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl04_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2018-08/0b9e02aa-7b22-4c9e-b8bc-edc3ba286060.jpg" alt="Teachers participate in training preparing for first day of school" style="border-width:0px;">
+</div>
+            
+    </div>
+
+    <div class="prevNext">
+        <i class="fa fa-chevron-left" aria-label="previous slide" tabindex="0"></i>
+        <i class="fa fa-chevron-right" aria-label="next slide" tabindex="0"></i>
+    </div>
+
+    <div class="cycle-pager slideshow"></div>
+
+    <div class="playPause">
+        <i class="fa fa-play" aria-label="play, resume header gallery" tabindex="0"></i>
+        <i class="fa fa-pause" aria-label="pause, stop header gallery" tabindex="0"></i>
+    </div>
+</div>
+
+
+<style>
+    .caption {
+        position: absolute;
+        bottom: 25%;
+        left: 0;
+        width: 100%;
+        padding: 0 20%;
+        z-index: 2;
+    }
+</style>
+<style>#slideshow{position:relative;z-index:1;</style>
+<style type="text/css">
+    .wrap-slideshow {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .slide {
+        display: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide.cycle-slide-active {
+        display: block;
+        animation-name: fadeIn;
+        animation-duration: 1000ms;
+    }
+
+    .slide img {
+        width: 100%;
+        display: block;
+    }
+
+    .caption,
+    .caption a {
+        color: #fff;
+    }
+
+    .captionTop,
+    .captionBottom {
+        display: none;
+    }
+
+    .cycle-slide-active .captionTop {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        animation-name: slideInRight;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-slide-active .captionBottom {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.4);
+        text-align: center;
+        animation-name: slideInLeft;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-pager {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        z-index: 2;
+    }
+
+    .cycle-pager .page {
+        display: inline-block;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+    .cycle-pager .page:before {
+        display: inline-block;
+        content: '';
+        width: 12px;
+        height: 12px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        line-height: 1px;
+    }
+
+    .cycle-pager .page.cycle-pager-active:before {
+        background-color: white;
+    }
+
+    .playPause {
+        position: absolute;
+        bottom: 0px;
+        right: 10px;
+        padding: 0;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .playPause i {
+        margin-bottom: 3px;
+    }
+
+    .playPause i.fa-play {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 8px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause i.fa-play:before {
+        margin-top: -1px;
+        margin-right: -2px;
+    }
+
+    .playPause i.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 9px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause svg.fa-play,
+    .playPause svg.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 11px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -15px;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .prevNext svg {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+    }
+
+    .prevNext svg.fa-chevron-left {
+        padding-left: 3px;
+    }
+
+    .prevNext svg.fa-chevron-right {
+        padding-right: 3px;
+    }
+
+    .prevNext i {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext .fa-chevron-left {
+        left: 20px;
+    }
+
+    .prevNext svg:first-child,
+    .prevNext .fa-chevron-left:before {
+        margin-left: -2px;
+    }
+
+    .prevNext .fa-chevron-right {
+        right: 20px;
+    }
+
+    .prevNext svg:last-child,
+    .prevNext .fa-chevron-right:before {
+        margin-right: -2px;
+    }
+
+    .wrap-slideshow .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('');
+        background-size: contain;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+
+    .vimeoVideoSlide {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+    }
+
+    .vimeoVideoSlide iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .youtubeVideoSlide {
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide .youtubeVideoThumbnail {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        object-fit: contain;
+        object-position: center;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .youtubeVideoThumbnailPlay {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background-color: #f00;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    .youtubeVideoThumbnailPlay i {
+        margin: 0 -2px 0 0;
+        line-height: 100%;
+    }
+
+    @keyframes none {
+        from {
+            display: block;
+        }
+
+        to {
+            display: block;
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            left: 100%;
+        }
+
+        60% {
+            left: -10px;
+        }
+
+        to {
+            left: 0;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            right: 100%;
+        }
+
+        60% {
+            right: -10px;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+<style id="youtubeStyles"></style>
+</div>
+
+        
+
+        <div id="site-body">
+            
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+    <div class="bg-body0 hidden-xs">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <nav id="MiddleNav"><ul class="">
+<li class="with-image"><a href="https://go.boarddocs.com/wy/teton1/Board.nsf/Public" title="BoardDocs"><img src="/docs/district/board%20of%20education/board%20doc%20logo%20with%20green%20tree.png?id=85&amp;height=50" alt="BoardDocs" title="BoardDocs" border="0"></a></li>
+<li class="with-image"><a href="https://www.cheytech.co/~safeschools/index.php" target="_blank" title="Safe2Tell"><img src="/userfiles/3/my%20files/screen%20shot%202018-02-26%20at%203.48.27%20pm.png?id=1983&amp;height=50" alt="Safe2Tell" title="Safe2Tell" border="0"></a></li>
+<li class="without-image"><a href="https://helpdesk.k12itc.com/helpdesk/WebObjects/Helpdesk.woa/wa/TicketActions/view?ticket=205917" target="_blank" aria-label="" title="K12 ITC/Albert Staff Tech Help Desk">K12 ITC/Albert Staff Tech Help Desk</a></li>
+<li class="without-image"><a href="https://helpdesk.tcsd.org/helpdesk/WebObjects/Helpdesk.woa" target="_blank" title="TCSD Help Desk ">TCSD Help Desk </a></li>
+<li class="with-image"><a href="https://tetoncountysd.powerschool.com/public/" target="_blank" title="PowerSchool "><img src="/userfiles/3/my%20files/screen%20shot%202020-02-21%20at%2012.13.41%20pm.png?id=3240&amp;height=50" alt="PowerSchool " title="PowerSchool " border="0"></a></li>
+<li class="with-image"><a href="http://www.tcsd.org/Content/870" target="_blank" title="Canvas"><img src="/userfiles/3/my%20files/screen%20shot%202020-02-21%20at%2012.17.09%20pm.png?id=3241&amp;height=50" alt="Canvas" title="Canvas" border="0"></a></li>
+<li class="with-image"><a href="/Content/888" aria-label="" title="Distance Learning Pages"><img src="/userfiles/-16/my%20files/screen%20shot%202020-03-16%20at%204.20.57%20pm.png?id=3278&amp;height=50" alt="Distance Learning Pages" title="Distance Learning Pages" border="0"></a></li>
+</ul></nav>
+</div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bg-body3">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    
+                    <h2 class="sectionHeader home"><span>Upcoming Events</span></h2>
+
+                    <div class="clearfix panel wrap-events">
+                        
+
+<style>
+	.monthHeader {
+		padding: 5px 15px;
+		line-height: 100%;
+		text-transform: uppercase;
+	}
+
+	.eventSpacer {
+		height: 10px;
+	}
+</style>
+<h3 class="monthHeader">April</h3>
+
+		
+				<div class="eventDayPanel">
+					<div class="eventDay">
+						29
+					</div>
+
+					<ul class="eventList">
+<li>
+									<a href="/calendarweekview.aspx?eventID=14525&amp;schoolid=0">
+										<span class="dayOfWeek">Wednesday</span>
+										<span class="eventTitle">Board of Trustees Workshop</span>
+										<span class="eventTime">Starts @ 6:00 PM</span>
+									</a>
+								</li>
+							
+					</ul>
+</div>
+			
+	
+		<h3 class="monthHeader">May</h3>
+
+		
+				<div class="eventDayPanel">
+					<div class="eventDay">
+						12
+					</div>
+
+					<ul class="eventList">
+<li>
+									<a href="/calendarweekview.aspx?eventID=14631&amp;schoolid=0">
+										<span class="dayOfWeek">Tuesday</span>
+										<span class="eventTitle">KES Incoming Kindergarten Open House</span>
+										<span class="eventTime">4:00 PM - 6:00 PM</span>
+									</a>
+								</li>
+							
+					</ul>
+</div>
+			
+				<div class="eventDayPanel">
+					<div class="eventDay">
+						13
+					</div>
+
+					<ul class="eventList">
+<li>
+									<a href="/calendarweekview.aspx?eventID=14505&amp;schoolid=0">
+										<span class="dayOfWeek">Wednesday</span>
+										<span class="eventTitle">Board of Trustees Regular Meeting</span>
+										<span class="eventTime">Starts @ 6:00 PM</span>
+									</a>
+								</li>
+							
+					</ul>
+</div>
+			
+				<div class="eventDayPanel">
+					<div class="eventDay">
+						18
+					</div>
+
+					<ul class="eventList">
+<li>
+									<a href="/calendarweekview.aspx?eventID=14630&amp;schoolid=0">
+										<span class="dayOfWeek">Monday</span>
+										<span class="eventTitle">WES Incoming Kindergarten Information Night</span>
+										<span class="eventTime">5:15 PM - 6:00 PM</span>
+									</a>
+								</li>
+							
+					</ul>
+</div>
+			
+				<div class="eventDayPanel">
+					<div class="eventDay">
+						19
+					</div>
+
+					<ul class="eventList">
+<li>
+									<a href="/calendarweekview.aspx?eventID=14426&amp;schoolid=0">
+										<span class="dayOfWeek">Tuesday</span>
+										<span class="eventTitle">JHMS/JHHS Spring Band Concert</span>
+										<span class="eventTime">Starts @ 6:00 PM</span>
+									</a>
+								</li>
+							
+					</ul>
+</div>
+			
+				<div class="eventDayPanel">
+					<div class="eventDay">
+						20
+					</div>
+
+					<ul class="eventList">
+<li>
+									<a href="/calendarweekview.aspx?eventID=14183&amp;schoolid=0">
+										<span class="dayOfWeek">Wednesday</span>
+										<span class="eventTitle">Orchestra Spring Concert</span>
+										<span class="eventTime">Starts @ 6:30 PM</span>
+									</a>
+								</li>
+							
+					</ul>
+</div>
+			
+				<div class="eventDayPanel">
+					<div class="eventDay">
+						25
+					</div>
+
+					<ul class="eventList">
+<li>
+									<a href="/calendarweekview.aspx?eventID=13972&amp;schoolid=0">
+										<span class="dayOfWeek">Monday</span>
+										<span class="eventTitle">Memorial Day Holiday- No School</span>
+										<span class="eventTime"></span>
+									</a>
+								</li>
+							
+					</ul>
+</div>
+			
+				<div class="eventDayPanel">
+					<div class="eventDay">
+						26
+					</div>
+
+					<ul class="eventList">
+<li>
+									<a href="/calendarweekview.aspx?eventID=14401&amp;schoolid=0">
+										<span class="dayOfWeek">Tuesday</span>
+										<span class="eventTitle">JHMS Spring Choir Concert</span>
+										<span class="eventTime">Starts @ 6:00 PM</span>
+									</a>
+								</li>
+							
+								<li>
+									<div class="eventSpacer"></div>
+								</li>
+							
+								<li>
+									<a href="/calendarweekview.aspx?eventID=14402&amp;schoolid=0">
+										<span class="dayOfWeek">Tuesday</span>
+										<span class="eventTitle">JHHS Choir Spring Concert</span>
+										<span class="eventTime">Starts @ 7:00 PM</span>
+									</a>
+								</li>
+							
+					</ul>
+</div>
+			
+				<div class="eventDayPanel">
+					<div class="eventDay">
+						27
+					</div>
+
+					<ul class="eventList">
+<li>
+									<a href="/calendarweekview.aspx?eventID=14526&amp;schoolid=0">
+										<span class="dayOfWeek">Wednesday</span>
+										<span class="eventTitle">Board of Trustees Workshop</span>
+										<span class="eventTime">Starts @ 6:00 PM</span>
+									</a>
+								</li>
+							
+					</ul>
+</div>
+			
+	
+
+
+                        <div class="">
+                            <a id="ctl00_ctl00_MasterContent_HyperLink2" class="viewAllEvents">View All Events</a>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <div id="ctl00_ctl00_MasterContent_MiddleColumn" class="col-xs-12 col-sm-4">
+                    <h2 id="ctl00_ctl00_MasterContent_feature2Header" class="sectionHeader home">
+                        <span>
+                            Twitter
+                        </span>
+                    </h2>
+
+                    <div class="clearfix panel">
+                        
+<div class="feature-content ">
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <a class="twitter-timeline" href="https://twitter.com/TetonSchools?ref_src=twsrc%5Etfw">Tweets by TetonSchools</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script><p>Twitter</p>
+
+<p><a class="twitter-timeline" href="https://twitter.com/home?ref_src=twsrc%5Etfw">Tweets by home</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+<p> </p>
+
+<p> </p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                    </div>
+                </div>
+
+                <div id="ctl00_ctl00_MasterContent_RightColumn" class="col-xs-12 col-sm-4">
+                    <h2 id="ctl00_ctl00_MasterContent_feature3Header" class="sectionHeader home">
+                        <span>
+                            Facebook
+                        </span>
+                    </h2>
+                    <div class="clearfix panel">
+                        
+<div class="feature-content ">
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v4.0"></script><div class="fb-page" data-href="https://www.facebook.com/TetonSchools/" data-tabs="timeline" data-width="" data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/TetonSchools/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/TetonSchools/">Teton County School District</a></blockquote></div>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-body1">
+        <div class="bgImage" style="background-image: url('');">
+            <div class="featureOverlay">
+                <div class="container">
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <h2 class="sectionHeader home news">
+                                <span><span class="barBefore"></span>News &amp; Announcements<span class="barAfter"></span></span>
+                            </h2>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-pad-5">
+                            <div class="newsBlock1">
+                                <div id="ctl00_ctl00_MasterContent_news1_ImageBg" class="gridNewsImgBg" style="background-image:url(https://cdn.schoolpointe.com/images/Generic-Featured-Content-Image.jpg);">
+	
+  <a href="/News/199" id="ctl00_ctl00_MasterContent_news1_overNewsLink" class="overLink"> </a>
+     	<div class="overlay">
+		<a id="ctl00_ctl00_MasterContent_news1_NewsLink" class="gridNewsLink" href="/News/199"><span class="gridNewsHeader">2020-2021 Dual Immersion Program Application Period Opens</span><span class="gridNewsSubheader">All families interested in kindergarten at MMES next year must complete an application to be eligible for enrollment, including those who have older siblings in the dual immersion program. / Todas las familias interesadas en kindergarten en MMES el próximo año deben completar este formulario para ser elegibles para la inscripción, incluidas aquellas con hermanos mayores en el programa de doble inmersión.</span></a>
+	</div>
+
+</div>
+     
+                            </div>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="row">
+                                <div class="col-xs-6 col-pad-5">
+                                    <div class="newsBlock2">
+                                        <div id="ctl00_ctl00_MasterContent_news2_ImageBg" class="gridNewsImgBg" style="background-image:url(https://cdn.schoolpointe.com/images/Generic-Featured-Content-Image.jpg);">
+	
+  <a href="/News/198" id="ctl00_ctl00_MasterContent_news2_overNewsLink" class="overLink"> </a>
+     	<div class="overlay">
+		<a id="ctl00_ctl00_MasterContent_news2_NewsLink" class="gridNewsLink" href="/News/198"><span class="gridNewsHeader">Tune in to KHOL to listen to Teacher reading Esperanza Rising</span></a>
+	</div>
+
+</div>
+     
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-pad-5">
+                                    <div class="newsBlock2">
+                                        <div id="ctl00_ctl00_MasterContent_news3_ImageBg" class="gridNewsImgBg" style="background-image:url(https://cdn.schoolpointe.com/images/Generic-Featured-Content-Image.jpg);">
+	
+  <a href="/News/196" id="ctl00_ctl00_MasterContent_news3_overNewsLink" class="overLink"> </a>
+     	<div class="overlay">
+		<a id="ctl00_ctl00_MasterContent_news3_NewsLink" class="gridNewsLink" href="/News/196"><span class="gridNewsHeader">TCSD has opened kindergarten and new student registration for the 2020-2021 School Year</span></a>
+	</div>
+
+</div>
+     
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-pad-5">
+                                    <div class="newsBlock2">
+                                        <div id="ctl00_ctl00_MasterContent_news4_ImageBg" class="gridNewsImgBg" style="background-image:url(/docs/_full_/userfiles/3/my%20files/coronavirus-badge-300.png?id=3279&amp;thumbwidth=190&amp;fullwidth=500);">
+	
+  <a href="/News/193" id="ctl00_ctl00_MasterContent_news4_overNewsLink" class="overLink"> </a>
+     	<div class="overlay">
+		<a id="ctl00_ctl00_MasterContent_news4_NewsLink" class="gridNewsLink" href="/News/193"><span class="gridNewsHeader">COVID-19 Update to Families and the Community</span></a>
+	</div>
+
+</div>
+     
+                                    </div>
+                                </div>
+
+                                <div class="col-xs-6 col-pad-5">
+                                    <div class="newsBlock2">
+                                        <div id="ctl00_ctl00_MasterContent_news5_ImageBg" class="gridNewsImgBg" style="background-image:url(https://cdn.schoolpointe.com/images/Generic-Featured-Content-Image.jpg);">
+	
+  <a href="/News/187" id="ctl00_ctl00_MasterContent_news5_overNewsLink" class="overLink"> </a>
+     	<div class="overlay">
+		<a id="ctl00_ctl00_MasterContent_news5_NewsLink" class="gridNewsLink" href="/News/187"><span class="gridNewsHeader">TCSD Announces Incoming Kindergarten Screening and Registration Dates</span></a>
+	</div>
+
+</div>
+     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="wrap-viewAllNews">
+                                <a id="ctl00_ctl00_MasterContent_lnkViewAllNews" class="viewAllNews" href="/news">Read More News</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-body4">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    
+
+<h2 class="sectionHeader home special"><span>Welcome to TCSD #1</span></h2>
+
+<div class="homepageFeature">
+	<span id="ctl00_ctl00_MasterContent_ctl03_content"><p><strong><a href="http://www.tetoncntysd1.wy.schools.bz/Content/app-download-instructions">Download the TCSD app from your App Store</a></strong><br>
+Get district news, events and important updates on your mobile device by downloading our new app today!</p>
+
+<p dir="ltr"><strong>TCSD Shares Important District Data and Reports </strong><br><a href="http://www.tetoncntysd1.wy.schools.bz/Content2/760">Visit our School District and School Data and Reporting page</a> to learn more about how our schools are performing. </p>
+
+<p dir="ltr"><strong>Community-based after-school programs</strong><br>
+Many local organizations provide after-school programs and service that are not affiliated with TCSD.  As we become aware of these programs we post them on the <a href="http://www.tetoncntysd1.wy.schools.bz/Content2/698">Community After-school Programs and Services page available here.</a>  Be sure to check the page often as updates are made to this page regularly, especially in the spring and fall.    </p></span>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-body5" style="background-image: url('/docs/userfiles/-26/my files/canva-photo-editor (19).png?id=3050');">
+    </div>
+
+    <ul id="GrabQuickLinks" class="hidden">
+<li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Quick Links">
+                
+                 Quick Links  <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.tcsd.org/" title="Home">Home</a></li>
+<li class="without-image"><a href="/Athletics/Content/340" target="_blank" title="Activities">Activities</a></li>
+<li class="without-image"><a href="/news" title="District News">District News</a></li>
+<li class="without-image"><a href="/District/Links-Forms" target="_blank" title="District Links-Forms">District Links-Forms</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Event Calendars">Event Calendars  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content2/136" target="_blank" title="School Year Calendar">School Year Calendar</a></li>
+<li class="without-image"><a href="/calendar" target="_blank" title="District Event Calendar">District Event Calendar</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/362" target="_blank" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/Content/674" target="_blank" title="District Telephone Numbers">District Telephone Numbers</a></li>
+<li class="without-image"><a href="/staff" target="_blank" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="https://helpdesk.k12itc.com/helpdesk/WebObjects/Helpdesk.woa/wa/TicketActions/view?ticket=205917" target="_blank" title="K12ITC/Albert Tech Help Desk ">K12ITC/Albert Tech Help Desk </a></li>
+<li class="without-image"><a href="https://helpdesk.tcsd.org/helpdesk/WebObjects/Helpdesk.woa" target="_blank" title="TCSD HELP Desk (Maintenance, Food Service, Instructional Tech, PowerSchool and TCSD Website requests)">TCSD HELP Desk (Maintenance, Food Service, Instructional Tech, PowerSchool and TCSD Website requests)</a></li>
+<li class="with-image"><a href="https://go.boarddocs.com/wy/teton1/Board.nsf/Public" target="_blank" title="BoardDocs"><img src="/docs/district/board%20of%20education/screen%20shot%202017-10-31%20at%205.02.06%20pm.png?id=847&amp;width=210" alt="BoardDocs" title="BoardDocs" border="0"></a></li>
+<li class="with-image"><a href="http://www.cheytech.co/~safeschools/index.php" title="Safe2Tell Wyoming"><img src="/userfiles/3/my%20files/screen%20shot%202018-02-26%20at%203.48.27%20pm.png?id=1983&amp;width=210" alt="Safe2Tell Wyoming" title="Safe2Tell Wyoming" border="0"></a></li>
+<li class="with-image"><a href="http://www.tetoncntysd1.wy.schools.bz/Content2/698" target="_blank" title="PeachJar"><img src="/userfiles/3/my%20files/screen%20shot%202019-08-12%20at%202.10.11%20pm.png?id=2967&amp;width=210" alt="PeachJar" title="PeachJar" border="0"></a></li>
+</ul>
+</li>
+    </ul>
+</div>
+
+        
+        
+
+
+        <footer id="site-foot"></footer><div class="bg-footer1">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+                <div class="bgStrech"></div>
+				<a id="ctl00_ctl00_ctl06_lnkLogo" class="footerLogo" href="/"><span class="obscure">link to homepage</span></a>
+			</div>
+
+			<div class="col-xs-12 col-sm-4 text-center">
+				<div>
+					<a id="ctl00_ctl00_ctl06_lnkMap" class="mapLink" href="https://www.google.com/maps/search/?api=1&amp;query=1235%20Gregory%20Lane,%20PO%20Box%20568+Jackson+WY+83001"><i class="fa fa-map-marker" aria-hidden="true"></i> 1235 Gregory Lane, PO Box 568, Jackson, WY 83001</a>
+				</div>
+
+				<div>
+					<span id="ctl00_ctl00_ctl06_lblPhones" class="footerPhones"><span><i class="fa fa-phone" aria-hidden="true"></i> Phone: (307) 733-2704</span><span class="faxspan"><i class="fa fa-fax" aria-hidden="true"></i> Fax: (307) 734-1219</span></span>
+				</div>
+           
+			</div>
+
+			<div class="col-xs-12 col-sm-4">
+				<h2 class="footerHeader">Stay Connected</h2>
+
+				<div class="wrap-socialFooter">
+					
+        <a href="/login.aspx" title="cms login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/Login/Intranet" title="intranet login" target="_self">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/TetonSchools/?ref=aymt_homepage_panel" title="TCSD Facebook Page" target="_self">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="https://twitter.com/" title="Twitter" target="_self">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+				</div>
+			</div>
+		</div>
+        <div class="row">
+            <div class="col-xs-12">
+                 <div>
+                    <p>This School District is committed to a policy of nondiscrimination in relation to age, sex, race, color, religion, national origin sexual orientation, gender identity or disability. This policy governs all matters concerning staff, students, education programs and services and individuals with whom the School District does business.</p>
+                </div>
+                    </div>
+        </div>
+	</div>
+</div>
+
+<div class="bg-footer2">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12">
+				<span style="display: inline-block; padding-top: 8px;">©  2020 Teton County School District #1. All Rights Reserved.</span>
+
+				<a href="http://www.schoolpointe.com" target="_blank" alt="SchoolPointe" class="pull-right">
+					<img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPWhite.png" id="sp-logo"></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-84033228-14', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script><div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987">
+</div>
+</form>
+</body>
+</html>

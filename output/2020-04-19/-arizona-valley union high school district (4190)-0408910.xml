@@ -1,0 +1,2617 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="//www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+<script type="text/javascript">
+      var moduleList = {
+        userLogin: { name: 'User Login', wait: false, func: 'userLogin', reported: false, loaded: false },
+        userLoginIES: { name: 'IES Special Login', wait: false, func: 'userLoginAs', reported: false, loaded: false },
+        userLoginAs: { name: 'Login As...', wait: false, func: 'userLoginAs', reported: false, loaded: false },
+        userSwitch: { name: 'Switch Users', wait: false, func: 'userSwitch', reported: false, loaded: false },
+        userLogout: { name: 'User Logout', wait: false, func: 'userLogout', reported: false, loaded: false },
+        manageGalleries: { name: 'Gallery Manager', wait: false, func: 'manageGalleries', reported: false, loaded: false, needsLoader: true },
+        userGroups: { name: 'Groups & Users', wait: false, func: 'windowUserGroups', reported: false, loaded: false, needsLoader: true },
+        userGCDMembers: { name: 'Members', wait: false, func: 'windowUserGroups', reported: false, loaded: false, needsLoader: true },
+        siteConfig: { name: 'Site Config', wait: false, func: 'windowSiteConfig', reported: false, loaded: false, needsLoader: true, requires: ['generalTab', 'navTab', 'schoolTab', 'gcdTab', 'gcdUserAssignDlg', 'forumTab', 'catTab'] }
+      };
+      
+      function checkModuleLoaded(moduleName){
+        if (!moduleList[moduleName])
+          return false;
+        if (moduleList[moduleName].requires && moduleList[moduleName].requires.length > 0){
+          var mods = moduleList[moduleName].requires;
+          var modLen = mods.length;
+          loaded = moduleList[moduleName].reported;
+          var nn=0;
+          for(var n=0; n<modLen; n++){
+            if (!moduleList[mods[n]] || !moduleList[mods[n]].loaded){
+              loaded = false;
+            }else{
+              nn++;
+            }
+          }
+          moduleList[moduleName].loadedCt = nn;
+          moduleList[moduleName].loaded = loaded;
+        }else{
+          if (moduleList[moduleName].reported)
+            moduleList[moduleName].loaded = true;
+        }
+      }
+      function launchModule(moduleName, aargs){
+        if (!moduleList[moduleName] || !moduleList[moduleName].func)
+          return false;
+                
+        //alert(moduleName);
+        //alert(moduleList[moduleName].toSource());
+                
+        if (moduleList[moduleName].loaded){
+          if (moduleList[moduleName].wait && !moduleList[moduleName].needsLoader){
+            Ext.onReady(function(){ 
+              Ext.Msg.updateText('Launching '+moduleList[moduleName].name+'...');
+            });
+          }
+          if (moduleList[moduleName].needsLoader){
+            Ext.onReady(function(){ 
+              if (moduleList[moduleName].wait)
+                Ext.Msg.hide();
+              moduleList[moduleName].wait=false;
+              Ext.Msg.wait('Launching '+moduleList[moduleName].name+'...', moduleList[moduleName].name);
+            });
+          }
+          clearTimeout(moduleList[moduleName].timer);
+            
+          setTimeout(function(){ 
+            var myModule = moduleList[moduleName];
+            Ext.onReady(function(){ 
+              if (myModule.wait)
+                Ext.Msg.hide();
+            });
+            myModule.wait=false;
+            if (myModule.func && window[myModule.func])
+              window[myModule.func].createDelegate(this, aargs)();
+              //window[myModule.func].apply(this, aargs);
+          }, 500);
+        }else{
+          clearTimeout(moduleList[moduleName].timer);
+          if (maxLoadTimePassed){
+            Ext.onReady(function(){ 
+              Ext.Msg.hide();
+            });
+            moduleList[moduleName].wait=false;
+            if (moduleList[moduleName].requires && moduleList[moduleName].requires.length > 0){
+              var curLoad = moduleList[moduleName].loadedCt || 0;
+              var modLen = moduleList[moduleName].requires.length;
+              Ext.onReady(function(){ 
+                Ext.Msg.alert('Error Loading '+moduleList[moduleName].name+' ['+curLoad+'/'+modLen+']', moduleList[moduleName].name+' failed to load due to a connection problem. Please try again in a few seconds.');
+              });
+            }else{
+              Ext.onReady(function(){ 
+                Ext.Msg.alert('Error Loading '+moduleList[moduleName].name, moduleList[moduleName].name+' failed to load due to a connection problem. Please try again in a few seconds.');
+              });
+            }
+            return false;
+          }
+          if (!moduleList[moduleName].wait){
+            Ext.onReady(function(){ 
+              Ext.Msg.wait('Please wait...', 'Loading '+moduleList[moduleName].name);
+            });
+            moduleList[moduleName].wait=true;
+          }
+          if (moduleList[moduleName].requires && moduleList[moduleName].requires.length > 0){
+            var curLoad = moduleList[moduleName].loadedCt || 0;
+            var modLen = moduleList[moduleName].requires.length;
+            Ext.onReady(function(){ 
+              Ext.Msg.updateText('Loaded ['+curLoad+' of '+modLen+'] helpers. Please wait...');
+            });
+          }
+          moduleList[moduleName].timer = setTimeout(function(){ launchModule(moduleName, aargs); }, 100);
+        }
+      }
+      var normalLoadTimePassed = false;
+      var maxLoadTimePassed = false;
+      setTimeout(function(){ normalLoadTimePassed=true }, 10000);
+      setTimeout(function(){ maxLoadTimePassed=true }, 30000);
+      function reportingIn(moduleName){
+
+        if(!moduleList[moduleName])
+          moduleList[moduleName] = {slave: true};
+          
+        var thisModule = moduleList[moduleName];
+        
+        thisModule.reported = true;
+        
+          var found = false;
+          var foundReq = "";
+          for(var mod in moduleList){
+            checkModuleLoaded(mod);
+            var eMod = moduleList[mod];
+            if (eMod.requires && eMod.requires.length > 0){
+              var mods = eMod.requires;
+              var modLen = mods.length;
+              for(var n=0; n<modLen; n++){
+                if (mods[n] == moduleName){
+                  foundReq = mods[n];
+                  found = true;
+                  break;
+                }
+              }
+            }
+          }
+        
+        Ext.onReady(function(){
+          if (found && foundReq && moduleList[foundReq] && moduleList[foundReq].loaded){
+            var nodes = Ext.query('.loadingIcon_'+foundReq);
+            for (var c=0;c<nodes.length;c++)
+              Ext.fly(nodes[c]).removeClass('loadingIcon');
+          }
+          for(var mod in moduleList){
+            if (moduleList[mod].loaded == true){
+              var nodes = Ext.query('.loadingIcon_'+mod);
+              for (var c=0;c<nodes.length;c++)
+                Ext.fly(nodes[c]).removeClass('loadingIcon');
+            }
+          }
+          if (thisModule.loaded){
+            var nodes = Ext.query('.loadingIcon_'+moduleName);
+            for (var c=0;c<nodes.length;c++)
+              Ext.fly(nodes[c]).removeClass('loadingIcon');
+          }
+        });
+
+      }
+</script><noscript></noscript>
+<script type="text/javascript">
+     if ((typeof Range !== "undefined") && !Range.prototype.createContextualFragment)
+    {
+        Range.prototype.createContextualFragment = function(html)
+        {
+            var frag = document.createDocumentFragment(),
+            div = document.createElement("div");
+            frag.appendChild(div);
+            div.outerHTML = html;
+            return frag;
+        };
+    }
+      var refreshTool = {
+                          id:'refresh',
+                          qtip: 'Refresh',
+                          handler: function(e, target, panel){
+                              panel.storeFN(panel);
+                          }
+                        },
+      pinTool = {
+                        id:'pin',
+                        qtip: 'Widget Style',
+                        handler: function(e, target, panel){
+                            windowModuleLayout(panel);
+                        }
+                      },
+                      
+      gearTool = {
+                        id:'gear',
+                        qtip: 'Configure Widget',
+                        handler: function(e, target, panel){
+                          if(panel.storeParams.keyword=='page'){
+                            var dID = panel.storeParams.dataID
+                            callEditor({winName : 'page_win_'+dID, editorType: 'page', editorGCDID: '0', editorDataID: dID, titleMaxLen: 40, myPortlet: panel});
+                          }else{
+                            windowModuleConfig(panel);
+                          }
+                        }
+                      },
+      closeTool = {
+                        id:'close',
+                        qtip: 'Close',
+                        handler: function(e, target, panel){
+                            Ext.Msg.show({
+                               title:'Delete Widget?',
+                               msg: 'You are about to delete a portal widget. Are you sure you want to do this?',
+                               buttons: Ext.Msg.YESNO,
+                               fn: function(r){
+                                 if (r=='yes'){
+                                  Ext.Msg.wait('Please Wait...', 'Deleting Portal');                          
+                                  Ext.Ajax.request({
+                                     url: '/ajax/portals/deletePortal.cfm',
+                                     method: 'GET',
+                                     'params': { pID: panel.storeParams.portletID},
+                                     reader : new Ext.data.JsonReader({
+                                      success : '@success'
+                                     }),
+                                     success: function(response, opts) {
+                                        var obj = Ext.decode(response.responseText);
+                                        if (obj.success){
+                                          Ext.Msg.hide();
+                                          panel.ownerCt.remove(panel, true);
+                                        }else{
+                                          Ext.Msg.alert('Error Creating Portal', 'There was an error creating the specified portal. Please try again.');
+                                        }
+                                     },
+                                     failure: function(response, opts) {
+                                      Ext.Msg.alert('Error Creating Portal', 'There was a problem communicating with the server. Please check your internet connection and try again.');
+                                     }
+                                  });   
+                                 }else{
+                                 }
+                               
+                               },
+                               animEl: 'elId',
+                               icon: Ext.MessageBox.QUESTION
+                            });
+                        }
+                      },
+      permsTool = {
+                        id:'perms',
+                        qtip: 'User Permissions',
+                        handler: function(e, target, panel){
+                            new windowPermissionUsers(panel);
+                        }
+                      },
+      maximizeTool = {
+                            id:'maximize',
+                            qtip: 'Maximize',
+                            handler: function(e, target, panel){
+                                var win = new Ext.Window({
+                                    height: 500,
+                                    minHeight: 500,
+                                    width: 600,
+                                    minWidth: 600,
+                                    modal: true,
+                                    ownerPanel: panel,
+                                    layout: 'fit',
+                                    maximizable: true,
+                                    maximized: false,
+                                    title: panel.title,
+                                    items: new Ext.Panel({
+                                        border: false,
+                                        autoScroll: true,
+                                        padding: 10,
+                                        html: panel.body.dom.innerHTML
+                                      }),
+                                    buttons: [{text: 'Close', handler: function(p, e){win.close();}}]
+                                  });
+                                win.show();
+                                
+                              }
+                          };
+      
+      var tools = [refreshTool,gearTool,pinTool,closeTool];
+      var toolsError = [gearTool,closeTool];
+      var toolsMaxAdmin = [refreshTool,gearTool,pinTool,maximizeTool,closeTool];
+      var toolsMax = [refreshTool,maximizeTool];
+
+      var currentUser = {};
+      var currentSchool = {};
+      var currentPage = {};
+      var portalLoader = function(){};
+      var isMobileBrowser = false;
+      var isEbusiness = function(){return currentSchool.Type == "eBusiness 2.0"};
+      var isCyberSchool = function(){return currentSchool.Type == "CyberSchool 2.0"};
+      var isCyberDesk = function(){return currentSchool.Type == "CyberDesk"};
+      
+      
+      currentSchool.id = 1;
+      currentSchool.Name = 'Valley Union High School';
+      currentSchool.Type = 'CyberSchool 2.0';
+      currentSchool.isEbusiness = false;
+      currentSchool.ShortName = 'VUHS';
+      currentSchool.Alias = 'District';
+      currentSchool.WebMailURL = '';
+      currentSchool.SwearFilter = true;
+      currentSchool.Local={};
+      
+      currentSchool.GoogleEnabled = false;
+      currentSchool.GoogleLogin = false;
+      currentSchool.LoginMode = 'cyberschool';
+      currentSchool.LDAPChangeDomain = false;
+      currentSchool.LDAPDefaultDomain = '';
+      currentSchool.EnableClassThemes = true;
+      currentSchool.TimeBlocks = false;
+      currentSchool.ExtraFeatures = [];
+      currentSchool.TemplateID = 1;
+      
+    
+      currentUser.canUseLoginAs = false;      
+    
+      currentUser.canUseSlideShow = false;      
+    
+      currentUser.isAdminGroup = false;      
+    
+      currentUser.canUseManageUsers = false;      
+    
+        currentPage.gcdID = 0;
+      
+      currentUser.maxTimeoutTime = 0;
+    
+      var showNewUpdates = false;
+    
+      currentUser.schoolID = 0;
+    
+      currentUser.id = 0;
+      currentUser.lastHit = 0;
+      var canEdit = false;
+      var loggedIn = false;
+    
+      var RefreshID;
+      var printView = false;
+      var isSpecial = false;
+      var autoShowTipOnce = true;
+      var autoShowTip = false;
+      
+
+      var sFCKeditorToolbar = 'Default';
+      var sFCKeditorBasePath = '/fckeditor/';
+      var sFCKeditorBaseHref = '/fckeditor/';
+      var sFCKeditorSkinPath = '/fckeditor/editor/skins/office2003/';
+
+      var podVideoShowing;
+      var editMode;
+      var ddElements = [];
+      var ddElementSections = [];
+      var currentSchoolAlias;
+    
+      var navigationVersion=2.0;
+      var lastUpper=6000;
+      var navHasChanged = false;
+      var openMenus=[];
+      var openHovers=[];
+      var openHoversJS=[];
+      var allDDElements = [];
+      var allDDElementIDS = [];
+      var allQueuedActions = [];
+      var allQueuedActionsUndo = [];
+      var allMenuItems = [];
+      var allMenuHolders = [];
+      var allMenuHolderLists = [];
+      var allMenuContainers = [];
+      var currentHoverMenuItem = {};
+      var menuStack = [];
+      var editMode = false;
+
+      
+      
+      var currentPageURL      = "";
+      var currentPageAction   = 'portal';
+      var currentPageKeyword  = "portal";
+      var currentPageMode     = '';
+      var currentPageNumber   = '0';
+      var currentPageDataID   = '0';
+      var currentPageModuleID = '3';
+      var currentPageGCDID    = '0';
+      var currentPageCCID     = '';
+      var currentPageDate     = '04-19-2020';
+      var currentPageTitle    = '';
+      var currentGCDTheme   = "";
+      var currentsectionID    = '';
+      var currentZipCode    = '85610';
+      var currentURLBase    = 'http://www.vuhs.net/';
+      var currentURLBaseSchool    = currentURLBase + currentSchool.Alias + '/';
+      var currentURLBaseGCD    = '';
+      var currentURLBaseGCD_NS    = '';
+      var currentURLBaseModule    = currentURLBaseSchool + (currentPageKeyword == 'page' ? '' : currentPageAction + '/');
+      var currentURLBaseModule2    = (currentPageKeyword == 'page' ? '' : currentPageAction + '/');
+        //console.info(currentPageAction);
+        //console.info(currentURLBaseModule2);
+      if (currentURLBaseModule2 == "profile" && currentPageTitle != ''){
+				var run = 1;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseModule2 + currentPageTitle;
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseModule2 + currentPageTitle;
+      }else if(currentURLBaseGCD !== '' && currentPageTitle){
+				var run = 2;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+      }else if(currentURLBaseModule2 !== false && currentPageTitle){
+				var run = 3;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+      }else if(currentURLBaseGCD !== '' && !currentPageTitle){
+				var run = 4;
+				if (currentURLBaseModule2 == 'classes/' || currentURLBaseModule2 == 'departments/') {
+					var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseGCD_NS;
+					var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseGCD_NS;
+				} else {
+					var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2;
+					var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2;
+				}
+      }else if(currentURLBaseModule2 !== false  && !currentPageTitle){
+				var run = 5;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseModule2;
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseModule2;
+      }else{
+				var run = 6;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/';
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/';
+      }
+      if (!lastLoadedURLRel)
+        var lastLoadedURLRel = currentURLCGIURLRel;
+
+
+      var podVideoShowing     = false;
+      var profileTabsOn       = false;
+      
+      function init(){
+        window.name = "cs_main";
+      }
+      function showSiteMap(){
+        my_window= window.open ("/sitemap.cfm?s="+currentSchool.Alias, "sitemap", "status=0,scrollbars=1,width=300,height=450");
+      }
+      function showChatWindow(){
+        my_window= window.open ("/ajax/chat/index.cfm", "sitemap", "status=0,scrollbars=1,width=600,height=450");
+      }
+      function sendEmail(addy){
+        my_window = window.open ("/action/mail/sendMail.cfm?e="+addy, "sendmail", "status=0,scrollbars=1,width=450,height=420");
+        return false;
+      }
+      function checkSearchForm(){
+        var tmpSearch = $('lilQ').value.trim();
+        if (tmpSearch == 'Search Site')
+          $('lilQ').value = '';
+      }
+      function textPrompter(el, focused){
+        if (focused && el.value == 'Search Site'){
+          el.value = '';
+          el.removeClassName('dimSearch');
+        }else{
+          if (!focused && el.value == ''){
+            el.value = 'Search Site';
+            el.addClassName('dimSearch');
+          }
+        }
+      }
+    </script><noscript></noscript>
+<style type="text/css">
+  .attendance{
+display:none;
+}
+</style>
+<style>
+    .btn_instagram_small{
+      background-image: url(/common/images/social/instagram.png)!important;
+    }
+    </style>
+<link href="/common/js/ext-3.4.0/resources/css/ext-all.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/swiper/css/swiper.min.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css/dyn/catColors.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css-min/1.0.3/quickCSS-min.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css/ionicons/css/ionicons.min.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css/global_screenv1.1.css?v=1.0" rel="stylesheet" type="text/css" media="screen">
+<link href="/common/css/calendar_v2.css?v=1.0" rel="stylesheet" type="text/css" media="screen">
+<link href="/common/css/global_print.css?v=1.0" rel="stylesheet" type="text/css" media="print">
+<script type="text/javascript" src="/common/js/ext-3.4.0/adapter/ext/ext-base.js?v=1.0"></script><script type="text/javascript" src="/common/js-min/classList.min.js?v=1.0"></script><script type="text/javascript" src="/common/js/ext-3.4.0/ext-all.js?v=1.0"></script><script type="text/javascript" src="/swiper/swiper.min.js?v=1.0"></script><script type="text/javascript" src="/common/js/cyberschool/compact/jsLoadBaseForAll1.1.js?v=1.0"></script><script type="text/javascript" src="/common/js/ext/ext_mini_calendar.js?v=1.0"></script><script type="text/javascript" src="/common/js/ext/portal.js?v=1.0"></script><script type="text/javascript" src="/common/js/cyberschool/q/quickLogin.js?v=1.0"></script><script type="text/javascript">
+      
+        var finishOpenID = false;
+      
+      
+    Ext.onReady(function(){
+
+       if(finishOpenID) userLogin(); else portalLoader();
+        
+        //enable toggle-menus for mobile users
+        if (isMobileBrowser){
+          var menus = Ext.select('.pagerBarTools li.pagerBarTools_tool', true);
+          menus.on('click', function(){
+            this.toggleClass('hover');
+            this.toggleClass('pagerBarTools_tool_hover');
+          });
+          var menus2 = Ext.select('li.horizontalChild a', true);
+          menus2.on('click', function(e){
+              this.parent().toggleClass('hover');
+              this.parent().toggleClass('hoverToggle');
+            }, null, {stopPropagation: true}); 
+           
+        }
+      });
+    </script><noscript></noscript>
+<link href="/t/007/layout_main.css" rel="stylesheet" type="text/css">
+<link href="/t/007/layout_header.css" rel="stylesheet" type="text/css">
+<link href="/t/007//blu-007/css/layout_school.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+      .x-tree-root-ct,
+      .x-tree-node-ct {margin-left: 0 !important; padding-left: 0 !important}
+      .x-tab-strip {margin-left: 0 !important; padding-left: 0 !important}
+      a.selectLink {color: black; font-weight: bold;}
+      .dragDropHolder {min-height: 10px;}
+      li .dragger {display: block; position: absolute; top: 0; z-index: 1000; right: 0; width: 16px; height: 16px; margin: 3px 3px 0;}
+      li .dragger {background: #f90 url(/common/images/nav/move.png) center center no-repeat; -moz-border-radius: 3px}
+      .leftModuleHolder li .dragger {right: 14px;}
+    </style>
+<style>
+         #content .x-portlet-titleless:hover .x-panel-header, #content .x-portlet-edgeless:hover .x-panel-header {
+          display:none;
+        }
+      </style>
+<!-- Overrides defined by SiteConfig --><style type="text/css">
+      
+      .iconAdd {background: url(/common/images/famfam/add.gif) no-repeat 0 0 !important;}
+      .iconRemove {background: url(/common/images/famfam/delete.gif) no-repeat 0 0 !important;}
+
+    </style>
+<script type="text/javascript">
+      journeyHelper = [];
+      journeyHelper.isRunning = false;
+      currentZip = '93309';
+    </script><!-- End of SiteConfig overrides--><!-- Verify: IES Site --><link rel="icon" href="/images/IESfavicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/images/IESfavicon.ico">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<meta name="viewport" content="initial-scale=0.25">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="generator" content="IESAres404 v2.1">
+<title>Valley Union High School</title>
+<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7;chrome=1">
+</head>
+<body onload="init(); " id="top" class="isNotMobile bg_school_1 customBg_school_1  pagerBarTop">
+    
+  
+  
+  
+  
+    <script type="text/javascript">
+    
+    function toggleCat(el, cID){
+      //var name = el.identify();
+      var catItem = Ext.get(el);
+      var curVal = true;
+      if (catItem.checked != undefined)
+        curVal = catItem.checked;
+        
+      setTimeout(function(){
+        catItem.checked = !curVal;
+        catItem.dom.checked = !curVal;
+      }, 5);
+      if (curVal){
+        Ext.select('.cat_'+cID).addClass('hidden');
+      }else{
+        Ext.select('.cat_'+cID).removeClass('hidden');
+      }
+    }
+    //Ext.onReady(fixLinks);
+    var loadLastPage = function(){
+      return true;
+    };
+  </script><noscript></noscript>
+
+
+  <style type="text/css">
+    .isNotMobile #pagerBar{
+      -webkit-transition: opacity 0.5s ease-in;
+      -moz-transition: opacity 0.5s ease-in;
+      -o-transition: opacity 0.5s ease-in;
+      transition: opacity 0.5s ease-in;
+      -webkit-transition: margin 0.5s ease-in;
+      -moz-transition: margin 0.5s ease-in;
+      -o-transition: margin 0.5s ease-in;
+      transition: margin 0.5s ease-in;
+    
+      opacity: 0.4;
+      -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); 
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    
+     }
+    .isNotMobile #pagerBar:hover{	
+      opacity:1.0;
+     }
+
+
+    
+    
+    .bigPrint1 .x-btn-text {font-weight: bold; font-size: 14px; height: 26px !important;}
+    .bigPrint2 .x-btn-text {font-size: 13px; height: 20px !important;}
+  </style>
+<script type="text/javascript">
+    var lastLoggedInUserID = 0;
+    var lastLoggedInUserName = '';
+    var lastLoggedInDisplayName = '';
+    var lastLoggedInUserCN = '';
+    var lastLoggedInUserDomain = '';
+    
+      currentUser.username = '';
+      currentUser.displayname = '';
+      currentUser.email = '';
+    
+    var currentPageTitle = 'Valley Union High School';
+    var currentSchoolAlias = 'District';
+    
+      /*Ext.onReady(function(){
+        //setTimeout(checkMenus, 500);
+        var c = {};
+        var hideLoad = true;
+        var modData = Ext.data.Record.create([
+              {name: 'id', mapping: 'id'},
+              {name: 'title', mapping: 'title'},
+              {name: 'browser_title', mapping: 'browser_title'},
+              {name: 'data', mapping: 'data'}
+            ]);
+        var modReader = new Ext.data.XmlReader({
+              record: "content",
+              success: "success",
+              id: "id"
+            }, modData);
+
+        var myStore = new Ext.data.Store({
+              autoLoad: true,
+              reader: modReader,
+              url: '/ajax/proxy/module.cfm',
+              baseParams: {}, //c.storeParams
+              listeners: {
+                loadexception: function(m){
+                  //var errorButton = new Element('input', { 'type': 'button', style: 'float: right;', value: 'Send Error' });
+                  //errorButton.observe('click', function(){ sendError(c); });
+                  var errorText = new Element('span').update('Well, this is embarrassing.. this module is misbehaving!');
+                  var errorDiv = new Element('div', { });
+                  //errorDiv.appendChild(errorButton);
+                  errorDiv.appendChild(errorText);
+                  c.setTitle('Widget Error');
+                  c.body.dom.innerHTML = '';
+                  c.body.dom.appendChild(errorDiv);
+                },
+                load: function(s,r,o){
+                  if (c){
+                    if (hideLoad && r.length > 0){
+                      c.setTitle(r[0].data.title);
+                      c.body.dom.innerHTML = r[0].data.data;
+                    }else{
+                      if (c.body){
+                        c.setTitle("Loading...");
+                        c.body.dom.innerHTML = c.loadingText;
+                      }
+                      if (r.length > 0){
+                        setTimeout(function(){
+                          c.setTitle(r[0].data.title);
+                          c.body.dom.innerHTML = r[0].data.data;
+                        }, 500);
+                      }
+                    }
+                  }
+                }
+              }            
+            });
+      });
+    */
+      
+    var printBox;
+    var doPrint;
+    Ext.onReady(function(){
+      doPrint = function(link){
+        printBox = new Ext.Window({
+          title: 'Print',
+          modal: true,
+          resizable: false,
+          buttonAlign: 'center',
+          layout: 'border',
+          height: 170,
+          width: 400,
+          items: [
+                    {
+                      bodyStyle: 'padding: 10px; text-align: center; font-weight: bold',
+                      region: 'north',
+                      border: false,
+                      height: 30,
+                      html: 'What portion of the page would you like to print?'
+                    },{
+                      region: 'center',                    
+                      border: false,
+                      layout: {
+                                type:'vbox',
+                                padding:'5',
+                                align:'stretch'
+                              },
+                      items:[{
+                                  xtype:'button',
+                                  cls: 'bigPrint1',
+                                  text: 'Print Entire Page',
+                                  handler: function(){
+                                    printBox.close();
+                                    Ext.Msg.hide();
+                                    window.print();
+                                  }
+                              },{
+                                  xtype:'spacer',
+                                  flex: 1
+                              },{
+                                  xtype:'button',
+                                  cls: 'bigPrint2',
+                                  text: 'Print Content Only',
+                                  handler: function(){
+                                    printBox.close();
+                                    Ext.Msg.hide();
+                                    Ext.Msg.wait('Getting ready to print..','Please Wait...');
+                                    newLocation = link.href.replace('#','') + '?printview=1';
+                                    //newLocation = '/print'+lastLoadedURLRel;
+                                    console.info(newLocation);
+                                    setTimeout(function(){
+                                      var newWindow = window.open(newLocation, '_blank');
+                                      newWindow.focus();
+                                      Ext.Msg.hide();
+                                    }, 300);
+                                    
+                                  }
+                              }]
+                    }
+                ],
+
+          buttons: [
+                  {
+                    text: 'Cancel',
+                    handler: function(){ 
+                      printBox.close();
+                    }
+                  }
+                ]
+        
+        });
+        printBox.show(this);
+      }
+    });
+    
+
+    currentPage.storeParams = {
+      dataID: currentPageDataID, 
+      alias: currentPageAction, 
+      keyword: currentPageKeyword, 
+      curPage: currentPageNumber, 
+      id: currentPageModuleID, 
+      portletID: 0, 
+      portalID: 0
+    }; 
+    
+    currentPage.values = {};
+  </script><noscript></noscript>
+  
+  
+  
+  <div class="pagerBarHolder pagerBarTop">
+    
+<script type="text/javascript">
+if(typeof cs2=='undefined')cs2={};
+cs2.page={};
+cs2.page.homepage=true;
+  var siteNotice = false;
+  function dropSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=false');
+    Effect.BlindDown('siteNoticeBoxHolder', { duration: 0.5 })
+    $('pagerBarToolAlertButton').addClassName('buttonOn');
+  }
+  function liftSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=true');
+    Effect.BlindUp('siteNoticeBoxHolder', { duration: 0.25 })
+    $('pagerBarToolAlertButton').removeClassName('buttonOn');
+  }
+  function toggleSiteNotice(){ 
+    
+    if ($('pagerBarToolAlertButton').hasClassName('buttonOn')){
+      liftSiteNotice();
+    }else{
+      dropSiteNotice();
+    }
+  
+  }
+  
+</script><noscript></noscript>
+
+    <div id="pagerBar" class="pagerBar">
+      <div id="pagerBarToolLogo" class="pagerBarToolLogo">
+        
+        <a href="//www.vuhs.net"><img src="/custom/images/design/header/1/logo.gif" title="Back To District" alt="Back To District"></a>
+        
+          <ul class="hidden">
+<li class="hidden"><a href="#header">Jump to Page Navigation</a></li>
+            <li class="hidden"><a href="#pageHeader">Jump to Page Content</a></li>
+            <li class="hidden"><a href="#footer">Jump to Page Footer</a></li>
+          </ul>
+</div>
+      <div id="searchHolder" class="x-hidden">
+        <form id="searchForm" method="get" action="/action/doSearch.cfm" onclick="checkSearchForm()">
+          <input name="redirTo" type="hidden" value="/District/Search"><div class="pagerBarToolBox">
+            <ul class="pagerBarTools">
+<li class="pagerBarTools_tool attachToRight">
+                <label for="lilQ" style="display: none;">Search</label>
+                <input id="lilQ" name="q" type="text"><input type="submit" style="display: none" value="Search">
+</li>
+              
+      <li class="pagerBarTools_tool noLeftRound attachToRight" id="searchButtonMain">
+        <a class="toolbarButton skipWarning initSiteSearch hasIcon" href="#" target="" title="Search the site" onclick="submitSearch(); return false;">
+          <span class="iconHolder searchIcon"></span>
+          <span class="iconText"><span class="iconTextString">Search</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool noLeftRound" id="searchButtonCancel">
+        <a class="toolbarButton toolbarButtonDark skipWarning initCancelSiteSearch noText hasIcon" href="#" target="" title="Cancel Searching" onclick="hideSearchBar(); return false;">
+          <span class="iconHolder searchCancelIcon"></span>
+          <span class="iconText"><span class="iconTextString">Cancel</span></span>
+          <br class="clear"></a>
+      </li>
+      
+            </ul>
+</div>
+        </form>
+      </div>
+      <div id="toolsHolder">
+        <div class="pagerBarToolBox">
+          <ul class="pagerBarTools">
+<li class="pagerBarTools_tool attachToRight">
+        <a class="toolbarButton skipWarning noText hasIcon" href="javascript:decreaseFontSize();" target="" title="Decrease Font Size" onclick="">
+          <span class="iconHolder fontSmaller"></span>
+          <span class="iconText"><span class="iconTextString">A-</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool noLeftRound">
+        <a class="toolbarButton skipWarning noText hasIcon" href="javascript:increaseFontSize();" target="" title="Increase Font Size" onclick="">
+          <span class="iconHolder fontBigger"></span>
+          <span class="iconText"><span class="iconTextString">A+</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool ">
+        <a class="toolbarButton hasIcon" href="#" target="" title="Need a hard copy? Click here to print!" onclick="doPrint(this); return false;">
+          <span class="iconHolder iconPrint"></span>
+          <span class="iconText"><span class="iconTextString">Print</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool " id="searchButtonMain">
+        <a class="toolbarButton skipWarning initSiteSearch hasIcon" href="#" target="" title="Search the site" onclick="showSearchBar(); return false;">
+          <span class="iconHolder searchIcon"></span>
+          <span class="iconText"><span class="iconTextString">Search</span></span>
+          <br class="clear"></a>
+      </li>
+      
+          </ul>
+</div>
+        
+        <div class="pagerBarToolBox pagerBarTooluserLinks">
+          <ul class="pagerBarTools">
+<li class="pagerBarTools_tool " id="SystemAlertBtn">
+        <a class="toolbarButton hasIcon" href="javascript:SystemAlert();" target="" title="Click to access School Alert" onclick="">
+          <span class="iconHolder alertIcon"></span>
+          <span class="iconText"><span class="iconTextString">Alert</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool ">
+        <a class="toolbarButton hasIcon" href="/District/Login" target="" title="Login to access your account!" onclick="launchModule('userLogin'); return false;">
+          <span class="iconHolder iconLogin loadingIcon loadingIcon_userLogin"></span>
+          <span class="iconText"><span class="iconTextString">Login</span></span>
+          <br class="clear"></a>
+      </li>
+      
+          </ul>
+</div>
+        
+      </div>
+      <br class="clear">
+</div>
+  </div>
+      
+  <script type="text/javascript">
+    
+    var searchBar;
+    function submitSearch(){
+      document.forms["searchForm"].submit();
+    }
+    function showSearchBar(){
+      Ext.get('searchHolder').removeClass('x-hidden');
+      Ext.get('toolsHolder').addClass('x-hidden');
+      resizePagerBar();
+      if (searchBar)
+        searchBar.focus();
+    }
+    function hideSearchBar(){
+      Ext.get('searchHolder').addClass('x-hidden');
+      Ext.get('toolsHolder').removeClass('x-hidden');
+      resizePagerBar();
+    }
+    function resizePagerBar(){
+      var srchBtn = Ext.get('searchButtonMain');
+      var srchCnclBtn = Ext.get('searchButtonCancel');
+      var logo = Ext.get('pagerBarToolLogo');
+      var item = Ext.get('pagerBar');
+      Ext.get('lilQ').setWidth(item.getWidth() - logo.getWidth() - srchBtn.getWidth() - srchCnclBtn.getWidth() - 20);
+      if (searchBar)
+        searchBar.setWidth(item.getWidth() - logo.getWidth() - srchBtn.getWidth() - srchCnclBtn.getWidth() - 20);
+    }
+    Ext.onReady(function(){
+      window.onresize = resizePagerBar;
+      resizePagerBar();
+      /*
+      var el = Ext.get('lilQ');
+      el.on('keydown', function(e){
+        window.location.href = "#!/"+ currentSchool.Alias + "/Search/" + this.dom.value;
+      }, el, {buffer: 300});
+      
+        
+      var ds = new Ext.data.Store({
+          url: '/ajax/search/searchSuggestion.cfm',
+          reader: new Ext.data.JsonReader({
+              root: 'results'
+          }, [
+              {name: 'title', mapping: 'title'}
+          ])
+      });
+
+      // Custom rendering Template
+      var resultTpl = new Ext.XTemplate(
+          '<tpl for="."><div class="search-item">',
+              '{title}',
+          '</div></tpl>'
+      );
+
+      searchBar = new Ext.form.ComboBox({
+        applyTo: 'lilQ',
+        autoShow: false,
+        //store: ds,
+        //mode: 'remote',
+        displayField:'title',
+        typeAhead: false,
+        loadingText: 'Getting Suggestions...',
+        hideTrigger:true,
+        tpl: resultTpl,
+        itemSelector: 'div.search-item',
+        onSelect: function(record){
+            window.location.href = "#!/"+ currentSchool.Alias + "/Search/" + record.get('title');
+        },
+        listeners: {
+          show: function(){
+            resizePagerBar();
+          }
+        }
+      });
+      searchBar.show();
+      var el = Ext.get('lilQ');
+      el.on('keydown', function(e){
+        window.location.href = "#!/"+ currentSchool.Alias + "/Search/" + this.dom.value;
+      }, el, {buffer: 300});*/
+    });
+  </script><noscript></noscript>
+
+    <div id="mainContainer">
+      <div id="header">
+        <h1 class="hidden">Valley Union High School</h1>       
+        <div id="header_LBox" class="header_school_1">
+        	<p class="date">Sunday, April 19, 2020</p>
+        	<div class="cornernavHolder">
+        	</div>
+          <div id="logoBox">
+            <a href="/District/"><img src="/custom/images/design/header/1/logo.gif" border="0" id="logo" alt=""></a>
+          </div>
+        </div>
+        <div id="picBox" class="picBox_school_1">
+          
+      <script type="text/javascript" src="/common/js/cyberschool/slideshow/jssor22.js?v=1.0"></script><script>
+     var _SlideshowTransitions = [];
+          
+  <!-- these transitions will be controlled form the site config. --->
+  var _SlideshowTransitions = [{$Duration:1000,$Opacity:2}];
+        jssor_slider1_starter = function (containerId) {
+            var jssor_slider1 = new $JssorSlider$(containerId, {
+                $AutoPlay: true,                                    //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+                $Idle: 4500,                            //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
+                $DragOrientation: 3,                                //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $Cols is greater than 1, or parking position is not 0)
+                $PauseOnHover: 1,                             //[Optional] Whether to pause when mouse over if a slider is auto playing, 0 no pause, 1 pause for desktop, 2 pause for touch device, 3 pause for desktop and touch device, 4 freeze for desktop, 8 freeze for touch device, 12 freeze for desktop and touch device, default value is 1
+                $SlideDuration:1500,
+                $FillMode: 2,
+                $BulletNavigatorOptions: {
+                $Class: $JssorBulletNavigator$,
+                $ChanceToShow: 2
+            },
+                $SlideshowOptions: {                                //[Optional] Options to specify and enable slideshow or not
+                    $Class: $JssorSlideshowRunner$,                 //[Required] Class to create instance of slideshow
+                    $Transitions: _SlideshowTransitions,            //[Required] An array of slideshow transitions to play slideshow
+                    $TransitionsOrder: 1,                           //[Optional] The way to choose transition to play slide, 1 Sequence, 0 Random
+                    $ShowLink: true                                 //[Optional] Whether to bring slide link on top of the slider when slideshow is running, default value is false
+                }
+            });
+
+        // function ScaleSlider() {
+        //     var parentWidth = $('#slider1_container').parent().width();
+        //     if (parentWidth) {
+        //         jssor_slider1.$SetScaleWidth(parentWidth);
+        //     }
+        //     else
+        //         window.setTimeout(ScaleSlider, 30);
+        // }
+        // ScaleSlider();                           
+        // $(window).bind("load", ScaleSlider);
+        // $(window).bind("resize", ScaleSlider);
+        // $(window).bind("orientationchange", ScaleSlider);
+        };
+    
+     </script><div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 300px; height: 200px;">
+          <!-- Slides Container -->
+         <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 300px; height: 200px;">
+            
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=670">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=672">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=671">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=669">
+</div>
+                  
+          </div>
+          
+        <!-- navigator container -->
+        
+        <div u="navigator" class="jssorn21" style="position: absolute; bottom: 5%; right: 1%;">
+            <!-- navigator item prototype -->
+            <div u="prototype" style="POSITION: absolute; WIDTH: 18px; HEIGHT: 18px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+        </div>
+        
+        <!-- Navigator Skin End -->
+
+  
+          <!-- Slide show Trigger -->
+          <script>jssor_slider1_starter('slider1_container');</script>
+</div>
+
+      <script type="text/javascript">
+        
+        if (currentUser.canUseSlideShow){
+          Ext.onReady(function(){
+            Ext.get('slider1_container').on('dblclick', function(e){
+              e.stopEvent();
+              e.cancelBubble = true;
+              e.stopPropagation();
+              Ext.Msg.wait('Loading Slideshow Settings', 'Loading');
+              AlbumPickShared({gcdID:0, slideID: 'header', schoolID: 1}, true);
+            });
+          });
+        }
+      </script>
+</div>
+      </div>
+      <div id="menuContainer" class="navContainer"> 
+               
+          <ul class="horiznav horizontalMenu " id="navBar_1">
+<li class="horizontalChild " style="z-index:5000; position: relative;">
+                    
+                    <a href="/District" target="" id="itemA_516396" class="main title ">Home </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4999; position: relative;">
+                    
+                    <a href="/District/1059-Resources.html" target="" id="itemA_623143" class="main title ">Resources </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4998; position: relative;">
+                    
+                    <a href="/District/Contact/" target="" id="itemA_122489" class="main title ">Contact </a>
+                    
+                  </li>
+                
+            
+          </ul>
+<br clear="all">
+</div>
+      <div id="mainData">
+        <div id="leftCol" class="navContainer">                     
+      <div id="navSectionHolder" class="navHolders">
+        
+                <div class="leftModuleHolder " id="navSection_2" style="position: relative;">
+                  <div class="leftModuleHolderInside ">
+                    <h2 class="leftModuleHeader" id="itemNav_2">General Information</h2>
+                    
+          <ul class="leftNav horizontalMenu " id="navBar_2">
+<li class="horizontalChild " style="z-index:4997; position: relative;">
+                    
+                    <a href="/District/Staff/" target="" id="itemA_13722" class="main title ">Staff </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild hasSubChild" style="z-index:4996; position: relative;">
+                    
+                    <a href="/District/page&amp;mode=view&amp;ID=1035" target="" id="itemA_623118" class="main title hasSubChild">Bell Schedule </a>
+                    
+                      <div class="horizMenu smallLeft">
+                        <ul class="leftNav horizontalMenu ">
+<li id="item_623119" class="horizontalChild " style="z-index:5994; position: relative;">
+                  
+                  <a id="itemA_623119" href="/District/1036-Half-Day.html" target="" class="main title ">Half Day</a>
+                  
+                </li>
+              
+                <li id="item_623120" class="horizontalChild " style="z-index:5993; position: relative;">
+                  
+                  <a id="itemA_623120" href="/District/1037-Regular.html" target="" class="main title ">Regular</a>
+                  
+                </li>
+              
+                        </ul>
+</div>
+                    
+                  </li>
+                
+                  <li class="horizontalChild hasSubChild" style="z-index:4992; position: relative;">
+                    
+                    <a href="/District/Events/" target="" id="itemA_7340" class="main title hasSubChild">Event Calendar </a>
+                    
+                      <div class="horizMenu smallLeft">
+                        <ul class="leftNav horizontalMenu ">
+<li id="item_31347" class="horizontalChild " style="z-index:5990; position: relative;">
+                  
+                  <a id="itemA_31347" href="/District/Events:Year/" target="" class="main title ">Year View</a>
+                  
+                </li>
+              
+                <li id="item_7341" class="horizontalChild " style="z-index:5989; position: relative;">
+                  
+                  <a id="itemA_7341" href="/District/Events:Month/" target="" class="main title ">Month View</a>
+                  
+                </li>
+              
+                <li id="item_7342" class="horizontalChild " style="z-index:5988; position: relative;">
+                  
+                  <a id="itemA_7342" href="/District/Events:Week/" target="" class="main title ">Week View</a>
+                  
+                </li>
+              
+                <li id="item_7343" class="horizontalChild " style="z-index:5987; position: relative;">
+                  
+                  <a id="itemA_7343" href="/District/Events:Day/" target="" class="main title ">Day View</a>
+                  
+                </li>
+              
+                        </ul>
+</div>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4986; position: relative;">
+                    
+                    <a href="/District/1041-Activites.html" target="" id="itemA_623124" class="main title ">Activites </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4985; position: relative;">
+                    
+                    <a href="/District/2774-Untitled.html" target="" id="itemA_623678" class="main title ">Schedules for Finals, AzMerit Testing, Academic Day, Registration </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4984; position: relative;">
+                    
+                    <a href="/District/1251-2013-2014-Athletics-Schedules.html" target="" id="itemA_623406" class="main title ">Athletics: Info &amp; Schedules </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4983; position: relative;">
+                    
+                    <a href="/District/1040-Lunch-Menus.html" target="" id="itemA_623123" class="main title ">Cafeteria and School Lunch Program </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4982; position: relative;">
+                    
+                    <a href="https://sites.google.com/site/vuhsdevilsdesign/" target="" id="itemA_623688" class="main title ">Devil's Design Photography Page </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4981; position: relative;">
+                    
+                    <a href="https://sites.google.com/site/thedevilsreportvuhs/" target="" id="itemA_623710" class="main title ">Student Newspaper The Devil's Report </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4980; position: relative;">
+                    
+                    <a href="/District/Gallery/" target="" id="itemA_185936" class="main title ">Gallery </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4979; position: relative;">
+                    
+                    <a href="/District/Jobs/" target="" id="itemA_623160" class="main title ">Jobs </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4978; position: relative;">
+                    
+                    <a href="/District/1303-VUHS-School-Board-Information.html" target="" id="itemA_623431" class="main title ">School Board Agendas &amp; Information </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4977; position: relative;">
+                    
+                    <a href="/District/2130-Information.html" target="" id="itemA_623526" class="main title ">Title IX, Child Find, 504, and Stakeholders Committee </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4976; position: relative;">
+                    
+                    <a href="/District/1108-Valley-Union-High-Stategic-Plan.html" target="" id="itemA_623238" class="main title ">Strategic Plan </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4975; position: relative;">
+                    
+                    <a href="/District/1055-Bids-Purchasing.html" target="" id="itemA_623138" class="main title ">Bids / Purchasing </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4974; position: relative;">
+                    
+                    <a href="/District/1713-2012-Annual-Financial-Report.html" target="" id="itemA_623503" class="main title ">Annual Financial Report   </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4973; position: relative;">
+                    
+                    <a href="/District/2155-2013-2014-Proposed-Budget.html" target="" id="itemA_623530" class="main title ">Budget </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4972; position: relative;">
+                    
+                    <a href="/District/1052-2013-AZ-School-Grade-A-F.html" target="" id="itemA_623135" class="main title ">Hazing and Bullying Policy </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4971; position: relative;">
+                    
+                    <a href="/District/1050-Valley-Union-Alumni-Link.html" target="" id="itemA_623133" class="main title ">Out of District Policy </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4970; position: relative;">
+                    
+                    <a href="/District/page&amp;mode=view&amp;ID=2281" target="" id="itemA_623581" class="main title ">Public Health Notices </a>
+                    
+                  </li>
+                
+            
+          </ul>
+</div>
+                </div>
+              
+                <div class="leftModuleHolder " id="navSection_623186" style="position: relative;">
+                  <div class="leftModuleHolderInside ">
+                    <h2 class="leftModuleHeader" id="itemNav_623186">Student Section</h2>
+                    
+          <ul class="leftNav horizontalMenu " id="navBar_623186">
+<li class="horizontalChild " style="z-index:4969; position: relative;">
+                    
+                    <a href="/District/1051-2013-2014-Student-Handbook.html" target="" id="itemA_623134" class="main title ">Student Handbook </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4968; position: relative;">
+                    
+                    <a href="/District/1054-VUHS-Course-Descriptions.html" target="" id="itemA_623137" class="main title ">VUHS Course Catalog </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4967; position: relative;">
+                    
+                    <a href="/District/1053-11-12-Class-Schedule.html" target="" id="itemA_623136" class="main title ">Class Schedule and Campus Map </a>
+                    
+                  </li>
+                
+            
+          </ul>
+</div>
+                </div>
+              
+                <div class="leftModuleHolder " id="navSection_623187" style="position: relative;">
+                  <div class="leftModuleHolderInside ">
+                    <h2 class="leftModuleHeader" id="itemNav_623187">Parent Section</h2>
+                    
+          <ul class="leftNav horizontalMenu " id="navBar_623187">
+<li class="horizontalChild " style="z-index:4966; position: relative;">
+                    
+                    <a href="/District/2153-2013-2014-School-Calendar.html" target="" id="itemA_623529" class="main title ">School Yearly Calendar </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4965; position: relative;">
+                    
+                    <a href="http://www.advanc-ed.org/survey/public/4268419" target="" id="itemA_623520" class="main title ">Parent Survey </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4964; position: relative;">
+                    
+                    <a href="/District/2126-ACT-information.html" target="" id="itemA_623524" class="main title ">ACT information </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4963; position: relative;">
+                    
+                    <a href="/District/2127-FAFSA-information.html" target="" id="itemA_623525" class="main title ">FAFSA information </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4962; position: relative;">
+                    
+                    <a href="/District/1046-Familylink-Student-s-Grade-Check.html" target="" id="itemA_623129" class="main title ">Family Link ( Student's Grade Check)   </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4961; position: relative;">
+                    
+                    <a href="/District/1049-Tax-Credit-Form.html" target="" id="itemA_623132" class="main title ">Tax Credit Form  </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4960; position: relative;">
+                    
+                    <a href="/District/1047-No-Child-Left-Behind.html" target="" id="itemA_623130" class="main title ">No Child Left Behind </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4959; position: relative;">
+                    
+                    <a href="/District/2646-Untitled.html" target="" id="itemA_623677" class="main title ">Homeless Education </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4958; position: relative;">
+                    
+                    <a href="http://www.ade.state.az.us/" target="" id="itemA_623372" class="main title ">Arizona Department of Education </a>
+                    
+                  </li>
+                
+            
+          </ul>
+</div>
+                </div>
+              
+                <div class="leftModuleHolder " id="navSection_516445" style="position: relative;">
+                  <div class="leftModuleHolderInside ">
+                    <h2 class="leftModuleHeader" id="itemNav_516445">Staff Section</h2>
+                    
+          <ul class="leftNav horizontalMenu " id="navBar_516445">
+<li class="horizontalChild " style="z-index:4957; position: relative;">
+                    
+                    <a href="/District/1045-Teacher-Email-Log-in.html" target="" id="itemA_623128" class="main title ">Teacher Email Log-in </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4956; position: relative;">
+                    
+                    <a href="http://206.169.47.2/WebClassroom/login.aspx" target="" id="itemA_623353" class="main title ">School Master Log-in </a>
+                    
+                  </li>
+                
+            
+          </ul>
+</div>
+                </div>
+              
+      </div>
+    
+                        <div id="leftColTranslator" class="leftModuleHolder">
+                            
+        <h2>Site Translator</h2>
+         <div class="miniModuleHolder">
+            <div class="actualWidgetContainer">
+                <div id="MicrosoftTranslatorWidget" class="Dark" style="color:white;background-color:#555555"></div>
+<script type="text/javascript">setTimeout(function(){{var s=document.createElement('script');s.type='text/javascript';s.charset='UTF-8';s.src=((location && location.href && location.href.indexOf('https') == 0)?'https://ssl.microsofttranslator.com':'http://www.microsofttranslator.com')+'/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ctf=False&ui=true&settings=Manual&from=';var p=document.getElementsByTagName('head')[0]||document.documentElement;p.insertBefore(s,p.firstChild); }},0);</script><noscript></noscript>
+            </div>
+        </div>
+        
+                        </div>
+                    
+                      <div id="leftColReader" class="leftModuleHolder">
+                        <div class="miniModuleHolder">
+                          <div class="leftBottomBox">
+	                          Some files on this web site may require Adobe Acrobat Reader - download free<br><a href="//www.adobe.com/products/acrobat/readstep2.html" target="_blank">
+	                          <img src="/common/images/get_adobe_reader.png" alt="Get Adobe Reader" width="111" height="32" border="0"></a>
+                          </div>
+                        </div>
+                      </div>
+                    
+        </div>
+        <div id="col2">
+		      
+<script type="text/javascript">
+if(typeof cs2=='undefined')cs2={};
+cs2.page={};
+cs2.page.homepage=true;
+  var siteNotice = false;
+  function dropSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=false');
+    Effect.BlindDown('siteNoticeBoxHolder', { duration: 0.5 })
+    $('pagerBarToolAlertButton').addClassName('buttonOn');
+  }
+  function liftSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=true');
+    Effect.BlindUp('siteNoticeBoxHolder', { duration: 0.25 })
+    $('pagerBarToolAlertButton').removeClassName('buttonOn');
+  }
+  function toggleSiteNotice(){ 
+    
+    if ($('pagerBarToolAlertButton').hasClassName('buttonOn')){
+      liftSiteNotice();
+    }else{
+      dropSiteNotice();
+    }
+  
+  }
+  
+</script><noscript></noscript>
+
+          <div id="pageHeader">
+            
+          </div>
+          <div id="content">
+            <script type="text/javascript">
+    
+    
+
+    changePage = function(widget, page){
+      var el = Ext.getCmp(widget);
+      el.storeParams.curPage = page;
+      el.storeFN(el, true);
+    }
+    
+    var currentPortalID = 7;
+    portalLoader = function(){
+    if(Ext.get('loaderPortal'))
+      Ext.get('loaderPortal').remove();
+      
+      var columns = [];
+      columns[0] = [];
+      columns[1] = [];
+      columns[2] = [];
+      columns[3] = [];
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_49_7',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'plain', 
+                            myOpacity: '0', 
+                            dataID: '1056', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '49', 
+                            systemID: '5', 
+                            portalID: '7'
+                          
+                        }
+                      };
+        columns[0].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-plain x-portlet-plain-0',
+            titleEl : 'widgetPrerenderTitle_4_49_7',
+            contentEl : 'widgetPrerender_4_49_7',
+            id: 'widget_4_49_7',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'plain', 
+              myOpacity: '0', 
+              dataID: '1056', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '49', 
+              systemID: '5', 
+              portalID: '7'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_54_7',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'plain', 
+                            myOpacity: '75', 
+                            dataID: '1257', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '54', 
+                            systemID: '5', 
+                            portalID: '7'
+                          
+                        }
+                      };
+        columns[0].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-plain x-portlet-plain-75',
+            titleEl : 'widgetPrerenderTitle_4_54_7',
+            contentEl : 'widgetPrerender_4_54_7',
+            id: 'widget_4_54_7',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'plain', 
+              myOpacity: '75', 
+              dataID: '1257', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '54', 
+              systemID: '5', 
+              portalID: '7'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_16_50_7',
+                        moduleValues: {
+                          layout: '', zipcode: '85610', __alias: 'Elfrida, Az'
+                        },
+                        storeParams: {
+                            myLayout: 'plain', 
+                            myOpacity: '75', 
+                            dataID: '', 
+                            alias: 'Weather', 
+                            keyword: 'weather', 
+                            curPage: 1, 
+                            id: '16', 
+                            portletID: '50', 
+                            systemID: '17', 
+                            portalID: '7'
+                          
+                        }
+                      };
+        columns[0].push({
+            title: 'Loading Weather...',
+            
+              items: new weatherPortlet(myParams),
+              xtype: 'portlet',
+              JSMode: true,            
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-plain x-portlet-plain-75',
+            titleEl : 'widgetPrerenderTitle_16_50_7',
+            contentEl : 'widgetPrerender_16_50_7',
+            id: 'widget_16_50_7',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'plain', 
+              myOpacity: '75', 
+              dataID: '', 
+              alias: 'Weather', 
+              keyword: 'weather', 
+              curPage: 1, 
+              id: '16', 
+              portletID: '50', 
+              systemID: '17', 
+              portalID: '7'
+            
+            },
+
+            values: {layout: '', zipcode: '85610', __alias: 'Elfrida, Az'}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_57_7',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'custom1', 
+                            myOpacity: '75', 
+                            dataID: '2283', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '57', 
+                            systemID: '5', 
+                            portalID: '7'
+                          
+                        }
+                      };
+        columns[1].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-custom1 x-portlet-custom1-75',
+            titleEl : 'widgetPrerenderTitle_4_57_7',
+            contentEl : 'widgetPrerender_4_57_7',
+            id: 'widget_4_57_7',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'custom1', 
+              myOpacity: '75', 
+              dataID: '2283', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '57', 
+              systemID: '5', 
+              portalID: '7'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_27_47_7',
+                        moduleValues: {
+                          dateoffset: 0, layout: 'list', listdayheight: '', maxcalendarlistdays: 14, maxcalendarlistitems: 20, show_comments: true, __alias: ' VUHS School Events Calender'
+                        },
+                        storeParams: {
+                            myLayout: 'borderless', 
+                            myOpacity: '75', 
+                            dataID: '', 
+                            alias: 'Events', 
+                            keyword: 'event', 
+                            curPage: 1, 
+                            id: '27', 
+                            portletID: '47', 
+                            systemID: '25', 
+                            portalID: '7'
+                          
+                        }
+                      };
+        columns[1].push({
+            title: 'Loading Events...',
+            
+              items: new calendarPortlet(myParams),
+              xtype: 'portlet',
+              JSMode: true,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-borderless x-portlet-borderless-75',
+            titleEl : 'widgetPrerenderTitle_27_47_7',
+            contentEl : 'widgetPrerender_27_47_7',
+            id: 'widget_27_47_7',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'borderless', 
+              myOpacity: '75', 
+              dataID: '', 
+              alias: 'Events', 
+              keyword: 'event', 
+              curPage: 1, 
+              id: '27', 
+              portletID: '47', 
+              systemID: '25', 
+              portalID: '7'
+            
+            },
+
+            values: {dateoffset: 0, layout: 'list', listdayheight: '', maxcalendarlistdays: 14, maxcalendarlistitems: 20, show_comments: true, __alias: ' VUHS School Events Calender'}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_61_7',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'custom1', 
+                            myOpacity: '75', 
+                            dataID: '2479', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '61', 
+                            systemID: '5', 
+                            portalID: '7'
+                          
+                        }
+                      };
+        columns[1].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-custom1 x-portlet-custom1-75',
+            titleEl : 'widgetPrerenderTitle_4_61_7',
+            contentEl : 'widgetPrerender_4_61_7',
+            id: 'widget_4_61_7',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'custom1', 
+              myOpacity: '75', 
+              dataID: '2479', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '61', 
+              systemID: '5', 
+              portalID: '7'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_52_7',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'plain', 
+                            myOpacity: '75', 
+                            dataID: '1071', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '52', 
+                            systemID: '5', 
+                            portalID: '7'
+                          
+                        }
+                      };
+        columns[1].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-plain x-portlet-plain-75',
+            titleEl : 'widgetPrerenderTitle_4_52_7',
+            contentEl : 'widgetPrerender_4_52_7',
+            id: 'widget_4_52_7',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'plain', 
+              myOpacity: '75', 
+              dataID: '1071', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '52', 
+              systemID: '5', 
+              portalID: '7'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_62_7',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'custom1', 
+                            myOpacity: '75', 
+                            dataID: '2480', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '62', 
+                            systemID: '5', 
+                            portalID: '7'
+                          
+                        }
+                      };
+        columns[1].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-custom1 x-portlet-custom1-75',
+            titleEl : 'widgetPrerenderTitle_4_62_7',
+            contentEl : 'widgetPrerender_4_62_7',
+            id: 'widget_4_62_7',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'custom1', 
+              myOpacity: '75', 
+              dataID: '2480', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '62', 
+              systemID: '5', 
+              portalID: '7'
+            
+            },
+
+            values: {}
+          });
+      
+
+
+      //console.info(columns);
+      var portals = [];
+      
+      function serializePortals(){
+        var columns = [];
+        var columnOrders = [];
+        var columnOrderQry = [];
+        Ext.each(portals,function(portal){
+          Ext.each(portal.items.items,function(column,index){
+            columns.push(column);
+            columnOrders.push([])
+          });        
+        });
+        //alert(columns.toSource());
+        
+        Ext.each(columns,function(col, index){
+          Ext.each(col.items.items,function(colItem){
+            columnOrders[index].push(colItem.storeParams.portletID);
+            columnOrderQry.push(index+"_"+colItem.storeParams.portletID);
+          });
+        });
+        //columnOrders.each(function(colOrd, index){
+        //  columnOrderQry.push(columnOrders[index].toString());
+        //});
+                
+        Ext.Msg.wait('Please wait...', 'Saving Portal Position');
+        Ext.Ajax.request({
+           url: '/ajax/portals/setOrder.cfm',
+           method: 'GET',
+           params: {id: currentPortalID, s: currentSchool.id, portlets: columnOrderQry.join(',')},
+           reader : new Ext.data.JsonReader({
+            success : '@success'
+           }),
+           success: function(response, opts) {
+              var obj = Ext.decode(response.responseText);
+              if (obj.success){
+                Ext.Msg.hide();
+              }else{
+                Ext.Msg.alert('Error Saving Portal Position', 'This portal could not be moved. You may need to refresh and please try again.');
+              }
+           },
+           failure: function(response, opts) {
+            Ext.Msg.alert('Error Saving Portal Position', 'There was a problem communicating with the server. Please check your internet connection and try again.');
+           }
+        });
+      }
+      
+      portalCount = 0;
+      colCount = 0;    
+    
+        colWidth1 = .66;
+        colWidth2 = .33;
+        midCols = makeTwoColumns(columns[colCount], colWidth1, columns[colCount+1], colWidth2, 'margin:0 0 0 10px');
+        colCount += 2;
+      
+      portals[portalCount] = new Ext.ux.Portal({
+          xtype:'portal_widgets',
+          border: false,
+          layout: 'column',
+          renderTo: 'portalMid',
+          items: midCols,
+          listeners: {
+            drop: function(e){
+              serializePortals();
+            }
+          }
+      });
+      portalCount++;
+    
+    }  
+  
+  
+    var currentPortalID = "7";
+    var currentPortalLayout = "43";
+  
+
+</script><div class="pageData pageDataPortal">
+  
+  <div id="loaderPortal"><span>Loading Content...</span></div>
+  <div id="portalContent">
+    <div id="portalMid" class="portalHolderMid"></div>
+  </div>
+</div>
+
+<!-- prerender -->
+<div style="display: block">
+
+
+  <div id="widgetPrerenderTitle_4_49_7" class="x-hide-display">
+    Valley Union High School 
+  </div>  
+  
+  <div id="widgetPrerender_4_49_7" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	<span style="color:#ff0000;">April 15, 2020: </span><span style="color:#000000;">Letter to Parents and Students concerning 3rd and 4th quarter grades:  Please see the letter by clicking on the link</span><span style="color:#ff0000;"> <a href="/files/user/1/file/Parent%20Letter%20for%20end%20of%202020%20grading.pdf">here.</a></span></p>
+<p style="font-size: 1.2em;">
+	<span style="color:#ff0000;">March 30, 2020: Update: School Closure Date: </span>Governor Doug Ducey announced today that all public and charter schools in the state will be closed for the rest of the school year.  Further information may be found at the website of the Arizona Department of Education, <a href="https://www.azed.gov/">click here.</a></p>
+<p style="font-size: 1.2em;">
+	 </p>
+<p style="font-size: 1.2em;">
+	<font color="#ff0000">Bus Drop:  Every Monday, our bus will drop off homework packets and meals at the following places at the following times:</font></p>
+<p style="font-size: 1.2em;">
+	10:15a:  McNeal Gas Station</p>
+<p style="font-size: 1.2em;">
+	1030: Double Adobe Store</p>
+<p style="font-size: 1.2em;">
+	11:10: Mustang Mall</p>
+<p style="font-size: 1.2em;">
+	11:30: Ash Creek School</p>
+<p style="font-size: 1.2em;">
+	11:50: Giant QuikMart</p>
+<p style="font-size: 1.2em;">
+	12:15p:  Richland Store</p>
+<p style="font-size: 1.2em;">
+	12:30:  Kansas Settlement at Birch Rd</p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	 </p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	 </p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	<span style="color:#ff0000;">March 23, 2020:  An Open Letter from Governor Doug Ducey.</span>  <span style="color:#000000;">Follow this link:</span> <a href="https://azgovernor.gov/governor/blog/2020/03/open-letter-arizona-families-educators-school-leaders-and-education-march-20-2020"><span style="color:#0000ff;"> Open Letter from the Office of the Governor, March 20, 2020.</span></a></p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	 </p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	<span style="color:#ff0000;">March 20, 2020: Update: School Closure Date:  </span><span style="color:#000000;">Today, Governor Ducey and Superintendent Hoffman announced that Arizona schools would be closed through April 10. Students will begin coursework through a combination of online learning and packets of homework (delivered by bus drivers). Those details may be found below under "Teacher Directions" post. For communication purposes, we ask each student to make email contact with their teachers if they are able to do so.</span></p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	 </p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	<strong><span style="color:#006400;">&lt;---- See Food Service Bulletin under "Public Health Notices" tab at left.</span></strong></p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	<span style="color:#ff0000;">March 18, 2020: Update: Teacher Directions for Continuing School: </span></p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	<span style="color: rgb(34, 34, 34); font-size: 12px;">Good morning.  We hope you are all safe and sound.</span></p>
+<p>
+	As you know, public school gatherings have been closed through March 27, and none of us are sure whether or not there will be an extension to that closure.  It is incumbent on us, however, to continue offering learning opportunities and instruction to our students.</p>
+<p>
+	Among the options available to us are online learning (Odysseyware, Business classes, and some others) and an “independent study,” wherein teachers send work home in packets to students (to be delivered by bus drivers), and then have those packets returned for grading (also delivered by bus drivers).</p>
+<p>
+	As a school, we will also arrange food service to our families.</p>
+<p>
+	We will continue to offer education and food service through the end of the year, whether in re-opened schools or through other means.</p>
+<p>
+	Here’s what that looks like:</p>
+<p>
+	Today, Wednesday, March 18, 2020:</p>
+<ul>
+<li>
+		School administration will contact students and families through our “all call” Blackboard system, having each student make email contact with each of their teachers. We’d like this for a baseline of communication.  Teacher and staff email addresses are available at our website at www.vuhs.net. </li>
+	<li>
+		Further, all currently enrolled Odysseyware students are expected to resume their assigned coursework.  Mrs. Hamberger will monitor progress for those students, as well as offer direct support.  For any Odysseyware questions, please contact Mrs. Alisha Hamberger at alisha.hamberger@vuhs.net.</li>
+</ul>
+<p>
+	Monday, March 23 – Thursday, March 27: </p>
+<ul>
+<li>
+		All teachers at Valley Union are to make email contact with their students.</li>
+	<li>
+		Each teacher is to have ready coursework for the following week (worksheet handouts, from textbooks, or digital learning) that can be delivered to each of their students.  Please have that work ready by Thursday morning. Either deliver it to the office, make it available to us to pick up from your classroom, or advise school administration that you will deliver it directly to your students through the Internet.</li>
+</ul>
+<p>
+	Monday, March 30 and beyond:</p>
+<ul>
+<li>
+		If school is not again in open session the following Monday, March 30, bus drivers will deliver to select bus stops packets of coursework and meals to our students.  The following week, students will either bring that work to school with them (if school is in open session), or bus drivers will pick it up and return it to school for the teachers to grade.</li>
+	<li>
+		We will continue in this fashion until further information dictates a change in operation. Please have coursework ready and available to our office staff by Thursday morning; bus drivers will deliver completed work by the following Monday afternoon.</li>
+</ul>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	 </p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	<span style="color:#ff0000;">March 16, 2020: Update:</span><span style="color:#000000;">  As you all probably know, on Sunday, March 15, Governor Ducey and Superintendent Hoffman ordered closed all public and charter schools in the state of Arizona. That given, school and all school activities have been cancelled through March 27, 2020.  We will continue to update this site as we learn information and as decisions are made.  For any families in our area that rely on school breakfast / lunch programs, please contact Mr. Hart, our superintendent, for information.  He may be reached by email at khart@pearceschool.org.</span></p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	 </p>
+<p style="font-size: 1.2em; color: rgb(85, 170, 255);">
+	<span style="color:#ff0000;">March 14, 2020:  Coronavirus COVID 19 Announcement: </span><span style="font-family: Arial, Helvetica, sans-serif; font-size: small; color: rgb(34, 34, 34);">After careful thought, I have decided to cancel school and all related school activities for the week of March 16-20, 2020. There is so much unknown about this current virus, COVID19, that it is hard to predict with certainty what the correct actions are to take. However, taking any risk with our student population is unwarranted. We have students, staff, parents, and community members with pre-existing medical conditions that puts them in the high risk category for this virus. Hopefully, as more information is made available, we will learn that we are not in a high risk area....but until more information is learned about this virus, I'm not willing to take any risk with our students and our families.</span></p>
+<p>
+	<span style="font-family: Arial, Helvetica, sans-serif; font-size: small;">For those families that count on school breakfast/lunch, please contact me, and I will make arrangements to get this out to you.</span></p>
+<p>
+	<span style="font-family: Arial, Helvetica, sans-serif; font-size: small;">We will update plans going forward by Saturday, March 21st. </span></p>
+<p>
+	<span style="font-family: Arial, Helvetica, sans-serif; font-size: small;">Mr. Kyle Hart, Superintendent</span></p>
+<p>
+	<span style="font-family: Arial, Helvetica, sans-serif; font-size: small;">khart@pearceschool.org</span></p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p style="font-size: 1.2em; color: rgb(85,170,255); text-align: center">
+	<span style="font-size: 1.2em;">" </span><strong style="font-size: 1.2em;"><em>Inspir</em></strong><strong style="font-size: 1.2em;"><em>e all students to be life-long learners.</em></strong><span style="font-size: 1.2em;">"</span></p>
+<p style="color: rgb(0,0,119); text-align: center">
+	<u><span style="font-size:16px;"><span style="font-family:comic sans ms,cursive;">"Three Time Winner of Best Schools in America Medal"</span></span></u></p>
+<p style="color: rgb(0, 0, 119); text-align: center;">
+	 </p>
+<p>
+	<span style="font-size:14px;"><span style="font-family: times new roman,times,serif;">Welcome to the Valley Union High School District #22 website. We are located in the community of Elfrida, AZ in Southeastern Arizona approximately 25 miles north of Douglas, AZ. Valley Union High School serves students from five elementary school districts; Ash Creek Elementary, Double Adobe Elementary, Elfrida Elementary, McNeal Elementary, and Pearce Elementary as well as students from many communities in Southeastern Cochise County.</span></span></p>
+<p style="text-align: center;">
+	<span style="color:#0000cd;"><span style="font-size:16px;"><span style="font-family:comic sans ms,cursive;">Valley Union earned an "A" grade!</span></span></span></p>
+<p>
+	<span style="font-size:14px;"><span style="font-family: times new roman,times,serif;">Valley Union High School prides itself on its academic and co-curricular offerings and success. The school is rated a "A" school by the Arizona Department of Education and offers dual-credit/reverse credit opportunities with Cochise College. The school provides students with academic programs such as band, choir, agriculture, business/computers, culinary arts, drawing/painting, pottery, and drama. Our current student to teacher ratio is 11:1. Students at Valley Union High School participate in co-extracurricular activities such as 8-man Football, Volleyball, Basketball, Baseball, Softball, Track, Tennis, FFA, FCCLA, and Knowledge Bowl.</span></span></p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p style="text-align: center; ">
+	<span style="color:#008080;"><font face="comic sans ms, cursive"><span style="font-size: 16px;">Vision</span></font></span></p>
+<p style="text-align: center; ">
+	<font face="times new roman, times, serif"><span style="font-size: 14px;">Inspire all students to be life-long learners.</span></font></p>
+<p style="text-align: center; ">
+	 </p>
+<p style="text-align: center; ">
+	<span style="color:#008080;"><font face="comic sans ms, cursive"><span style="font-size: 16px;">Mission</span></font></span></p>
+<p style="text-align: center;">
+	Valley Union High School's mission is to provide a well-rounded education to all students by cultivating a genuine desire for learning, service, and achievement.</p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	 </p>
+<p>
+	<link href="file:///C:%5CDOCUME~1%5CRUSTY~1.TAY%5CLOCALS~1%5CTemp%5Cmsohtml1%5C01%5Cclip_filelist.xml" rel="File-List"><style type="text/css">
+	</style></p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_54_7" class="x-hide-display">
+    Public Notices 
+  </div>  
+  
+  <div id="widgetPrerender_4_54_7" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p style="margin: 0px 0px 2px; padding: 0px; font-size: 1.2em; color: rgb(85, 170, 255);">
+	 </p>
+<p>
+	<strong>Parents &amp; Students:</strong> If you have any fines, fees, school athletic equipment, library materials, or other school materials that are due or out you will not receive your report cards or diplomas until the fines/fees are paid &amp; all materials are returned.</p>
+<p>
+	<strong>NOTICE</strong>: From this point forward all VALLEY UNION HIGH SCHOOL surplus materials will be listed on www.publicsurplus.com. Please visit this site to see the different items that are available for auction.</p>
+<p>
+	<strong>Check out the link to Rokkitwear for Valley Union High School Apparel. Rokkitwear is an AIA approved vendor and shares its profits with VUHS.</strong></p>
+<p>
+	 </p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_16_50_7" class="x-hide-display">
+    Elfrida, Az 
+  </div>  
+  
+  <div id="widgetPrerender_16_50_7" class="x-hide-display">
+    
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_57_7" class="x-hide-display">
+    Award Winning School 
+  </div>  
+  
+  <div id="widgetPrerender_4_57_7" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p>
+	<a href="http://www.usnews.com/education/best-high-schools/arizona/districts/valley-union-high-school-district/valley-union-high-school-1149" target="_blank"><img alt="" height="74" src="/files/user/1/image/bronze_best_high_schools.jpg" width="87"></a><a href="www.usnews.com/education/best-high-schools/arizona/districts/valley-union-high-school-district/valley-union-high-school-1149" target="_blank"><img alt="" height="71" src="/files/user/1/image/cke_96.png" width="89"></a></p>
+<p>
+	 </p>
+<p>
+	<img height="71" src="http://static.usnews.com/images/badges/bronze_best_high_schools.jpg" width="82"></p>
+<p>
+	Click on the badge for more information.</p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+<div class="resourceContainerMini" id="Resources">
+            <div class="resourceTitle"><a href="/District/2283-Award-Winning-School.html#Resources">There are 1 Files Available</a></div>
+          </div>
+        
+    </div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_27_47_7" class="x-hide-display">
+     VUHS School Events Calender 
+  </div>  
+  
+  <div id="widgetPrerender_27_47_7" class="x-hide-display">
+    
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_61_7" class="x-hide-display">
+    ACT Testing Information 
+  </div>  
+  
+  <div id="widgetPrerender_4_61_7" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p>
+	Click to register for the ACT Test</p>
+<p>
+	<a href="http://www.actstudent.org/regist/dates.html" target="_blank"><img alt="" src="/files/user/1/image/ACT%20Testing.bmp" style="width: 173px; height: 40px;"></a></p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_52_7" class="x-hide-display">
+    Educational Partners 
+  </div>  
+  
+  <div id="widgetPrerender_4_52_7" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p>
+	<a href="http://cochise.edu/"><img alt="" src="/files/user/1/image/cochise-college.gif" style="width: 106px; height: 120px;"></a></p>
+<p>
+	Valley Union High School offers Dual and Reverse Credit courses through Cochise College.</p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_62_7" class="x-hide-display">
+    AZ College and Career Standards Info 
+  </div>  
+  
+  <div id="widgetPrerender_4_62_7" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p>
+	Parents and Student here is information of the new learning standards set by the state for our students.</p>
+<p>
+	<a href="http://www.azed.gov/azccrs/"><img src="http://www.azed.gov/azccrs/files/2013/10/azccrs-homepage-button-e1381851701397.png"></a></p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+</div>
+
+          </div>
+          <br clear="all"><a href="#top" class="backToTopMain">Back to Top</a>
+        </div>
+        
+      <p class="webmaster">For technical questions and comments regarding this website, please contact the <a title="Send Email" style="" target="_blank" href="/action/mail/sendMail.cfm?e=aW5mb0BpZXNjZW50cmFsLmNvbQ==" class="" onclick="return sendEmail('aW5mb0BpZXNjZW50cmFsLmNvbQ==')">Webmaster</a>.</p>
+
+      </div>
+    </div>
+    
+    <div id="footer">
+      
+<script>
+
+currentZip = '85610';
+</script><noscript></noscript>
+<div class="vcardBox">
+<span class="vcard">
+  <span class="adr">
+    
+    <a href="//maps.google.com/maps?hl=en&amp;q=4088%20E%2E%20Jefferson%20Rd%2E%20%2C%20Elfrida%20AZ%2C%2085610&amp;um=1&amp;ie=UTF-8" target="_blank" class="skipWarning">
+      <span class="street-address">4088 E. Jefferson Rd. </span>
+    </a>
+      • 
+    <a href="//maps.google.com/maps?hl=en&amp;q=4088%20E%2E%20Jefferson%20Rd%2E%20%2C%20Elfrida%20AZ%2C%2085610&amp;um=1&amp;ie=UTF-8" target="_blank" class="skipWarning">
+      <span class="locality">Elfrida</span>, 
+      <span class="region">AZ</span> 
+      <span class="postal-code">85610</span>
+    </a>
+    
+  </span>
+  • 
+  <span class="tel">
+    Phone: <span class="work">(520) 642-3492</span>
+    • 
+    Fax: <span class="fax">(520) 642-3523</span>
+  </span>
+</span>
+</div>
+
+    </div>
+  
+    <div id="copyright">
+      <div class="copyrightCustomText">
+          
+       </div>
+       <div class="copyrightCustomTextBot"></div>
+      <div class="copyrightNav">
+      	<a href="/District/legal&amp;mode=terms">Legal Information</a> | 
+      	<a href="/District/legal&amp;mode=privacy">Privacy Policy</a> | 
+      	<a href="sitemap.cfm" onclick="showSiteMap(); return false">Site Map</a><br><br>
+</div>
+      
+      
+      <div class="copyrightHolder">
+      	ies-web-v2-3 Copyright © 2001-2020. All Rights Reserved. <a href="/new.cfm" style="display:none;">new</a>
+      <br><a href="//www.cyberschool.com" target="_blank">Web Development by Cyberschool &amp;</a> 
+      	<a href="//www.iescentral.com" target="_blank">IES, Inc.</a> 
+    	</div>
+<br clear="all"><div class="copyrightExtra copyrightExtra01"></div>
+        <div class="copyrightExtra copyrightExtra02"></div>
+    </div>
+
+    <!-- Current IP Address: #cgi.REMOTE_ADDR# -->
+      
+<div id="timeoutCountdown" style="display: none; position: fixed; bottom: 0; right: 0; padding: 5px 10px; background: #000; color: white;">Please wait...</div>
+<div id="loadingBar" style="display: none; position: fixed; bottom: 0; right: 0; padding: 5px 10px; background: #060; color: white;">Loading...</div>
+<div id="loadingFail" style="display: none; position: fixed; bottom: 0; right: 0; padding: 5px 10px; background: #600; color: white;">Loading Failed</div>
+  
+
+<script type="text/javascript">  
+  if (printView)
+    window.print();
+</script><noscript></noscript>
+<script src="https://ssl.google-analytics.com/ga.js?#application.cache.version#" type="text/javascript"></script><noscript></noscript>
+
+<script type="text/javascript">
+  try {
+    var pageTracker = _gat._getTracker("UA-33100517-1");
+    pageTracker._trackPageview();
+  } catch(err) {}
+</script><noscript></noscript>
+
+  </body>
+</html><!-- Core Version: 2.1. Served from ies-web-v2-3 in 0.14 secs. -->

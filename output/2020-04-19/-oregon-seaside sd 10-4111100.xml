@@ -1,0 +1,681 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Seaside School District</title>
+<meta name="Keywords" content="Seaside School District 10">
+<meta name="Description" content="Seaside School District 10">
+<meta name="Author" content="Seaside School District 10">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta property="og:image" content="http://images.schoolinsites.com/images/education.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="200">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/css.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/demo4/style.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src="JavaScripts/jquery-1.8.3.min.js"></script><link href="/CommonTemplates/SiteElements/Styles/Include-Styles.asp" type="text/css" rel="stylesheet">
+<link href="http://images.pcmac.org/Websites/SeasideSD/SeasideSD/Styles.css" rel="stylesheet" type="text/css">
+<!--script src="http://images.pcmac.org/Websites/SeasideSD/SeasideSD/JavaScripts.js" type="text/javascript"></script--><script type="text/javascript">
+	//-----------------------------------------------------------------------------------------------
+	//Edit CSS, currently set up for Pirobox fix
+	//-----------------------------------------------------------------------------------------------
+		function getCSSRule(ruleName, deleteFlag) {               // Return requested style obejct
+		   ruleName=ruleName.toLowerCase();    
+		   
+			if (document.styleSheets) {                            
+				for (var i=0; i<document.styleSheets.length; i++) { 
+					var styleSheet=document.styleSheets[i];
+					var styleSheetHref = styleSheet.href;
+					if ((styleSheetHref != null) && (styleSheetHref.indexOf("pirobox") != -1))
+						piroStyle = i;
+				}
+
+				var styleSheet=document.styleSheets[piroStyle];
+				 var ii=0;                                        // Initialize subCounter.
+				 var cssRule=false;                               // Initialize cssRule. 
+
+				 do {                                             // For each rule in stylesheet
+					if (styleSheet.cssRules) {                    // Browser uses cssRules?
+					   cssRule = styleSheet.cssRules[ii];         // Yes --Mozilla Style
+					} else {                                      // Browser usses rules?
+					   cssRule = styleSheet.rules[ii];            // Yes IE style. 
+					}                                             // End IE check.
+
+					if (cssRule)  {                               // If we found a rule...
+					   if ((typeof(cssRule.selectorText) != 'undefined') && (cssRule.selectorText.toLowerCase()==ruleName)) { //  match ruleName?
+						  if (deleteFlag=='delete') {             // Yes.  Are we deleteing?
+							 if (styleSheet.cssRules) {           // Yes, deleting...
+								styleSheet.deleteRule(ii);        // Delete rule, Moz Style
+							 } else {                             // Still deleting.
+								styleSheet.removeRule(ii);        // Delete rule IE style.
+							 }                                    // End IE check.
+							 return true;                         // return true, class deleted.
+						  } else {                                // found and not deleting.
+							 return cssRule;                      // return the style object.
+						  }                                       // End delete Check
+					   }                                          // End found rule name
+					}                                             // end found cssRule
+					ii++;                                         // Increment sub-counter
+				 } while (cssRule)  
+			}
+			return false;
+		}
+
+
+		function killCSSRule(ruleName) {                          // Delete a CSS rule   
+		   return getCSSRule(ruleName,'delete');                  // just call getCSSRule w/delete flag.
+		}                                                         // end killCSSRule
+
+		function addCSSRule(ruleName) {                           // Create a new css rule
+		   if (document.styleSheets) {                            // Can browser do styleSheets?
+			  if (!getCSSRule(ruleName)) {                        // if rule doesn't exist...
+				 if (document.styleSheets[0].addRule) {           // Browser is IE?
+					document.styleSheets[0].addRule(ruleName, null,0);      // Yes, add IE style
+				 } else {                                         // Browser is IE?
+					document.styleSheets[0].insertRule(ruleName+' { }', 0); // Yes, add Moz style.
+				 }                                                // End browser check
+			  }                                                   // End already exist check.
+		   }                                                      // End browser ability check.
+		   return getCSSRule(ruleName);                           // return rule we just created.
+		} 
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//Get/Set cookies for mobile site
+	//-----------------------------------------------------------------------------------------------
+		function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			createCookie(name,"",-1);
+		}
+		
+		
+		
+		var fullSite = readCookie('FullSite');
+		var mobileDev = readCookie('MobileDevice');
+		var mobileNoRedirect = readCookie('MobileNoRedirect');
+		
+		if(fullSite && mobileDev) {
+			if((fullSite != 'True') && (mobileNoRedirect != '1') && (mobileDev == 'True'))
+				window.location = 'http://www.seaside.k12.or.us/mobile/default.asp';
+		}
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//photo album / lightbox init
+	//-----------------------------------------------------------------------------------------------
+		$(document).ready(function() {
+			if ($("a[class^='pirobox']").length > 0) {
+				$().piroBox({
+						my_speed: 400, //animation speed
+						bg_alpha: 0.7, //background opacity
+						slideShow : true, // true == slideshow on, false == slideshow off
+						slideSpeed : 4, //slideshow duration in seconds(3 to 6 Recommended)
+						close_all : '.piro_close,.piro_overlay'// add class .piro_overlay(with comma)if you want overlay click close piroBox
+				});
+			}
+		});
+
+		var UserAgent = navigator.userAgent;
+		//alert(UserAgent);
+		if (UserAgent.indexOf("MSIE 10") != -1)
+			TheAgent = "IE10"
+		else{
+			if (UserAgent.indexOf("MSIE") != -1)
+				TheAgent = "IE"
+			else
+				TheAgent = ""
+		}
+		
+		//Pirobox + Google Translate workaround for non-IE browsers. Dynamically changes CSS for pirobox after the translate widget has loaded.
+		if (TheAgent == ""){
+			theTimeout = setTimeout('GoogleCountdown()', 2000);	
+		}
+		
+		function GoogleCountdown() {
+			var element =  document.getElementById('google_translate_element');
+			if ((typeof(element) != 'undefined') && (element != null))
+			{
+				var PiroContent = getCSSRule('.pirobox_content');
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					//x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+					
+				
+				if(y < 700)
+					PiroContent.style.top = "16%";
+				else{
+					if(y > 900)
+						PiroContent.style.top = "23%";
+					else
+						PiroContent.style.top = "20%";
+				}
+				
+			}
+		}
+	//-----------------------------------------------------------------------------------------------
+		
+		
+		//Use onClick=SlideLink() in the slide show overlay for slide links work
+		function SlideLink() {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			//figure out which div is showing and set Link var
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			//if an anchor exists store values to "h" (for HREF) and "t" (for Target)
+			if (Link.firstChild.nodeName == "A") {
+				h = Link.firstChild.href;
+				t = Link.firstChild.target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				h = Link.getElementsByTagName('A')[0].href;
+				t = Link.getElementsByTagName('A')[0].target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+		}
+		//Make sure the cursor is a link pointer when a link exists (called by function SlideCursor())
+		function SlideCursorCheck(me) {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			if (Link.firstChild.nodeName == "A") {
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.firstChild.href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.etElementsByTagName('A')[0].href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+		}
+		//Function to change cursor on slide show overlay
+		var CursorCheck = false;
+		function SlideCursor(me) {
+			Elem = me;			
+			if (CursorCheck == false) {
+				var Start_SlideCursor = setInterval("SlideCursorCheck(Elem)", 500);
+				CursorCheck = true;
+			}
+		}
+		
+		function Login()
+		{
+			var loginPage = 'https://securesite.schoolinsites.com/loginv2/common/?p=1';
+			var loginDomain = 'http://www.seaside.k12.or.us';
+			loginPage = loginPage + '&login_for=' + loginDomain;
+			
+			window.location.href = loginPage;
+		}
+		
+		var imgAltTagsFix = function() {
+			$('img.gsc-branding-img').attr("alt", "Google Custom Search Branding");
+			$('input.gsc-search-button').attr('alt', "Google Custom Search Button");
+		};
+		
+		window.__gcse = {
+			callback: imgAltTagsFix
+		};
+		
+		function a11yClick(event){
+			if(event.type === 'click'){
+				return true;
+			}
+			else if(event.type === 'keypress'){
+				var code = event.charCode || event.keyCode;
+				if((code === 32)|| (code === 13)){
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	</script><style type="text/css" media="screen">
+		body{
+	margin: 0;
+	padding: 25px 0 0 0;}
+div#ToggleNav{
+	position:absolute; /* only effects browsers that cannot accept Fixed positioning */
+	top: 0; /* only effects browsers that cannot accept Fixed positioning */
+	left: 0; /* only effects browsers that cannot accept Fixed positioning */
+	background: #000 url(/images/Admin/Skins/HardCandyBlack/images/ToggleLoginBg.gif) repeat-x top left;
+	border-bottom: 0px solid #333;
+	border-top: 0px solid #FFFFFF;
+	width:100%;
+	height:25px;
+	z-index: 1000;
+	overflow:hidden;}
+div#ToggleNav td{
+	font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #9EA8C3;}
+div#ToggleNav input {
+	margin: 0;
+	padding: 0;
+	font: normal 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #303040;
+	vertical-align:middle;}
+div#ToggleNav .loginWrapper {
+	float: right;
+	height: 100%;
+}
+div#ToggleNav .formWrapper {
+	padding-right: 3px;
+	padding-left: 3px;
+	display: inline-block; 
+	*display: inline;}
+div#ToggleNav .formUsername {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/UsernameBg.gif) no-repeat top left;}
+div#ToggleNav .formPassword {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/PasswordBg.gif) no-repeat top left;}
+div#ToggleNav .formSelected {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/LoginFieldBlank.gif) repeat-x top left;}
+div#ToggleNav .formButton {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat 0 0;}
+div#ToggleNav .formButtonHover {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat -46px 0;}
+div#ToggleNav a.help:link, div#ToggleNav a.help:visited {
+	display:block;
+	height: 16px;
+	color: #D9D8E6;
+	border: 0;
+	margin: 4px 5px 0 1px;}
+div#ToggleNav a.help:hover, div#ToggleNav a.help:active {
+	display: block;
+	height: 16px;
+	border: 0;}
+body > div#ToggleNav .formUsername {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formPassword {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formSelected {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formButton {margin-bottom: 3px;}/* non-IE browsers only */
+body > div#ToggleNav .formButtonHover {margin-bottom: 3px;}/* non-IE browsers only */
+@media screen {
+	body > div#ToggleNav{
+		position:fixed;}
+}
+
+* html div#AdminDefaultIncludes{
+	position: fixed;
+	top: 25px;
+	bottom:0;
+ 	width: 100%;
+	_position: absolute;
+	_top: expression( ( 25 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+	_height: expression( ( -25 + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );}
+				* html body {
+					overflow:hidden;}
+				* html div#AdminDefaultIncludes{
+					overflow: auto;	}
+			
+	</style>
+<!--[if lte IE 9]>
+	<style type="text/css" media="screen">
+		* html body {
+			overflow:auto;}
+	</style>
+	<![endif]--><script type="text/javascript" src="/JavaScripts/JavaScripts.js"></script><script type="text/javascript">
+			TopBar = '<div class="loginWrapper">' +
+						'<div class="formWrapper"><a href="/admin1/securelogin.asp" aria-label="Log In" title="Go to Secure Login Page" alt="Log In" class="formButton" border="0" onFocus="this.className=\'formButtonHover\'"  onMouseOver="this.className=\'formButtonHover\'" onblur="this.className=\'formButton\'" onMouseOut="this.className=\'formButton\'">Login button</a></div>' +
+					 '</div>';
+		</script><script type="text/javascript">
+		if(typeof(BottomBar) == 'undefined')
+			var BottomBar = ' ';
+		$(document).ready(function() {
+			$("body").prepend('<div id="ToggleNav">' + TopBar + '</div>' + BottomBar);	
+		});
+	
+	</script><!--[if lte IE 9]>
+	<div id="AdminDefaultIncludes">
+	<![endif]--><script type="text/javascript" src="http://images.pcmac.org/Websites/SeasideSD/SeasideSD/js/skipnav.js"></script><link rel="stylesheet" type="text/css" href="http://images.pcmac.org/Websites/SeasideSD/SeasideSD/Styles2018.css">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+	startList = function() {
+		if (document.all&&document.getElementById) {
+			navRoot = document.getElementById("nav");
+			for (i=0; i<navRoot.childNodes.length; i++) {
+				node = navRoot.childNodes[i];
+				if (node.nodeName=="LI") {
+					node.onmouseover=function() {
+						this.className+=" over";
+					}
+					node.onmouseout=function() {
+						this.className=this.className.replace(" over", "");
+					}
+				}
+			}
+		}
+	}
+	window.onload=startList;
+	
+	//--><!]]></script><!-- This fixes the issue where drop down menus are hidden behind embedded YouTube videos  --><script> 
+$(document).ready(function() { 
+$("iframe").each(function(){ 
+var ifr_source = $(this).attr('src'); 
+var wmode = "wmode=transparent"; 
+if(ifr_source.indexOf('?') != -1) { 
+var getQString = ifr_source.split('?'); 
+var oldString = getQString[1]; 
+var newString = getQString[0]; 
+$(this).attr('src',newString+'?'+wmode+'&'+oldString); 
+} 
+else $(this).attr('src',ifr_source+'?'+wmode); 
+}); 
+}); 
+</script><!-- End YouTube fix --><link rel="Shortcut Icon" type="image/ico" href="http://images.pcmac.org/Websites/SeasideSD/SeasideSD/images/favicon.ico">
+<link rel="icon" href="http://images.pcmac.org/Websites/SeasideSD/SeasideSD/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+	<div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+<div align="center">
+<table role="presentation" width="990" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" id="SiteWrapper" style=" border: 2px solid #FFF; border-top: 0; border-bottom: 0; ">
+<tr>
+<td align="left">
+			<div id="SlideShow">
+				
+			<div>
+			<script src="/JavaScripts/fotorama-4.6.4/fotorama.js"></script><style>
+.fotorama__html div,
+.fotorama__html a {
+  display: block;
+  height: 100%;
+  /* Transparent links are not clickable in IE,
+     but non-existent background fixes this.
+    (Put an empty 1×1 image here to avoid
+     errors in console.)
+  background: url(_.gif); */
+}
+
+</style>
+<div class="fotorama" data-width="100%" data-fit="cover" data-maxheight="250" data-transition="crossfade" data-autoplay="5000" data-loop="true" data-transitionduration="500" data-stopautoplayontouch="false" data-arrows="true" data-click="false" data-swipe="true" data-nav="false">
+	 
+	 
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1144/72c2862636162d4754deecf9b048c843.jpg" data-caption="" alt="Slideshow Image 0">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1144/9ea22b37ea2d9e30a9d5552238e91113.jpg" data-caption="" alt="Slideshow Image 1">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1144/286073f92cd1adb005780bfa5fadc455.jpg" data-caption="" alt="Slideshow Image 2">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1144/781ef074fe2dbf3baadbf5d376db80b0.jpg" data-caption="" alt="Slideshow Image 3">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1144/32f6e27cb489e0f9cb2c9b88e43bd014.jpg" data-caption="" alt="Slideshow Image 4">
+		
+		</div>
+			
+</div>
+
+
+
+			</div>
+		
+			</div>
+<div class="SlideShowOverlay"></div>
+		</td>
+	</tr>
+<tr>
+<td align="center" style=" padding: 0 10px; ">
+			<div id="topnavcontainer">
+<div role="navigation" aria-label="Main menu">
+<ul class="nav">
+<li><a href="/">Home</a></li>
+         
+	<!--School Drop Down Main Link Include -->
+		<li class="TopNav">
+<a href="/?PN=Schools2">Schools</a>
+		<ul>
+<li class="DropTitle">Elementary Schools</li>
+							
+				<li><a href="http://ges.seaside.k12.or.us" target="_blank">Gearhart Elementary School</a></li>
+				
+				<li><a href="http://shes.seaside.k12.or.us" target="_blank">Heights Elementary School</a></li>
+				
+							<li class="DropTitle">Middle Schools</li>
+							
+				<li><a href="http://bms.seaside.k12.or.us" target="_blank">Broadway Middle School</a></li>
+				
+							<li class="DropTitle">High Schools</li>
+							
+				<li><a href="http://shs.seaside.k12.or.us" target="_blank">Seaside High School</a></li>
+				
+		</ul>
+</li>	
+               
+    <!--Division Main Link Include -->
+	
+			<li class="TopNav">
+				<a href="?DivisionID=18341" target="" style="cursor: default;">Parent Info</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=18341&amp;LMID=826799">
+											Documents 								
+										</a>
+									</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=18391" target="" style="cursor: default;">Staff Info</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=Forms&amp;L=1&amp;DivisionID=18391&amp;LMID=830488">
+											Documents 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=18391&amp;LMID=830485">
+											Contracts 								
+										</a>
+									</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=18342" target="" style="cursor: default;">School Board</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=MeetingSchedule&amp;L=1&amp;DivisionID=18342&amp;LMID=826828">
+											Meetings/Documents 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=18342&amp;LMID=826821">
+											Board Policies 								
+										</a>
+									</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=18385" target="" style="cursor: default;">Employment</a>
+				<ul></ul>
+</li>
+<li>
+<a href="/?PN=News2">News</a>
+	</li>
+<li><a href="?PN=Calendar">Calendar</a></li>
+    <li><a href="/?PN=AboutUs">About SSD</a></li>	
+	<li><a href="/?PN=Contact">Contact</a></li>
+	<li><a href="Default.asp?PN=AdvancedSearch">Search</a></li>
+             
+	
+	
+</ul>
+</div>
+</div>
+		</td>
+	</tr>
+<tr>
+<td style="padding: 15px 5px 5px 5px; overflow: hidden;">
+			<table role="presentation" width="980" border="0" cellspacing="0" cellpadding="0"><tr>
+<td align="left" valign="top" class="Column1">
+			<div id="maincontent"></div>
+
+
+
+
+			<div id="DefaultIncludes" style="padding: 4px 0; ">
+				<span class="header" style="display:block; padding: 0; margin:0;"></span>
+				<p><span style="font-size: 16px; color: #1e4785;"><a href="http://seasidesd.schoolinsites.com/?PN=Contact"><span style="color: #1e4785;">District Office Contacts</span></a></span><br><span style="font-size: 16px; color: #1e4785;"><a href="http://seasidesd.schoolinsites.com/?DivisionID=18356&amp;ToggleSideNav=ShowAll"><span style="color: #1e4785;">Superintendent</span></a></span><br><span style="font-size: 16px; color: #1e4785;"><a href="http://seasidesd.schoolinsites.com/?DivisionID=18350&amp;ToggleSideNav=ShowAll"><span style="color: #1e4785;">District Calendar</span></a></span><br><span style="color: #1e4785;"><span style="font-size: 16px;"><a href="http://seasidesd.schoolinsites.com/?DivisionID=18349&amp;ToggleSideNav=ShowAll"><span style="color: #1e4785;">Budget/Audit<br></span></a></span><span style="font-size: 16px;"><a href="http://www.seaside.k12.or.us/?DivisionID=20733&amp;ToggleSideNav=ShowAll"><span style="color: #1e4785;">Accessibility<br></span></a></span><span style="font-size: 16px;"><a href="http://seasidesd.schoolinsites.com/?DivisionID=18347&amp;ToggleSideNav=ShowAll"><span style="color: #1e4785;">Child Nutrition/Meal Program<br></span></a></span><span style="font-size: 16px;"><span style="color: #1e4785;"><a href="http://seasidesd.schoolinsites.com/?DivisionID=18343&amp;ToggleSideNav=ShowAll">Health/Wellness<br></a></span></span></span><span style="color: #1e4785;"><span style="font-size: 16px;"><a href="http://seasidesd.schoolinsites.com/?DivisionID=18346&amp;ToggleSideNav=ShowAll">Special Education<br></a></span><span style="font-size: 16px;"><a href="http://www.seaside.k12.or.us/?DivisionID=24063&amp;ToggleSideNav=ShowAll">Curriculum</a><a href="http://www.seaside.k12.or.us/?DivisionID=18345&amp;ToggleSideNav=ShowAll"><br>English Language Development</a></span><a href="http://www.seaside.k12.or.us/?DivisionID=18345&amp;ToggleSideNav=ShowAll"><br></a></span><span style="color: #1e4785;"><span style="font-size: 16px;"><span style="color: #1e4785;"><a href="http://seasidesd.schoolinsites.com/?DivisionID=18344&amp;ToggleSideNav=ShowAll">Talented and Gifted<br></a></span></span></span><span style="color: #1e4785;"><span style="color: #1e4785;"><span style="font-size: 16px;"><a href="http://seasidesd.schoolinsites.com/?DivisionID=18352&amp;ToggleSideNav=ShowAll">Forms<br></a></span></span></span><span style="color: #1e4785;"><span style="font-size: 16px;"><span style="color: #1e4785;"><a href="http://seasidesd.schoolinsites.com/?DivisionID=18353&amp;ToggleSideNav=ShowAll">Transportation<br></a></span></span></span><span style="color: #1e4785;"><span style="font-size: 16px;"><span style="color: #1e4785;"><a href="http://www.seaside.k12.or.us/?L=1&amp;DivisionID=%2722235&amp;TabNo=2">School Safety<br></a></span></span></span><span style="color: #1e4785;"><span style="font-size: 16px;"><span style="color: #1e4785;"><a href="http://www.seaside.k12.or.us/?DivisionID=22431&amp;ToggleSideNav=ShowAll">Seaside Schools Construction Project<br></a><a href="http://www.seaside.k12.or.us/?DivisionID=24327&amp;ToggleSideNav=ShowAll" target="_blank" title="Covid 19/School Closure Information">Covid 19/School Closure Information</a></span></span></span></p>
+			</div>
+					
+			<!--- Begin Google Translate Code --->
+			<div id="google_translate_element"></div>
+<script>
+					function googleTranslateElementInit() {
+  					new google.translate.TranslateElement({
+    				pageLanguage: 'en',
+    				autoDisplay: false,
+    				layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+  					}, 'google_translate_element');
+					}
+					</script><script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script><!--- End Google Translate Code --->
+</td>
+		<td align="left" valign="top" class="Column2">
+			<div style="padding: 4px 0;">
+				<table style="height: 150px; margin-left: auto; margin-right: auto; width: 337px;" border="4" align="center"><tbody><tr>
+<td style="text-align: left;">
+<p style="text-align: center;"><strong><span style="font-size: 16px;"><span style="font-family: 'arial black', 'avant garde';">BUDGET COMMITTEE MEETING</span><br></span></strong><span style="font-size: 16px; font-family: 'book antiqua', palatino;">Video Conference<br>April 21, 2020, 6:00 pm</span></p>
+<p style="text-align: center;"><span style="font-family: 'arial black', 'avant garde';"><strong><span style="font-size: 16px;">SCHOOL BOARD MEETING</span></strong></span><br><span style="font-size: 16px; font-family: 'book antiqua', palatino;">Video Conference<br>April 21, 2020, immediately following the Budget Committee meeting</span></p>
+<p style="text-align: center;"><span style="font-size: 16px; font-family: 'book antiqua', palatino;">**please note location change**</span></p>
+<p style="text-align: center;"><span style="font-size: 13px; font-family: 'book antiqua', palatino;">To support the Governor's mandate for social distancing, Seaside School District will conduct these meetings by video conference.  On the day of the meetings, connection information will be found HERE.</span></p>
+</td>
+</tr></tbody></table>
+<table style="height: 44px; width: 338px; background-color: #7be7f3;" border="2" align="center"><tbody><tr>
+<td style="text-align: center;">
+<p><a href="http://www.seaside.k12.or.us/?DivisionID=24327&amp;ToggleSideNav=ShowAll" target="_blank" title="Covid 19 and School Closure Information"><span style="font-size: 18px; font-family: 'arial black', 'avant garde';"><strong>C</strong>ovid 19 &amp;<br>School Closure<br>Information</span></a></p>
+<p><a href="http://www.seaside.k12.or.us/?DivisionID=24327&amp;ToggleSideNav=ShowAll" target="_blank" title="Meal Service During Closure"><span style="font-family: 'comic sans ms', sans-serif; color: #800000;"><strong><span style="font-size: 18px;">*Meal Service During Closure*<br><span style="font-size: 16px;">*New information as of 4/10</span><span style="font-size: 16px;">/2020*</span></span></strong></span></a></p>
+</td>
+</tr></tbody></table>
+<p style="text-align: center;"><a href="http://www.seaside.k12.or.us/?L=1&amp;LMID=826799&amp;PN=DocumentUploads&amp;DivisionID=18341&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;TabNo=2" target="_blank" title="Student Success Act"><img src="http://images.pcmac.org//images/Users/lgarvin@seasidek12.org/SSA.png" border="0" width="339" height="51"></a></p>
+<p style="text-align: center;"><a href="http://www.seaside.k12.or.us/?DivisionID=22431&amp;ToggleSideNav=ShowAlll" target="_blank" title="Seaside School Construction Project"><img src="http://images.pcmac.org//images/Users/lgarvin@seaside.k12.or.us/Seaside_Schools_Construction_Project_Logo.jpg" border="0" alt="Click here to go to the construction project information area." width="333" height="80" style="border: 2px solid black;"></a></p>
+<p style="text-align: center;"><a href="https://www.dropbox.com/sh/850850x1m71c203/AACezQMdoity1W2wrVL4Ti1Ga?dl=0&amp;preview=March+School+Video.mp4" target="_blank" title="Drove Video"><img src="http://images.pcmac.org//images/Users/lgarvin@seasidek12.org/Drone-February.jpg" border="0" width="338" height="156"></a></p>
+			</div>
+		</td>
+		<td align="left" valign="top" class="Column3">
+			<div style="padding: 4px 0;">
+				<table style="height: 80px; width: 332px; background-color: #d3d3d3;" border="0" cellpadding="5" align="center"><tbody><tr>
+<td style="text-align: center;">
+<p><strong><span style="font-size: 18px;"><span style="font-family: verdana, geneva; font-size: 16px;"><a href="http://shs.seaside.k12.or.us/" target="_blank"><span style="color: #ad0000;">SEASIDE HIGH SCHOOL</span></a></span><br></span><span style="font-size: 13px; color: #000000;">1901 N. Holladay, Seaside, OR 97138<br>phone: 503-738-5586<br>fax: 503-738-5589</span></strong></p>
+</td>
+</tr></tbody></table>
+<table style="height: 80px; width: 332px; background-color: #c0c0c0;" border="0" cellpadding="5" align="center"><tbody><tr>
+<td style="text-align: center;">
+<p><span style="color: #000000;"><strong><span style="font-size: 18px;"><span style="font-size: 16px; font-family: verdana, geneva;"><a href="http://bms.seaside.k12.or.us/" target="_blank"><span style="color: #000000;">BROADWAY MIDDLE SCHOOL</span></a></span><br></span><span style="font-size: 18px;"><span style="font-size: 13px;">1120 Broadway, Seaside, OR 97138<br>phone: 503-738-5560<br>fax: 503-738-3900</span></span></strong></span></p>
+</td>
+</tr></tbody></table>
+<table style="height: 80px; width: 332px; background-color: #d3d3d3;" border="0" cellpadding="5" align="center"><tbody><tr>
+<td style="text-align: center;">
+<p><span style="font-size: 16px; color: #71269b;"><span style="color: #800080; font-family: verdana, geneva;"><a href="http://ges.seaside.k12.or.us/" target="_blank"><span style="color: #800080;"><strong>GEARHART ELEMENTARY</strong></span></a></span><br><span style="color: #000000;"><strong><span style="font-size: 13px;">1002 Pacific Way, Gearhart, OR 97138<br></span><span style="font-size: 13px;">phone: 503-738-8348<br></span><span style="font-size: 13px;">fax: 503-738-8349</span></strong></span></span></p>
+</td>
+</tr></tbody></table>
+<table style="height: 80px; width: 332px; background-color: #c0c0c0;" border="0" cellpadding="5" align="center"><tbody><tr>
+<td style="text-align: center;">
+<span style="font-family: verdana, geneva; color: #12296d;"><a href="http://shes.seaside.k12.or.us/" target="_blank"><span style="color: #12296d;"><strong><span style="font-size: 16px;">HEIGHTS</span><span style="font-size: 16px;"> ELEMENTARY</span></strong></span></a></span><span style="font-size: 16px;"><br><span style="color: #000000;"><strong><span style="font-size: 13px;">2000 Spruce Dr, Seaside, OR 97138<br></span><span style="font-size: 13px;">phone: 503-738-5161<br></span><span style="font-size: 13px;">fax: 503-738-7303</span></strong></span><br></span>
+</td>
+</tr></tbody></table>
+</div>
+		</td>
+	</tr></table>
+</td>
+	</tr>
+<tr>
+<td style="padding: 2px 10px 5px 10px" class="LegalText">
+				             <div id="FooterBackground">
+	                     <div class="footeraddress">1801 S. Franklin St. | Seaside. OR 97138 | V 503.738.5591 | F 503.738.3471</div>
+								 <div style="width: 990px; padding-top: 5px;" align="center">
+
+        <div id="Legal">
+	<a href="http://www.schoolinsites.com/"><img src="/images/SisPoweredSmall.png" id="PoweredBy" height="30" width="120" alt="Powered and Designed by SCHOOLinSITES"></a>
+	
+	<p class="right">
+		Copyright © 2020  Seaside School District 10
+	</p>
+</div>
+
+
+        <pdiv style="font:10px Arial, Helvetica, sans-serif; text-align:center; color:#000000"><p style="text-align: center;" align="center"><span>USDA and this institution are equal opportunity providers and employers.</span><br><br><span>The district prohibits discrimination and harassment on any basis protected </span><span>by law, including but not limited to, an individual’s, or persons with who </span><span>the individual associates, perceived or actual race, color, religion, sex, </span><span>sexual orientation, national or ethnic origin, marital status, age, mental </span><span>or physical disability, pregnancy, familial status, economic status, or </span><span>veterans’ status. The district prohibits discrimination and harassment in, </span><span>but not limited to, employment, assignment and promotion of personnel; </span><span>educational opportunities and services offered students; student assignment </span><span>to schools and classes; student discipline; location and use of facilities; </span><span>educational offerings and materials; and accommodating the public at public </span><span>meetings.</span></p>
+<p style="text-align: center;" align="center"><a href="http://images.pcmac.org/Uploads/SeasideSD/SeasideSD/Divisions/DocumentsCategories/Documents/KL%20-%20Public%20Complaints_%7BSISAD83FA33AA64%7D.pdf" target="_blank" title="Policy KL - Public Complaint">Public Complaint Policy</a><br><a href="http://images.pcmac.org/Uploads/SeasideSD/SeasideSD/Divisions/DocumentsCategories/Documents/KL_AR%281%29%20-%20Public%20Complaint%20Procedure_%7BSIS78843E038B25%7D.pdf" target="_blank" title="Policy KL-AR(1) Public Complaint Procedure">Public Complaint Procedure</a><br><br><span>Title IX (Equitable Access) &amp; American Disabilities Act Contact: Justine Hill, Business Manager, (503)738-5591</span></p>
+        </pdiv>
+</div>	
+		</div>
+</td>
+	</tr>
+</table>
+</div>
+</body>
+</html>

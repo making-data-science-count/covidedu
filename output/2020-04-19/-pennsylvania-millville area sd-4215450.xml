@@ -1,0 +1,1677 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Millville Area School District</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="//use.typekit.net/zup6aup.js"></script><script>try { Typekit.load(); } catch (e) { }</script><link rel="icon" href="/Customers/PA/MillvilleAreaSD/sysimages/custom/favicon.ico" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Millville Area School District - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Millville High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Millville Elementary School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Millville Technology Department - News" href="/rssNews.ashx?schoolId=4">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "PA_MillvilleAreaSD",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<style type="text/css">
+	
+	</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=-62135596800000">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""><input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value=""><input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJMTYwNTE0MjQzD2QWAmYPZBYCZg9kFgRmD2QWBAIED2QWAgIBDxYCHgtfIUl0ZW1Db3VudAIDFgZmD2QWAmYPFQIVTWlsbHZpbGxlIEhpZ2ggU2Nob29sATFkAgEPZBYCZg8VAhtNaWxsdmlsbGUgRWxlbWVudGFyeSBTY2hvb2wBMmQCAg9kFgJmDxUCH01pbGx2aWxsZSBUZWNobm9sb2d5IERlcGFydG1lbnQBNGQCBg8WAh4EaHJlZgUyL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0tNjIxMzU1OTY4MDAwMDBkAgEPFgIeBmFjdGlvbgUBLxYKAgEPZBYEAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwMFATBkAgMPD2QWAh8DBQEwZAIEDw9kFgIfAwUBMGQCBQ8PZBYCHwMFATBkAgMPZBYCAgIPZBYCZg8WAh4EVGV4dAUbPHVsIGNsYXNzPSdhbGVydExpc3QnPjwvdWw+ZAIDD2QWAgIBD2QWAgIBD2QWCAIBDw8WAh8EBR5NaWxsdmlsbGUgQXJlYSBTY2hvb2wgRGlzdHJpY3RkZAILD2QWAgIBD2QWAmYPFgIfBAWABjx1bCBjbGFzcz0nc2YtdmVydGljYWwnID48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50L3BhcmVudHJlc291cmNlcycgdGFyZ2V0PSdfYmxhbmsnICB0aXRsZT0nICBQYXJlbnQgUmVzb3VyY2VzJz48aSBjbGFzcz0iZmEgZmEtdXNlciIgPjwvaT4gIFBhcmVudCBSZXNvdXJjZXM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50L3N0dWRlbnRyZXNvdXJjZXMnICAgdGl0bGU9JyBTdHVkZW50IFJlc291cmNlcyc+PGkgY2xhc3M9ImZhIGZhLXVzZXJzIiA+PC9pPiBTdHVkZW50IFJlc291cmNlczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2NvbnRlbnQvZmFjdWx0eS1zdGFmZicgICB0aXRsZT0nIEZhY3VsdHkgJmFtcDsgU3RhZmYgUmVzb3VyY2VzJz48aSBjbGFzcz0iZmEgZmEtdW5pdmVyc2l0eSI+PC9pPiBGYWN1bHR5ICYgU3RhZmYgUmVzb3VyY2VzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC9hbHVtbmknICAgdGl0bGU9JyBBbHVtbmknPjxpIGNsYXNzPSJmYSBmYS1tb3J0YXItYm9hcmQiID48L2k+IEFsdW1uaTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvY29tbXVuaXR5JyAgIHRpdGxlPScgQ29tbXVuaXR5IFJlc291cmNlcyc+PGkgY2xhc3M9ImZhIGZhLWNvbXBhc3MiID48L2k+IENvbW11bml0eSBSZXNvdXJjZXM8L2E+PC9saT48L3VsPmQCDQ8PFgIeC05hdmlnYXRlVXJsBQsvaW5kZXguYXNweGRkAg8PDxYEHwUFCy9pbmRleC5hc3B4HwQFHk1pbGx2aWxsZSBBcmVhIFNjaG9vbCBEaXN0cmljdGRkAgUPZBYCAgEPZBYCAgEPZBYCZg8WAh8AAggWEGYPZBYEZg8VAgAXMjAyMCBZZWFyYm9va3MgZm9yIFNhbGVkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTA0LzhhZmIyOTFjLTBkNjAtNGU0Yi1iYjY5LWUwNGU3YTQxYmNiNy5wbmdkAgEPZBYEZg8VAgAdMjAyMCBZZWFyYm9vayBQaG90byBDaGFsbGVuZ2VkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTA0LzdlYTIyZTAxLWE2ZjUtNGU3MC1hOGU4LTYwZGQ0MWE2ZmUyOC5wbmdkAgIPZBYEZg8VAgAbSGlnaCBTY2hvb2wgQXJ0d29yayBQaWNrLXVwZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wNC8wNjQxMjQ0OC03ZjYzLTQzODktYjNiMS00YWU5ZTQ4ZWZlOTEucG5nZAIDD2QWBGYPFQIuTWlsbHZpbGxlIEFyZWEgU2Nob29sIERpc3RyaWN0IE9mZmljZSBCdWlsZGluZy5NaWxsdmlsbGUgQXJlYSBTY2hvb2wgRGlzdHJpY3QgT2ZmaWNlIEJ1aWxkaW5nZAIBDxUBOy91c2VyZmlsZXMvMjAxNy0wMi85YjE5MzU4Zi0yNGUwLTRkYTQtOTAyYi0wNmEyZmI4ZmJiNTIuanBnZAIED2QWBGYPFQInTWlsbHZpbGxlIEFyZWEgRGlzdHJpY3QgT2ZmaWNlIEJ1aWxkaW5nJ01pbGx2aWxsZSBBcmVhIERpc3RyaWN0IE9mZmljZSBCdWlsZGluZ2QCAQ8VATsvdXNlcmZpbGVzLzIwMTctMDIvMmJjY2I2NzMtYWNhZC00NTI1LThiYmQtYWQyOGE1NDYxNzA0LmpwZ2QCBQ9kFgRmDxUCKU1pbGx2aWxsZSBBcmVhIEVsZW1lbnRhcnkgU2Nob29sIEJ1aWxkaW5nKU1pbGx2aWxsZSBBcmVhIEVsZW1lbnRhcnkgU2Nob29sIEJ1aWxkaW5nZAIBDxUBPC91c2VyZmlsZXMvMjAxNy0wMi9hNzg3MmQwZC00MzcyLTRmYTAtOTY2NS1iOGRjYzk1ZmY0OWIuanBlZ2QCBg9kFgRmDxUCI01pbGx2aWxsZSBBcmVhIEhpZ2ggU2Nob29sIEJ1aWxkaW5nI01pbGx2aWxsZSBBcmVhIEhpZ2ggU2Nob29sIEJ1aWxkaW5nZAIBDxUBOy91c2VyZmlsZXMvMjAxNy0wNC9iOWViYjg4Mi1jYjZlLTRjZmEtYTViYi04ZDVjY2JjNGNlY2IuanBnZAIHD2QWBGYPFQIrTWlsbHZpbGxlIEFyZWEgSnIuIFNyLiBIaWdoIFNjaG9vbCBCdWlsZGluZytNaWxsdmlsbGUgQXJlYSBKci4gU3IuIEhpZ2ggU2Nob29sIEJ1aWxkaW5nZAIBDxUBPC91c2VyZmlsZXMvMjAxNy0wMi9iNGFhNDQzNS04MTFkLTQxN2ItODA3MS0yOGM2ODI3NzIyNmEuanBlZ2QCCw9kFggCAw9kFgICAQ9kFgICAQ9kFgJmDxYCHwQFgAY8dWwgY2xhc3M9J3NmLXZlcnRpY2FsJyA+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29udGVudC9wYXJlbnRyZXNvdXJjZXMnIHRhcmdldD0nX2JsYW5rJyAgdGl0bGU9JyAgUGFyZW50IFJlc291cmNlcyc+PGkgY2xhc3M9ImZhIGZhLXVzZXIiID48L2k+ICBQYXJlbnQgUmVzb3VyY2VzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29udGVudC9zdHVkZW50cmVzb3VyY2VzJyAgIHRpdGxlPScgU3R1ZGVudCBSZXNvdXJjZXMnPjxpIGNsYXNzPSJmYSBmYS11c2VycyIgPjwvaT4gU3R1ZGVudCBSZXNvdXJjZXM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50L2ZhY3VsdHktc3RhZmYnICAgdGl0bGU9JyBGYWN1bHR5ICZhbXA7IFN0YWZmIFJlc291cmNlcyc+PGkgY2xhc3M9ImZhIGZhLXVuaXZlcnNpdHkiPjwvaT4gRmFjdWx0eSAmIFN0YWZmIFJlc291cmNlczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvYWx1bW5pJyAgIHRpdGxlPScgQWx1bW5pJz48aSBjbGFzcz0iZmEgZmEtbW9ydGFyLWJvYXJkIiA+PC9pPiBBbHVtbmk8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9Db250ZW50L2NvbW11bml0eScgICB0aXRsZT0nIENvbW11bml0eSBSZXNvdXJjZXMnPjxpIGNsYXNzPSJmYSBmYS1jb21wYXNzIiA+PC9pPiBDb21tdW5pdHkgUmVzb3VyY2VzPC9hPjwvbGk+PC91bD5kAgcPZBYCAgEPZBYEZg8PFgIeB1Zpc2libGVoZGQCAg9kFgQCAw8WAh8GaGQCBQ8WAh8AAhVkAgkPZBYCAgEPZBYGZg8WAh8EBRoyMDE5LTIwMjAgU2Nob29sIFllYXIgSW5mb2QCAQ8WAh8EBYYEPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxhIGhyZWY9Ii9kb2NzL2Rpc3RyaWN0LzIwMTktMjAgaW5mb3JtYXRpb24vMTktMjAgY2FsZW5kYXItYm9hcmQgYXBwcm92ZWQgMS0yOC0xOS5wZGY/aWQ9MjcwOCIgdGFyZ2V0PSJfYmxhbmsiPjIwMTktMjAmbmJzcDtTY2hvb2wgQ2FsZW5kYXImbmJzcDs8L2E+PC9wPg0KDQo8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PGEgaHJlZj0iL2RvY3MvZGlzdHJpY3QvcG9saWN5IDgxNS5wZGY/aWQ9MjU3NiIgdGFyZ2V0PSJfYmxhbmsiPkFjY2VwdGFibGUgVXNlIG9mIE5ldHdvcmtzLCBJbnRlcm5ldCwgJmFtcDsgQ29tcHV0aW5nIFJlc291cmNlcy1EaXN0cmljdCBQb2xpY3kgODE1PC9hPjwvcD4NCg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxhIGhyZWY9Ii91c2VyZmlsZXMvMjQwL215IGZpbGVzL2hhbmRib29rIDIwMTktMjAyMC1yZXYuZG9jeD9pZD0yODk2Ij5EaXN0cmljdCBTdHVkZW50IEhhbmRib29rIDE5LTIwPC9hPjwvcD5kAgMPDxYCHwUFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9MWRkAgsPZBYEAgEPZBYGZg8WAh8AAgYWDAIBD2QWAmYPFQcFMTExMjYTSmFuIDcgLTxiciAvPkFwciAyNEgvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCwxLDIsMyw0JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MTExMjYhS2luZGVyZ2FydGVuIE9uLUxpbmUgUmVnaXN0cmF0aW9uIUtpbmRlcmdhcnRlbiBPbi1MaW5lIFJlZ2lzdHJhdGlvbiRAd3d3Lm1pbGxzZC51cy9jb250ZW50L3JlZ2lzdHJhdGlvbiAAZAICD2QWAmYPFQcFMTExMDUrQXByPGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1udW1iZXIiPiAyNzwvZGl2PkgvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCwxLDIsMyw0JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MTExMDUNQm9hcmQgTWVldGluZw1Cb2FyZCBNZWV0aW5nC0BIUyBMaWJyYXJ5EEJlZ2lucyBAIDc6MDAgUE1kAgMPZBYCZg8VBwUxMTE0MCtNYXk8ZGl2IGNsYXNzPSJldmVudC1kYXRlLW51bWJlciI+IDExPC9kaXY+SC9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0xMTE0MA1Cb2FyZCBNZWV0aW5nDUJvYXJkIE1lZXRpbmcLQEhTIExpYnJhcnkQQmVnaW5zIEAgNzowMCBQTWQCBA9kFgJmDxUHBTExMDIwK01heTxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMTU8L2Rpdj5IL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMsNCZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTExMDIwIUFjdCA4MCBEYXktTm8gU2Nob29sIGZvciBzdHVkZW50cyFBY3QgODAgRGF5LU5vIFNjaG9vbCBmb3Igc3R1ZGVudHMAAGQCBQ9kFgJmDxUHBTExMDIxK01heTxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMjU8L2Rpdj5IL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMsNCZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTExMDIxCU5vIFNjaG9vbAlObyBTY2hvb2wAAGQCBg9kFgJmDxUHBTExMDIyL0p1bjxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMSAtICA0PC9kaXY+SC9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0xMTAyMiFFYXJseSBEaXNtaXNzYWwgRGF5cyBmb3Igc3R1ZGVudHMhRWFybHkgRGlzbWlzc2FsIERheXMgZm9yIHN0dWRlbnRzAABkAgQPDxYCHwUFIS9jYWxNb250aFZpZXcuYXNweD9zPTAmeT0yMDIwJm09NGRkAgYPDxYEHwUFRS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wJnNjaG9vbGlkPTAmdHlwZXM9JnZpZXdEYXRlPTQvMTkvMjAyMB8EBQhWaWV3IEFsbGRkAgMPZBYEZg88KwAKAQAPFgoeDU5leHRNb250aFRleHQFLj48c3BhbiBjbGFzcz0nb2JzY3VyZSc+R28gdG8gbmV4dCBtb250aDwvc3Bhbj4eAlNEFgEGAMCCmvTj1wgeC1RpdGxlRm9ybWF0CyolU3lzdGVtLldlYi5VSS5XZWJDb250cm9scy5UaXRsZUZvcm1hdAAeDURheU5hbWVGb3JtYXQLKidTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLkRheU5hbWVGb3JtYXQBHg1QcmV2TW9udGhUZXh0BTI8PHNwYW4gY2xhc3M9J29ic2N1cmUnPkdvIHRvIHByZXZpb3VzIG1vbnRoPC9zcGFuPmRkAgEPDxYGHgZUYXJnZXQFBl9ibGFuax8EBRJWaWV3IEZ1bGwgQ2FsZW5kYXIfBQUlL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00JnQ9MGRkAhEPZBYCZg9kFgJmDxYCHwACBBYIZg9kFgJmDxUFCy9sb2dpbi5hc3B4KE1pbGx2aWxsZSBBcmVhIFNjaG9vbCBEaXN0cmljdCBDTVMgTG9naW4FX3NlbGYmPHNwYW4gY2xhc3M9J29ic2N1cmUnPkNNUyBMb2dpbjwvc3Bhbj4NZmEgZmEtc2lnbi1pbmQCAQ9kFgJmDxUFFC9pbnRyYW5ldF9sb2dpbi5hc3B4J01pbGx2aWxsZSBBcmVhIFNjaG9vbCBEaXN0cmljdCBJbnRyYW5ldAVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+SW50cmFuZXQ8L3NwYW4+DWZhIGZhLXNpdGVtYXBkAgIPZBYCZg8VBSVodHRwczovL3d3dy5mYWNlYm9vay5jb20vbWlsbHZpbGxlc2QvG01BU0QgT2ZmaWNpYWwgRmFjZWJvb2sgcGFnZQZfYmxhbmslPHNwYW4gY2xhc3M9J29ic2N1cmUnPkZhY2Vib29rPC9zcGFuPhVmYSBmYS1mYWNlYm9vay1zcXVhcmVkAgMPZBYCZg8VBQsvYWRhLXJlcG9ydA1BREEgUmVwb3J0aW5nBl9ibGFuayU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+QURBIExpbms8L3NwYW4+FmZhIGZhLXVuaXZlcnNhbC1hY2Nlc3NkZHi64P//sfw4KiqlopXF5YHB5pPu">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script><script src="/WebResource.axd?d=ciQs-AUcGllikzvJxOn4IY9qdpn5WXYfT_PMnTK91Xt8dksb258BJxYsmn4olEPTocq6JTsZH-_-9MV4tnJ7755rEvo1&amp;t=635875512900000000" type="text/javascript"></script><a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'CnoHxmK23B' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="top-background-image">
+            <div class="headerback">
+                <header id="site-head"><div class="NavBack">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="navigation">
+					<div class="search">
+						<div>
+							<div class="searchPad">
+								<label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+							<div style="display: inline; float: right;" class="searchgo">
+								<a title="Search" class="bSearch glyphicon glyphicon-search-after"></a>
+							</div>
+						</div>
+					</div>
+
+					<nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+								<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand hidden-lg hidden-md hidden-sm" href="/">
+								<span id="ctl00_ctl00_header_header_ctl00_schoolName">Millville Area School District</span>
+							</a>
+						</div>
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav district-very-top-nav-links">
+<li class="without-image"><a href="http://www.millsd.us/Content2/faculty-staff" title="Faculty &amp; Staff Resources">Faculty &amp; Staff Resources</a></li>
+<li class="without-image"><a href="/" title="MASD Home Page">MASD Home Page</a></li>
+<li class="without-image"><a href="http://www.millsd.us/2/home" title="Elementary Building">Elementary Building</a></li>
+<li class="without-image"><a href="http://www.millsd.us/1/home" title="Jr./Sr. High Building">Jr./Sr. High Building</a></li>
+<li class="without-image"><a href="https://admin.protection.outlook.com/quarantine" title="SPAM Release">SPAM Release</a></li>
+</ul>
+<div class="collapsedLinks">
+								<ul class="nav navbar-nav district-top-images-nav-links">
+<li class="without-image"><a href="https://po.millville.k12.pa.us/owa" target="_blank" title="  Email"><i class="fa fa-envelope"></i>  Email</a></li>
+<li class="without-image"><a href="/Calendar" title="  Calendar"><i class="fa fa-calendar"></i>  Calendar</a></li>
+<li class="without-image"><a href="https://login.microsoftonline.com/" target="_blank" title=" Office 365"><i class="fa fa-windows" aria-hidden="true"></i> Office 365</a></li>
+<li class="without-image"><a href="/Staff" title=" Faculty Directory"><i class="fa fa-users"></i> Faculty Directory</a></li>
+<li class="without-image"><a href="https://millville-sapphire.k12system.com/" target="_blank" title=" Sapphire"><i class="fa fa-external-link"></i> Sapphire</a></li>
+<li class="without-image"><a href="https://www.facebook.com/millvillesd/" target="_blank" title=" Facebook"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a></li>
+</ul>
+<ul class="quicklinks">
+<li class="qlTitle">Top Links</li>
+								</ul>
+<ul class="nav navbar-nav left-nav">
+<li class="without-image"><a href="https://www.millsd.us/Content2/enrichment" aria-label="Enrichment Activities" title="Enrichment Activities">Covid19 Enrichment Activities</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Athletics">Athletics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.millsd.us/Athletics/Content/704" title="Athletic Hall of Fame">Athletic Hall of Fame</a></li>
+<li class="without-image"><a href="/Content/700" title="Sports Calendar">Sports Calendar</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/744" target="_blank" title="Physical Education">Physical Education</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms">Forms</a></li>
+<li class="without-image"><a href="/content/food-services" title="Food Service &amp; Student Meals">Food Service &amp; Student Meals</a></li>
+<li class="without-image"><a href="/2/home" title="Elementary School">Elementary School</a></li>
+<li class="without-image"><a href="/1/home" title="High School">High School</a></li>
+<li class="without-image"><a href="https://go.boarddocs.com/pa/mlvlsd/Board.nsf/Public" title="District Policies">District Policies</a></li>
+<li class="without-image"><a href="/4/home" title="Technology ">Technology </a></li>
+<li class="without-image"><a href="/content/student-services" title="Student Services">Student Services</a></li>
+<li class="without-image"><a href="https://www.safe2saypa.org/tip/" title="Safe2Say - Report a Threat or Harassment">Safe2Say - Report a Threat or Harassment</a></li>
+</ul>
+<ul class="quicklinks">
+<li class="qlTitle">Quick Links</li>
+								</ul>
+<ul class="nav navbar-nav left-nav">
+<li class="without-image"><a href="https://www.millsd.us/Content2/enrichment" aria-label="Enrichment Activities" title="Enrichment Activities">Covid19 Enrichment Activities</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Athletics">Athletics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.millsd.us/Athletics/Content/704" title="Athletic Hall of Fame">Athletic Hall of Fame</a></li>
+<li class="without-image"><a href="/Content/700" title="Sports Calendar">Sports Calendar</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/744" target="_blank" title="Physical Education">Physical Education</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms">Forms</a></li>
+<li class="without-image"><a href="/content/food-services" title="Food Service &amp; Student Meals">Food Service &amp; Student Meals</a></li>
+<li class="without-image"><a href="/2/home" title="Elementary School">Elementary School</a></li>
+<li class="without-image"><a href="/1/home" title="High School">High School</a></li>
+<li class="without-image"><a href="https://go.boarddocs.com/pa/mlvlsd/Board.nsf/Public" title="District Policies">District Policies</a></li>
+<li class="without-image"><a href="/4/home" title="Technology ">Technology </a></li>
+<li class="without-image"><a href="/content/student-services" title="Student Services">Student Services</a></li>
+<li class="without-image"><a href="https://www.safe2saypa.org/tip/" title="Safe2Say - Report a Threat or Harassment">Safe2Say - Report a Threat or Harassment</a></li>
+</ul>
+<ul class="quicklinks">
+<li class="qlTitle">Resources</li>
+								</ul>
+<div class="clearfix LeftImages" style="height: 100%;">
+    <ul class="sf-vertical">
+<li class="without-image"><a href="/content/parentresources" target="_blank" title="  Parent Resources"><i class="fa fa-user"></i>  Parent Resources</a></li>
+<li class="without-image"><a href="/content/studentresources" title=" Student Resources"><i class="fa fa-users"></i> Student Resources</a></li>
+<li class="without-image"><a href="/content/faculty-staff" title=" Faculty &amp; Staff Resources"><i class="fa fa-university"></i> Faculty &amp; Staff Resources</a></li>
+<li class="without-image"><a href="/Content/alumni" title=" Alumni"><i class="fa fa-mortar-board"></i> Alumni</a></li>
+<li class="without-image"><a href="/Content/community" title=" Community Resources"><i class="fa fa-compass"></i> Community Resources</a></li>
+</ul>
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+
+							</div>
+						</div>
+					</nav>
+</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="hidden-xs col-sm-12 col-md-12 col-lg-12">
+			<div class="head-logo-container">
+				<a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="logo" href="/index.aspx"><span class="obscure">Logo link to home page</span></a>
+				<a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome2" class="schoolName" href="/index.aspx">Millville Area School District</a>
+
+				<ul class="nav navbar-nav district-top-images-nav-links">
+<li class="without-image"><a href="https://po.millville.k12.pa.us/owa" target="_blank" title="  Email"><i class="fa fa-envelope"></i>  Email</a></li>
+<li class="without-image"><a href="/Calendar" title="  Calendar"><i class="fa fa-calendar"></i>  Calendar</a></li>
+<li class="without-image"><a href="https://login.microsoftonline.com/" target="_blank" title=" Office 365"><i class="fa fa-windows" aria-hidden="true"></i> Office 365</a></li>
+<li class="without-image"><a href="/Staff" title=" Faculty Directory"><i class="fa fa-users"></i> Faculty Directory</a></li>
+<li class="without-image"><a href="https://millville-sapphire.k12system.com/" target="_blank" title=" Sapphire"><i class="fa fa-external-link"></i> Sapphire</a></li>
+<li class="without-image"><a href="https://www.facebook.com/millvillesd/" target="_blank" title=" Facebook"><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a></li>
+</ul>
+</div>
+		</div>
+	</div>
+</div>
+
+	
+
+                </header><div class="slideshowback">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                
+	
+	
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({ effect: 'fade', pauseTime: 10000, prevText: 'Prev', nextText: 'Next', animSpeed: 500   });
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+	});
+</script><div id="slideshow" tabindex="-1">
+	<div class="slides">
+		
+				<img title="" alt="2020 Yearbooks for Sale" src="/images/full//userfiles/2020-04/8afb291c-0d60-4e4b-bb69-e04e7a41bcb7.png"><img title="" alt="2020 Yearbook Photo Challenge" src="/images/full//userfiles/2020-04/7ea22e01-a6f5-4e70-a8e8-60dd41a6fe28.png"><img title="" alt="High School Artwork Pick-up" src="/images/full//userfiles/2020-04/06412448-7f63-4389-b3b1-4ae9e48efe91.png"><img title="Millville Area School District Office Building" alt="Millville Area School District Office Building" src="/images/full//userfiles/2017-02/9b19358f-24e0-4da4-902b-06a2fb8fbb52.jpg"><img title="Millville Area District Office Building" alt="Millville Area District Office Building" src="/images/full//userfiles/2017-02/2bccb673-acad-4525-8bbd-ad28a5461704.jpg"><img title="Millville Area Elementary School Building" alt="Millville Area Elementary School Building" src="/images/full//userfiles/2017-02/a7872d0d-4372-4fa0-9665-b8dcc95ff49b.jpeg"><img title="Millville Area High School Building" alt="Millville Area High School Building" src="/images/full//userfiles/2017-04/b9ebb882-cb6e-4cfa-a5bb-8d5ccbc4cecb.jpg"><img title="Millville Area Jr. Sr. High School Building" alt="Millville Area Jr. Sr. High School Building" src="/images/full//userfiles/2017-02/b4aa4435-811d-417b-8071-28c68277226a.jpeg">
+</div>
+
+	
+</div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content-wrapper">
+            <div class="TopNav-NavBack hidden-xs">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <ul class="nav navbar-nav district-top-nav-links">
+<li class="without-image"><a href="/" title="MASD Home">MASD Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District Info">District Info  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/docs/district/about%20us%20tab/millville%20area%20sd%20comprehensive%20plan%2012-3-2015.pdf" target="_blank" title="Comprehensive Plan">Comprehensive Plan</a></li>
+<li class="without-image"><a href="/Content/4" title="Mission Statement">Mission Statement</a></li>
+<li class="without-image"><a href="https://www.millville.k12.pa.us/district_staff.aspx?action=search&amp;location=0&amp;department=2" title="District Administration">District Administration</a></li>
+<li class="without-image"><a href="/Content/84" title="District Report Cards">District Report Cards</a></li>
+<li class="without-image"><a href="/Content/100" title="Safety Committee">Safety Committee</a></li>
+<li class="without-image"><a href="/content/pde" target="_blank" title="Pennsylvania Department of Education">Pennsylvania Department of Education</a></li>
+<li class="without-image"><a href="/content/registration" title="New Student Registration">New Student Registration</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Education">Board of Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/board" title="BOE Home">BOE Home</a></li>
+<li class="without-image"><a href="/Content/12" title="Professional Negotiations Postings">Professional Negotiations Postings</a></li>
+<li class="without-image"><a href="/Content/16" title="Minutes From Committee Meetings">Minutes From Committee Meetings</a></li>
+<li class="without-image"><a href="/Content/18" title="School District Budget">School District Budget</a></li>
+<li class="without-image"><a href="/docs/district/depts/4/school%20board%20membership%20application.pdf?id=2523" title="Application for School Board Membership (pdf)">Application for School Board Membership (pdf)</a></li>
+<li class="without-image"><a href="/Content/574" title="School Board Minutes Prior to 2015">School Board Minutes Prior to 2015</a></li>
+<li class="without-image"><a href="https://go.boarddocs.com/pa/mlvlsd/Board.nsf/Public" title="District Policies">District Policies</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Special Education">Special Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/178" title="Special Education Home">Special Education Home</a></li>
+<li class="without-image"><a href="/Content/136" title="Articles of Interest">Articles of Interest</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Guidance          ">Guidance            <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/guidance" title="Guidance Home">Guidance Home</a></li>
+<li class="without-image"><a href="http://www.millsd.us/Content/Community%20Resources" title="Community Resources">Community Resources</a></li>
+<li class="without-image"><a href="http://www.millsd.us/Content/Guidance%20Elementary" title="Guidance Elementary">Guidance Elementary</a></li>
+<li class="without-image"><a href="/Content/740" title="Jr./Sr. High Guidance ">Jr./Sr. High Guidance </a></li>
+<li class="without-image"><a href="http://www.millsd.us/Content/Prevention%20Specialist%20%20" title="Prevention Specialist  ">Prevention Specialist  </a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Buildings / Departments">Buildings / Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/630" title="Millville Cyber School">Millville Cyber School</a></li>
+<li class="without-image"><a href="/content/462" title="Health Services Home">Health Services Home</a></li>
+<li class="without-image"><a href="/HighSchool/home" target="_blank" title="Jr. Sr. High School">Jr. Sr. High School</a></li>
+<li class="without-image"><a href="/elementary/home" title="Elementary School">Elementary School</a></li>
+<li class="without-image"><a href="http://www.millsd.us/Content/District%20Office" title="District Office">District Office</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Library">Library  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/562" target="_blank" title="Library Home">Library Home</a></li>
+<li class="without-image"><a href="/Content/664" title="Library Resources">Library Resources</a></li>
+<li class="without-image"><a href="/elementary/Content2/612" title="Library Elementary">Library Elementary</a></li>
+<li class="without-image"><a href="/HighSchool/Content/336" target="_blank" title="Library JrSr High">Library JrSr High</a></li>
+<li class="without-image"><a href="/content/626" title="Web 2.0 Tools">Web 2.0 Tools</a></li>
+<li class="without-image"><a href="/content/666" title="CRFR">CRFR</a></li>
+<li class="without-image"><a href="/content/668" title="Citation">Citation</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Technology">Technology  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="/technology/home" title="Technology Home">Technology Home</a></li></ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Contact Us">Contact Us  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Content/146" title="Directions">Directions</a></li>
+</ul>
+</li>
+</ul>
+</div>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="body-content-container">
+                <div class="container">
+                    <div class="masterC alignment-stretch">
+                        <div class="row">
+                            
+	<div class="hidden-xs col-sm-4 col-md-3 col-lg-3 backgroundcolor">
+		<div class="clearfix panel content">
+			
+				<h1>Quick Links
+				</h1>
+				<ul class="nav navbar-nav left-nav">
+<li class="without-image"><a href="https://www.millsd.us/Content2/enrichment" aria-label="Enrichment Activities" title="Enrichment Activities">Covid19 Enrichment Activities</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Athletics">Athletics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.millsd.us/Athletics/Content/704" title="Athletic Hall of Fame">Athletic Hall of Fame</a></li>
+<li class="without-image"><a href="/Content/700" title="Sports Calendar">Sports Calendar</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/744" target="_blank" title="Physical Education">Physical Education</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms">Forms</a></li>
+<li class="without-image"><a href="/content/food-services" title="Food Service &amp; Student Meals">Food Service &amp; Student Meals</a></li>
+<li class="without-image"><a href="/2/home" title="Elementary School">Elementary School</a></li>
+<li class="without-image"><a href="/1/home" title="High School">High School</a></li>
+<li class="without-image"><a href="https://go.boarddocs.com/pa/mlvlsd/Board.nsf/Public" title="District Policies">District Policies</a></li>
+<li class="without-image"><a href="/4/home" title="Technology ">Technology </a></li>
+<li class="without-image"><a href="/content/student-services" title="Student Services">Student Services</a></li>
+<li class="without-image"><a href="https://www.safe2saypa.org/tip/" title="Safe2Say - Report a Threat or Harassment">Safe2Say - Report a Threat or Harassment</a></li>
+</ul>
+</div>
+		
+			
+<div class="clearfix LeftImages" style="height: 100%;">
+    <ul class="sf-vertical">
+<li class="without-image"><a href="/content/parentresources" target="_blank" title="  Parent Resources"><i class="fa fa-user"></i>  Parent Resources</a></li>
+<li class="without-image"><a href="/content/studentresources" title=" Student Resources"><i class="fa fa-users"></i> Student Resources</a></li>
+<li class="without-image"><a href="/content/faculty-staff" title=" Faculty &amp; Staff Resources"><i class="fa fa-university"></i> Faculty &amp; Staff Resources</a></li>
+<li class="without-image"><a href="/Content/alumni" title=" Alumni"><i class="fa fa-mortar-board"></i> Alumni</a></li>
+<li class="without-image"><a href="/Content/community" title=" Community Resources"><i class="fa fa-compass"></i> Community Resources</a></li>
+</ul>
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+
+		
+	</div>
+	<div class="col-xs-12 col-sm-8 col-md-5 col-lg-5 backgroundcolor">
+
+		
+		
+
+
+		<div class="clearfix panel content">
+			
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+	<h1>News &amp; Announcements
+	</h1>
+	<div class="news">
+		
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/432">First Columbia Teen Star Competition</a>
+
+				<span class="news-post-date">Posted On: Friday, April 17, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkImage" class="news-image" href="/News/432"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_articleImage" src="/docs/_Thumb_/district/virtualts-registrationflyer20-1.jpg?id=3145&amp;thumbwidth=190&amp;fullwidth=500" alt="Teen Star 2020 Competition" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lblSummary" class="news-summary"><p>Check out the flyer for details how to register!</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/428">Kindergarten Screenings Postponed</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 15, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lblSummary" class="news-summary"></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkViewAll" title="Click to read more about: Kindergarten Screenings Postponed" class="view-all" href="/News/428">Read More <span class="sr-only">about Kindergarten Screenings Postponed</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/423">Continuing Virtual Instruction through June 5th</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 9, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lblSummary" class="news-summary"><p style="margin: 0px;"><span style="margin: 0px; font-size: 12pt;"><font color="#000000" face="Calibri">Earlier today (April 9th, 2020), Governor Wolf and Secretary of Education Rivera closed PA schools through the end of the 2019-20 academic year, as defined by our local school calendar.  This means we will be continuing with our virtual planned instruction.  They closed the school buildings but did not discontinue the educational process.  All students are expected to show a good faith effort in their classes/subjects by logging in, attending meetings, participating and completing assignments.  The last student day for the 2019-20 school year is expected to be June 5, 2020.</font></span></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/408">Feeding our Students</a>
+
+				<span class="news-post-date">Posted On: Monday, March 16, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lblSummary" class="news-summary"><p>Millville Area School District will be feeding our students ages 18 and younger for free during this mandated closure.</p>
+
+<p>LUNCH DISTRIBUTION CHANGES!</p>
+
+<p><span style="color:#FF0000;"><strong>Lunch Distribution for the Week of April 6th</strong></span></p>
+
+<p>Lunches will be distributed on Monday, April 6th, Wednesday, April 8th, and Thursday, April 9th.<br>
+Monday, April 6th--for Monday and Tuesday<br>
+Wednesday, April 8th--for Wednesday and Thursday<br>
+Thursday, April 9th--for Friday and weekend</p>
+
+<p><span style="color:#FF0000;"><strong>Lunch Distribution for the Week of April 13th</strong></span></p>
+
+<p>Lunches will be distributed on Monday and Thursday only<br>
+Each of the 2 days will provide you with 3 breakfasts and 3 lunches.<br>
+Distribution is from 11:00-12:00 at Jerseytown Community Center, LJ's Corner Market in Rohrsburg, and the bus lane of the elementary school.</p>
+
+<p>If you have any questions or additional needs, please contact the elementary school at 570-458-5538 ext 1001.</p>
+
+<p>Please do not get out of your car, as we have people who will deliver the food to you.  Thank You.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lnkTitle" class="news-title" href="/News/424">2019-2020 Millville Prom is Cancelled</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 9, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lblSummary" class="news-summary"><p>Please note that the 2019-2020 Millville Prom has been Cancelled</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lnkTitle" class="news-title" href="/News/427">Atlantic Broadband Internet Assist</a>
+
+				<span class="news-post-date">Posted On: Tuesday, April 14, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lblSummary" class="news-summary"><p><span style='font-size:10.0pt;font-family:"Verdana",sans-serif;
+mso-fareast-font-family:Calibri;mso-fareast-theme-font:minor-latin;mso-bidi-font-family:
+"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:EN-US;
+mso-bidi-language:AR-SA'>Atlantic Broadband has introduced “Atlantic Broadband Internet Assist” for a limited time for residents in need in its service areas who do not presently have internet with Atlantic Broadband. The new 15 x 1 Mbps service, normally priced at $9.99 per month plus taxes, <strong><span style='font-family:"Verdana",sans-serif'>will be offered free for 60 days</span></strong>. New Atlantic Broadband Internet Assist customers also will receive free installation and a free modem with the service. Those interested in the Internet Assist service should contact Atlantic Broadband at <strong><span style='font-family:"Verdana",sans-serif'>(888) 536-9600</span></strong>.</span></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_lnkTitle" class="news-title" href="/News/426">WVIA Public Media</a>
+
+				<span class="news-post-date">Posted On: Tuesday, April 14, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_lblSummary" class="news-summary"><p><a href="/docs/district/covid19/wvia%20public%20media.pdf?id=3135"><span style="color:#0000CD;"><b><span style='font-size: 21pt; font-family: "Arial", sans-serif;'>VIA Education During COVID-19</span></b></span></a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl08_lnkTitle" class="news-title" href="/News/425">Flex Friday</a>
+
+				<span class="news-post-date">Posted On: Monday, April 13, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl08_lblSummary" class="news-summary"><p style="text-align: center;"><strong><span style="color:#FF0000;"><span style="font-size:16px;">Flex Friday</span></span></strong><br><span class="Underline" style="text-decoration-line: underline;"><strong><span style="font-size:14px;">Starting April 17th</span></strong></span><br><span style="font-size:14px;"><strong>For the remainder of this school closure, students will be assigned academic work Monday -Thursday with Fridays being a flexible day. There will be no additional work assigned to accommodate for FLEX Fridays. Here is what FLEX Fridays are for:</strong></span><br><span style="font-size:14px;"><span style="color:#FF0000;"><strong>EXTRA Learning and Support Time—</strong></span><strong><span style="color:#006400;">Friday can be used as a catch up day, making connections with any teachers you may need support from.</span></strong></span><br><span style="font-size:14px;"><span style="color:#FF0000;"><strong>LEISURE LEARNING—</strong></span><span style="color:#0000CD;"><strong>Parents and students will have time to spend in nature, go on a virtual field trip, whatever you plan as a family.</strong></span></span><br><span style="color:#FF0000;"><strong><span style="font-size:14px;">FUN—</span></strong></span><span style="color:#A52A2A;"><strong><span style="font-size:14px;">This needs no explanation!</span></strong></span><br><strong><span style="color:#FF0000;"><span style="font-size:16px;">We can’t wait to see how you use your FLEX Fridays!</span></span></strong></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl09_lnkTitle" class="news-title" href="/News/421">Students, we miss you! Check out this message from the High School Teachers and Staff!</a>
+
+				<span class="news-post-date">Posted On: Tuesday, April 7, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl09_lnkImage" class="news-image" href="/News/421"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl09_articleImage" src="/docs/_Thumb_/district/millville%20high%20school%20photo%20.jpg?id=3131&amp;thumbwidth=190&amp;fullwidth=500" alt="High School Pic Message" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl09_lblSummary" class="news-summary"></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl10_lnkTitle" class="news-title" href="/News/420">Millville-Continuity of Education Plan Submission.pdf</a>
+
+				<span class="news-post-date">Posted On: Monday, April 6, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl10_lblSummary" class="news-summary"><p><font color="#0b0118">Click here to view the <a href="/docs/district/millville-continuity%20of%20education%20plan%20submission.pdf?id=3130">Millville-continuity of education plan submission</a> PDF</font></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl11_lnkTitle" class="news-title" href="/News/418">Class Trip Cancelled</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 2, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl11_lblSummary" class="news-summary"><p>Please be aware that the Senior Class trip scheduled for April 30-May 2, 2020 has been cancelled.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl12_lnkTitle" class="news-title" href="/News/417">Food Assistance Resources</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 1, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl12_lblSummary" class="news-summary"><p><a href="/docs/district/depts/16/foodhelp.pdf?id=3125">Food Assistance Resources -</a></p>
+
+<p><a href="/docs/district/depts/16/foodhelp.pdf?id=3125"><img alt="Agape" class="" src="/userfiles/133/my%20files/screenhunter_78%20apr.%2001%2015.29.jpg?id=3129&amp;width=303" style="width: 303px; height: 113px;"></a></p>
+
+<p> </p>
+
+<p><a href="/docs/district/depts/16/sheetz.pdf?id=3126">Food Assistance Resources  SHEETZ -</a> </p>
+
+<p><a href="/docs/district/depts/16/sheetz.pdf?id=3126"><img alt="Sheetz" src="/userfiles/133/my%20files/screenhunter_77%20apr.%2001%2015.23.jpg?id=3128&amp;width=323" style="width: 323px; height: 108px;"></a></p>
+
+<p> </p>
+
+<p> </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl13_lnkTitle" class="news-title" href="/News/416">Instructions</a>
+
+				<span class="news-post-date">Posted On: Thursday, March 26, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl13_lblSummary" class="news-summary"><p>To access PDF documents to assist you with logging into TEAMS from a Mac, PC, or iPad, or for home WIFI connection instructions, go to this link on our Technology page: <a href="https://www.millsd.us/Technology/Content2/howto">How to Procedures …...</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl14_lnkTitle" class="news-title" href="/News/415">All Students 7-12</a>
+
+				<span class="news-post-date">Posted On: Thursday, March 26, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl14_lblSummary" class="news-summary"><p>Attention all Students grades 7 through 12. A very important e-mail was sent to your school e-mail accounts. Please log into your school e-mail accounts and read the PDF instructions for logging into TEAMS. Teams is the app that your teachers are going to be using for your assignments.</p>
+
+<p><a href="/docs/district/depts/14/instructions%20to%20open%20teams%20in%20o365.pdf?id=3121" target="_blank">Also you can click here to view the PDF.</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl15_lnkTitle" class="news-title" href="/News/414">Field Trips Cancelled</a>
+
+				<span class="news-post-date">Posted On: Thursday, March 26, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl15_lblSummary" class="news-summary"><p>Attention!</p>
+
+<p>All field trips for elementary and high school students have been cancelled for the remainder of the 2019-20 school year.</p>
+
+<p>This also includes any competitions that would have occurred between now and the end of the year.</p>
+
+<p>The following items are still on hold and not cancelled yet—Senior Class trip, Prom, and Graduation.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl16_lnkTitle" class="news-title" href="/News/392">Employment @ Millville Area</a>
+
+				<span class="news-post-date">Posted On: Thursday, February 20, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl16_lblSummary" class="news-summary"><p><a href="https://www.millville.k12.pa.us/Employment">Full-time K-12 School Psychologist</a><br><a href="/docs/district/employment/full-time%20k-12%20school%20psychologist%20.pdf?id=3080">Click for AD</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl17_lnkTitle" class="news-title" href="/News/338">Important Notice About Attendance Policy</a>
+
+				<span class="news-post-date">Posted On: Tuesday, August 20, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl17_lblSummary" class="news-summary"><p>Please click <a href="/userfiles/240/my%20files/attendance%20policy%20letter.pdf?id=2842">HERE</a> to read this important letter about our school's attendance policy as attendance is an integral part of your student's success!</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl18_lnkTitle" class="news-title" href="/News/334">2019 CHIP Information</a>
+
+				<span class="news-post-date">Posted On: Wednesday, August 7, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl18_lblSummary" class="news-summary"><p><a href="/docs/district/2019-20%20information/chip%20flyers%202019-english.pdf?id=2815">CHIP Flyer</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl19_lnkTitle" class="news-title" href="/News/331">Compulsory School Age Change</a>
+
+				<span class="news-post-date">Posted On: Thursday, July 18, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl19_lblSummary" class="news-summary"><p style="margin-left:1.0in;"><strong>Important Change in Definition of “Compulsory School Age”</strong></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl19_lnkViewAll" title="Click to read more about: Compulsory School Age Change" class="view-all" href="/News/331">Read More <span class="sr-only">about Compulsory School Age Change</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl20_lnkTitle" class="news-title" href="/News/139">Student Accident Insurance</a>
+
+				<span class="news-post-date">Posted On: Wednesday, June 19, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl20_lblSummary" class="news-summary"><p>Information on <a href="/docs/district/student%20insurance/student%20insurance%2019-20.pdf?id=2795">2019-2020 Student Accident Insurance</a> is now available by clicking <a href="/docs/district/student%20insurance/student%20insurance%2019-20.pdf?id=2795">here</a>.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl21_lnkTitle" class="news-title" href="/News/280">YES Employment Services for ages 16-24</a>
+
+				<span class="news-post-date">Posted On: Wednesday, January 30, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl21_lblSummary" class="news-summary"></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl21_lnkViewAll" title="Click to read more about: YES Employment Services for ages 16-24" class="view-all" href="/News/280">Read More <span class="sr-only">about YES Employment Services for ages 16-24</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+	<a href="/districtNewsArticles.aspx" class="view-all-news">View All News
+	</a>
+	<a href="/districtNewsArticles.aspx" class="view-all-news2">View All News
+	</a>
+	<div class="clr">
+	</div>
+
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 backgroundcolor">
+        		
+	<div class="clearfix panel content">
+		
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        2019-2020 School Year Info
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p style="text-align: center;"><a href="/docs/district/2019-20%20information/19-20%20calendar-board%20approved%201-28-19.pdf?id=2708" target="_blank">2019-20 School Calendar </a></p>
+
+<p style="text-align: center;"><a href="/docs/district/policy%20815.pdf?id=2576" target="_blank">Acceptable Use of Networks, Internet, &amp; Computing Resources-District Policy 815</a></p>
+
+<p style="text-align: center;"><a href="/userfiles/240/my%20files/handbook%202019-2020-rev.docx?id=2896">District Student Handbook 19-20</a></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+	</div>
+
+
+		<div class="clearfix panel content">
+			
+	<h1>Calendar &amp; Events</h1>
+	
+		<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-11126">
+			<div class="event-date">
+				Jan 7 -<br>Apr 24
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=11126" title="Kindergarten On-Line Registration">
+					Kindergarten On-Line Registration
+				</a>
+			</div>
+			<div class="event-location">
+				@www.millsd.us/content/registration 
+			</div>
+			<div class="event-time">
+				
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-11105">
+			<div class="event-date">
+				Apr<div class="event-date-number"> 27</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=11105" title="Board Meeting">
+					Board Meeting
+				</a>
+			</div>
+			<div class="event-location">
+				@HS Library
+			</div>
+			<div class="event-time">
+				Begins @ 7:00 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-11140">
+			<div class="event-date">
+				May<div class="event-date-number"> 11</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=11140" title="Board Meeting">
+					Board Meeting
+				</a>
+			</div>
+			<div class="event-location">
+				@HS Library
+			</div>
+			<div class="event-time">
+				Begins @ 7:00 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-11020">
+			<div class="event-date">
+				May<div class="event-date-number"> 15</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=11020" title="Act 80 Day-No School for students">
+					Act 80 Day-No School for students
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-11021">
+			<div class="event-date">
+				May<div class="event-date-number"> 25</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=11021" title="No School">
+					No School
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-11022">
+			<div class="event-date">
+				Jun<div class="event-date-number"> 1 -  4</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=11022" title="Early Dismissal Days for students">
+					Early Dismissal Days for students
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		</ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_hl_viewAllEvents" class="view-all-events" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/19/2020">View All</a>
+</footer><style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7365')" style="color:Black" title="Go to the previous month">&lt;<span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7426')" style="color:Black" title="Go to the next month">&gt;<span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">Sun</th>
+<th align="center" abbr="Monday" scope="col">Mon</th>
+<th align="center" abbr="Tuesday" scope="col">Tue</th>
+<th align="center" abbr="Wednesday" scope="col">Wed</th>
+<th align="center" abbr="Thursday" scope="col">Thu</th>
+<th align="center" abbr="Friday" scope="col">Fri</th>
+<th align="center" abbr="Saturday" scope="col">Sat</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=3/29/2020">29</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=3/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=3/31/2020">31</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/1/2020">1</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/2/2020">2</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/3/2020">3</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/5/2020">5</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/6/2020">6</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/7/2020">7</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/8/2020">8</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/9/2020">9</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/10/2020">10</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/12/2020">12</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/13/2020">13</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/14/2020">14</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/15/2020">15</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/16/2020">16</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/19/2020">19</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/20/2020">20</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/21/2020">21</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/23/2020">23</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/26/2020">26</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/27/2020">27</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/28/2020">28</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/29/2020">29</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,32,51,52,53,54,55&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+	</div>
+	<div class="clr">
+	</div>
+
+                        </div>
+                        <div class="clr">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		<div class="footerinfo">
+			
+			<div>
+				330 East Main Street
+			</div>
+			<div>
+				Millville, PA 17846
+			</div>
+			<div>
+				
+				<a href="tel:570.458.5538">Phone: 570.458.5538  </a>
+				|  Fax: 570.458.5584
+			</div>
+			<div>
+				<a href="http://maps.google.com/maps?q=330%20East%20Main%20Street+Millville+PA+17846">View Map &amp; Directions
+				</a>
+			</div>
+			
+		</div>
+	</div>
+
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		<div id="social-links-bottom">
+			
+        <a href="/login.aspx" title="Millville Area School District CMS Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/Login/Intranet" title="Millville Area School District Intranet" target="_self">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/millvillesd/" title="MASD Official Facebook page" target="_blank">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook-square"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_blank">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+			<div class="clr">
+			</div>
+		</div>
+        <div>
+             
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+</div>
+	</div>
+</div>
+
+<div class="footer-branding-container">
+	<div class="row">
+		<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+			<div class="copyright">© 2020 Millville Area School District</div>
+			<a href="http://www.schoolpointe.com" target="_blank" class="sp-logo" alt="SchoolPointe">
+				<img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPwhite.png"></a>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-61700231-38', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer>
+</div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0"><input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC22eJ7yKeB8LrMB776Hq665iDHydsK03lx8Xtjj8McOnhM1E/Z+4AtYfBLjoqzHUNzx8re9P49CESeNcN+aUYUYylAVjuf883gda9qxPWJdWzlAW1I7BexV+czOzRObl3d50nMhilDDHAwFxGIx0wbFChwQ4Ex0vxOTS+4GFwX5O7kl0Ub38BaDmMgKQcEKVqNSQD67gQzTXdB4A0BTQX56TjzPdP4KgmIAJFo6XWNsVobKscM9xAMf7wwexMr1VQr6eny5cHvWE8n08cMlPMX4UUsMkilD+ZSI9iMjU0yDuCD8GsnLDl6GsgBmi45cgSxLOQJb0r0B03brVHI2aRHj1HX4bsgg9FALGXgdAnz+3fPXHQkoFYN6AHzJTqhMhgIUZHRyIop27ZqiAc5YtJ2CBmWGVEJRDuOVtSdk96ZySIM7oQRKLNMMfuEaYBPHf7UnvwclkPDJBJa1wKztDi6ksAKSxkS0J9AQoAbRkhRLYupP5UfZtzYMcETdrtRuebqUFNAgBxTdrc7p3lb5cG87gm7gyuj+DfF4g5gBMII5vbFKWePuk/HCjfYquEX2jQfetIrU0FyvbBObo1CEWr8JkkUFRwOfzMDwGZIdDlEZh0FsPpuONYQUyNniCyMIahBgL9N5WPrxm7gqXxJSO3bUUENDE9dXDnHAyMxZUeTfBuKQjtJNZCvgL3hOtBgN53JKgunZuEj8FebONNvrKSLQqlYIB6TKJFENEjsUkBLzAOx9UysQWNNGqUBe0wmZ11N1yVx/jqgB2/mbAHkazISKTMuizNiXiSwyoHGDIcvBxXS9J1pDBfJ5u5J2HPiBBN+Xr4uuDR+WtbHcMYtsYms3xHSKYhMkeSMxWk7MMjQy2jqouDmyradb3nBLSPm24J8mLJQ9K5ToZmSewp0Qk2VvFiQDTVcI9Q9wgwvj0GaEsvuvDOI+IORDvkjx+dyMqFUSv4S6ao+URHPlLtykGr15XT7mpw==">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+</body>
+</html>

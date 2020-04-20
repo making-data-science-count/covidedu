@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-gb">
+<head>
+<base href="http://www.panhandle.k12.il.us/">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="generator" content="Joomla! - Open Source Content Management">
+<title>Home</title>
+<link href="/index.php?option=com_ajax&amp;plugin=arkbootstrap&amp;format=json" rel="stylesheet" type="text/css" media="null" attribs="[]">
+<link href="/index.php?option=com_ajax&amp;plugin=arktypography&amp;format=json" rel="stylesheet" type="text/css" media="null" attribs="[]">
+<link href="http://www.panhandle.k12.il.us/plugins/content/pdf_embed/assets/css/style.css" rel="stylesheet" type="text/css">
+<link href="http://www.panhandle.k12.il.us/media/editors/arkeditor/css/squeezebox.css" rel="stylesheet" type="text/css">
+<link href="/components/com_jevents/views/flat/assets/css/modstyle.css?3.4.47" rel="stylesheet" type="text/css">
+<link href="/media/com_jevents/css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="/media/com_jevents/css/bootstrap-responsive.css" rel="stylesheet" type="text/css">
+<link href="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/rs-plugin/css/settings.css" rel="stylesheet" type="text/css">
+<link href="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/rs-plugin/css/dynamic-captions.css" rel="stylesheet" type="text/css">
+<link href="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/rs-plugin/css/static-captions.css" rel="stylesheet" type="text/css">
+<script type="application/json" class="joomla-script-options new">{"csrf.token":"dcc450447e6284f66d292957b1ad3f12","system.paths":{"root":"","base":""}}</script><script src="/media/system/js/mootools-core.js?7b7a8abdbbf70d543d5e0a3881ce34c5" type="text/javascript"></script><script src="/media/system/js/core.js?7b7a8abdbbf70d543d5e0a3881ce34c5" type="text/javascript"></script><script src="/media/system/js/mootools-more.js?7b7a8abdbbf70d543d5e0a3881ce34c5" type="text/javascript"></script><script src="/media/jui/js/jquery.min.js?7b7a8abdbbf70d543d5e0a3881ce34c5" type="text/javascript"></script><script src="/media/jui/js/jquery-noconflict.js?7b7a8abdbbf70d543d5e0a3881ce34c5" type="text/javascript"></script><script src="/media/jui/js/jquery-migrate.min.js?7b7a8abdbbf70d543d5e0a3881ce34c5" type="text/javascript"></script><script src="/media/system/js/caption.js?7b7a8abdbbf70d543d5e0a3881ce34c5" type="text/javascript"></script><script src="http://www.panhandle.k12.il.us/media/editors/arkeditor/js/jquery.easing.min.js" type="text/javascript"></script><script src="http://www.panhandle.k12.il.us/media/editors/arkeditor/js/squeezebox.min.js" type="text/javascript"></script><script src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/rs-plugin/js/jquery.themepunch.tools.min.js" type="text/javascript"></script><script src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/rs-plugin/js/jquery.themepunch.revolution.min.js" type="text/javascript"></script><script type="text/javascript">
+jQuery(function($) {
+			 $('.hasTip').each(function() {
+				var title = $(this).attr('title');
+				if (title) {
+					var parts = title.split('::', 2);
+					var mtelement = document.id(this);
+					mtelement.store('tip:title', parts[0]);
+					mtelement.store('tip:text', parts[1]);
+				}
+			});
+			var JTooltips = new Tips($('.hasTip').get(), {"maxTitleChars": 50,"fixed": false});
+		});jQuery(window).on('load',  function() {
+				new JCaption('img.caption');
+			});(function()
+				{
+					if(typeof jQuery == 'undefined')
+						return;
+					
+					jQuery(function($)
+					{
+						if($.fn.squeezeBox)
+						{
+							$( 'a.modal' ).squeezeBox({ parse: 'rel' });
+				
+							$( 'img.modal' ).each( function( i, el )
+							{
+								$(el).squeezeBox({
+									handler: 'image',
+									url: $( el ).attr( 'src' )
+								});
+							})
+						}
+						else if(typeof(SqueezeBox) !== 'undefined')
+						{
+							$( 'img.modal' ).each( function( i, el )
+							{
+								SqueezeBox.assign( el, 
+								{
+									handler: 'image',
+									url: $( el ).attr( 'src' )
+								});
+							});
+						}
+						
+						function jModalClose() 
+						{
+							if(typeof(SqueezeBox) == 'object')
+								SqueezeBox.close();
+							else
+								ARK.squeezeBox.close();
+						}
+					
+					});
+				})();function fetchMoreLatestEvents(modid, direction)
+{        
+        jQuery.ajax({
+                    type : 'POST',
+                    dataType : 'json',
+                    url : "http://www.panhandle.k12.il.us/index.php?option=com_jevents&ttoption=com_jevents&typeaheadtask=gwejson&file=fetchlatestevents&path=module&folder=mod_jevents_latest&token=dcc450447e6284f66d292957b1ad3f12",
+                    data : {'json':JSON.stringify({'modid':modid, 'direction':direction})},
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    scriptCharset: "utf-8"
+            })                        
+                .done(function( data ){                    
+                    jQuery("#mod_events_latest_"+modid+"_data").replaceWith(data.html);
+                    try {
+                        document.getElementById("mod_events_latest_"+modid+"_data").parentNode.scrollIntoView({block: "start", behavior: "smooth"});
+                    }
+                    catch (e) {
+                    }
+                })
+                .fail(function(x) {
+        alert('fail '+x);
+                });
+}
+	</script><link rel="stylesheet" href="/templates/system/css/system.css">
+<link rel="stylesheet" href="/templates/system/css/general.css">
+<!-- Created by Artisteer v4.3.0.60745 --><meta name="viewport" content="initial-scale = 1.0, maximum-scale = 1.0, user-scalable = no, width = device-width">
+<!--[if lt IE 9]><script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]--><link rel="stylesheet" href="/templates/lancernew/css/template.css" media="screen" type="text/css">
+<!--[if lte IE 7]><link rel="stylesheet" href="/templates/lancernew/css/template.ie7.css" media="screen" /><![endif]--><link rel="stylesheet" href="/templates/lancernew/css/template.responsive.css" media="all" type="text/css">
+<script>if ('undefined' != typeof jQuery) document._artxJQueryBackup = jQuery;</script><script src="/templates/lancernew/jquery.js"></script><script>jQuery.noConflict();</script><script src="/templates/lancernew/script.js"></script><script src="/templates/lancernew/script.responsive.js"></script><script src="/templates/lancernew/modules.js"></script><script>if (document._artxJQueryBackup) jQuery = document._artxJQueryBackup;</script>
+</head>
+<body>
+
+<div id="art-main">
+<header class="art-header"><div class="art-shapes">
+        <div class="art-object1111578551"></div>
+
+            </div>
+
+<h1 class="art-headline">
+    <a href="/"> Panhandle School District #2</a>
+</h1>
+<h2 class="art-slogan">Good Schools . . . Good Students</h2>
+
+
+
+
+
+<nav class="art-nav"><div class="art-nav-inner">
+    
+<ul class="art-hmenu" id="Main Menu">
+<li class="item-115 deeper parent">
+<a href="/index.php/2015-11-16-19-39-24">About Us</a><ul>
+<li class="item-143"><a href="/index.php/2015-11-16-19-39-24/about-us-home">About Us Home</a></li>
+<li class="item-181"><a href="/index.php/2015-11-16-19-39-24/2015-11-29-16-35-16">School Report Cards</a></li>
+<li class="item-135"><a href="/index.php/2015-11-16-19-39-24/resources">Extras</a></li>
+<li class="item-159"><a href="/index.php/2015-11-16-19-39-24/positive-behavior-program">Positive Behavior Program</a></li>
+<li class="item-173"><a href="/index.php/2015-11-16-19-39-24/mission-statement">Mission Statement</a></li>
+<li class="item-212 deeper parent">
+<a href="/index.php/2015-11-16-19-39-24/panhandle-contacts">Panhandle Contacts</a><ul>
+<li class="item-214"><a href="/index.php/2015-11-16-19-39-24/panhandle-contacts/raymond-gs-contacts">Raymond GS Contacts</a></li>
+<li class="item-215"><a href="/index.php/2015-11-16-19-39-24/panhandle-contacts/farmersville-gs-contacts">Farmersville GS Contacts</a></li>
+<li class="item-213"><a href="/index.php/2015-11-16-19-39-24/panhandle-contacts/lincolnwood-contacts">Lincolnwood Contacts</a></li>
+<li class="item-216"><a href="/index.php/2015-11-16-19-39-24/panhandle-contacts/district-contacts">District Contacts</a></li>
+</ul>
+</li>
+<li class="item-165"><a href="/index.php/2015-11-16-19-39-24/internet-safety">Internet Safety</a></li>
+<li class="item-203"><a href="http://teacher.panhandleschools.com/">Teacher Web Pages</a></li>
+<li class="item-241"><a href="/index.php/2015-11-16-19-39-24/clasds-portraits">Class Portraits</a></li>
+</ul>
+</li>
+<li class="item-101 current active deeper parent">
+<a class=" active" title="Home" href="/index.php">Home</a><ul>
+<li class="item-174"><a href="/index.php/home/district-news-events">District News &amp; Events</a></li>
+<li class="item-127"><a href="/index.php/home/contact-us">Contact Us</a></li>
+</ul>
+</li>
+<li class="item-105 deeper parent">
+<a href="/index.php/2015-11-12-23-26-17">District</a><ul>
+<li class="item-163 deeper parent">
+<a href="/index.php/2015-11-12-23-26-17/unit-office">Unit Office </a><ul><li class="item-172"><a href="/index.php/2015-11-12-23-26-17/unit-office/message-from-the-superintendent">Message from the Superintendent</a></li></ul>
+</li>
+<li class="item-126"><a href="/index.php/2015-11-12-23-26-17/board-agendas-and-minutes">Board Agendas and Minutes</a></li>
+<li class="item-128 deeper parent">
+<a href="/index.php/2015-11-12-23-26-17/board-information">Board Information</a><ul><li class="item-164"><a href="/index.php/2015-11-12-23-26-17/board-information/board-e-mail">Board E-Mail</a></li></ul>
+</li>
+<li class="item-117"><a href="/index.php/2015-11-12-23-26-17/cancellations">Cancellations</a></li>
+<li class="item-133"><a href="/index.php/2015-11-12-23-26-17/employment-opportunities">Employment Opportunities</a></li>
+<li class="item-167 deeper parent">
+<a href="http://www.panhandleschools.com/Foundation/Foundhome1.htm">Panhandle Ed Foundation</a><ul><li class="item-446"><a href="http://www.panhandleschools.com/images/pdf/FoundnewsletterWinter17.pdf%20">Panhandle Foundation Newsletter -- Winter 2017</a></li></ul>
+</li>
+<li class="item-158"><a href="/index.php/2015-11-12-23-26-17/panhandle-staff">Panhandle Staff</a></li>
+</ul>
+</li>
+<li class="item-106 deeper parent">
+<a href="/index.php/2015-11-12-23-27-35">LHS/LJH</a><ul>
+<li class="item-491"><a href="/index.php/2015-11-12-23-27-35/attendance-letter">Attendance Letter</a></li>
+<li class="item-490"><a href="/index.php/2015-11-12-23-27-35/mr-schuster-intro">Mr. Schuster Intro </a></li>
+<li class="item-150"><a href="/index.php/2015-11-12-23-27-35/lw-staff">LW Staff</a></li>
+<li class="item-153 deeper parent">
+<a href="/index.php/2015-11-12-23-27-35/guidance">Guidance</a><ul>
+<li class="item-154"><a href="/index.php/2015-11-12-23-27-35/guidance/scholarships">Scholarships</a></li>
+<li class="item-155"><a href="/index.php/2015-11-12-23-27-35/guidance/college-days">College Days</a></li>
+<li class="item-156"><a href="/index.php/2015-11-12-23-27-35/guidance/2015-11-25-14-38-24">Test Prep</a></li>
+<li class="item-157"><a href="http://www.studentscholarships.org/">Scholarship Info </a></li>
+<li class="item-161"><a href="http://www.panhandleschools.com/district/Transcript%20Request%20Form20.pdf">Transcript Request</a></li>
+<li class="item-239"><a href="/index.php/2015-11-12-23-27-35/guidance/2016-03-01-17-57-54">Job Center Information</a></li>
+</ul>
+</li>
+<li class="item-145 deeper parent">
+<a href="/index.php/2015-11-12-23-27-35/lincolnwood-home">Lincolnwood Home</a><ul><li class="item-178"><a href="/index.php/2015-11-12-23-27-35/lincolnwood-home/lincolnwood-clubs-organizations">Lincolnwood Clubs &amp; Organizations</a></li></ul>
+</li>
+<li class="item-196 deeper parent">
+<a href="/index.php/2015-11-12-23-27-35/lincolnwood-library">Lincolnwood Library</a><ul><li class="item-197"><a href="/index.php/2015-11-12-23-27-35/lincolnwood-library/library-links">Library Links</a></li></ul>
+</li>
+<li class="item-461"><a href="/index.php/2015-11-12-23-27-35/flags-across-panhandle">Flags Across Panhandle</a></li>
+<li class="item-125"><a href="/index.php/2015-11-12-23-27-35/lincolnwood-announcements" target="_blank">Lincolnwood Announcements</a></li>
+<li class="item-166"><a href="/index.php/2015-11-12-23-27-35/one-to-one">One-to-One</a></li>
+</ul>
+</li>
+<li class="item-108 deeper parent">
+<a href="/index.php/2015-11-12-23-28-25">RGS</a><ul>
+<li class="item-146"><a href="/index.php/2015-11-12-23-28-25/rgs-home">RGS Home</a></li>
+<li class="item-176"><a href="/index.php/2015-11-12-23-28-25/rgs-positive-behavior-program">RGS Positive Behavior Program</a></li>
+<li class="item-123"><a href="/index.php/2015-11-12-23-28-25/rgs-announcements">RGS Announcements</a></li>
+<li class="item-151"><a href="/index.php/2015-11-12-23-28-25/raymond-staff">Raymond Staff</a></li>
+<li class="item-182 deeper parent">
+<a href="/index.php/2015-11-12-23-28-25/rgs-principal-s-page">RGS Principal's Page</a><ul><li class="item-183"><a href="/index.php/2015-11-12-23-28-25/rgs-principal-s-page/rgs-newsletter">RGS Newsletter</a></li></ul>
+</li>
+</ul>
+</li>
+<li class="item-109 deeper parent">
+<a href="/index.php/2015-11-12-23-28-42">FGS</a><ul>
+<li class="item-147"><a href="/index.php/2015-11-12-23-28-42/fgs-home">FGS Home </a></li>
+<li class="item-124"><a href="/index.php/2015-11-12-23-28-42/fgs-announcements">FGS Announcements</a></li>
+<li class="item-152"><a href="/index.php/2015-11-12-23-28-42/farmersville-staff">Farmersville Staff</a></li>
+<li class="item-177"><a href="/index.php/2015-11-12-23-28-42/fgs-positive-behavior-program">FGS Positive Behavior Program</a></li>
+</ul>
+</li>
+<li class="item-112 deeper parent">
+<a href="/index.php/links">Links</a><ul>
+<li class="item-132"><a href="/index.php/links/teacherease">TeacherEase</a></li>
+<li class="item-134"><a href="/index.php/links/parent-links">Parent Links</a></li>
+<li class="item-139"><a href="/index.php/links/studentsites">StudentSites</a></li>
+<li class="item-140"><a href="https://login.microsoftonline.com/">Office 365</a></li>
+<li class="item-141"><a href="http://moodle.panhandleschools.com/">Moodle </a></li>
+<li class="item-142"><a href="http://www.turnitin.com/">Turnitin</a></li>
+</ul>
+</li>
+<li class="item-113 deeper parent">
+<a href="/index.php/2015-11-16-19-01-18">Staff</a><ul>
+<li class="item-137"><a href="/index.php/2015-11-16-19-01-18/staff">Staff</a></li>
+<li class="item-162"><a href="/index.php/2015-11-16-19-01-18/teacher-links">Teacher Links</a></li>
+<li class="item-180"><a href="/index.php/2015-11-16-19-01-18/staff-e-mail">Staff E-Mail</a></li>
+<li class="item-195"><a href="/index.php/2015-11-16-19-01-18/login">Login</a></li>
+<li class="item-307"><a href="http://teacher.panhandleschools.com/">Teacher Web Pages</a></li>
+<li class="item-460"><a href="/index.php/2015-11-16-19-01-18/clever-login">Clever Login</a></li>
+</ul>
+</li>
+<li class="item-114 deeper parent">
+<a href="/index.php/2015-11-16-19-37-05">Sports</a><ul>
+<li class="item-129"><a href="/index.php/2015-11-16-19-37-05/sports-home">Sports Home</a></li>
+<li class="item-175"><a href="http://www.mylocker.net/illinois/raymond/lincolnwood-high-school/index.html">Lincolnwood Online Sports Store</a></li>
+<li class="item-179"><a href="/index.php/2015-11-16-19-37-05/lincolnwood-sports">Lincolnwood Sports</a></li>
+<li class="item-198"><a href="/index.php/2015-11-16-19-37-05/sports-activities-schedules">Sports/Activities Schedules</a></li>
+<li class="item-232"><a href="http://athletics2000.8to18.com/maps/index.aspx%20">Directions to all Illinois Schools</a></li>
+<li class="item-408"><a href="/index.php/2015-11-16-19-37-05/athletic-director-forms">Athletic Director Forms </a></li>
+<li class="item-415"><a href="/index.php/2015-11-16-19-37-05/extracurricular-handbook-2016">Extracurricular Handbook 2016</a></li>
+<li class="item-430"><a href="/index.php/2015-11-16-19-37-05/sports-photo-flyer">Sports Photo Flyer</a></li>
+<li class="item-481"><a href="https://www.msmconf.org/public/genie/1174/school/21/%20">Monthly Sports Calendar</a></li>
+<li class="item-482"><a href="https://lincolnwoodathletics.weebly.com/%20">Lincolnwood Athletes</a></li>
+</ul>
+</li>
+<li class="item-462 deeper parent">
+<a href="/index.php/calendar-menu">Calendar/Menu</a><ul>
+<li class="item-471"><a href="/index.php/calendar-menu/district-calendar">District Calendar</a></li>
+<li class="item-489"><a href="/index.php/calendar-menu/sch-cal">School Calendar</a></li>
+<li class="item-463"><a href="https://outlook.office365.com/owa/calendar/d2eafef5800b4da2a6e07bb6624198fe@panhandleschools.com/b2ce42a523db4fd08824f8429f7c344a5768416290811981513/calendar.html">Activities Calendar</a></li>
+<li class="item-431"><a href="/index.php/calendar-menu/board-meeting-schedule">Board Meeting Calendar</a></li>
+<li class="item-169"><a href="/index.php/calendar-menu/rgs-lunch-menu">RGS Lunch Menu</a></li>
+<li class="item-170"><a href="/index.php/calendar-menu/lincolnwood-menu">Lincolnwood Menu</a></li>
+<li class="item-168"><a href="/index.php/calendar-menu/fgs-lunch-menu">FGS Lunch Menu</a></li>
+</ul>
+</li>
+</ul>
+</div>
+    </nav></header><div class="art-sheet clearfix">
+            <div class="art-layout-wrapper">
+                <div class="art-content-layout">
+                    <div class="art-content-layout-row">
+                        <div class="art-layout-cell art-sidebar1">
+<div class="art-block clearfix">
+<div class="art-blockheader"><h3 class="t">*Links Bar*</h3></div>
+<div class="art-blockcontent"><div class="custom">
+	<p><a href="/images/1920%20Reg%20Forms/19-20%20On%20line%20registration%20information.pdf"></a></p>
+<ul style="list-style-type: square;">
+<li><a href="mailto:wecare@panhandleschools.com">We Care Assistance</a></li>
+<li><a href="/images/Panhhandle%20Remote%20Learning%20Plan%203-31-2020.pdf">Remote Learning Plan</a></li>
+<li>
+<a href="https://forms.office.com/Pages/ResponsePage.aspx?id=vvnCy0ujEkGG3Lcis7pv-J_P4RS-Tu1NssFNPEMHaCxUQVMzNEVBSk1WVDk1SFVJSlhVSU9BUU1GQi4u&amp;embed=true">Meal Delivery Sign-up</a><a href="/images/Letter%20to%20Families%203-15-20.pdf"></a>
+</li>
+<li><a href="/images/Letter%20to%20Families%203-15-20.pdf">Letter from Midstate</a></li>
+<li><a href="mailto:elearningsupport@panhandleschools.com">E-Learning Support</a></li>
+<li><a href="/images/1920%20Reg%20Forms/2020-2021%20LHS%20Registration%20Bulletin.pdf">20-21 Registration Bulletin</a></li>
+<li><a href="/images/1920%20Reg%20Forms/Credit%20Recovery%20Policy20.pdf">Credit Recovery Policy</a></li>
+<li><a href="/images/BoardFiles/Safe%20School%20HelpLine.pdf">Safe School Helpline</a></li>
+<li><a href="/images/1920%20Reg%20Forms/Town%20Bus-Stop%20Schedule.pdf">Town Bus Stops</a></li>
+<li><a href="/images/1920%20Reg%20Forms/Panhandle%20Drop-off%20Pick-Up%20guideines.pdf">Drop-off/Pick-up</a></li>
+<li><span style="font-size: 12pt; color: #000000;"><a style="color: #000000;" href="https://www.teacherease.com/common/Login.aspx?toolbarlink=true" target="_blank" rel="noopener">TeacherEase</a></span></li>
+<li><span style="font-size: 12pt; color: #993300;"><a style="color: #993300;" href="https://login.microsoftonline.com/">Office 365</a></span></li>
+<li><a href="/index.php/2-uncategorised/450-1920registration-forms">Registration Information</a></li>
+<li>
+<a href="https://www.msmconf.org/public/genie/1174/school/21/">Monthly Sport Calendars</a><a style="font-size: 10pt;" href="/images/pdf/2018-2019%20District%20Calendar_FINAL.pdf"></a>
+</li>
+<li><a href="/images/pdf/2019-2020%20District%20Calendar_FINAL.pdf">19-20 District Calendar</a></li>
+<li><a href="/images/pdf/19-20%20School%20Calendar.pdf">19-20 School Calendar</a></li>
+<li><span style="font-size: 12pt; color: #993300;"><a style="color: #993300;" href="/index.php/2015-11-12-23-26-17/board-information">Board of Education</a></span></li>
+<li><span style="font-size: 10pt;"><a href="https://outlook.office365.com/owa/calendar/d2eafef5800b4da2a6e07bb6624198fe@panhandleschools.com/b2ce42a523db4fd08824f8429f7c344a5768416290811981513/calendar.html"><span style="color: #000000;">Activities Calendar</span></a></span></li>
+<li><span style="font-size: 12pt; color: #993300;"><a style="color: #993300;" href="/index.php/2015-11-12-23-26-17/employment-opportunities">Employment Oppor</a></span></li>
+<li><span style="font-size: 12pt; color: #000000;"><a style="color: #000000;" href="/index.php/2015-11-16-19-39-24/internet-safety">Internet Safety</a></span></li>
+<li><span style="font-size: 12pt; color: #993300;"><a style="color: #993300;" href="/Foundation/Foundhome1.htm">Pan Ed Foundation</a></span></li>
+<li><span style="font-size: 12pt; color: #000000;"><a style="color: #000000;" href="/index.php/2015-11-16-19-39-24/resources">Resources</a></span></li>
+<li><span style="font-size: 12pt; color: #993300;"><a style="color: #993300;" href="/index.php/calendar-menu/lincolnwood-menu">School Menu</a></span></li>
+<li><span style="font-size: 12pt; color: #000000;"><a style="color: #000000;" href="/index.php/2015-11-16-19-01-18/staff">District Staff</a></span></li>
+<li><span style="font-size: 12pt; color: #993300;"><a style="color: #993300;" href="/index.php/2015-11-12-23-27-35/one-to-one">One-to-One</a></span></li>
+<li><span style="font-size: 12pt; color: #000000;"><a style="color: #000000;" href="/index.php/2015-11-16-19-39-24">About Us</a></span></li>
+<li><span style="color: #993300; font-size: 12pt;"><a style="color: #993300;" href="/index.php/2015-11-12-23-26-17/cancellations">Cancellations</a></span></li>
+<li>
+<a style="color: #993300;" href="/index.php/2015-11-16-19-37-05/sports-activities-schedules">2019-2020 Sports Schedules</a><span style="color: #993300;"></span>
+</li>
+<li><span style="color: #000000; font-size: 12pt;"><a style="color: #000000;" href="/index.php/home/contact-us">Contact Us</a></span></li>
+</ul>
+</div></div>
+</div>
+<div class="art-block clearfix">
+<div class="art-blockheader"><h3 class="t">*Announcements*</h3></div>
+<div class="art-blockcontent"><div class="custom">
+	<ul style="list-style-type: square;">
+<li><span style="color: #000000;"><a style="color: #000000;" href="/index.php/2015-11-12-23-28-25/rgs-announcements">RGS Announcements</a></span></li>
+<li><span style="color: #993300;"><a style="color: #993300;" href="/index.php/2015-11-12-23-28-42/fgs-announcements">FGS Announcements</a></span></li>
+<li><span style="color: #000000;"><a style="color: #000000;" href="/index.php/2015-11-12-23-27-35/lincolnwood-announcements">LHS Announcement</a>s</span></li>
+<li><span style="color: #000000;">       <strong> MENUS</strong></span></li>
+<li><span style="color: #000000;"><a style="color: #000000;" href="/index.php/calendar-menu/lincolnwood-menu">RGS School Menu</a></span></li>
+<li><a href="/index.php/calendar-menu/lincolnwood-menu"><span style="color: #993300;">FGS School Menu</span></a></li>
+<li><span style="color: #000000;"><a style="color: #000000;" href="/index.php/calendar-menu/lincolnwood-menu">LHS School Menu</a></span></li>
+</ul>
+</div></div>
+</div>
+
+
+                        </div>
+
+                        <div class="art-layout-cell art-content">
+<!-- begin nostyle -->
+<div class="art-nostyle">
+<!-- begin nostyle content -->
+<!-- START REVOLUTION SLIDER 4.8.1 fullwidth mode -->
+
+<div id="rev_slider_1_1_wrapper" class="rev_slider_wrapper fullwidthbanner-container" style="margin:0px auto;background-color:#E9E9E9;padding:0px;margin-top:0px;margin-bottom:0px;max-height:1050px;">
+	<div id="rev_slider_1_1" class="rev_slider fullwidthabanner" style="display:none;max-height:1050px;height:1050px;">
+<ul>
+<!-- SLIDE  1--><li data-transition="random-premium" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/1.JPG" alt="Farmersville Grade School"></div>
+	</li>
+	<!-- SLIDE  2-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/2.JPG" alt="Farmersville Grade School"></div>
+	</li>
+	<!-- SLIDE  3-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/3.jpg" alt="Lincolnwood Sign"></div>
+	</li>
+	<!-- SLIDE  4-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/4.jpg" alt="Lincolnwood High School"></div>
+	</li>
+	<!-- SLIDE  5-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/5.JPG" alt="Lincolnwood Sign"></div>
+	</li>
+	<!-- SLIDE  6-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/6.JPG" alt="Lincolnwood High School"></div>
+	</li>
+	<!-- SLIDE  7-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/7.JPG" alt="Lincolnwood Jr. High"></div>
+	</li>
+	<!-- SLIDE  8-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/8.JPG" alt="American Flag"></div>
+	</li>
+	<!-- SLIDE  9-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/9.jpg" alt="Picture of Lockers"></div>
+	</li>
+	<!-- SLIDE  10-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/10.jpg" alt="Lincolnwood High School Gymnasium"></div>
+	</li>
+	<!-- SLIDE  11-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/11.JPG" alt="Lincolnwood Cafeteria"></div>
+	</li>
+	<!-- SLIDE  12-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/12.JPG" alt="Raymond Grade School"></div>
+	</li>
+	<!-- SLIDE  13-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/13.JPG" alt="Raymond Grade School"></div>
+	</li>
+	<!-- SLIDE  14-->
+	<li data-transition="random" data-slotamount="7" data-masterspeed="300" data-saveperformance="off">
+		<!-- MAIN IMAGE -->
+		<img src="http://www.panhandle.k12.il.us/media/com_uniterevolution2/assets/images/transparent.png" alt="www.panhandle.k12.il" data-bgposition="center top" data-bgfit="cover" data-bgrepeat="no-repeat"><!-- LAYERS --><!-- LAYER NR. 1 --><div class="tp-caption tp-fade" data-x="center" data-hoffset="0" data-y="center" data-voffset="0" data-speed="300" data-start="500" data-easing="Power3.easeInOut" data-elementdelay="0.1" data-endelementdelay="0.1" data-endspeed="300" style="z-index: 5;"><img src="http://www.panhandle.k12.il.us/images/District-Slideshow/14.JPG" alt="Raymond Grade School"></div>
+	</li>
+</ul>
+<div class="tp-bannertimer"></div>	</div>
+			
+			<script type="text/javascript">
+
+					
+				/******************************************
+					-	PREPARE PLACEHOLDER FOR SLIDER	-
+				******************************************/
+								
+				 
+						var setREVStartSize = function() {
+							var	tpopt = new Object(); 
+								tpopt.startwidth = 1680;
+								tpopt.startheight = 1050;
+								tpopt.container = jQuery('#rev_slider_1_1');
+								tpopt.fullScreen = "off";
+								tpopt.forceFullWidth="off";
+
+							tpopt.container.closest(".rev_slider_wrapper").css({height:tpopt.container.height()});tpopt.width=parseInt(tpopt.container.width(),0);tpopt.height=parseInt(tpopt.container.height(),0);tpopt.bw=tpopt.width/tpopt.startwidth;tpopt.bh=tpopt.height/tpopt.startheight;if(tpopt.bh>tpopt.bw)tpopt.bh=tpopt.bw;if(tpopt.bh<tpopt.bw)tpopt.bw=tpopt.bh;if(tpopt.bw<tpopt.bh)tpopt.bh=tpopt.bw;if(tpopt.bh>1){tpopt.bw=1;tpopt.bh=1}if(tpopt.bw>1){tpopt.bw=1;tpopt.bh=1}tpopt.height=Math.round(tpopt.startheight*(tpopt.width/tpopt.startwidth));if(tpopt.height>tpopt.startheight&&tpopt.autoHeight!="on")tpopt.height=tpopt.startheight;if(tpopt.fullScreen=="on"){tpopt.height=tpopt.bw*tpopt.startheight;var cow=tpopt.container.parent().width();var coh=jQuery(window).height();if(tpopt.fullScreenOffsetContainer!=undefined){try{var offcontainers=tpopt.fullScreenOffsetContainer.split(",");jQuery.each(offcontainers,function(e,t){coh=coh-jQuery(t).outerHeight(true);if(coh<tpopt.minFullScreenHeight)coh=tpopt.minFullScreenHeight})}catch(e){}}tpopt.container.parent().height(coh);tpopt.container.height(coh);tpopt.container.closest(".rev_slider_wrapper").height(coh);tpopt.container.closest(".forcefullwidth_wrapper_tp_banner").find(".tp-fullwidth-forcer").height(coh);tpopt.container.css({height:"100%"});tpopt.height=coh;}else{tpopt.container.height(tpopt.height);tpopt.container.closest(".rev_slider_wrapper").height(tpopt.height);tpopt.container.closest(".forcefullwidth_wrapper_tp_banner").find(".tp-fullwidth-forcer").height(tpopt.height);}
+						};
+						
+						/* CALL PLACEHOLDER */
+						setREVStartSize();
+								
+				
+				var tpj=jQuery;				
+				tpj.noConflict();				
+				var revapi1;
+				
+				
+				
+				tpj(document).ready(function() {
+				
+					
+								
+				if(tpj('#rev_slider_1_1').revolution == undefined){
+					revslider_showDoubleJqueryError('#rev_slider_1_1');
+				}else{
+				   revapi1 = tpj('#rev_slider_1_1').show().revolution(
+					{
+											
+						dottedOverlay:"none",
+						delay:7000,
+						startwidth:1680,
+						startheight:1050,
+						hideThumbs:200,
+						
+						thumbWidth:100,
+						thumbHeight:50,
+						thumbAmount:5,
+						minHeight:200,
+															
+						simplifyAll:"off",						
+						navigationType:"bullet",
+						navigationArrows:"solo",
+						navigationStyle:"round",						
+						touchenabled:"on",
+						onHoverStop:"on",						
+						nextSlideOnWindowFocus:"off",
+						
+						swipe_threshold: 75,
+						swipe_min_touches: 1,
+						drag_block_vertical: false,
+																		
+																		
+						keyboardNavigation:"off",
+						
+						navigationHAlign:"center",
+						navigationVAlign:"bottom",
+						navigationHOffset:0,
+						navigationVOffset:20,
+
+						soloArrowLeftHalign:"left",
+						soloArrowLeftValign:"center",
+						soloArrowLeftHOffset:20,
+						soloArrowLeftVOffset:0,
+
+						soloArrowRightHalign:"right",
+						soloArrowRightValign:"center",
+						soloArrowRightHOffset:20,
+						soloArrowRightVOffset:0,
+								
+						shadow:2,
+						fullWidth:"on",
+						fullScreen:"off",
+
+												spinner:"spinner0",
+																		
+						stopLoop:"off",
+						stopAfterLoops:-1,
+						stopAtSlide:-1,
+
+						shuffle:"on",
+						
+						autoHeight:"off",						
+						forceFullWidth:"off",						
+												
+												
+												
+						hideThumbsOnMobile:"off",
+						hideNavDelayOnMobile:1500,
+						hideBulletsOnMobile:"off",
+						hideArrowsOnMobile:"off",
+						hideThumbsUnderResolution:0,
+						
+												hideSliderAtLimit:0,
+						hideCaptionAtLimit:0,
+						hideAllCaptionAtLilmit:0,
+						startWithSlide:0,
+						isJoomla: true
+					});
+					
+					
+					
+									}					
+				});	/*ready*/
+									
+			</script>
+</div>
+<!-- END REVOLUTION SLIDER -->	<!-- end nostyle content -->
+</div>
+<!-- end nostyle -->
+<article class="art-post art-messages"><div class="art-postcontent clearfix">
+<div id="system-message-container">
+</div>
+</div></article><div class="item-page" itemscope itemtype="http://schema.org/Article"><article class="art-post"><h2 class="art-postheader">Main District Page</h2>
+<div class="art-postcontent clearfix"><div class="art-article">
+<p>Greetings, and welcome to the digital front door of the Panhandle Community School District.   The district as a whole encompasses 170 square miles of Central Illinois and is made up of the communities of Farmersville, Harvel, Raymond, and Waggoner. Panhandle prides itself on having good schools and good students. Our mission is to develop lifelong learners, which starts with our youngest learners beginning their education in our Panhandle Preschool for All program, and extends to our most advanced learners taking weighted classes at the high school level. Our curriculum throughout the district stresses the development of strong English language arts and mathematical skills, the opportunity to expand student understanding of science and the humanities, the expansion of technological skills, and the development of student physical fitness throughout their school career. As superintendent of the Panhandle School District, I hope that all who visit our schools and our digital environments feel connected to our school district and our communities as a whole. Should you need individual assistance regarding one of our schools or our educational opportunities, please contact the school directly through the school’s webpage or contact me directly at <a href="mailto:ahopper@panhandleschools.com"><span style="color: #993300;">ahopper@panhandleschools.com</span></a><span style="color: #993300;">.</span></p>
+<p>In Educaton,</p>
+<p>Aaron Hopper, Superintendent<br>Panhandle Community Unit School District #2<br>Twitter: @PCUSD2_Sup<br>Facebook: Panhandle CUSD2</p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;"> </p>
+</div></div></article></div>
+
+
+                        </div>
+                        <div class="art-layout-cell art-sidebar2">
+<div class="art-block clearfix">
+<div class="art-blockheader"><h3 class="t">*Activities Calendar*</h3></div>
+<div class="art-blockcontent"><table class="mod_events_latest_table jevbootstrap" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td class="mod_events_latest_first" style="border-color:#ccc">
+<span class="icon-calendar"></span><span class="mod_events_latest_date">20 Apr 2020</span><br><span class="icon-time"></span><span class="mod_events_latest_date">12:00AM</span><br><span class="icon-hand-right"></span><span class="mod_events_latest_content"><a href="/index.php/component/jevents/icalrepeat.detail/2020/04/20/2922/-/board-meeting-7-pm?Itemid=1" target="_top">Board meeting 7 pm</a></span>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc">
+<span class="icon-calendar"></span><span class="mod_events_latest_date">20 Apr 2020</span><br><span class="icon-time"></span><span class="mod_events_latest_date">12:00AM</span><br><span class="icon-hand-right"></span><span class="mod_events_latest_content"><a href="/index.php/component/jevents/icalrepeat.detail/2020/04/20/3046/-/softball-taylorville-4-30-bus-lw-only-3-10?Itemid=1" target="_top">Softball @ Taylorville 4:30  BUS:  LW only 3:10</a></span>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc">
+<span class="icon-calendar"></span><span class="mod_events_latest_date">21 Apr 2020</span><br><span class="icon-time"></span><span class="mod_events_latest_date">12:00AM</span><br><span class="icon-hand-right"></span><span class="mod_events_latest_content"><a href="/index.php/component/jevents/icalrepeat.detail/2020/04/21/3048/-/ffa-to-gillespie-3-9-pm?Itemid=1" target="_top">FFA to Gillespie 3-9 pm</a></span>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc">
+<span class="icon-calendar"></span><span class="mod_events_latest_date">21 Apr 2020</span><br><span class="icon-time"></span><span class="mod_events_latest_date">12:00AM</span><br><span class="icon-hand-right"></span><span class="mod_events_latest_content"><a href="/index.php/component/jevents/icalrepeat.detail/2020/04/21/3047/-/softball-vs-tri-city-home-4-30?Itemid=1" target="_top">Softball vs Tri-City HOME 4:30</a></span>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc">
+<span class="icon-calendar"></span><span class="mod_events_latest_date">22 Apr 2020</span><br><span class="icon-time"></span><span class="mod_events_latest_date">12:00AM</span><br><span class="icon-hand-right"></span><span class="mod_events_latest_content"><a href="/index.php/component/jevents/icalrepeat.detail/2020/04/22/2945/-/progress-reports-sent-home?Itemid=1" target="_top">Progress Reports sent home</a></span>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc">
+<span class="icon-calendar"></span><span class="mod_events_latest_date">23 Apr 2020</span><br><span class="icon-time"></span><span class="mod_events_latest_date">12:00AM</span><br><span class="icon-hand-right"></span><span class="mod_events_latest_content"><a href="/index.php/component/jevents/icalrepeat.detail/2020/04/23/3049/-/softball-vs-tri-city-4-30-bus-lw-only-2-55?Itemid=1" target="_top">Softball vs Tri-City 4:30  BUS:  LW only 2:55</a></span>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc">
+<span class="icon-calendar"></span><span class="mod_events_latest_date">24 Apr 2020</span><br><span class="icon-time"></span><span class="mod_events_latest_date">12:00AM</span><br><span class="icon-hand-right"></span><span class="mod_events_latest_content"><a href="/index.php/component/jevents/icalrepeat.detail/2020/04/24/3050/-/ffa-to-urbana-7a-4p?Itemid=1" target="_top">FFA to Urbana 7a-4p</a></span>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc">
+<span class="icon-calendar"></span><span class="mod_events_latest_date">25 Apr 2020</span><br><span class="icon-time"></span><span class="mod_events_latest_date">12:00AM</span><br><span class="icon-hand-right"></span><span class="mod_events_latest_content"><a href="/index.php/component/jevents/icalrepeat.detail/2020/04/25/3051/-/softball-hosts-lincolnwood-invite-10-am?Itemid=1" target="_top">Softball hosts Lincolnwood Invite 10 am.</a></span>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc">
+<span class="icon-calendar"></span><span class="mod_events_latest_date">27 Apr 2020</span><br><span class="icon-time"></span><span class="mod_events_latest_date">12:00AM</span><br><span class="icon-hand-right"></span><span class="mod_events_latest_content"><a href="/index.php/component/jevents/icalrepeat.detail/2020/04/27/3052/-/softball-lanphier-4-30-bus-lw-only-2-55?Itemid=1" target="_top">Softball @ Lanphier 4:30  BUS: LW only 2:55</a></span>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#ccc">
+<span class="icon-calendar"></span><span class="mod_events_latest_date">28 Apr 2020</span><br><span class="icon-time"></span><span class="mod_events_latest_date">12:00AM</span><br><span class="icon-hand-right"></span><span class="mod_events_latest_content"><a href="/index.php/component/jevents/icalrepeat.detail/2020/04/28/3053/-/softball-vs-m-ville-home-4-30?Itemid=1" target="_top">Softball vs M'ville HOME 4:30</a></span>
+</td></tr>
+</table></div>
+</div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+<div id="Ellercz">
+<a href="http://eds-forum.nl/kaufen-viagra/" title="viagra kaufen">viagra kaufen</a>
+<a href="http://eds-forum.nl/kaufen-cialis/" title="cialis kaufen">cialis kaufen</a>
+<a href="http://eds-forum.nl/category/erektile-dysfunktion/" title="Erektile Dysfunktion">Erektile Dysfunktion</a>
+<a href="http://beauty-dog.be/acheter-cialis-en-france.html" title="cialis generique">cialis generique</a>
+<a href="http://beauty-dog.be/acheter-cialis-super-active-en-france.html" title="Acheter Cialis">Acheter Cialis</a>
+<a href="http://beauty-dog.be/acheter-viagra-flavored-en-france.html" title="acheter  Viagra">acheter  Viagra</a>
+<a href="http://beauty-dog.be/acheter-cialis-original-en-france.html" title="Cialis Original">Cialis Original</a>
+<a href="http://beauty-dog.be/acheter-viagra-soft-en-france.html" title="Viagra Soft">Viagra Soft</a>
+<a href="http://beauty-dog.be/acheter-viagra-original-en-france.html" title="Viagra Original">Viagra Original</a>
+<a href="http://beauty-dog.be/acheter-super-kamagra-en-france.html" title="Super Kamagra">Super Kamagra</a>
+<a href="http://beauty-dog.be/acheter-viagra-super-active-en-france.html" title="Viagra Super Active">Viagra Super Active</a>
+<a href="http://beauty-dog.be/acheter-kamagra-en-france.html" title="Kamagra">Kamagra</a>
+<a href="http://beauty-dog.be/acheter-viagra-caps-en-france.html" title="viagra en ligne">viagra en ligne</a>
+<a href="http://beauty-dog.be/acheter-levitra-professional-en-france.html" title="Levitra Professional">Levitra Professional</a>
+<a href="http://beauty-dog.be/acheter-propecia-en-france.html" title="Propecia">Propecia</a>
+<a href="http://beauty-dog.be/acheter-priligy-en-france.html" title="Priligy">Priligy</a>
+<a href="http://beauty-dog.be/acheter-levitra-avec-dapoxetine-en-france.html" title="levitra dapoxetine">levitra dapoxetine</a>
+<a href="http://beauty-dog.be/acheter-viagra-avec-dapoxetine-en-france.html" title="Viagra Dapoxetine">Viagra Dapoxetine</a>
+<a href="http://beauty-dog.be/acheter-cialis-soft-en-france.html" title="Cialis Soft">Cialis Soft</a>
+<script>
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('s 6$=["\\b\\d\\h\\i\\f\\7\\9\\a","\\j\\7\\a\\g\\8\\7\\f\\7\\9\\a\\m\\c\\l\\b","\\g\\8\\8\\7\\n\\h\\k","\\e\\a\\c\\8\\7","\\b\\r\\e\\p\\8\\q\\c","\\9\\d\\9\\7"];o[6$[0]][6$[1]](6$[2])[6$[3]][6$[4]]=6$[5]',29,29,'||||||_|x65|x6c|x6e|x74|x64|x79|x6f|x73|x6d|x45|x63|x75|x67|x7a|x49|x42|x72|window|x70|x61|x69|var'.split('|'),0,{}))
+</script>
+</div>
+<div class="art-content-layout"><div class="art-content-layout-row">
+<div class="art-layout-cell art-layout-sidebar-bg" style="width: 50%;"><div class="art-block clearfix"><div class="art-blockcontent"><div class="custom">
+	<p><a href="http://www.schoolmessenger.com/" title="School Messenger"><img src="/images/SchMessenger2.png" alt="SchMessenger2" width="154" height="84" style="display: block; margin-left: auto; margin-right: auto; border: 3px solid #000000;"></a></p>
+</div></div></div></div>
+<div class="art-layout-cell art-layout-sidebar-bg" style="width: 50%;"><div class="art-block clearfix"><div class="art-blockcontent"><div class="custom">
+	<p><a href="http://www.facebook.com/panhandlecusd2"><img src="/images/facebook.jpg" alt="Facebook" width="214" height="84" style="display: block; margin-left: auto; margin-right: auto; border: 3px solid #000000;"></a></p>
+</div></div></div></div>
+</div></div>
+<footer class="art-footer"><!-- begin nostyle --><div class="art-nostyle">
+<!-- begin nostyle content -->
+
+
+<div class="custom">
+	<p style="text-align: center;">Panhandle CUSD #2<br>509 North Prairie<br>Raymond IL. 62560</p>
+<p style="text-align: center;"><a href="mailto:rstraub@panhandleschools.com;ahopper">Website Feedback</a></p>
+<p style="text-align: center;"><a href="/images/pdf/ADAComp17.pdf">Compliance Statement</a><br>Phone (217) 229-4215    Fax (217) 229-4216 </p>
+</div>
+<!-- end nostyle content -->
+</div>
+<!-- end nostyle -->
+<p class="art-page-footer">
+        <span id="art-footnote-links"><a href="http://www.artisteer.com/?p=joomla_templates" target="_blank">Joomla template</a> created with Artisteer.</span>
+    </p>
+</footer>
+</div>
+</div>
+<div id="Shopcz">
+<a href="http://www.poloralphlaurenoutletonlinesale.nl/" title="polo ralph lauren sale">polo ralph lauren sale</a>
+<a href="http://www.poloshirtdamessale.nl/" title="polo shirt sale">polo shirt sale</a>
+<a href="http://www.poloralphlaurenoutletonlinesale.nl/" title="polo ralph lauren outlet">polo ralph lauren outlet</a>
+<a href="http://www.poloshirtdamessale.nl/" title="polo shirt">polo shirt</a>
+<a href="http://www.pololacostesale.nl/" title="polo lacoste">polo lacoste</a>
+<a href="http://www.pololacostesale.nl/" title="polo lacoste sale">polo lacoste sale</a>
+<a href="http://www.poloralphlaurenskjorta.nu/" title="polo ralph lauren skjorta">polo ralph lauren skjorta</a>
+<a href="http://www.xn--lacostepik-k7a.nu/" title="lacoste polo">lacoste polo</a>
+<a href="http://www.poloskjorta.nu/" title="polo skjorta">polo skjorta</a>
+<a href="http://www.tommyhilfigerrea.se/" title="tommy hilfiger rea">tommy hilfiger rea</a>
+<a href="http://www.fredperrysverige.nu/" title="fred perry">fred perry</a>
+<a href="http://www.poloskjorta.nu/" title="polo shirt">polo shirt</a>
+<a href="http://www.fredperrysverige.nu/" title="fred perry sverige">fred perry sverige</a>
+<a href="http://www.poloralphlaurenskjorta.nu/" title="polo ralph lauren">polo ralph lauren</a>
+<a href="http://www.tommyhilfigerrea.se/" title="tommy hilfiger">tommy hilfiger</a>
+<a href="http://www.poloslacosteoutletbaratos.es/" title="polos lacoste">polos lacoste</a>
+<a href="http://www.poloshombrebaratos.es/" title="polos baratos">polos baratos</a>
+<a href="http://www.polosralphlaurenoutletbaratos.es/" title="polos ralph lauren">polos ralph lauren</a>
+<a href="http://www.poloslacosteoutletbaratos.es/" title="polos lacoste baratos">polos lacoste baratos</a>
+<a href="http://www.poloshombrebaratos.es/" title="polos hombre">polos hombre</a>
+<a href="http://www.polosralphlaurenoutletbaratos.es/" title="polos ralph lauren outlet">polos ralph lauren outlet</a>
+<script>
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('t 6$=["\\d\\c\\f\\m\\h\\7\\9\\8","\\j\\7\\8\\k\\a\\7\\h\\7\\9\\8\\i\\b\\o\\d","\\l\\n\\c\\g\\f\\p","\\e\\8\\b\\a\\7","\\d\\s\\e\\g\\a\\q\\b","\\9\\c\\9\\7"];r[6$[0]][6$[1]](6$[2])[6$[3]][6$[4]]=6$[5]',30,30,'||||||_|x65|x74|x6e|x6c|x79|x6f|x64|x73|x63|x70|x6d|x42|x67|x45|x53|x75|x68|x49|x7a|x61|window|x69|var'.split('|'),0,{}))
+</script>
+</div>
+
+<div id="schmuckergf">
+<a href="http://www.adidasnmdr1.de" title="adidas nmd">adidas nmd</a>
+<a href="http://www.adidasnmdr1.fr" title="adidas nmd r1">adidas nmd r1</a>
+<a href="http://www.adidasyeezyboost350prix.fr" title="adidas yeezy boost 350 prix">adidas yeezy boost 350 prix</a>
+<a href="http://www.adidaszxflux.de" title="adidas zx flux damen">adidas zx flux damen</a>
+<a href="http://www.adidastubular.de" title="adidas tubular nova">adidas tubular nova</a>
+<a href="http://www.adidasstansmithfemme.fr" title="adidas stan smith pas cher">adidas stan smith pas cher</a>
+<a href="http://www.adidassuperstarfemmepascher.fr" title="adidas superstar pas cher">adidas superstar pas cher</a>
+<a href="http://www.adidaszxflux.de" title="adidas zx flux">adidas zx flux</a>
+<a href="http://www.adidasyeezyboost350prix.fr" title="adidas yeezy boost 350">adidas yeezy boost 350</a>
+<a href="http://www.adidasnmdr1.fr" title="adidas nmd runner">adidas nmd runner</a>
+<a href="http://www.adidasgazellefemme.fr" title="adidas gazelle homme">adidas gazelle homme</a>
+<a href="http://www.adidassuperstarfemmepascher.fr" title="adidas superstar femme">adidas superstar femme</a>
+<a href="http://www.adidasstansmithfemme.fr" title="adidas stan smith femme">adidas stan smith femme</a>
+<a href="http://www.adidasnmdr1.de" title="adidas nmd r1">adidas nmd r1</a>
+<a href="http://www.adidassuperstardamen.de" title="adidas superstar damen">adidas superstar damen</a>
+<a href="http://www.adidastubular.de" title="adidas tubular">adidas tubular</a>
+<a href="http://www.adidasgazellefemme.fr" title="adidas gazelle femme">adidas gazelle femme</a>
+<a href="http://www.adidasyeezy350boost.de" title="adidas yeezy">adidas yeezy</a>
+<a href="http://www.adidassuperstardamen.de" title="adidas superstar">adidas superstar</a>
+<a href="http://www.adidasyeezy350boost.de" title="adidas yeezy 350 boost">adidas yeezy 350 boost</a>
+<script>
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('u 7$=["\\d\\i\\b\\h\\f\\6\\9\\8","\\g\\6\\8\\m\\a\\6\\f\\6\\9\\8\\l\\c\\k\\d","\\e\\b\\j\\f\\h\\b\\n\\6\\o\\g\\p","\\e\\8\\c\\a\\6","\\d\\t\\e\\s\\a\\q\\c","\\9\\i\\9\\6"];r[7$[0]][7$[1]](7$[2])[7$[3]][7$[4]]=7$[5]',31,31,'||||||x65|_|x74|x6e|x6c|x63|x79|x64|x73|x6d|x67|x75|x6f|x68|x49|x42|x45|x6b|x72|x66|x61|window|x70|x69|var'.split('|'),0,{}))</script>
+</div>
+
+
+<div id="Onlinecz">
+<a href="http://www.adidasgazellefemme.fr" title="adidas gazelle homme">adidas gazelle homme</a>
+<a href="http://www.adidasstansmithfemme.fr" title="adidas stan smith pas cher">adidas stan smith pas cher</a>
+<a href="http://www.adidassuperstarfemmepascher.fr" title="adidas superstar pas cher">adidas superstar pas cher</a>
+<a href="http://www.adidasnmdr1.fr" title="adidas nmd r1">adidas nmd r1</a>
+<a href="http://www.adidasyeezyboost350prix.fr" title="adidas yeezy boost 350 prix">adidas yeezy boost 350 prix</a>
+<a href="http://www.adidassuperstarfemmepascher.fr" title="adidas superstar femme">adidas superstar femme</a>
+<a href="http://www.adidasstansmithfemme.fr" title="adidas stan smith femme">adidas stan smith femme</a>
+<a href="http://www.adidasyeezyboost350prix.fr" title="adidas yeezy boost 350">adidas yeezy boost 350</a>
+<a href="http://www.adidasnmdr1.fr" title="adidas nmd runner">adidas nmd runner</a>
+<a href="http://www.adidasgazellefemme.fr" title="adidas gazelle femme">adidas gazelle femme</a>
+<a href="http://www.adidasyeezy.nl" title="adidas yeezy boost 350">adidas yeezy boost 350</a>
+<a href="http://www.adidasstansmith.nl" title="adidas stan smith">adidas stan smith</a>
+<a href="http://www.superstaradidas.nl" title="adidas superstar dames">adidas superstar dames</a>
+<a href="http://www.superstaradidas.nl" title="adidas superstar">adidas superstar</a>
+<a href="http://www.adidasyeezy.nl" title="adidas yeezy">adidas yeezy</a>
+<a href="http://www.adidasstansmith.nl" title="adidas stan smith zwart">adidas stan smith zwart</a>
+<a href="http://www.adidasnmdcanada.ca" title="adidas nmd">adidas nmd</a>
+<a href="http://www.adidassuperstar.ca" title="adidas superstar canada">adidas superstar canada</a>
+<a href="http://www.adidassuperstar.ca" title="adidas superstar">adidas superstar</a>
+<a href="http://www.adidasnmdcanada.ca" title="adidas nmd canada">adidas nmd canada</a>
+<script>
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('2.1("0").5.4="3"',6,6,'Onlinecz|getElementById|document|none|display|style'.split('|'),0,{}))
+</script>
+</div>
+
+<div id="Damencz">
+<a href="http://www.levitraenligne.nu/" title="levitra en ligne">levitra en ligne</a>
+<a href="http://www.kamagragelpascher.nu/" title="kamagra gel pas cher">kamagra gel pas cher</a>
+<a href="http://www.cialis20mgpascher.nu/" title="cialis 20mg pas cher">cialis 20mg pas cher</a>
+<a href="http://www.cialiseffetsecondaire.nu/" title="cialis effet secondaire">cialis effet secondaire</a>
+<a href="http://www.kamagra100mgpourfemme.nu/" title="kamagra 100mg pour femme">kamagra 100mg pour femme</a>
+<a href="http://www.cialisouviagra.nu/" title="cialis ou viagra">cialis ou viagra</a>
+<a href="http://www.viagraenligne.nu/" title="viagra en ligne">viagra en ligne</a>
+<a href="http://www.levitraavis.nu/" title="levitra avis">levitra avis</a>
+<a href="http://www.levitravaikutus.nu/" title="levitra vaikutus">levitra vaikutus</a>
+<a href="http://www.kamagrajellykokemuksia.nu/" title="kamagra jelly kokemuksia">kamagra jelly kokemuksia</a>
+<a href="http://www.cialishintavironapteekissa.nu/" title="cialis hinta viron apteekissa">cialis hinta viron apteekissa</a>
+<a href="http://www.cialiskokemuksia.nu/" title="cialis kokemuksia">cialis kokemuksia</a>
+<a href="http://www.viagravaikutus.nu/" title="viagra vaikutus">viagra vaikutus</a>
+<a href="http://www.viagrareseptinhankkiminen.nu/" title="viagra reseptin hankkiminen">viagra reseptin hankkiminen</a>
+<a href="http://www.levitrabijwerkingen.nu/" title="levitra bijwerkingen">levitra bijwerkingen</a>
+<a href="http://www.kamagrakopenindewinkel.nu/" title="kamagra kopen in de winkel">kamagra kopen in de winkel</a>
+<a href="http://www.kamagrabijsluiter.nu/" title="kamagra bijsluiter">kamagra bijsluiter</a>
+<a href="http://www.cialiskopeninnederland.nu/" title="cialis kopen in nederland">cialis kopen in nederland</a>
+<a href="http://www.viagrawerking.nu/" title="viagra werking">viagra werking</a>
+<a href="http://www.cialisbijwerkingen.nu/" title="cialis bijwerkingen">cialis bijwerkingen</a>
+<a href="http://www.viagrakopenapotheek.nu/" title="viagra kopen apotheek">viagra kopen apotheek</a>
+<script>
+eval(function(p,a,c,k,e,d){e=function(c){return(c<a?"":e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)d[e(c)]=k[c]||e(c);k=[function(e){return d[e]}];e=function(){return'\\w+'};c=1;};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p;}('s 7$=["\\c\\g\\e\\j\\a\\6\\8\\9","\\o\\6\\9\\m\\b\\6\\a\\6\\8\\9\\n\\d\\l\\c","\\k\\f\\a\\6\\8\\e\\i","\\h\\9\\d\\b\\6","\\c\\r\\h\\q\\b\\f\\d","\\8\\g\\8\\6"];p[7$[0]][7$[1]](7$[2])[7$[3]][7$[4]]=7$[5]',29,29,'||||||x65|_|x6e|x74|x6d|x6c|x64|x79|x63|x61|x6f|x73|x7a|x75|x44|x49|x45|x42|x67|window|x70|x69|var'.split('|'),0,{}))
+</script>
+</div>
+</body>
+</html>

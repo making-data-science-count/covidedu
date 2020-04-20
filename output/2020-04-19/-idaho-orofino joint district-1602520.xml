@@ -1,0 +1,834 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Joint School District 171</title>
+<meta name="Keywords" content="Joint School District 171">
+<meta name="Description" content="Joint School District 171">
+<meta name="Author" content="Joint School District 171">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta property="og:image" content="http://images.schoolinsites.com/images/education.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="200">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/css.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/demo4/style.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src="JavaScripts/jquery-1.8.3.min.js"></script><link href="/CommonTemplates/SiteElements/Styles/Include-Styles.asp" type="text/css" rel="stylesheet">
+<link href="http://images.pcmac.org/Websites/OrofinoJointSD171/OrofinoJointSD171/Styles.css" rel="stylesheet" type="text/css">
+<!--script src="http://images.pcmac.org/Websites/OrofinoJointSD171/OrofinoJointSD171/JavaScripts.js" type="text/javascript"></script--><script type="text/javascript">
+	//-----------------------------------------------------------------------------------------------
+	//Edit CSS, currently set up for Pirobox fix
+	//-----------------------------------------------------------------------------------------------
+		function getCSSRule(ruleName, deleteFlag) {               // Return requested style obejct
+		   ruleName=ruleName.toLowerCase();    
+		   
+			if (document.styleSheets) {                            
+				for (var i=0; i<document.styleSheets.length; i++) { 
+					var styleSheet=document.styleSheets[i];
+					var styleSheetHref = styleSheet.href;
+					if ((styleSheetHref != null) && (styleSheetHref.indexOf("pirobox") != -1))
+						piroStyle = i;
+				}
+
+				var styleSheet=document.styleSheets[piroStyle];
+				 var ii=0;                                        // Initialize subCounter.
+				 var cssRule=false;                               // Initialize cssRule. 
+
+				 do {                                             // For each rule in stylesheet
+					if (styleSheet.cssRules) {                    // Browser uses cssRules?
+					   cssRule = styleSheet.cssRules[ii];         // Yes --Mozilla Style
+					} else {                                      // Browser usses rules?
+					   cssRule = styleSheet.rules[ii];            // Yes IE style. 
+					}                                             // End IE check.
+
+					if (cssRule)  {                               // If we found a rule...
+					   if ((typeof(cssRule.selectorText) != 'undefined') && (cssRule.selectorText.toLowerCase()==ruleName)) { //  match ruleName?
+						  if (deleteFlag=='delete') {             // Yes.  Are we deleteing?
+							 if (styleSheet.cssRules) {           // Yes, deleting...
+								styleSheet.deleteRule(ii);        // Delete rule, Moz Style
+							 } else {                             // Still deleting.
+								styleSheet.removeRule(ii);        // Delete rule IE style.
+							 }                                    // End IE check.
+							 return true;                         // return true, class deleted.
+						  } else {                                // found and not deleting.
+							 return cssRule;                      // return the style object.
+						  }                                       // End delete Check
+					   }                                          // End found rule name
+					}                                             // end found cssRule
+					ii++;                                         // Increment sub-counter
+				 } while (cssRule)  
+			}
+			return false;
+		}
+
+
+		function killCSSRule(ruleName) {                          // Delete a CSS rule   
+		   return getCSSRule(ruleName,'delete');                  // just call getCSSRule w/delete flag.
+		}                                                         // end killCSSRule
+
+		function addCSSRule(ruleName) {                           // Create a new css rule
+		   if (document.styleSheets) {                            // Can browser do styleSheets?
+			  if (!getCSSRule(ruleName)) {                        // if rule doesn't exist...
+				 if (document.styleSheets[0].addRule) {           // Browser is IE?
+					document.styleSheets[0].addRule(ruleName, null,0);      // Yes, add IE style
+				 } else {                                         // Browser is IE?
+					document.styleSheets[0].insertRule(ruleName+' { }', 0); // Yes, add Moz style.
+				 }                                                // End browser check
+			  }                                                   // End already exist check.
+		   }                                                      // End browser ability check.
+		   return getCSSRule(ruleName);                           // return rule we just created.
+		} 
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//Get/Set cookies for mobile site
+	//-----------------------------------------------------------------------------------------------
+		function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			createCookie(name,"",-1);
+		}
+		
+		
+		
+		var fullSite = readCookie('FullSite');
+		var mobileDev = readCookie('MobileDevice');
+		var mobileNoRedirect = readCookie('MobileNoRedirect');
+		
+		if(fullSite && mobileDev) {
+			if((fullSite != 'True') && (mobileNoRedirect != '1') && (mobileDev == 'True'))
+				window.location = 'http://www.sd171.k12.id.us/mobile/default.asp';
+		}
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//photo album / lightbox init
+	//-----------------------------------------------------------------------------------------------
+		$(document).ready(function() {
+			if ($("a[class^='pirobox']").length > 0) {
+				$().piroBox({
+						my_speed: 400, //animation speed
+						bg_alpha: 0.7, //background opacity
+						slideShow : true, // true == slideshow on, false == slideshow off
+						slideSpeed : 4, //slideshow duration in seconds(3 to 6 Recommended)
+						close_all : '.piro_close,.piro_overlay'// add class .piro_overlay(with comma)if you want overlay click close piroBox
+				});
+			}
+		});
+
+		var UserAgent = navigator.userAgent;
+		//alert(UserAgent);
+		if (UserAgent.indexOf("MSIE 10") != -1)
+			TheAgent = "IE10"
+		else{
+			if (UserAgent.indexOf("MSIE") != -1)
+				TheAgent = "IE"
+			else
+				TheAgent = ""
+		}
+		
+		//Pirobox + Google Translate workaround for non-IE browsers. Dynamically changes CSS for pirobox after the translate widget has loaded.
+		if (TheAgent == ""){
+			theTimeout = setTimeout('GoogleCountdown()', 2000);	
+		}
+		
+		function GoogleCountdown() {
+			var element =  document.getElementById('google_translate_element');
+			if ((typeof(element) != 'undefined') && (element != null))
+			{
+				var PiroContent = getCSSRule('.pirobox_content');
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					//x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+					
+				
+				if(y < 700)
+					PiroContent.style.top = "16%";
+				else{
+					if(y > 900)
+						PiroContent.style.top = "23%";
+					else
+						PiroContent.style.top = "20%";
+				}
+				
+			}
+		}
+	//-----------------------------------------------------------------------------------------------
+		
+		
+		//Use onClick=SlideLink() in the slide show overlay for slide links work
+		function SlideLink() {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			//figure out which div is showing and set Link var
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			//if an anchor exists store values to "h" (for HREF) and "t" (for Target)
+			if (Link.firstChild.nodeName == "A") {
+				h = Link.firstChild.href;
+				t = Link.firstChild.target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				h = Link.getElementsByTagName('A')[0].href;
+				t = Link.getElementsByTagName('A')[0].target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+		}
+		//Make sure the cursor is a link pointer when a link exists (called by function SlideCursor())
+		function SlideCursorCheck(me) {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			if (Link.firstChild.nodeName == "A") {
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.firstChild.href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.etElementsByTagName('A')[0].href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+		}
+		//Function to change cursor on slide show overlay
+		var CursorCheck = false;
+		function SlideCursor(me) {
+			Elem = me;			
+			if (CursorCheck == false) {
+				var Start_SlideCursor = setInterval("SlideCursorCheck(Elem)", 500);
+				CursorCheck = true;
+			}
+		}
+		
+		function Login()
+		{
+			var loginPage = 'https://securesite.schoolinsites.com/loginv2/common/?p=1';
+			var loginDomain = 'http://www.sd171.k12.id.us';
+			loginPage = loginPage + '&login_for=' + loginDomain;
+			
+			window.location.href = loginPage;
+		}
+		
+		var imgAltTagsFix = function() {
+			$('img.gsc-branding-img').attr("alt", "Google Custom Search Branding");
+			$('input.gsc-search-button').attr('alt', "Google Custom Search Button");
+		};
+		
+		window.__gcse = {
+			callback: imgAltTagsFix
+		};
+		
+		function a11yClick(event){
+			if(event.type === 'click'){
+				return true;
+			}
+			else if(event.type === 'keypress'){
+				var code = event.charCode || event.keyCode;
+				if((code === 32)|| (code === 13)){
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	</script><style type="text/css" media="screen">
+		body{
+	margin: 0;
+	padding: 25px 0 0 0;}
+div#ToggleNav{
+	position:absolute; /* only effects browsers that cannot accept Fixed positioning */
+	top: 0; /* only effects browsers that cannot accept Fixed positioning */
+	left: 0; /* only effects browsers that cannot accept Fixed positioning */
+	background: #000 url(/images/Admin/Skins/HardCandyBlack/images/ToggleLoginBg.gif) repeat-x top left;
+	border-bottom: 0px solid #333;
+	border-top: 0px solid #FFFFFF;
+	width:100%;
+	height:25px;
+	z-index: 1000;
+	overflow:hidden;}
+div#ToggleNav td{
+	font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #9EA8C3;}
+div#ToggleNav input {
+	margin: 0;
+	padding: 0;
+	font: normal 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #303040;
+	vertical-align:middle;}
+div#ToggleNav .loginWrapper {
+	float: right;
+	height: 100%;
+}
+div#ToggleNav .formWrapper {
+	padding-right: 3px;
+	padding-left: 3px;
+	display: inline-block; 
+	*display: inline;}
+div#ToggleNav .formUsername {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/UsernameBg.gif) no-repeat top left;}
+div#ToggleNav .formPassword {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/PasswordBg.gif) no-repeat top left;}
+div#ToggleNav .formSelected {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/LoginFieldBlank.gif) repeat-x top left;}
+div#ToggleNav .formButton {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat 0 0;}
+div#ToggleNav .formButtonHover {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat -46px 0;}
+div#ToggleNav a.help:link, div#ToggleNav a.help:visited {
+	display:block;
+	height: 16px;
+	color: #D9D8E6;
+	border: 0;
+	margin: 4px 5px 0 1px;}
+div#ToggleNav a.help:hover, div#ToggleNav a.help:active {
+	display: block;
+	height: 16px;
+	border: 0;}
+body > div#ToggleNav .formUsername {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formPassword {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formSelected {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formButton {margin-bottom: 3px;}/* non-IE browsers only */
+body > div#ToggleNav .formButtonHover {margin-bottom: 3px;}/* non-IE browsers only */
+@media screen {
+	body > div#ToggleNav{
+		position:fixed;}
+}
+
+* html div#AdminDefaultIncludes{
+	position: fixed;
+	top: 25px;
+	bottom:0;
+ 	width: 100%;
+	_position: absolute;
+	_top: expression( ( 25 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+	_height: expression( ( -25 + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );}
+				* html body {
+					overflow:hidden;}
+				* html div#AdminDefaultIncludes{
+					overflow: auto;	}
+			
+	</style>
+<!--[if lte IE 9]>
+	<style type="text/css" media="screen">
+		* html body {
+			overflow:auto;}
+	</style>
+	<![endif]--><script type="text/javascript" src="/JavaScripts/JavaScripts.js"></script><script type="text/javascript">
+			TopBar = '<div class="loginWrapper">' +
+						'<div class="formWrapper"><a href="/admin1/securelogin.asp" aria-label="Log In" title="Go to Secure Login Page" alt="Log In" class="formButton" border="0" onFocus="this.className=\'formButtonHover\'"  onMouseOver="this.className=\'formButtonHover\'" onblur="this.className=\'formButton\'" onMouseOut="this.className=\'formButton\'">Login button</a></div>' +
+					 '</div>';
+		</script><script type="text/javascript">
+		if(typeof(BottomBar) == 'undefined')
+			var BottomBar = ' ';
+		$(document).ready(function() {
+			$("body").prepend('<div id="ToggleNav">' + TopBar + '</div>' + BottomBar);	
+		});
+	
+	</script><!--[if lte IE 9]>
+	<div id="AdminDefaultIncludes">
+	<![endif]--><link rel="Shortcut Icon" type="image/ico" href="http://images.pcmac.org/Websites/OrofinoJointSD171/OrofinoJointSD171/images/favicon.ico">
+<link rel="icon" href="http://images.pcmac.org/Websites/OrofinoJointSD171/OrofinoJointSD171/images/favicon.ico" type="image/x-icon">
+<link href="http://images.pcmac.org/Websites/OrofinoJointSD171/OrofinoJointSD171/Styles2017.css" rel="stylesheet" type="text/css">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+	startList = function() {
+		if (document.all&&document.getElementById) {
+			navRoot = document.getElementById("nav");
+			for (i=0; i<navRoot.childNodes.length; i++) {
+				node = navRoot.childNodes[i];
+				if (node.nodeName=="LI") {
+					node.onmouseover=function() {
+						this.className+=" over";
+					}
+					node.onmouseout=function() {
+						this.className=this.className.replace(" over", "");
+					}
+				}
+			}
+		}
+	}
+	window.onload=startList;
+	
+	//--><!]]></script><!-- This fixes the issue where drop down menus are hidden behind embedded YouTube videos  --><script> 
+$(document).ready(function() { 
+$("iframe").each(function(){ 
+var ifr_source = $(this).attr('src'); 
+var wmode = "wmode=transparent"; 
+if(ifr_source.indexOf('?') != -1) { 
+var getQString = ifr_source.split('?'); 
+var oldString = getQString[1]; 
+var newString = getQString[0]; 
+$(this).attr('src',newString+'?'+wmode+'&'+oldString); 
+} 
+else $(this).attr('src',ifr_source+'?'+wmode); 
+}); 
+}); 
+</script><!-- End YouTube fix --><!-- Skip Nav--><script type="text/javascript" src="http://images.pcmac.org/Websites/OrofinoJointSD171/OrofinoJointSD171/js/skipnav.js"></script>
+</head>
+<body>
+<div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+	<script type="text/javascript">
+	
+		//Get buttons from Quick Links
+		function ShowButtons() {
+			var qL = document.getElementById('QuickLinks');
+			if (qL) {document.getElementById('QuickLinkButtons').innerHTML = qL.innerHTML;}
+		}
+		ShowButtons();
+		
+		//Load event for cross browser onLoad action
+		function addLoadEvent(func) { 
+			var oldonload = window.onload; 
+			if (typeof window.onload != 'function') { window.onload = func; } else {  window.onload = function() { if (oldonload) { oldonload(); } func(); } } 
+		} 
+		
+		//fix the top navigation width in case the user adds too many links	
+		addLoadEvent(function() { 
+			var topNav = document.getElementById('TopNavigation'), topNavItem = topNav.lastChild;
+			topNav.style.width = topNav.offsetWidth + 'px';
+			if (topNav.offsetHeight > (topNavItem.offsetHeight * 1.2)) {while (topNav.offsetHeight > (topNavItem.offsetHeight * 1.2) && topNav.offsetWidth < 1000 ) {topNav.style.width = topNav.offsetWidth + 15 + 'px';}}
+		});
+	
+	</script><div align="center">
+<table width="990" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" id="SiteWrapper">
+<tr>
+<td align="right" valign="top">
+				<div style="padding: 42px 10px 0 0; height: 55px">
+				<a href="https://www.facebook.com/pages/Joint-School-District-171/579218142094401?ref=stream" target="_blank"><img src="http://images.pcmac.org/Websites/OrofinoJointSD171/OrofinoJointSD171/Images/socialicons-fb.png" alt="Facebook" width="38" height="38" border="0"></a>  </div>
+	</td>
+</tr>
+<tr>
+<td align="left">
+			<div id="SlideShow">
+				
+			<div>
+			<script src="/JavaScripts/fotorama-4.6.4/fotorama.js"></script><style>
+.fotorama__html div,
+.fotorama__html a {
+  display: block;
+  height: 100%;
+  /* Transparent links are not clickable in IE,
+     but non-existent background fixes this.
+    (Put an empty 1×1 image here to avoid
+     errors in console.)
+  background: url(_.gif); */
+}
+
+</style>
+<div class="fotorama" data-width="100%" data-fit="cover" data-maxheight="296" data-transition="crossfade" data-autoplay="5000" data-loop="true" data-transitionduration="500" data-stopautoplayontouch="false" data-arrows="true" data-click="false" data-swipe="true" data-nav="false">
+	 
+	 
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1172/93a3258b2318b05c41cef1f0e142ae7a.jpg" data-caption="" alt="Slideshow Image 0">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1172/010558ee1a4ffd99f7068fae45157455.jpg" data-caption="" alt="Slideshow Image 1">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1172/d6c93f00fb9cb9f5a09036f40af33287.jpg" data-caption="" alt="Slideshow Image 2">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1172/08faa259e702b5d18fec3f83aa0f6d47.jpg" data-caption="" alt="Slideshow Image 3">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1172/d5f7ea60c7cd0250488ff827e566bc46.jpg" data-caption="" alt="Slideshow Image 4">
+		
+		</div>
+			
+</div>
+
+
+
+			</div>
+		
+			</div>
+<div class="SlideShowOverlay"></div>
+		</td>
+	</tr>
+<tr>
+<td align="center" style=" padding: 0 10px; ">
+			<div id="topnavcontainer">
+<div role="navigation" aria-label="Main menu">
+<ul class="nav">
+<li><a href="/">home</a></li>
+         
+	<!--School Drop Down Main Link Include -->
+		<li class="TopNav">
+<a href="/?PN=Schools2">Schools</a>
+		<ul>
+<li class="DropTitle">Elementary Schools</li>
+							
+				<li><a href="http://cavendishteakean.id.ojsde.schoolinsites.com" target="_blank">Cavendish-Teakean Elementary School</a></li>
+				
+				<li><a href="http://orofinoelem.id.ojsde.schoolinsites.com" target="_blank">Orofino Elementary School</a></li>
+				
+				<li><a href="http://peckelem.id.ojsde.schoolinsites.com" target="_blank">Peck Elementary School</a></li>
+				
+							<li class="DropTitle">High Schools</li>
+							
+				<li><a href="http://www.idyouthchallenge.com/" target="_blank">Idaho Youth Challenge Academy</a></li>
+				
+				<li><a href="http://orofinojrsrhigh.id.ojsdh.schoolinsites.com" target="_blank">Orofino Junior / Senior High School</a></li>
+				
+							<li class="DropTitle">K-12 Schools</li>
+							
+				<li><a href="http://timberline.id.ojsd.schoolinsites.com" target="_blank">Timberline Schools</a></li>
+				
+		</ul>
+</li>	
+               
+    <!--Division Main Link Include -->
+	
+			<li class="TopNav">
+				<a href="?DivisionID=17903" target="" style="cursor: default;">Calendar</a>
+				<ul></ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=18738" target="" style="cursor: default;">School Board Information</a>
+				<ul>
+<li>
+									<a href="?DivisionID=18738&amp;DepartmentID=20706">
+										Board Meeting Minutes and Agendas
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=18738&amp;DepartmentID=20705">
+										Board Members Contact Information
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=18738&amp;DepartmentID=20707">
+										Archive of Past Years
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=18738&amp;DepartmentID=20709">
+										Frequently Asked Questions
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=18738&amp;DepartmentID=20732">
+										District Calendar in PDF
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=18810" target="" style="cursor: default;">Nutrition Services</a>
+				<ul>
+<li>
+									<a href="?DivisionID=18810&amp;DepartmentID=28082">
+										Online Payments
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=18810&amp;DepartmentID=29090">
+										Nutrition News
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li><a href="/?PN=Contact">contact</a></li>
+             
+	
+	
+</ul>
+</div>
+</div>
+
+		</td>
+	</tr>
+<tr>
+<td style="padding: 15px 5px 5px 5px; overflow: hidden;">
+			<table width="980" border="0" cellspacing="0" cellpadding="0"><tr>
+<td align="left" valign="top" class="Column1">
+			<div style="padding: 10px;">
+				<div id="SideNavigation">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+
+	<div id="NavDivisions">
+	
+		<a href="/?DivisionID=17903&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Calendar
+		</a>
+			
+		<a href="/?DivisionID=18793&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			District Financials
+		</a>
+			
+		<a href="/?DivisionID=18738&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			School Board Information
+		</a>
+			
+		<a href="/?DivisionID=18810&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Nutrition Services
+		</a>
+			
+		<a href="/?DivisionID=18821&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			District Policies
+		</a>
+			
+		<a href="/?DivisionID=18809&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Teacher Resources
+		</a>
+			
+		<a href="/?DivisionID=18816&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Human Resources
+		</a>
+			
+		<a href="/?DivisionID=18814&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Why Choose JSD171?
+		</a>
+			
+		<a href="/?DivisionID=18818&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Log into your Google Drive
+		</a>
+			
+		<a href="/?DivisionID=18820&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Transportation Department
+		</a>
+			
+	</div> <!-- End: id="NavDivisions" -->
+	
+	<span id="UserLinksMenu">
+		
+	</span>
+		
+			<div id="QuickLinks">
+				
+					<div class="QuickLinksTitle"><span>Quick Links</span></div>
+				
+					<a href="https://sky.sd171.k12.id.us" target="_blank" class="QuickLinks">
+						Skyward
+					</a>
+					
+					<a href="https://docs.google.com/document/d/10E03ipwluUyuvKWAtCdtqF3wncwbqKyVduKRqYVaz1I/edit?usp=sharing" target="_blank" class="QuickLinks">
+						Skyward Family Access Guide
+					</a>
+					
+					<a href="https://www.readysub.com" target="_blank" class="QuickLinks">
+						ReadySub
+					</a>
+					
+					<a href="https://webmail.sd171.k12.id.us" target="_blank" class="QuickLinks">
+						District Exchange Email - OWA
+					</a>
+					
+					<a href="http://www.sd171.k12.id.us/?DivisionID=18810" target="" class="QuickLinks">
+						Online Payments for Lunch
+					</a>
+					
+					<a href="http://onlinesafetyorofin.wix.com/parents" target="_blank" class="QuickLinks">
+						Social Media Safety
+					</a>
+					
+					<a href="http://www.sde.idaho.gov/assessment/accountability/" target="_blank" class="QuickLinks">
+						Idaho School Accountability
+					</a>
+					
+					<a href="https://idahoschools.org/districts/171" target="_blank" class="QuickLinks">
+						JSD 171 District Report Card
+					</a>
+					
+					<a href="https://sky.sd171.k12.id.us/scripts/wsisa.dll/WService=wsSky/rwetru09.html" target="_blank" class="QuickLinks">
+						Skyward True Time
+					</a>
+					
+					<a href="https://www.publicschoolworks.com/Pages/frameset.asp?di=1681&amp;dia=vx52p" target="_blank" class="QuickLinks">
+						PublicSchoolWORKS
+					</a>
+					
+			</div>
+			</td></tr></table>
+</div>
+			</div>
+		</td>
+		<td align="left" valign="top" class="Column2">
+			<div style="padding: 0 10px 0 10px;" id="DefaultIncludes">
+				<div id="maincontent">
+				<span class="header" style="display:block; padding: 0; margin:0;">Welcome to Joint School District 171</span>
+				</div>
+				<table style="width: 532px; height: 239px;" border="0" cellspacing="0" cellpadding="3" align="left"><tbody>
+<tr align="left" valign="bottom">
+<td style="width: 200px;">
+<h3>Mission Statement</h3>
+<hr>
+</td>
+<td style="width: 200px;">
+<h3>Vision Statement</h3>
+<hr>
+</td>
+</tr>
+<tr align="left" valign="top">
+<td style="width: 200px;">
+<p><span style="font-size: 13px;">To provide a safe and exceptional</span><br><span style="font-size: 13px;">learning environment.</span></p>
+<p><span style="font-size: 13px;">To prepare and inspire each student</span><br><span style="font-size: 13px;">to reach their full potential.</span><span style="font-size: 13px;"></span></p>
+</td>
+<td style="width: 200px;"><span style="font-size: 13px;">The school district will become a model of innovation, initiative, and learning; Leading the state in excellence.</span></td>
+</tr>
+<tr align="left" valign="top">
+<td style="width: 200px;" colspan="2">
+<p> </p>
+<hr>
+<h3><a href="https://docs.google.com/document/d/190bMp-Sdy5MCElExRol6mkCf1TkxdhxYUbW5zA-41uA/edit?usp=sharing" target="_blank" title="JSD 171 COVID-19 Closure updates"><span><strong>COVID-19 Closure Updates</strong></span></a></h3>
+<h3><span><strong><strong><a href="https://docs.google.com/document/d/1E9CoOyAqnsJY4zREVMUPDz8iqJHDhidHRoikW7UWOXw/edit?usp=sharing" target="_blank" title="Food Service during the COVID-19 Closure">FOOD SERVICE during the COVID-19 Closure</a></strong></strong></span></h3>
+<h3><a href="https://docs.google.com/document/d/1kdGnXv_9IHaGmC5bsipVAKGvvJ3A-9QUKP7mSWa7UCQ/edit?usp=sharing" target="_blank" title="COVID-19 Technology Support"><span><strong><strong>COVID-19 Technology Support Policy</strong></strong></span></a></h3>
+<h3><a href="https://drive.google.com/file/d/145ZRmxgHMwwDFm1L1Nh7Ks7tDsGzjpLf/view?usp=sharing" target="_blank" title="COVID-19 Employee Rights"><span><strong><strong>COVID-19 Employee Rights</strong></strong></span></a></h3>
+<hr>
+<p> </p>
+<span style="font-size: 18px; text-decoration: blink;">SCHOOL CLOSURE BEGINNING 03/18/2020</span>
+<p><a href="https://drive.google.com/open?id=1ppU7cKZqIix4iacZ7rcrRHwrNCbWmQN1THUame9Hgq4" title="https://drive.google.com/open?id=1ppU7cKZqIix4iacZ7rcrRHwrNCbWmQN1THUame9Hgq4"><span style="font-size: 18px; text-decoration: blink;">COVID-19 UPDATE 03/14/2020</span></a> <a href="https://eprovesurveys.advanc-ed.org/surveys/#/action/127100/p31551" title="Parent Survey"><span style="font-size: 18px; text-decoration: blink;">PARENT SURVEYS 2019</span></a></p>
+<a href="https://eprovesurveys.advanc-ed.org/surveys/#/action/127100/p31551" title="Parent Survey"><span style="font-size: 18px; text-decoration: blink;"></span></a>
+<h3> </h3>
+<h3>Public Service Announcement<br><a href="https://www.newsobserver.com/living/family/article212814379.html" title="Suicide Awareness">(What to say and not say to teens about suicide)</a>
+</h3>
+<p> </p>
+<p><span style="font-size: 16px;"><a href="https://drive.google.com/open?id=1ak11hkBgkxwO_IIC7s-jNpXnnuI9CicH" title="Organizational Charts">JSD171 Organizational Charts</a></span></p>
+<p><span style="font-family: 'arial black', 'avant garde'; color: #0000ff;"><strong><span style="font-size: 13px;">If you buy propane you can help your local school district:  <a href="http://www.sd171.k12.id.us/Download.asp?L=0&amp;LMID=787147&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=Documents&amp;Act=Download&amp;T=1&amp;I=660305" target="_blank">click this link</a></span></strong></span></p>
+<hr>
+<p> <a href="https://www.readysub.com/" target="_blank" title="ReadySub"><img src="http://images.pcmac.org//images/Clients/912/1172/ReadySub.PNG" border="0" alt="ReadySub" title="ReadySub" width="99" height="33"></a> Substitute Mangement Platform</p>
+<hr>
+<h3> </h3>
+<hr>
+<h3><span style="font-family: arial, helvetica, sans-serif;">Student and Parent Information</span></h3>
+<p><a href="https://docs.google.com/document/d/1l7h-qwBOCk-rK3MDXkQjys6VXLK1rhDBVyxR31DSUr8/edit?usp=sharing" target="_blank" title="Chromebook Use and Care">Chromebook Use and Care Expectations</a></p>
+<h3><strong>For Student Information:<br><a href="https://sky.sd171.k12.id.us" target="_blank" title="Skyward - JSD171"><img src="http://images.pcmac.org//images/Clients/912/1172/wfssky01.gif" border="0" alt="Skyward - JSD171" title="Skyward - JSD171" width="150" height="88" style="display: block; margin-left: auto; margin-right: auto;"></a></strong></h3>
+<h3><strong>If you do not have your personal login credentials for Skyward, please contact the school where your student attends.  Always keep login credentials secure.</strong></h3>
+<hr>
+<p><strong>Skyward Family Access provides access to a variety of student information and communication tools.    While not all of the features demonstrated in the video are currently available, we will be making more features available in the future.</strong></p>
+<p><iframe frameborder="0" height="350" src="https://www.youtube.com/embed/ipxdPFmEkVs?rel=0" style="display: block; margin-left: auto; margin-right: auto;" width="425" allowfullscreen=""></iframe></p>
+</td>
+</tr>
+</tbody></table>
+</div>
+		</td>
+		<td align="left" valign="top" class="Column3" style="padding-left:10px">
+				<div class="IndexNewsContainer">
+					<div id="IndexNewsPortalDistrict">
+					
+	<div class="IndexNewsPortalDistrict">
+	<a href="Default.asp?PN=News2">District News
+</a>
+	
+	</div>
+
+					<br>
+</div>
+				</div>
+				<div class="IndexSchoolContainer">
+					<div id="IndexNewsPortalSchool">
+					
+	<div class="IndexNewsPortalSchool">
+	<a href="/?PN=News2&amp;SubP=SNews&amp;SubSubP=SchoolsNews&amp;DisplayType=Selected&amp;ShowNav=''&amp;StoryGroup=Archived">School News
+</a>
+	
+	</div>
+
+					<br>
+</div>
+				</div>
+				<div class="IndexEventsContainer2"><a href="/Default.asp?PN=Pages&amp;SubP=Level1&amp;PageID=27707"><img src="http://images.pcmac.org/Websites/OrofinoJointSD171/OrofinoJointSD171/images/TopEventsHeader2.gif" alt="Announcements"></a></div>
+				<br>
+</td>
+	</tr></table>
+</td>
+	</tr>
+<tr>
+<td>
+		<div class="footeraddress">1051 Michigan Ave | Orofino, Idaho 83544 | Phone: 208-476-5593</div>
+	</td>
+	</tr>
+<tr>
+<td style="padding: 2px 10px 5px 10px" class="LegalText">
+			<div id="Legal">
+	<a href="http://www.schoolinsites.com/"><img src="/images/SisPoweredSmall.png" id="PoweredBy" height="30" width="120" alt="Powered and Designed by SCHOOLinSITES"></a>
+	
+	<p class="right">
+		Copyright © 2020  Joint School District 171
+	</p>
+</div>
+
+		</td>
+	</tr>
+</table>
+</div>
+</body>
+</html>

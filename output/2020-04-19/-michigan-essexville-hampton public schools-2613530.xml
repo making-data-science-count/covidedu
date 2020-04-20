@@ -1,0 +1,1439 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Essexville-Hampton Public Schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700" rel="stylesheet" type="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Essexville-Hampton Public Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Garber High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Cramer Junior High School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Verellen Elementary - News" href="/rssNews.ashx?schoolId=3">
+<link rel="alternate" type="application/rss+xml" title="Bush Elementary - News" href="/rssNews.ashx?schoolId=4">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "MI_EssexvilleHamptonPS",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<style type="text/css">
+    </style>
+<style type="text/css">
+        .panel {
+            background: none;
+            margin: 0 !important;
+            padding: 10px 0 !important;
+            box-shadow: none;
+            border: none;
+            border-radius: 0;
+        }
+
+            .panel h1, .panel2 h1, .panel header, #news-list .article .view-all, .panel p, #news-list .article a.news-title, .view-all-news, .view-full-calendar {
+                color: #fff !important;
+            }
+
+            .panel h1, .panel2 h1 {
+                text-shadow: -1px 1px 1px #000;
+            }
+
+        #news-list .article a.news-image, span.news-post-date {
+            display: none;
+        }
+
+        ul.nav.navbar-nav.left-nav li a i {
+            color: #fff !important;
+        }
+
+
+        body a.schoolName {
+            display: block !important;
+        }
+       
+        body a.logo {
+            margin: 5px auto -40px;
+        }
+
+        .searchengine {
+            position: absolute;
+            right: 20px;
+        }
+
+        .nav-logo-container.hidden-xs {
+            height: 100px;
+        }
+    </style>
+<style type="text/css">
+                    body a.logo {
+           width:170px; height:170px;
+        }
+                </style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1516741992130">
+<link rel="icon" href="/userfiles/-13/My%20Files/favicon.ico" type="image/x-icon">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJMzAyNzUzNTE4D2QWAmYPZBYCZg9kFgRmD2QWBmYPZBYCZg9kFgICAQ8WAh4EVGV4dAUhRXNzZXh2aWxsZS1IYW1wdG9uIFB1YmxpYyBTY2hvb2xzZAIED2QWAgIBDxYCHgtfIUl0ZW1Db3VudAIEFghmD2QWAmYPFQISR2FyYmVyIEhpZ2ggU2Nob29sATFkAgEPZBYCZg8VAhlDcmFtZXIgSnVuaW9yIEhpZ2ggU2Nob29sATJkAgIPZBYCZg8VAhNWZXJlbGxlbiBFbGVtZW50YXJ5ATNkAgMPZBYCZg8VAg9CdXNoIEVsZW1lbnRhcnkBNGQCBg8WAh4EaHJlZgUwL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0xNTE2NzQxOTkyMTMwZAIBDxYCHgZhY3Rpb24FAS8WDAIBD2QWBAIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8EBQEwZAIDDw9kFgIfBAUBMGQCBA8PZBYCHwQFATBkAgUPD2QWAh8EBQEwZAIDD2QWAgICD2QWAmYPFgIfAAUbPHVsIGNsYXNzPSdhbGVydExpc3QnPjwvdWw+ZAIDD2QWAgIBD2QWAgIBD2QWBgIBDw8WAh8ABSFFc3NleHZpbGxlLUhhbXB0b24gUHVibGljIFNjaG9vbHNkZAIDDxYCHwAFFUVzc2V4dmlsbGUtSGFtcHRvbiBQU2QCDw8PFgIeC05hdmlnYXRlVXJsBQEvZGQCBQ9kFgICAQ9kFgICAQ8WAh8BAgUWCmYPZBYCZg8VAwAAOy91c2VyZmlsZXMvMjAxOC0xMC8xNTY5MzUyNC0wYzk5LTRjMDItYmRjMy0wOGNkOGI0ZjY3YmQuanBnZAIBD2QWAmYPFQMAADsvdXNlcmZpbGVzLzIwMTgtMTAvNmI1NTBjMGQtYjk0OS00NzI4LWEzM2EtMzZjNGQ5NWI3NzNjLmpwZ2QCAg9kFgJmDxUDAAA7L3VzZXJmaWxlcy8yMDE4LTEwL2I4NjNhNzg1LTU3NGEtNDZkNy1hNjIyLThhOTUwNTliNDM0YS5qcGdkAgMPZBYCZg8VAwAAOy91c2VyZmlsZXMvMjAxOC0wNi8xMTM5M2FkZC0xOWIzLTQ5M2UtYTgxNC1lNWJiZWZjZGVlNWUuanBnZAIED2QWAmYPFQMAADsvdXNlcmZpbGVzLzIwMTgtMTAvYzBmZjJmNTItMjc1YS00NWIxLWE4ODgtNWI4M2FjZDFjYTUxLmpwZ2QCCQ9kFgICAQ9kFgICAQ9kFgRmDw8WAh4HVmlzaWJsZWhkZAICD2QWBAIDDxYCHwZoZAIFDxYCHwECA2QCCw9kFgQCAw9kFgICAQ9kFgZmDxYCHwAFBlZpZGVvc2QCAQ8WAh8ABbERPHA+PGEgaHJlZj0iL3VzZXJmaWxlcy84L215IGZpbGVzL3NlcHRlbWJlciAyMDE3LnBkZj9pZD00MjM4IiB0YXJnZXQ9Il9ibGFuayI+PHNwYW4gc3R5bGU9ImNvbG9yOiByZ2IoMCwgMCwgMjU1KTsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6IDE4cHg7Ij48c3Ryb25nPkRJU1RJTkdVSVNIRUQgRFVLRSBSRUNJUElFTlRTIDwvc3Ryb25nPjwvc3Bhbj48L3NwYW4+PC9hPjwvcD4NCg0KPHA+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxNnB4OyI+PHU+PHN0cm9uZz5FRFVDQVRFPC9zdHJvbmc+PC91Pjwvc3Bhbj48L3A+DQoNCjxwIGNsYXNzPSJ2aWRlb3BsYXllciIgZGF0YS1oZWlnaHQ9IjI2NiIgZGF0YS1wbGF5bGlzdD0ibnVsbCIgZGF0YS13aWR0aD0iNDc1IiBoZWlnaHQ9IjI2NnB4IiBzdHlsZT0iaGVpZ2h0OjQwN3B4OyIgd2lkdGg9IjQ3NXB4Ij4NCjx2aWRlbyBjbGFzcz0idmlkZW8tanMgdmpzLWRlZmF1bHQtc2tpbiIgY29udHJvbHM9ImNvbnRyb2xzIiBpZD0iNzllMmI1ZmEtNWI4Yy00NjNhLWE5NTItOTAxZWQ1NDJmODg3IiBwb3N0ZXI9Imh0dHA6Ly92aWRlby5jZG4uc2Nob29scG9pbnRlLmNvbS9NSV9Fc3NleHZpbGxlSGFtcHRvblBTJTJmMjAxNyUyZjA5JTJmaW1hZ2VzJTJmNzllMmI1ZmEtNWI4Yy00NjNhLWE5NTItOTAxZWQ1NDJmODg3MDAwMDEucG5nIiBwcmVsb2FkPSJub25lIj48c291cmNlIHNyYz0iaHR0cDovL3ZpZGVvLmNkbi5zY2hvb2xwb2ludGUuY29tL01JX0Vzc2V4dmlsbGVIYW1wdG9uUFMlMmYyMDE3JTJmMDklMmZ2aWRlb3MlMmY3OWUyYjVmYS01YjhjLTQ2M2EtYTk1Mi05MDFlZDU0MmY4ODcubXA0IiB0eXBlPSJ2aWRlby9tcDQiIC8+PC92aWRlbz4NCjwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE2cHg7Ij48dT48c3Ryb25nPlJFTEFURTwvc3Ryb25nPjwvdT48L3NwYW4+PC9wPg0KDQo8cCBjbGFzcz0idmlkZW9wbGF5ZXIiIGRhdGEtaGVpZ2h0PSIyNjYiIGRhdGEtcGxheWxpc3Q9Im51bGwiIGRhdGEtd2lkdGg9IjQ3NSIgaGVpZ2h0PSIyNjZweCIgc3R5bGU9ImhlaWdodDo0MDdweDsiIHdpZHRoPSI0NzVweCI+DQo8dmlkZW8gY2xhc3M9InZpZGVvLWpzIHZqcy1kZWZhdWx0LXNraW4iIGNvbnRyb2xzPSJjb250cm9scyIgaWQ9IjNiMmU3OTU0LWYyZmItNGRmMS1iNDY3LTVmZGY1NmU3YzU3NiIgcG9zdGVyPSJodHRwOi8vdmlkZW8uY2RuLnNjaG9vbHBvaW50ZS5jb20vTUlfRXNzZXh2aWxsZUhhbXB0b25QUyUyZjIwMTclMmYwOSUyZmltYWdlcyUyZjNiMmU3OTU0LWYyZmItNGRmMS1iNDY3LTVmZGY1NmU3YzU3NjAwMDAyLnBuZyIgcHJlbG9hZD0ibm9uZSI+PHNvdXJjZSBzcmM9Imh0dHA6Ly92aWRlby5jZG4uc2Nob29scG9pbnRlLmNvbS9NSV9Fc3NleHZpbGxlSGFtcHRvblBTJTJmMjAxNyUyZjA5JTJmdmlkZW9zJTJmM2IyZTc5NTQtZjJmYi00ZGYxLWI0NjctNWZkZjU2ZTdjNTc2Lm1wNCIgdHlwZT0idmlkZW8vbXA0IiAvPjwvdmlkZW8+DQo8L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxNnB4OyI+PHU+PHN0cm9uZz5JTk5PVkFURTwvc3Ryb25nPjwvdT48L3NwYW4+PC9wPg0KDQo8cCBjbGFzcz0idmlkZW9wbGF5ZXIiIGRhdGEtaGVpZ2h0PSIyNjYiIGRhdGEtcGxheWxpc3Q9Im51bGwiIGRhdGEtd2lkdGg9IjQ3NSIgaGVpZ2h0PSIyNjZweCIgc3R5bGU9ImhlaWdodDo0MDdweDsiIHdpZHRoPSI0NzVweCI+DQo8dmlkZW8gY2xhc3M9InZpZGVvLWpzIHZqcy1kZWZhdWx0LXNraW4iIGNvbnRyb2xzPSJjb250cm9scyIgaWQ9IjViMmRmMzRkLWYxN2EtNGI0NS05ZGE3LWNmNmY5ODllYWRmMiIgcG9zdGVyPSJodHRwOi8vdmlkZW8uY2RuLnNjaG9vbHBvaW50ZS5jb20vTUlfRXNzZXh2aWxsZUhhbXB0b25QUyUyZjIwMTclMmYwOSUyZmltYWdlcyUyZjViMmRmMzRkLWYxN2EtNGI0NS05ZGE3LWNmNmY5ODllYWRmMjAwMDAxLnBuZyIgcHJlbG9hZD0ibm9uZSI+PHNvdXJjZSBzcmM9Imh0dHA6Ly92aWRlby5jZG4uc2Nob29scG9pbnRlLmNvbS9NSV9Fc3NleHZpbGxlSGFtcHRvblBTJTJmMjAxNyUyZjA5JTJmdmlkZW9zJTJmNWIyZGYzNGQtZjE3YS00YjQ1LTlkYTctY2Y2Zjk4OWVhZGYyLm1wNCIgdHlwZT0idmlkZW8vbXA0IiAvPjwvdmlkZW8+DQo8L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD4mbmJzcDs8L3A+DQoNCjxwPiZuYnNwOzwvcD5kAgMPDxYCHwUFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9MWRkAgUPZBYEAgEPZBYGZg8WAh8BAgUWCgIBD2QWAmYPFQcFMjI5NzUGQXByIDIySi9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzLDQsNSZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTIyOTc1EUJ1c2ggUG9wY29ybiBTYWxlEUJ1c2ggUG9wY29ybiBTYWxlEEBCdXNoIEVsZW1lbnRhcnkXNzozMCBBTSAmbWRhc2g7IDg6MzAgQU1kAgIPZBYCZg8VBwUyMjMxMAZBcHIgMjdKL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMsNCw1JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjIzMTBBUG90dHMgR3JhbnTigJlzIHJldmlzaXQgZG8gbGFicyBiZWZvcmUuLi4gY2FsbCBvZmYgaWNlIHdlIGxvc2UgaXRBUG90dHMgR3JhbnTigJlzIHJldmlzaXQgZG8gbGFicyBiZWZvcmUuLi4gY2FsbCBvZmYgaWNlIHdlIGxvc2UgaXQAFzI6MDAgUE0gJm1kYXNoOyAzOjAwIFBNZAIDD2QWAmYPFQcFMjMxMDkGQXByIDI3Si9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzLDQsNSZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTIzMTA5F0JveXMnIFYgR29sZiB2cy4gTm91dmVsF0JveXMnIFYgR29sZiB2cy4gTm91dmVsP0BCYXkgQ291bnR5IEdvbGYgQ291cnNlLCA1ODQgVyBIYW1wdG9uIFJkLCBFc3NleHZpbGxlLCBNSSA0ODczMhczOjAwIFBNICZtZGFzaDsgMzowMCBQTWQCBA9kFgJmDxUHBTIzMTA4BkFwciAyN0ovY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCwxLDIsMyw0LDUmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMzEwOChHaXJscycgViBUZW5uaXMgdnMuIEJDIFdlc3Rlcm4gKEpWIDU6MzApKEdpcmxzJyBWIFRlbm5pcyB2cy4gQkMgV2VzdGVybiAoSlYgNTozMCk2QEdhcmJlciBIaWdoIFNjaG9vbCwgMjEzIFBpbmUgU3QsIEVzc2V4dmlsbGUsIE1JIDQ4NzMyFzQ6MDAgUE0gJm1kYXNoOyA0OjAwIFBNZAIFD2QWAmYPFQcFMjMxMTAGQXByIDI3Si9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzLDQsNSZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTIzMTEwLEdpcmxzJyBKVi9WIFNvY2NlciB2cy4gU3dhbiBWYWxsZXkgKEpWIDY6MTUpLEdpcmxzJyBKVi9WIFNvY2NlciB2cy4gU3dhbiBWYWxsZXkgKEpWIDY6MTUpR0BHYXJiZXIgSGlnaCBTY2hvb2wgU29jY2VyIEZpZWxkLCA2MTIgVyBCb3J0b24gUmQsIEVzc2V4dmlsbGUsIE1JIDQ4NzMyFzQ6MzAgUE0gJm1kYXNoOyA0OjMwIFBNZAIEDw8WBB8FBUUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCZzY2hvb2xpZD0wJnR5cGVzPSZ2aWV3RGF0ZT00LzE5LzIwMjAfAAUPVmlldyBBbGwgRXZlbnRzZGQCBg8PFgIfBQUhL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00ZGQCAw9kFgRmDzwrAAoBAA8WCB4NRGF5TmFtZUZvcm1hdAsqJ1N5c3RlbS5XZWIuVUkuV2ViQ29udHJvbHMuRGF5TmFtZUZvcm1hdAIeDU5leHRNb250aFRleHQFLz4+PHNwYW4gY2xhc3M9J29ic2N1cmUnPkdvIHRvIG5leHQgbW9udGg8L3NwYW4+Hg1QcmV2TW9udGhUZXh0BTM8PDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5HbyB0byBwcmV2aW91cyBtb250aDwvc3Bhbj4eAlNEFgEGAMCCmvTj1whkZAIBDw8WBh4GVGFyZ2V0BQZfYmxhbmsfAAUSVmlldyBGdWxsIENhbGVuZGFyHwUFJS9jYWxNb250aFZpZXcuYXNweD9zPTAmeT0yMDIwJm09NCZ0PTBkZAIRD2QWDgIBDxYCHglpbm5lcmh0bWwFIUVzc2V4dmlsbGUtSGFtcHRvbiBQdWJsaWMgU2Nob29sc2QCAw8WAh8MBSUzMDMgUGluZSBTdC48YnIvPkVzc2V4dmlsbGUsIE1JIDQ4NzMyZAIFDxYCHwIFPmh0dHA6Ly9tYXBzLmdvb2dsZS5jb20vbWFwcz9xPTMwMyBQaW5lIFN0LitFc3NleHZpbGxlK01JKzQ4NzMyZAIHD2QWAgIBDxYCHwwFE1Bob25lOiA5ODktODk0LTk3MDBkAgsPZBYCAgEPFgIfDAURRmF4OiA5ODktODk0LTk3MDVkAg0PFgIfBmhkAg8PZBYCZg8WAh8BAgMWBmYPZBYCZg8VBQsvbG9naW4uYXNweCtFc3NleHZpbGxlLUhhbXB0b24gUHVibGljIFNjaG9vbHMgQ01TIExvZ2luBV9zZWxmJjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5DTVMgTG9naW48L3NwYW4+DWZhIGZhLXNpZ24taW5kAgEPZBYCZg8VBRQvaW50cmFuZXRfbG9naW4uYXNweCpFc3NleHZpbGxlLUhhbXB0b24gUHVibGljIFNjaG9vbHMgSW50cmFuZXQFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkludHJhbmV0PC9zcGFuPg1mYSBmYS1zaXRlbWFwZAICD2QWAmYPFQUnaHR0cHM6Ly9hbmNob3IuZm0vcy83NzUyMzc0L3BvZGNhc3QvcnNzElRvbSBHcmVlbmUgUG9kY2FzdAZfYmxhbmsgPHNwYW4gY2xhc3M9J29ic2N1cmUnPlJTUzwvc3Bhbj4JZmEgZmEtcnNzZGQKjJgT3/Zomd+Uhld6VvyshETdqw==">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'ILxAaM2Kec' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="headerback">
+            <header id="site-head"><script>
+
+	$(document).ready(function () {
+		var menuAnchorsRight = $('ul.nav.navbar-nav.district-top-right > li > a');
+		var cntRight = menuAnchorsRight.length;
+
+		$('ul.nav.navbar-nav.district-top-right > li').css({
+			"width": (100 / cntRight) + "%"
+		});
+
+		var menuAnchorsLeft = $('ul.nav.navbar-nav.district-top-left > li > a');
+		var cntLeft = menuAnchorsLeft.length;
+
+		$('ul.nav.navbar-nav.district-top-left > li').css({
+			"width": (100 / cntLeft) + "%"
+		});
+
+		var menuAnchors = $('ul.nav.navbar-nav.district-top-nav > li > a');
+		var cnt = menuAnchors.length;
+
+		$('ul.nav.navbar-nav.district-top-nav > li').css({
+			"width": (100 / cnt) + "%"
+		});
+
+	});
+</script><div class="schoolNameRow">
+	<div class="container">
+		<div class="row">
+            			<div class="col-lg-12 col-md-12 col-sm-12">
+                            <span id="ctl00_ctl00_header_header_ctl00_SchoolName" class="schoolName">Essexville-Hampton Public Schools</span>
+                            		</div>
+	</div>
+</div>
+</div>
+<div class="NavBack hidden-lg hidden-md hidden-sm">
+	<div class="container">
+		<div class="row">
+			<div class="navigation">
+				<nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand hidden-lg hidden-md hidden-sm" href="#">
+							Essexville-Hampton PS
+						</a>
+					</div>
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav district-top-left-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/36" target="_blank" title="Administrative Staff">Administrative Staff</a></li>
+<li class="without-image"><a href="/employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="https://dashboard.eidexinsights.com/Essexville-Hampton/" target="_blank" title="Budget Transparency">Budget Transparency</a></li>
+<li class="without-image"><a href="https://drive.google.com/open?id=0B8Lwg-FR2xOjaHpFYTZmVjd6TUk" target="_blank" title="District Safety Drills">District Safety Drills</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/home" target="_blank" title="Garber High School">Garber High School</a></li>
+<li class="without-image"><a href="/2/home" target="_blank" title="Cramer Junior High">Cramer Junior High</a></li>
+<li class="without-image"><a href="/3/home" target="_blank" title="Verellen Elementary">Verellen Elementary</a></li>
+<li class="without-image"><a href="/4/home" target="_blank" title="Bush Elementary">Bush Elementary</a></li>
+</ul>
+</li>
+</ul>
+<ul class="nav navbar-nav district-top-right-nav-links">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents">Parents  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/70" title="School Supply Lists">School Supply Lists</a></li>
+<li class="without-image"><a href="https://sky2.baisd.net/scripts/wsisa.dll/WService=wsEAplus/seplog01.w" title="Skyward">Skyward</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/Essexville-Hampton-Public-Schools-Dining" target="_blank" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="/Content/38" title="Bush Preschool and Daycare Information">Bush Preschool and Daycare Information</a></li>
+<li class="without-image"><a href="http://www.parchment.com/" target="_blank" title="Parchment">Parchment</a></li>
+<li class="without-image"><a href="https://www.protectmichild.com/" target="_blank" title="Protect MI Child">Protect MI Child</a></li>
+<li class="without-image"><a href="http://www.arbookfind.com" target="_blank" title="AR Bookfind">AR Bookfind</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/media%20opt%20out%20form.pdf?id=6115" target="_blank" title="Media Opt-Out Form">Media Opt-Out Form</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Students">Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://sky2.baisd.net/scripts/wsisa.dll/WService=wsEAplus/seplog01.w" title="Skyward">Skyward</a></li>
+<li class="without-image"><a href="https://www.google.com/a/e-hps.net/" target="_blank" title="Email">Email</a></li>
+<li class="without-image"><a href="https://ehps.illuminatehc.com/" target="_blank" title="Illuminate">Illuminate</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/EssexvilleHamptonPublicSchoolsDining" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="https://clever.com/oauth/sis/login?target=NTdiYjNkNjEzNDljZmQwMTAwMDAwNzUx%3BNGM2M2MxY2Y2MjNkY2U4MmNhYWM%3D%3BaHR0cHM6Ly9jbGV2ZXIuY29tL2luL2F1dGhfY2FsbGJhY2s%3D%3BODViMWYyOTM4ODhjMTRlNDIyZDYyNDJmNDk2NmU1MDdlMjgzNmQ5MTA3MGM3MDI1Nzg1Njg5ZTk5ZmYxZWE2ZQ%3D%3D%3BY29kZQ%3D%3D&amp;skip=1&amp;school_name=&amp;default_badge=" target="_blank" title="Clever For Students">Clever For Students</a></li>
+<li class="without-image"><a href="https://auth.xello.world/Google/Student/8B1F843C-61C2-4C9E-83DF-F3A82C94CBDC" target="_blank" title="Xello (Career Cruising)">Xello (Career Cruising)</a></li>
+<li class="without-image"><a href="/Content/152" aria-label="" title="KDG &amp; 1st Grade Music Program">KDG &amp; 1st Grade Music Program</a></li>
+<li class="without-image"><a href="/Content/148" aria-label="" title="2nd Grade Program">2nd Grade Program</a></li>
+<li class="without-image"><a href="/Content/170" target="_blank" title="3rd Grade Concert">3rd Grade Concert</a></li>
+<li class="without-image"><a href="/Content/146" target="_blank" title="3rd and 4th Grade Online Recorder Karate">3rd and 4th Grade Online Recorder Karate</a></li>
+<li class="without-image"><a href="/Content/144" target="_blank" title="4th Grade Spring Program">4th Grade Spring Program</a></li>
+<li class="without-image"><a href="http://inqwizit.oaisd.org" target="_blank" title="Inqwizit">Inqwizit</a></li>
+<li class="without-image"><a href="http://vlc.ent.sirsi.net/client/en_US/garber" title="Bay County Library Garber Site">Bay County Library Garber Site</a></li>
+<li class="without-image"><a href="/Content/46" title="Garber Guidance Department">Garber Guidance Department</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Alexandria Library Catalog">Alexandria Library Catalog  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://ehbush.goalexandria.com/researcher" target="_blank" title="Bush Library">Bush Library</a></li>
+<li class="without-image"><a href="http://ehverellen.goalexandria.com/researcher" target="_blank" title="Verellen Library">Verellen Library</a></li>
+<li class="without-image"><a href="http://ehcramer.goalexandria.com/researcher" target="_blank" title="Cramer Library">Cramer Library</a></li>
+<li class="without-image"><a href="http://ehgarber.goalexandria.com/researcher" target="_blank" title="Garber Library">Garber Library</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://global-zone50.renaissance-go.com/welcomeportal/133247" target="_blank" title="Accelerated Reader">Accelerated Reader</a></li>
+<li class="without-image"><a href="http://e-hps.mi.safeschools.com/login" title="Safe Schools Training">Safe Schools Training</a></li>
+<li class="without-image"><a href="https://classroom.google.com" target="_blank" title="Google Classroom">Google Classroom</a></li>
+<li class="without-image"><a href="http://www.arbookfind.com" target="_blank" title="AR Bookfind">AR Bookfind</a></li>
+<li class="without-image"><a href="http://www.e-hps.net/Content/124" target="_blank" title="Choir 7/8">Choir 7/8</a></li>
+<li class="without-image"><a href="/Content/56" title="Music Express">Music Express</a></li>
+<li class="without-image"><a href="http://connected.mcgraw-hill.com/school/n4x8" title="ConnectED-Verellen">ConnectED-Verellen</a></li>
+<li class="without-image"><a href="http://connected.mcgraw-hill.com/school/d3e9" target="_blank" title="ConnectED-Cramer">ConnectED-Cramer</a></li>
+<li class="without-image"><a href="https://play.dreambox.com/login/zzr6/bhen" target="_blank" title="DreamBox">DreamBox</a></li>
+<li class="without-image"><a href="https://sites.google.com/e-hps.net/ehtechlinks/home" target="_blank" title="E-H Technology Links K-5">E-H Technology Links K-5</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff">Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Duke Digital Resources">Duke Digital Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/78" target="_blank" title="Duke Digital Resources Home">Duke Digital Resources Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Curriculum">Curriculum  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/116" title="Curriculum Home">Curriculum Home</a></li>
+<li class="without-image"><a href="/Content/108" target="_blank" title="K-5">K-5</a></li>
+<li class="without-image"><a href="/Content/110" title="6-12">6-12</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Training">Training  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/114" title="Training Home">Training Home</a></li>
+<li class="without-image"><a href="/Content/82" target="_blank" title="Skyward">Skyward</a></li>
+<li class="without-image"><a href="/Content/90" title="Classroom Tech">Classroom Tech</a></li>
+<li class="without-image"><a href="/Content/106" title="Google Apps">Google Apps</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Tech Resources">Tech Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/118" title="Tech Resources Home">Tech Resources Home</a></li>
+<li class="without-image"><a href="https://plus.google.com/communities/106270009828914695726" title="Google+">Google+</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Tech Coaches">Tech Coaches  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/120" title="Tech Coaches Home">Tech Coaches Home</a></li>
+<li class="without-image"><a href="/Content/kunio" title="Kunio">Kunio</a></li>
+<li class="without-image"><a href="/Content/96" title="Pat">Pat</a></li>
+<li class="without-image"><a href="/Content/98" title="Mike">Mike</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/102" title="DTAT">DTAT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="without-image"><a href="https://selfservice.baisd.net/eSuite_EHP/Websites.HR.Portal/Default.aspx?ReturnUrl=%2FeSuite_EHP%2FWebsites.HR.Portal%2F" target="_blank" title="New World eSuite HR Portal">New World eSuite HR Portal</a></li>
+<li class="without-image"><a href="https://sso.mapnwea.org/auth/login" target="_blank" title="NWEA">NWEA</a></li>
+<li class="without-image"><a href="/content/stafflinks" title="Staff Links">Staff Links</a></li>
+<li class="without-image"><a href="https://www.google.com/a/e-hps.net/" target="_blank" title="Email">Email</a></li>
+<li class="without-image"><a href="https://ehps.illuminateed.com" target="_blank" title="Illuminate">Illuminate</a></li>
+<li class="without-image"><a href="https://michigan.kready.org/login" target="_blank" title="KRA-Michigan">KRA-Michigan</a></li>
+<li class="without-image"><a href="https://sky2.baisd.net/scripts/wsisa.dll/WService=wsEAplus/seplog01.w" target="_blank" title="Skyward">Skyward</a></li>
+<li class="without-image"><a href="https://www.standardforsuccess.com/" title="Standards For Success Login">Standards For Success Login</a></li>
+<li class="without-image"><a href="http://helpdesk.e-hps.net/portal" target="_blank" title="Helpdesk (Submit a Ticket)">Helpdesk (Submit a Ticket)</a></li>
+<li class="without-image"><a href="http://helpdesk.e-hps.net/pro_users/login" target="_blank" title="Helpdesk for Admins">Helpdesk for Admins</a></li>
+<li class="without-image"><a href="https://baisd400.baisd.net/XDHPI0207/PIMAIN.MBR/PIMAIN?APID=PI0207&amp;LicVer=&amp;LicCli=&amp;Logon=E&amp;PwdChg=Y&amp;User1=UpperCase%3Dtrue&amp;User2=&amp;User3=&amp;User4=&amp;User5=&amp;WinParm=toolbar=0,location=0,resizable=1,scrollbars=1,status=1" target="_blank" title="CMT">CMT</a></li>
+<li class="without-image"><a href="https://go2.pcgeducation.com/miessexvillehampton" target="_blank" title="EasyIEP">EasyIEP</a></li>
+<li class="without-image"><a href="https://www.willsub.com/" target="_blank" title="Willsub">Willsub</a></li>
+<li class="without-image"><a href="https://acadiencelearning.net/" target="_blank" title="Acadience">Acadience</a></li>
+<li class="without-image"><a href="http://www.learn360.com/index.aspx" target="_blank" title="Learn360">Learn360</a></li>
+<li class="without-image"><a href="http://www.solutionwhere.com/glb/cw/main.asp" title="BAISD Coursewhere Login">BAISD Coursewhere Login</a></li>
+<li class="without-image"><a href="https://asp.schoolmessenger.com/essexvillehamptonsd/index.php" target="_blank" title="School Messenger">School Messenger</a></li>
+<li class="without-image"><a href="http://e-hps.mi.safeschools.com/login" title="Mandatory Staff Training (Safe Schools)">Mandatory Staff Training (Safe Schools)</a></li>
+<li class="without-image"><a href="https://auth.xello.world/Google/Educator/8B1F843C-61C2-4C9E-83DF-F3A82C94CBDC" target="_blank" title="Xello (Career Cruising)">Xello (Career Cruising)</a></li>
+</ul>
+</li>
+</ul>
+<ul class="nav navbar-nav district-top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/Administration" title="Departments">Departments</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/content/covid-19" target="_blank" aria-label="" title="COVID-19">COVID-19</a></li>
+</ul>
+<ul class="nav navbar-nav left-nav-links">
+<li class="without-image"><a href="/" title="Home"><i class="fa fa-home"></i>Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/EssexvilleHamptonPublicSchoolsDining" target="_blank" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="/Content/68" target="_blank" title="Community Enrichment">Community Enrichment</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/1/Staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="http://ehpsdukes.com/" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/content/halloffame" title="E-HPS Hall of Fame">E-HPS Hall of Fame</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/Content/stafflinks" title="Staff Links">Staff Links</a></li>
+<li class="without-image"><a href="/Content/122" title="Integrated Pesticide Management">Integrated Pesticide Management</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/educator_evaluation_2016.pdf?id=1452" title="Educator Evaluation Requirements">Educator Evaluation Requirements</a></li>
+<li class="without-image"><a href="/Content/126" title="Annual Education Reports">Annual Education Reports</a></li>
+</ul>
+</div>
+				</nav>
+</div>
+		</div>
+	</div>
+</div>
+
+<div class="nav-logo-container hidden-xs">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<div class="row">
+					<ul class="nav navbar-nav district-top-left">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/36" target="_blank" title="Administrative Staff">Administrative Staff</a></li>
+<li class="without-image"><a href="/employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="https://dashboard.eidexinsights.com/Essexville-Hampton/" target="_blank" title="Budget Transparency">Budget Transparency</a></li>
+<li class="without-image"><a href="https://drive.google.com/open?id=0B8Lwg-FR2xOjaHpFYTZmVjd6TUk" target="_blank" title="District Safety Drills">District Safety Drills</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/home" target="_blank" title="Garber High School">Garber High School</a></li>
+<li class="without-image"><a href="/2/home" target="_blank" title="Cramer Junior High">Cramer Junior High</a></li>
+<li class="without-image"><a href="/3/home" target="_blank" title="Verellen Elementary">Verellen Elementary</a></li>
+<li class="without-image"><a href="/4/home" target="_blank" title="Bush Elementary">Bush Elementary</a></li>
+</ul>
+</li>
+</ul>
+</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="logo" href="/"><span class="obscure">Essexville-Hampton Public Schools Logo</span></a>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<div class="row">
+					<ul class="nav navbar-nav district-top-right">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents">Parents  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/70" title="School Supply Lists">School Supply Lists</a></li>
+<li class="without-image"><a href="https://sky2.baisd.net/scripts/wsisa.dll/WService=wsEAplus/seplog01.w" title="Skyward">Skyward</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/Essexville-Hampton-Public-Schools-Dining" target="_blank" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="/Content/38" title="Bush Preschool and Daycare Information">Bush Preschool and Daycare Information</a></li>
+<li class="without-image"><a href="http://www.parchment.com/" target="_blank" title="Parchment">Parchment</a></li>
+<li class="without-image"><a href="https://www.protectmichild.com/" target="_blank" title="Protect MI Child">Protect MI Child</a></li>
+<li class="without-image"><a href="http://www.arbookfind.com" target="_blank" title="AR Bookfind">AR Bookfind</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/media%20opt%20out%20form.pdf?id=6115" target="_blank" title="Media Opt-Out Form">Media Opt-Out Form</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Students">Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://sky2.baisd.net/scripts/wsisa.dll/WService=wsEAplus/seplog01.w" title="Skyward">Skyward</a></li>
+<li class="without-image"><a href="https://www.google.com/a/e-hps.net/" target="_blank" title="Email">Email</a></li>
+<li class="without-image"><a href="https://ehps.illuminatehc.com/" target="_blank" title="Illuminate">Illuminate</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/EssexvilleHamptonPublicSchoolsDining" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="https://clever.com/oauth/sis/login?target=NTdiYjNkNjEzNDljZmQwMTAwMDAwNzUx%3BNGM2M2MxY2Y2MjNkY2U4MmNhYWM%3D%3BaHR0cHM6Ly9jbGV2ZXIuY29tL2luL2F1dGhfY2FsbGJhY2s%3D%3BODViMWYyOTM4ODhjMTRlNDIyZDYyNDJmNDk2NmU1MDdlMjgzNmQ5MTA3MGM3MDI1Nzg1Njg5ZTk5ZmYxZWE2ZQ%3D%3D%3BY29kZQ%3D%3D&amp;skip=1&amp;school_name=&amp;default_badge=" target="_blank" title="Clever For Students">Clever For Students</a></li>
+<li class="without-image"><a href="https://auth.xello.world/Google/Student/8B1F843C-61C2-4C9E-83DF-F3A82C94CBDC" target="_blank" title="Xello (Career Cruising)">Xello (Career Cruising)</a></li>
+<li class="without-image"><a href="/Content/152" aria-label="" title="KDG &amp; 1st Grade Music Program">KDG &amp; 1st Grade Music Program</a></li>
+<li class="without-image"><a href="/Content/148" aria-label="" title="2nd Grade Program">2nd Grade Program</a></li>
+<li class="without-image"><a href="/Content/170" target="_blank" title="3rd Grade Concert">3rd Grade Concert</a></li>
+<li class="without-image"><a href="/Content/146" target="_blank" title="3rd and 4th Grade Online Recorder Karate">3rd and 4th Grade Online Recorder Karate</a></li>
+<li class="without-image"><a href="/Content/144" target="_blank" title="4th Grade Spring Program">4th Grade Spring Program</a></li>
+<li class="without-image"><a href="http://inqwizit.oaisd.org" target="_blank" title="Inqwizit">Inqwizit</a></li>
+<li class="without-image"><a href="http://vlc.ent.sirsi.net/client/en_US/garber" title="Bay County Library Garber Site">Bay County Library Garber Site</a></li>
+<li class="without-image"><a href="/Content/46" title="Garber Guidance Department">Garber Guidance Department</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Alexandria Library Catalog">Alexandria Library Catalog  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://ehbush.goalexandria.com/researcher" target="_blank" title="Bush Library">Bush Library</a></li>
+<li class="without-image"><a href="http://ehverellen.goalexandria.com/researcher" target="_blank" title="Verellen Library">Verellen Library</a></li>
+<li class="without-image"><a href="http://ehcramer.goalexandria.com/researcher" target="_blank" title="Cramer Library">Cramer Library</a></li>
+<li class="without-image"><a href="http://ehgarber.goalexandria.com/researcher" target="_blank" title="Garber Library">Garber Library</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://global-zone50.renaissance-go.com/welcomeportal/133247" target="_blank" title="Accelerated Reader">Accelerated Reader</a></li>
+<li class="without-image"><a href="http://e-hps.mi.safeschools.com/login" title="Safe Schools Training">Safe Schools Training</a></li>
+<li class="without-image"><a href="https://classroom.google.com" target="_blank" title="Google Classroom">Google Classroom</a></li>
+<li class="without-image"><a href="http://www.arbookfind.com" target="_blank" title="AR Bookfind">AR Bookfind</a></li>
+<li class="without-image"><a href="http://www.e-hps.net/Content/124" target="_blank" title="Choir 7/8">Choir 7/8</a></li>
+<li class="without-image"><a href="/Content/56" title="Music Express">Music Express</a></li>
+<li class="without-image"><a href="http://connected.mcgraw-hill.com/school/n4x8" title="ConnectED-Verellen">ConnectED-Verellen</a></li>
+<li class="without-image"><a href="http://connected.mcgraw-hill.com/school/d3e9" target="_blank" title="ConnectED-Cramer">ConnectED-Cramer</a></li>
+<li class="without-image"><a href="https://play.dreambox.com/login/zzr6/bhen" target="_blank" title="DreamBox">DreamBox</a></li>
+<li class="without-image"><a href="https://sites.google.com/e-hps.net/ehtechlinks/home" target="_blank" title="E-H Technology Links K-5">E-H Technology Links K-5</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff">Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Duke Digital Resources">Duke Digital Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/78" target="_blank" title="Duke Digital Resources Home">Duke Digital Resources Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Curriculum">Curriculum  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/116" title="Curriculum Home">Curriculum Home</a></li>
+<li class="without-image"><a href="/Content/108" target="_blank" title="K-5">K-5</a></li>
+<li class="without-image"><a href="/Content/110" title="6-12">6-12</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Training">Training  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/114" title="Training Home">Training Home</a></li>
+<li class="without-image"><a href="/Content/82" target="_blank" title="Skyward">Skyward</a></li>
+<li class="without-image"><a href="/Content/90" title="Classroom Tech">Classroom Tech</a></li>
+<li class="without-image"><a href="/Content/106" title="Google Apps">Google Apps</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Tech Resources">Tech Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/118" title="Tech Resources Home">Tech Resources Home</a></li>
+<li class="without-image"><a href="https://plus.google.com/communities/106270009828914695726" title="Google+">Google+</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Tech Coaches">Tech Coaches  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/120" title="Tech Coaches Home">Tech Coaches Home</a></li>
+<li class="without-image"><a href="/Content/kunio" title="Kunio">Kunio</a></li>
+<li class="without-image"><a href="/Content/96" title="Pat">Pat</a></li>
+<li class="without-image"><a href="/Content/98" title="Mike">Mike</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/102" title="DTAT">DTAT</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="without-image"><a href="https://selfservice.baisd.net/eSuite_EHP/Websites.HR.Portal/Default.aspx?ReturnUrl=%2FeSuite_EHP%2FWebsites.HR.Portal%2F" target="_blank" title="New World eSuite HR Portal">New World eSuite HR Portal</a></li>
+<li class="without-image"><a href="https://sso.mapnwea.org/auth/login" target="_blank" title="NWEA">NWEA</a></li>
+<li class="without-image"><a href="/content/stafflinks" title="Staff Links">Staff Links</a></li>
+<li class="without-image"><a href="https://www.google.com/a/e-hps.net/" target="_blank" title="Email">Email</a></li>
+<li class="without-image"><a href="https://ehps.illuminateed.com" target="_blank" title="Illuminate">Illuminate</a></li>
+<li class="without-image"><a href="https://michigan.kready.org/login" target="_blank" title="KRA-Michigan">KRA-Michigan</a></li>
+<li class="without-image"><a href="https://sky2.baisd.net/scripts/wsisa.dll/WService=wsEAplus/seplog01.w" target="_blank" title="Skyward">Skyward</a></li>
+<li class="without-image"><a href="https://www.standardforsuccess.com/" title="Standards For Success Login">Standards For Success Login</a></li>
+<li class="without-image"><a href="http://helpdesk.e-hps.net/portal" target="_blank" title="Helpdesk (Submit a Ticket)">Helpdesk (Submit a Ticket)</a></li>
+<li class="without-image"><a href="http://helpdesk.e-hps.net/pro_users/login" target="_blank" title="Helpdesk for Admins">Helpdesk for Admins</a></li>
+<li class="without-image"><a href="https://baisd400.baisd.net/XDHPI0207/PIMAIN.MBR/PIMAIN?APID=PI0207&amp;LicVer=&amp;LicCli=&amp;Logon=E&amp;PwdChg=Y&amp;User1=UpperCase%3Dtrue&amp;User2=&amp;User3=&amp;User4=&amp;User5=&amp;WinParm=toolbar=0,location=0,resizable=1,scrollbars=1,status=1" target="_blank" title="CMT">CMT</a></li>
+<li class="without-image"><a href="https://go2.pcgeducation.com/miessexvillehampton" target="_blank" title="EasyIEP">EasyIEP</a></li>
+<li class="without-image"><a href="https://www.willsub.com/" target="_blank" title="Willsub">Willsub</a></li>
+<li class="without-image"><a href="https://acadiencelearning.net/" target="_blank" title="Acadience">Acadience</a></li>
+<li class="without-image"><a href="http://www.learn360.com/index.aspx" target="_blank" title="Learn360">Learn360</a></li>
+<li class="without-image"><a href="http://www.solutionwhere.com/glb/cw/main.asp" title="BAISD Coursewhere Login">BAISD Coursewhere Login</a></li>
+<li class="without-image"><a href="https://asp.schoolmessenger.com/essexvillehamptonsd/index.php" target="_blank" title="School Messenger">School Messenger</a></li>
+<li class="without-image"><a href="http://e-hps.mi.safeschools.com/login" title="Mandatory Staff Training (Safe Schools)">Mandatory Staff Training (Safe Schools)</a></li>
+<li class="without-image"><a href="https://auth.xello.world/Google/Educator/8B1F843C-61C2-4C9E-83DF-F3A82C94CBDC" target="_blank" title="Xello (Career Cruising)">Xello (Career Cruising)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+    
+
+            </header>
+</div>
+
+        
+    
+	<script type="text/javascript">
+		$(window).load(function () {
+		    $('#slideshow .slides').nivoSlider({ effect: 'fade' });
+		});
+	</script><div id="slideshow">
+		<div class="slideshow-overlay"></div>
+		<div class="slides">
+			
+					<img alt="" title="" src="http://www.e-hps.net//images/full//userfiles/2018-10/15693524-0c99-4c02-bdc3-08cd8b4f67bd.jpg"><img alt="" title="" src="http://www.e-hps.net//images/full//userfiles/2018-10/6b550c0d-b949-4728-a33a-36c4d95b773c.jpg"><img alt="" title="" src="http://www.e-hps.net//images/full//userfiles/2018-10/b863a785-574a-46d7-a622-8a95059b434a.jpg"><img alt="" title="" src="http://www.e-hps.net//images/full//userfiles/2018-06/11393add-19b3-493e-a814-e5bbefcdee5e.jpg"><img alt="" title="" src="http://www.e-hps.net//images/full//userfiles/2018-10/c0ff2f52-275a-45b1-a888-5b83acd1ca51.jpg">
+</div>
+	</div>
+
+
+        <div class="Top-NavBack hidden-xs">
+            <div class="container">
+                <div class="row">
+                    <ul class="nav navbar-nav district-top-nav">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/Administration" title="Departments">Departments</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/content/covid-19" target="_blank" aria-label="" title="COVID-19">COVID-19</a></li>
+</ul>
+</div>
+            </div>
+        </div>
+
+        
+    
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+	<div class="news-container">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<div class="clearfix panel content">
+						<h1 class="news-header">District News
+						</h1>
+						<div class="news">
+							
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/1273">EHPSatHome Resources Website</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 16, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rep_news_ctl01_lblSummary" class="news-summary"><p><a href="https://sites.google.com/e-hps.net/ehpsathome"><span style="color:#000000;"><span class="Underline" style="text-decoration:underline;">Please click here to visit the EHPSatHome Website</span></span></a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/1271">District Communication - March 13, 2020</a>
+
+				<span class="news-post-date">Posted On: Wednesday, March 18, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rep_news_ctl02_lblSummary" class="news-summary"><p><a href="/userfiles/3/my%20files/ehps%20march%2013%202020%20.pdf?id=6296"><span style="color:#000000;"><span class="Underline" style="text-decoration:underline;">District Letter - March 13 2020</span></span></a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/1270">Internet Access Options For Home</a>
+
+				<span class="news-post-date">Posted On: Wednesday, March 18, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rep_news_ctl03_lblSummary" class="news-summary"><p><a href="/userfiles/3/my%20files/digital%20divide%20information.pdf?id=6295"><span class="Underline" style="text-decoration:underline;"><span style="color:#000000;">Internet Access Options For Home</span></span></a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+						<a href="/districtNewsArticles.aspx" class="view-all-news">View All News
+						</a>
+						<div class="clr">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+        <div class="body-content-container">
+            <div class="container">
+                <div class="masterC alignment-stretch">
+                    <div class="row">
+                        
+    <div class="content-section">
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 backgroundcolor1">
+            <div class="clearfix panel content">
+                
+                    <h1>Quick Links
+                    </h1>
+                    <ul class="nav navbar-nav left-nav">
+<li class="without-image"><a href="/" title="Home"><i class="fa fa-home"></i>Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/EssexvilleHamptonPublicSchoolsDining" target="_blank" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="/Content/68" target="_blank" title="Community Enrichment">Community Enrichment</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/1/Staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="http://ehpsdukes.com/" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/content/halloffame" title="E-HPS Hall of Fame">E-HPS Hall of Fame</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/Content/stafflinks" title="Staff Links">Staff Links</a></li>
+<li class="without-image"><a href="/Content/122" title="Integrated Pesticide Management">Integrated Pesticide Management</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/educator_evaluation_2016.pdf?id=1452" title="Educator Evaluation Requirements">Educator Evaluation Requirements</a></li>
+<li class="without-image"><a href="/Content/126" title="Annual Education Reports">Annual Education Reports</a></li>
+</ul>
+</div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 backgroundcolor2">
+            <div class="clearfix panel content">
+                
+	
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Videos
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p><a href="/userfiles/8/my%20files/september%202017.pdf?id=4238" target="_blank"><span style="color: rgb(0, 0, 255);"><span style="font-size: 18px;"><strong>DISTINGUISHED DUKE RECIPIENTS </strong></span></span></a></p>
+
+<p><span style="font-size:16px;"><u><strong>EDUCATE</strong></u></span></p>
+
+<p class="videoplayer" data-height="266" data-playlist="null" data-width="475" height="266px" style="height:407px;" width="475px">
+<video class="video-js vjs-default-skin" controls="controls" id="79e2b5fa-5b8c-463a-a952-901ed542f887" poster="https://video.cdn.schoolpointe.com/MI_EssexvilleHamptonPS%2f2017%2f09%2fimages%2f79e2b5fa-5b8c-463a-a952-901ed542f88700001.png" preload="none"><source src="https://video.cdn.schoolpointe.com/MI_EssexvilleHamptonPS%2f2017%2f09%2fvideos%2f79e2b5fa-5b8c-463a-a952-901ed542f887.mp4" type="video/mp4"></source></video></p>
+
+<p> </p>
+
+<p><span style="font-size:16px;"><u><strong>RELATE</strong></u></span></p>
+
+<p class="videoplayer" data-height="266" data-playlist="null" data-width="475" height="266px" style="height:407px;" width="475px">
+<video class="video-js vjs-default-skin" controls="controls" id="3b2e7954-f2fb-4df1-b467-5fdf56e7c576" poster="https://video.cdn.schoolpointe.com/MI_EssexvilleHamptonPS%2f2017%2f09%2fimages%2f3b2e7954-f2fb-4df1-b467-5fdf56e7c57600002.png" preload="none"><source src="https://video.cdn.schoolpointe.com/MI_EssexvilleHamptonPS%2f2017%2f09%2fvideos%2f3b2e7954-f2fb-4df1-b467-5fdf56e7c576.mp4" type="video/mp4"></source></video></p>
+
+<p> </p>
+
+<p><span style="font-size:16px;"><u><strong>INNOVATE</strong></u></span></p>
+
+<p class="videoplayer" data-height="266" data-playlist="null" data-width="475" height="266px" style="height:407px;" width="475px">
+<video class="video-js vjs-default-skin" controls="controls" id="5b2df34d-f17a-4b45-9da7-cf6f989eadf2" poster="https://video.cdn.schoolpointe.com/MI_EssexvilleHamptonPS%2f2017%2f09%2fimages%2f5b2df34d-f17a-4b45-9da7-cf6f989eadf200001.png" preload="none"><source src="https://video.cdn.schoolpointe.com/MI_EssexvilleHamptonPS%2f2017%2f09%2fvideos%2f5b2df34d-f17a-4b45-9da7-cf6f989eadf2.mp4" type="video/mp4"></source></video></p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 backgroundcolor3">
+            <div class="clearfix panel content">
+                
+	<h1>Upcoming Events
+	</h1>
+	
+		<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-22975">
+			<div class="event-date">
+				Apr 22
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5&amp;schoolid=0&amp;types=&amp;eventID=22975" title="Bush Popcorn Sale">
+					Bush Popcorn Sale
+				</a>
+			</div>
+			<div class="event-location">
+				@Bush Elementary
+			</div>
+			<div class="event-time">
+				7:30 AM — 8:30 AM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-22310">
+			<div class="event-date">
+				Apr 27
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5&amp;schoolid=0&amp;types=&amp;eventID=22310" title="Potts Grant’s revisit do labs before... call off ice we lose it">
+					Potts Grant’s revisit do labs before... call off ice we lose it
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				2:00 PM — 3:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-23109">
+			<div class="event-date">
+				Apr 27
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5&amp;schoolid=0&amp;types=&amp;eventID=23109" title="Boys' V Golf vs. Nouvel">
+					Boys' V Golf vs. Nouvel
+				</a>
+			</div>
+			<div class="event-location">
+				@Bay County Golf Course, 584 W Hampton Rd, Essexville, MI 48732
+			</div>
+			<div class="event-time">
+				3:00 PM — 3:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-23108">
+			<div class="event-date">
+				Apr 27
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5&amp;schoolid=0&amp;types=&amp;eventID=23108" title="Girls' V Tennis vs. BC Western (JV 5:30)">
+					Girls' V Tennis vs. BC Western (JV 5:30)
+				</a>
+			</div>
+			<div class="event-location">
+				@Garber High School, 213 Pine St, Essexville, MI 48732
+			</div>
+			<div class="event-time">
+				4:00 PM — 4:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-23110">
+			<div class="event-date">
+				Apr 27
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5&amp;schoolid=0&amp;types=&amp;eventID=23110" title="Girls' JV/V Soccer vs. Swan Valley (JV 6:15)">
+					Girls' JV/V Soccer vs. Swan Valley (JV 6:15)
+				</a>
+			</div>
+			<div class="event-location">
+				@Garber High School Soccer Field, 612 W Borton Rd, Essexville, MI 48732
+			</div>
+			<div class="event-time">
+				4:30 PM — 4:30 PM
+			</div>
+		</li>
+	
+		</ul></section><footer id="upcoming-events-footer"><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_hl_viewAllEvents" class="view-all-events" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/19/2020">View All Events</a>
+	<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_calendarLink" class="fullCal" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4">View Full Calendar</a>
+</footer><style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7365')" style="color:Black" title="Go to the previous month">&lt;&lt;<span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April 2020</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7426')" style="color:Black" title="Go to the next month">&gt;&gt;<span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">S</th>
+<th align="center" abbr="Monday" scope="col">M</th>
+<th align="center" abbr="Tuesday" scope="col">T</th>
+<th align="center" abbr="Wednesday" scope="col">W</th>
+<th align="center" abbr="Thursday" scope="col">T</th>
+<th align="center" abbr="Friday" scope="col">F</th>
+<th align="center" abbr="Saturday" scope="col">S</th>
+</tr>
+<tr>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/29/2020">29</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/30/2020">30</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/31/2020">31</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/1/2020">1</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/2/2020">2</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/3/2020">3</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/5/2020">5</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/6/2020">6</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/7/2020">7</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/8/2020">8</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/9/2020">9</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/10/2020">10</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/12/2020">12</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/13/2020">13</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/14/2020">14</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/15/2020">15</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/16/2020">16</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/19/2020">19</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/20/2020">20</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/21/2020">21</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/23/2020">23</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/26/2020">26</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/27/2020">27</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/28/2020">28</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/29/2020">29</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+        </div>
+        <div class="clr">
+        </div>
+    </div>
+
+
+
+                    </div>
+                    <div class="clr">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="search-translate-container hidden-xs">
+                    <div id="google_translate_element">
+                    </div>
+                    <div class="search">
+                        <label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text"><a title="Search" class="bSearch glyphicon glyphicon-search"><span class="obscure">Search Site button</span></a>
+                    </div>
+                    <script type="text/javascript">
+                        function googleTranslateElementInit() {
+                            new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+                        }
+                    </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+
+                
+
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 contact-us">
+		<div class="footer-contact-info">
+			<h6>Contact Us
+			</h6>
+			<div class="col-lg-6 col-md-6">
+				<div id="ctl00_ctl00_ctl08_hName">Essexville-Hampton Public Schools</div>
+				<div id="ctl00_ctl00_ctl08_hAddress">303 Pine St.<br>Essexville, MI 48732</div>
+				<div>
+					<a href="http://maps.google.com/maps?q=303%20Pine%20St.+Essexville+MI+48732" id="ctl00_ctl00_ctl08_mapLink">View Map &amp; Directions</a>
+				</div>
+			</div>
+			<div class="col-lg-6 col-md-6">
+				
+				<div id="ctl00_ctl00_ctl08_dphone">
+					<span id="ctl00_ctl00_ctl08_hPhone">Phone: 989-894-9700</span>
+				</div>
+				<div id="ctl00_ctl00_ctl08_dmainOffice">
+					<span id="ctl00_ctl00_ctl08_hmainOffice"></span>
+				</div>
+				<div id="ctl00_ctl00_ctl08_dfax">
+					<span id="ctl00_ctl00_ctl08_hfax">Fax: 989-894-9705</span>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 social-buttons">
+		<div id="social-links">
+			<h6>Stay Connected
+			</h6>
+			
+        <a href="/login.aspx" title="Essexville-Hampton Public Schools CMS Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/Login/Intranet" title="Essexville-Hampton Public Schools Intranet" target="_self">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="https://anchor.fm/s/7752374/podcast/rss" title="Tom Greene Podcast" target="_blank">
+            <span class="obscure">RSS</span>
+            <i class="fa fa-rss"></i>
+        </a>
+    
+
+			<div class="clr">
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="footer-branding-container">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<a href="http://www.schoolpointe.com" target="_blank" class="sp-logo" alt="SchoolPointe">
+			<img alt="SchoolPointe" src="/customers/MI/EssexvilleHamptonPS/sysimages/custom/SP-Footer-Logo.png"></a>
+	</div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-61700231-35', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><script src="/Customers/MI/EssexvilleHamptonPS/js/budgetBadge.js" type="text/javascript"></script><link href="/Customers/MI/EssexvilleHamptonPS/css/budgetBadge.css" rel="stylesheet" type="text/css">
+</div>
+
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC2c/4sUiA08ZRwjjCQ4EZ5FiDHydsK03lx8Xtjj8McOnhM1E/Z+4AtYfBLjoqzHUNzx8re9P49CESeNcN+aUYUYylAVjuf883gda9qxPWJdWzlAW1I7BexV+czOzRObl3d50nMhilDDHAwFxGIx0wbFChwQ4Ex0vxOTS+4GFwX5O7kl0Ub38BaDmMgKQcEKVqNSQD67gQzTXdB4A0BTQX56TjzPdP4KgmIAJFo6XWNsVobKscM9xAMf7wwexMr1VQr6eny5cHvWE8n08cMlPMX4UUsMkilD+ZSI9iMjU0yDuCD8GsnLDl6GsgBmi45cgSxLOQJb0r0B03brVHI2aRHj1HX4bsgg9FALGXgdAnz+3fPXHQkoFYN6AHzJTqhMhgIUZHRyIop27ZqiAc5YtJ2CBmWGVEJRDuOVtSdk96ZySIM7oQRKLNMMfuEaYBPHf7UnvwclkPDJBJa1wKztDi6ksAKSxkS0J9AQoAbRkhRLYupP5UfZtzYMcETdrtRuebqUFNAgBxTdrc7p3lb5cG87gm7gyuj+DfF4g5gBMII5vbFKWePuk/HCjfYquEX2jQfetIrU0FyvbBObo1CEWr8JkkUFRwOfzMDwGZIdDlEZh0FsPpuONYQUyNniCyMIahBgL9N5WPrxm7gqXxJSO3bUUENDE9dXDnHAyMxZUeTfBuKQjtJNZCvgL3hOtBgN53JKgunZuEj8FebONNvrKSLQqlYIB6TKJFENEjsUkBLzAOx9UysQWNNGqUBe0wmZ11N1yVx/jqgB2/mbAHkazISKTMuizNiXiSwyoHGDIcvBxXS9J1pDBfJ5u5J2HPiBBN+Xr4uuDR+WtbHcMYtsYms3xHSKYhMkeSMxWk7MMjQy2jqouDmyradb3nBLSPm24J8mLJQ9K5ToZmSewp0Qk2VvFiQDTVcI9Q9wgwvj0GaEsvuvDOI+IORDvkjx+dyMqFUm6F6zLJVE9MrLWLRGth4c6k8g4g==">
+</div>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,2528 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home - West Noble School Corporation</title>
+<link rel="icon" href="/images//docs/district/images/wnfavicon.png?id=233&amp;width=32" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="West Noble School Corporation - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="West Noble High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="West Noble Middle School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="West Noble Elementary School - News" href="/rssNews.ashx?schoolId=3">
+<link rel="alternate" type="application/rss+xml" title="West Noble Primary School - News" href="/rssNews.ashx?schoolId=4">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "IN_WestNobleSchCorp",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1550266029010">
+<link rel="stylesheet" href="https://use.typekit.net/tuc5ima.css">
+<link href="https://fonts.googleapis.com/css?family=Mr+Dafoe" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Fjalla+One%7CLato:300,400,700,900" rel="stylesheet">
+</head>
+<body>
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUENTM4MQ9kFgJmD2QWAmYPZBYEAgEPZBYEAgIPZBYCAgEPFgIeC18hSXRlbUNvdW50AgQWCGYPZBYCZg8VAhZXZXN0IE5vYmxlIEhpZ2ggU2Nob29sATFkAgEPZBYCZg8VAhhXZXN0IE5vYmxlIE1pZGRsZSBTY2hvb2wBMmQCAg9kFgJmDxUCHFdlc3QgTm9ibGUgRWxlbWVudGFyeSBTY2hvb2wBM2QCAw9kFgJmDxUCGVdlc3QgTm9ibGUgUHJpbWFyeSBTY2hvb2wBNGQCAw8WAh4EaHJlZgUwL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0xNTUwMjY2MDI5MDEwZAIDDxYCHgZhY3Rpb24FAS8WCgIBD2QWBAIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8DBQEwZAIDDw9kFgIfAwUBMGQCBA8PZBYCHwMFATBkAgUPD2QWAh8DBQEwZAIDD2QWAgICD2QWAmYPFgIeBFRleHQFGzx1bCBjbGFzcz0nYWxlcnRMaXN0Jz48L3VsPmQCAw9kFgICAQ9kFgICAQ9kFgYCAw9kFgJmDxYCHwACAxYGZg9kFgJmDxUFBi9sb2dpbgljbXMgbG9naW4FX3NlbGYmPHNwYW4gY2xhc3M9J29ic2N1cmUnPkNNUyBMb2dpbjwvc3Bhbj4NZmEgZmEtc2lnbi1pbmQCAQ9kFgJmDxUFCS9pbnRyYW5ldBRJbnRyYW5ldCBTdGFmZiBMb2dpbgVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+SW50cmFuZXQ8L3NwYW4+DWZhIGZhLXNpdGVtYXBkAgIPZBYCZg8VBQsvYWRhLXJlcG9ydA1BREEgUmVwb3J0aW5nBV9zZWxmJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5BREEgTGluazwvc3Bhbj4WZmEgZmEtdW5pdmVyc2FsLWFjY2Vzc2QCBQ8PFgQfBAVRPHNwYW4gY2xhc3M9InRvcCI+V2VzdCBOb2JsZTwvc3Bhbj48c3BhbiBjbGFzcz0iYm90dG9tIj5TY2hvb2wgQ29ycG9yYXRpb248L3NwYW4+HgtOYXZpZ2F0ZVVybAUBL2RkAgkPDxYEHwUFAS8fBAUdV2VzdCBOb2JsZSBTY2hvb2wgQ29ycG9yYXRpb25kZAIFD2QWAgIBD2QWBGYPFgIfAAIPZAIBDxYCHwQFNjxzdHlsZT4jc2xpZGVzaG93e3Bvc2l0aW9uOnJlbGF0aXZlO3otaW5kZXg6MTs8L3N0eWxlPmQCCQ9kFhgCAQ9kFgZmDw8WAh8EBRRDb3JvbmF2aXJ1cy9DT1ZJRC0xOWRkAgEPDxYCHwQF1gE8cD5Gb3IgaW5mb3JtYXRpb24gcmVsYXRpbmcgdG8gQ29yb25hdmlydXMvQ09WSUQtMTkgYW5kIFdlc3QgTm9ibGUgU2Nob29sIENvcnBvcmF0aW9uIDxhIGhyZWY9Imh0dHA6Ly93d3cud2VzdG5vYmxlLmsxMi5pbi51cy9Db250ZW50LzU0Ij5jbGljayBoZXJlPC9hPi48YnIgLz4NCjxzdHJvbmc+KFVwZGF0ZWQgRnJpZGF5LCBBcHJpbCAxNywgMjAyMCk8L3N0cm9uZz48L3A+ZGQCAg8PFgIeB1Zpc2libGVoZGQCAw9kFgJmDxYCHwQFvCQ8dWwgY2xhc3M9JycgPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nLycgICB0aXRsZT0nSG9tZSc+SG9tZTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0Rpc3RyaWN0L1Byb2ZpbGUnICAgdGl0bGU9J0Rpc3RyaWN0IFByb2ZpbGUnPkRpc3RyaWN0IFByb2ZpbGU8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50LzEyJyAgIHRpdGxlPSdDZW50cmFsIE9mZmljZSBTdGFmZic+Q2VudHJhbCBPZmZpY2UgU3RhZmY8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9EaXN0cmljdG5ld3NBcnRpY2xlcy5hc3B4JyAgIHRpdGxlPSdEaXN0cmljdCBOZXdzJz5EaXN0cmljdCBOZXdzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY2FsTW9udGhWaWV3LmFzcHg/cz0wJyAgIHRpdGxlPSdEaXN0cmljdCBFdmVudHMnPkRpc3RyaWN0IEV2ZW50czwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2NvbnRlbnQvNDQnICAgdGl0bGU9J0FsdW1uaSc+QWx1bW5pPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvZGlzdHJpY3RCb2FyZEVkLmFzcHgnICAgdGl0bGU9J0JvYXJkIG9mIEVkdWNhdGlvbic+Qm9hcmQgb2YgRWR1Y2F0aW9uPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwczovL3NpdGVzLmdvb2dsZS5jb20vd2VzdG5vYmxlLmsxMi5pbi51cy9lbGVhcm5pbmcvaG9tZScgdGFyZ2V0PSdfYmxhbmsnICB0aXRsZT0nZSBMZWFybmluZyAvIEZsZXggRGF5cyc+ZSBMZWFybmluZyAvIEZsZXggRGF5czwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0VtcGxveW1lbnQuYXNweCcgICB0aXRsZT0nRW1wbG95bWVudCc+RW1wbG95bWVudDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvNCcgICB0aXRsZT0nUmVnaXN0ZXIgQSBTdHVkZW50Jz5SZWdpc3RlciBBIFN0dWRlbnQ8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9zdGFmZicgICB0aXRsZT0nU3RhZmYgRGlyZWN0b3J5Jz5TdGFmZiBEaXJlY3Rvcnk8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9kb2NzL2Rpc3RyaWN0L3BkZi9kZWxheXMgYW5kIGNsb3NpbmdzIDE5LTIwLnBkZj9pZD0yMjM3JyAgIHRpdGxlPSdEZWxheXMgYW5kIENsb3NpbmdzJz5EZWxheXMgYW5kIENsb3NpbmdzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29udGVudC80MCcgICB0aXRsZT0nTWVtb3JpYWwgR2FyZGVucyc+TWVtb3JpYWwgR2FyZGVuczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0Rpc3RyaWN0R2FsbGVyeS5hc3B4JyAgIHRpdGxlPSdQaG90byBHYWxsZXJpZXMnPlBob3RvIEdhbGxlcmllczwvYT48L2xpPjxsaSBjbGFzcz0nZHJvcGRvd24nPjxhIGhyZWY9JyMnIGNsYXNzPSdkcm9wZG93bi10b2dnbGUnIGRhdGEtdG9nZ2xlPSdkcm9wZG93bicgICB0aXRsZT0nUHVibGljIEJ1ZGdldCBOb3RpY2VzJz5QdWJsaWMgQnVkZ2V0IE5vdGljZXMgIDxzdHJvbmcgY2xhc3M9J2NhcmV0Jz48L3N0cm9uZz48L2E+PHVsIGNsYXNzPSdkcm9wZG93bi1tZW51Jz48bGkgY2xhc3M9J3dpdGgtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly9idWRnZXRub3RpY2VzLmluLmdvdicgICB0aXRsZT0nQnVkZ2V0IE5vdGljZXMgZm9yIGxvY2FsIGdvdmVybm1lbnQgaW5jbHVkaW5nIHRoZSBXZXN0IE5vYmxlIFNjaG9vbCBDb3Jwb3JhdGlvbic+PGltZyBzcmM9Jy9kb2NzL2Rpc3RyaWN0L2ltYWdlcy9vbmxpbmVidWRnZXRub3RpY2VzZ3JhcGhpY19zaG9ydGVyLmpwZz9pZD04NSZ3aWR0aD0yMTAnIGFsdD0nQnVkZ2V0IE5vdGljZXMgZm9yIGxvY2FsIGdvdmVybm1lbnQgaW5jbHVkaW5nIHRoZSBXZXN0IE5vYmxlIFNjaG9vbCBDb3Jwb3JhdGlvbicgdGl0bGU9J0J1ZGdldCBOb3RpY2VzIGZvciBsb2NhbCBnb3Zlcm5tZW50IGluY2x1ZGluZyB0aGUgV2VzdCBOb2JsZSBTY2hvb2wgQ29ycG9yYXRpb24nIGJvcmRlcj0nMCcvPjwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2RvY3MvZGlzdHJpY3QvcGRmL3B1YmxpYyBidWRnZXQgbm90aWNlcy9idXMgcmVwbGFjZW1lbnQgcGxhbiAyMDIwIGZvciB3ZWJzaXRlLnBkZj9pZD0yMzU2JyAgIHRpdGxlPSdCdXMgUmVwbGFjZW1lbnQgUGxhbiAyMDIwJz5CdXMgUmVwbGFjZW1lbnQgUGxhbiAyMDIwPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvZG9jcy9kaXN0cmljdC9wZGYvcHVibGljIGJ1ZGdldCBub3RpY2VzL2J1cyByZXBsYWNlbWVudCBwbGFuIHNlY3Rpb24gMSByZWFkeSB0byBwdWJsaXNoZWQgdjIgOCAyOSAyMDE4LnBkZj9pZD0yNzgnICAgdGl0bGU9J0J1cyBSZXBsYWNlbWVudCBQbGFuIDIwMTknPkJ1cyBSZXBsYWNlbWVudCBQbGFuIDIwMTk8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9kb2NzL2Rpc3RyaWN0L3BkZi9wdWJsaWMgYnVkZ2V0IG5vdGljZXMvYnVzIHJlcGxhY2VtZW50IGxlZ2FsIG5vdGljZSA4IDI5IDIwMTgucGRmP2lkPTI3NycgICB0aXRsZT0nQnVzIFJlcGxhY2VtZW50IFBsYW4gMjAxOSAtIExlZ2FsIE5vdGljZSc+QnVzIFJlcGxhY2VtZW50IFBsYW4gMjAxOSAtIExlZ2FsIE5vdGljZTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2RvY3MvZGlzdHJpY3QvcGRmL3B1YmxpYyBidWRnZXQgbm90aWNlcy9idXMgcGxhbiBhbWVuZG1lbnQgc2VjdGlvbiAxIDggMjkgMjAxOC5wZGY/aWQ9Mjc5JyAgIHRpdGxlPSdCdXMgUGxhbiBBbWVuZG1lbnQgU2VjdGlvbiAxIEF1Z3VzdCAyOSAyMDE4Jz5CdXMgUGxhbiBBbWVuZG1lbnQgU2VjdGlvbiAxIEF1Z3VzdCAyOSAyMDE4PC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvZG9jcy9kaXN0cmljdC9wZGYvcHVibGljIGJ1ZGdldCBub3RpY2VzL2J1cyBwbGFuIGFtZW5kbWVudCBzZWN0aW9uIDIgOCAyOSAyMDE4LnBkZj9pZD0yODAnICAgdGl0bGU9J0J1cyBQbGFuIEFtZW5kbWVudCBTZWN0aW9uIDIgQXVndXN0IDI5LCAyMDE4Jz5CdXMgUGxhbiBBbWVuZG1lbnQgU2VjdGlvbiAyIEF1Z3VzdCAyOSwgMjAxODwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2RvY3MvZGlzdHJpY3QvcGRmL3B1YmxpYyBidWRnZXQgbm90aWNlcy9jYXBpdGFsIGFjcXVpc3Rpb24gMjAxOSA5IDQgMjAxOC5wZGY/aWQ9MzEzJyAgIHRpdGxlPSdDYXBpdGFsIEFjcXVpc2l0aW9uIDIwMTkgOSA0IDIwMTggJz5DYXBpdGFsIEFjcXVpc2l0aW9uIDIwMTkgOSA0IDIwMTggPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvZG9jcy9kaXN0cmljdC9wZGYvcHVibGljIGJ1ZGdldCBub3RpY2VzL2NhcGl0YWwgcHJvamVjdHMgaW4gbmF0dXJlIDIwMjAgMDkgMTIgMjAxOS5wZGY/aWQ9MjM1NycgICB0aXRsZT0nQ2FwaXRhbCBQcm9qZWN0cyBpbiBOYXR1cmUgMjAyMCAwOSAxMiAyMDE5Jz5DYXBpdGFsIFByb2plY3RzIGluIE5hdHVyZSAyMDIwIDA5IDEyIDIwMTk8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9kb2NzL2Rpc3RyaWN0L3BkZi9wdWJsaWMgYnVkZ2V0IG5vdGljZXMvY2FwaXRhbCBwcm9qZWN0cyBpbiBuYXR1cmUgMjAxOSAgOSA0IDIwMTgucGRmP2lkPTMxNCcgICB0aXRsZT0nQ2FwaXRhbCBQcm9qZWN0cyBpbiBOYXR1cmUgMjAxOSA5IDQgMjAxOCc+Q2FwaXRhbCBQcm9qZWN0cyBpbiBOYXR1cmUgMjAxOSA5IDQgMjAxODwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2RvY3MvZGlzdHJpY3QvcGRmL3B1YmxpYyBidWRnZXQgbm90aWNlcy9jcGYgbGVnYWwgbm90aWNlIDggMjkgMjAxOC5wZGY/aWQ9MzE2JyAgIHRpdGxlPSdDUEYgTGVnYWwgTm90aWNlIDggMjkgMjAxOCc+Q1BGIExlZ2FsIE5vdGljZSA4IDI5IDIwMTg8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9kb2NzL2Rpc3RyaWN0L3BkZi9wdWJsaWMgYnVkZ2V0IG5vdGljZXMvY3BmIHNpdGUgc3VtbWFyeSA5IDUgMjAxOC5wZGY/aWQ9MzE1JyAgIHRpdGxlPSdDUEYgU2l0ZSBTdW1tYXJ5IDIwMTkgOSA1IDIwMTgnPkNQRiBTaXRlIFN1bW1hcnkgMjAxOSA5IDUgMjAxODwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2RvY3MvZGlzdHJpY3QvcGRmL3B1YmxpYyBidWRnZXQgbm90aWNlcy9mb3JtIDMgOSA2IDIwMTgucGRmP2lkPTMxOCcgICB0aXRsZT0nRm9ybSAzIDA5IDA2IDIwMTgnPkZvcm0gMyAwOSAwNiAyMDE4PC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvZG9jcy9kaXN0cmljdC9wZGYvcHVibGljIGJ1ZGdldCBub3RpY2VzL2Zvcm0gMyAwOSAxNSAyMDE5IGZpbmFsLnBkZj9pZD0yMzU4JyAgIHRpdGxlPSdGb3JtIDMgMDkgMTIgMjAxOSc+Rm9ybSAzIDA5IDEyIDIwMTk8L2E+PC9saT48L3VsPjwvbGk+PC91bD5kAgUPZBYEZg8PFgIfBmhkZAICD2QWBAIDDxYCHwZoZAIFDxYCHwACB2QCBw8PFgIfBQUFL25ld3NkZAIJD2QWBgIBDxYCHwACFRYqAgEPZBYCZg8VDAQ2MjM3ejxkaXYgY2xhc3M9ImV2ZW50LW1vbnRoIj48c3BhbiBjbGFzcz0ibW9udGgiPkFwcjwvc3Bhbj48c3BhbiBjbGFzcz0iZGF5Ij4yMDwvc3Bhbj48L2Rpdj48ZGl2IGNsYXNzPSJldmVudC15ZWFyIj4yMDIwPC9kaXY+RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyw0JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9NjIzNw5QZXJyeSA0LUggTXRnLg5QZXJyeSA0LUggTXRnLgVBcHJpbAIyMAAXNjowMCBQTSAmbWRhc2g7IDk6MDAgUE0AFzY6MDAgUE0gJm1kYXNoOyA5OjAwIFBNGFdlc3QgTm9ibGUgTWlkZGxlIFNjaG9vbGQCAg9kFgJmDxUMBDYyOTh6PGRpdiBjbGFzcz0iZXZlbnQtbW9udGgiPjxzcGFuIGNsYXNzPSJtb250aCI+QXByPC9zcGFuPjxzcGFuIGNsYXNzPSJkYXkiPjIwPC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LXllYXIiPjIwMjA8L2Rpdj5FL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD02Mjk4FUtpbmRlcmdhcnRlbiBSb3VuZC1VcBVLaW5kZXJnYXJ0ZW4gUm91bmQtVXAFQXByaWwCMjAEQFdOUBcyOjAwIFBNICZtZGFzaDsgNzowMCBQTQRAV05QFzI6MDAgUE0gJm1kYXNoOyA3OjAwIFBNP1dlc3QgTm9ibGUgRWxlbWVudGFyeSBTY2hvb2wsV2VzdCBOb2JsZSBQcmltYXJ5IFNjaG9vbCxJbnRyYW5ldGQCAw9kFgJmDxUMBDY0ODF6PGRpdiBjbGFzcz0iZXZlbnQtbW9udGgiPjxzcGFuIGNsYXNzPSJtb250aCI+QXByPC9zcGFuPjxzcGFuIGNsYXNzPSJkYXkiPjIwPC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LXllYXIiPjIwMjA8L2Rpdj5FL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD02NDgxPkNBTkNFTEVEIC0gU29mdGJhbGwgKEdpcmxzIFZhcnNpdHkpIC0gQmV0aGFueSBDaHJpc3RpYW4gU2Nob29sPkNBTkNFTEVEIC0gU29mdGJhbGwgKEdpcmxzIFZhcnNpdHkpIC0gQmV0aGFueSBDaHJpc3RpYW4gU2Nob29sBUFwcmlsAjIwABc1OjMwIFBNICZtZGFzaDsgNjozMCBQTQAXNTozMCBQTSAmbWRhc2g7IDY6MzAgUE0WV2VzdCBOb2JsZSBIaWdoIFNjaG9vbGQCBA9kFgJmDxUMBDY1ODh6PGRpdiBjbGFzcz0iZXZlbnQtbW9udGgiPjxzcGFuIGNsYXNzPSJtb250aCI+QXByPC9zcGFuPjxzcGFuIGNsYXNzPSJkYXkiPjIwPC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LXllYXIiPjIwMjA8L2Rpdj5FL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD02NTg4N0NBTkNFTEVEIC0gVGVubmlzIChHaXJscyBWYXJzaXR5KSAtIEZyZW1vbnQgSGlnaCBTY2hvb2w3Q0FOQ0VMRUQgLSBUZW5uaXMgKEdpcmxzIFZhcnNpdHkpIC0gRnJlbW9udCBIaWdoIFNjaG9vbAVBcHJpbAIyMAAXNDo0NSBQTSAmbWRhc2g7IDU6NDUgUE0AFzQ6NDUgUE0gJm1kYXNoOyA1OjQ1IFBNFldlc3QgTm9ibGUgSGlnaCBTY2hvb2xkAgUPZBYCZg8VDAQ3MzQ3ejxkaXYgY2xhc3M9ImV2ZW50LW1vbnRoIj48c3BhbiBjbGFzcz0ibW9udGgiPkFwcjwvc3Bhbj48c3BhbiBjbGFzcz0iZGF5Ij4yMDwvc3Bhbj48L2Rpdj48ZGl2IGNsYXNzPSJldmVudC15ZWFyIj4yMDIwPC9kaXY+RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyw0JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9NzM0NzdDQU5DRUxFRCAtIEJhc2ViYWxsIChCb3lzIFZhcnNpdHkpIC0gV2hpdGtvIEhpZ2ggU2Nob29sN0NBTkNFTEVEIC0gQmFzZWJhbGwgKEJveXMgVmFyc2l0eSkgLSBXaGl0a28gSGlnaCBTY2hvb2wFQXByaWwCMjAAFzU6MzAgUE0gJm1kYXNoOyA2OjMwIFBNABc1OjMwIFBNICZtZGFzaDsgNjozMCBQTRZXZXN0IE5vYmxlIEhpZ2ggU2Nob29sZAIGD2QWAmYPFQwENzQxMHo8ZGl2IGNsYXNzPSJldmVudC1tb250aCI+PHNwYW4gY2xhc3M9Im1vbnRoIj5BcHI8L3NwYW4+PHNwYW4gY2xhc3M9ImRheSI+MjA8L3NwYW4+PC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQteWVhciI+MjAyMDwvZGl2PkUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDMsNCZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTc0MTA+Q0FOQ0VMRUQgLSBCYXNlYmFsbCAoQm95cyBKdW5pb3IgVmFyc2l0eSkgQCBEZUthbGIgSGlnaCBTY2hvb2w+Q0FOQ0VMRUQgLSBCYXNlYmFsbCAoQm95cyBKdW5pb3IgVmFyc2l0eSkgQCBEZUthbGIgSGlnaCBTY2hvb2wFQXByaWwCMjAAFzU6MzAgUE0gJm1kYXNoOyA2OjMwIFBNABc1OjMwIFBNICZtZGFzaDsgNjozMCBQTRZXZXN0IE5vYmxlIEhpZ2ggU2Nob29sZAIHD2QWAmYPFQwEODI2OXo8ZGl2IGNsYXNzPSJldmVudC1tb250aCI+PHNwYW4gY2xhc3M9Im1vbnRoIj5BcHI8L3NwYW4+PHNwYW4gY2xhc3M9ImRheSI+MjA8L3NwYW4+PC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQteWVhciI+MjAyMDwvZGl2PkUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDMsNCZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTgyNjkNQm9hcmQgTWVldGluZw1Cb2FyZCBNZWV0aW5nBUFwcmlsAjIwABBCZWdpbnMgQCA3OjAwIFBNABBCZWdpbnMgQCA3OjAwIFBNAGQCCA9kFgJmDxUMBDgyODl6PGRpdiBjbGFzcz0iZXZlbnQtbW9udGgiPjxzcGFuIGNsYXNzPSJtb250aCI+QXByPC9zcGFuPjxzcGFuIGNsYXNzPSJkYXkiPjIwPC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LXllYXIiPjIwMjA8L2Rpdj5FL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD04Mjg5DVRhaSBDaGkgQ2xhc3MNVGFpIENoaSBDbGFzcwVBcHJpbAIyMAAXMzozMCBQTSAmbWRhc2g7IDU6MDAgUE0AFzM6MzAgUE0gJm1kYXNoOyA1OjAwIFBNAGQCCQ9kFgJmDxUMBDgzNTZ6PGRpdiBjbGFzcz0iZXZlbnQtbW9udGgiPjxzcGFuIGNsYXNzPSJtb250aCI+QXByPC9zcGFuPjxzcGFuIGNsYXNzPSJkYXkiPjIxPC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LXllYXIiPjIwMjA8L2Rpdj5FL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD04MzU2HFdOIFN0YWZmIFBhcmFkZSBsaW5lLXVwIEAgSFMcV04gU3RhZmYgUGFyYWRlIGxpbmUtdXAgQCBIUwVBcHJpbAIyMQAXMTozMCBQTSAmbWRhc2g7IDI6MDAgUE0AFzE6MzAgUE0gJm1kYXNoOyAyOjAwIFBNGFdlc3QgTm9ibGUgTWlkZGxlIFNjaG9vbGQCCg9kFgJmDxUMBDgzNTd6PGRpdiBjbGFzcz0iZXZlbnQtbW9udGgiPjxzcGFuIGNsYXNzPSJtb250aCI+QXByPC9zcGFuPjxzcGFuIGNsYXNzPSJkYXkiPjIxPC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LXllYXIiPjIwMjA8L2Rpdj5FL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD04MzU3IVdOIFN0YWZmIFBhcmFkZSB0aHJvdWdoIGNvbW11bml0eSFXTiBTdGFmZiBQYXJhZGUgdGhyb3VnaCBjb21tdW5pdHkFQXByaWwCMjEAFzI6MDAgUE0gJm1kYXNoOyAzOjAwIFBNABcyOjAwIFBNICZtZGFzaDsgMzowMCBQTRhXZXN0IE5vYmxlIE1pZGRsZSBTY2hvb2xkAgsPZBYCZg8VDAQ3NDEyejxkaXYgY2xhc3M9ImV2ZW50LW1vbnRoIj48c3BhbiBjbGFzcz0ibW9udGgiPkFwcjwvc3Bhbj48c3BhbiBjbGFzcz0iZGF5Ij4yMTwvc3Bhbj48L2Rpdj48ZGl2IGNsYXNzPSJldmVudC15ZWFyIj4yMDIwPC9kaXY+RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyw0JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9NzQxMkBDQU5DRUxFRCAtIEJhc2ViYWxsIChCb3lzIEp1bmlvciBWYXJzaXR5KSAtIFdlc3R2aWV3IEhpZ2ggU2Nob29sQENBTkNFTEVEIC0gQmFzZWJhbGwgKEJveXMgSnVuaW9yIFZhcnNpdHkpIC0gV2VzdHZpZXcgSGlnaCBTY2hvb2wFQXByaWwCMjEAFzU6MDAgUE0gJm1kYXNoOyA2OjAwIFBNABc1OjAwIFBNICZtZGFzaDsgNjowMCBQTRZXZXN0IE5vYmxlIEhpZ2ggU2Nob29sZAIMD2QWAmYPFQwENzM0OXo8ZGl2IGNsYXNzPSJldmVudC1tb250aCI+PHNwYW4gY2xhc3M9Im1vbnRoIj5BcHI8L3NwYW4+PHNwYW4gY2xhc3M9ImRheSI+MjE8L3NwYW4+PC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQteWVhciI+MjAyMDwvZGl2PkUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDMsNCZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTczNDk5Q0FOQ0VMRUQgLSBCYXNlYmFsbCAoQm95cyBWYXJzaXR5KSBAIFdlc3R2aWV3IEhpZ2ggU2Nob29sOUNBTkNFTEVEIC0gQmFzZWJhbGwgKEJveXMgVmFyc2l0eSkgQCBXZXN0dmlldyBIaWdoIFNjaG9vbAVBcHJpbAIyMQAXNTowMCBQTSAmbWRhc2g7IDY6MDAgUE0AFzU6MDAgUE0gJm1kYXNoOyA2OjAwIFBNFldlc3QgTm9ibGUgSGlnaCBTY2hvb2xkAg0PZBYCZg8VDAQ2NTkwejxkaXYgY2xhc3M9ImV2ZW50LW1vbnRoIj48c3BhbiBjbGFzcz0ibW9udGgiPkFwcjwvc3Bhbj48c3BhbiBjbGFzcz0iZGF5Ij4yMTwvc3Bhbj48L2Rpdj48ZGl2IGNsYXNzPSJldmVudC15ZWFyIj4yMDIwPC9kaXY+RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyw0JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9NjU5MD9DQU5DRUxFRCAtIFRlbm5pcyAoR2lybHMgVmFyc2l0eSkgLSBGYWlyZmllbGQgSnItU3IgSGlnaCBTY2hvb2w/Q0FOQ0VMRUQgLSBUZW5uaXMgKEdpcmxzIFZhcnNpdHkpIC0gRmFpcmZpZWxkIEpyLVNyIEhpZ2ggU2Nob29sBUFwcmlsAjIxABc0OjMwIFBNICZtZGFzaDsgNTozMCBQTQAXNDozMCBQTSAmbWRhc2g7IDU6MzAgUE0WV2VzdCBOb2JsZSBIaWdoIFNjaG9vbGQCDg9kFgJmDxUMBDcwMTB6PGRpdiBjbGFzcz0iZXZlbnQtbW9udGgiPjxzcGFuIGNsYXNzPSJtb250aCI+QXByPC9zcGFuPjxzcGFuIGNsYXNzPSJkYXkiPjIxPC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LXllYXIiPjIwMjA8L2Rpdj5FL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD03MDEwQUNBTkNFTEVEIC0gU29mdGJhbGwgKEdpcmxzIEp1bmlvciBWYXJzaXR5KSAtIFdlc3R2aWV3IEhpZ2ggU2Nob29sQUNBTkNFTEVEIC0gU29mdGJhbGwgKEdpcmxzIEp1bmlvciBWYXJzaXR5KSAtIFdlc3R2aWV3IEhpZ2ggU2Nob29sBUFwcmlsAjIxABc0OjMwIFBNICZtZGFzaDsgNTozMCBQTQAXNDozMCBQTSAmbWRhc2g7IDU6MzAgUE0WV2VzdCBOb2JsZSBIaWdoIFNjaG9vbGQCDw9kFgJmDxUMBDY0ODN6PGRpdiBjbGFzcz0iZXZlbnQtbW9udGgiPjxzcGFuIGNsYXNzPSJtb250aCI+QXByPC9zcGFuPjxzcGFuIGNsYXNzPSJkYXkiPjIxPC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LXllYXIiPjIwMjA8L2Rpdj5FL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD02NDgzOkNBTkNFTEVEIC0gU29mdGJhbGwgKEdpcmxzIFZhcnNpdHkpIEAgV2VzdHZpZXcgSGlnaCBTY2hvb2w6Q0FOQ0VMRUQgLSBTb2Z0YmFsbCAoR2lybHMgVmFyc2l0eSkgQCBXZXN0dmlldyBIaWdoIFNjaG9vbAVBcHJpbAIyMQAXNTowMCBQTSAmbWRhc2g7IDY6MDAgUE0AFzU6MDAgUE0gJm1kYXNoOyA2OjAwIFBNFldlc3QgTm9ibGUgSGlnaCBTY2hvb2xkAhAPZBYCZg8VDAQ2Mjk5ejxkaXYgY2xhc3M9ImV2ZW50LW1vbnRoIj48c3BhbiBjbGFzcz0ibW9udGgiPkFwcjwvc3Bhbj48c3BhbiBjbGFzcz0iZGF5Ij4yMTwvc3Bhbj48L2Rpdj48ZGl2IGNsYXNzPSJldmVudC15ZWFyIj4yMDIwPC9kaXY+RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyw0JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9NjI5ORVLaW5kZXJnYXJ0ZW4gUm91bmQtVXAVS2luZGVyZ2FydGVuIFJvdW5kLVVwBUFwcmlsAjIxBEBXTlAYMTI6MDAgUE0gJm1kYXNoOyA2OjAwIFBNBEBXTlAYMTI6MDAgUE0gJm1kYXNoOyA2OjAwIFBNP1dlc3QgTm9ibGUgRWxlbWVudGFyeSBTY2hvb2wsV2VzdCBOb2JsZSBQcmltYXJ5IFNjaG9vbCxJbnRyYW5ldGQCEQ9kFgJmDxUMBDcwNzF6PGRpdiBjbGFzcz0iZXZlbnQtbW9udGgiPjxzcGFuIGNsYXNzPSJtb250aCI+QXByPC9zcGFuPjxzcGFuIGNsYXNzPSJkYXkiPjIxPC9zcGFuPjwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LXllYXIiPjIwMjA8L2Rpdj5FL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzLDQmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD03MDcxQkNBTkNFTEVEIC0gVHJhY2sgKEJveXMvR2lybHMgVmFyc2l0eSkgQCBDZW50cmFsIE5vYmxlIEhpZ2ggU2Nob29sIEJDQU5DRUxFRCAtIFRyYWNrIChCb3lzL0dpcmxzIFZhcnNpdHkpIEAgQ2VudHJhbCBOb2JsZSBIaWdoIFNjaG9vbCAFQXByaWwCMjEAFzQ6NDUgUE0gJm1kYXNoOyA1OjQ1IFBNABc0OjQ1IFBNICZtZGFzaDsgNTo0NSBQTRZXZXN0IE5vYmxlIEhpZ2ggU2Nob29sZAISD2QWAmYPFQwEODI4OHo8ZGl2IGNsYXNzPSJldmVudC1tb250aCI+PHNwYW4gY2xhc3M9Im1vbnRoIj5BcHI8L3NwYW4+PHNwYW4gY2xhc3M9ImRheSI+MjI8L3NwYW4+PC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQteWVhciI+MjAyMDwvZGl2PkUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDMsNCZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTgyODgNVGFpIENoaSBDbGFzcw1UYWkgQ2hpIENsYXNzBUFwcmlsAjIyABczOjMwIFBNICZtZGFzaDsgNTowMCBQTQAXMzozMCBQTSAmbWRhc2g7IDU6MDAgUE0AZAITD2QWAmYPFQwENzk3MHo8ZGl2IGNsYXNzPSJldmVudC1tb250aCI+PHNwYW4gY2xhc3M9Im1vbnRoIj5BcHI8L3NwYW4+PHNwYW4gY2xhc3M9ImRheSI+MjM8L3NwYW4+PC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQteWVhciI+MjAyMDwvZGl2PkUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDMsNCZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTc5NzA5Q0FOQ0VMRUQgLSBHb2xmIChCb3lzIFZhcnNpdHkpIC0gQ2VudHJhbCBOb2JsZS9XZXN0IE5vYmxlOUNBTkNFTEVEIC0gR29sZiAoQm95cyBWYXJzaXR5KSAtIENlbnRyYWwgTm9ibGUvV2VzdCBOb2JsZQVBcHJpbAIyMwAXNDo0NSBQTSAmbWRhc2g7IDY6NDUgUE0AFzQ6NDUgUE0gJm1kYXNoOyA2OjQ1IFBNFldlc3QgTm9ibGUgSGlnaCBTY2hvb2xkAhQPZBYCZg8VDAQ3MDExejxkaXYgY2xhc3M9ImV2ZW50LW1vbnRoIj48c3BhbiBjbGFzcz0ibW9udGgiPkFwcjwvc3Bhbj48c3BhbiBjbGFzcz0iZGF5Ij4yMzwvc3Bhbj48L2Rpdj48ZGl2IGNsYXNzPSJldmVudC15ZWFyIj4yMDIwPC9kaXY+RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyw0JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9NzAxMURDQU5DRUxFRCAtIFNvZnRiYWxsIChHaXJscyBKdW5pb3IgVmFyc2l0eSkgLSBDaHVydWJ1c2NvIEhpZ2ggU2Nob29sIERDQU5DRUxFRCAtIFNvZnRiYWxsIChHaXJscyBKdW5pb3IgVmFyc2l0eSkgLSBDaHVydWJ1c2NvIEhpZ2ggU2Nob29sIAVBcHJpbAIyMwAXNTowMCBQTSAmbWRhc2g7IDY6MDAgUE0AFzU6MDAgUE0gJm1kYXNoOyA2OjAwIFBNFldlc3QgTm9ibGUgSGlnaCBTY2hvb2xkAhUPZBYCZg8VDAQ2NTkyejxkaXYgY2xhc3M9ImV2ZW50LW1vbnRoIj48c3BhbiBjbGFzcz0ibW9udGgiPkFwcjwvc3Bhbj48c3BhbiBjbGFzcz0iZGF5Ij4yMzwvc3Bhbj48L2Rpdj48ZGl2IGNsYXNzPSJldmVudC15ZWFyIj4yMDIwPC9kaXY+RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyw0JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9NjU5MjhDQU5DRUxFRCAtIFRlbm5pcyAoR2lybHMgVmFyc2l0eSkgQCBXZXN0dmlldyBIaWdoIFNjaG9vbDhDQU5DRUxFRCAtIFRlbm5pcyAoR2lybHMgVmFyc2l0eSkgQCBXZXN0dmlldyBIaWdoIFNjaG9vbAVBcHJpbAIyMwAXNDozMCBQTSAmbWRhc2g7IDU6MzAgUE0AFzQ6MzAgUE0gJm1kYXNoOyA1OjMwIFBNFldlc3QgTm9ibGUgSGlnaCBTY2hvb2xkAgUPDxYCHwUFKC9jYWxNb250aFZpZXcuYXNweD9zY2hvb2xpZD0wJnk9MjAyMCZtPTRkZAIHDw8WBB8FBUUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCZzY2hvb2xpZD0wJnR5cGVzPSZ2aWV3RGF0ZT00LzE5LzIwMjAfBAUIVmlldyBBbGxkZAILDw8WAh8FBQkvQ2FsZW5kYXJkZAIND2QWBmYPFgIfBAUIRmFjZWJvb2tkAgEPFgIfBAW7BzxkaXYgaWQ9ImZiLXJvb3QiPiZuYnNwOzwvZGl2Pg0KPHNjcmlwdCA+KGZ1bmN0aW9uKGQsIHMsIGlkKSB7DQogIHZhciBqcywgZmpzID0gZC5nZXRFbGVtZW50c0J5VGFnTmFtZShzKVswXTsNCiAgaWYgKGQuZ2V0RWxlbWVudEJ5SWQoaWQpKSByZXR1cm47DQogIGpzID0gZC5jcmVhdGVFbGVtZW50KHMpOyBqcy5pZCA9IGlkOw0KICBqcy5zcmMgPSAnaHR0cHM6Ly9jb25uZWN0LmZhY2Vib29rLm5ldC9lbl9VUy9zZGsuanMjeGZibWw9MSZ2ZXJzaW9uPXYzLjEnOw0KICBmanMucGFyZW50Tm9kZS5pbnNlcnRCZWZvcmUoanMsIGZqcyk7DQp9KGRvY3VtZW50LCAnc2NyaXB0JywgJ2ZhY2Vib29rLWpzc2RrJykpOzwvc2NyaXB0ID4NCg0KPGRpdiBjbGFzcz0iZmItcGFnZSIgc3R5bGU9ImRpc3BsYXk6YmxvY2s7IG1hcmdpbjowIGF1dG87IHBvc2l0aW9uOnJlbGF0aXZlOyBtYXgtd2lkdGg6NTAwcHg7IiBkYXRhLWFkYXB0LWNvbnRhaW5lci13aWR0aD0idHJ1ZSIgZGF0YS1oaWRlLWNvdmVyPSJmYWxzZSIgZGF0YS1ocmVmPSJodHRwczovL3d3dy5mYWNlYm9vay5jb20vV2VzdC1Ob2JsZS1TY2hvb2wtQ29ycG9yYXRpb24tNTI0ODUzMTk0MjUxNjc5LyIgZGF0YS1zaG93LWZhY2VwaWxlPSJmYWxzZSIgZGF0YS1zbWFsbC1oZWFkZXI9ImZhbHNlIiBkYXRhLXRhYnM9InRpbWVsaW5lIiBkYXRhLXdpZHRoPSI1MDAiID4NCjxibG9ja3F1b3RlIGNpdGU9Imh0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9XZXN0LU5vYmxlLVNjaG9vbC1Db3Jwb3JhdGlvbi01MjQ4NTMxOTQyNTE2NzkvIiBjbGFzcz0iZmIteGZibWwtcGFyc2UtaWdub3JlIiA+PGEgaHJlZj0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL1dlc3QtTm9ibGUtU2Nob29sLUNvcnBvcmF0aW9uLTUyNDg1MzE5NDI1MTY3OS8iID5XZXN0IE5vYmxlIFNjaG9vbCBDb3Jwb3JhdGlvbjwvYSA+PC9ibG9ja3F1b3RlID4NCjwvZGl2ID5kAgMPDxYCHwUFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9MmRkAg8PDxYCHwZoZBYGZg8WAh8EBQlJbnN0YWdyYW1kAgEPFgIfBGVkAgMPDxYCHwUFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9M2RkAhEPDxYCHwZoZBYGZg8WAh8EBQhGZWF0dXJlZGQCAQ8WAh8EZGQCAw8PFgIfBQUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz00ZGQCEw8PFgIfBAUdV2VzdCBOb2JsZSBTY2hvb2wgQ29ycG9yYXRpb25kZAIVDw8WBB8EBSw1MDUwIE4gVVMgSGlnaHdheSAzMzxiciAvPkxpZ29uaWVyLCBJTiA0Njc2Nx8FBVhodHRwczovL3d3dy5nb29nbGUuY29tL21hcHMvc2VhcmNoLz9hcGk9MSZxdWVyeT01MDUwIE4gVVMgSGlnaHdheSAzMywrTGlnb25pZXIsK0lOKzQ2NzY3ZGQCFw8PFgIfBAUuUGhvbmU6ICgyNjApIDg5NC0zMTkxPGJyIC8+RmF4OiAoMjYwKSA4OTQtMzI2MGRkAg8PZBYIAgEPDxYEHwQFHVdlc3QgTm9ibGUgU2Nob29sIENvcnBvcmF0aW9uHwUFAS9kZAIDDw8WBB8EBWc8aSBjbGFzcz0iZmEgZmEtbWFwLW1hcmtlciIgYXJpYS1oaWRkZW49InRydWUiPjwvaT4mbmJzcDsmbmJzcDs1MDUwIE4gVVMgSGlnaHdheSAzMywgTGlnb25pZXIsIElOIDQ2NzY3HwUFWGh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vbWFwcy9zZWFyY2gvP2FwaT0xJnF1ZXJ5PTUwNTAgTiBVUyBIaWdod2F5IDMzLCtMaWdvbmllciwrSU4rNDY3NjdkZAIFDw8WAh8EBZYBPGkgY2xhc3M9ImZhIGZhLXBob25lIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PC9pPiBQaG9uZTogKDI2MCkgODk0LTMxOTEmbmJzcDsmbmJzcDsmbmJzcDs8aSBjbGFzcz0iZmEgZmEtZmF4IiBhcmlhLWhpZGRlbj0iVHJ1ZSI+PC9pPiBGYXg6ICgyNjApIDg5NC0zMjYwZGQCCQ9kFgJmDw8WAh8GaGRkZOVeIXtCrJqQuo1tIr1IDLbYPyjr">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script><script src="/WebResource.axd?d=ciQs-AUcGllikzvJxOn4IY9qdpn5WXYfT_PMnTK91Xt8dksb258BJxYsmn4olEPTocq6JTsZH-_-9MV4tnJ7755rEvo1&amp;t=636160844560000000" type="text/javascript"></script><a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: '10trxb7job' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><header id="site-head" aria-label="site header"><div id="DesktopHeader" class="hidden-xs">
+	<div class="bg-header1">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="wrap-topBox pull-right">
+						<div class="wrap-translate">
+							
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+</div>
+
+						<div class="wrap-searchLink">
+							<a href="/searchResults.aspx"><i class="fa fa-search" aria-hidden="true"></i><span class="obscure">search our website</span></a>
+						</div>
+
+						<div class="wrap-socialLinks">
+							
+        <a href="/login" title="cms login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/intranet" title="Intranet Staff Login" target="_self">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<a id="ctl00_ctl00_header_header_ctl00_lnkLogo" class="logo" href="/"><span class="top">West Noble</span><span class="bottom">School Corporation</span></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-black">
+		<div class="bg-header2">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<nav id="TopNav"><ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar">Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/calendar" title="District Calendar">District Calendar</a></li>
+<li class="without-image"><a href="/docs/district/pdf/2019%2020%20school%20calendar%20revised%20052819.pdf?id=2049" target="_blank" title="19-20 School Calendar - English">19-20 School Calendar - English</a></li>
+<li class="without-image"><a href="/docs/district/pdf/2019%2020%20school%20calendar%20spanish%20revised%20052819.pdf?id=2050" target="_blank" title="19-20 School Calendar - Spanish">19-20 School Calendar - Spanish</a></li>
+<li class="without-image"><a href="/docs/district/pdf/school%20calendar/2020-2021/2020%202021%20calendar.pdf?id=3093" title="20-21 School Calendar - English">20-21 School Calendar - English</a></li>
+<li class="without-image"><a href="/docs/district/pdf/school%20calendar/2020-2021/2020%202021%20calendar%20sp%20(1).pdf?id=3104" title="20-21 School Calendar - Spanish">20-21 School Calendar - Spanish</a></li>
+<li class="without-image"><a href="/docs/district/pdf/school%20calendar/2021-2022/2021%202022%20calendar.pdf?id=3094" title="21-22 School Calendar - English">21-22 School Calendar - English</a></li>
+<li class="without-image"><a href="/docs/district/pdf/school%20calendar/2021-2022/2021%202022%20calendar%20sp%20(1).pdf?id=3105" title="21-22 School Calendar - Spanish">21-22 School Calendar - Spanish</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="West Noble High School">West Noble High School</a></li>
+<li class="without-image"><a href="/2/home" title="West Noble Middle School">West Noble Middle School</a></li>
+<li class="without-image"><a href="/3/home" title="West Noble Elementary School">West Noble Elementary School</a></li>
+<li class="without-image"><a href="/4/home" title="West Noble Primary School">West Noble Primary School</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Services">Services  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://sites.google.com/westnoble.k12.in.us/wnsc-dlip/home?scrlybrkr=66682d88" title="Dual Immersion">Dual Immersion</a></li>
+<li class="without-image"><a href="/docs/district/services/wnsc%20dyslexia%20plan%20(sept.%202019).pdf?id=2487" title="Dyslexia">Dyslexia</a></li>
+<li class="without-image"><a href="/Content/10" title="Food Services">Food Services</a></li>
+<li class="without-image"><a href="/Content/8" title="Health Services">Health Services</a></li>
+<li class="without-image"><a href="/Content/14" title="Maintenance and Grounds">Maintenance and Grounds</a></li>
+<li class="without-image"><a href="/content/42" title="McKinney-Vento Homeless Assistance">McKinney-Vento Homeless Assistance</a></li>
+<li class="without-image"><a href="/Content/16" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/content/48" title="Title I">Title I</a></li>
+<li class="without-image"><a href="/Content/6" title="Transportation">Transportation</a></li>
+<li class="without-image"><a href="/content/46" title="Wellness">Wellness</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/54" aria-label="" title="COVID-19">COVID-19</a></li>
+</ul></nav>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="MobileHeader" class="hidden-sm hidden-md hidden-lg">
+	<div class="wrap-mobileNavBar clearfix">
+		<a id="ctl00_ctl00_header_header_ctl00_MobileName" class="mobileName" href="/">West Noble School Corporation</a>
+
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MobileNav">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+			<span class="obscure">toggle menu</span>
+		</button>
+	</div>
+
+	<nav id="MobileNav" class="collapse"><h1>Quick Links</h1>
+
+		<ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar">Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/calendar" title="District Calendar">District Calendar</a></li>
+<li class="without-image"><a href="/docs/district/pdf/2019%2020%20school%20calendar%20revised%20052819.pdf?id=2049" target="_blank" title="19-20 School Calendar - English">19-20 School Calendar - English</a></li>
+<li class="without-image"><a href="/docs/district/pdf/2019%2020%20school%20calendar%20spanish%20revised%20052819.pdf?id=2050" target="_blank" title="19-20 School Calendar - Spanish">19-20 School Calendar - Spanish</a></li>
+<li class="without-image"><a href="/docs/district/pdf/school%20calendar/2020-2021/2020%202021%20calendar.pdf?id=3093" title="20-21 School Calendar - English">20-21 School Calendar - English</a></li>
+<li class="without-image"><a href="/docs/district/pdf/school%20calendar/2020-2021/2020%202021%20calendar%20sp%20(1).pdf?id=3104" title="20-21 School Calendar - Spanish">20-21 School Calendar - Spanish</a></li>
+<li class="without-image"><a href="/docs/district/pdf/school%20calendar/2021-2022/2021%202022%20calendar.pdf?id=3094" title="21-22 School Calendar - English">21-22 School Calendar - English</a></li>
+<li class="without-image"><a href="/docs/district/pdf/school%20calendar/2021-2022/2021%202022%20calendar%20sp%20(1).pdf?id=3105" title="21-22 School Calendar - Spanish">21-22 School Calendar - Spanish</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="West Noble High School">West Noble High School</a></li>
+<li class="without-image"><a href="/2/home" title="West Noble Middle School">West Noble Middle School</a></li>
+<li class="without-image"><a href="/3/home" title="West Noble Elementary School">West Noble Elementary School</a></li>
+<li class="without-image"><a href="/4/home" title="West Noble Primary School">West Noble Primary School</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Services">Services  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://sites.google.com/westnoble.k12.in.us/wnsc-dlip/home?scrlybrkr=66682d88" title="Dual Immersion">Dual Immersion</a></li>
+<li class="without-image"><a href="/docs/district/services/wnsc%20dyslexia%20plan%20(sept.%202019).pdf?id=2487" title="Dyslexia">Dyslexia</a></li>
+<li class="without-image"><a href="/Content/10" title="Food Services">Food Services</a></li>
+<li class="without-image"><a href="/Content/8" title="Health Services">Health Services</a></li>
+<li class="without-image"><a href="/Content/14" title="Maintenance and Grounds">Maintenance and Grounds</a></li>
+<li class="without-image"><a href="/content/42" title="McKinney-Vento Homeless Assistance">McKinney-Vento Homeless Assistance</a></li>
+<li class="without-image"><a href="/Content/16" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/content/48" title="Title I">Title I</a></li>
+<li class="without-image"><a href="/Content/6" title="Transportation">Transportation</a></li>
+<li class="without-image"><a href="/content/46" title="Wellness">Wellness</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/54" aria-label="" title="COVID-19">COVID-19</a></li>
+</ul>
+<ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/District/Profile" title="District Profile">District Profile</a></li>
+<li class="without-image"><a href="/content/12" title="Central Office Staff">Central Office Staff</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/content/44" title="Alumni">Alumni</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="https://sites.google.com/westnoble.k12.in.us/elearning/home" target="_blank" title="e Learning / Flex Days">e Learning / Flex Days</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/Content/4" title="Register A Student">Register A Student</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/docs/district/pdf/delays%20and%20closings%2019-20.pdf?id=2237" title="Delays and Closings">Delays and Closings</a></li>
+<li class="without-image"><a href="/content/40" title="Memorial Gardens">Memorial Gardens</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Public Budget Notices">Public Budget Notices  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="with-image"><a href="http://budgetnotices.in.gov" title="Budget Notices for local government including the West Noble School Corporation"><img src="/docs/district/images/onlinebudgetnoticesgraphic_shorter.jpg?id=85&amp;width=210" alt="Budget Notices for local government including the West Noble School Corporation" title="Budget Notices for local government including the West Noble School Corporation" border="0"></a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/bus%20replacement%20plan%202020%20for%20website.pdf?id=2356" title="Bus Replacement Plan 2020">Bus Replacement Plan 2020</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/bus%20replacement%20plan%20section%201%20ready%20to%20published%20v2%208%2029%202018.pdf?id=278" title="Bus Replacement Plan 2019">Bus Replacement Plan 2019</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/bus%20replacement%20legal%20notice%208%2029%202018.pdf?id=277" title="Bus Replacement Plan 2019 - Legal Notice">Bus Replacement Plan 2019 - Legal Notice</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/bus%20plan%20amendment%20section%201%208%2029%202018.pdf?id=279" title="Bus Plan Amendment Section 1 August 29 2018">Bus Plan Amendment Section 1 August 29 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/bus%20plan%20amendment%20section%202%208%2029%202018.pdf?id=280" title="Bus Plan Amendment Section 2 August 29, 2018">Bus Plan Amendment Section 2 August 29, 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/capital%20acquistion%202019%209%204%202018.pdf?id=313" title="Capital Acquisition 2019 9 4 2018 ">Capital Acquisition 2019 9 4 2018 </a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/capital%20projects%20in%20nature%202020%2009%2012%202019.pdf?id=2357" title="Capital Projects in Nature 2020 09 12 2019">Capital Projects in Nature 2020 09 12 2019</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/capital%20projects%20in%20nature%202019%20%209%204%202018.pdf?id=314" title="Capital Projects in Nature 2019 9 4 2018">Capital Projects in Nature 2019 9 4 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/cpf%20legal%20notice%208%2029%202018.pdf?id=316" title="CPF Legal Notice 8 29 2018">CPF Legal Notice 8 29 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/cpf%20site%20summary%209%205%202018.pdf?id=315" title="CPF Site Summary 2019 9 5 2018">CPF Site Summary 2019 9 5 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/form%203%209%206%202018.pdf?id=318" title="Form 3 09 06 2018">Form 3 09 06 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/form%203%2009%2015%202019%20final.pdf?id=2358" title="Form 3 09 12 2019">Form 3 09 12 2019</a></li>
+</ul>
+</li>
+</ul></nav>
+</div>
+
+    
+
+        </header><script type="text/javascript" src="/admin/js/Cycle2/jquery.cycle2.dev.js"></script><script src="https://player.vimeo.com/api/player.js"></script><script type="text/javascript">
+    // https://stackoverflow.com/a/51789311/5629100
+    var YoutubeVideos = (function () {
+        var playersYoutube = [],	// players array (to control players individually)
+            queueYoutube = [];		// videos queue (once api is ready, transform this into YT player)
+
+        // Constructor
+        function YoutubeVideos() { }
+
+        // Add elements to queue
+        YoutubeVideos.prototype.add = function ($video) {
+            queueYoutube.push($video);
+        };
+
+        // Finds player based on the id of the iframe element
+        YoutubeVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersYoutube.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Load Youtube API
+        YoutubeVideos.prototype.loadApi = function () {
+            $.getScript("https://www.youtube.com/iframe_api", function () {
+                window.onYouTubeIframeAPIReady = function () {
+                    queueYoutube.forEach(function ($video) {
+                        var loopBit = function () {
+                            if ($video.data('loop-video') == true) {
+                                return 1;
+                            }
+                            return 0;
+                        };
+
+                        var player = new YT.Player($video.get(0), {
+                            width: $video.data('frame-width'),
+                            height: $video.data('frame-height'),
+                            videoId: $video.data('video-id'),
+                            events: {
+                                'onStateChange': onPlayerStateChange,
+                                'onReady': onPlayerReady
+                            },
+                            playerVars: {
+                                autoplay: 0,
+                                rel: 0,
+                                enablejsapi: 1,
+                                loop: loopBit
+                            },
+                            origin: window.location.origin
+                        });
+
+                        playersYoutube.push({
+                            playerId: $video.attr('id'),
+                            player: player
+                        });
+                    });
+                };
+            });
+        };
+
+        return YoutubeVideos;
+    })();
+
+    // Modified from https://stackoverflow.com/a/51789311/5629100
+    var VimeoVideos = (function () {
+        var queueVimeo = [],		// queue of elements which will become players.
+            playersVimeo = [];		// players array (to control players individually)
+
+        // Constructor
+        function VimeoVideos() { }
+
+        // Add elements to queue
+        VimeoVideos.prototype.add = function ($video) {
+            queueVimeo.push($video);
+        };
+
+        // Converts queue to players.
+        VimeoVideos.prototype.loadPlayers = function () {
+            queueVimeo.forEach(function (item, index) {
+                var vimeoOptions = {
+                    id: $(item).data('video-id'),
+                    autoplay: false,
+                    muted: ($(item).data('autoplay') == true) ? true : false
+                };
+
+                playersVimeo[index] = {
+                    playerId: $(item).attr('id'),
+                    player: new Vimeo.Player(item, vimeoOptions)
+                };
+            });
+        };
+
+        // Finds player based on the id of the iframe element
+        VimeoVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersVimeo.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Adds listeners to the players that have been created now so they interact
+        // correctly with the header galleries.
+        VimeoVideos.prototype.bindListeners = function () {
+            playersVimeo.forEach(function (item) {
+                item.player.on('play', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+                    $wrapSlideshow.find('.cycle-pager').fadeOut();
+                    $wrapSlideshow.find('.playPause').fadeOut();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('pause', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                    $(this.element.parentNode).data('paused', true);
+                    $wrapSlideshow.find('.cycle-pager').fadeIn();
+                    $wrapSlideshow.find('.playPause').fadeIn();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('ended', function () {
+                    if ($(this.element.parentNode).data('loop-video') == true) {
+                        this.play();
+                    } else {
+                        var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                        $(this.element.parentNode).data('paused', true);
+                        $wrapSlideshow.find('.cycle-pager').fadeIn();
+                        $wrapSlideshow.find('.playPause').fadeIn();
+                        $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                    }
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.ready().then(function () {
+                    if ($(this).parents('.cycle-slide-active').length > 0 && $(this).data('autoplay') == true) {
+                        this.play();
+                    }
+                });
+            });
+        };
+
+        return VimeoVideos;
+    })();
+
+    // When the Youtube video is paused, ends, or begins, we need to either
+    // show or hide the slideshow controls and either pause or resume the
+    // slideshow. We also handle looping the Youtube videos here because the
+    // Youtube API is not 100% reliable for that function.
+    function onPlayerStateChange(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        var $wrapSlideshow = $videoElem.parents('.wrap-slideshow').first();
+        var videoState = e.data;
+
+        if (videoState == YT.PlayerState.PAUSED) {
+            $videoElem.data('paused', true);
+            $wrapSlideshow.find('.cycle-pager').fadeIn();
+            $wrapSlideshow.find('.playPause').fadeIn();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+        }
+
+        if (videoState == YT.PlayerState.ENDED) {
+            if ($videoElem.data('loop-video') == true) {
+                playYoutubePlayerById($videoElem.attr('id'));
+            } else {
+                $videoElem.siblings('.youtubeVideoThumbnail').show();
+                $videoElem.siblings('.youtubeVideoThumbnailPlay').show();
+                $wrapSlideshow.find('.cycle-pager').fadeIn();
+                $wrapSlideshow.find('.playPause').fadeIn();
+                $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+            }
+        }
+
+        if (videoState == YT.PlayerState.PLAYING) {
+            $videoElem.data('paused', false);
+            $videoElem.siblings('.youtubeVideoThumbnail').fadeOut();
+            $videoElem.siblings('.youtubeVideoThumbnailPlay').fadeOut();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+            $wrapSlideshow.find('.cycle-pager').fadeOut();
+            $wrapSlideshow.find('.playPause').fadeOut();
+        }
+    }
+
+    function onPlayerReady(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        if ($videoElem.parent('.cycle-slide-active').length > 0 && $videoElem.data('autoplay') == true) {
+            e.target.mute();
+            forcePlayYoutubePlayer(e.target);
+        }
+    }
+
+    function pauseYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            forcePauseYoutubePlayer(player);
+        }
+    }
+
+    function forcePauseYoutubePlayer(player) {
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePauseYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function playYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        forcePlayYoutubePlayer(player);
+    }
+
+    function muteYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.mute();
+    }
+
+    function forcePlayYoutubePlayer(player) {
+        player.playVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePlayYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function pauseVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.pause();
+        }
+    }
+
+    function playVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.play();
+        }
+    }
+
+    function addYouTubeStyles(videoId, containerWidth, containerHeight, videoWidth, videoHeight, videoZoom) {
+        var containerRatio = containerWidth / containerHeight;
+        var videoRatio = videoWidth / videoHeight;
+        var trueSize = $('#' + videoId).parents('.headerGalleryV2').innerWidth() / containerWidth;
+        var styles = '#' + videoId + ' {';
+
+        if (containerRatio === videoRatio) { // Video already fits the size of the container.
+            styles += 'top: 0;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+            styles += 'height: 100%;';
+        } else if (containerRatio > videoRatio) { // Container wider than video, needs to cut off top and bottom of video to scale.
+            var scale = (containerWidth / videoWidth);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateY(-' + (((videoHeight * scale) - containerHeight) / (videoHeight * scale) * 50) + '%);'
+            }
+        } else { // Container taller than video, needs to cut off left and right of video to scale.
+            var scale = (containerHeight / videoHeight);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'height: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateX(-' + (((videoWidth * scale) - containerWidth) / (videoWidth * scale) * 50) + '%);'
+            }
+        }
+
+        styles += '}';
+
+        if ($('#youtubeVideo' + videoId + 'Styles').length > 0) {
+            $('#youtubeVideo' + videoId + 'Styles').remove();
+        }
+
+        var styleTag = $('<style id="#youtubeVideo' + videoId + 'Styles"></style>')
+        $('head').append(styleTag);
+        $(styleTag).append(styles);
+    }
+
+    // Global Variables
+    var youtubes = new YoutubeVideos();
+    var vimeos = new VimeoVideos();
+
+    $(document).ready(function () {
+        $('.youtubeVideoSlide').each(function () {
+            youtubes.add($(this));
+        });
+
+        youtubes.loadApi();
+
+        $('.vimeoVideoSlide').each(function () {
+            vimeos.add($(this));
+        });
+
+        vimeos.loadPlayers();
+        vimeos.bindListeners();
+
+        $('.wrap-slideshow').on('click', '.youtubeVideoThumbnailPlay, .youtubeVideoThumbnail', function () {
+            playYoutubePlayerById($(this).data('player-id'));
+        });
+    });
+
+    $(document).on('cycle-initialized', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+        var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+        var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+        if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true) {
+            youtubeSlide.parents('.headerGalleryV2').cycle('pause');
+        }
+
+        if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true) {
+            vimeoSlide.parents('.headerGalleryV2').cycle('pause');
+            playVimeoPlayerById(vimeoSlide.attr('id'));
+        }
+
+        $('.cycle-pager > span').attr('tabindex', 0);
+    });
+
+    $(document).ready(function () {
+        // For ADA Compliance
+        $('.wrap-slideshow').on('keydown', '.prevNext > i, .cycle-pager > span, .playPause > i', function (e) {
+            if (e.keyCode === 32 || e.keyCode === 13) {
+                e.preventDefault();
+                $(this).click();
+            }
+        });
+    });
+</script><script>
+    $(document).ready(function () {
+        $slideshow = $('#slideshow').cycle({
+            'pauseOnHover': '#slideshow',
+            'slides': '> .slide',
+            'pager': '.slideshow.cycle-pager',
+            'pagerTemplate': '<span class="page"><span class="obscure">slide number {{slideNum}}</span></span>',
+            'autoHeight': '1900:500',
+            'timeout': 3000,
+            'fx': 'fade',
+            'log': false
+        });
+
+        setTimeout(function () {
+            $('.wrap-slideshow.slideshow .playPause .fa-play').on('click', function () {
+                $slideshow.cycle('resume');
+                $('#slideshow').data('paused', false);
+            });
+
+            $('.wrap-slideshow.slideshow .playPause .fa-pause').on('click', function () {
+                $slideshow.cycle('pause');
+                $('#slideshow').data('paused', true);
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-left').on('click', function () {
+                $slideshow.cycle('prev');
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-right').on('click', function () {
+                $slideshow.cycle('next');
+            });
+        }, 500);
+
+        $slideshow.on('cycle-before', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0) {
+                pauseYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0) {
+                pauseVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+        $slideshow.on('cycle-after', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true && youtubeSlide.data('paused') != true) {
+                muteYoutubePlayerById(youtubeSlide.attr('id'))
+                playYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true && vimeoSlide.data('paused') != true) {
+                playVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+	
+    });
+</script><div class="wrap-slideshow slideshow">
+    <div id="slideshow" class="headerGalleryV2">
+        
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl00_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/eb86ac4c-8db6-444c-8b99-a5b54a9c9e68.jpg" alt="Meal distribution" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl01_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/f4af103a-79c5-41f4-b1da-348a9ff63f03.jpg" alt="WNHS traveled all around the community to drop off work for those who needed it! We still miss you!" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl02_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/71169a99-ce3a-403a-9e64-c3f66ea6247f.jpg" alt="WNHS traveled all around the community to drop off work for those who needed it! We still miss you!" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl03_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/75c353ec-0f32-4aa4-873c-380c086769d0.jpg" alt="Welcome Home Deb" style="border-width:0px;"><div class="caption">
+		<div class="captionBottom">
+			Welcome Home Deb!
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl04_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/29194099-46e2-42e0-be99-7834202d9b6d.jpg" alt="Welcome Home Deb" style="border-width:0px;"><div class="caption">
+		<div class="captionBottom">
+			Welcome Home Deb!
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl05_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/2ae17327-6f94-45b7-a1c2-03326e78380b.jpeg" alt="ChargerStrong" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl06_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/e87cbc14-249b-4c6d-98f1-e42ddd7e3b43.jpg" alt="Random student images" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl07_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/bbf31ed4-c3c4-4c46-ad3a-e3e07e642403.jpg" alt="Random student images" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl08_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/bbc091b8-b79d-413f-9bab-8511cf8bf978.jpg" alt="New NJHS members" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl09_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-03/b66f589b-227d-4e08-9c65-75598e283e6c.jpg" alt="Meal packet distribution" style="border-width:0px;"><div class="caption">
+		<div class="captionBottom">
+			Meal Distribution
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl10_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-03/921ff45d-7644-4c70-88b4-ddf9744f7f7e.jpg" alt="Working together" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl11_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-03/c37187eb-0ec1-41e2-91e1-b0dd6d0df833.jpg" alt="Food deliveries" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl12_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-03/21d10ca4-0056-4d6b-8f05-8d572368bed0.jpg" alt="Very thankful for the terrific volunteers who came in today to clean food and loose paper from lockers! Many hands made this quick work!" style="border-width:0px;"><div class="caption">
+		<div class="captionBottom">
+			Very thankful for the terrific volunteers who came in today to clean food and loose paper from lockers! Many hands made this quick work!
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl13_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-03/c93f9fa1-d332-43f1-bba2-d81f60284241.jpg" alt="Stocking up on some good books to read at home." style="border-width:0px;"><div class="caption">
+		<div class="captionBottom">
+			Stocking up on some good books to read at home.
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl14_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-03/ffb195d8-acad-4bdc-b6fa-2c5e99c5587a.jpg" alt="Food distribution." style="border-width:0px;">
+</div>
+            
+    </div>
+
+    <div class="prevNext">
+        <i class="fa fa-chevron-left" aria-label="previous slide" tabindex="0"></i>
+        <i class="fa fa-chevron-right" aria-label="next slide" tabindex="0"></i>
+    </div>
+
+    <div class="cycle-pager slideshow"></div>
+
+    <div class="playPause">
+        <i class="fa fa-play" aria-label="play, resume header gallery" tabindex="0"></i>
+        <i class="fa fa-pause" aria-label="pause, stop header gallery" tabindex="0"></i>
+    </div>
+</div>
+
+
+<style>
+    .caption {
+        position: absolute;
+        bottom: 25%;
+        left: 0;
+        width: 100%;
+        padding: 0 20%;
+        z-index: 2;
+    }
+</style>
+<style>#slideshow{position:relative;z-index:1;</style>
+<style type="text/css">
+    .wrap-slideshow {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .slide {
+        display: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide.cycle-slide-active {
+        display: block;
+        animation-name: fadeIn;
+        animation-duration: 1000ms;
+    }
+
+    .slide img {
+        width: 100%;
+        display: block;
+    }
+
+    .caption,
+    .caption a {
+        color: #fff;
+    }
+
+    .captionTop,
+    .captionBottom {
+        display: none;
+    }
+
+    .cycle-slide-active .captionTop {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        animation-name: none;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-slide-active .captionBottom {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.4);
+        text-align: center;
+        animation-name: none;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-pager {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        z-index: 2;
+    }
+
+    .cycle-pager .page {
+        display: inline-block;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+    .cycle-pager .page:before {
+        display: inline-block;
+        content: '';
+        width: 12px;
+        height: 12px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        line-height: 1px;
+    }
+
+    .cycle-pager .page.cycle-pager-active:before {
+        background-color: white;
+    }
+
+    .playPause {
+        position: absolute;
+        bottom: 0px;
+        right: 10px;
+        padding: 0;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .playPause i {
+        margin-bottom: 3px;
+    }
+
+    .playPause i.fa-play {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 8px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause i.fa-play:before {
+        margin-top: -1px;
+        margin-right: -2px;
+    }
+
+    .playPause i.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 9px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause svg.fa-play,
+    .playPause svg.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 11px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -15px;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .prevNext svg {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+    }
+
+    .prevNext svg.fa-chevron-left {
+        padding-left: 3px;
+    }
+
+    .prevNext svg.fa-chevron-right {
+        padding-right: 3px;
+    }
+
+    .prevNext i {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext .fa-chevron-left {
+        left: 20px;
+    }
+
+    .prevNext svg:first-child,
+    .prevNext .fa-chevron-left:before {
+        margin-left: -2px;
+    }
+
+    .prevNext .fa-chevron-right {
+        right: 20px;
+    }
+
+    .prevNext svg:last-child,
+    .prevNext .fa-chevron-right:before {
+        margin-right: -2px;
+    }
+
+    .wrap-slideshow .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('');
+        background-size: contain;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+
+    .vimeoVideoSlide {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+    }
+
+    .vimeoVideoSlide iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .youtubeVideoSlide {
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide .youtubeVideoThumbnail {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        object-fit: contain;
+        object-position: center;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .youtubeVideoThumbnailPlay {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background-color: #f00;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    .youtubeVideoThumbnailPlay i {
+        margin: 0 -2px 0 0;
+        line-height: 100%;
+    }
+
+    @keyframes none {
+        from {
+            display: block;
+        }
+
+        to {
+            display: block;
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            left: 100%;
+        }
+
+        60% {
+            left: -10px;
+        }
+
+        to {
+            left: 0;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            right: 100%;
+        }
+
+        60% {
+            right: -10px;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+<style id="youtubeStyles"></style>
+<section id="site-body" aria-label="site body"><div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+
+    <div class="bg-black">
+        <div class="bg-body1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        
+
+<table class="customFeature clearfix "><tr>
+<td class="cfContent">
+			<span id="ctl00_ctl00_MasterContent_ctl00_Header" class="cfHeader">Coronavirus/COVID-19</span>
+			<span id="ctl00_ctl00_MasterContent_ctl00_Body" class="cfBody"><p>For information relating to Coronavirus/COVID-19 and West Noble School Corporation <a href="http://www.westnoble.k12.in.us/Content/54">click here</a>.<br><strong>(Updated Friday, April 17, 2020)</strong></p></span>
+		</td>
+		<td class="cfPhotoContainer">
+			
+		</td>
+	</tr></table>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-body2">
+        <div class="container">
+            <div class="row">
+                <div class="hidden-xs col-sm-3 panel">
+                    <nav id="QuickLinks"><h1 class="sectionHeader">Quick Links</h1>
+
+                        <ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/District/Profile" title="District Profile">District Profile</a></li>
+<li class="without-image"><a href="/content/12" title="Central Office Staff">Central Office Staff</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/content/44" title="Alumni">Alumni</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="https://sites.google.com/westnoble.k12.in.us/elearning/home" target="_blank" title="e Learning / Flex Days">e Learning / Flex Days</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/Content/4" title="Register A Student">Register A Student</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/docs/district/pdf/delays%20and%20closings%2019-20.pdf?id=2237" title="Delays and Closings">Delays and Closings</a></li>
+<li class="without-image"><a href="/content/40" title="Memorial Gardens">Memorial Gardens</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Public Budget Notices">Public Budget Notices  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="with-image"><a href="http://budgetnotices.in.gov" title="Budget Notices for local government including the West Noble School Corporation"><img src="/docs/district/images/onlinebudgetnoticesgraphic_shorter.jpg?id=85&amp;width=210" alt="Budget Notices for local government including the West Noble School Corporation" title="Budget Notices for local government including the West Noble School Corporation" border="0"></a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/bus%20replacement%20plan%202020%20for%20website.pdf?id=2356" title="Bus Replacement Plan 2020">Bus Replacement Plan 2020</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/bus%20replacement%20plan%20section%201%20ready%20to%20published%20v2%208%2029%202018.pdf?id=278" title="Bus Replacement Plan 2019">Bus Replacement Plan 2019</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/bus%20replacement%20legal%20notice%208%2029%202018.pdf?id=277" title="Bus Replacement Plan 2019 - Legal Notice">Bus Replacement Plan 2019 - Legal Notice</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/bus%20plan%20amendment%20section%201%208%2029%202018.pdf?id=279" title="Bus Plan Amendment Section 1 August 29 2018">Bus Plan Amendment Section 1 August 29 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/bus%20plan%20amendment%20section%202%208%2029%202018.pdf?id=280" title="Bus Plan Amendment Section 2 August 29, 2018">Bus Plan Amendment Section 2 August 29, 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/capital%20acquistion%202019%209%204%202018.pdf?id=313" title="Capital Acquisition 2019 9 4 2018 ">Capital Acquisition 2019 9 4 2018 </a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/capital%20projects%20in%20nature%202020%2009%2012%202019.pdf?id=2357" title="Capital Projects in Nature 2020 09 12 2019">Capital Projects in Nature 2020 09 12 2019</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/capital%20projects%20in%20nature%202019%20%209%204%202018.pdf?id=314" title="Capital Projects in Nature 2019 9 4 2018">Capital Projects in Nature 2019 9 4 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/cpf%20legal%20notice%208%2029%202018.pdf?id=316" title="CPF Legal Notice 8 29 2018">CPF Legal Notice 8 29 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/cpf%20site%20summary%209%205%202018.pdf?id=315" title="CPF Site Summary 2019 9 5 2018">CPF Site Summary 2019 9 5 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/form%203%209%206%202018.pdf?id=318" title="Form 3 09 06 2018">Form 3 09 06 2018</a></li>
+<li class="without-image"><a href="/docs/district/pdf/public%20budget%20notices/form%203%2009%2015%202019%20final.pdf?id=2358" title="Form 3 09 12 2019">Form 3 09 12 2019</a></li>
+</ul>
+</li>
+</ul></nav>
+</div>
+
+                <div class="col-xs-12 col-sm-9">
+                    <h1 class="sectionHeader">Latest News</h1>
+
+                    <div class="wrap-news">
+                        
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl01_lnkTitle" class="news-title" href="/News/321">WN Continuous Learning Plan</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 15, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl01_lblSummary" class="news-summary"><p><a href="https://sites.google.com/westnoble.k12.in.us/elearning/remote-learning-covid-19" target="_blank">WN Continuous Learning Plan / Remote Learning (COVID-19)</a> - West Noble School Corporation will deliver high-quality continuous learning opportunities for all students through eLearning. Learning opportunities will be delivered through digital platforms such as Google Classroom, YouTube, Google Meets, Remind, and Class Do Jo. Paper packets will be created and distributed to students for additional enrichment, supplemental class materials, or distance learning if digital learning is not an option for a child's family. <a href="https://sites.google.com/westnoble.k12.in.us/elearning/remote-learning-covid-19" target="_blank">Read more.</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl02_lnkTitle" class="news-title" href="/News/316">How to Handle Chromebook Repairs</a>
+
+				<span class="news-post-date">Posted On: Tuesday, April 7, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl02_lblSummary" class="news-summary"><p>April 7, 2020</p>
+
+<p>In this time of online continuous learning, your West Noble Technology Office would like to address chromebook repairs for all students, grades 2-12. Students, parents/guardians, teachers, or administrators can use this <a data-saferedirecturl="https://www.google.com/url?q=https://forms.gle/rhYboin5DWeer95Z8&amp;source=gmail&amp;ust=1586353253427000&amp;usg=AFQjCNFiRKLUSOaGFfa7x6nVdxXaAzdzuA" href="https://forms.gle/rhYboin5DWeer95Z8" target="_blank">West Noble Chromebook Repair</a> form to report chromebook problems. Because many issues can be resolved remotely, a technician will contact the student or parent/guardian directly with help. If a chromebook or charger is broken, we will schedule a device swap.</p>
+
+<p>The WN Chromebook Repair form is also available from the <a href="https://www.westnoble.k12.in.us/Content2/54">Coronavirus/COVID-19 page</a>.</p>
+
+<p>All of our school parking lots can be used as hotspots. If close enough to the building, the signal should be available.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl03_lnkTitle" class="news-title" href="/News/315">WN School Schedule - Update April 3, 2020</a>
+
+				<span class="news-post-date">Posted On: Friday, April 3, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl03_lblSummary" class="news-summary"><p><strong>April 3, 2020</strong></p>
+
+<p>Good afternoon West Noble. We have received new guidance from the Governor's Office and from the Indiana Department of Education. Face to face instruction in all Indiana Schools has been canceled for the 19-20 school year. However, the DOE is asking us to be sure to conduct at least 160 school days, which means that we at WN will be having 19 E-Learning Dates, starting the Monday after Spring Break. We have completed 141 school days thus far for the 19-20 school year.</p>
+
+<p>E-Learning Days will be Monday, Wednesday, and Friday each week. Assignments for the week will be given on Mondays and are due on Friday of that same week. Teacher office hours are 9-11 and 1-3 daily on Mon, Wed, Fri. The week of May 18-22 is the final week of school. There will be 4 E-Learning days that week (Mon, Tues, Thurs, Fri). The first day of E-Learning is April 13. Our final day is May 22.</p>
+
+<p>Food service will not be handing out meals next week during spring break. That service will resume on the 15th of April. More information will be coming.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl04_lnkTitle" class="news-title" href="/News/323">Census 2020</a>
+
+				<span class="news-post-date">Posted On: Saturday, April 18, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl04_lblSummary" class="news-summary"><p>The 2020 Census is happening now! You can respond online using your computer, phone, or tablet. You can also respond by phone or by mail. What are you waiting for? It takes less than 10 minutes. Get started now! </p>
+
+<p><a href="https://2020census.gov/en/ways-to-respond.html" target="_blank">Responding to the Census</a></p>
+
+<p>Why is it important to me?</p>
+
+<p>Responding to the census is not only your civic duty; it also affects the amount of funding your community receives, how your community plans for the future, and your representation in government. Specifically, data from the 2020 Census are used to:</p>
+
+<ul style="margin-left: 40px;">
+<li>Ensure public services and funding for schools, hospitals, and fire departments.</li>
+	<li>Plan new homes and businesses and improve neighborhoods.</li>
+	<li>Determine how many seats your state is allocated in the House of Representatives.</li>
+</ul>
+<p> </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl05_lnkTitle" class="news-title" href="/News/317">20-21 Kindergarten Pre-Registering</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 8, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl05_lnkImage" class="news-image" href="/News/317"><img id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl05_articleImage" src="/docs/_Thumb_/building/4/pdf/19-20/kindergarten%20round-up_%20pre-register%20flyer.jpg?id=3200&amp;thumbwidth=190&amp;fullwidth=500" alt="Knd Pre registration" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl05_lblSummary" class="news-summary"><p>West Noble Primary Kindergarten Round-Up. Open to all students who will turn 5 on or before October 1, 2020. A date for our 2020 Kindergarten round-Up will be set at a later time. Please continue to check our social media pages as well as our school website for updated information,</p>
+
+<p>Please help us by pre-registering the incoming kindergarten class!!</p>
+
+<p>If you have completed a pre-registration form but haven't turned it in OR never received the form then use the link (<a href="https://docs.google.com/forms/d/e/1FAIpQLSe09Cj88uEALTLOiR8W9_QZBeBsZoFHILTvPsC7Z7O3AcVHCA/viewform" target="_blank">Pre-register here!</a>) to pre-register your child.</p>
+
+<p>If you completed a pre-registration form and turned it in to WNP then no further steps are needed.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl06_lnkTitle" class="news-title" href="/News/311">Weekend Food Bags - Charger PowerPaks</a>
+
+				<span class="news-post-date">Posted On: Friday, March 27, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl06_lblSummary" class="news-summary"><p>March 27, 2020</p>
+
+<p>Charger PowerPaks (weekend food bags) will be distributed every Saturday throughout the remainder of the shutdown period beginning April 4.  PowerPaks will be available to any West Noble student in need of weekend food.  Food can be picked up at three sites: WN Primary from 10-11:00 am, Eagle's Nest from 11:15 am - 12:00 pm and Stone Ridge Estates from 12:15-1:00 pm.  A truck will be parked at the parking lot of WNP, the main building at the front of Eagle's Nest and the old Marathon parking lot of Stone Ridge Estates.  PowerPaks are distributed through New Community Initiatives, not West Noble Schools, and will be given on a first come first serve basis.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl07_lnkTitle" class="news-title" href="/News/308">Student Wi-Fi Hotspots</a>
+
+				<span class="news-post-date">Posted On: Friday, March 20, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl02_rep_news_ctl07_lblSummary" class="news-summary"><p><strong>April 7, 2020</strong></p>
+
+<p>All of our school parking lots can be used as hotspots. If close enough to the building, the signal should be available.</p>
+
+<p> </p>
+
+<p><strong>March 25, 2020 - Additional hotspots</strong></p>
+
+<p>LigtTel Communications has added more Wi-Fi Hotspots for students to use for E-Learning and schoolwork. Please see the attached <a href="/docs/district/pdf/coronavirus/hotspot%20information%203182020.pdf?id=3184" target="_blank">document </a>for additional information concerning the hotspots.</p>
+
+<p>The new Wi-Fi Hotspot locations are</p>
+
+<p style="margin-left: 80px;">Wolf Lake Grain &amp; Farm Supply<br>
+1644 State Road 109, Albion, IN 46701<br>
+North side of the main building (back towards Wolf Lake). Open parking lot area.</p>
+
+<p style="margin-left: 80px;">Half Acre Cafe<br>
+23 State Road 9, Albion, IN 46701<br>
+Southwest part of the parking lot. Next to the big telephone pole.</p>
+
+<p> </p>
+
+<p><strong>March 20, 2020</strong></p>
+
+<p>A huge thank you to LigTel Communications. As of today, they have installed several Wi-Fi hotspots at various locations in Noble County where families can take their children and have access to internet service allowing them to complete their work.</p>
+
+<p>Please see the attached <a href="/docs/district/pdf/coronavirus/hotspot%20information%203182020.pdf?id=3184" target="_blank">document </a>for additional information concerning the hotspots. Parents/students may have additional information via communications with teachers/principals. </p>
+
+<p> </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+
+                    <a id="ctl00_ctl00_MasterContent_lnkViewAllNews" class="viewAll" href="/news">Show All <i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="obscure"> news articles</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-body3">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-3">
+                    <h1 class="sectionHeader">Calendar</h1>
+
+                    <div class="wrap-events">
+                        
+
+<style type="text/css">
+	.event-date {
+		width: 55px;
+		text-align: center;
+		padding: 0;
+		border-radius: 3px;
+		font-size: 14px;
+		margin: 0 15px 0 0;
+		display: block;
+		float: left;
+		white-space: nowrap;
+		overflow: hidden;
+		border: 3px solid #555;
+	}
+
+	.event-date .event-month, .event-date .event-month2 {
+		background: #555;
+		padding: 2px 0;
+	}
+</style>
+<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-6237">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">20</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=6237" title="Perry 4-H Mtg.">
+					Perry 4-H Mtg.
+					<span class="obscure">April 20, , 6:00 PM — 9:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				6:00 PM — 9:00 PM
+			</div>
+            <div class="school-location">
+                	West Noble Middle School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-6298">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">20</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=6298" title="Kindergarten Round-Up">
+					Kindergarten Round-Up
+					<span class="obscure">April 20, @WNP, 2:00 PM — 7:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@WNP
+			</div>
+			<div class="event-time">
+				2:00 PM — 7:00 PM
+			</div>
+            <div class="school-location">
+                	West Noble Elementary School,West Noble Primary School,Intranet
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-6481">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">20</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=6481" title="CANCELED - Softball (Girls Varsity) - Bethany Christian School">
+					CANCELED - Softball (Girls Varsity) - Bethany Christian School
+					<span class="obscure">April 20, , 5:30 PM — 6:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				5:30 PM — 6:30 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-6588">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">20</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=6588" title="CANCELED - Tennis (Girls Varsity) - Fremont High School">
+					CANCELED - Tennis (Girls Varsity) - Fremont High School
+					<span class="obscure">April 20, , 4:45 PM — 5:45 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				4:45 PM — 5:45 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-7347">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">20</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=7347" title="CANCELED - Baseball (Boys Varsity) - Whitko High School">
+					CANCELED - Baseball (Boys Varsity) - Whitko High School
+					<span class="obscure">April 20, , 5:30 PM — 6:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				5:30 PM — 6:30 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-7410">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">20</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=7410" title="CANCELED - Baseball (Boys Junior Varsity) @ DeKalb High School">
+					CANCELED - Baseball (Boys Junior Varsity) @ DeKalb High School
+					<span class="obscure">April 20, , 5:30 PM — 6:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				5:30 PM — 6:30 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-8269">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">20</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=8269" title="Board Meeting">
+					Board Meeting
+					<span class="obscure">April 20, , Begins @ 7:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				Begins @ 7:00 PM
+			</div>
+            <div class="school-location">
+                	
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-8289">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">20</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=8289" title="Tai Chi Class">
+					Tai Chi Class
+					<span class="obscure">April 20, , 3:30 PM — 5:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				3:30 PM — 5:00 PM
+			</div>
+            <div class="school-location">
+                	
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-8356">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">21</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=8356" title="WN Staff Parade line-up @ HS">
+					WN Staff Parade line-up @ HS
+					<span class="obscure">April 21, , 1:30 PM — 2:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				1:30 PM — 2:00 PM
+			</div>
+            <div class="school-location">
+                	West Noble Middle School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-8357">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">21</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=8357" title="WN Staff Parade through community">
+					WN Staff Parade through community
+					<span class="obscure">April 21, , 2:00 PM — 3:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				2:00 PM — 3:00 PM
+			</div>
+            <div class="school-location">
+                	West Noble Middle School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-7412">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">21</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=7412" title="CANCELED - Baseball (Boys Junior Varsity) - Westview High School">
+					CANCELED - Baseball (Boys Junior Varsity) - Westview High School
+					<span class="obscure">April 21, , 5:00 PM — 6:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				5:00 PM — 6:00 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-7349">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">21</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=7349" title="CANCELED - Baseball (Boys Varsity) @ Westview High School">
+					CANCELED - Baseball (Boys Varsity) @ Westview High School
+					<span class="obscure">April 21, , 5:00 PM — 6:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				5:00 PM — 6:00 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-6590">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">21</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=6590" title="CANCELED - Tennis (Girls Varsity) - Fairfield Jr-Sr High School">
+					CANCELED - Tennis (Girls Varsity) - Fairfield Jr-Sr High School
+					<span class="obscure">April 21, , 4:30 PM — 5:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				4:30 PM — 5:30 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-7010">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">21</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=7010" title="CANCELED - Softball (Girls Junior Varsity) - Westview High School">
+					CANCELED - Softball (Girls Junior Varsity) - Westview High School
+					<span class="obscure">April 21, , 4:30 PM — 5:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				4:30 PM — 5:30 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-6483">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">21</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=6483" title="CANCELED - Softball (Girls Varsity) @ Westview High School">
+					CANCELED - Softball (Girls Varsity) @ Westview High School
+					<span class="obscure">April 21, , 5:00 PM — 6:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				5:00 PM — 6:00 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-6299">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">21</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=6299" title="Kindergarten Round-Up">
+					Kindergarten Round-Up
+					<span class="obscure">April 21, @WNP, 12:00 PM — 6:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@WNP
+			</div>
+			<div class="event-time">
+				12:00 PM — 6:00 PM
+			</div>
+            <div class="school-location">
+                	West Noble Elementary School,West Noble Primary School,Intranet
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-7071">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">21</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=7071" title="CANCELED - Track (Boys/Girls Varsity) @ Central Noble High School ">
+					CANCELED - Track (Boys/Girls Varsity) @ Central Noble High School 
+					<span class="obscure">April 21, , 4:45 PM — 5:45 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				4:45 PM — 5:45 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-8288">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">22</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=8288" title="Tai Chi Class">
+					Tai Chi Class
+					<span class="obscure">April 22, , 3:30 PM — 5:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				3:30 PM — 5:00 PM
+			</div>
+            <div class="school-location">
+                	
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-7970">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">23</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=7970" title="CANCELED - Golf (Boys Varsity) - Central Noble/West Noble">
+					CANCELED - Golf (Boys Varsity) - Central Noble/West Noble
+					<span class="obscure">April 23, , 4:45 PM — 6:45 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				4:45 PM — 6:45 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-7011">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">23</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=7011" title="CANCELED - Softball (Girls Junior Varsity) - Churubusco High School ">
+					CANCELED - Softball (Girls Junior Varsity) - Churubusco High School 
+					<span class="obscure">April 23, , 5:00 PM — 6:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				5:00 PM — 6:00 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		<li class="upcoming-events-event event-6592">
+			<div class="event-date">
+				<div class="event-month">
+<span class="month">Apr</span><span class="day">23</span>
+</div>
+<div class="event-year">2020</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4&amp;schoolid=0&amp;types=&amp;eventID=6592" title="CANCELED - Tennis (Girls Varsity) @ Westview High School">
+					CANCELED - Tennis (Girls Varsity) @ Westview High School
+					<span class="obscure">April 23, , 4:30 PM — 5:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				4:30 PM — 5:30 PM
+			</div>
+            <div class="school-location">
+                	West Noble High School
+            </div>
+		</li>
+	
+		</ul></section><footer><a id="ctl00_ctl00_MasterContent_ctl03_hl_viewAllEvents" class="view-all-events" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/19/2020">View All</a>
+</footer>
+</div>
+
+                    <a id="ctl00_ctl00_MasterContent_lnkViewFullCalendar" class="viewAll" href="/Calendar">Full Calendar <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                </div>
+
+                <div class="col-xs-12 col-sm-3">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Facebook
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <div id="fb-root"> </div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.1';
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script><div class="fb-page" style="display:block; margin:0 auto; position:relative; max-width:500px;" data-adapt-container-width="true" data-hide-cover="false" data-href="https://www.facebook.com/West-Noble-School-Corporation-524853194251679/" data-show-facepile="false" data-small-header="false" data-tabs="timeline" data-width="500">
+<blockquote cite="https://www.facebook.com/West-Noble-School-Corporation-524853194251679/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/West-Noble-School-Corporation-524853194251679/">West Noble School Corporation</a></blockquote>
+</div>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    
+                </div>
+                <div class="col-xs-12 col-sm-3">
+                    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="bg-body4">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 mapHeight">
+                    <div class="findUs">
+                        <h1>Where to Find Us</h1>
+
+                        <span id="ctl00_ctl00_MasterContent_lblName" class="name">West Noble School Corporation</span>
+                        <a id="ctl00_ctl00_MasterContent_lnkAddress" class="address" href="https://www.google.com/maps/search/?api=1&amp;query=5050%20N%20US%20Highway%2033,+Ligonier,+IN+46767">5050 N US Highway 33<br>Ligonier, IN 46767</a>
+                        <span id="ctl00_ctl00_MasterContent_lblPhones" class="phones">Phone: (260) 894-3191<br>Fax: (260) 894-3260</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </section><footer id="site-foot" aria-label="site footer"><div class="bg-footer1">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				<a id="ctl00_ctl00_ctl08_lnkName" class="footerName" href="/">West Noble School Corporation</a>
+				<a id="ctl00_ctl00_ctl08_lnkAddress" class="footerAddress" href="https://www.google.com/maps/search/?api=1&amp;query=5050%20N%20US%20Highway%2033,+Ligonier,+IN+46767"><i class="fa fa-map-marker" aria-hidden="true"></i>  5050 N US Highway 33, Ligonier, IN 46767</a>
+				<span id="ctl00_ctl00_ctl08_lblPhones" class="footerPhones"><i class="fa fa-phone" aria-hidden="true"></i> Phone: (260) 894-3191   <i class="fa fa-fax" aria-hidden="True"></i> Fax: (260) 894-3260</span>
+			</div>
+
+			<div class="col-xs-12 col-sm-6">
+				<nav id="FooterNav"><ul class=""><li class="without-image"><a href="/" title="District Home">District Home</a></li></ul></nav>
+</div>
+		</div>
+
+		<div class="row copyright">
+			<div class="col-xs-12 col-sm-6 copyrightLeft">
+				
+
+<div id="copyrightNotice">
+	©  2020 West Noble School Corporation. <span id="ctl00_ctl00_ctl08_ctl01_allRights">All Rights Reserved</span>
+</div>
+
+			</div>
+
+			<div class="col-xs-12 col-sm-6 copyrightRight">
+				<a href="http://www.schoolpointe.com" target="_blank" alt="SchoolPointe">
+					<img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPwhite.png"></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-117119388-12', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0"><input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0"><input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""><input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+</body>
+</html>
