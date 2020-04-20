@@ -20,7 +20,7 @@ access_site <- function(my_date, name, state, id, url) {
   
   base_dir <- str_c("output/", my_date, "/")
   
-  write_xml(h, str_c(base_dir, state, "-", name, "-", id, ".xml"))
+  write_xml(h, !!str_c(base_dir, state, "-", name, "-", id, ".xml"))
 
   t <- h %>%
     html_text()
