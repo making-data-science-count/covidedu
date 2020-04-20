@@ -16,11 +16,21 @@ detector <- function(x) {
 
 access_site <- function(my_date, name, state, id, url) {
   
-  h <- read_html(url)
+  base_dir <- str_c("output/", my_date, "/homepages/"tab)
   
-  base_dir <- str_c("output/", my_date, "/")
+  file_path <- str_c(base_dir, state, "-", name, "-", id, ".xml")
   
-  write_xml(h, !!str_c(base_dir, state, "-", name, "-", id, ".xml"))
+  if (fs::file_exists(file_path)) {
+    
+    print(str_c(state," ", name, " already exists; reading instead"))
+    
+    h <-  read_html(file_path)
+    
+  } else {
+    h <- read_html(url)
+    
+    write_xml(h, file_path)
+  }
 
   t <- h %>%
     html_text()
@@ -68,6 +78,9 @@ scrape_and_process_sites <- function(list_of_args) {
   
   if (!base_dir_exists) {
     fs::dir_create(str_c("output/", list_of_args[[1]], "/"))
+    fs::dir_create(str_c("output/", list_of_args[[1]], "/homepages"))
+    fs::dir_create(str_c("output/", list_of_args[[1]], "/links"))
+    fs::dir_create(str_c("output/", list_of_args[[1]], "/attachments"))
   }
   
   output <- pmap(list(my_date = list_of_args[[1]], 
@@ -95,7 +108,7 @@ download_link <- function(link, district, state, nces_id, my_date) {
   i <- 1
   h <- read_html(link)
   
-  base_dir <- str_c("output/", my_date, "/")
+  base_dir <- str_c("output/", my_date, "/links")
   
   f <-str_c(base_dir, "LINK-", state, "-", district, "-", nces_id, "-",i,".xml")
   
@@ -111,10 +124,13 @@ download_link <- function(link, district, state, nces_id, my_date) {
 download_attachment <- function(link, district, state, nces_id, my_date) {
   i <- 1
   file_ext <- tools::file_ext(link)
-  print(file_ext)
-  base_dir <- str_c("output/", my_date, "/")
+  base_dir <- str_c("output/", my_date, "/attachments")
   
   f <-str_c(base_dir, "ATTACHMENT-", state, "-", district, "-", nces_id, "-",i, ".", file_ext)
+  
+  # if (fs::file_exists(f)) {
+  #   
+  # }
   
   while (fs::file_exists(f)) {
     i <- i + 1
