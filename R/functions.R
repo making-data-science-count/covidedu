@@ -16,7 +16,7 @@ detector <- function(x) {
 
 access_site <- function(my_date, name, state, id, url) {
   
-  base_dir <- str_c("output/", my_date, "/homepages/"tab)
+  base_dir <- str_c("output/", my_date, "/homepages/")
   
   file_path <- str_c(base_dir, state, "-", name, "-", id, ".xml")
   
@@ -79,8 +79,6 @@ scrape_and_process_sites <- function(list_of_args) {
   if (!base_dir_exists) {
     fs::dir_create(str_c("output/", list_of_args[[1]], "/"))
     fs::dir_create(str_c("output/", list_of_args[[1]], "/homepages"))
-    fs::dir_create(str_c("output/", list_of_args[[1]], "/links"))
-    fs::dir_create(str_c("output/", list_of_args[[1]], "/attachments"))
   }
   
   output <- pmap(list(my_date = list_of_args[[1]], 
@@ -105,10 +103,11 @@ scrape_and_process_sites <- function(list_of_args) {
 }
 
 download_link <- function(link, district, state, nces_id, my_date) {
+  print(str_c("processing link", link, "from ", nces_id))
   i <- 1
   h <- read_html(link)
   
-  base_dir <- str_c("output/", my_date, "/links")
+  base_dir <- str_c("output/", my_date, "/links/")
   
   f <-str_c(base_dir, "LINK-", state, "-", district, "-", nces_id, "-",i,".xml")
   
@@ -122,9 +121,10 @@ download_link <- function(link, district, state, nces_id, my_date) {
 }
 
 download_attachment <- function(link, district, state, nces_id, my_date) {
+  print(str_c("processing attachment", link, "from ", nces_id))
   i <- 1
   file_ext <- tools::file_ext(link)
-  base_dir <- str_c("output/", my_date, "/attachments")
+  base_dir <- str_c("output/", my_date, "/attachments/")
   
   f <-str_c(base_dir, "ATTACHMENT-", state, "-", district, "-", nces_id, "-",i, ".", file_ext)
   
@@ -136,12 +136,14 @@ download_attachment <- function(link, district, state, nces_id, my_date) {
     i <- i + 1
     f <-str_c(base_dir, "ATTACHMENT", state, "-", district, "-", nces_id, "-",i, ".", file_ext)
   }
-  print(str_c("processed attachment", link, "from ", nces_id))
   download.file(link, destfile = f)
   tibble(link = link, district = district, state = state, nces_id = nces_id, type = "ATTACHMENT", found = TRUE)
 }
 
 proc_links_and_attachments <- function(table_of_output, my_date) {
+  
+  if (!fs::dir_exists(str_c("output/", my_date, "/links"))) fs::dir_create(str_c("output/", my_date, "/links"))
+  if (!fs::dir_exists(str_c("output/", my_date, "/attachments"))) fs::dir_create(str_c("output/", my_date, "/attachments"))
   
   table_of_output <- table_of_output %>% 
     unnest(link)
