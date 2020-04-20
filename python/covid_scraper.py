@@ -3,7 +3,7 @@ from __future__ import annotations
 import logging
 import os
 import re
-import typing
+from typing import Generator, Optional, Union, List
 
 import lxml.html
 import pandas as pd
@@ -34,7 +34,7 @@ def main():
             for text in webpage.text_surrounding_keyword(keyword, n_char_buffer=30):
                 print(nces_id, keyword, text)
 
-        for link in webpage.generate_links(keywords):
+        for link in webpage.generate_links(contains=keywords):
             print(nces_id, 'link match', link)
 
         if ix == sample_run_size - 1:  # Just breaking after a few for the example
@@ -59,7 +59,7 @@ class WebpageParser(object):
     def text_surrounding_keyword(self,
                                  keyword: str,
                                  n_char_buffer: int = 25,
-                                 case_sensitive: bool = False) -> typing.Generator[str, None, None]:
+                                 case_sensitive: bool = False) -> Generator[str, None, None]:
 
         match_length = len(keyword)
         starting_locations = self._find_keyword_start_locations(
@@ -79,11 +79,10 @@ class WebpageParser(object):
         """Returns lxml HTML root"""
         return lxml.html.fromstring(self.html)
 
-    def generate_links(self, contains: typing.Optional[typing.Union[str, typing.Sequence[str]]] = None) -> \
-    typing.Generator[str, None, None]:
+    def generate_links(self,
+                       contains: Optional[Union[str, List[str]]] = None) -> Generator[str, None, None]:
         """Generate properly resolved links from anchor elements from root HTML"""
-        contains = contains if isinstance(contains, (type(None), list)) else [
-            contains]  # Sorry this is convoluted for now
+        contains = contains if isinstance(contains, (type(None), list)) else [contains]  # Sorry this is convoluted for now
 
         for anchor in self.get_anchor_elements():
             try:
@@ -99,10 +98,10 @@ class WebpageParser(object):
             except KeyError:
                 logging.debug('no href, skipping anchor element ... ')
 
-    def get_anchor_elements(self) -> typing.List[lxml.html.HtmlElement]:
+    def get_anchor_elements(self) -> List[lxml.html.HtmlElement]:
         return self.root.xpath('//a')
 
-    def _find_keyword_start_locations(self, keyword: str, case_sensitive: bool = False) -> typing.List[int]:
+    def _find_keyword_start_locations(self, keyword: str, case_sensitive: bool = False) -> List[int]:
         """returns start index integer list"""
         keyword = keyword if case_sensitive else keyword.lower()
         text = self.html if case_sensitive else self.html.lower()
