@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>SchoolInSites Login</title>
+<script type="text/javascript">
+	var svcToolbar = 'https://svctoolbar.schoolinsites.com';
+	var svcIPAuthentication = 'https://secureipauth.schoolinsites.com';
+	var svcMultitenancy = 'https://svcmultitenancy.schoolinsites.com';
+	var svcIPAuthorization = 'https://svcipauthorization.schoolinsites.com';
+	var svcExceptionHandling = 'https://svcmultitenancy.schoolinsites.com';
+	var svcResourceFile = 'https://svcresourcefile.schoolinsites.com';
+	var ConnectToolbar = 'https://connecttoolbar.schoolinsites.com';
+	var HistoryPageUrl = 'https://history.schoolinsites.com';
+	var browserDetectURL = 'https://browserdetect.schoolinsites.com';
+	var ConnectDiv = '<div id="ct_header" class="headerarea  headerbg" style="height:38px;"><div id="ConnectSuite" style="z-index: 100000;"></div></div>';
+	var ProductType = '1';
+	var IsCommonLogin = 1;
+</script><style>
+	body {
+		margin: 0px;
+		background-color: rgba(48,56,68,1.0);
+		}
+	#form1 {
+		margin: 0px;}
+	#header {
+		position: fixed; width:100%;}
+	#divLogin1 {
+		position: absolute;
+		width: 445px;
+		height: 150px;
+		z-index: 15;
+		top: 50%;
+		left: 50%;
+		margin: -200px 0 0 -200px;
+	}
+	.connecttoolbarlogin_textbox_container1 {
+		width: 310px;
+		margin-left: 10px;
+	}
+	.loginLabel {
+		font: 15px 'Segoe UI', sans-serif !important;
+		color: white;
+		float: left;
+		width: 80px;
+		margin-top: 13px;
+	}
+</style>
+<script src="https://common.productfiles.schoolinsites.com/Js/jquery-1.9.1.js" type="text/javascript"></script><link href="https://common.productfiles.schoolinsites.com/Css/Framework_ConnectToolbarLayout_StandAlone.css" rel="stylesheet" type="text/css">
+<script src="https://common.productfiles.schoolinsites.com/Js/Common_ClientLogHelper.js" type="text/javascript"></script><script src="https://common.productfiles.schoolinsites.com/Js/Common_ResourceFileHandler.js" type="text/javascript"></script><script src="https://common.productfiles.schoolinsites.com/Js/CT_ConnectToolbar_Script_1.4.4.js" type="text/javascript"></script><script type="text/javascript">
+    $(document).ready(function () {
+	
+        var retryCount = 0;
+		$("body").prepend(ConnectDiv);	
+
+		function initializeToolbar() {
+		    if (++retryCount <= 3) {
+		        $.ajax({
+		            url: ConnectToolbar,
+		            success: function (data) {
+		                $("#ConnectSuite").html(data);
+		                ConnectToolbarRequest();
+						//ShowLoginInfo();
+							
+						//$("#divLogin").remove();
+						//$("#divSignIN").remove();
+		            },
+		            error: function (err) {
+		                if (console && typeof console.log == "function") {
+		                    console.log("Toolbar failed to load, retrying", err);
+		                }
+		                window.setTimeout(initializeToolbar, 300);
+		            }
+		        });
+		    }
+		}
+		initializeToolbar();
+	});
+	
+	function  firstLogin()
+	{
+	  if(ProductType == 4){
+		window.parent.location.href = ClientURL.replace('/#', '') + '/?TokenID=' + TokenID;
+	  }
+	  else{
+		if(ProductType == 5)
+			window.parent.location.href = ClientURL.replace('/#', '') + '/Default.aspx?TokenID=' + TokenID + '&UniqueId=' + UniqueID + '&isredirect';
+		else
+			window.parent.location.href = ClientURL.replace('/#', '') + '/' + 'admin1' + '/finishlogin.asp?TokenID=' + TokenID;
+	  }
+	}
+	
+	function  OnLogoutComplete()
+	{
+	   // have redirect logic here 
+	  var LogoutURL = ClientURL + '/Admin1/LogOff.asp';
+	  window.parent.location.href = LogoutURL;
+	}
+
+	function  OnAuthenticate()
+	{
+		// empty method
+	}
+	
+</script>
+</head>
+<body>
+	<div id="divLogin1" class="absolute login_container">
+		<div class="signin_container" style="display: inline-block;">
+			<!--div class="signin"></div>
+			<div class="signintext">sign in</div-->
+		</div>
+		<div class="connecttoolbarlogin_textbox_container1 marg_top30">
+			<div class="loginLabel"><label for="txtusername">Username </label></div>
+			<input type="text" title="Enter Username" class="connecttoolbarlogin_textbox margtop10" id="txtusername" name="txtusername">
+</div>
+		<div class="connecttoolbarlogin_textbox_container1">
+			<div class="loginLabel"><label for="txtpassword">Password </label></div>
+			<input type="password" title="Enter Password" class="connecttoolbarlogin_textbox margtop10" id="txtpassword" name="txtpassword">
+</div>
+		<div class="connecttoolbarlogin_buttons_container">
+			<input type="button" class="connecttoolbarlogin_button_submit margtop10" value="Create Parent Account" id="btncreateParent" onclick="ParentRegistration();" onkeypress="if (a11yClick(event) === true) {ParentRegistration();}"><div style="width:auto; display:inline-block;">
+				<a href="#" onclick="ShowHelpScreen();" onkeypress="if (a11yClick(event) === true) {ShowHelpScreen();}"><span id="btnhelp" class="margleft10 smallesttext font-yellow">Help</span></a>
+				<input type="checkbox" title="Remember Me" class="connecttoolbarlogin_checkbox" id="rememberme" name="rememberme" onclick="Remeberme();" onkeypress="if (a11yClick(event) === true) {Remeberme();}"><label for="rememberme"><span class="smallesttext font-grey">Remember Me</span></label>
+			</div>
+			<div id="loaddiv" class="signin_button_preloader preloader_small" style="display:none"></div>
+			<input type="button" class="signin_button" value="Sign in" onclick="AuthenticateUser();" onkeypress="if (a11yClick(event) === true) {AuthenticateUser();}" id="btnSignIn"><span id="lblError" runat="server" class="smallest font-red" style="display:none;padding-top: 10px;">Invalid Credentials</span>
+		</div>
+	</div>
+</body>
+</html>
