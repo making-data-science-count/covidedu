@@ -35,6 +35,8 @@ table_of_output = scrape_and_process_sites(
          processed_data$nces_id,
          processed_data$url))
 
+write_csv(select(table_of_output, -link), "output/2020-04-19/table-of-output-no-links.csv")
+
 table_of_output <- table_of_output %>% 
   mutate(link = map(link, ~as.character(.))) %>% 
   unnest(link)
