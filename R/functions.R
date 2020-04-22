@@ -115,8 +115,12 @@ download_link <- function(link, district, state, nces_id, my_date) {
     i <- i + 1
     f <-str_c(base_dir, "LINK-", state, "-", district, "-", nces_id, "-",i,".xml")
   }
-  
-  write_xml(h, f)
+  if (!fs::file_exists(f)) {
+    write_xml(h, f)
+    print("downloaded xml")
+  } else {
+    print("already have, skipping")
+  }
   tibble(link = link, district = district, state = state, nces_id = nces_id, type = "LINK", found = TRUE)
 }
 
@@ -136,7 +140,12 @@ download_attachment <- function(link, district, state, nces_id, my_date) {
     i <- i + 1
     f <-str_c(base_dir, "ATTACHMENT", state, "-", district, "-", nces_id, "-",i, ".", file_ext)
   }
-  download.file(link, destfile = f)
+  if (!fs::file_exists(f)) {
+    download.file(link, destfile = f)
+    print("downloaded ", file_ext)
+  } else {
+    print("already have, skipping")
+  }
   tibble(link = link, district = district, state = state, nces_id = nces_id, type = "ATTACHMENT", found = TRUE)
 }
 
