@@ -41,17 +41,21 @@ dlong <- dlong %>% group_by(district_name, state, nces_id) %>%
             n_links = n())
 
 dd<- dd %>%
-  mutate(covid_or_corona = ifelse(covid | corona, TRUE, FALSE)) %>%
-  mutate(date_accessed = ifelse(!scraping_failed | is.na(scraping_failed), "2020-04-19", "<em>Scraping failed</em>")) %>%
+  left_join(dlong)
+
+dd <- dd %>% 
+  mutate(scraping_failed = ifelse(is.na(scraping_failed), TRUE, scraping_failed)) %>% 
+  mutate(covid_or_corona = ifelse((covid | corona) | (is.na(covid) & is.na(corona)), TRUE, FALSE)) %>%
+  mutate(date_accessed = ifelse(!scraping_failed, "2020-04-19", "<em>Scraping failed</em>")) %>%
   mutate(district = tools::toTitleCase(district)) %>%
-  left_join(dlong) %>%
   mutate(text_to_display = paste("<b><a href='", url, "'>", district, "</a></b>","<br/>",
                                  tools::toTitleCase(state),"<br/>",
-                                 "Site was last accessed: ", date_accessed,"<br/>",
-                                 # "COVID-19 mentioned on site: ", covid_or_corona,"<br/>",
-                                 # "Closure mentioned on site: ", closure,"<br/>",
+                                 "Site was last accessed: ", date_accessed, "<br/>",
+                                 "COVID-19 mentioned on site: ", covid_or_corona, "<br/>",
+                                 "Closure mentioned on site: ", closure, "<br/>",
                                  # "<hr/>",
-                                 "No. of links mentioning COVID-19, coronavirus, or closure: ", n_links)
+                                 "No. of links mentioning COVID-19 or closure: ", n_links),
+         n_links = ifelse(is.na(n_links) & !scraping_failed, 0, n_links)
   )
 
 write_csv(dd, "data-for-shiny.csv")
