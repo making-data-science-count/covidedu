@@ -48,8 +48,8 @@ dd <- dd %>%
   mutate(covid_or_corona = ifelse((covid | corona) | (is.na(covid) & is.na(corona)), TRUE, FALSE)) %>%
   mutate(date_accessed = ifelse(!scraping_failed, "2020-04-19", "<em>Scraping failed</em>")) %>%
   mutate(district = tools::toTitleCase(district)) %>%
-  mutate(text_to_display = paste("<b><a href='", url, "'>", district, "</a></b>","<br/>",
-                                 tools::toTitleCase(state),"<br/>",
+  mutate(text_to_display = paste("<b><a href='", url, "'>", district, "</a></b> (", 
+                                 tools::toTitleCase(state),")<br/>",
                                  "Site was last accessed: ", date_accessed, "<br/>",
                                  "COVID-19 mentioned on site: ", covid_or_corona, "<br/>",
                                  "Closure mentioned on site: ", closure, "<br/>",
