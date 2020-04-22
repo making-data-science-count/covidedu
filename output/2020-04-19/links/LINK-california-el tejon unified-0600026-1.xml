@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!-- Copyright 2015 KCSOS, Joseph C. White --><html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<base href="/">
+<title></title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width">
+<noscript><meta http-equiv="refresh" content="0;url=/you/need/javascript"></noscript>
+<!--[if lt IE 7 ]> <meta http-equiv="refresh" content="0;url=/you/need/javascript"> <![endif]--><!--[if IE 7 ]>    <meta http-equiv="refresh" content="0;url=/you/need/javascript"> <![endif]--><!--[if IE 8 ]>    <meta http-equiv="refresh" content="0;url=/you/need/javascript"> <![endif]--><link rel="stylesheet" href="/dist/css/app.min.css">
+<link rel="stylesheet" href="/bower_components/toastr/toastr.min.css">
+<link rel="stylesheet" href="/bower_components/angular-multi-select/angular-multi-select.css">
+<link rel="stylesheet" type="text/css" href="/bower_components/sweetalert/dist/sweetalert.css">
+</head>
+<body ng-app="alertlineApp">
+
+    <!-- Begin Header -->
+    <header class="hero-unit" id="banner" ng-controller="MainCtrl as vm"><div class="container" ng-cloak="">
+
+        <div class="row">
+          <div class="col-xs-12 heading-name">
+            <span><h1>Alertline </h1> <i class="fa fa-3x fa-bullhorn"></i></span>
+            <div>{{ todaysDate }}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="notifications" ng-cloak="">
+
+        <!-- No Alerts -->
+        <div class="col-md-12 pull-left" ng-if="alertCount === 0">
+          <div class="bs-callout bs-callout-info">
+            <span class="fa fa-2x fa-thumbs-up"></span> No Alerts Today
+          </div>
+        </div>
+
+        <!-- Active Alerts -->
+        <div class="col-md-12 pull-left" ng-if="alertCount &gt; 0" ng-click="vm.goToAlerts()">
+          <div class="bs-callout bs-callout-warning">
+            <span class="fa fa-2x fa-exclamation-triangle"></span> {{ alertCount }} active alerts
+          </div>
+        </div>
+
+      </div>
+
+      <div class="button-bar">
+        <button ng-cloak="" class="btn btn-danger btn-sm home-link" ng-click="vm.goHome()">home</button>
+        <button ng-cloak="" class="btn btn-danger btn-sm login-link" ui-sref="anon.login" ng-show="!loggedIn">Login</button>
+        <button ng-cloak="" class="btn btn-danger btn-sm login-link" ui-sref="user.home" ng-show="loggedIn">my profile</button>
+        <button ng-cloak="" class="btn btn-danger btn-sm login-link" ng-click="vm.logout()" ng-show="loggedIn">sign out</button>
+      </div>
+
+    </header><!-- Begin Main Content --><div class="bottom-border"></div>
+    <div class="container">
+      <br><div ui-view="" class="animated"></div>
+    </div>
+
+    <!-- Begin Footer -->
+    <footer class="footer"><div class="container">
+      <div class="kcsos-logo">
+        <img src="assets/images/logo.png">
+</div>
+          <hr>
+<a href="https://twitter.com/kcsos">@kcsos</a> |
+          <a href="http://www.kern.org/">kern.org</a> |
+          <a ui-sref="anon.thirdparty">Developer API Key</a> |
+          <a href="http://alertline.kern.org/documentation">API Documentation</a>
+      </div>
+    </footer><script src="/dist/js/app.min.js"></script><!-- Piwik --><script type="text/javascript">
+      var _paq = _paq || [];
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      (function() {
+        var u="//webstats.kern.org/";
+        _paq.push(['setTrackerUrl', u+'piwik.php']);
+        _paq.push(['setSiteId', 5]);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script><noscript><p><img src="//webstats.kern.org/piwik.php?idsite=5" style="border:0;" alt=""></p></noscript>
+    <!-- End Piwik Code -->
+
+</body>
+</html>
