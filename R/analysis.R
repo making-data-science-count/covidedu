@@ -52,7 +52,7 @@ dd<- dd %>%
                                  # "Closure mentioned on site: ", closure,"<br/>",
                                  # "<hr/>",
                                  "No. of links mentioning COVID-19, coronavirus, or closure: ", n_links)
-  ) %>% 
+  )
 
 write_csv(dd, "data-for-shiny.csv")
 write_csv(dd, "../covidapp/data-for-shiny.csv")
