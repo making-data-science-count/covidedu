@@ -45,5 +45,9 @@ table_of_output <- table_of_output %>%
 write_csv(table_of_output, "output/2020-04-19/table-of-output.csv")
 
 # Scraping links
+
 table_of_output <- read_csv("output/2020-04-19/table-of-output.csv")
+table_of_output <- table_of_output %>% 
+  group_by(district_name, state, nces_id) %>% 
+  mutate(page_number = row_number())
 scraped_links = proc_links_and_attachments(table_of_output, "2020-04-19")

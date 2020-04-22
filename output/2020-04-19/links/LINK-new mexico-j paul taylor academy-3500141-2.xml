@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>NMDOH COVID-19 Public Dashboard</title>
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=yes;">
+<meta property="og:title" content="NMDOH COVID-19 Public Dashboard">
+<meta property="og:description" content="The data dashboard currently includes county-by-county breakdowns of positive cases by age, gender and ethnicity. The portal also includes reporting about testing by county.">
+<meta property="og:image" content="https://cvprovider.nmhealth.org/images/public-dashboard.jpg">
+<meta property="og:url" content="https://cv.nmhealth.org/dashboard">
+<meta name="twitter:title" content="NMDOH COVID-19 Public Dashboard ">
+<meta name="twitter:description" content="The data dashboard currently includes county-by-county breakdowns of positive cases by age, gender and ethnicity. The portal also includes reporting about testing by county.">
+<meta name="twitter:image" content="https://cvprovider.nmhealth.org/images/public-dashboard.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" type="text/css" href="css/StyleSheet.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,400i,700,900" rel="stylesheet">
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script><link rel="stylesheet" href="css/kendo.common.min.css">
+<link rel="stylesheet" href="css/kendo.rhodes.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.7.3/localforage.nopromises.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/async/3.2.0/async.min.js"></script><link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="">
+<script src="/js/public-counties.lib.min.js"></script><script src="/js/utils.js"></script><script src="/js/public-counties.js"></script><!-- Global site tag (gtag.js) - Google Analytics --><script async="" src="https://www.googletagmanager.com/gtag/js?id=UA-24155035-5"></script><script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-24155035-5');
+        </script><script type="text/javascript">		
+			$( document ).ready(function() {
+				$( ".toggle-demos" ).click(function() {
+					$(".chart-container-dashboard").toggleClass("active");
+					$(this).text($(this).text() == 'Expand Demographics View' ? 'Minimize Demographics View' : 'Expand Demographics View');
+				});
+				
+				
+				$(".modal-lnk-data").click(function() {
+					$(".modal-window").fadeToggle();
+					return false;
+				});
+			});
+		</script><style type="text/css">
+			#map {position: fixed; top: 171px; bottom: 0; left: 250px; right: 300px; border-right: 1px solid #ccc;}
+			#counties-stats table {width: 100%;}
+			
+			.filter-container-dashboard {position:fixed; top: 81px; min-height: 63px; left: 250px; right: 0; padding: 10px 25px 10px 20px; background:#efefef; border-bottom: 1px solid #ccc; z-index: 99;}
+			.filter-container-dashboard select {}
+			.margin-right-15 {margin-right: 15px;}
+			
+			#left-column {position: fixed; top: 81px; bottom: 55px; left: 0; width: 250px; padding: 20px; overflow:auto; border-right: 1px solid #ccc;}
+			#left-column .number-container {margin-bottom: 30px; font-size: 30px; font-weight: 900; color:#282e7b}
+			#left-column .number-container span {display:block; font-size: 10px; text-transform:uppercase; font-weight: 400; border-bottom: 1px solid #ccc; padding-bottom: 10px; color:#333;}
+			
+			.toggle-counties {overflow: visible; min-width: 170px;}
+			.toggle-counties::after {content:"Toggle Zip Codes"; display:block; padding: 5px 0 5px 35px;}
+			
+			.chart-container-dashboard {position: fixed; top: 195px; right: 0; bottom: 0; width: 300px; overflow:auto; padding: 30px 0;}
+			.chart-container-dashboard.active {position: fixed; left:250px; width: auto; overflow:auto; padding: 100px 50px 50px 50px; background:#fff; top: 144px; z-index:9;}
+			.chart-container-dashboard.active::after {content:""; display:block; clear:both;}
+			.chart-container-dashboard.active .gender-chart-container {width: 30%; float:left;}
+			.chart-container-dashboard.active .age-chart-container {width: 30%; margin: 0 5%; float:left;}
+			.chart-container-dashboard.active .race-chart-container {width: 30%; float:left;}
+			
+			.chart-container-dashboard table {width: 100%; border-collapse:collapse;}
+			.chart-container-dashboard table td {padding: 5px; border-bottom: 1px solid #ccc; font-size:.8em;}
+			.chart-container-dashboard table td:last-child, .chart-container-dashboard table th:last-child {text-align:right !important;}
+			
+			.zoom-filters {position: fixed; top: 185px; left: 300px; z-index: 99;}
+			
+			a.toggle-demos {text-transform:uppercase; z-index:9999; font-weight: 900px; font-size:.8em; text-decoration:none; display:block; text-align: center; position: fixed; top: 144px; right: 0; padding: 20px; width: 300px; background:#277ad4; color:#fff;}
+			
+			.county-table-dashboard {background:rgba(0,0,0,.75); position:fixed; top: 0; left: 0; bottom:0; right:0; z-index: 999; padding: 50px 0; overflow: auto; display:none;}
+			
+			#counties-stats table {border-collapse: collapse;}
+			#counties-stats table tr td {border-bottom: 1px solid #ccc; padding: 5px;}
+			
+			.gender-chart-container {width:200px; margin: 0 auto 50px; text-align:center;}
+            .age-chart-container {width:200px; margin: 0 auto 50px; text-align:center;}
+            .race-chart-container {width: 200px; margin: 0 auto; text-align: center}
+			
+			.side-menu-testing-info {}
+			.side-menu-testing-info ul {list-style:none; margin: 0; padding: 0;}
+			.side-menu-testing-info ul li {border-bottom: 1px solid #ccc; font-size: .8em; }
+			.side-menu-testing-info ul li a {display:block; padding: 10px 0; text-decoration:none;}
+			
+			.gobacklnk {position:absolute; top: 20px; right: 20px;}
+
+			
+			#zips-select {display:none;}
+			
+			
+			
+			.modal-window {position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.85); z-index: 999999; display:none;}
+			.how-heatmap-works {background:#fff; padding: 30px; margin: 0 auto; max-width: 600px; margin: 50px auto;}			
+			
+			.modal-heatmap-lnk {font-size: .8em;}
+			
+			.map-key-container {position: fixed;    top: 144px;    left: 250px;    right: 300px;    background: #fff;    z-index: 1; border-bottom: 1px solid #ccc; padding: 2px 20px 8px 20px;}
+			
+			.map-key {float:left; padding-left: 15px; margin-right: 20px; position:relative; font-size: .8em; margin-top: 4px;}
+			.map-key span {width: 10px; height: 10px; top: 2px; position:absolute; left:0; overflow:hidden; }
+			
+			.map-key-title {padding-left:0;}
+			
+			.map-key-01 span {background: red;}
+			.map-key-02 span {background: orange;}
+			.map-key-03 span {background: #f5df1c;}
+			.map-key-04 span {background: #009688;}
+			.map-key-05 span {background: #ccc;}
+			
+			.map-by-testing {display:none}
+			.map-by-testing div {width: 300px; background: -moz-linear-gradient(left,  rgba(0,150,136,0.1) 0%, rgba(0,150,136,1) 100%);
+			background: -webkit-linear-gradient(left,  rgba(0,150,136,0.1) 0%,rgba(0,150,136,1) 100%);
+			background: linear-gradient(to right,  rgba(0,150,136,0.1) 0%,rgba(0,150,136,1) 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1a009688', endColorstr='#009688',GradientType=1 ); display:block; position: relative; margin-left: 75px;
+			}
+ 
+	.map-by-testing div:before {content:"Less Testing"; display:inline-block; position: absolute; left:-75px;}
+	.map-by-testing div:after {content:"More Testing"; display:inline-block; position: absolute; right:-75px;}
+			
+			
+			
+			
+			.disclaimer {position: fixed; bottom: 0; left: 0; background:#fff; padding: 10px; font-size: .8em; width: 250px; border-right: 1px solid #ccc; background:#f5f5f5;}
+			.last-updated { margin-bottom: 7px;}
+			
+			
+			@media only screen and (max-width: 1250px) 
+			{
+				
+				
+				#left-column {position: static; top: 81px; bottom: 0; left: 0; width: 100%; padding: 20px; border-bottom: 1px solid #ccc; background:#282e7b}
+				#left-column .number-container {margin-bottom: 0; float:left; width: 16.6667%; color:#fff;}
+				#left-column .number-container span {display:block; font-size: 10px; text-transform:uppercase; font-weight: 400; border-bottom: 1px solid rgba(255,255,255,.2); padding-bottom: 10px; color:#fff;}
+				#left-column::after {clear:both; display:block; content:"";}
+				
+				.map-key-container {position: fixed;    top: 244px;    left: 0;    right: 300px;    background: #fff;    z-index: 1; border-bottom: 1px solid #ccc; padding: 2px 20px 8px 20px;}
+				
+				#map {position: fixed; top: 272px; left:0; right: 300px; bottom: 0;}
+				
+				a.toggle-demos {text-transform:uppercase; z-index:9999; font-weight: 900px; font-size:.8em; text-decoration:none; display:block; text-align: center; position: fixed; top: 244px; right: 0; padding: 20px; width: 300px; background:#277ad4; color:#fff;}			
+				
+				.chart-container-dashboard {position: fixed;top: 297px;width: 300px;float: right;bottom: 0;overflow: auto; }
+				.chart-container-dashboard.active {position: fixed;    left: 0;  top: 244px;}
+								
+				.filter-container-dashboard {position: static;top: 0;right: 0;border-bottom: 1px solid #ccc;border-left: 1px solid #ccc;z-index: 99;}
+				
+				.zoom-filters {position: fixed; top: 287px; left: 50px; z-index: 9;}
+				
+			}
+			
+			@media only screen and (max-width: 1050px) 
+			{
+				#left-column {position: static; top: 81px; bottom: 0; left: 0; width: 100%; padding: 20px; border-bottom: 0 solid #ccc;}
+				#left-column .number-container {margin-bottom: 20px; font-size: 30px; font-weight: 900; float:left; width: 50%;}
+				#left-column .number-container span {display:block; font-size: 10px; text-transform:uppercase; font-weight: 400;  padding-bottom: 10px; }
+				#left-column::after {clear:both; display:block; content:"";}
+				
+				.logo-container {padding: 0; border-bottom: 0;}
+				
+				.map-key-container {position: static;}
+				
+				#map {position: static; top: auto; left:auto; right: auto; bottom: auto; width: 100%; height: 500px;}
+				
+				a.toggle-demos {display:none;}
+				
+				.chart-container-dashboard {position: static;
+					top: 267px;
+					width: 100%;    
+					float: none;
+					bottom: 0;
+					overflow: auto; }
+								.filter-container-dashboard {
+					position: static;
+					top: 0;
+					right: 0;
+					border-bottom: 1px solid #ccc;
+					border-left: 1px solid #ccc;
+					z-index: 99;
+				}
+				
+				.gobacklnk {display:none;}
+				
+				.zoom-filters {position: static; width: 90%; margin: 10px auto 0;}
+				.zoom-filters .float-left {float:none; margin-bottom: 10px !important;}
+				.zoom-filters select {width: 100%;}
+				
+				.disclaimer {position: static; bottom: 0; left: 0; background:transparent; padding: 20px 0; width: 90%; margin: 0 auto; font-size: .8em;border-right: 0; text-align:center;}
+			
+				
+			}
+			
+			@media only screen and (max-width: 900px) 
+			{
+				.filter-container-dashboard label {width: 100%; display:block;}
+				
+				.margin-right-15 {margin-right: 0 !Important;}
+				
+				.map-key-container {position: static; width: 90%; margin: 0 auto;}
+				
+				.map-by-testing {padding-left: 0;}
+				.map-key-title {display:none;}
+				
+				.map-by-testing div {width: 100px;}
+				
+				#map {position: static; top: auto; left:auto; right: auto; bottom: auto; width: 90%; margin: 0 auto; height: 500px;}
+				
+				.chart-container-dashboard {position: static; width: 90%; margin: 0 auto; float: none; bottom: 0; overflow: auto; background:#f5f5f5; padding: 8px 0; }
+				
+				.filter-container-dashboard {position: static; top: 0; right: 0; border: 1px solid #ccc; border-left: 1px solid #ccc; z-index: 99; width: 90%; margin: 30px auto 0 !important; padding: 10px;}				
+				.filter-container-dashboard .float-left,.filter-container-dashboard .float-right {float:none;}
+				#counties-select select, #zips-select select {margin-top: 0;}
+				
+				.filter-container-dashboard select {width: 100%; margin-top: 15px;}
+				
+				.modal-heatmap-lnk {float:none; clear:left; display:block; margin-top: 10px;}
+				
+				.gobacklnk {display:none;}
+				
+				.gender-chart-container {width: 96%; float:none; max-width: 400px; background:#fff; padding: 20px; margin: 0 auto 8px;}
+				.age-chart-container {width: 96%;float:none; max-width: 400px; background:#fff; padding: 20px; margin: 0 auto 8px;}
+				.race-chart-container {width: 96%; float:none; max-width: 400px; background:#fff; padding: 20px; margin: 0 auto 8px;}
+				
+				.how-heatmap-works {background:#fff; padding: 30px; margin: 0 auto; max-width: 600px; margin: 50px auto; position:fixed; top: 10px; right: 10px; bottom: 10px; left: 10px;}	
+				
+				
+				
+				
+				
+			}
+			
+			
+		</style>
+<script src="https://polyfill.io/v3/polyfill.min.js?flags=gated&amp;callback=initialize&amp;features=es2015%2Ces2016%2Ces2017"></script>
+</head>
+<body>
+		<div class="header">
+			<div class="logo-container">
+				<h1 class="logo">
+<span>New Mexico Department of Health</span>COVID-19 in New Mexico</h1>
+			</div>
+			<div class="gobacklnk">
+				<a href="https://cv.nmhealth.org" class="btn">Back to CV.NMHEALTH.ORG</a>
+			</div>
+		</div>	
+		
+		<div id="left-column">
+			<div class="number-container">
+				<span>Number of Cases</span>
+                <div id="cases"></div>								
+            </div>
+			<div class="number-container">
+				<span>Total # of Tests Performed</span>
+                <div id="tests"></div>
+			</div>
+			<div class="number-container">
+				<span>Total Hospitalizations</span>
+                <div id="total-hospitalizations"></div>
+			</div>
+			<div class="number-container">
+				<span>Current Hospitalizations</span>
+                <div id="current-hospitalizations"></div>
+			</div>
+			<div class="number-container">
+				<span>Total Deaths</span>
+                <div id="deaths"></div>
+			</div>
+			<div class="number-container">
+				<span>Total Recovered</span>
+                <div id="recovered"></div>
+			</div>
+			
+			<!--
+			<div class="side-menu-testing-info">
+				<h3>COVID-19 Testing Information</h3>
+				<ul>					
+					<li><a target="_blank" href="https://cv.nmhealth.org/should-i-get-tested/">Should I be tested for COVID-19?</a></li>
+					<li><a target="_blank" href="https://cvprovider.nmhealth.org/directory.html">Where are the testing sites & locations?</a></li>
+					<li><a target="_blank" href="https://cv.nmhealth.org/public-health-screening-and-testing/location-details/">What should I know before I go?</a></li>
+					<li><a target="_blank" href="https://cvresults.nmhealth.org/">I've been tested. Where can I get my results?</a></li>
+					<li><a target="_blank" href="https://www.cabq.gov/family/news/city-of-albuquerque-community-partners-to-provide-screenings-covid-19-testing-for-homeless-population">Is there testing for the Homeless Population?</a></li>
+				</ul>
+			</div>-->
+		</div>
+		
+		<div class="filter-container-dashboard">
+			<div class="clear-after">				
+				<div class="float-left">
+					<div class="form-item" style="margin-bottom: 0; padding-top: 10px;">						
+						<div class="clear-after">
+							<label class="margin-right-15 float-left"><input type="radio" name="heatmap-data" value="shading" checked> View Map by County</label>							
+							<label class="margin-right-15"><input type="radio" name="heatmap-data" value="testsPerThousand"> View Map by Testings</label>					
+							<label class="margin-right-15"><input type="radio" name="heatmap-data" value="zips"> View Map by Zip Code</label>
+							<!--<label class="margin-right-15"><input type="radio" name="heatmap-data" value="perThousand"> View Map by Cases</label>
+							<a href="#" class="modal-heatmap-lnk">How does the heatmap work?</a>-->
+						</div>
+						
+					</div>
+				</div>			
+
+				<!--
+				<div class="float-left" style="margin-right: 15px;">
+					<div class="form-item">
+						<select>
+							<option>Select a Zip Code</option>
+						</select>
+					</div>
+				</div>-->
+				
+			</div>
+			
+		</div>
+		
+		
+		<div class="map-key-container" id="count-key">
+			<div class="clear-after">
+				<div class="map-key map-key-title">Map Key:</div>
+				<div class="map-key map-key-01 map-by-case">
+<span></span> 201+ Cases</div>
+				<div class="map-key map-key-02 map-by-case">
+<span></span> 76-200 Cases</div>
+				<div class="map-key map-key-03 map-by-case">
+<span></span> 26-75 Cases</div>
+				<div class="map-key map-key-04 map-by-case">
+<span></span> 1-25 Cases</div>
+				<div class="map-key map-key-05 map-by-case">
+<span></span> 0 Cases</div>
+				<div class="map-key map-by-testing"><div> </div></div>
+			</div>
+		</div>
+
+		
+		
+		<div class="map-key-container" id="zip-cases-key" style="display:none">
+			<div class="clear-after">
+				<div class="map-key map-key-title">Map Key:</div>
+				<div class="map-key map-key-01 map-by-zip">
+<span></span> 76+ Cases</div>
+				<div class="map-key map-key-02 map-by-zip">
+<span></span> 51-75 Cases</div>
+				<div class="map-key map-key-03 map-by-zip">
+<span></span> 26-50 Cases</div>
+				<div class="map-key map-key-04 map-by-zip">
+<span></span> 1-25 Cases</div>
+				<div class="map-key map-key-05 map-by-zip">
+<span></span> 0 Cases</div>
+				<div class="map-key map-by-testing"><div> </div></div>
+			</div>
+		</div>
+		
+		<div class="zoom-filters">
+			<div class="clear-after">
+				<div class="form-item margin-right-15 float-left" style="margin-bottom: 0;">						
+					<div id="counties-select"></div>					
+				</div>					
+				<div class="form-item float-left" style="margin-bottom: 0;">											
+					<div id="zips-select"></div>
+				</div>					
+			</div>
+			
+		</div>
+		
+		<div id="map"></div>
+		
+		<a href="#" class="toggle-demos">Expand Demographics View</a>
+		
+		<div class="chart-container-dashboard">
+					
+			<div id="gender-chart" class="gender-chart-container"></div>
+			<div id="age-chart" class="age-chart-container"></div>
+			<div id="race-chart" class="race-chart-container"></div>
+			
+			
+			
+			<!--<div><a href="#">View County Data in Grid</a></div>-->
+		</div>
+		
+		
+		
+		<div class="county-table-dashboard">	
+			<div style="width: 96%; max-width: 500px; padding: 30px; background:#fff; margin: 0 auto;">
+				<h2>County Count</h2>
+				<div id="counties-stats"></div>
+			</div>
+		</div>
+		
+		
+		<div class="disclaimer">
+			<div class="last-updated">
+				<span>Last Updated: </span><span id="updated"></span>
+			</div>
+			<a href="#" class="modal-lnk modal-lnk-data">Information about the Data</a>
+		</div>
+		
+		<div class="modal-window">
+			<div class="how-heatmap-works">
+				<h2>When is the data updated?</h2>
+				<p>
+					<b>Data Updated Daily:</b><br>
+					Total Number of Cases, Total Number of Tests, Total Number of Cases by County, Total Number of Deaths, Total Hospitalizations, Current Hospitalizations
+				</p>
+				<p>
+					<b>Data Updated Weekly:</b><br>
+					Total Recovered, Age Demographics, Gender Demographics, Race/Ethnicity Demographics, Total Cases per Zip Code
+				</p>
+				<div>
+					<a href="#" class="modal-lnk-data">Close Modal Window</a>
+				</div>
+			</div>
+		</div>
+		
+		
+    
+
+<script src="https://cdn.rtsclients.com/lib/date-polyfill.min.js"></script>
+</body>
+</html>

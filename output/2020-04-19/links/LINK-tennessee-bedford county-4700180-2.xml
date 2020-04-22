@@ -1,0 +1,3188 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>File Storage | Bedford County School District</title>
+<meta name="Keywords" content="Bedford County School District">
+<meta name="Description" content="Bedford County School District">
+<meta name="Author" content="Bedford County School District">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta property="og:image" content="http://images.schoolinsites.com/images/education.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="200">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/css.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/demo4/style.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src="JavaScripts/jquery-1.8.3.min.js"></script><link href="/CommonTemplates/SiteElements/Styles/Include-Styles.asp" type="text/css" rel="stylesheet">
+<link href="http://images.pcmac.org/Websites/BedfordCountySD/BedfordCountySD/Styles.css" rel="stylesheet" type="text/css">
+<!--script src="http://images.pcmac.org/Websites/BedfordCountySD/BedfordCountySD/JavaScripts.js" type="text/javascript"></script--><script type="text/javascript">
+	//-----------------------------------------------------------------------------------------------
+	//Edit CSS, currently set up for Pirobox fix
+	//-----------------------------------------------------------------------------------------------
+		function getCSSRule(ruleName, deleteFlag) {               // Return requested style obejct
+		   ruleName=ruleName.toLowerCase();    
+		   
+			if (document.styleSheets) {                            
+				for (var i=0; i<document.styleSheets.length; i++) { 
+					var styleSheet=document.styleSheets[i];
+					var styleSheetHref = styleSheet.href;
+					if ((styleSheetHref != null) && (styleSheetHref.indexOf("pirobox") != -1))
+						piroStyle = i;
+				}
+
+				var styleSheet=document.styleSheets[piroStyle];
+				 var ii=0;                                        // Initialize subCounter.
+				 var cssRule=false;                               // Initialize cssRule. 
+
+				 do {                                             // For each rule in stylesheet
+					if (styleSheet.cssRules) {                    // Browser uses cssRules?
+					   cssRule = styleSheet.cssRules[ii];         // Yes --Mozilla Style
+					} else {                                      // Browser usses rules?
+					   cssRule = styleSheet.rules[ii];            // Yes IE style. 
+					}                                             // End IE check.
+
+					if (cssRule)  {                               // If we found a rule...
+					   if ((typeof(cssRule.selectorText) != 'undefined') && (cssRule.selectorText.toLowerCase()==ruleName)) { //  match ruleName?
+						  if (deleteFlag=='delete') {             // Yes.  Are we deleteing?
+							 if (styleSheet.cssRules) {           // Yes, deleting...
+								styleSheet.deleteRule(ii);        // Delete rule, Moz Style
+							 } else {                             // Still deleting.
+								styleSheet.removeRule(ii);        // Delete rule IE style.
+							 }                                    // End IE check.
+							 return true;                         // return true, class deleted.
+						  } else {                                // found and not deleting.
+							 return cssRule;                      // return the style object.
+						  }                                       // End delete Check
+					   }                                          // End found rule name
+					}                                             // end found cssRule
+					ii++;                                         // Increment sub-counter
+				 } while (cssRule)  
+			}
+			return false;
+		}
+
+
+		function killCSSRule(ruleName) {                          // Delete a CSS rule   
+		   return getCSSRule(ruleName,'delete');                  // just call getCSSRule w/delete flag.
+		}                                                         // end killCSSRule
+
+		function addCSSRule(ruleName) {                           // Create a new css rule
+		   if (document.styleSheets) {                            // Can browser do styleSheets?
+			  if (!getCSSRule(ruleName)) {                        // if rule doesn't exist...
+				 if (document.styleSheets[0].addRule) {           // Browser is IE?
+					document.styleSheets[0].addRule(ruleName, null,0);      // Yes, add IE style
+				 } else {                                         // Browser is IE?
+					document.styleSheets[0].insertRule(ruleName+' { }', 0); // Yes, add Moz style.
+				 }                                                // End browser check
+			  }                                                   // End already exist check.
+		   }                                                      // End browser ability check.
+		   return getCSSRule(ruleName);                           // return rule we just created.
+		} 
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//Get/Set cookies for mobile site
+	//-----------------------------------------------------------------------------------------------
+		function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			createCookie(name,"",-1);
+		}
+		
+		
+		
+		var fullSite = readCookie('FullSite');
+		var mobileDev = readCookie('MobileDevice');
+		var mobileNoRedirect = readCookie('MobileNoRedirect');
+		
+		if(fullSite && mobileDev) {
+			if((fullSite != 'True') && (mobileNoRedirect != '1') && (mobileDev == 'True'))
+				window.location = 'http://www.bedfordk12tn.com/mobile/default.asp';
+		}
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//photo album / lightbox init
+	//-----------------------------------------------------------------------------------------------
+		$(document).ready(function() {
+			if ($("a[class^='pirobox']").length > 0) {
+				$().piroBox({
+						my_speed: 400, //animation speed
+						bg_alpha: 0.7, //background opacity
+						slideShow : true, // true == slideshow on, false == slideshow off
+						slideSpeed : 4, //slideshow duration in seconds(3 to 6 Recommended)
+						close_all : '.piro_close,.piro_overlay'// add class .piro_overlay(with comma)if you want overlay click close piroBox
+				});
+			}
+		});
+
+		var UserAgent = navigator.userAgent;
+		//alert(UserAgent);
+		if (UserAgent.indexOf("MSIE 10") != -1)
+			TheAgent = "IE10"
+		else{
+			if (UserAgent.indexOf("MSIE") != -1)
+				TheAgent = "IE"
+			else
+				TheAgent = ""
+		}
+		
+		//Pirobox + Google Translate workaround for non-IE browsers. Dynamically changes CSS for pirobox after the translate widget has loaded.
+		if (TheAgent == ""){
+			theTimeout = setTimeout('GoogleCountdown()', 2000);	
+		}
+		
+		function GoogleCountdown() {
+			var element =  document.getElementById('google_translate_element');
+			if ((typeof(element) != 'undefined') && (element != null))
+			{
+				var PiroContent = getCSSRule('.pirobox_content');
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					//x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+					
+				
+				if(y < 700)
+					PiroContent.style.top = "16%";
+				else{
+					if(y > 900)
+						PiroContent.style.top = "23%";
+					else
+						PiroContent.style.top = "20%";
+				}
+				
+			}
+		}
+	//-----------------------------------------------------------------------------------------------
+		
+		
+		//Use onClick=SlideLink() in the slide show overlay for slide links work
+		function SlideLink() {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			//figure out which div is showing and set Link var
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			//if an anchor exists store values to "h" (for HREF) and "t" (for Target)
+			if (Link.firstChild.nodeName == "A") {
+				h = Link.firstChild.href;
+				t = Link.firstChild.target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				h = Link.getElementsByTagName('A')[0].href;
+				t = Link.getElementsByTagName('A')[0].target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+		}
+		//Make sure the cursor is a link pointer when a link exists (called by function SlideCursor())
+		function SlideCursorCheck(me) {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			if (Link.firstChild.nodeName == "A") {
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.firstChild.href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.etElementsByTagName('A')[0].href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+		}
+		//Function to change cursor on slide show overlay
+		var CursorCheck = false;
+		function SlideCursor(me) {
+			Elem = me;			
+			if (CursorCheck == false) {
+				var Start_SlideCursor = setInterval("SlideCursorCheck(Elem)", 500);
+				CursorCheck = true;
+			}
+		}
+		
+		function Login()
+		{
+			var loginPage = 'https://securesite.schoolinsites.com/loginv2/common/?p=1';
+			var loginDomain = 'http://www.bedfordk12tn.com';
+			loginPage = loginPage + '&login_for=' + loginDomain;
+			
+			window.location.href = loginPage;
+		}
+		
+		var imgAltTagsFix = function() {
+			$('img.gsc-branding-img').attr("alt", "Google Custom Search Branding");
+			$('input.gsc-search-button').attr('alt', "Google Custom Search Button");
+		};
+		
+		window.__gcse = {
+			callback: imgAltTagsFix
+		};
+		
+		function a11yClick(event){
+			if(event.type === 'click'){
+				return true;
+			}
+			else if(event.type === 'keypress'){
+				var code = event.charCode || event.keyCode;
+				if((code === 32)|| (code === 13)){
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	</script><style type="text/css" media="screen">
+		body{
+	margin: 0;
+	padding: 25px 0 0 0;}
+div#ToggleNav{
+	position:absolute; /* only effects browsers that cannot accept Fixed positioning */
+	top: 0; /* only effects browsers that cannot accept Fixed positioning */
+	left: 0; /* only effects browsers that cannot accept Fixed positioning */
+	background: #000 url(/images/Admin/Skins/HardCandyBlack/images/ToggleLoginBg.gif) repeat-x top left;
+	border-bottom: 0px solid #333;
+	border-top: 0px solid #FFFFFF;
+	width:100%;
+	height:25px;
+	z-index: 1000;
+	overflow:hidden;}
+div#ToggleNav td{
+	font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #9EA8C3;}
+div#ToggleNav input {
+	margin: 0;
+	padding: 0;
+	font: normal 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #303040;
+	vertical-align:middle;}
+div#ToggleNav .loginWrapper {
+	float: right;
+	height: 100%;
+}
+div#ToggleNav .formWrapper {
+	padding-right: 3px;
+	padding-left: 3px;
+	display: inline-block; 
+	*display: inline;}
+div#ToggleNav .formUsername {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/UsernameBg.gif) no-repeat top left;}
+div#ToggleNav .formPassword {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/PasswordBg.gif) no-repeat top left;}
+div#ToggleNav .formSelected {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/LoginFieldBlank.gif) repeat-x top left;}
+div#ToggleNav .formButton {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat 0 0;}
+div#ToggleNav .formButtonHover {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat -46px 0;}
+div#ToggleNav a.help:link, div#ToggleNav a.help:visited {
+	display:block;
+	height: 16px;
+	color: #D9D8E6;
+	border: 0;
+	margin: 4px 5px 0 1px;}
+div#ToggleNav a.help:hover, div#ToggleNav a.help:active {
+	display: block;
+	height: 16px;
+	border: 0;}
+body > div#ToggleNav .formUsername {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formPassword {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formSelected {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formButton {margin-bottom: 3px;}/* non-IE browsers only */
+body > div#ToggleNav .formButtonHover {margin-bottom: 3px;}/* non-IE browsers only */
+@media screen {
+	body > div#ToggleNav{
+		position:fixed;}
+}
+
+* html div#AdminDefaultIncludes{
+	position: fixed;
+	top: 25px;
+	bottom:0;
+ 	width: 100%;
+	_position: absolute;
+	_top: expression( ( 25 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+	_height: expression( ( -25 + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );}
+				* html body {
+					overflow:hidden;}
+				* html div#AdminDefaultIncludes{
+					overflow: auto;	}
+			
+	</style>
+<!--[if lte IE 9]>
+	<style type="text/css" media="screen">
+		* html body {
+			overflow:auto;}
+	</style>
+	<![endif]--><script type="text/javascript" src="/JavaScripts/JavaScripts.js"></script><script type="text/javascript">
+			TopBar = '<div class="loginWrapper">' +
+						'<div class="formWrapper"><a href="/admin1/securelogin.asp" aria-label="Log In" title="Go to Secure Login Page" alt="Log In" class="formButton" border="0" onFocus="this.className=\'formButtonHover\'"  onMouseOver="this.className=\'formButtonHover\'" onblur="this.className=\'formButton\'" onMouseOut="this.className=\'formButton\'">Login button</a></div>' +
+					 '</div>';
+		</script><script type="text/javascript">
+		if(typeof(BottomBar) == 'undefined')
+			var BottomBar = ' ';
+		$(document).ready(function() {
+			$("body").prepend('<div id="ToggleNav">' + TopBar + '</div>' + BottomBar);	
+		});
+	
+	</script><!--[if lte IE 9]>
+	<div id="AdminDefaultIncludes">
+	<![endif]--><link rel="Shortcut Icon" type="image/ico" href="http://images.pcmac.org/Websites/BedfordCountySD/BedfordCountySD/images/favicon.ico">
+<link rel="icon" href="http://images.pcmac.org/Websites/BedfordCountySD/BedfordCountySD/images/favicon.ico" type="image/x-icon">
+<!--[if lte IE 6]>
+		<link href="http://images.pcmac.org/Websites/BedfordCountySD/BedfordCountySD/StylesIE.css" rel="stylesheet" type="text/css" />
+	<![endif]-->
+</head>
+<body>
+<div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+<div id="SiteWrapper">
+	<div id="BgOverflow">
+		<table cellpadding="0" cellspacing="0" width="874" align="center"><tr>
+<td>
+					<div id="SiteHeader">
+						<div id="TopNav">
+							<table cellpadding="0" cellspacing="0" height="51" border="0" width="100%"><tr>
+<td>
+										<div style="overflow: hidden;">
+											
+												<a href="/">Home</a>
+												<span class="divider">|</span>
+												<a href="?PN=Schools2">Schools</a>
+												<span class="divider">|</span>
+												<a href="?PN=ParentInfo">Parent Info</a>
+												<span class="divider">|</span>
+												<a href="?PN=News2">News</a>
+												<span class="divider">|</span>
+												<a href="?PN=Calendar">Calendar</a>
+												<span class="divider">|</span>
+												<a href="?PN=AboutUs">About BCSD</a>
+												<span class="divider">|</span>
+												<a href="?PN=Directory">Directory</a>
+											
+												<span class="divider">|</span>
+												<a href="?PN=Contact">Contact</a>
+											
+										</div>
+									</td>
+									
+										<td width="145" align="right" nowrap>
+											<div id="HeaderSearch">
+												<form action="Default.asp?PN='AdvancedSearch'&amp;Act='SearchNow'" method="post" name="frmSearch" target="_top" style="margin:0;">
+													<input name="SearchModule" type="hidden" value="0"><input name="Keyword" title="Keyword" id="Keyword" type="text" value="Search"><input type="image" title="Search" value="submit" src="http://images.pcmac.org/Websites/BedfordCountySD/BedfordCountySD/images/NavSearchBtn.gif" alt="Submit Search" style="width:18px; height:18px; vertical-align:top;" onclick="if(Keyword.length&lt;4){alert('Your Keyword has to be atleast 4 characters long.\n\nPlease enter a valid Keyword.');};">
+</form>
+											</div>
+										</td>
+									
+								</tr></table>
+</div>	
+					</div>
+					<div id="PageWrapper">
+						<div style="width: 858px; margin: 0 8px;  overflow:hidden;">
+							<table cellpadding="0" cellspacing="0" width="858"><tr>
+<td valign="top">
+			<div id="SideNavContainer">
+				<div id="SideNavigation">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+
+	<div id="NavDivisions">
+	
+		<a href="/?DivisionID=11196&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Quick Links for Teachers
+		</a>
+			
+		<a href="/?DivisionID=11197&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Educators
+		</a>
+			
+		<a href="/?DivisionID=11198&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Administrative Departments
+		</a>
+			
+		<a href="/?DivisionID=11199&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			School Board
+		</a>
+			
+		<a href="/?DivisionID=11200&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Skyward Parent Portal
+		</a>
+			
+		<a href="/?DivisionID=11201&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Thomas Magnet School Application
+		</a>
+			
+		<a href="/?DivisionID=11203&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Driving Directions
+		</a>
+			
+		<a href="/?DivisionID=16133&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			School Support Organizations
+		</a>
+			
+		<a href="/?DivisionID=23482&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Quick Links for Students
+		</a>
+			
+		<a href="/?DivisionID=23556&amp;ToggleSideNav=ShowAll" class="IncNavDivision">
+			Quick Links for Parents
+		</a>
+			
+	</div> <!-- End: id="NavDivisions" -->
+	
+	<span id="UserLinksMenu">
+		
+	</span>
+		
+			<div id="QuickLinks">
+				
+					<div class="QuickLinksTitle"><span>Quick Links</span></div>
+				
+					<a href="http://bedfordcounty.schoolinsites.com/?DivisionID=11198&amp;DepartmentID=11400&amp;ToggleSideNav=ShowAll&amp;TabNo=2" target="_blank" class="QuickLinks">
+						Human Resources for Bedford County Schools
+					</a>
+					
+					<a href="http://www.bedfordk12tn.com/Download.asp?L=0&amp;LMID=451855&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=719494" target="_blank" class="QuickLinks">
+						2019-2020 District Calendar in English
+					</a>
+					
+					<a href="http://www.bedfordk12tn.com/Download.asp?L=0&amp;LMID=451855&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=719705" target="_blank" class="QuickLinks">
+						2019-2020 District Calendar in Spanish
+					</a>
+					
+					<a href="http://images.pcmac.org/Uploads/BedfordCountySD/BedfordCountySD/Sites/DocumentsSubCategories/Documents/2020-2021%20BCS%20Calendar%20-%20ENGLISH_%7BSIS79b029b3e608%7D.pdf" target="_blank" class="QuickLinks">
+						2020-2021 District Calendar in English
+					</a>
+					
+					<a href="http://images.pcmac.org/Uploads/BedfordCountySD/BedfordCountySD/Sites/DocumentsSubCategories/Documents/2020-2021%20BCS%20Calendar%20-%20SPANISH_%7BSIS22aad34a2a7d%7D.pdf" target="_blank" class="QuickLinks">
+						2020-2021 District Calendar in Spanish
+					</a>
+					
+					<a href="http://images.pcmac.org/Uploads/BedfordCountySD/BedfordCountySD/Sites/DocumentsCategories/Documents/Assessment%20Calendar%202019-2020_%7BSIS4EB290B4B840%7D.pdf" target="_blank" class="QuickLinks">
+						Testing Schedule 2019-2020
+					</a>
+					
+					<a href="http://images.pcmac.org/Uploads/BedfordCountySD/BedfordCountySD/Sites/DocumentsCategories/Documents/Collaborative_MOU_2016.pdf" target="_blank" class="QuickLinks">
+						School Board and BCEA Collaborative Conferencing Team MOU 2016
+					</a>
+					
+					<a href="https://tsba.net/bedford-county-board-of-education-policy-manual/#board-operations" target="_blank" class="QuickLinks">
+						School Board Policy Manual
+					</a>
+					
+					<a href="http://www.bedfordk12tn.com/Download.asp?L=0&amp;LMID=451855&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=735502" target="_blank" class="QuickLinks">
+						Budget 101 Information
+					</a>
+					
+					<a href="http://www.bedfordk12tn.com/?L=1&amp;LMID=472498&amp;PN=DocumentUploads&amp;DivisionID=11199&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;TabNo=2" target="_blank" class="QuickLinks">
+						School Board Administrative Procedures
+					</a>
+					
+					<a href="http://www.bedfordk12tn.com/Download.asp?L=0&amp;LMID=451855&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=Documents&amp;Act=Download&amp;T=1&amp;I=735504" target="_blank" class="QuickLinks">
+						School Board Strategic Plan
+					</a>
+					
+					<a href="http://images.pcmac.org/Uploads/BedfordCountySD/BedfordCountySD/Sites/DocumentsCategories/Documents/District_Policies_and_Procedures_per_UGG_Approved.pdf" target="_blank" class="QuickLinks">
+						Grant Policies and Procedures
+					</a>
+					
+			</div>
+			 
+		<div id="UniversalQuickLinks"> 
+			 
+					<div class="UniversalQuickLinksTitle"><span>ClassLink Log in</span></div>
+				 
+					<a href="https://launchpad.classlink.com/bedfordk12tn" target="_blank" class="UniversalQuickLinks">
+						ClassLink 
+					</a> 
+					 
+					<div class="UniversalQuickLinksTitle"><span>Teachers</span></div>
+				 
+					<a href="https://login.microsoftonline.com/" target="_blank" class="UniversalQuickLinks">
+						Office 365 
+					</a> 
+					 
+					<a href="https://sis-bedford.tnk12.gov/scripts/wsisa.dll/WService=wsBEDStu/seplog01.w" target="_blank" class="UniversalQuickLinks">
+						Skyward 
+					</a> 
+					 
+					<a href="https://app.aimswebplus.com/#/login" target="_blank" class="UniversalQuickLinks">
+						AimsWeb 
+					</a> 
+					 
+					<a href="https://www.mylexia.com/admin/login.php%20" target="_blank" class="UniversalQuickLinks">
+						Lexia - Teacher Log in 
+					</a> 
+					 
+					<a href="http://www.bedfordk12tn.com/?L=2&amp;DivisionID=11198&amp;DepartmentID=11392&amp;TabNo=2" target="_blank" class="UniversalQuickLinks">
+						Instructional Maps 2019-2020 
+					</a> 
+					 
+					<a href="https://forms.office.com/Pages/ResponsePage.aspx?id=XLWBeJ-IAkuxQ-hPoSIOw9Ond7bHwOZPsHit3aWfzolUMDRVQkJCMUNHUklSQzExVzZOTkFMRDhENC4u" target="_blank" class="UniversalQuickLinks">
+						Technology Coach Request Form 
+					</a> 
+					 
+					<div class="UniversalQuickLinksTitle"><span>Students</span></div>
+				 
+					<a href="http://www.lexiacore5.com/?SiteID=3750-2157-6950-2246%20" target="_blank" class="UniversalQuickLinks">
+						Lexia CORE5 - Student Log in 
+					</a> 
+					 
+					<a href="http://lexiastrategies.com" target="_blank" class="UniversalQuickLinks">
+						Lexia Strategies - Student Log in 
+					</a> 
+					 
+					<a href="http://elearn.bedfordk12tn.net" target="_blank" class="UniversalQuickLinks">
+						Moodle 
+					</a> 
+					 
+					<a href="http://www.bedfordk12tn.com/Download.asp?L=0&amp;LMID=451855&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=Documents&amp;Act=Download&amp;T=1&amp;I=366762" target="_blank" class="UniversalQuickLinks">
+						Student Dress Code - Revised 
+					</a> 
+					 
+					<a href="http://www.bedfordk12tn.com/?PN=Pages&amp;SubP=Level1Page&amp;L=2&amp;DivisionID=11198&amp;DepartmentID=29365&amp;PageID=38936&amp;ToggleSideNav=ShowAll" target="_blank" class="UniversalQuickLinks">
+						Bus Route Information 
+					</a> 
+					 
+					<a href="http://www.bedfordk12tn.com/Download.asp?L=0&amp;LMID=451855&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=187769" target="_blank" class="UniversalQuickLinks">
+						Zoning Map 
+					</a> 
+					 
+					<a href="https://www.tn.gov/assets/entities/education/attachments/legal_state_statuatory_rights_of_parents_and_students.pdf" target="_blank" class="UniversalQuickLinks">
+						State of Tennessee Statutory Rights of Parents and Students 
+					</a> 
+					 
+		</div> 
+	</td></tr></table>
+</div>
+<div style="background: transparent url(http://images.pcmac.org/Websites/BedfordCountySD/BedfordCountySD/images/SideNavCtnrRepeat.gif) repeat-y 0 35px; width: 192px; overflow:hidden; margin: 15px 0 0 0;">
+	<div style="background: transparent url(http://images.pcmac.org/Websites/BedfordCountySD/BedfordCountySD/images/SideNavCtnrTop.gif) no-repeat 0 0; padding: 15px 7px 0 30px;">
+		<strong>Bedford County Schools</strong><br>
+		500 Madison Street<br>
+		Shelbyville, TN 37160<br>
+		Phone: 931.684.3284<br>
+</div>
+	<div style="background: transparent url(http://images.pcmac.org/Websites/BedfordCountySD/BedfordCountySD/images/SideNavCtnrBottom.gif) no-repeat 0 0; height: 7px; overflow:hidden"></div>
+</div>
+				<br>
+</div>
+		</td>
+	
+    <div id="maincontent">
+		<td valign="top" width="100%" id="DefaultIncludes">
+				<!-- # include file="../../ConnSchool.asp" -->
+<script type="text/javascript" src="/treetable.js"></script><script type="text/javascript">
+  treetable_callbacks['eventRowStateChanged'] = 'treetable_eventRowChanged';
+    
+  function treetable_eventRowChanged(rowId, state) {
+    img = document.getElementById(rowId).getElementsByTagName('td')[0].getElementsByTagName('img')[0];
+    if (state == 1) {
+      img.src = '/Images/Icons/FolderFullIconMedium.gif';
+    } else {
+      img.src = '/Images/Icons/FolderFullIconSmall.gif';
+    }
+    return (true);
+  }  
+  
+</script><style type="text/css">
+.DocumentsTable {
+	text-decoration:none;
+}
+
+.DocumentsTable th {
+	text-align:left;
+	margin:1px;
+	padding: 5px;
+	font-size: 11px;
+	}
+
+.DocumentsTable a {
+	text-decoration:none;}
+
+.DocumentsTable td {
+	padding: 0 5px;}
+
+.button {
+	border:none;
+	margin: 0 4px 0 0;	}
+
+tr.MainCategory td {
+	padding-top: 7px;
+	padding-bottom: 2px;
+	border-bottom: 1px solid #eee;}
+ 
+.MainCategory a:link, .MainCategory a:visited, .MainCategory a:hover, .MainCategory a:active {
+	text-decoration:none;
+	font-weight:bold;
+	font-size: 12px;
+	color: black;}
+
+.SubCategory {}
+
+.SubCategory a:link, .SubCategory a:visited, .SubCategory a:hover, .SubCategory a:active {
+	text-decoration:none;
+	font-weight:bold;
+	font-size: 12px;
+	color: black;}
+
+.File td{
+	padding-top: 2px;}
+</style>
+<p class="header">FIles</p>
+
+	<table width="100%"><tr>
+<td>
+				
+			</td>
+		</tr></table>
+<table id="table1" width="100%" class="DocumentsTable" cellspacing="0" align="center">
+<tr>
+<td colspan="2" align="right">
+			<form>
+				<input type="button" value="[+] Expand All" class="ExpandAll" onclick="treetable_expandAll('table1');">
+				  
+				<input type="button" value="[-] Collapse All" class="CollapseAll" onclick="treetable_collapseAll('table1');">
+</form>
+		</td>
+	</tr>
+<tr id="table1_0" class="MainCategory">
+<td>
+			<a id="DocumentCat0" href="javascript:;" onclick="treetable_toggleRow('table1_0');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Extended Closure Instructional Packets
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(47 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_0_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload745687" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=745687" target="_new" aria-labelledby="DocumentCat0 DocumentDownload745687">
+					    9th - 12th Grade Workbook
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_0_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload745677" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=745677" target="_new" aria-labelledby="DocumentCat0 DocumentDownload745677">
+					    Algebra 1 EOC
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_0_2" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload745678" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=745678" target="_new" aria-labelledby="DocumentCat0 DocumentDownload745678">
+					    Algebra 2 EOC
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_0_3" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload745693" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=745693" target="_new" aria-labelledby="DocumentCat0 DocumentDownload745693">
+					    BCS Extended Absence Guidance
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_0_4" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload745679" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=745679" target="_new" aria-labelledby="DocumentCat0 DocumentDownload745679">
+					    Biology EOC
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_0_5" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload745680" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=745680" target="_new" aria-labelledby="DocumentCat0 DocumentDownload745680">
+					    English I EOC
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_0_6" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload745681" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=745681" target="_new" aria-labelledby="DocumentCat0 DocumentDownload745681">
+					    English II EOC
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_0_7" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload745682" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=745682" target="_new" aria-labelledby="DocumentCat0 DocumentDownload745682">
+					    Geometry EOC
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_0_8" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload746658" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=746658" target="_new" aria-labelledby="DocumentCat0 DocumentDownload746658">
+					    Graduation 2020 Information
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_0_9" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24250" href="javascript:;" onclick="treetable_toggleRow('table1_0_9');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					Kindergarten
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_0_9_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173425" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173425" target="_new" aria-labelledby="DocumentSubCat24250 DocumentDownload173425">
+					    Kindergarten Workbook
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_10" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24251" href="javascript:;" onclick="treetable_toggleRow('table1_0_10');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					1st Grade
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_0_10_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173426" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173426" target="_new" aria-labelledby="DocumentSubCat24251 DocumentDownload173426">
+					    1st Grade Workbook
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_11" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24252" href="javascript:;" onclick="treetable_toggleRow('table1_0_11');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					2nd Grade
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_0_11_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173427" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173427" target="_new" aria-labelledby="DocumentSubCat24252 DocumentDownload173427">
+					    2nd Grade Workbook
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_12" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24253" href="javascript:;" onclick="treetable_toggleRow('table1_0_12');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					3rd Grade
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(6 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_0_12_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173433" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173433" target="_new" aria-labelledby="DocumentSubCat24253 DocumentDownload173433">
+					    3rd Grade Workbook
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_12_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173430" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173430" target="_new" aria-labelledby="DocumentSubCat24253 DocumentDownload173430">
+					    ELA Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_12_2" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173429" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173429" target="_new" aria-labelledby="DocumentSubCat24253 DocumentDownload173429">
+					    ELA Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_12_3" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173432" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173432" target="_new" aria-labelledby="DocumentSubCat24253 DocumentDownload173432">
+					    Math Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_12_4" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173431" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173431" target="_new" aria-labelledby="DocumentSubCat24253 DocumentDownload173431">
+					    Math Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_12_5" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173428" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173428" target="_new" aria-labelledby="DocumentSubCat24253 DocumentDownload173428">
+					    Social Studies Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_13" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24254" href="javascript:;" onclick="treetable_toggleRow('table1_0_13');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					4th Grade
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(5 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_0_13_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173439" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173439" target="_new" aria-labelledby="DocumentSubCat24254 DocumentDownload173439">
+					    4th Grade Workbook
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_13_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173434" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173434" target="_new" aria-labelledby="DocumentSubCat24254 DocumentDownload173434">
+					    ELA Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_13_2" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173436" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173436" target="_new" aria-labelledby="DocumentSubCat24254 DocumentDownload173436">
+					    Math Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_13_3" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173435" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173435" target="_new" aria-labelledby="DocumentSubCat24254 DocumentDownload173435">
+					    Math Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_13_4" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173438" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173438" target="_new" aria-labelledby="DocumentSubCat24254 DocumentDownload173438">
+					    Social Studies Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_14" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24255" href="javascript:;" onclick="treetable_toggleRow('table1_0_14');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					5th Grade
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(6 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_0_14_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173440" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173440" target="_new" aria-labelledby="DocumentSubCat24255 DocumentDownload173440">
+					    5th Grade Workbook
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_14_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173441" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173441" target="_new" aria-labelledby="DocumentSubCat24255 DocumentDownload173441">
+					    ELA Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_14_2" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173443" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173443" target="_new" aria-labelledby="DocumentSubCat24255 DocumentDownload173443">
+					    ELA Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_14_3" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173445" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173445" target="_new" aria-labelledby="DocumentSubCat24255 DocumentDownload173445">
+					    ELA Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_14_4" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173442" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173442" target="_new" aria-labelledby="DocumentSubCat24255 DocumentDownload173442">
+					    Math Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_14_5" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173444" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173444" target="_new" aria-labelledby="DocumentSubCat24255 DocumentDownload173444">
+					    Social Studies Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_15" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24256" href="javascript:;" onclick="treetable_toggleRow('table1_0_15');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					6th Grade
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(6 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_0_15_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173451" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173451" target="_new" aria-labelledby="DocumentSubCat24256 DocumentDownload173451">
+					    6th Grade Workbook
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_15_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173450" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173450" target="_new" aria-labelledby="DocumentSubCat24256 DocumentDownload173450">
+					    ELA Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_15_2" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173449" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173449" target="_new" aria-labelledby="DocumentSubCat24256 DocumentDownload173449">
+					    ELA Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_15_3" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173447" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173447" target="_new" aria-labelledby="DocumentSubCat24256 DocumentDownload173447">
+					    Math Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_15_4" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173446" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173446" target="_new" aria-labelledby="DocumentSubCat24256 DocumentDownload173446">
+					    Math Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_15_5" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173448" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173448" target="_new" aria-labelledby="DocumentSubCat24256 DocumentDownload173448">
+					    Social Studies Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_16" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24257" href="javascript:;" onclick="treetable_toggleRow('table1_0_16');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					7th Grade
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(6 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_0_16_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173452" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173452" target="_new" aria-labelledby="DocumentSubCat24257 DocumentDownload173452">
+					    7th Grade Workbook
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_16_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173457" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173457" target="_new" aria-labelledby="DocumentSubCat24257 DocumentDownload173457">
+					    ELA Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_16_2" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173456" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173456" target="_new" aria-labelledby="DocumentSubCat24257 DocumentDownload173456">
+					    ELA Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_16_3" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173454" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173454" target="_new" aria-labelledby="DocumentSubCat24257 DocumentDownload173454">
+					    Math Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_16_4" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173453" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173453" target="_new" aria-labelledby="DocumentSubCat24257 DocumentDownload173453">
+					    Math Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_16_5" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173455" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173455" target="_new" aria-labelledby="DocumentSubCat24257 DocumentDownload173455">
+					    Social Studies Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_17" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24258" href="javascript:;" onclick="treetable_toggleRow('table1_0_17');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					8th Grade
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(6 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_0_17_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173463" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173463" target="_new" aria-labelledby="DocumentSubCat24258 DocumentDownload173463">
+					    8th Grade Workbook
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_17_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173460" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173460" target="_new" aria-labelledby="DocumentSubCat24258 DocumentDownload173460">
+					    ELA Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_17_2" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173459" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173459" target="_new" aria-labelledby="DocumentSubCat24258 DocumentDownload173459">
+					    ELA Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_17_3" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173462" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173462" target="_new" aria-labelledby="DocumentSubCat24258 DocumentDownload173462">
+					    Math Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_17_4" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173461" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173461" target="_new" aria-labelledby="DocumentSubCat24258 DocumentDownload173461">
+					    Math Practice Test - 2
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_0_17_5" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173458" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173458" target="_new" aria-labelledby="DocumentSubCat24258 DocumentDownload173458">
+					    Social Studies Practice Test
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_1" class="MainCategory">
+<td>
+			<a id="DocumentCat1" href="javascript:;" onclick="treetable_toggleRow('table1_1');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				5 Year Strategic Plan
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(3 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_1_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload743906" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=743906" target="_new" aria-labelledby="DocumentCat1 DocumentDownload743906">
+					    2019-24 Strategic Plan August 2019 (UpdatedJan20)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_1_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload735504" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=735504" target="_new" aria-labelledby="DocumentCat1 DocumentDownload735504">
+					    Strategic Plan August 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_1_2" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload710803" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=710803" target="_new" aria-labelledby="DocumentCat1 DocumentDownload710803">
+					    STRATEGICPLAN-2013-18
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_2" class="MainCategory">
+<td>
+			<a id="DocumentCat2" href="javascript:;" onclick="treetable_toggleRow('table1_2');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Afforfable Health Care Act
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(1 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_2_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload397159" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=397159" target="_new" aria-labelledby="DocumentCat2 DocumentDownload397159">
+					    Affordable Health Care Act Memo
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_3" class="MainCategory">
+<td>
+			<a id="DocumentCat3" href="javascript:;" onclick="treetable_toggleRow('table1_3');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Budget 101
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(2 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_3_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload735501" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=735501" target="_new" aria-labelledby="DocumentCat3 DocumentDownload735501">
+					    BOE Budget 2019-20
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_3_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload735502" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=735502" target="_new" aria-labelledby="DocumentCat3 DocumentDownload735502">
+					    BOE Budget 2019-20
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_4" class="MainCategory">
+<td>
+			<a id="DocumentCat4" href="javascript:;" onclick="treetable_toggleRow('table1_4');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Bus Route Information
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(1 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_4_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload644988" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=644988" target="_new" aria-labelledby="DocumentCat4 DocumentDownload644988">
+					    Bus Route Information
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5" class="MainCategory">
+<td>
+			<a id="DocumentCat5" href="javascript:;" onclick="treetable_toggleRow('table1_5');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				District Calendar
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(16 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_5_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload265097" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=265097" target="_new" aria-labelledby="DocumentCat5 DocumentDownload265097">
+					    2013-14 School Year Calendar (English)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload265098" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=265098" target="_new" aria-labelledby="DocumentCat5 DocumentDownload265098">
+					    2013-14 School Year Calendar (Spanish)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5_2" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload328982" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=328982" target="_new" aria-labelledby="DocumentCat5 DocumentDownload328982">
+					    2014-2015 School Year Calendar (English)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5_3" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload331362" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=331362" target="_new" aria-labelledby="DocumentCat5 DocumentDownload331362">
+					    2014-2015 School Year Calendar (Spanish)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5_4" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload451881" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=451881" target="_new" aria-labelledby="DocumentCat5 DocumentDownload451881">
+					    2015-2016 School Year Calendar (English)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5_5" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload465268" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=465268" target="_new" aria-labelledby="DocumentCat5 DocumentDownload465268">
+					    2015-2016 School Year Calendar (Spanish)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5_6" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload540406" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=540406" target="_new" aria-labelledby="DocumentCat5 DocumentDownload540406">
+					    2016-2017 School Year Calendar (English)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5_7" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload541959" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=541959" target="_new" aria-labelledby="DocumentCat5 DocumentDownload541959">
+					    2016-2017 School Year Calendar (Spanish)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5_8" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload719494" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=719494" target="_new" aria-labelledby="DocumentCat5 DocumentDownload719494">
+					    2019-2020 School Year Calendar (English)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5_9" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload719705" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=719705" target="_new" aria-labelledby="DocumentCat5 DocumentDownload719705">
+					    2019-2020 School Year Calendar (Spanish)
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_5_10" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat21407" href="javascript:;" onclick="treetable_toggleRow('table1_5_10');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					2017
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_5_10_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload148779" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=148779" target="_new" aria-labelledby="DocumentSubCat21407 DocumentDownload148779">
+					    2017-2018 School Calendar - ENGLISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_5_10_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload148778" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=148778" target="_new" aria-labelledby="DocumentSubCat21407 DocumentDownload148778">
+					    2017-2018 School Calendar - SPANISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_5_11" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat22837" href="javascript:;" onclick="treetable_toggleRow('table1_5_11');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					2018-19
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_5_11_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload160441" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=160441" target="_new" aria-labelledby="DocumentSubCat22837 DocumentDownload160441">
+					    2018-2019 Calendar ENGLISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_5_11_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload160442" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=160442" target="_new" aria-labelledby="DocumentSubCat22837 DocumentDownload160442">
+					    2018-2019 Calendar SPANISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_5_12" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24210" href="javascript:;" onclick="treetable_toggleRow('table1_5_12');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					2020-2021
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_5_12_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173070" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173070" target="_new" aria-labelledby="DocumentSubCat24210 DocumentDownload173070">
+					    2020-2021 BCS Calendar - ENGLISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_5_12_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173071" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173071" target="_new" aria-labelledby="DocumentSubCat24210 DocumentDownload173071">
+					    2020-2021 BCS Calendar - SPANISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_6" class="MainCategory">
+<td>
+			<a id="DocumentCat6" href="javascript:;" onclick="treetable_toggleRow('table1_6');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Dress Code
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(2 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_6_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload366762" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=366762" target="_new" aria-labelledby="DocumentCat6 DocumentDownload366762">
+					    Dress Code 2014-15
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_6_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload371587" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=371587" target="_new" aria-labelledby="DocumentCat6 DocumentDownload371587">
+					    Dress Code 2014-15 SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_7" class="MainCategory">
+<td>
+			<a id="DocumentCat7" href="javascript:;" onclick="treetable_toggleRow('table1_7');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				HR
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(2 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_7_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/jpg.gif" border="0" alt="jpg file"><a id="DocumentDownload691286" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=691286" target="_new" aria-labelledby="DocumentCat7 DocumentDownload691286">
+					    Andrea Miller Davis
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_7_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/jpg.gif" border="0" alt="jpg file"><a id="DocumentDownload691287" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=691287" target="_new" aria-labelledby="DocumentCat7 DocumentDownload691287">
+					    Jean Richardson
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_8" class="MainCategory">
+<td>
+			<a id="DocumentCat8" href="javascript:;" onclick="treetable_toggleRow('table1_8');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Kindergarten and Pre-K Registration
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(4 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_8_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload248181" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=248181" target="_new" aria-labelledby="DocumentCat8 DocumentDownload248181">
+					    2013-14  K flier  in Spanish.pdf
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_8_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload248182" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=248182" target="_new" aria-labelledby="DocumentCat8 DocumentDownload248182">
+					    2013 K flier eng.pdf
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_8_2" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload248183" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=248183" target="_new" aria-labelledby="DocumentCat8 DocumentDownload248183">
+					    2013-14 Pre-K announcement.pdf
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_8_3" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload248184" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=248184" target="_new" aria-labelledby="DocumentCat8 DocumentDownload248184">
+					    2013-14 Pre-K Reg Flyer Spanish.pdf
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_9" class="MainCategory">
+<td>
+			<a id="DocumentCat9" href="javascript:;" onclick="treetable_toggleRow('table1_9');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Leave Form
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(1 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_9_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload198622" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=198622" target="_new" aria-labelledby="DocumentCat9 DocumentDownload198622">
+					    Leave Form
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_10" class="MainCategory">
+<td>
+			<a id="DocumentCat10" href="javascript:;" onclick="treetable_toggleRow('table1_10');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				OCR Nondiscrimination Notice
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(2 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_10_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload680989" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=680989" target="_new" aria-labelledby="DocumentCat10 DocumentDownload680989">
+					    BCBOE Notice of Nondiscrimination REV 2-12-18
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_10_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload680991" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=680991" target="_new" aria-labelledby="DocumentCat10 DocumentDownload680991">
+					    BCBOE Notice of Nondiscrimination REV 2-12-18 SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11" class="MainCategory">
+<td>
+			<a id="DocumentCat11" href="javascript:;" onclick="treetable_toggleRow('table1_11');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Parent Guidebook
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(11 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_11_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload703024" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=703024" target="_new" aria-labelledby="DocumentCat11 DocumentDownload703024">
+					    2018-19 PARENT GUIDEBOOK
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload703025" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=703025" target="_new" aria-labelledby="DocumentCat11 DocumentDownload703025">
+					    2018-19 PARENT GUIDEBOOK IN SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11_2" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload733893" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=733893" target="_new" aria-labelledby="DocumentCat11 DocumentDownload733893">
+					    2019-20 PARENT GUIDEBOOK
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11_3" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload733894" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=733894" target="_new" aria-labelledby="DocumentCat11 DocumentDownload733894">
+					    2019-20 PARENT GUIDEBOOK in SPanish
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11_4" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload380743" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=380743" target="_new" aria-labelledby="DocumentCat11 DocumentDownload380743">
+					    Parent Guidebook 2014-2015 ENGLISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11_5" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload392301" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=392301" target="_new" aria-labelledby="DocumentCat11 DocumentDownload392301">
+					    Parent Guidebook 2014-2015 SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11_6" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload536822" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=536822" target="_new" aria-labelledby="DocumentCat11 DocumentDownload536822">
+					    Parent Guidebook 2015-2016 ENGLISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11_7" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload536823" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=536823" target="_new" aria-labelledby="DocumentCat11 DocumentDownload536823">
+					    Parent Guidebook 2015-2016 SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11_8" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload577174" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=577174" target="_new" aria-labelledby="DocumentCat11 DocumentDownload577174">
+					    Parent Guidebook 2016-2017 ENGLISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11_9" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload593384" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=593384" target="_new" aria-labelledby="DocumentCat11 DocumentDownload593384">
+					    Parent Guidebook 2016-2017 SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_11_10" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload648766" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=648766" target="_new" aria-labelledby="DocumentCat11 DocumentDownload648766">
+					    Parent Guidebook 2017-2018 ENGLISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_12" class="MainCategory">
+<td>
+			<a id="DocumentCat12" href="javascript:;" onclick="treetable_toggleRow('table1_12');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				School Board Administraive Procedures
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(14 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_12_0" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat23985" href="javascript:;" onclick="treetable_toggleRow('table1_12_0');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					Section 1
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(14 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_12_0_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171070" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171070" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171070">
+					    AP-1.407.1-accesstopublicrecords
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171058" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171058" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171058">
+					    AP-1.407.2-requesttocopypublicdocs
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_2" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171059" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171059" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171059">
+					    ap-1.407.2-Spanish
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_3" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171057" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171057" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171057">
+					    ap1.407.1-Spanish
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_4" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171060" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171060" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171060">
+					    ap1051.1-spanish - Visitantes en las Escuelas_spanish
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_5" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171061" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171061" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171061">
+					    ap1106.1-Code of Ethics
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_6" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171062" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171062" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171062">
+					    ap1500.1-Citizen Suggestions and Complaints
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_7" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171063" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171063" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171063">
+					    ap1501.1-Visitors to the Schools
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_8" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171064" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171064" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171064">
+					    ap1501.1-Visitors to the Schools
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_9" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171065" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171065" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171065">
+					    ap1600.1-School Board Policies
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_10" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171066" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171066" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171066">
+					    ap1600.2-Request for Policy Development-Review
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_11" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171067" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171067" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171067">
+					    ap1801.11-Emergency Closings
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_12" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171068" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171068" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171068">
+					    ap1801.21-Operation of School-Age Care Program
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_12_0_13" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171069" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171069" target="_new" aria-labelledby="DocumentSubCat23985 DocumentDownload171069">
+					    ap1804.1-Drug-Free Workplace Notice
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_13" class="MainCategory">
+<td>
+			<a id="DocumentCat13" href="javascript:;" onclick="treetable_toggleRow('table1_13');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				School Board and Teacher MOU
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(1 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_13_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload597284" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=597284" target="_new" aria-labelledby="DocumentCat13 DocumentDownload597284">
+					    Collaborative MOU 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14" class="MainCategory">
+<td>
+			<a id="DocumentCat14" href="javascript:;" onclick="treetable_toggleRow('table1_14');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				School Board Meeting Agendas
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(69 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_14_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload631200" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=631200" target="_new" aria-labelledby="DocumentCat14 DocumentDownload631200">
+					    April 2017 Agenda
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload689708" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=689708" target="_new" aria-labelledby="DocumentCat14 DocumentDownload689708">
+					    April 2018 Agenda
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_2" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload559084" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=559084" target="_new" aria-labelledby="DocumentCat14 DocumentDownload559084">
+					    School Board Agenda for April 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_3" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload727761" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=727761" target="_new" aria-labelledby="DocumentCat14 DocumentDownload727761">
+					    School Board Agenda for April 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_4" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload746743" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=746743" target="_new" aria-labelledby="DocumentCat14 DocumentDownload746743">
+					    School Board Agenda for April 2020 - Updated
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_5" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload502177" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=502177" target="_new" aria-labelledby="DocumentCat14 DocumentDownload502177">
+					    School Board Agenda for August 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_6" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload582419" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=582419" target="_new" aria-labelledby="DocumentCat14 DocumentDownload582419">
+					    School Board Agenda for August 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_7" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload651773" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=651773" target="_new" aria-labelledby="DocumentCat14 DocumentDownload651773">
+					    School Board Agenda for August 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_8" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload654384" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=654384" target="_new" aria-labelledby="DocumentCat14 DocumentDownload654384">
+					    School Board Agenda for August 2017 - Special Called Meeting
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_9" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload533245" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=533245" target="_new" aria-labelledby="DocumentCat14 DocumentDownload533245">
+					    School Board Agenda for December 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_10" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload607290" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=607290" target="_new" aria-labelledby="DocumentCat14 DocumentDownload607290">
+					    School Board Agenda for December 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_11" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload674527" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=674527" target="_new" aria-labelledby="DocumentCat14 DocumentDownload674527">
+					    School Board Agenda for December 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_12" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload718420" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=718420" target="_new" aria-labelledby="DocumentCat14 DocumentDownload718420">
+					    School Board Agenda for December 2018
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_13" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload742013" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=742013" target="_new" aria-labelledby="DocumentCat14 DocumentDownload742013">
+					    School Board Agenda for December 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_14" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload546966" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=546966" target="_new" aria-labelledby="DocumentCat14 DocumentDownload546966">
+					    School Board Agenda for February 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_15" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload618623" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=618623" target="_new" aria-labelledby="DocumentCat14 DocumentDownload618623">
+					    School Board Agenda for February 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_16" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload681932" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=681932" target="_new" aria-labelledby="DocumentCat14 DocumentDownload681932">
+					    School Board Agenda for February 2018  - REVISED
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_17" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload744536" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=744536" target="_new" aria-labelledby="DocumentCat14 DocumentDownload744536">
+					    School Board Agenda for February 2020
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_18" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload538909" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=538909" target="_new" aria-labelledby="DocumentCat14 DocumentDownload538909">
+					    School Board Agenda for January 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_19" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload611699" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=611699" target="_new" aria-labelledby="DocumentCat14 DocumentDownload611699">
+					    School Board Agenda for January 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_20" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload676573" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=676573" target="_new" aria-labelledby="DocumentCat14 DocumentDownload676573">
+					    School Board Agenda for January 2018
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_21" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload720293" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=720293" target="_new" aria-labelledby="DocumentCat14 DocumentDownload720293">
+					    School Board Agenda for January 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_22" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload743173" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=743173" target="_new" aria-labelledby="DocumentCat14 DocumentDownload743173">
+					    School Board Agenda for January 2020
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_23" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload492992" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=492992" target="_new" aria-labelledby="DocumentCat14 DocumentDownload492992">
+					    School Board Agenda for July 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_24" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload573825" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=573825" target="_new" aria-labelledby="DocumentCat14 DocumentDownload573825">
+					    School Board Agenda for July 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_25" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload645911" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=645911" target="_new" aria-labelledby="DocumentCat14 DocumentDownload645911">
+					    School Board Agenda for July 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_26" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload700256" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=700256" target="_new" aria-labelledby="DocumentCat14 DocumentDownload700256">
+					    School Board Agenda for July 2018
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_27" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload732867" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=732867" target="_new" aria-labelledby="DocumentCat14 DocumentDownload732867">
+					    School Board Agenda for July 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_28" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload569962" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=569962" target="_new" aria-labelledby="DocumentCat14 DocumentDownload569962">
+					    School Board Agenda for June 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_29" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload641903" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=641903" target="_new" aria-labelledby="DocumentCat14 DocumentDownload641903">
+					    School Board Agenda for June 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_30" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload697591" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=697591" target="_new" aria-labelledby="DocumentCat14 DocumentDownload697591">
+					    School Board Agenda for June 2018
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_31" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload731386" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=731386" target="_new" aria-labelledby="DocumentCat14 DocumentDownload731386">
+					    School Board Agenda for June 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_32" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload731973" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=731973" target="_new" aria-labelledby="DocumentCat14 DocumentDownload731973">
+					    School Board Agenda for June 2019 Special Called Meeting
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_33" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload465254" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=465254" target="_new" aria-labelledby="DocumentCat14 DocumentDownload465254">
+					    School Board Agenda for March 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_34" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload552166" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=552166" target="_new" aria-labelledby="DocumentCat14 DocumentDownload552166">
+					    School Board Agenda for March 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_35" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload626139" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=626139" target="_new" aria-labelledby="DocumentCat14 DocumentDownload626139">
+					    School Board Agenda for March 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_36" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload725634" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=725634" target="_new" aria-labelledby="DocumentCat14 DocumentDownload725634">
+					    School Board Agenda for March 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_37" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload745674" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=745674" target="_new" aria-labelledby="DocumentCat14 DocumentDownload745674">
+					    School Board Agenda for March 2020
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_38" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload636071" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=636071" target="_new" aria-labelledby="DocumentCat14 DocumentDownload636071">
+					    School Board Agenda for May 2017 
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_39" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload694366" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=694366" target="_new" aria-labelledby="DocumentCat14 DocumentDownload694366">
+					    School Board Agenda for May 2018
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_40" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload730037" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=730037" target="_new" aria-labelledby="DocumentCat14 DocumentDownload730037">
+					    School Board Agenda for May 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_41" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload528291" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=528291" target="_new" aria-labelledby="DocumentCat14 DocumentDownload528291">
+					    School Board Agenda for November 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_42" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload602239" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=602239" target="_new" aria-labelledby="DocumentCat14 DocumentDownload602239">
+					    School Board Agenda for November 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_43" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload668684" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=668684" target="_new" aria-labelledby="DocumentCat14 DocumentDownload668684">
+					    School Board Agenda for November 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_44" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload716062" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=716062" target="_new" aria-labelledby="DocumentCat14 DocumentDownload716062">
+					    School Board Agenda for November 2018
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_45" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload740946" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=740946" target="_new" aria-labelledby="DocumentCat14 DocumentDownload740946">
+					    School Board Agenda for November 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_46" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload521357" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=521357" target="_new" aria-labelledby="DocumentCat14 DocumentDownload521357">
+					    School Board Agenda for October 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_47" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload596670" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=596670" target="_new" aria-labelledby="DocumentCat14 DocumentDownload596670">
+					    School Board Agenda for October 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_48" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload664215" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=664215" target="_new" aria-labelledby="DocumentCat14 DocumentDownload664215">
+					    School Board Agenda for October 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_49" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload712608" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=712608" target="_new" aria-labelledby="DocumentCat14 DocumentDownload712608">
+					    School Board Agenda for October 2018 - REVISED
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_50" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload738491" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=738491" target="_new" aria-labelledby="DocumentCat14 DocumentDownload738491">
+					    School Board Agenda for October 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_51" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload514357" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=514357" target="_new" aria-labelledby="DocumentCat14 DocumentDownload514357">
+					    School Board Agenda for September 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_52" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload590251" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=590251" target="_new" aria-labelledby="DocumentCat14 DocumentDownload590251">
+					    School Board Agenda for September 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_53" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload708896" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=708896" target="_new" aria-labelledby="DocumentCat14 DocumentDownload708896">
+					    School Board Agenda for September 2018
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_54" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload380748" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=380748" target="_new" aria-labelledby="DocumentCat14 DocumentDownload380748">
+					    School Board Meeting Agenda - August 2014
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_55" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload459664" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=459664" target="_new" aria-labelledby="DocumentCat14 DocumentDownload459664">
+					    School Board Meeting Agenda - February 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_56" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload339471" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=339471" target="_new" aria-labelledby="DocumentCat14 DocumentDownload339471">
+					    School Board Meeting Agenda - March 2014
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_57" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload353305" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=353305" target="_new" aria-labelledby="DocumentCat14 DocumentDownload353305">
+					    School Board Meeting Agenda - May 2014
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_58" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload410357" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=410357" target="_new" aria-labelledby="DocumentCat14 DocumentDownload410357">
+					    School Board Meeting Agenda - November 2014
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_59" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload391407" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=391407" target="_new" aria-labelledby="DocumentCat14 DocumentDownload391407">
+					    School Board Meeting Agenda - September 2014
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_60" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload658999" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=658999" target="_new" aria-labelledby="DocumentCat14 DocumentDownload658999">
+					    School Board Meeting Agenda - September 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_61" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload737091" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=737091" target="_new" aria-labelledby="DocumentCat14 DocumentDownload737091">
+					    School Board Meeting Agenda - September 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_62" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload677957" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=677957" target="_new" aria-labelledby="DocumentCat14 DocumentDownload677957">
+					    School Board Meeting Agenda Jan 2018
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_63" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload481642" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=481642" target="_new" aria-labelledby="DocumentCat14 DocumentDownload481642">
+					    School Board Retreat 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_14_64" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat20062" href="javascript:;" onclick="treetable_toggleRow('table1_14_64');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					Retreat 2016
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_14_64_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload136625" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=136625" target="_new" aria-labelledby="DocumentSubCat20062 DocumentDownload136625">
+					    Board Retreat 2016
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_14_64_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload150821" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=150821" target="_new" aria-labelledby="DocumentSubCat20062 DocumentDownload150821">
+					    Board Retreat Agenda 2017
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_14_65" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat23038" href="javascript:;" onclick="treetable_toggleRow('table1_14_65');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					Retreat 2018
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_14_65_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload161840" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=161840" target="_new" aria-labelledby="DocumentSubCat23038 DocumentDownload161840">
+					    School Baord Retreat Agenda 2018
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_14_66" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat23807" href="javascript:;" onclick="treetable_toggleRow('table1_14_66');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					Retreat 2019
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_14_66_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload168972" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=168972" target="_new" aria-labelledby="DocumentSubCat23807 DocumentDownload168972">
+					    2019 Retreat Agenda
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_14_67" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24242" href="javascript:;" onclick="treetable_toggleRow('table1_14_67');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					Retreat 2020
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_14_67_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173390" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173390" target="_new" aria-labelledby="DocumentSubCat24242 DocumentDownload173390">
+					    School Board Retreat Agenda 2020
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_15" class="MainCategory">
+<td>
+			<a id="DocumentCat15" href="javascript:;" onclick="treetable_toggleRow('table1_15');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Skyward
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(3 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_15_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload687839" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=687839" target="_new" aria-labelledby="DocumentCat15 DocumentDownload687839">
+					    Student Info Verification Form for Parents
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_15_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload746273" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=746273" target="_new" aria-labelledby="DocumentCat15 DocumentDownload746273">
+					    Student Info Verification Form for Parents- ENGLISH 2020
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_15_2" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload746378" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=746378" target="_new" aria-labelledby="DocumentCat15 DocumentDownload746378">
+					    Student Info Verification Form for Parents- SPANISH2020
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_16" class="MainCategory">
+<td>
+			<a id="DocumentCat16" href="javascript:;" onclick="treetable_toggleRow('table1_16');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				SPED
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(1 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_16_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/WindowsMediaPlayer.gif" border="0" alt="WindowsMediaPlayer file"><a id="DocumentDownload561657" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=561657" target="_new" aria-labelledby="DocumentCat16 DocumentDownload561657">
+					    SPED Corrective Action
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17" class="MainCategory">
+<td>
+			<a id="DocumentCat17" href="javascript:;" onclick="treetable_toggleRow('table1_17');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Superintendent`s Newsletter
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(47 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_17_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload505046" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=505046" target="_new" aria-labelledby="DocumentCat17 DocumentDownload505046">
+					    Superintendent Newsletter August 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload585415" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=585415" target="_new" aria-labelledby="DocumentCat17 DocumentDownload585415">
+					    Superintendent Newsletter August 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_2" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload706057" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=706057" target="_new" aria-labelledby="DocumentCat17 DocumentDownload706057">
+					    Superintendent Newsletter August 2018
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_3" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload534239" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=534239" target="_new" aria-labelledby="DocumentCat17 DocumentDownload534239">
+					    Superintendent Newsletter December 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_4" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload534290" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=534290" target="_new" aria-labelledby="DocumentCat17 DocumentDownload534290">
+					    Superintendent Newsletter December 2015 - Spanish
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_5" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload548913" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=548913" target="_new" aria-labelledby="DocumentCat17 DocumentDownload548913">
+					    Superintendent Newsletter February 2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_6" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload549747" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=549747" target="_new" aria-labelledby="DocumentCat17 DocumentDownload549747">
+					    Superintendent Newsletter February 2016 - Spanish
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_7" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload670781" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=670781" target="_new" aria-labelledby="DocumentCat17 DocumentDownload670781">
+					    Superintendent Newsletter Nov 2017 - English
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_8" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload522317" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=522317" target="_new" aria-labelledby="DocumentCat17 DocumentDownload522317">
+					    Superintendent Newsletter October 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_9" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload662324" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=662324" target="_new" aria-labelledby="DocumentCat17 DocumentDownload662324">
+					    Superintendent Newsletter October 2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_10" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload662949" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=662949" target="_new" aria-labelledby="DocumentCat17 DocumentDownload662949">
+					    Superintendent Newsletter October 2017 - SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_11" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload737882" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=737882" target="_new" aria-labelledby="DocumentCat17 DocumentDownload737882">
+					    Superintendent Newsletter October 2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_12" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload516308" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=516308" target="_new" aria-labelledby="DocumentCat17 DocumentDownload516308">
+					    Superintendent Newsletter September 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_13" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload519128" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=519128" target="_new" aria-labelledby="DocumentCat17 DocumentDownload519128">
+					    Superintendent Newsletter September 2015 SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_14" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload505047" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=505047" target="_new" aria-labelledby="DocumentCat17 DocumentDownload505047">
+					    Superintendent Newsletter August 2015 SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_15" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload473659" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=473659" target="_new" aria-labelledby="DocumentCat17 DocumentDownload473659">
+					    Superintendent Newsletter April 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_16" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload474300" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=474300" target="_new" aria-labelledby="DocumentCat17 DocumentDownload474300">
+					    Superintendent Newsletter April 2015 Spanish
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_17" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload449909" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=449909" target="_new" aria-labelledby="DocumentCat17 DocumentDownload449909">
+					    Superintendent Newsletter January 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_18" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload451883" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=451883" target="_new" aria-labelledby="DocumentCat17 DocumentDownload451883">
+					    Superintendent Newsletter January 2015 SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_19" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload427589" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=427589" target="_new" aria-labelledby="DocumentCat17 DocumentDownload427589">
+					    Superintendent Newsletter December 2014
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_20" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload434847" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=434847" target="_new" aria-labelledby="DocumentCat17 DocumentDownload434847">
+					    Superintendent Newsletter December 2014 SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_21" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload457856" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=457856" target="_new" aria-labelledby="DocumentCat17 DocumentDownload457856">
+					    Superintendent Newsletter January 2015
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_22" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload407855" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=407855" target="_new" aria-labelledby="DocumentCat17 DocumentDownload407855">
+					    Superintendent Newsletter November 2014
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_23" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload409512" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=409512" target="_new" aria-labelledby="DocumentCat17 DocumentDownload409512">
+					    Superintendent Newsletter November 2014 SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_24" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload399103" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=399103" target="_new" aria-labelledby="DocumentCat17 DocumentDownload399103">
+					    Superintendent Newsletter October 2014
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_25" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload380563" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=380563" target="_new" aria-labelledby="DocumentCat17 DocumentDownload380563">
+					    Superintendent's Newsletter August 2014
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_17_26" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat19309" href="javascript:;" onclick="treetable_toggleRow('table1_17_26');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					October 2015
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_26_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload130775" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=130775" target="_new" aria-labelledby="DocumentSubCat19309 DocumentDownload130775">
+					    2015-16 October Newsletter Volume2 Issue3 in Spanish.pdf
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_27" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat19451" href="javascript:;" onclick="treetable_toggleRow('table1_17_27');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					November 2015
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_27_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload131552" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=131552" target="_new" aria-labelledby="DocumentSubCat19451 DocumentDownload131552">
+					    Superintendent's Newsletter November 2015
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_27_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload131553" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=131553" target="_new" aria-labelledby="DocumentSubCat19451 DocumentDownload131553">
+					    Superintendent's Newsletter November 2015 - Spanish
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_28" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat19880" href="javascript:;" onclick="treetable_toggleRow('table1_17_28');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					January 2016
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_28_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload134585" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=134585" target="_new" aria-labelledby="DocumentSubCat19880 DocumentDownload134585">
+					    January 2016 Newsletter
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_29" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat20089" href="javascript:;" onclick="treetable_toggleRow('table1_17_29');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					March 2016
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_29_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload136977" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=136977" target="_new" aria-labelledby="DocumentSubCat20089 DocumentDownload136977">
+					    Superintendent`s Newsletter - March 2016
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_30" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat20315" href="javascript:;" onclick="treetable_toggleRow('table1_17_30');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					May 2016
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_30_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload139725" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=139725" target="_new" aria-labelledby="DocumentSubCat20315 DocumentDownload139725">
+					    Superintendent`s Newsletter May 2016
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_30_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload140299" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=140299" target="_new" aria-labelledby="DocumentSubCat20315 DocumentDownload140299">
+					    Superintendent`s Newsletter May 2016 SPANISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_31" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat21509" href="javascript:;" onclick="treetable_toggleRow('table1_17_31');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					February 2017
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_31_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload149429" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=149429" target="_new" aria-labelledby="DocumentSubCat21509 DocumentDownload149429">
+					    Superintendent`s Newsletter February 2017
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_31_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload149519" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=149519" target="_new" aria-labelledby="DocumentSubCat21509 DocumentDownload149519">
+					    Superintendent`s Newsletter February 2017 - SPANISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_32" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat22740" href="javascript:;" onclick="treetable_toggleRow('table1_17_32');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					November 2017
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_32_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload159419" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=159419" target="_new" aria-labelledby="DocumentSubCat22740 DocumentDownload159419">
+					    November SPANISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_33" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24042" href="javascript:;" onclick="treetable_toggleRow('table1_17_33');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					2019-2020
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(1 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_33_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload171680" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=171680" target="_new" aria-labelledby="DocumentSubCat24042 DocumentDownload171680">
+					    September 2019 Newsletter.pdf
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_34" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24103" href="javascript:;" onclick="treetable_toggleRow('table1_17_34');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					November 2019
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_34_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload172317" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=172317" target="_new" aria-labelledby="DocumentSubCat24103 DocumentDownload172317">
+					    November 2019 - ENGLISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_34_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload172318" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=172318" target="_new" aria-labelledby="DocumentSubCat24103 DocumentDownload172318">
+					    November 2019 - SPANISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_35" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24122" href="javascript:;" onclick="treetable_toggleRow('table1_17_35');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					December 2019
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_35_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload172544" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=172544" target="_new" aria-labelledby="DocumentSubCat24122 DocumentDownload172544">
+					    December Newsletter - English
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_35_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload172543" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=172543" target="_new" aria-labelledby="DocumentSubCat24122 DocumentDownload172543">
+					    December Newsletter - Spanish
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_36" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24176" href="javascript:;" onclick="treetable_toggleRow('table1_17_36');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					January 2020
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_36_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload172874" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=172874" target="_new" aria-labelledby="DocumentSubCat24176 DocumentDownload172874">
+					    January Newsletter - English
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_36_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload172873" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=172873" target="_new" aria-labelledby="DocumentSubCat24176 DocumentDownload172873">
+					    January Newsletter - Spanish
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_37" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24213" href="javascript:;" onclick="treetable_toggleRow('table1_17_37');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					February 2020
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_37_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173120" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173120" target="_new" aria-labelledby="DocumentSubCat24213 DocumentDownload173120">
+					    February 2020 Newsletter - ENGLISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_37_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173119" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173119" target="_new" aria-labelledby="DocumentSubCat24213 DocumentDownload173119">
+					    February 2020 Newsletter - SPANISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_38" class="SubCategory">
+<td style="padding-left: 20px;">
+				<a id="DocumentSubCat24236" href="javascript:;" onclick="treetable_toggleRow('table1_17_38');">
+					<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Sub Folder">
+					March 2020
+				</a>
+		  </td>
+		  <td align="right" valign="bottom">
+				<small>(2 Files)</small>
+		  </td>
+		</tr>
+<tr id="table1_17_38_0" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173341" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173341" target="_new" aria-labelledby="DocumentSubCat24236 DocumentDownload173341">
+					    March 2020 Newsletter
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_17_38_1" class="File">
+<td style="padding-left: 40px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload173340" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=2&amp;I=173340" target="_new" aria-labelledby="DocumentSubCat24236 DocumentDownload173340">
+					    March 2020 Newsletter - SPANISH
+				    </a>
+			    </td>
+		    </tr>
+<tr id="table1_18" class="MainCategory">
+<td>
+			<a id="DocumentCat18" href="javascript:;" onclick="treetable_toggleRow('table1_18');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Tennessee Promise
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(2 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_18_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload380745" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=380745" target="_new" aria-labelledby="DocumentCat18 DocumentDownload380745">
+					    Tennessee Promise Information
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_18_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload396733" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=396733" target="_new" aria-labelledby="DocumentCat18 DocumentDownload396733">
+					    Tennessee Promise Information SPANISH
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_19" class="MainCategory">
+<td>
+			<a id="DocumentCat19" href="javascript:;" onclick="treetable_toggleRow('table1_19');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Tennessee State Testing Windows
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(5 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_19_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload504113" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=504113" target="_new" aria-labelledby="DocumentCat19 DocumentDownload504113">
+					    Testing Schedule 2015-2016
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_19_1" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload580210" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=580210" target="_new" aria-labelledby="DocumentCat19 DocumentDownload580210">
+					    Testing Schedule 2016-2017
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_19_2" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload656468" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=656468" target="_new" aria-labelledby="DocumentCat19 DocumentDownload656468">
+					    Testing Schedule 2017-2018 - Revised
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_19_3" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload698056" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=698056" target="_new" aria-labelledby="DocumentCat19 DocumentDownload698056">
+					    Testing Schedule 2018-2019
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_19_4" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload730994" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=730994" target="_new" aria-labelledby="DocumentCat19 DocumentDownload730994">
+					    Testing Schedule 2018-2019 - Revised
+				    </a>	
+		      </td>
+		    </tr>
+<tr id="table1_20" class="MainCategory">
+<td>
+			<a id="DocumentCat20" href="javascript:;" onclick="treetable_toggleRow('table1_20');">
+				<img src="/Images/Icons/FolderFullIconMedium.gif" class="button" border="0" alt="Folder">
+				Zoning Map
+			</a>
+		</td>
+		<td align="right" valign="bottom">
+			<small>(1 Files)</small>
+		</td>
+	</tr>
+<tr id="table1_20_0" class="File">
+<td style="padding-left: 20px;" colspan="2">
+					
+						<img src="http://images.pcmac.org/images/filetypes/pdf.gif" border="0" alt="pdf file"><a id="DocumentDownload187769" href="/Download.asp?L=0&amp;LMID=&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=&amp;Act=Download&amp;T=1&amp;I=187769" target="_new" aria-labelledby="DocumentCat20 DocumentDownload187769">
+					    Zoning Map
+				    </a>	
+		      </td>
+		    </tr>
+</table>
+<script language="JavaScript">
+    //var onLoad = treetable_collapseAll('table1');
+    var flag = 0;
+        
+    if(flag == 0)
+        treetable_collapseAll('table1');
+        //window.onload = function(){eval(onLoad)};
+</script><script language="JavaScript" type="text/JavaScript">
+	$(document).ready(function() {
+		document.title = "FIles | Bedford County School District";
+	})
+</script>
+</td>
+        </div>
+	</tr></table>
+<div style="background: #fff;">
+								<div id="Legal">
+	<a href="http://www.schoolinsites.com/"><img src="/images/SisPoweredSmall.png" id="PoweredBy" height="30" width="120" alt="Powered and Designed by SCHOOLinSITES"></a>
+	
+	<p class="right">
+		Copyright © 2020  Bedford County School District
+	</p>
+</div>
+
+                                <p style="font:10px Arial, Helvetica, sans-serif; text-align:center; color:#222">Bedford County Schools offers educational and employment opportunities without regard to race, color, national origin, religion, sex, creed, age, or disability.<br>  Bedford County Schools is not responsible for questionable or controversial content found through links external to this site.<br>
+                                                                
+                                </p>
+							</div>
+						</div>
+					</div>
+					<div id="BottomRnd"> </div>
+				</td>
+			</tr></table>
+</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" version="XHTML+RDFa 1.0" dir="ltr" xmlns:fb="http://www.facebook.com/2008/fbml" xmlns:og="http://ogp.me/ns#" xmlns:article="http://ogp.me/ns/article#" xmlns:book="http://ogp.me/ns/book#" xmlns:profile="http://ogp.me/ns/profile#" xmlns:video="http://ogp.me/ns/video#" xmlns:product="http://ogp.me/ns/product#" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/terms/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:sioc="http://rdfs.org/sioc/ns#" xmlns:sioct="http://rdfs.org/sioc/types#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#">
+<head>
+<script language="JavaScript" type="text/javascript">
+var DD_roundies = {
+
+	ns: 'DD_roundies',
+
+	IE6: false,
+	IE7: false,
+	IE8: false,
+	IEversion: function() {
+		if (document.documentMode != 8 && document.namespaces && !document.namespaces[this.ns]) {
+			this.IE6 = true;
+			this.IE7 = true;
+		}
+		else if (document.documentMode == 8) {
+			this.IE8 = true;
+		}
+	},
+	querySelector: document.querySelectorAll,
+	selectorsToProcess: [],
+	imgSize: {},
+
+	createVmlNameSpace: function() { /* enable VML */
+		if (this.IE6 || this.IE7) {
+			document.namespaces.add(this.ns, 'urn:schemas-microsoft-com:vml');
+		}
+		if (this.IE8) {
+			document.namespaces.add(this.ns, 'urn:schemas-microsoft-com:vml');
+		}
+	},
+
+	createVmlStyleSheet: function() { /* style VML, enable behaviors */
+		/*
+			Just in case lots of other developers have added
+			lots of other stylesheets using document.createStyleSheet
+			and hit the 31-limit mark, let's not use that method!
+			further reading: http://msdn.microsoft.com/en-us/library/ms531194(VS.85).aspx
+		*/
+		var style = document.createElement('style');
+		document.documentElement.firstChild.insertBefore(style, document.documentElement.firstChild.firstChild);
+		if (style.styleSheet) { /* IE */
+			try {
+				var styleSheet = style.styleSheet;
+				styleSheet.addRule(this.ns + '\\:*', '{behavior:url(#default#VML)}');
+				this.styleSheet = styleSheet;
+			} catch(err) {}
+		}
+		else {
+			this.styleSheet = style;
+		}
+	},
+
+	/**
+	* Method to use from afar - refer to it whenever.
+	* Example for IE only: DD_roundies.addRule('div.boxy_box', '10px 5px');
+	* Example for IE, Firefox, and WebKit: DD_roundies.addRule('div.boxy_box', '10px 5px', true);
+	* @param {String} selector - REQUIRED - a CSS selector, such as '#doc .container'
+	* @param {Integer} radius - REQUIRED - the desired radius for the box corners
+	* @param {Boolean} standards - OPTIONAL - true if you also wish to output -moz-border-radius/-webkit-border-radius/border-radius declarations
+	**/
+	addRule: function(selector, rad, standards) {
+		if (typeof rad == 'undefined' || rad === '') {
+			rad = 0;
+		}
+		if (rad.constructor.toString().search('Array') == -1) {
+			rad = rad.toString().replace(/[^0-9 ]/g, '').split(' ');
+		}
+		for (var i=0; i<4; i++) {
+			rad[i] = (!rad[i] && rad[i] !== 0) ? rad[Math.max((i-2), 0)] : rad[i];
+		}
+		if (this.styleSheet) {
+			if (this.styleSheet.addRule) { /* IE */
+				var selectors = selector.split(','); /* multiple selectors supported, no need for multiple calls to this anymore */
+				for (var i=0; i<selectors.length; i++) {
+					this.styleSheet.addRule(selectors[i], 'behavior:expression(DD_roundies.roundify.call(this, [' + rad.join(',') + ']))'); /* seems to execute the function without adding it to the stylesheet - interesting... */
+				}
+			}
+			else if (standards) {
+				var moz_implementation = rad.join('px ') + 'px';
+				this.styleSheet.appendChild(document.createTextNode(selector + ' {border-radius:' + moz_implementation + '; -moz-border-radius:' + moz_implementation + ';}'));
+				this.styleSheet.appendChild(document.createTextNode(selector + ' {-webkit-border-top-left-radius:' + rad[0] + 'px ' + rad[0] + 'px; -webkit-border-top-right-radius:' + rad[1] + 'px ' + rad[1] + 'px; -webkit-border-bottom-right-radius:' + rad[2] + 'px ' + rad[2] + 'px; -webkit-border-bottom-left-radius:' + rad[3] + 'px ' + rad[3] + 'px;}'));
+			}
+		}
+		else if (this.IE8) {
+			this.selectorsToProcess.push({'selector':selector, 'radii':rad});
+		}
+	},
+
+	readPropertyChanges: function(el) {
+		switch (event.propertyName) {
+			case 'style.border':
+			case 'style.borderWidth':
+			case 'style.padding':
+				this.applyVML(el);
+				break;
+			case 'style.borderColor':
+				this.vmlStrokeColor(el);
+				break;
+			case 'style.backgroundColor':
+			case 'style.backgroundPosition':
+			case 'style.backgroundRepeat':
+				this.applyVML(el);
+				break;
+			case 'style.display':
+				el.vmlBox.style.display = (el.style.display == 'none') ? 'none' : 'block';
+				break;
+			case 'style.filter':
+				this.vmlOpacity(el);
+				break;
+			case 'style.zIndex':
+				el.vmlBox.style.zIndex = el.style.zIndex;
+				break;
+		}
+	},
+
+	applyVML: function(el) {
+		el.runtimeStyle.cssText = '';
+		this.vmlFill(el);
+		this.vmlStrokeColor(el);
+		this.vmlStrokeWeight(el);
+		this.vmlOffsets(el);
+		this.vmlPath(el);
+		this.nixBorder(el);
+		this.vmlOpacity(el);
+	},
+
+	vmlOpacity: function(el) {
+		if (el.currentStyle.filter.search('lpha') != -1) {
+			var trans = el.currentStyle.filter;
+			trans = parseInt(trans.substring(trans.lastIndexOf('=')+1, trans.lastIndexOf(')')), 10)/100;
+			for (var v in el.vml) {
+				el.vml[v].filler.opacity = trans;
+			}
+		}
+	},
+
+	vmlFill: function(el) {
+		if (!el.currentStyle) {
+			return;
+		} else {
+			var elStyle = el.currentStyle;
+		}
+		el.runtimeStyle.backgroundColor = '';
+		el.runtimeStyle.backgroundImage = '';
+		var noColor = (elStyle.backgroundColor == 'transparent');
+		var noImg = true;
+		if (elStyle.backgroundImage != 'none' || el.isImg) {
+			if (!el.isImg) {
+				el.vmlBg = elStyle.backgroundImage;
+				el.vmlBg = el.vmlBg.substr(5, el.vmlBg.lastIndexOf('")')-5);
+			}
+			else {
+				el.vmlBg = el.src;
+			}
+			var lib = this;
+			if (!lib.imgSize[el.vmlBg]) { /* determine size of loaded image */
+				var img = document.createElement('img');
+				img.attachEvent('onload', function() {
+					this.width = this.offsetWidth; /* weird cache-busting requirement! */
+					this.height = this.offsetHeight;
+					lib.vmlOffsets(el);
+				});
+				img.className = lib.ns + '_sizeFinder';
+				img.runtimeStyle.cssText = 'behavior:none; position:absolute; top:-10000px; left:-10000px; border:none;'; /* make sure to set behavior to none to prevent accidental matching of the helper elements! */
+				img.src = el.vmlBg;
+				img.removeAttribute('width');
+				img.removeAttribute('height');
+				document.body.insertBefore(img, document.body.firstChild);
+				lib.imgSize[el.vmlBg] = img;
+			}
+			el.vml.image.filler.src = el.vmlBg;
+			noImg = false;
+		}
+		el.vml.image.filled = !noImg;
+		el.vml.image.fillcolor = 'none';
+		el.vml.color.filled = !noColor;
+		el.vml.color.fillcolor = elStyle.backgroundColor;
+		el.runtimeStyle.backgroundImage = 'none';
+		el.runtimeStyle.backgroundColor = 'transparent';
+	},
+
+	vmlStrokeColor: function(el) {
+		el.vml.stroke.fillcolor = el.currentStyle.borderColor;
+	},
+
+	vmlStrokeWeight: function(el) {
+		var borders = ['Top', 'Right', 'Bottom', 'Left'];
+		el.bW = {};
+		for (var b=0; b<4; b++) {
+			el.bW[borders[b]] = parseInt(el.currentStyle['border' + borders[b] + 'Width'], 10) || 0;
+		}
+	},
+
+	vmlOffsets: function(el) {
+		var dims = ['Left', 'Top', 'Width', 'Height'];
+		for (var d=0; d<4; d++) {
+			el.dim[dims[d]] = el['offset'+dims[d]];
+		}
+		var assign = function(obj, topLeft) {
+			obj.style.left = (topLeft ? 0 : el.dim.Left) + 'px';
+			obj.style.top = (topLeft ? 0 : el.dim.Top) + 'px';
+			obj.style.width = el.dim.Width + 'px';
+			obj.style.height = el.dim.Height + 'px';
+		};
+		for (var v in el.vml) {
+			var mult = (v == 'image') ? 1 : 2;
+			el.vml[v].coordsize = (el.dim.Width*mult) + ', ' + (el.dim.Height*mult);
+			assign(el.vml[v], true);
+		}
+		assign(el.vmlBox, false);
+
+		if (DD_roundies.IE8) {
+			el.vml.stroke.style.margin = '-1px';
+			if (typeof el.bW == 'undefined') {
+				this.vmlStrokeWeight(el);
+			}
+			el.vml.color.style.margin = (el.bW.Top-1) + 'px ' + (el.bW.Left-1) + 'px';
+		}
+	},
+
+	vmlPath: function(el) {
+		var coords = function(direction, w, h, r, aL, aT, mult) {
+			var cmd = direction ? ['m', 'qy', 'l', 'qx', 'l', 'qy', 'l', 'qx', 'l'] : ['qx', 'l', 'qy', 'l', 'qx', 'l', 'qy', 'l', 'm']; /* whoa */
+			aL *= mult;
+			aT *= mult;
+			w *= mult;
+			h *= mult;
+			var R = r.slice(); /* do not affect original array */
+			for (var i=0; i<4; i++) {
+				R[i] *= mult;
+				R[i] = Math.min(w/2, h/2, R[i]); /* make sure you do not get funky shapes - pick the smallest: half of the width, half of the height, or current value */
+			}
+			var coords = [
+				cmd[0] + Math.floor(0+aL) +','+ Math.floor(R[0]+aT),
+				cmd[1] + Math.floor(R[0]+aL) +','+ Math.floor(0+aT),
+				cmd[2] + Math.ceil(w-R[1]+aL) +','+ Math.floor(0+aT),
+				cmd[3] + Math.ceil(w+aL) +','+ Math.floor(R[1]+aT),
+				cmd[4] + Math.ceil(w+aL) +','+ Math.ceil(h-R[2]+aT),
+				cmd[5] + Math.ceil(w-R[2]+aL) +','+ Math.ceil(h+aT),
+				cmd[6] + Math.floor(R[3]+aL) +','+ Math.ceil(h+aT),
+				cmd[7] + Math.floor(0+aL) +','+ Math.ceil(h-R[3]+aT),
+				cmd[8] + Math.floor(0+aL) +','+ Math.floor(R[0]+aT)
+			];
+			if (!direction) {
+				coords.reverse();
+			}
+			var path = coords.join('');
+			return path;
+		};
+
+		if (typeof el.bW == 'undefined') {
+			this.vmlStrokeWeight(el);
+		}
+		var bW = el.bW;
+		var rad = el.DD_radii.slice();
+
+		/* determine outer curves */
+		var outer = coords(true, el.dim.Width, el.dim.Height, rad, 0, 0, 2);
+
+		/* determine inner curves */
+		rad[0] -= Math.max(bW.Left, bW.Top);
+		rad[1] -= Math.max(bW.Top, bW.Right);
+		rad[2] -= Math.max(bW.Right, bW.Bottom);
+		rad[3] -= Math.max(bW.Bottom, bW.Left);
+		for (var i=0; i<4; i++) {
+			rad[i] = Math.max(rad[i], 0);
+		}
+		var inner = coords(false, el.dim.Width-bW.Left-bW.Right, el.dim.Height-bW.Top-bW.Bottom, rad, bW.Left, bW.Top, 2);
+		var image = coords(true, el.dim.Width-bW.Left-bW.Right+1, el.dim.Height-bW.Top-bW.Bottom+1, rad, bW.Left, bW.Top, 1);
+
+		/* apply huge path string */
+		el.vml.color.path = inner;
+		el.vml.image.path = image;
+		el.vml.stroke.path = outer + inner;
+
+		this.clipImage(el);
+	},
+
+	nixBorder: function(el) {
+		var s = el.currentStyle;
+		var sides = ['Top', 'Left', 'Right', 'Bottom'];
+		for (var i=0; i<4; i++) {
+			el.runtimeStyle['padding' + sides[i]] = (parseInt(s['padding' + sides[i]], 10) || 0) + (parseInt(s['border' + sides[i] + 'Width'], 10) || 0) + 'px';
+		}
+		el.runtimeStyle.border = 'none';
+	},
+
+	clipImage: function(el) {
+		var lib = DD_roundies;
+		if (!el.vmlBg || !lib.imgSize[el.vmlBg]) {
+			return;
+		}
+		var thisStyle = el.currentStyle;
+		var bg = {'X':0, 'Y':0};
+		var figurePercentage = function(axis, position) {
+			var fraction = true;
+			switch(position) {
+				case 'left':
+				case 'top':
+					bg[axis] = 0;
+					break;
+				case 'center':
+					bg[axis] = 0.5;
+					break;
+				case 'right':
+				case 'bottom':
+					bg[axis] = 1;
+					break;
+				default:
+					if (position.search('%') != -1) {
+						bg[axis] = parseInt(position, 10) * 0.01;
+					}
+					else {
+						fraction = false;
+					}
+			}
+			var horz = (axis == 'X');
+			bg[axis] = Math.ceil(fraction ? (( el.dim[horz ? 'Width' : 'Height'] - (el.bW[horz ? 'Left' : 'Top'] + el.bW[horz ? 'Right' : 'Bottom']) ) * bg[axis]) - (lib.imgSize[el.vmlBg][horz ? 'width' : 'height'] * bg[axis]) : parseInt(position, 10));
+			bg[axis] += 1;
+		};
+		for (var b in bg) {
+			figurePercentage(b, thisStyle['backgroundPosition'+b]);
+		}
+		el.vml.image.filler.position = (bg.X/(el.dim.Width-el.bW.Left-el.bW.Right+1)) + ',' + (bg.Y/(el.dim.Height-el.bW.Top-el.bW.Bottom+1));
+		var bgR = thisStyle.backgroundRepeat;
+		var c = {'T':1, 'R':el.dim.Width+1, 'B':el.dim.Height+1, 'L':1}; /* these are defaults for repeat of any kind */
+		var altC = { 'X': {'b1': 'L', 'b2': 'R', 'd': 'Width'}, 'Y': {'b1': 'T', 'b2': 'B', 'd': 'Height'} };
+		if (bgR != 'repeat') {
+			c = {'T':(bg.Y), 'R':(bg.X+lib.imgSize[el.vmlBg].width), 'B':(bg.Y+lib.imgSize[el.vmlBg].height), 'L':(bg.X)}; /* these are defaults for no-repeat - clips down to the image location */
+			if (bgR.search('repeat-') != -1) { /* now let's revert to dC for repeat-x or repeat-y */
+				var v = bgR.split('repeat-')[1].toUpperCase();
+				c[altC[v].b1] = 1;
+				c[altC[v].b2] = el.dim[altC[v].d]+1;
+			}
+			if (c.B > el.dim.Height) {
+				c.B = el.dim.Height+1;
+			}
+		}
+		el.vml.image.style.clip = 'rect('+c.T+'px '+c.R+'px '+c.B+'px '+c.L+'px)';
+	},
+
+	pseudoClass: function(el) {
+		var self = this;
+		setTimeout(function() { /* would not work as intended without setTimeout */
+			self.applyVML(el);
+		}, 1);
+	},
+
+	reposition: function(el) {
+		this.vmlOffsets(el);
+		this.vmlPath(el);
+	},
+
+	roundify: function(rad) {
+		this.style.behavior = 'none';
+		if (!this.currentStyle) {
+			return;
+		}
+		else {
+			var thisStyle = this.currentStyle;
+		}
+		var allowed = {BODY: false, TABLE: false, TR: false, TD: false, SELECT: false, OPTION: false, TEXTAREA: false};
+		if (allowed[this.nodeName] === false) { /* elements not supported yet */
+			return;
+		}
+		var self = this; /* who knows when you might need a setTimeout */
+		var lib = DD_roundies;
+		this.DD_radii = rad;
+		this.dim = {};
+
+		/* attach handlers */
+		var handlers = {resize: 'reposition', move: 'reposition'};
+		if (this.nodeName == 'A') {
+			var moreForAs = {mouseleave: 'pseudoClass', mouseenter: 'pseudoClass', focus: 'pseudoClass', blur: 'pseudoClass'};
+			for (var a in moreForAs) {
+				handlers[a] = moreForAs[a];
+			}
+		}
+		for (var h in handlers) {
+			this.attachEvent('on' + h, function() {
+				lib[handlers[h]](self);
+			});
+		}
+		this.attachEvent('onpropertychange', function() {
+			lib.readPropertyChanges(self);
+		});
+
+		/* ensure that this elent and its parent is given hasLayout (needed for accurate positioning) */
+		var giveLayout = function(el) {
+			el.style.zoom = 1;
+			if (el.currentStyle.position == 'static') {
+				el.style.position = 'relative';
+			}
+		};
+		giveLayout(this.offsetParent);
+		giveLayout(this);
+
+		/* create vml elements */
+		this.vmlBox = document.createElement('ignore'); /* IE8 really wants to be encased in a wrapper element for the VML to work, and I don't want to disturb getElementsByTagName('div') - open to suggestion on how to do this differently */
+		this.vmlBox.runtimeStyle.cssText = 'behavior:none; position:absolute; margin:0; padding:0; border:0; background:none;'; /* super important - if something accidentally matches this (you yourseld did this once, Drew), you'll get infinitely-created elements and a frozen browser! */
+		this.vmlBox.style.zIndex = thisStyle.zIndex;
+		this.vml = {'color':true, 'image':true, 'stroke':true};
+		for (var v in this.vml) {
+			this.vml[v] = document.createElement(lib.ns + ':shape');
+			this.vml[v].filler = document.createElement(lib.ns + ':fill');
+			this.vml[v].appendChild(this.vml[v].filler);
+			this.vml[v].stroked = false;
+			this.vml[v].style.position = 'absolute';
+			this.vml[v].style.zIndex = thisStyle.zIndex;
+			this.vml[v].coordorigin = '1,1';
+			this.vmlBox.appendChild(this.vml[v]);
+		}
+		this.vml.image.fillcolor = 'none';
+		this.vml.image.filler.type = 'tile';
+		this.parentNode.insertBefore(this.vmlBox, this);
+
+		this.isImg = false;
+		if (this.nodeName == 'IMG') {
+			this.isImg = true;
+			this.style.visibility = 'hidden';
+		}
+
+		setTimeout(function() {
+			lib.applyVML(self);
+		}, 1);
+	}
+
+};
+
+try {
+	document.execCommand("BackgroundImageCache", false, true);
+} catch(err) {}
+DD_roundies.IEversion();
+DD_roundies.createVmlNameSpace();
+DD_roundies.createVmlStyleSheet();
+
+if (DD_roundies.IE8 && document.attachEvent && DD_roundies.querySelector) {
+	document.attachEvent('onreadystatechange', function() {
+		if (document.readyState == 'complete') {
+			var selectors = DD_roundies.selectorsToProcess;
+			var length = selectors.length;
+			var delayedCall = function(node, radii, index) {
+				setTimeout(function() {
+					DD_roundies.roundify.call(node, radii);
+				}, index*100);
+			};
+			for (var i=0; i<length; i++) {
+				var results = document.querySelectorAll(selectors[i].selector);
+				var rLength = results.length;
+				for (var r=0; r<rLength; r++) {
+					if (results[r].nodeName != 'INPUT') { /* IE8 doesn't like to do this to inputs yet */
+						delayedCall(results[r], selectors[i].radii, r);
+					}
+				}
+			}
+		}
+	});
+}
+		</script><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="The Oklahoma State Department of Education is the state education agency of the State of Oklahoma who determines the policies and directing the administration and supervision of the public school system of Oklahoma.">
+<meta name="keywords" content="osde, education, Oklahoma, State Department of Education, government, local">
+<meta name="robots" content="follow, index">
+<meta name="news_keywords" content="osde, education, Oklahoma, State Department of Education, government, local">
+<meta name="rating" content="general">
+<link rel="canonical" href="https://sde.ok.gov/">
+<link rel="shortlink" href="https://sde.ok.gov/">
+<meta name="original-source" content="https://sde.ok.gov">
+<meta property="og:site_name" content="Oklahoma State Department of Education">
+<meta property="og:type" content="government">
+<meta property="og:description" content="The Oklahoma State Department of Education is the state education agency of the State of Oklahoma who determines the policies and directing the administration and supervision of the public school system of Oklahoma.">
+<meta property="og:image" content="https://sde.ok.gov/sites/default/files/images/sde-h-logo-social-600x315.png">
+<meta property="og:image:url" content="https://sde.ok.gov/sites/default/files/images/sde-h-logo-social-600x315.png">
+<meta property="og:image:secure_url" content="https://sde.ok.gov/sites/default/files/images/sde-h-logo-social-600x315.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="600">
+<meta property="og:image:height" content="315">
+<meta name="thumbnail" content="https://sde.ok.gov/sites/default/files/images/SDE-Logo-Horizontal500.png">
+<meta name="department" content="Education">
+<meta name="audience" content="all">
+<link rel="shortcut icon" href="https://sde.ok.gov/sites/ok.gov.sde/files/sde-icon-osde.png" type="image/png">
+<title>Oklahoma State Department of Education |</title>
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<style type="text/css" media="all">
+@import url("https://sde.ok.gov/modules/system/system.base.css?q95igs");
+@import url("https://sde.ok.gov/modules/system/system.menus.css?q95igs");
+@import url("https://sde.ok.gov/modules/system/system.messages.css?q95igs");
+@import url("https://sde.ok.gov/modules/system/system.theme.css?q95igs");
+</style>
+<style type="text/css" media="all">
+@import url("https://sde.ok.gov/profiles/firmstep/modules/contrib/comment_notify/comment_notify.css?q95igs");
+@import url("https://sde.ok.gov/modules/aggregator/aggregator.css?q95igs");
+@import url("https://sde.ok.gov/modules/comment/comment.css?q95igs");
+@import url("https://sde.ok.gov/profiles/firmstep/modules/contrib/date/date_api/date.css?q95igs");
+@import url("https://sde.ok.gov/profiles/firmstep/modules/contrib/date/date_popup/themes/datepicker.1.7.css?q95igs");
+@import url("https://sde.ok.gov/modules/field/theme/field.css?q95igs");
+@import url("https://sde.ok.gov/modules/node/node.css?q95igs");
+@import url("https://sde.ok.gov/modules/search/search.css?q95igs");
+@import url("https://sde.ok.gov/modules/user/user.css?q95igs");
+@import url("https://sde.ok.gov/profiles/firmstep/modules/contrib/workbench_notification/workbench_notification.css?q95igs");
+@import url("https://sde.ok.gov/profiles/firmstep/modules/contrib/calendar/css/calendar_multiday.css?q95igs");
+@import url("https://sde.ok.gov/profiles/firmstep/modules/contrib/views_new/views/css/views.css?q95igs");
+@import url("https://sde.ok.gov/profiles/firmstep/css/menu.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/modules/contrib/ckeditor/css/ckeditor.css?q95igs");
+</style>
+<style type="text/css" media="all">
+@import url("https://sde.ok.gov/profiles/firmstep/modules/contrib/colorbox/styles/default/colorbox_style.css?q95igs");
+@import url("https://sde.ok.gov/profiles/firmstep/modules/custom/combineblocks/combineblocks.css?q95igs");
+@import url("https://sde.ok.gov/profiles/firmstep/modules/contrib/ctools/css/ctools.css?q95igs");
+@import url("https://sde.ok.gov/profiles/firmstep/modules/contrib/follow/follow.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/modules/panels/css/panels.css?q95igs");
+@import url("https://sde.ok.gov/profiles/firmstep/modules/contrib/video/css/video.css?q95igs");
+@import url("https://sde.ok.gov/sites/default/files/ctools/css/3f6a43cde491c03189d14d68dadceb0a.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/modules/panels/plugins/layouts/twocol_stacked/twocol_stacked.css?q95igs");
+</style>
+<style type="text/css" media="all">
+<!--/*--><![CDATA[/*><!--*/
+.mainnav li{width:180px}
+
+/*]]>*/-->
+</style>
+<style type="text/css" media="all">
+@import url("https://sde.ok.gov/sites/all/modules/rotating_banner/rotating_banner.css?q95igs");
+</style>
+<style type="text/css" media="all">
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/basics.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/jquery.tooltip.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/editor.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/sde_side_menu.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/sde_content_type_pages.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/calendar.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/cpn-change.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/frontpage.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/sde_forms.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/education.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/mainnav.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/bxslider.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/content.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/twitter.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/openpublic_theme.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/faw/css/all.css?q95igs");
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/banner.css?q95igs");
+</style>
+<style type="text/css" media="print">
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/print.css?q95igs");
+</style>
+<!--[if lte IE 8]>
+<style type="text/css" media="all">
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/openpublic_theme_ie8.css?q95igs");
+</style>
+<![endif]--><!--[if lte IE 7]>
+<style type="text/css" media="all">
+@import url("https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/openpublic_theme_ie7.css?q95igs");
+</style>
+<![endif]--><link type="text/css" rel="stylesheet" href="https://sde.ok.gov/sites/default/files/cpn/5020.css?1585334361" media="all">
+<script type="text/javascript" src="https://sde.ok.gov/sites/all/modules/contrib/jquery_update/replace/jquery/2.2/jquery.min.js?v=2.2.4"></script><script type="text/javascript" src="https://sde.ok.gov/misc/jquery-extend-3.4.0.js?v=2.2.4"></script><script type="text/javascript" src="https://sde.ok.gov/misc/jquery.once.js?v=1.2"></script><script type="text/javascript" src="https://sde.ok.gov/misc/drupal.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/profiles/firmstep/modules/contrib/comment_notify/comment_notify.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/modules/fancy_file_delete/js/fancyfiledelete.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/libraries/colorbox/jquery.colorbox-min.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/profiles/firmstep/modules/contrib/colorbox/js/colorbox.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/profiles/firmstep/modules/contrib/colorbox/styles/default/colorbox_style.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/profiles/firmstep/modules/contrib/colorbox/js/colorbox_load.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/profiles/firmstep/modules/custom/combineblocks/combineblocks.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/default/files/jstimer/timer.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/profiles/firmstep/modules/contrib/video/js/video.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/profiles/firmstep/modules/contrib/google_analytics/googleanalytics.js?q95igs"></script><script type="text/javascript">
+<!--//--><![CDATA[//><!--
+(function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga");ga("create", "UA-39643529-1", {"cookieDomain":"auto"});ga("require", "linkid", "linkid.js");ga("send", "pageview");
+//--><!]]>
+</script><script type="text/javascript" src="https://sde.ok.gov/sites/all/modules/rotating_banner/includes/jquery.easing.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/modules/rotating_banner/includes/jquery.cycle.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/modules/rotating_banner/rotating_banner.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/js/jquery-2.2.4.min.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/js/jquery.accessible-accordion.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/js/theme-support.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/js/jquery.tooltip.min.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/jquery.easing.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/jquery.pause.min.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/jquery.bxSlider.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/imageflow.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/css/jquery.cross-slide.min.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/js/block_sidemenu.js?q95igs"></script><script type="text/javascript" src="https://sde.ok.gov/sites/all/themes/oklahoma_sde/js/accordians.js?q95igs"></script><script type="text/javascript">
+<!--//--><![CDATA[//><!--
+jQuery.extend(Drupal.settings, {"basePath":"\/","pathPrefix":"","ajaxPageState":{"theme":"oklahoma_sde","theme_token":"LeXbtq6mxD3-vx4I3-7kBJ4wDFazAlUX5gyDqeDJaQM","js":{"profiles\/firmstep\/modules\/contrib\/addthis\/addthis.js":1,"sites\/all\/modules\/contrib\/jquery_update\/replace\/jquery\/2.2\/jquery.min.js":1,"misc\/jquery-extend-3.4.0.js":1,"misc\/jquery.once.js":1,"misc\/drupal.js":1,"profiles\/firmstep\/modules\/contrib\/comment_notify\/comment_notify.js":1,"sites\/all\/modules\/fancy_file_delete\/js\/fancyfiledelete.js":1,"sites\/all\/libraries\/colorbox\/jquery.colorbox-min.js":1,"profiles\/firmstep\/modules\/contrib\/colorbox\/js\/colorbox.js":1,"profiles\/firmstep\/modules\/contrib\/colorbox\/styles\/default\/colorbox_style.js":1,"profiles\/firmstep\/modules\/contrib\/colorbox\/js\/colorbox_load.js":1,"profiles\/firmstep\/modules\/custom\/combineblocks\/combineblocks.js":1,"public:\/\/jstimer\/timer.js":1,"profiles\/firmstep\/modules\/contrib\/video\/js\/video.js":1,"profiles\/firmstep\/modules\/contrib\/google_analytics\/googleanalytics.js":1,"0":1,"sites\/all\/modules\/rotating_banner\/includes\/jquery.easing.js":1,"sites\/all\/modules\/rotating_banner\/includes\/jquery.cycle.js":1,"sites\/all\/modules\/rotating_banner\/rotating_banner.js":1,"sites\/all\/themes\/oklahoma_sde\/js\/jquery-2.2.4.min.js":1,"sites\/all\/themes\/oklahoma_sde\/js\/jquery.accessible-accordion.js":1,"sites\/all\/themes\/oklahoma_sde\/js\/theme-support.js":1,"sites\/all\/themes\/oklahoma_sde\/js\/jquery.tooltip.min.js":1,"sites\/all\/themes\/oklahoma_sde\/css\/jquery.easing.js":1,"sites\/all\/themes\/oklahoma_sde\/css\/jquery.pause.min.js":1,"sites\/all\/themes\/oklahoma_sde\/css\/jquery.bxSlider.js":1,"sites\/all\/themes\/oklahoma_sde\/css\/imageflow.js":1,"sites\/all\/themes\/oklahoma_sde\/css\/jquery.cross-slide.min.js":1,"sites\/all\/themes\/oklahoma_sde\/js\/block_sidemenu.js":1,"sites\/all\/themes\/oklahoma_sde\/js\/accordians.js":1},"css":{"modules\/system\/system.base.css":1,"modules\/system\/system.menus.css":1,"modules\/system\/system.messages.css":1,"modules\/system\/system.theme.css":1,"profiles\/firmstep\/modules\/contrib\/comment_notify\/comment_notify.css":1,"modules\/aggregator\/aggregator.css":1,"modules\/comment\/comment.css":1,"profiles\/firmstep\/modules\/contrib\/date\/date_api\/date.css":1,"profiles\/firmstep\/modules\/contrib\/date\/date_popup\/themes\/datepicker.1.7.css":1,"modules\/field\/theme\/field.css":1,"modules\/node\/node.css":1,"modules\/search\/search.css":1,"modules\/user\/user.css":1,"profiles\/firmstep\/modules\/contrib\/workbench_notification\/workbench_notification.css":1,"profiles\/firmstep\/modules\/contrib\/calendar\/css\/calendar_multiday.css":1,"profiles\/firmstep\/modules\/contrib\/views_new\/views\/css\/views.css":1,"profiles\/firmstep\/css\/menu.css":1,"sites\/all\/modules\/contrib\/ckeditor\/css\/ckeditor.css":1,"profiles\/firmstep\/modules\/contrib\/colorbox\/styles\/default\/colorbox_style.css":1,"profiles\/firmstep\/modules\/custom\/combineblocks\/combineblocks.css":1,"profiles\/firmstep\/modules\/contrib\/ctools\/css\/ctools.css":1,"profiles\/firmstep\/modules\/contrib\/follow\/follow.css":1,"sites\/all\/modules\/panels\/css\/panels.css":1,"profiles\/firmstep\/modules\/contrib\/video\/css\/video.css":1,"public:\/\/ctools\/css\/3f6a43cde491c03189d14d68dadceb0a.css":1,"sites\/all\/modules\/panels\/plugins\/layouts\/twocol_stacked\/twocol_stacked.css":1,"0":1,"sites\/all\/modules\/rotating_banner\/rotating_banner.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/basics.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/jquery.tooltip.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/editor.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/sde_side_menu.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/sde_content_type_pages.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/calendar.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/cpn-change.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/frontpage.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/sde_forms.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/education.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/mainnav.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/bxslider.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/content.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/twitter.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/openpublic_theme.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/faw\/css\/all.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/banner.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/print.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/openpublic_theme_ie8.css":1,"sites\/all\/themes\/oklahoma_sde\/css\/openpublic_theme_ie7.css":1,"cpn_node_5020":1}},"colorbox":{"opacity":"0.85","current":"{current} of {total}","previous":"\u00ab Prev","next":"Next \u00bb","close":"Close","maxWidth":"98%","maxHeight":"98%","fixed":true,"mobiledetect":true,"mobiledevicewidth":"480px"},"combineblocks_sets":[["#block-views-most-popular-content-block-1","#block-views-most-popular-content-block-2"]],"jcarousel":{"ajaxPath":"\/jcarousel\/ajax\/views"},"rotatingBanners":{"rotating-banner-1":{"fluid":"0","width":"958","height":"256","cycle":{"fx":"fade","auto_slide":0,"timeout":"5000"},"controls":"prev_next"}},"googleanalytics":{"trackOutbound":1,"trackMailto":1,"trackDownload":1,"trackDownloadExtensions":"7z|aac|arc|arj|asf|asx|avi|bin|csv|doc(x|m)?|dot(x|m)?|exe|flv|gif|gz|gzip|hqx|jar|jpe?g|js|mp(2|3|4|e?g)|mov(ie)?|msi|msp|pdf|phps|png|ppt(x|m)?|pot(x|m)?|pps(x|m)?|ppam|sld(x|m)?|thmx|qtm?|ra(m|r)?|sea|sit|tar|tgz|torrent|txt|wav|wma|wmv|wpd|xls(x|m|b)?|xlt(x|m)|xlam|xml|z|zip","trackColorbox":1},"urlIsAjaxTrusted":{"\/":true}});
+//--><!]]>
+</script><meta name="google-site-verification" content="KBu7YDWv52NcEhs70D5fdThMn_PkvjI0AdOl19yTtts">
+<script>CKEDITOR.dtd.$removeEmpty['span'] = false;</script>
+</head>
+<body class="html front not-logged-in no-sidebars page-sdehome">
+    <div id="outer-wrapper">
+    <div id="skip-link">
+      <a href="#content" tabindex="-1" class="element-invisible element-focusable">Skip to main content</a>
+    </div>
+
+    <div id="outer-user-menu-wrap">
+<div id="user-menu-wrap">
+	<div class="main-navigation-top">
+	<ul class="links">
+<li class="menu-846 first"><a href="http://sde.ok.gov/sde/eventscal" title="Calendar" class="menu_icon menu-834">Calendar</a></li>
+<li class="menu-847"><a href="http://sde.ok.gov/sde/sde-service-desk" title="Contact" class="menu_icon menu-829">Contact</a></li>
+<li class="menu-1279 last"><a href="http://sde.ok.gov/sde/website-z-guide" class="menu_icon menu-832">A-Z Guide</a></li>
+</ul>
+</div>
+	
+		<h2 class="element-invisible">User menu</h2>
+<ul id="user-menu" class="links clearfix">
+<li class="menu-561 first last"><a href="/" title="">Home</a></li>
+</ul>
+</div>
+</div>
+<div id="page-wrapper" class="clearfix">
+	<div class="header">
+		<div id="header-inner">
+			<a href="#" class="header_image_control"></a>
+		<div class="header_left">
+			<a href="/" title="Visit Oklahoma State Department of Education Homepage" class="agency_name agency_name_short">
+				<span class="oklahoma">OKLAHOMA</span><br><span class="department">STATE DEPARTMENT OF EDUCATION</span><br><span class="superintendent">STATE SUPERINTENDENT JOY HOFMEISTER</span>
+			</a>
+		</div>
+<!-- END HEADER_LEFT DIV-->
+		<div class="header_right">
+			<div class="okgov">
+				<a href="http://www.ok.gov/" target="_okgov" title="Visit the Official Website of the State of Oklahoma">
+					<img src="/sites/all/themes/oklahoma_sde/images/spacer.gif" alt="Visit OK.gov" border="0"></a>
+			</div>
+<!-- END OKGOV DIV-->
+	       <div id="header-search">
+	          
+  <div class="region region-header">
+<div id="block-search-form" class="block block-search">
+
+    
+  <div class="content">
+    <form action="/" method="post" id="search-block-form" accept-charset="UTF-8"><div>
+<div class="container-inline">
+      <h2 class="element-invisible">Search form</h2>
+    <div class="form-item form-type-textfield form-item-search-block-form">
+  <label class="element-invisible" for="edit-search-block-form--2">Search </label>
+ <input title="Enter the terms you wish to search for." onblur="if (this.value == '') {this.value = 'Search Site';}" onfocus="if (this.value == 'Search Site') {this.value = '';}" type="text" id="edit-search-block-form--2" name="search_block_form" value="Search Site" size="15" maxlength="128" class="form-text">
+</div>
+<div class="form-actions form-wrapper" id="edit-actions"><input type="submit" id="edit-submit" name="op" value="GO" class="form-submit"></div>
+<input type="hidden" name="form_build_id" value="form-qGHNlAxUQyaZy80thEZyYj9DRFwExrON3EEAeEzLAAU"><input type="hidden" name="form_id" value="search_block_form">
+</div>
+</div></form>  </div>
+</div>
+  
+</div>
+
+	        </div>
+<!--/header search-->
+		</div>
+<!-- END HEADER_RIGHT DIV-->
+
+		</div>
+<!--end header inner-->
+	</div>
+<!-- END HEADER DIV -->
+						<div class="header_image" id="header_image">
+                                                   
+					                                             
+  <div class="region region-rotating-banner">
+<div id="block-rotating-banner-1" class="block block-rotating-banner">
+
+    
+  <div class="content">
+    <div class="static-wrapper"><div class="rotating-banner" id="rotating-banner-1" style="width: 958px;">
+	<div class="rb-slides" style="max-height: 256px;">
+	<div class="rb-slide top-left tallest rb-first-slide static">
+	<div class="top-left layout-wrapper" data-link="https://sde.ok.gov/newsblog/2020-03-12/coronaviruscovid-19-faqs-oklahoma-public-schools">
+	<div style="top: %; left: %; right: %; bottom: %;" class="rb-textbox-type-header rb-textbox-wrapper"><div class="rb-textbox"><a href="https://sde.ok.gov/newsblog/2020-03-12/coronaviruscovid-19-faqs-oklahoma-public-schools" class="rb-link"></a></div></div>
+<div style="top: %; left: %; right: %; bottom: %;" class="rb-textbox-type-text rb-textbox-wrapper"><div class="rb-textbox"><a href="https://sde.ok.gov/newsblog/2020-03-12/coronaviruscovid-19-faqs-oklahoma-public-schools" class="rb-link"></a></div></div>
+</div>
+<a href="https://sde.ok.gov/newsblog/2020-03-12/coronaviruscovid-19-faqs-oklahoma-public-schools" class="rb-link">
+<img class="rb-background-image" typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/covid-19-banner_0.jpg" alt=""></a>
+</div>
+<div class="rb-slide top-left   static">
+	<div class="top-left layout-wrapper" data-link="https://2020census.gov/">
+	<div style="top: %; left: %; right: %; bottom: %;" class="rb-textbox-type-header rb-textbox-wrapper"><div class="rb-textbox"><a href="https://2020census.gov/" class="rb-link"></a></div></div>
+<div style="top: %; left: %; right: %; bottom: %;" class="rb-textbox-type-text rb-textbox-wrapper"><div class="rb-textbox"><a href="https://2020census.gov/" class="rb-link"></a></div></div>
+</div>
+<a href="https://2020census.gov/" class="rb-link">
+<img class="rb-background-image" typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/2020-Census-Banner_0.jpg" alt=""></a>
+</div>
+<div class="rb-slide top-left   static">
+	<div class="top-left layout-wrapper" data-link="/distancelearning">
+	<div style="top: %; left: %; right: %; bottom: %;" class="rb-textbox-type-header rb-textbox-wrapper"><div class="rb-textbox"><a href="/distancelearning" class="rb-link"></a></div></div>
+<div style="top: %; left: %; right: %; bottom: %;" class="rb-textbox-type-text rb-textbox-wrapper"><div class="rb-textbox"><a href="/distancelearning" class="rb-link"></a></div></div>
+</div>
+<a href="/distancelearning" class="rb-link">
+<img class="rb-background-image" typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/Distance%20Learning%20Resources.jpg" alt=""></a>
+</div>
+<div class="rb-slide top-left   static">
+	<div class="top-left layout-wrapper" data-link="/oklahoma-family-guides">
+	<div style="top: 0%; left: %; right: %; bottom: 100%;" class="rb-textbox-type-header rb-textbox-wrapper"><div class="rb-textbox"><a href="/oklahoma-family-guides" class="rb-link"></a></div></div>
+<div style="top: 0%; left: %; right: %; bottom: 0%;" class="rb-textbox-type-text rb-textbox-wrapper"><div class="rb-textbox"><a href="/oklahoma-family-guides" class="rb-link"><br></a></div></div>
+</div>
+<a href="/oklahoma-family-guides" class="rb-link">
+<img class="rb-background-image" typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/Family-Guides-Spanish-Banner_0.jpg" alt=""></a>
+</div>
+<div class="rb-slide top-left   static">
+	<div class="top-left layout-wrapper" data-link="/oklahoma-curriculum-frameworks">
+	<div style="top: 0%; left: 0%; right: 0%; bottom: 100%;" class="rb-textbox-type-header rb-textbox-wrapper"><div class="rb-textbox"><a href="/oklahoma-curriculum-frameworks" class="rb-link"></a></div></div>
+<div style="top: 0%; left: 0%; right: 0%; bottom: 2.5%;" class="rb-textbox-type-text rb-textbox-wrapper"><div class="rb-textbox"><a href="/oklahoma-curriculum-frameworks" class="rb-link"><br></a></div></div>
+</div>
+<a href="/oklahoma-curriculum-frameworks" class="rb-link">
+<img class="rb-background-image" typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/OKCurrciculumBanner.jpg" alt=""></a>
+</div>
+<div class="rb-slide top-left   static">
+	<div class="top-left layout-wrapper" data-link="/covid19-instruction-support">
+	<div style="top: %; left: %; right: %; bottom: %;" class="rb-textbox-type-header rb-textbox-wrapper"><div class="rb-textbox"><a href="/covid19-instruction-support" class="rb-link"></a></div></div>
+<div style="top: %; left: %; right: %; bottom: %;" class="rb-textbox-type-text rb-textbox-wrapper"><div class="rb-textbox"><a href="/covid19-instruction-support" class="rb-link"></a></div></div>
+</div>
+<a href="/covid19-instruction-support" class="rb-link">
+<img class="rb-background-image" typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/Instructional%20Support%20for%20Distance%20Learning%20Banner.jpg" alt=""></a>
+</div>
+</div>
+<div class="prev_next controls">
+<a href="#" class="prev">Prev</a><a href="#" class="next">Next</a>
+</div>
+</div></div>  </div>
+</div>
+  
+</div>
+
+                                                                                            </div>
+				
+	
+	
+	
+		 <div id="navigation" class="mainnav">
+<div class="section">
+      <ul class="menu">
+<li class="first expanded">
+<a href="/about" title="Information about the Oklahoma State Department of Education">About</a><ul class="menu">
+<li class="first leaf"><a href="/superintendent">State Superintendent</a></li>
+<li class="leaf"><a href="/state-education-boards">State Education Boards</a></li>
+<li class="leaf"><a href="/state-school-directory">State School Directories</a></li>
+<li class="leaf"><a href="/office-legal-services">Legal Services</a></li>
+<li class="leaf"><a href="/directory">Staff Directory</a></li>
+<li class="leaf"><a href="/jobs">Careers at SDE</a></li>
+<li class="last leaf"><a href="/education-events">Education Events</a></li>
+</ul>
+</li>
+<li class="expanded">
+<a href="/services">Services</a><ul class="menu">
+<li class="first leaf"><a href="/oklahoma-academic-standards">Academic Standards</a></li>
+<li class="leaf"><a href="/accountability-assessments">Accountability</a></li>
+<li class="leaf"><a href="/accreditation-standards-division">Accreditation</a></li>
+<li class="expanded">
+<a href="/office-assessments">Assessment</a><ul class="menu">
+<li class="first last leaf"><a href="/diverse-learners-1">Diverse Learners</a></li>
+</ul>
+</li>
+<li class="leaf"><a href="/child-nutrition-programs">Child Nutrition</a></li>
+<li class="leaf"><a href="/educator-effectiveness">Educator Effectiveness</a></li>
+<li class="leaf"><a href="/education-technology">Education Technology</a></li>
+<li class="leaf"><a href="/federal-programs">Federal Programs</a></li>
+<li class="leaf"><a href="/indian-education">Indian Education</a></li>
+<li class="leaf"><a href="/instruction-index">Instruction</a></li>
+<li class="leaf"><a href="/safe-and-healthy-schools">Safe and Healthy Schools</a></li>
+<li class="leaf"><a href="/school-personnel-records">School Personnel Records</a></li>
+<li class="leaf"><a href="/school-support">School Support &amp; Improvement</a></li>
+<li class="leaf"><a href="/special-education">Special Education</a></li>
+<li class="leaf"><a href="/soonerstart">SoonerStart</a></li>
+<li class="leaf"><a href="/educational-support-index">Student Support</a></li>
+<li class="last leaf"><a href="/teacher-certification">Teacher Certification</a></li>
+</ul>
+</li>
+<li class="expanded">
+<a href="/newsblogs">News &amp; Blogs</a><ul class="menu">
+<li class="first leaf"><a href="https://www.youtube.com/playlist?list=PLxypWLbZY_Xe7yzNj4oZy_idMJEkMlxXd">ED Talks</a></li>
+<li class="leaf"><a href="/elevate" title="Oklahoma schools on the rise">Elevate</a></li>
+<li class="leaf"><a href="/newsblogs/tc">Engage Teachers</a></li>
+<li class="leaf"><a href="/newsblogs/mediaroom">Media Room</a></li>
+<li class="leaf"><a href="https://www.youtube.com/playlist?list=PLxypWLbZY_Xc1DyG9rWeqhdlWPsD9voNn">ShapED My Life</a></li>
+<li class="last leaf"><a href="/newsblogs/otoy">Teacher of the Year Blog</a></li>
+</ul>
+</li>
+<li class="expanded">
+<a href="/resources">Resources</a><ul class="menu">
+<li class="first leaf"><a href="/bid-solicitations">Bid Solicitations</a></li>
+<li class="leaf"><a href="/civil-rights" title="Civil Rights - Documentation and Reporting">Civil Rights</a></li>
+<li class="leaf"><a href="/frequently-asked-questions">Frequently Asked Questions</a></li>
+<li class="leaf"><a href="http://sde.ok.gov/sde/grants-and-opportunities" title="Grants and Nominations">Grants and Nominations</a></li>
+<li class="leaf"><a href="/legislative-resources">Legislative Resources</a></li>
+<li class="leaf"><a href="https://sdeweb01.sde.ok.gov/SSO2/">Oklahoma Education Single Sign-On</a></li>
+<li class="leaf"><a href="http://sde.ok.gov/sde/oklahoma-educators-hall-fame">Oklahoma Educators Hall of Fame</a></li>
+<li class="leaf"><a href="http://sde.ok.gov/sde/documents/2016-04-06/oklahoma-public-schools-fast-facts-2015-2016">Oklahoma Public Schools Fast Facts</a></li>
+<li class="leaf"><a href="http://sde.ok.gov/sde/open-records-request">Open Records Request</a></li>
+<li class="leaf"><a href="/research">Research</a></li>
+<li class="leaf"><a href="http://sde.ok.gov/sde/school-finance">School Finance</a></li>
+<li class="collapsed"><a href="http://sde.ok.gov/sde/comptroller">SDE Finances</a></li>
+<li class="leaf"><a href="/student-information-system">Student Information</a></li>
+<li class="leaf"><a href="/student-transportation">Student Transportation</a></li>
+<li class="last leaf"><a href="http://sde.ok.gov/sde/website-z-guide">Website A-Z Guide</a></li>
+</ul>
+</li>
+<li class="last leaf"><a href="http://sde.ok.gov/public-records" title="Public Records/Reporting Index">Public Records</a></li>
+</ul>
+</div>
+      </div>  <!-- /.section, /#navigation -->
+  
+
+		     
+      <div id="header-breadcrumb">
+		<div class="breadcrumb">
+                Home		</div>
+		</div>
+						
+   
+<div id="wrap" class="center-on-page clearfix">
+   <div id="wrap-inner" class="center-on-page clearfix">
+
+
+
+  
+  
+  <div id="main-wrapper" class="clearfix">
+<div id="main" class="clearfix">
+
+
+    <div id="content" class="column">
+<div class="section">
+      <a id="main-content"></a>
+      </div>
+<div class="section messages warning" style="margin: 0 0 20px">Many OSDE staff members are working remotely to help contain the spread of COVID-19. Please do not hesitate to reach out to any <a href="/directory">staff or department</a>. We will respond to your call or email as soon as possible.
+<br><br>
+    You may drop off mail for the OSDE in the mailbox outside the Will Rogers Building at 2401 N. Lincoln Blvd.
+</div>
+      
+                  
+  <div class="region region-content">
+    <div id="block-system-main" class="block block-system">
+
+    
+  <div class="content">
+    <div class="panel-2col-stacked clearfix panel-display" id="sdehomepage">
+      <div class="panel-col-top panel-panel">
+      <div class="inside">
+<div class="panel-pane pane-block pane-block-97">
+  
+      
+  
+  <div class="pane-content">
+    <div class="audience">
+<a href="//sde.ok.gov/family-page" style="border-bottom: none;"><img alt="Family Index" src="//sde.ok.gov/sites/ok.gov.sde/files/images/family_audience_button.jpg" style="padding-right: 21px; border-bottom: none;" typeof="foaf:Image"></a><a href="//sde.ok.gov/administrators-page" style="border-bottom: none;"><img alt="Administrators Index" src="//sde.ok.gov/sites/ok.gov.sde/files/admins_audience_button_0.jpg" style="padding-right: 21px;" typeof="foaf:Image"></a><a href="//sde.ok.gov/educators-page" style="border-bottom: none;"><img alt="Educators Index" src="//sde.ok.gov/sites/ok.gov.sde/files/educators_audience_button.jpg" style="padding-right: 21px;" typeof="foaf:Image"></a><a href="//sde.ok.gov/community-page" style="border-bottom: none;"><img alt="Community Page" src="//sde.ok.gov/sites/ok.gov.sde/files/community_audience_button.jpg" typeof="foaf:Image"></a>
+</div>  </div>
+
+  
+  </div>
+</div>
+    </div>
+  
+  <div class="center-wrapper">
+    <div class="panel-col-first panel-panel">
+      <div class="inside">
+<div class="panel-pane pane-views pane-whats-new" id="fp_whatsnew_box">
+  
+        <h2 class="pane-title">
+      What's New    </h2>
+    
+  
+  <div class="pane-content">
+    <div class="view view-whats-new view-id-whats_new view-display-id-block bandnfp view-dom-id-637b90509576702e629e69b77694e824">
+        
+  
+  
+      <div class="view-content">
+        <div class="views-row views-row-1 views-row-odd views-row-first">
+      
+  <div class="views-field views-field-field-blog-thumbnail">        <div class="field-content"><a href="/newsblog/2020-04-22/oklahoma-schools-serve-more-17-million-meals-one-week-period-march"><img typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/default_images/Press-Release-Button_0.png" alt=""></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/newsblog/2020-04-22/oklahoma-schools-serve-more-17-million-meals-one-week-period-march">Oklahoma schools serve more than 1.7 million meals in one-week period in March</a></span>  </div>  </div>
+  <div class="views-row views-row-2 views-row-even">
+      
+  <div class="views-field views-field-field-blog-thumbnail">        <div class="field-content"><a href="/newsblog/2020-04-20/hofmeister-remarks-board-equalization-meeting-budget-shortfalls"><img typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/default_images/Press-Release-Button_0.png" alt=""></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/newsblog/2020-04-20/hofmeister-remarks-board-equalization-meeting-budget-shortfalls">Hofmeister remarks on Board of Equalization meeting, budget shortfalls</a></span>  </div>  </div>
+  <div class="views-row views-row-3 views-row-odd">
+      
+  <div class="views-field views-field-field-blog-thumbnail">        <div class="field-content"><a href="/newsblog/2020-04-20/high-school-arts-students-receive-virtual-recognition-after-annual-ceremony"><img typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/default_images/Press-Release-Button_0.png" alt=""></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/newsblog/2020-04-20/high-school-arts-students-receive-virtual-recognition-after-annual-ceremony">High school arts students receive virtual recognition after annual ceremony cancelled due to COVID-19</a></span>  </div>  </div>
+  <div class="views-row views-row-4 views-row-even">
+      
+  <div class="views-field views-field-field-blog-thumbnail">        <div class="field-content"><a href="/newsblog/2020-04-07/partnership-brings-8000-meals-western-heights-students"><img typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/default_images/Press-Release-Button_0.png" alt=""></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/newsblog/2020-04-07/partnership-brings-8000-meals-western-heights-students">Partnership brings 8,000 meals to Western Heights students</a></span>  </div>  </div>
+  <div class="views-row views-row-5 views-row-odd views-row-last">
+      
+  <div class="views-field views-field-field-blog-thumbnail">        <div class="field-content"><a href="/newsblog/2020-04-07/usde-approves-oklahoma-waivers-granting-schools-spending-flexibility-current"><img typeof="foaf:Image" src="https://sde.ok.gov/sites/default/files/default_images/Press-Release-Button_0.png" alt=""></a></div>  </div>  
+  <div class="views-field views-field-title">        <span class="field-content"><a href="/newsblog/2020-04-07/usde-approves-oklahoma-waivers-granting-schools-spending-flexibility-current">USDE approves Oklahoma waivers granting schools spending flexibility with current federal funds</a></span>  </div>  </div>
+    </div>
+  
+  
+  
+  
+  
+  
+</div>  </div>
+
+  
+  </div>
+<div class="panel-separator"></div>
+<div class="panel-pane pane-block pane-block-26">
+  
+      
+  
+  <div class="pane-content">
+    <h2>
+	Featured Videos
+</h2>
+
+<div title="Featured Videos">
+<iframe allowfullscreen="" frameborder="0" height="304" scrolling="no" src="https://www.youtube.com/embed/videoseries?list=PLxypWLbZY_XelObhNpCqJJVmYpkcq97l9" width="550"></iframe>
+</div>
+
+<div style="font-size: .8em;">
+	<em>View previous videos by using the <span class="fa fa-bars"> </span> icon at top left of video or <a href="https://www.youtube.com/playlist?list=PLxypWLbZY_XelObhNpCqJJVmYpkcq97l9">view the list</a>.</em>
+</div>
+  </div>
+
+  
+  </div>
+</div>
+    </div>
+    <div class="panel-col-last panel-panel">
+      <div class="inside">
+<div class="panel-pane pane-node">
+  
+        <h2 class="pane-title">
+      On Spotlight    </h2>
+    
+  
+  <div class="pane-content">
+    <div id="node-5020" class="node node-site-page clearfix" about="/spotlight" typeof="sioc:Item foaf:Document">
+  <div class="content">
+    
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded">
+<div id="fp_spotlight_wrap">
+	<div id="spotlight_left">
+		<a href="//sde.ok.gov/newsblog/2020-03-12/coronaviruscovid-19-faqs-oklahoma-public-schools"><img alt="COVID-19 Frequently Asked Questions" src="//sde.ok.gov/sites/default/files/covid-19-webtile.jpg" style="width: 170px; height: 130px;" title="COVID-19 Frequently Asked Questions" typeof="foaf:Image"></a> <a href="//sde.ok.gov/distancelearning"><img alt="Distance Learning Resources" src="//sde.ok.gov/sites/default/files/images/Distance%20Learning%20Resources%20Webtile.jpg" style="width: 170px; height: 130px;" title="Oklahoma State Department of Education ESSA Approved State Plan" typeof="foaf:Image"></a><a href="https://sdeweb01.sde.ok.gov/SSO2/Signin.aspx" style="border-bottom: none;"><img alt="Oklahoma State Department of Education Single Sign-On" src="//sde.ok.gov/sites/ok.gov.sde/files/singlesignon-btn.png" style="width: 170px; height: 130px;" title="Oklahoma State Department of Education Single Sign-On" typeof="foaf:Image"></a>
+	</div>
+
+	<div id="spotlight_right">
+		<a href="//sde.ok.gov/education-matters"><img alt="Education Matters - Superintendent Hofmeister focuses on important topics and key initiatives for public education across the state." src="//sde.ok.gov/sites/default/files/images/EducationMattersWebsiteTile.jpg" style="width: 170px; height: 130px;" title="Education Matters - Superintendent Hofmeister focuses on important topics and key initiatives for public education across the state." typeof="foaf:Image"></a><a href="//sde.ok.gov/oklahoma-public-schools-fast-facts"><img alt="Oklahoma State Department of Education Fast Facts" src="//sde.ok.gov/sites/default/files/images/fastfacts-tile.jpg" style="width: 170px; height: 130px;" title="Oklahoma State Department of Education Fast Facts" typeof="foaf:Image"></a><a href="//sde.ok.gov/teacher-certification" target="_blank"><img alt="Teacher Certification" src="//sde.ok.gov/sites/ok.gov.sde/files/teachcertification.gif" style="width: 170px; height: 130px;" title="Teacher Certification"></a>
+	</div>
+</div>
+
+<p>
+	 
+</p>
+</div></div></div>    
+      </div>  
+</div>
+  </div>
+
+  
+  </div>
+<div class="panel-separator"></div>
+<div class="panel-pane pane-block pane-block-90">
+  
+        <h2 class="pane-title">
+      Engage with OSDE    </h2>
+    
+  
+  <div class="pane-content">
+    <div class="gov_delivery_subscribe" title="OSDE Newsletter Signup" alt="OSDE Newsletter Signup">
+	<form action="https://public.govdelivery.com/accounts/OKSDE/subscribers/qualify">
+		<br><br><input class="long" id="email" input="" name="email" onfocus="this.value=''" style="border: 2px solid #ffcc33; margin-top: 20px; padding: 6px; font-size: 14px; margin-top: 12px; margin-left: 120px; width: 175px;" type="textfield" value="Enter email address"> <input alt="Subscribe for e-mail updates" id="submit" src="//sde.ok.gov/sites/ok.gov.sde/files/enewsletter-go2016.png" style="margin: 0px; vertical-align: middle; height:33px;" type="image"> 
+	</form>
+</div>
+  </div>
+
+  
+  </div>
+</div>
+    </div>
+  </div>
+
+      <div class="panel-col-bottom panel-panel">
+      <div class="inside">
+<div class="panel-pane pane-node">
+  
+      
+  
+  <div class="pane-content">
+    <div id="node-5019" class="node node-site-page clearfix" about="/front-page-footer" typeof="sioc:Item foaf:Document">
+  <div class="content">
+    
+    <div class="field field-name-body field-type-text-with-summary field-label-hidden"><div class="field-items"><div class="field-item even" property="content:encoded">
+<div id="footer_box" style="background-color: #b7d4fb; height: 260px;">
+	<ul>
+<li class="footer-left" style="float: left; list-style: none; width:25%;">
+			<br><img alt="Oklahoma State Department of Education | Champion Excellence (logo)" src="//sde.ok.gov/sites/ok.gov.sde/files/OSDE-logo.png" style="width: 222px; height: 59px;" title="Oklahoma State Department of Education | Champion Excellence (logo)" typeof="foaf:Image"><p>
+				<strong>Oklahoma State<br>
+				Department of Education</strong><br>
+				Oliver Hodge Building<br>
+				2500 North Lincoln Boulevard<br>
+				Oklahoma City, Oklahoma 73105
+			</p>
+		</li>
+		<li class="footer-center" style="float: left; list-style: none; width:20%;">
+			<h4 style="color: #143872;">
+				<br>
+				Questions? Need Help?
+			</h4>
+
+			<p>
+				<strong>SDE Customer Service</strong><br>
+				Phone: (405) 521-3301<br>
+				Fax: (405) 521-6205<br><br><a href="mailto:sdeservicedesk@sde.ok.gov">SDEservicedesk@sde.ok.gov</a><br>
+				Webpage: <a href="//sde.ok.gov/sde-service-desk">SDE Service Desk</a>
+			</p>
+		</li>
+		<li class="footer-right" style="float: left; list-style: none; width:22%;">
+			<h4 style="color: #143872;">
+				<br>
+				Quick Links
+			</h4>
+
+			<ul style="list-style-type: disc;">
+<li>
+					<a href="//sde.ok.gov/jobs">Careers</a>
+				</li>
+				<li>
+					<a href="//sde.ok.gov/office-legal-services">Legal</a>
+				</li>
+				<li>
+					<a href="//sde.ok.gov/directory">Staff Directory</a>
+				</li>
+				<li>
+					<a href="//sde.ok.gov/state-education-boards">State Education Boards</a>
+				</li>
+				<li>
+					<a href="//sde.ok.gov/superintendent">State Superintendent</a>
+				</li>
+				<li>
+					<a href="//sde.ok.gov/website-z-guide">Site Index</a>
+				</li>
+				<li>
+					<a href="//sde.ok.gov/webform/contact">Contact Form</a>
+				</li>
+			</ul>
+</li>
+		<li class="footer-right" style="float:left; list-style: none; width:22%;">
+			<h4 style="color: #143872;">
+				<br>
+				Connect with Us!
+			</h4>
+
+			<div style="padding: 0px 0 8px 0;">
+				<p>
+					<a href="http://www.facebook.com/OklaSDE" style="border-bottom: none;"><img alt="Facebook" src="//sde.ok.gov/sites/ok.gov.sde/files/facebook_s.png" style="width: 32px; height: 32px;" title="Facebook" typeof="foaf:Image"></a>  <a href="http://twitter.com/oksde" style="border-bottom: none;"><img alt="Twitter" src="//sde.ok.gov/sites/ok.gov.sde/files/twitter_s.png" style="width: 32px; height: 32px;" title="Twitter" typeof="foaf:Image"></a>  <a href="https://www.youtube.com/channel/UC9t9YLscAVJe6xVtZlE-Ktg?feature=hovercard" style="border-bottom: none;"><img alt="Youtube" src="//sde.ok.gov/sites/ok.gov.sde/files/youtube_s.png" style="width: 32px; height: 32px;" title="Youtube" typeof="foaf:Image"></a>  <a href="http://www.flickr.com/photos/osde" style="border-bottom: none;"><img alt="Flickr" src="//sde.ok.gov/sites/ok.gov.sde/files/flickr_s.png" style="width: 32px; height: 32px;" title="Flickr" typeof="foaf:Image"></a> <br><a href="http://vimeo.com/user5733855" style="border-bottom: none;"><img alt="Vimeo" src="//sde.ok.gov/sites/ok.gov.sde/files/vimeo_s.png" style="width: 32px; height: 32px;" title="Vimeo" typeof="foaf:Image"></a>  <a href="https://itunes.apple.com/institution/oklahoma-state-department/id493092792" style="border-bottom: none;"><img alt="iTunes" src="//sde.ok.gov/sites/ok.gov.sde/files/itnic_s.png" style="width: 32px; height: 32px;" title="iTunes" typeof="foaf:Image"></a>  <a href="https://public.govdelivery.com/accounts/OKSDE/subscribers/new" style="border-bottom: none;"><img alt="Newsletter" src="//sde.ok.gov/sites/ok.gov.sde/files/email_s.png" style="width: 32px; height: 32px;" title="Newsletter" typeof="foaf:Image"></a>
+				</p>
+			</div>
+		</li>
+	</ul>
+</div>
+</div></div></div>    
+      </div>  
+</div>
+  </div>
+
+  
+  </div>
+</div>
+    </div>
+  </div>
+  </div>
+</div>
+  </div>
+
+
+            
+    </div>
+</div> <!-- /.section, /#content -->
+
+  </div>
+<!-- /#main -->
+  
+  
+        
+  
+  </div> <!-- /#main-wrapper -->
+
+
+<br><br>
+</div>
+<!--/wrap-inner-->
+</div>
+<!--/wrap-->
+
+
+ 				<div class="footer_wrapper">
+					<div class="footer">
+						<div class="footer_links_wrapper">
+							<div class="footer_links">
+								<a href="http://www.about.ok.gov/" title="About ok.gov" class="footer_link" target="_okgov">
+									About OK.gov</a>
+								 | 
+
+								<a href="http://www.ok.gov/policy_disclaimers.html" title="Policy Disclaimers" class="footer_link" target="_okgov">
+									OK.gov Policies</a>
+								 | 
+								<a href="http://www.ok.gov/sde/Accessibility" title="Accessibility" class="footer_link">Accessibility</a> | 
+								<a href="http://sde.ok.gov/sde/sde-mission-and-title-ix-policy" title="Notice of Nondiscrimination" class="footer_link">Notice of Nondiscrimination</a>
+							</div>
+<!-- END FOOTER_LINKS DIV -->
+							<div class="copyright">
+
+								© <script type="text/javascript">document.write(new Date().getFullYear());</script><noscript>2018</noscript>  The State of Oklahoma
+							</div>
+<!-- END COPYRIGHT DIV -->
+						</div>
+<!-- END FOOTER_LINKS_WRAPPER DIV -->
+						<div class="social_media_links_wrapper">
+							<label for="social_media_links">Follow SDE on:</label>
+							<div id="social_media_links">
+								<a href="https://twitter.com/oksde" target="_social" title="twitter" class="twitter_link"><img src="/sites/all/themes/oklahoma_sde/images/48/twitter.png" alt="Twitter" style="border-width: 0px;"></a>
+
+								<a href="https://www.facebook.com/OklaSDE" title="facebook" target="_social" class="facebook_link"><img src="/sites/all/themes/oklahoma_sde/images/48/facebook.png" alt="Facebook" style="border-width: 0px;"></a>
+							</div>
+<!-- END SOCIAL_MEDIA_LINKS DIV -->
+						</div>
+<!-- END SOCIAL_MDIA_LINKS_WRAPPER DIV -->
+					</div>
+<!-- END FOOTER DIV -->
+				</div>
+<!-- END FOOTER_WRAPPER DIV -->
+
+</div>
+<!--/page wrapper-->
+
+    <script type="text/javascript" src="https://sde.ok.gov/profiles/firmstep/modules/contrib/addthis/addthis.js?q95igs"></script><!-- Go to www.addthis.com/dashboard to customize your tools --><br><script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5d5ee67cc83de52e"></script>
+</body>
+</html>

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]--><!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]--><!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]--><!--[if gt IE 8]><!--><html class="no-js" lang="en-US">
+<!--<![endif]--><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>ICSD: Soft Closure Until End of School Year</title>
+<meta name="description" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="icon" href="/static/pictures/planets.jpg" type="image/x-icon">
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+<link type="text/css" href="/static/bundles/0.d456b5298b348027b638.css" rel="stylesheet">
+<script type="text/javascript" src="/static/bundles/vendor.d456b5298b348027b638.js"></script><link type="text/css" href="/static/bundles/app.d456b5298b348027b638.css" rel="stylesheet">
+<script type="text/javascript" src="/static/bundles/app.d456b5298b348027b638.js"></script>
+</head>
+<body>
+
+    <div class="base">
+    <div class="container">
+        <ul id="side-out" class="sidenav">
+<li class="brand-logo-wrapper">
+                <div class="background center-align">
+                    <img src="/static/pictures/icsd.jpg" alt="Iron County School District">
+</div>
+            </li>
+            <li class="search">
+                <div class="center-align">
+                    <form action="/search/" method="get">
+                        <div class="search-wrapper card">
+                            <input id="search" name="q" aria-label="District Seach Input Field" placeholder=" Search..."><button class="waves-effect waves-indigo btn-flat" id="search-button" aria-label="Search button" type="submit">
+                                <i class="material-icons">search</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </li>
+            <li>
+                <div class="center-align">
+                    <button class="btn-flat" id="expand" data-state="close" title="Expand for screen readability.">
+                        Expand All
+                    </button>
+                </div>
+            </li>
+            <li>
+                <a href="/"><i class="material-icons right">home</i>Home</a>
+            </li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li>
+                <div class="subheader blue-text text-darken-3">Employee Portal</div>
+            </li>
+            
+            <li>
+                <a href="/login/"><i class="material-icons right">account_circle</i>Employee Login</a>
+            </li>
+            
+            <li>
+                <div class="divider"></div>
+            </li>
+            <span id="main-nav"></span>
+        </ul>
+</div>
+    <div class="navbar-fixed">
+        <nav class="grey darken-2" role="navigation"><button href="#" data-target="side-out" class="sidenav-trigger btn-flat white-text">
+                <i class="material-icons left icon-adj">menu</i> <span class="hide-on-small-only">Menu</span>
+            </button>
+            <a href="/" class="brand-logo center hide-on-small-only">Iron County School District</a>
+            <a href="/" class="brand-logo center hide-on-med-and-up">IronCSD</a>
+        </nav>
+</div>
+</div>
+<script>
+$(document).ready(function () {
+    var expand = $('#expand');
+
+    $(".sidenav").sidenav();
+
+    // Add 'focused' class to .search-wrapper on focus, remove on blur
+    var searchInput = $('input#search');
+    searchInput.focus(function(event) {
+        $(event.currentTarget).parent().addClass('focused');
+        $('.search-wrapper').addClass('z-depth-2');
+    });
+    searchInput.blur(function(event) {
+        var currentTarget = $(event.currentTarget);
+        if (!currentTarget.val()) {
+            currentTarget.parent().removeClass('focused');
+        }
+        $('.search-wrapper').removeClass('z-depth-2');
+    });
+
+    // Submit search form when user clicks on search icon
+    $('#search-button').on('click', function(event) {
+        $(event.currentTarget).parents('form').submit();
+    });
+
+    // Ajax call to get all navigation links for main menu
+    var csrftoken = Cookies.get('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+
+    var main_nav = $('#main-nav')
+    function get_call(){
+        $.ajax({
+            url: "/navlinks/",
+            type: "GET",
+            dataType: "json",
+        }).done(function(response) {
+            response.forEach(function (elem) {
+                var name = elem.category
+                var name_id = name.replace(/[^a-zA-Z ]/g, "").split(" ").join("").concat('-links').toLowerCase()
+                var links = elem.links
+                
+                var categoryTemplate = `
+                    <li class="no-padding">
+                        <ul class="collapsible">
+                            <li>
+                                <a class="collapsible-header waves-effect waves-indigo">
+                                    <span class="blue-text text-darken-3">${name}</span><i class="material-icons right">arrow_drop_down</i>
+                                </a>
+                                <div class="collapsible-body">
+                                    <ul id="${name_id}"></ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                `
+
+                main_nav.append(categoryTemplate)
+
+                var cat_nav = $(`#${name_id}`)
+                links.forEach(function (link) {
+                    if (link.hasOwnProperty("sub_category")) {
+                        var sub_category = link.sub_category
+                        var sub_id = sub_category.replace(/[^a-zA-Z ]/g, "").split(" ").join("").concat('-links').toLowerCase()
+
+                        var subCategoryTemplate = `
+                            <li class="no-padding">
+                                <ul class="collapsible">
+                                    <li>
+                                        <a class="collapsible-header waves-effect waves-indigo">
+                                            ${sub_category}<i class="material-icons right">arrow_drop_down</i>
+                                        </a>
+                                        <div class="collapsible-body">
+                                            <ul id="${sub_id}"></ul>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                        `
+                        cat_nav.append(subCategoryTemplate)
+
+                        link.sub_links.forEach(function (sub_cat) {
+                            var sub_link_name = sub_cat.name
+                            var sub_link_url = sub_cat.url
+                            var sub_html = $(`#${sub_id}`)
+
+                            var subLinkTemplate = `
+                                <li>
+                                    <a class="sub-cat" href="${ sub_link_url }">${ sub_link_name }</a>
+                                </li>
+                            `
+                            sub_html.append(subLinkTemplate)
+                        })
+                    } else {
+                        var link_name = link.name
+                        var link_url = link.url
+
+                        var linkTemplate = `
+                            <li>
+                                <a href="${ link_url }">${ link_name }</a>
+                            </li>
+                        `
+                        cat_nav.append(linkTemplate)
+                    }
+                })
+            })
+            $('.collapsible').collapsible();
+        });
+    }
+    get_call()
+
+    expand.on('click', function (e) {
+        if (expand.data().state == 'close') {
+            $('.collapsible').collapsible('open', 0);
+            expand.data('state', 'open');
+            expand.text('Collapse All');
+        } else {
+            $('.collapsible').collapsible('close', 0);
+            expand.data('state', 'close');
+            expand.text('Expand All');
+        }
+    });
+});
+</script><main><div class="news">
+    <div class="row banner">
+        <div class="col l12 m12 s12">
+            <div class="container">
+                <h3 role="heading" aria-level="1" class="center">Soft Closure Until End of School Year</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+
+    
+<div class="news">
+    <div class="container">
+        <div class="row"></div>
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <img class="materialboxed responsive-img" width="1024" src="/media/news/2020/04/f67f5180583899c37b98274974bc9481.JPEG" alt="None"><div class="row">
+                    <div class="center">
+                        <span class="grey-text text-lighten-1" aria-label="Expand image to fullsize.">
+                            Click Image to Expand <i class="fa fa-expand"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m12 l6">
+                <div class="row">
+                    <div class="col s12">
+                        <span class="left">Posted On:</span>
+                        <span class="right red-text">14 Apr, 2020</span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12">
+                        <span class="marked"><p>Given today's announcement by Governor Herbert, ICSD schools will remain in "soft closure" mode through the end of the school year. Virtual meetings will be held next week after Spring Break to determine our path forward, and more information will be forthcoming. Thank you to ALL for the work being done and service being given.</p>
+</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+    <div class="box-wrapper-foot"></div>
+</main><footer class="page-footer grey darken-4"><div class="footer container">
+    <div id="main-foot"></div>
+    <div class="row">
+            <div class="col l12 s12 center-align">
+                <p class="grey-text text-lighten-4">
+                    <span class="district-header">Iron County School District</span><br>
+                    2077 W. Royal Hunte Dr., Cedar City, UT 84720<br><i class="fa fa-phone"></i> (435) 586.2804 |
+                    <i class="fa fa-fax"></i> (435) 586.2815
+                </p>
+            </div>
+        </div>
+    <div class="footer-copyright">
+        <div class="container">
+            <div class="center-align">
+                © 2018 Copyright Iron County School District
+            </div>
+        </div>
+    </div>
+    <button type="button" id="feedback-btn" class="btn btn-info vertical-right-aligned pink darken-4 ">
+        Feedback <span class="glyphicon glyphicon-bullhorn" aria-hidden="true"></span>
+    </button> 
+</div>
+<script>
+$(() => {
+    // Ajax call to get all navigation links for main menu
+    var csrftoken = Cookies.get('csrftoken');
+
+    function csrfSafeMethod(method) {
+        // these HTTP methods do not require CSRF protection
+        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    });
+    var main_foot = $('#main-foot')
+    function get_call(){
+        $.ajax({
+            url: "/footerlinks/",
+            type: "GET",
+            dataType: "json",
+        }).done(function(response) {
+            response.forEach(function (elem) {
+                var rowTemplate = `
+                    <div id="group-${elem.group}" class="row center"></div>
+                `
+                main_foot.append(rowTemplate)
+                var group_links = $(`#group-${elem.group}`)
+
+                elem.links.forEach(function (link) {
+                    var linkTemplate =`
+                        <div class="col l3 s6">
+                            <a href="${link.url}" class="grey darken-4 grey-text text-lighten-4">
+                                <span class="btn-flat grey darken-4 grey-text text-lighten-4">
+                                    ${link.name}
+                                </span>
+                            </a>
+                        </div>
+                    `
+                    group_links.append(linkTemplate)
+                })
+            })
+        })
+    }
+    get_call()
+})
+</script><script type="text/javascript">
+        // using jQuery
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie != '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+        function csrfSafeMethod(method) {
+            // these HTTP methods do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+    </script><script src="/static/tellme/feedback.min.js"></script><script type="text/javascript">
+        $(function () {
+            $.feedback({
+                ajaxURL: "/tellme/post_feedback/",
+                html2canvasURL: "/static/tellme/html2canvas.min.js",
+                feedbackButton: "#feedback-btn",
+                initButtonText: "\u000ASend feedback",
+                postHTML: false,
+                tpl: {
+                    description: "\u000A\u003Cdiv id\u003D\u0022feedback\u002Dwelcome\u0022\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dlogo\u0022\u003EFeedback\u003C/div\u003E\u000A    \u003Cp\u003EFeedback lets you send us suggestions about this site. We welcome problem reports, feature ideas and general comments.\u003C/p\u003E\u000A    \u000A        \u003Cp\u003EIf you wish to be contacted please leave us your email:\u003C/p\u003E\u000A        \u003Cinput type\u003D\u0027text\u0027 name\u003D\u0022Email\u0022 id\u003D\u0022feedback\u002Duser\u002Demail\u0022\u003E\u000A    \u000A    \u003Cp\u003EStart by writing a brief description:\u003C/p\u003E\u000A    \u003Ctextarea id\u003D\u0022feedback\u002Dnote\u002Dtmp\u0022\u003E\u003C/textarea\u003E\u000A    \u003Cp\u003ENext we\u0027ll let you identify areas of the page related to your description.\u003C/p\u003E\u000A    \u003Cbutton id\u003D\u0022feedback\u002Dwelcome\u002Dnext\u0022 class\u003D\u0022feedback\u002Dnext\u002Dbtn feedback\u002Dbtn\u002Dgray\u0022\u003ENext\u003C/button\u003E\u000A    \u003Cdiv id\u003D\u0022feedback\u002Dwelcome\u002Derror\u0022\u003EPlease enter a description.\u003C/div\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dwizard\u002Dclose\u0022\u003E\u003C/div\u003E\u000A\u003C/div\u003E\u000A",
+                    highlighter: "\u000A\u003Cdiv id\u003D\u0022feedback\u002Dhighlighter\u0022\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dlogo\u0022\u003EFeedback\u003C/div\u003E\u000A    \u003Cp\u003EClick and drag on the page to help us better understand your feedback. You can move this dialog if it\u0027s in the way.\u003C/p\u003E\u000A    \u003Cbutton class\u003D\u0022feedback\u002Dsethighlight feedback\u002Dactive\u0022\u003E\u000A        \u003Cspan class\u003D\u0022ico\u0022\u003E\u003C/span\u003E\u000A        \u003Cspan\u003EHighlight\u003C/span\u003E\u003C/button\u003E\u000A    \u003Clabel\u003EHighlight areas relevant to your feedback.\u003C/label\u003E\u000A    \u003Cbutton class\u003D\u0022feedback\u002Dsetblackout\u0022\u003E\u000A        \u003Cspan class\u003D\u0022ico\u0022\u003E\u003C/span\u003E\u000A        \u003Cspan\u003EBlack out\u003C/span\u003E\u003C/button\u003E\u000A    \u003Clabel class\u003D\u0022lower\u0022\u003EBlack out any personal information.\u003C/label\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dbuttons\u0022\u003E\u000A        \u003Cbutton id\u003D\u0022feedback\u002Dhighlighter\u002Dnext\u0022 class\u003D\u0022feedback\u002Dnext\u002Dbtn feedback\u002Dbtn\u002Dgray\u0022\u003E\u000A            Next\u000A        \u003C/button\u003E\u000A        \u003Cbutton id\u003D\u0022feedback\u002Dhighlighter\u002Dback\u0022 class\u003D\u0022feedback\u002Dback\u002Dbtn feedback\u002Dbtn\u002Dgray\u0022\u003E\u000A            Back\u000A        \u003C/button\u003E\u000A    \u003C/div\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dwizard\u002Dclose\u0022\u003E\u003C/div\u003E\u000A\u003C/div\u003E",
+    				overview:	 "\u000A\u003Cdiv id\u003D\u0022feedback\u002Doverview\u0022\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dlogo\u0022\u003EFeedback\u003C/div\u003E\u000A    \u003Cdiv id\u003D\u0022feedback\u002Doverview\u002Ddescription\u0022\u003E\u000A        \u003Cdiv id\u003D\u0022feedback\u002Doverview\u002Ddescription\u002Dtext\u0022\u003E\u003Ch3\u003EDescription\u003C/h3\u003E\u000A            \u003Ch3 class\u003D\u0022feedback\u002Dadditional\u0022\u003EAdditional info\u003C/h3\u003E\u000A            \u003Cdiv id\u003D\u0022feedback\u002Dadditional\u002Dnone\u0022\u003E\u003Cspan\u003ENone\u003C/span\u003E\u003C/div\u003E\u000A            \u003Cdiv id\u003D\u0022feedback\u002Dbrowser\u002Dinfo\u0022\u003E\u003Cspan\u003EBrowser Info\u003C/span\u003E\u003C/div\u003E\u000A            \u003Cdiv id\u003D\u0022feedback\u002Dpage\u002Dinfo\u0022\u003E\u003Cspan\u003EPage Info\u003C/span\u003E\u003C/div\u003E\u000A            \u003Cdiv id\u003D\u0022feedback\u002Dpage\u002Dstructure\u0022\u003E\u003Cspan\u003EPage Structure\u003C/span\u003E\u003C/div\u003E\u000A        \u003C/div\u003E\u000A    \u003C/div\u003E\u000A    \u003Cdiv id\u003D\u0022feedback\u002Doverview\u002Dscreenshot\u0022\u003E\u003Ch3\u003EScreenshot\u003C/h3\u003E\u003C/div\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dbuttons\u0022\u003E\u000A        \u003Cbutton id\u003D\u0022feedback\u002Dsubmit\u0022 class\u003D\u0022feedback\u002Dsubmit\u002Dbtn feedback\u002Dbtn\u002Dblue\u0022\u003ESubmit\u003C/button\u003E\u000A        \u003Cbutton id\u003D\u0022feedback\u002Doverview\u002Dback\u0022 class\u003D\u0022feedback\u002Dback\u002Dbtn feedback\u002Dbtn\u002Dgray\u0022\u003EBack\u003C/button\u003E\u000A    \u003C/div\u003E\u000A    \u003Cdiv id\u003D\u0022feedback\u002Doverview\u002Derror\u0022\u003EPlease enter a description.\u003C/div\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dwizard\u002Dclose\u0022\u003E\u003C/div\u003E\u000A\u003C/div\u003E",
+    				submitSuccess:"\u000A\u003Cdiv id\u003D\u0022feedback\u002Dsubmit\u002Dsuccess\u0022\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dlogo\u0022\u003EFeedback\u003C/div\u003E\u000A    \u003Cp\u003EThank you for your feedback. We value every piece of feedback we receive.\u003C/p\u003E\u000A    \u003Cp\u003EWe cannot respond individually to every one, but we will use your comments as we strive to improve your experience.\u003C/p\u003E\u000A    \u003Cbutton class\u003D\u0022feedback\u002Dclose\u002Dbtn feedback\u002Dbtn\u002Dblue\u0022\u003EOK\u003C/button\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dwizard\u002Dclose\u0022\u003E\u003C/div\u003E\u000A\u003C/div\u003E",
+    				submitError: "\u000A\u003Cdiv id\u003D\u0022feedback\u002Dsubmit\u002Derror\u0022\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dlogo\u0022\u003EFeedback\u003C/div\u003E\u000A    \u003Cp\u003ESadly an error occurred while sending your feedback. Please try again.\u003C/p\u003E\u000A    \u003Cbutton class\u003D\u0022feedback\u002Dclose\u002Dbtn feedback\u002Dbtn\u002Dblue\u0022\u003EOK\u003C/button\u003E\u000A    \u003Cdiv class\u003D\u0022feedback\u002Dwizard\u002Dclose\u0022\u003E\u003C/div\u003E\u000A\u003C/div\u003E"
+                },
+                initialBox: true
+            });
+        });
+    </script></footer><script>
+    $(document).ready(function () {
+        if ($('select').length) {
+            $('select').formSelect();
+        }
+        if ($('.tabs').length) {
+            $('.tabs').tabs();
+        }
+        if ($('#id_start_date').length) {
+            var start_date = $('#id_start_date');
+            start_date.prop('type', 'text');
+            start_date.datepicker({
+                format: 'mm/dd/yyyy'
+            });
+        }
+        if ($('#id_end_date').length) {
+            var end_date = $('#id_end_date');
+            end_date.prop('type', 'text');
+            end_date.datepicker({
+                format: 'mm/dd/yyyy'
+            });
+        }
+        if ($('#id_start_time').length) {
+            var start_time = $('#id_start_time');
+            start_time.timepicker({
+                twelveHour: false,
+            });
+        }
+        if ($('#id_end_time').length) {
+            var end_time = $('#id_end_time');
+            end_time.timepicker({
+                twelveHour: false,
+            });
+        }
+    });
+</script><script>
+$(document).ready(function(){
+    $('.materialboxed').materialbox();
+});
+</script>
+</body>
+</html>

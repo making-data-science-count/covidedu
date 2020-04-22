@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head id="Head">
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta name="google-site-verification" content="UU4gO5L7fkuzBOcVPmO-ccXgV2brV3twzw6DXTeAT0g">
+<script type="text/javascript">
+    /*<![CDATA[*/
+    (function() {
+    var sz = document.createElement("script"); sz.type = "text/javascript"; sz.async = true;
+    sz.src = "//siteimproveanalytics.com/js/siteanalyze_6004219.js";
+    var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(sz, s);
+    })();
+    /*]]>*/
+</script><title>
+	Communications
+</title>
+<meta id="MetaDescription" name="DESCRIPTION" content="CCISD District">
+<meta id="MetaKeywords" name="KEYWORDS" content="CCISD District">
+<meta id="MetaRobots" name="ROBOTS" content="INDEX, FOLLOW">
+<link href="/DependencyHandler.axd/11e66351ee5ad30e447ca447368169ab/1413/css" type="text/css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" type="text/css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" type="text/css" rel="stylesheet">
+<link href="/DependencyHandler.axd/ef3d56bc6ff8efcd5a8badfaa9fe0744/1413/css" type="text/css" rel="stylesheet">
+<script src="/DependencyHandler.axd/0327fe607b2b6b7e243f6712a93b4890/1413/js" type="text/javascript"></script><!-- XMODPRO ScriptID: ListPageSettingViewHead --><script type="text/javascript">
+
+        function SettingChange() {
+          $('div.SettingSelection').toggle();
+        }
+
+      </script><!-- XMODPRO ScriptID: ContentResourceViewHead --><script type="text/javascript" src="/portals/_default/scripts/DnD.js">
+        </script><script>
+          function ResourceHtmlEncode(s,en) {
+            if(s){
+              //s = s.replace(/&quot;/g, '"');
+              //s = s.replace(/&apos;/g, "'");
+
+              en = en || true;
+              // do we convert to numerical or html entity?
+              if(en){
+                //s = s.replace(/\'/g, "&apos;"); //no HTML equivalent as &apos is not cross browser supported
+                //s = s.replace(/\"/g, "&quot;");
+                s = s.replace(/\&/g, "&amp;");
+                s = s.replace(/</g, "&lt;");
+                s = s.replace(/>/g, "&gt;");
+              }
+              else{
+                //s = s.replace(/\'/g, "&#39;"); //no HTML equivalent as &apos is not cross browser supported
+                //s = s.replace(/\"/g, "&#34;");
+                s = s.replace(/\&/g, "&#38;");
+                s = s.replace(/</g, "&#60;");
+                s = s.replace(/>/g, "&#62;");
+              }
+
+              return s;
+            }
+            else{
+              return "";
+            }
+          }
+
+          function ResourceCleanUpUL() {
+            //Delete empty ul
+            $('ul.ResourceUL').each(function () {
+              if($(this).has("li").length == 0) {
+                var RemoveUL = $(this)[0].dataset.categoryul;
+
+                //Removed the ResourceTabContent
+                document.getElementById(RemoveUL).remove();
+
+                //Removed the ResourceTabList
+                $('li.nav-item a#' + RemoveUL + '-tab').parent().remove();
+              }
+            });
+
+            //Hide the whole Resource section if there are no listitems.
+            if ($('ul.ResourceUL li').length == 0) {
+              $('.DnnModule-36151').remove();
+            }
+          }
+
+          function ResourceConfirm(msg)
+          {
+            return confirm(msg);
+          }
+
+          function ResourceEditSort() {
+            $('#EditResourceSortOrder').hide();
+            $('#SaveResourceSortOrder').show();
+
+            var ResourceCols = document.querySelectorAll('.ResourceEntry');
+            var ResourceOptions = {
+            };
+            ResourceOptions.DragClass = 'dragElem';
+            ResourceOptions.OverClass = 'over';
+            DnD.DnD(ResourceCols, ResourceOptions);
+
+            var ResourceTabCols = document.querySelectorAll('.ResourceTab');
+            var ResourceTabOptions = {
+            };
+            ResourceTabOptions.DragClass = 'dragElem';
+            ResourceTabOptions.OverClass = 'over';
+            DnD.DnD(ResourceTabCols, ResourceTabOptions);
+          }
+
+          function ResourceGetOrderClicked() {
+            //alert(JSON.stringify(DnD.GetOrder('.ResourceTabUL', 'li', 'id')));
+            //alert(JSON.stringify(DnD.GetOrder('.ResourceUL', 'li', 'id')));
+            var ItemCategoryOrder = (JSON.stringify(DnD.GetOrder('.ResourceTabUL', 'li', 'id')));
+            var ItemOrder = (JSON.stringify(DnD.GetOrder('.ResourceUL', 'li', 'id')));
+
+            $.ajax({
+              url: location.protocol + "//" + location.host + '/DesktopModules/XModPro/Feed.aspx',
+              type: 'POST',
+              dataType: 'html',
+              data: {
+                "xfd": "ContentResourceOrderUpdate",
+                "pid": 0,
+                "PortalID": 84,
+                "EmpGUID": GUID,
+                "ContentItemID": 75381,
+                "ItemCategoryOrder": ItemCategoryOrder,
+                "ItemOrder": ItemOrder
+              }
+              , success: function (data) {
+                $('#EditResourceSortOrder').show();
+                $('#SaveResourceSortOrder').hide();
+                alert("Resource Sort Order Changed");
+                window.location = window.location.href;
+              }
+            });
+          }
+
+          function ResourceSetup()
+          {
+            $('#SaveResourceSortOrder').hide();
+            BuildTabList();
+            //InsertResources();
+          }
+
+          function BuildTabList()
+          {
+            var categories = [{"ResourceCategoryID":8135,"Category":"Coronavirus (COVID-19) Information","CategorySansSpace":"CoronavirusCOVID19Information"},{"ResourceCategoryID":6449,"Category":"General","CategorySansSpace":"General"}];
+            var active = true;
+            categories.forEach(function(category)
+                               {
+                                 //var categorySansSpace = category.Category.replace(/\s/g, '');
+
+                                 //NavLink(category.Category, category.CategoryOrder, categorySansSpace, active);
+                                 NavLink(category.Category, category.ResourceCategoryID, category.CategorySansSpace, active);
+                                 TabPane(category.CategorySansSpace, active);
+                                 InsertResources(category.CategorySansSpace);
+                                 active = false;
+                               });
+          }
+
+          function NavLink(category, resourceCategoryID, categorySansSpace, active)
+          {
+            var activeclass = '';
+            var expanded = 'false';
+            if(active)
+            {
+              expanded = 'true';
+              activeclass = ' active show';
+            }
+            else {
+              activeclass = 'inactive';
+            }
+            $("#ResourceTabList").append('<li class="nav-item ResourceTab" data-id="'+resourceCategoryID+'"><a aria-controls="'+categorySansSpace+'" aria-expanded="'+expanded+'" class="nav-link '+activeclass+'" data-toggle="tab" href="#' + categorySansSpace + '" id="' + categorySansSpace + '-tab" role="tab">'+ ResourceHtmlEncode(category, true) +'</a></li>');
+          }
+
+          function TabPane(categorySansSpace, active)
+          {
+            var activeclass = '';
+            if(active)
+            {
+              activeclass = ' active show';
+            }
+            $("#ResourceTabContent").append('<div aria-labelledby="'+categorySansSpace+'-tab" class="tab-pane fade tab-paneResourceList'+activeclass+'" id="'+categorySansSpace+'" role="tabpanel"><div><div aria-labelledby="'+categorySansSpace+'" class="collapseResourceList" data-parent="#accordion" id="body'+categorySansSpace+'" role="tabpanel"><div class="card-body"><ul class="list-group ResourceUL" data-categoryul="'+categorySansSpace+'" id="'+categorySansSpace+'ResourceList"></ul></div></div></div></div>');
+          }
+
+          function InsertResources(categorySansSpace)
+          {
+            $('[data-Category='+categorySansSpace+']').appendTo('[data-categoryul='+categorySansSpace+']');
+          }
+
+        </script><style type="text/css">
+          [draggable] {
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+            /* Required to make elements draggable in old WebKit */
+            -khtml-user-drag: element;
+            -webkit-user-drag: element;
+          }
+
+          .ResourceEntry.dragElem {
+            opacity: 0.4;
+          }
+
+          .ResourceEntry.over {
+            border: 2px dashed #000;
+            border-top: 2px solid blue;
+            /*padding-top: 50px;
+            */
+          }
+
+          .ResourceTab.dragElem {
+            opacity: 0.4;
+          }
+
+          .ResourceTab.over {
+            border: 2px dashed #000;
+            border-top: 2px solid blue;
+            /*padding-top: 50px;
+            */
+          }
+
+        </style>
+<link rel="SHORTCUT ICON" href="/Portals/84/favicon.ico?ver=2016-07-13-154156-000" type="image/x-icon">
+<script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-111105476-1']);
+            _gaq.push(['_trackPageview']);
+            
+       
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+          </script><meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body id="Body">
+    
+    <form method="post" action="/Departments/Communications" id="Form" enctype="multipart/form-data">
+<input type="hidden" name="KB_JSTester_JSEnabled" id="KB_JSTester_JSEnabled" value="0"><input type="hidden" name="KB_JSTester_JQueryVsn" id="KB_JSTester_JQueryVsn" value=""><input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="JaYcGIJknV5F7Q6F1jjMuzAXrlXfDEappuEHxNwlhpgaCC9dnZA5vDJ9qSq4QSUljMU67PkUdiz4P9rPeksbNEb8qatAEwd39BzyecExTIq9oos136bndYZ3cMq2rfydELV068mA5ayF/ldqukwRZeghTFiOoKIFdLwbnW+tVwlQAETLrdPeoWHiBhDGKLmevjc8iWwAO+zoezJmFldiI5NfemgfKfBlQjWna6iBnatdSVhKg7tO3dHSzW0S380+HUSySUKwZSgv788SY9PvwiW8ZgxUm4K+/O0Pe0uxBIEz+zSECfAZd3P7JCetK9Cb0bY/C9YxfYXEf9E2Mr5ePlU01e8PFL1oxTJ+lq1rUN6e8BtTLg+5bJ6dDhmtPMZ+/G1hd251KFwK0pSTCLMBHDniHpiDFTLI5JBmy13FjbPT0JCfOlQW95CWptX5g1KGJCDUVsEv2SW6TeROSWoj3ZyduWKW8iQIF6KcQiuKljeWNp3x9+VXVLWPclu9L7mGJXSzxGGJ6cBWchzBQ3YSi093QwWRD7ikNfER8LmjOvtvupKSYvnAHYpjcpfy626AdeJFiOswVM/Jl8deRgLpK+p+DQG/+EbiwCuSsmpaFk2dI7tYW14j/FRLviBAXw72ghTLolYEvorMEkyAMoZBoeh2gLDz67eMDSq2uI05lCGsn0gIqU6BztH8BJI8KJuRqkJl2sIrqmZnXOHJrGs8oyoS8BTb5eUnzwEnUSNFJIUCkwWd+3fBw9Q9aJFa+mHDbxDaEyZy6o5NZCZRaftqi0AmWsibXU3lE2GNmKL79qR5dl4Hu6ESaZoQ0KUjCkuFBCBgZ9CtnccZvSiwJx0MWhfeHNfVvhfZHwHM+S/QEFYZOk/x3EgYpyDkIszfmVVXe3VVpEJuD9VEQ4MtuJjC0UHDRMsD0RTnsIcuE/EzKVD9Ju2mk6LI6sespg7YHdiHwlfveEec5gwxvSBKmDfc7aYgNm/i1uScwXZBP3qKNfJqncgB1rCOs9Gefc/YVmm8Hpuy4QALQ9MuxaZp8T2xX8qGupMF6MO0FOFBufaCssUpIEl1gYekmpPVgX2GcMxRhUlxPlH/oMov7mCLau3PSrqYON6NxnUu+2J/Nrw7vjUpfJVA+nvm20AQ6IVIYK+5ARGtYdtVSgiIQEmVLKJrCG5PnTgZYl2oR9FnfS10L1uWexnFqxvvYXeD161wkNrWERqEPFfLtIwwQVvRqiXRHgZzrBFCBR9gyalsOtxhv7Tea//+NFqoKmBDqjsbTLxf/y/fkO4hfyCj3ICtouv5WTMOEXDgcBKpa7oRxxbMxxMqbV5pi2F9Vx/QJDWycA8Aht3mnV2Je0APyrtZPhud+mp2T/7gxvO0M1fO9uwCruyuBv4OzM+gKBngdaGpQeWuBTw05Os3nrxJJiXOQJe5/xFkgDoasG/FBv3ORikKbyEaML9Hb7NXOutudLLOstj2nDCu/2TutidSKRhwd0x3SHj3M1MHlqytmnwEwOYkU0tU1VYnqmcgCfRKyeVtkM64wvt6jZyQBc9+9EtXzaYWN6obysh0/NpAz+DdC3xRXtRUi5L3jwSSH98ju3QhGxioHncQJHwCIqv6zTswNeIjKFAh0cWnZP95yQx9LCnZT5yVhz1nfInzFpm/Udp+JkkzipOlT2kzGEBuqnhx2YNBuWt1nkzf88M5/a/CfC6XILL7fi3PR4UvZwVs+DysIaB8BBbzlifMsrPUDHv6DdkJvJklEBPlZbF65+iMipRnh9kLcnCn+zXnEfwo+uq6gu0fS6fLmeLr19BSmURX0yhrSBO25Rxb5B4dsSS96bUZoSPGpsT9RxJUSnCdQ8Ps7iTLkP+/Ysj5xSQ5idCs0aWTY/HDNAqCDjK0nZ6oucwUDPvl76EmOt1AxRkb0RY8JwUEJB1f39nvrSg0l8u0iV6g4G5t0nlA9SLr14lPTl9fov+A6+9HF24ilvY2Hag848662avbQOGLQkU9x/5eGrpR0MYEcWRRuabXSSCL8uWb1BuEpWVegbVAS27JUXxATj/okyjdUOoqF08AOfr3wkWac7rcCDAazlWx60Y9v5HH+mOHDPyPappi9iQI443lniduww2toAHA/d4RUXuCk8rdw2cLdR3EuaEffbWi/cBwlidRD4LFYjJl4itab9LAuvbvYYjTS7uItZwdT/nF9yeer6nur+XTSlyaoq7Nwc8aiJCIumsOZDHOsufZyyOhpbc7ICu6a2FuwMiacK9zXX4oaETS5j+b2x/3LSCnBmi5Z8kAEdu4/N6kiOe9bcIFGVpoVaY64ywZQwYn+9bFrk5lRZvsOhpdKUY/HWrl/54Xz/itzzMfYJlzFi88osEaDYJu05ycPWgsc3RFPkIg63QY82Yxe7nPEH5kwK4y61tlVOjTYHaVVwIgxBGHH0yQmyuDkweB9GX+mNeUPAqUFJU1DyAbd3r8HehP/wg14ehpdbO3YWli+B6Bk78mFxxnUWywCM32p59cKqaVaIcICKeNFDdDnYeLecU5Ws7IWyuwXGx7pS4o3Y/RN0XCifzi1uszE1bZddBJKU3yAW7dqJVUfkMavEOqakD+mhJdf9CG5/UoBa/oNe3iPwnKndN1u5d2Co8Ma+vupYMZ1MJEI5otxCVAxN4nq5ZN7PgBcAAXTrJQM3FX99C8Dj+KOF0N4XSUYaVILyWzQQ4xylSXkD1sSDd+yY6J3Ame6O8MeUL83jsNn1JSeUidu4L0z0FYyfbx+whk180L8Di3XToU3LY7a6pgdAbmDyfXq9/6n3juiLyOLFmF4oDt/TN8d0rvlpAS+whPlt+81uk+I9z9qzECVGbVRI3yXPUei96AZCfI7doha9qMzo4K3kE0knQvYBzjfK33N11xeHeXoupk+J0kDHm7zLe4I3ocJfFvqBKF8msZUM2AN+D3BAqmjgrDd0ZZQrvhQieqIndzVnJvg/2E2yQfe2Cx59m7cywDFB+gCjoVBnEaMlYX/jvncuq24oht4mcS9kglj+rzFa3b4EFK2T7PWnoAPevR75qAAbN+jr9D1ZpHR3N8z/45irwTT235jRDI68LRQxH4T261ElfpaFesMgjuhT0l+8Sjq308Nybm2CbryF4vL3Vj+QGP4U4ZOZj1SW871kt/R6K4t0yJDct57MC83pWm3jq3HzSd6A6UCEIWJ/3359JRsFJpUpag1lpEWensYuItOILgncqEVLqcW4yxNWI1muD88S19W1gRKZ4m6ucrMvD3dM8ABe6I+/Soawobma3CEAUzkT3s/8m9FUP1cKuY2NTY87cM8vsRJcwpKYKulGlnpflRqYarHaA00VccYGVfkwLL52tmxoMT3kFJWvtC7wd/m37C4TS6FQ2Cy3uY/m9n1vs383OPAGPrxHhraT0PtyPv0GiG5J2pCbjLdHKqeQ+FgLQSw668vLkrqco8y3E49ULXUaXiw54yKw/yh7m4MaI0pD/vDjm2KLEWMeDMOaKWiPx+vjlCX4y/9eYIDJJzmVcmWt/iwQhkok11wYcF30FAKIxJDVPC2zj89cSDYQnHIgLV6U1M4GmApfprx/B+6WoVV7j8W5pcLvOLQ29JWLCd39UFT4r+MhqmVG/f8422PYwgMN1YOTeP63ecbd6VmxAvFwf8t+18XIzRW9A9oXJpICuacw9jMmz5KA76HyMliGiE5SfSJhZM2ymFBM/9vdgj61N/vDJMYYw7pmfKjYJL14STFcaOBEBtsIw9pRzRpl3YavUSEht0e9hUXqLXu4Jm+QeiS862tCn/kAkYUDgduaDDY8fp6nxhXvzvqvkrNbpKd7RM73Y4ZJ83+tL8ya94lr10QIGkMYH2M2Usq8sIi2v+UooHhUJNkeauGrnXEBN6EEZ52IPvS9B3UIEUPSB6I7C+XvtiQYUL6t9897eRiPg3yRxbo+HoxNxRTBysUMECiE2HMuhea+T8XrzUnddyKl1kh76qdm23XmglrhV1tbhcfyzaEkn0dhx8fVI+H2chEWtMiAHsRqYjaMqr1HWkexehJblrCAdxHnLkADNx++B/kTbeRooAYWZxXFHC06neWcHx5Ks12jzCiXpreeegOXF3ErEk1nwKcT/KidE6B5bqFGDtISexIXquW5XZ8hyFi0lkAQQMHHLVifgvXkw3YlMqp2j9c2Fbl1fbrynaLD15d61aYAPDI+385usShTSL66s/1+inBfAHLH7/7XTb/PfLMaMwsT/DfuL/Y4w4GP5CRszcqnquhmtel5f1nmCI9IwpKzSm2kUj0w9ME/jXA4ecX5LK+6yAh1H3c0bdZp5qbn13pNygZQWav4eFQVOoWyF9OggqUcpJchnfT+9woodxGAoWBXpQpZpICThv/n6z682wJduhH5saZ/gtgi9DH3DBw8LcFK09SWULBXT7ASQM4XaVOWp1uY3M7MEloZEEixOYU4sP4iRvumBS7JiU5ksdVhuObJXxsqaCiCOG+23ZxwtvGjBhnGYFG4k0r5sdU+/PP6JTjfn6S9aLhQU3L725OgOgpqyI+dQ2ymYcJhg0M1ols7TzsByTqFhkDox3y/OxFFfaDX0exhxCWY5dwMjw7snupOWhamoomSG3cIIzVhVT9cY9bmMPZAlRH2ZnWUcMsGoYpVsow4VafE5eaVdm7QDRFs/Nki/vaM5pWgtvRdFUW9O4aRDEfpDv/eO1lLrbDM+0/fkDHbnAQ63rXaLq6LZKUY0eh9+7yiYBSXGfH2/xTsB4iGHJbi1IctvB9+XkjrbSSGshnVeTGYC7/8zA/gHGEdrlivCz6ocmutn+DQugpLkKENe7uSJjaTSHWnOf77EjCpl0uQN8+LbuLXUtSa0dedgbrULMhTGJno3RK/7GtvdgFiSnmbqpJIOwBkCiOcZTQkp7q1B3BZKNF56GDR4G0UnMqfNt6IYtDPIAbwuz5tiva9CbBm5NJnJkfe9gbFvMZ21DlEv7SvAwNpPFXnGvlRHdso/6dF5ztJyVALpzgjrPR52yN8lNcq2sD+q3wnLdRKxsfg+X8V5oUhEVcsb1+YcQtLfPJw/uW56y/ql2adZWTPpZkSg+tVkhgODCWUMzwfORJxvzIfN9NFcdzWH6+Qc/ipO9cg1ems27aQ4GpXj6liA7DDa9VRfuHfgMfAtvQOAUV5BL/db1Z/c7qvngMHWya0ehRUqcn2pZra8OmktOz5953NNgYbmXqaDFxX1JnUy5Hkj6iPi/PVSZvJ/LaOSKKpCNzVqXdWeWv0VxXZUBFTw9yI+P0ADYrzSdIyYkvY17RZCVv3HVgvl39kcmcDv8/7PbCceFhrw3GDkz9NjDECbKHxrNv12zyY1L3ZmytBf3BExgSIq/wQpbsHzEPrcqrw5FcRmm2X7LKaZ4G+T3IcszAcdBBOAo0WHXzBk/T84cVQGxffi1PK/XVC5m+pUwVKrqOubmnQ3YTl5qYC61p/LdMPD1QtLLvu9H1TbZzN5JWk9O9p7vI/eMvtw6dyegkHhsGthxW1GCJ7/QQI+H/MomAQnPgAKEUuFMGxi6j1KeKqIQ372CgLZpslnAEpm6t39vufmXt7SZCeMGQLIPWgPqv+9zBFW9aNv11oAdGWpzQbN0pqcLMjhaYossGJKoGM84JRhn6X8iYkB+tDFsezQuEcuI554QKnGlxB6bTu0HyvG+CQSAiG7FCnQjbPAVtcx5aZ//UALrvpZmt9PUXzaS9ZqYd8tppDonJFchjSfCA/owTswvdfUfGHwtk6MjtXDgEjdfkhvIGG7DX/+5cpNwenk9ks1zzMw55Dmdqp0ZihRSPBqwco6OhgESJwx58tKc2Pf93rcbhSXcYSvztJaCpopeulWJOWNPPDlDnRIDXq9B/B3Yzf2bSn4kkLCcwVx1r8iPKgpqu+QVruTrpW6JoJUkpuN0DvRsqUin4Zx/Rl6azjORj/U1o/AT8vBHgPoA5UNMOFQrv1U8IsaksfoWDuc6YUAFy26fXuyz3xQqKxYrRSR58tRUJWY0yUH5Dhvrqwt/mtezzIoKZh2KAd2FpDc1KceDlUUph7Pg0D7GwkQPXcG6glF5XEWslzGBrVQ4Z8riUm39pYd1L3a3nCh7G6GzeZYNElz7kIU1Hac3RSmxixRDp58nf0ea0vBVO87fb9CjUh1zVfdVequ+sIjOOpe4FKyPvfjQbjzpvO8IrkiCRY4cRs5rhLR9MSu6ipBaaIpjoaSQRUTAHRxzRjQfiRr/HqAZP8zRXKVI57UgCrA7OkbNdV7ZseK7RUL4YkaEWxmbYJP+Rp3LHu9DR3dvmdfvmxFWDujIoOwWET+0tFAAHiN5ddm0K4ArIPGG+p8p0EX5A69AMGMNuGpKW3K0OhGjXqfvZp/imh1a2UO6Imn1M7ec2q9XFAV9D8L13GhRcqamHMv1366UIjMLD3fN6ll2K0zar1WvuBPjpDPCDoNuO37cBr45N/FSTdNyxQ6XvlieqFOvfUFrLOcvkIaWYtHlOQCSdS5qvTC5RuoHJJcQDpz4n84iRs18g5GnZEz6ibEDpXMJ0M8rv6BH0YRLjOcOwGIGmhO5c1jwzpP0HSIc/aevshrkyqOAbMghTm2V0ql8i7ykOLDkUoEnErak8hz4b2u6q3YFKPu9VBm4va8OMRz5MmXusqPNO1AghPMQxWsKYkOqSBW4O+yF0qLhHDs9xHcsemEplgNNSyOWv7bTjwcYin7Q9bL++eis6lrU9zwQ5gl2Mq8SaCiFxgvAIVAtSnlU3w6qJ5vu8oI3m6RlkcV9KIu2wxfdRBIH4VJtIaefacSzkq4+CM3rWddn2v+RblsFXTIzvbM/5jMBeEWhPXu5l9YfZV+/euUNAqC8bkp8U8WdAuGft7vgmC/wnxnu+MOqQLs8/GdT0hztfev6vPLqjzDs6jujEJZwPKSkKH+x9pTEAexfEeUR+f9vMJ3ugFMjqnkrG/29h3tvXnuSUKVlG/j/Mn6EB+igxS2s6PMki6IRAxNJY7tSUSKeWUnk4I0Yc3eaIaDAE1AbKa8YqLwdYqvxqGMB/iXUx6mdT20mGtDG79hLCWFv9nNnGbkagP/v0P0AXwbo2iW71O/gbH16opvw/1xnoZKrtGxS6Ft61EOwGJboa30XGdnOMPMt7Le71bIgeol8q2l50cvJVbA8qaao7Aa2XUD/Ww3uGHe9vS1OhGFMbiD1McRNGrWZQbbZPscJY8DYQN1jfrYR0lGzp9bPmtdMijhLoblOh8fLAqm7ZnC4QMbBgDs2DQvqLmLb137eqHI6R+2kty0fFUoUUNO3YlxmtXuXrI18z/CPyvsY+hFMMw1LxU8N+mq4v8x6tW2ki1UxMU9VxSGqJQ1m59tvDiLhJ/xyNDGr0kzSsBwQiVrG/YY4e0J5HyOvW9AB2k7+SJ9eGDoVmVINY/btX5REceE9fXuEpRp/aYEyb6hkVExqlvEDC1ya4bY2BgoeZPAOv2yrPUqnW0ptCUuzK4rO5ycdjKxs8Yc0WhQfD2sbvSSX5q6fYxMuOynU3JXIqNf0tUKFo+HifWFEEgdCdzNqhgvSrdzO+WeZoz3VKliiuO10SjUwHDqPWoG41BjgrNZtRlxXw/Gj14pIYmOB5RDnOfqgUq66FC6dDVomRZHTAoJuLpqXVDtIHvNCz/boYZvIxNqsfbJxNKAxn7YEsb/RdjZZjRCTFdpuwP+K9y5P2AAfutEKjCro+XeXDZ0ILa9EmMRbJDaaQBAGQTaFW/7K3vikqAiKJhWxjiC1Bnh7TDX8VFMGbUNAM7m5dgUaV0TwdMBzOsKnFdgfnUWyg5poQ0jtm9IDXVh41EdhXHq+67Qik6S4wbUJpXZ3hDwcD36mQKM3ZDGhBGlutlJ2p2SPTICQM6upLxfyMbC3pe/c8nYyHokPS9cv1uu+nki5Y1dh6FGZYIFK+EIg7WYn+shGCqkCjp88fjqdPYPou66LHBRYgxGe8LNkea2Ovy4PtEGQuh94tWQ5Dzn30CtuTkAQIcZKGZlZ9QnqM92l6GF9t9xnrBizwB4tdZ5pyAJ1gOHZnCSBoQ+l/J5etRq4rc8z2hxECqxHWcoZwG7ulc46b60PBRrWDOYMyHhwgGlTHOZOcteP/XnpyHPUki5v0+6po5wLcWBBALYrk9T2pYONUNbu2eEfF56Yq+DtKj2Eo2NenPwVpst9IQv8aBi808P2u2OTGctwuCPxYUHMPNKRJr2uDiYRkWhePDFs/Ao5AJwvKwlB+Sc/8MCKWbdq/5g+4uDzdXNn58FjqPijrzL0manxotiIPIb0nipdi8j80EKtJ8Bj4Pu0B2jfjHfKtfNfRkGWj1AOMIAM6jNfdAHnX31RRNbC5/FTuuqounZ9ZgYAEwDV+EwQE6aydqXb+oqJXAzVkzws2mz07YOJfc3S/sc/3dW3XVj0B3IqMrQ4p59Y3AAwQlQk92MlMxQ3jYx/qgRhU2WhL+ICA7o/sO+25F4mPoQULnEePFSmXHq0LA7BMZEu/68TuLF5CfhYI0QWwff+CfisLu2QgAL7Fz/HLLYkXokguWseoHBc8ILQWVIFOgVNNYLw+52KrmOqxYJqIWhTnK9BU8olV+foBnfwvpamfYEA7nSquNxE4MuHYTnHccthMk1lpedOv0Ij3P89no3jgNbQm+Tiv24x6uPnBtc041ot10DXr/SOLOhTU6ro3hr//9dswhPZs5flg6GSxcpr2Yo6JnXfWU53oHDFXbksUoLVHlqKhdxhpKdKJ/WZiNMQZCsBzqRbISb8Jx3mxoSNsTj6ExlPKrTj/iVpOS1o8qqlBs1EgBSXTKEUDmpnvq3JwJIXHI/W7UJwo2o1XhstTHiiUPSBI75+MaWnd+WnDi6eid5wE1qoGHS6VNFnxZPXX81SaApyXxeX5cbvgvJc+dOqVnDp+RUI8vRkxKHUibXhEuwjKXQPZfICwcYxUlEQyUxsq9l+g4+eH1xQA98k/yx7XG0m3IQ/sZQGu53EHCh8SU9oI3pwuEUmFROeBfHjKW2PmUBNbDNoj/yeDCqXZa2k5dyc9jsnXtsERvmS1b1dIUKxc76+ELy5GzYdRUQiFxUlwhV5I8jFMZgJaGpv2RE6J5iW9tAM3yjwm5P3LK7hZpJ9o4q0amjQ0VFTOVB99q64zuKm41P3ctZXo7Ye7ioPQ0lIj3OvaVvSTa+t89y+khd3sGxdstSwAv/bw4YWl/2rvbMY8VNKaSQDEMRMT5IlPvucp9vKVpkYSlSmTP232QxDuBU2q/fHm5Q1xwitEdyS4e7JeYyZhr29PHgTSjUdfgSqRXYOhdXnrOE5ygzvNGvqGaoJoscUbKW/deTW9/fHokRh8u2jxMqq+Z59L1D9qSPXmlp6QfBE9kWE6z4CPq5pEiauNim6jvSS6t4+os4aIkMKRyB3yX+uMNmgh+QDgRzMl6m7KQJ/Lf/bzCp3GBRnTBBUK03f/kGg/5hrzvYcRHBRvghkIKtuHBQQvqOHfAOI5ejyPoaGmq9TU0qChK4Lh0RMScJJO43rjXGqRxXPsjjcuyu1uYpGhBRyw0r5ROru015s0uFhyBTsrYentNA6lZ0dHNz+XvI57XvVGwpIe5dM3w8IEE19gw5UJeZK6jZMzA5475j1vuJ1NZZnlPc2tIUxJZEhzpUJZjK2H97VpllBDYeyHJ7uYJ5CIB6lL9LjFlxIMc7bEUp6DuWH8AS37kvrMjlcsiY3vkrdN8tz4o1KpOF7wAMgESHcoeyi5I3GCEBgKJleZvNQtX2kfnLvnUiOtyGVdbS9fVL6OJPh0KoWfQlbVlQMvc6WeFErqs8mWqClvorQclDoNDt9Oy+u3FSVetfGFCj+Dh12U5xAav0DVEsXoJjIXPD0mekDzoVmkUImVzKNl590M8gW2tMKI9S+LtnrMRi+NgvRhVmvfypra/ZnZYMBSoX2+b4a0ruwm6NcHeqaW7LRGSFhY0WMyGZaDdCVx7115NjK3t55tT9AAxS2zzsP8h8PkdhBNvs1j07bjgiWfz4oy9KinWJtqNGettd8m4Tpx69kh/UOa1gIukM4OKtlp2aQCgZ6zezTFEtZHT1q4BcuYPstYXaHpeyJISIPbnNzZQl2ARqKG9OiRlh8WOX3w5UQNIgsUMIZlWYEdgxyeMx9+33x2a7LJScFjvk6cptg3prf74eYAJR8rwKyVgQKVZ+mwsBMyhdLgeTOaKQoxwzVOGfuWS8kEQfvYgKOkwL6G2yGXoLEuzHKFy2+7U1BQkkQbzkxtlxeRBp+UAw4MsEowUgprekKbfGh9MGaQubrueMy1DnfZsvm6cXxmYNeJ/TmjKag5m54OTaQnnrsncL1Z1K2llZXlkoR8nZhjbvdMEVQCut+Tx5cugBAX1vxnWWr7hWHNzq8g/EbJ4MKabILSD0kAkUBgPNKxSX6HM0tn7rSRge1fHLwUrkLgKgHRxd//M7ikr2jiemqxYn0sz3W44K07FJFPfD615g7s6c5edFnLPJxRO39yrBMb7QgbpOi9EmjwrR0bxeOoi2aU64BRf35YHZQnH9+mwjm0tCmeKjYB7/L6IqB8GhsdvGsKYX7biu1LoDKesXjbABggvY4bt9wXpHgEihsMERzWVXBiSr9qWBU1mqJVR6N3FLW5VzMLA1mBdyCtO5dcP2DZwME7Brc/Jpjb+xGNWloDF+8zzWW590XGthyTbJSWcV5Pup5/gSJXrTZ2OkJfz1SZoWnSFx6HNTRV2zrp6O0xridp6tLHxhpYwBe7tXt1Kx+HdQrL2HGY+4Tq1DPw6tYRqqCGULBz7rxRxpI+FBaB1GIKHoJFXId1ZWq4OR7qoK/ASSJeapBQnbAR9I4m3LyMxNOwwsBV5a+tjdYwZ1St6WXHCLdwuQKWqWAXMhtwLJJz31jGF0u/LPYQv9OWpw1N0KEegrJvOMSIQHjBot3YIeKTSUXciA6WV87RZMcds2Kh42riT9ve4YBozY8zo4VXJrgGZ8CEkNB1jG7F/AXI6c4rLOyf+fcF94Ni7Dk3kkRV8exuIY/8iJvxH1PUG3SFCaurToVMe1jl1A5edME2ekoquOH8OfgIWNI2z6fhu6qKsH8a3Jlewe//PqYpjONrtV1OFbyZqbt2p9eHEWn4Rlzv5mPfkrM4rER3HLUKDPKU7ljuY45ZtxnPxlRPsuh57B3tiS1NIuc5Y+UmIndneyLdR+LNei3fB5/oQuE/Bwrn10pKPy6/dZqKASu7Dm9b6x7YrtxsVu77B72uUsIIsq+U9RU6iOtlZNKGBpROfDuQ7Wl1N58IIh7LmepJrEXi+9aPIaOu+XdrAML1HfDX3LpLGe6CjT+DlsRCBpAdjRBxxCmiu5xoYJLvNFX/r7ng2sAnVHw0Ug8yoFGvTwRG0WpqiibiFq2jd0Q/yod2iRHUZWov4Cwe0E57DQ6XvIc9DeopofaaTb5my0XYWHH3ITIiqnqN7tYXeaibUNMbiruVw3rtfJFh6PLPUUTn/Hql0slgE6QVEpNqRKL/4EqMkUqydjcVMHzuysJ0nGAIiR2M+WF1EsFUCX2WpvY6gLegwHfxJVbiXdamf7o884Qj4wYGZJEj39gF0z9czKI6RYYYAtVY9u8gQyC1xTL8Aim08SaEp30Sak60S2EabTELLVQGHOWvkXwvC+Y1PelclQWC1b+He43atpLA02iw9XJFMJ1SutHi+h9fEGJDoL4Lm86PScuJW5WKzAhVMHtPx3ghpj7sLUVBMEp7OjmTefSaJlfAHmGynqe3EcDPvIj5SWTaU6Bi0jwpo7AcDX3eFxZug9WxBsDZP/I7hYTUotDevtFy4hQfeEruuNm3/7o10zPWciT89S6vWLIhQTrWrrgboF3JM/RVb3916oP7GaRKIn78808H42q6zvdmCcYGkSliOHy9nO0hBIM4pcEh7P8tMqGI9an7+kHdAoK0nkJ4VI24VoLJr53/Q4xMymSgamUK8j8Q9dO8IcYQOfAjRXy9ObERn0qBxO/6sKFDFwsI2Gw43Lb2e3uKs1JID7PYhY6n5jz3jm5J7QywMFwVuJIvkHPTbHUoL2b9xHPNt98Y1rpckt/QKggo5UvxC5en5Tjh82Ur98VLSuNM2AYpDYw1ddgzVYDOhC7YlsWokHmV+z8ORNw1myWDL02fK3h0E2vBRmcf7mOrmpGuW02Omtb8mAfgrHEC/l0ynyj4pe6cGZIHZgqQrxMomlQ8x3pl25kNBg/nVbXuzTUH2IGg/PBQq4QAq41A/y+zz21xVTovA8u5TCstyKI6Tco2CJfsR+ph1iJOg3n/b834ZZlkPEFHv/jN0zZF3u9wPGdZC5jx7hTdeGK6lBxoWwySUGRY78AjradZu4VlLC/b4Toj6YsuT0+5fz0v/UnDgaVZiH+ErwvOdRqhLGOjpTlQiqXkG2oiFbw1O9wuMoksWE4JXlVmsQ4AuDvEXuMAeRUcWalKJQjgQOQEmX6ECkrCP2jzp8QBybtYZdSWnPVD/O+Gj1GcNJ6AovrB6qGhFHS4GGgekhxHVGYWP7omkV2Ga8X5VZN+ZmNjqUDvOzg6K0U/ciYcoVSsz2E6g34HzSYqaOH2OwT/M2wL05fvu1BAiUkVGAbipBEtQM18sXuCq5O3QZXhsnyUzFHDr0zKn2F/vupx98/sHoWh3UaStO0kl7FFx8uPUCX3U17MqeUSxtr+31n92L0S3cEI/daFdbzdAbgbTASQWFIEM4fPGPNXw313un7dTEUYIBLSsHRk8RwX8NGHgCGhFOtg+bLt+twf5n9ZKLXmp8v0E3/0gcqaxYojBaWJfOIlL6RRnv4KBEhEc1TxxUQHiz6JB/i21gdo6ufkiB8+gWxP2zTG7O1S4IsHMvzCSlC/Rs51kFc7suwbe01aZJtpzEzihqpfs6I0ngC5CBlP0mqoaAzATEihB17PDeYM5IZ/I/oTCw+y6ImQfS6ybp4QgYkxVTnOYpneMtm7Bgk+OiDOwT02VDRuILZReF+o7s8i7Wrdv+ZhSRan25UPEYyF0aLt42NeP2/zrry+Vq0WU7njFm2+nyCkNylFWvlvZr2KVLQRHapG5BMy00ToWbDHO+3WfbIFzWDI515y8OLQX+ORe2f0BYrzGp7oe+mm+TuhhB6dmFaNaaOHOEc/7ImUV/NwFYImC/UF4X5n8Sp3xESVjykVY5u6Anr+Rdskxq25uMJRv97s8sXp5e01n9lNy5Rr26NCPHnTCs/578oX27dtlCJK54IWrQAF7AKTqJuu2tbL0uA+jIBB5Q5KVjhWYC0P8tT1U0UTXfcO5i8tDYOzTS5edVxq0avTGUV2IS678rVy0fF4LJZSIuz4aHmQmjQ9nn6BswzATYEaMRon78FO2W95PqT3wYN+JEbNZ/sgik1FfEq2cVtJFOBte8QTyN4y/W779VCQMuFMQ7tf/XMXxl1TGV1TbA4B68QGhkaZhFfiRcx0JtjARxHUF+IswWukQ2CpBGaA4wFhvLwY8qbbaeDGW9BQyqqO31jqYtwQEDwgLh4VxSawZ6Nndt2Q2smN+bKFpnIhFI43LluPjAjwQmGADozh6HCZP/JxtvTXLFX70XxFxsH41oDriFOnWf8CA8ZXY0TQX17SsFaYpVh9yc9C4+JqL6JhrbTz0gJAy9aRRuCKRx4Kh479QDqIsGzi3ASLQXu9DclRoftkLL5OIfoBl0s9kb2AnNbREYDof7ATPKH0rGKut+q+zSDXCOvOA/Kq5OUXtt7AkG3soVCTTO//+YMkhjsdmepMKU4CXq30noXr4FreaaE9d6o/b7P7ai213dIhFHHnHJRn0CKThYg/n++Kylm7CIF/K6k+PYSLKcjCOeEpO0er++VdNcRiSjfyOWSpz//AV9dmA59zlLMGhM4dXTh8Mq9UpOVyMttlCnKkR6p+70cfwWoflwgqESkA37Zhel+t11PWzFQQamQ5TsP6QyKXvDwtmjLDML6OM4QGAGWIXR5cnhv2hR3QBBGKOgLowLFPv3ZBawbmvLPChIDQGpESZjWUEqTcIKPDkDPnAebCytASI6CCjzqzUPmk95RFUNIgiIFmvEgFy4svxxvYncBLdvifq7L1vMCmPJvlbVGT/XLRkwin5FXSiwLTep4SI8s/rCasiTMb94JslPG0YPuwbifLZKYGfKXLjAzZXwA2n1GhBgWUkMDwDNsUn4lIJG1ybxtJ9UzQDEWnI1G5mcaSecKjvI1B1LZ1Gw2JdMhtM0HOiCnnWaFzFPLnDGBE4oIwC7aC8eHOeh19JFF3C7JdtLYKallXF8P2kp996pIiasrdVTdTBpLgXZHvcyPqdLDGVpMNarbWw7dGoaoba5SZYqILbFTaInRSmbteIYzRqpvt36DZht3Ti+wJOo7EjALqoFQX5vJb98dgkQFAdT4mhJfacekGuiIRBIUu3n0ZwWKuqngrnAqJLB4vZOb15BwfOBp+NzetPss6Cudww18uiTXG8pevVSvkD5T0QiN+FEI0A/QpJXHpeNxnqqptW04P9o+hOOnONbjmr9/t/BWhzrhozoM3O46rntULi48T8BioITSOYi2ttbxgOdnze3nolKHmHWPOOE1t6AOR5YeWKlX8UAAE14WeRJnAG4dRemIGXpB7DUQiY7nGe9hDiClFRYG/GS3i5vaPRsisAcshYXjY9o15FkMAOcOdPTwTsq0xYumlA/tg5cPavBPOgzP/CUMPo4+eQCD9gkN1TlT03cTwpqNLd86GnCw8PLwK6ATCOzralMvXHJVAerRv7U+SQ+rFzzOyNYPzp4D0WA9K4+8wRW2vaQOiNN9zvw9/TMDyRX/TbnlvTTyfZTRZpKn5g7xyQlncT4FyXsPDtISGcP3VWbGd28mkyVMX5VSJPYpGyvHbE+1UhGojw0f+YBWMs3eitvtcOUF8v7iOyu0ABQhRwxWEmeqQZPUKaG6ozT0XFfUzSzIHLR0PzeF9RfqKBhLAepwsNhE9wwuFrtpqDKhkDDLOUXK4dZKnWSxdecZvfJM8aMy2ubW8DnUmEsYgN6pc33w1S/HQQIG1wF1pIKAOivPhGeF1kyfy11yfaeJDxwnlva092zP92Tq22+cabGtQU2sfB8SR9w+BVjEAmF4jgN8kPk1qU3TXkJF+aixyp1XHXgcNfBmexfx3vdO8ll9SJcfHdeJgVLAQiH9sjiIYPjy/X1RP3/xE6+1+ewcuQ1SVclDNWClzmOm6OpV3Q3rs0Oi/OykVlneYYiGm9PwAh15WXr8TttovC/M7Nwll2Qu9/hM4RZvpdZkgEPB1IPIytXEODBsXnrWHL6wESzcOepQ7gIS4s7E5Mho7T0Jvlwm1ZGma4WoogC8Yu5gdCf70mNu4bwBUQEu2E+t4gY0OZk8jabWskuT1CDRpSd9wyPXyWznOGetZfBJmaW/gqtVVbWvv72PSVINHv+s0AQ1hJ7B3Uy9J/478LEkfoW3ex09WtiNab/Vv6oS4CgFNWX2ypvJ/Fi2jMiXoS1Brra2gjCmHdAlQD7SHdB1qifEH0nyyW8nQQDZDtH3Eaxbc5TSnZRxl3MTzOnL3vjEpr205LTrUy0Fxr/zKZRDQ/frgOmxEOSNZSkEpzO7E2g3p7+Oa71oaPNyY4l2mK65Ok/scSl+LyT3+FPrnmdg7rleXG8TPXBdMQkMQmSe4gFPCtOxtFq+2CHu5PXh5RfaENgrg25dXnFn8PsqMTJbG35UCSLddflkDap/IGkxBOruO/byM4cDf58Vz83ZYyKSg4OvsJzm2fxhibLTiWeFOeeQTIb8OY7hCgJEsJOKU4VLAK+oaLj+eReZpjj1ynuIzEtf2dm5WEs0JhYOzGDt1M1kEWzcbqczHDp3kbUEkoeGos8daepac9PNmEHpWJP9PONDfnJgeTUfznDTkhfydPnnTeijlB39qkXQ7FwHZasL6UdsPHnL41PD8GIEmHHmJvTcUcPC4vbr4YlMn7eKKopirDNB/BZlWsHqmsNZ/YCiBeMwQzd7kKsXP8yJ9d/8DQ8uet+nC0eHzBale6EpwEG/IngPT6GOi75PnK0dynQYefWYFQEamkZ829BBiMS6M0FrYsJuGkD94iIiU5UMBRZIMYsTQGzT7b46ZavB5YdNVT8M9GXf9s5D2Z+HkW2WPggoadPeQ0kZHSZ08MoK1W5m37wm9Ar5hScKBJ0xyWJyhWwUHrwwyUgpyXtr+eQbve4Fu8SLcV4q3qMlzClOs22PCZiA6Gidsv5//tGBg3FI5oLP7hhQKCNSdyT2fA6oag9R1TzAu4WbKpI8YxtMilwRuoSBVkC9IAg6rCq26W3IxV6bpRRAN30kdoo4u+MqLPAZubOdaBb5qJz68rFGRbHcdKYmY9PNrwhpMcaKG4VRoTYckQN/R0vo3/JkyBfffJQquzehygsr80OKPI3CnWlbEZb79Wq6gMu+d88uUCnD7Cc0bXfeD9BOdr/Vh5fiSP669TuNEp4IB03sIOWUXGBqMSEaCDn6OZFrvOee79tm6MUs3TkQAPMC/Z+ykyo2nwDeQvTk6knUxcv65xLmX3aCTWc+g75WFZ/en/g66ZEczdoJ3ISba7MA4iUtozP/L+iyPFPZVMFfdr2gZGi+6geU4cAoWB8q9U41S7krlakB69R6wyAiY75PD94gcnhlsuv/iu4fNdgr5hdWA6V/JWLjBR5+XAsLnN0rSk+1SucqKQHLtFnhSB+iVy4fJVkMQ3HqBcaMu/3DvdueQ8cvl3cS2NDZysG/Uezs3wWQU+BvzcMJBJxwXc1WwFq7miRfD95l0/aKGPcjfca1x/9i1rnj9pmSs7C+Q8G0gM6NlwbsoGKpjgBn/IOQZuAVTc81ZFhgYcfMO3R4Gkrv0KZj1L0uSq73ulcyb9wTUXSJCaR9/RfldjUQ4VAf95W1kn6ibOxYNVfmp8kjamGQpB2mEPgfoFPgNK2+Je1tM2jcfh4zjYShbrOlWr+D202h1IgRqDVNFPPlXGVG9Cy/uGKPugJYKTJ1uGKUctNIs07aVihP8Q81dDv55R8y3YxSs8qsrp49qVE98Hkxa5YZ6zy/lVvJquXa4qRR5qB/DSyidpTZY/Nk43gJJzFmc3xDPQ3kgstEW2LKRQVd7b0CgYt0kCrD/aSVQwkP288BVCMj/RfwHELpSlREDySZ6bHmw9SLsv0mNDAII3yrpuYDj9zpoKhq0TCOrEdWXyap1OiFKn1FCIOtaXg4KMwfvELWB207rwu2vy1lNo/0clFJxW0U+qTpsGzN6lfYMxrejxTSKPKTw7IlfWKIssl+1Qe7rbMQdsWE7GDAXgvWYtwAstkKoLZOp6x4payQ40vIcnuWXSb7o/f/Jc54z7s6xfnu3kzFaoMTJeIU/S1VjJdMUZO1O6lngBbdFHW4XBS7c9W9fmSiVWuHOsxQkJ0glTs0u3J05GQafPAcj+LucsUsZTaNrfnV1jzcVAVJ4ctPEvNtX4GNgOvuUE1h0ZEIIEjIHYfBjNYH1pMcG7QrD45UqaDBzJFkAbM/tDdvakMq47Jm8eqYtVm1bshb7I9XSD8eYs4QGQs9AmtCGRbG7G9AUUv73mJFzk76OPW0DizYPiqHRPl8KMCIbNXWYiIOizWf4RzOS/mm12c/lSxyo7viRvnI6JsCqOGDPrh1KLFWHjP6D8LWOxU4gAg+f93CNnO7194VjYcVLMe36lc0A1BJILk0L79wNISD4SxDzNwAYRvJS/8F5b2wR/lM/W4Op6HKzWyY+6sHpSjAiO/dNbyQEKLaiA+jasN3NzzAVrvBvSMsEef7Efp3WE4pqQ52sk4zzXirKh6j5QU7zq2QfOo1H5JhyI/TzhiUZyMrAnbCJdRJGq674S4aOkOrRZHEP1AJYe5zordvXkIO5mFSE48RkmtwxfGiEvQDdoXcKHu0fIfCxcVRxP0K64uAJW9Oif5rTmftvG0fCXz6Y3cqtYNcZXu3mbiPAUboHQY1QvQF26/gGJimOWiXinAgFVAVsYdZ1F1VFy+ggMwcK9kGQwpyMUOlQBMNU6T+vYVwnBjGCHmbb+m0OsyZt3XX1sXqr8Y5DPWfDPwXl8J7IgnP86JlXR36hIacfoQX/BXDp93lM27bPhQB9LfXdBMxqsBT09+gLAXliVVuQZR+p8IB5AfA0xvQyQrLQdHad+RwA9ZzY/y0L8mAUNjbvxGv0hTqpYtEAdXCK8rtJLEo/Wl0iwQys1kvRsTohIje0uTzpxCG2T5p0J5rjnAWykmnG2AYpPKf3nu1xD4EVAOWbsmRLfosLcQ4pO1lZjZpaKh3VWmTmfOD8kKlvS/hSTWMIPrLJAJKG3cjbcO8P48yid0RlEuRpOxQSauz6vHXlIjVsGd29pDg16Ufkr0SfDits66j+HuBjJIqfcSnvKEE7BYXhdn1q3JGrd+K7NbYgAm3awSkTFmczmg1j3Bs1Fcj9Kb4Vq9kLgNBgtJbALp7RkeVqlHuWOeJrxVyQQpI6Rp4n6wgvijEhBncBW6lDxUAQ551q9Aa3SPlnF8PnUNsaDRe5eHKxIr1Hg1IZA1qmL2If595T94RxhUjWBbTrs56t5/V+4vEdIcIaMNxZFPVz5Z/W1ugXFqEJLLFLKPzJiB3yESVE4Gdd1OXrfI0NOaydRvjUWhiwU7kQ+geP3vXeC3lgT5Vadofrw+fvG5hj8wpLLRSVM9GQnz+5BnChs/vXe5pRwo5r7thv+yovUc/wzWd5QfZu/1KdeubbpcKORBzVWUdf3TQQq6DsZJ/yZ24Vs9/2siS1fOPHcRpiqK1OfuMpTJBTLD0xq/XEmQH1D7KkSv+RvIWFEnCHr610FzwrI8FOV62kTHnk01R1FhUZiLlPXBoP0E5KlL+bCis6Rnd4h8vxI1LbNNkcqwktweTAtIfa6YQKjvwB5k6jtJWHhb2i1ulp5R1Akp/ibZ5oaNrN7FWgQZqNU+/6/+ftuQPySH3JoY+7Ab5/LLGXDbs3gOV2SqInfXs7Ev6/x1UBfn6fNOBoXmLeQKzD7K9wmxo31q+sZ2PVWFg+RTyG1AajM7TFpeTZClfs6kR5Eb65RYwOCdn0vIsJxKmmjg0Pk2jyXKeTuqmp8+AYzUL9T8i38lQGs3NTDsjcAdSGoJZ/REuNi9k12GMGlZh5+u1pFGbJy6cR52w5E+69NjFUVrQWCbMWnff9KA1rr0nJBsjOdpkQAyMlvWEpZBMQ4PD8Su7M5USUV8nytKmp1ZdPOFxqXrZx867Lo5OCXGzvBriOjIU/0a+8E1t3ZsVn6Ce1Ngyr+qTEuBYEKMEbbOvvw1Bw6mYD4gH52N+VZr2+ZoT0SKT5eVXAhv4AYIwpToPoTbBEhjpDd7GCC/Mu0YBmK3nxPedLSxW/ZFQElV+RRLVM3/K5L/izK1s9QQUv9+QGzWqSNsGCJ8HS8L5qaormUY21ZLqKE1NmO50WCs+j4n8/V6znBd2NsfDXvAFABDJPVTVBrzxznV2G7cxJvBGYV5GDykxYcGBGDxJ+z/1Sw6pmr/OGuAEh+5/h123bgzVwOUXh7NwLUdIadAXGSQpjBES8sCFZ89qsxLvAbfX6S/SRhuBbHGkhYW7ykt5ofsFGtQVEPkVGuWYLrEHo4TovkzI+IVNYyrb4ChzKkKEoAyVwgHZdsigR3NTm3L2AsNXvnJpEwFij1vPuFmu/VN/LYXcMINS8zV27+9Z7lt67ckMndzJSBCbLhl48XtMkj2TtKFHVFEF63SVEuYug0DJP0yqIEwOwOhKGCodWG5MvDXlKYuNOlcpJtIj1DbjRzB+I0EbTRvQuMOLLuGujB5L/G20QKdbQRUr15xtjyQorge3F3CzRLzJw7WOHBAFSZefJiqRZalMmi3514xjnLsbWww1QMlbBomrQes3nmG4oFWa0mTCieHQ7+X1sWtdDdCQi3oOrsJ/Unn5DOWY4e1IW+P8q2t7A+RCvDwmgczZENfSxnTO1RUQD5c/EQAfelNsNPnsRqzTzWyQcZg0+9zfJG8jfWW5M3cT3CDh9okGRW4OBhAt+5ZfyYvSU4Y5pJHF9mlHHxT195OuwGIOo5q5jgEP0NChF70OqUS3rIgsTP9YlU2hPdJaWJ4dAZWJIrDHuDHPltiZ6mRc2y1l2XC/RbjQ7aUUk0+aRC5x6ub5OVv2M8oeAWAFmeGywYhqfBXCj6eX5sARtUao2ztE61TFUKCuVbOgUyinvf/s2+DSWG9sMrWuYx9yncHPxJFjo7kS2Sob3DML5exTKVB/ZUOm4UrNrOeQl7dffz+zG6AXYEVtB5rYmR/bxBFWZQTPL+pwdJfgfJkpFo0wTngNUKrVvysm+niF4hc+T4Fir/UOo8O4PwIN37VYlPjF5dj9FbZ5F/UbAHUV5KqGl/goz64aaCCczuXJt614rKhpJk20pmsyEFn+6eZ595n4qyoH/vbRGmTg0ex8l04gLdcA/kJjVxxGWKVL1Jd7J+t385D6VnC9UYRvcvlQGd61VqcJHdkiDfLcHTNH4Qz5lp9AahdvkUhTd7J7GgwG5pjFLnG5qEFUsbl3u564BVxgeZv/jc866BNv4xt93kN7v0p0CgA03Ysg3jw5ZfPk28IOg87oiDV42lOI9/M53folhfEJFo7XczFvpplv6RIQpCy33F/BnKPCgoHbqIZxVKFsmn5k00x5nGzBAKTogpmut6/W8mKj99VB/hq8gGTH9SojTCQjVi5jaRcgaTfnymBzRpG8U2bfwgqnu0F1kXdwcdDFhyq6Fv+KSprsnVGxuAbSLqj1oeWsTY/BDVESRu2+1DuBdvYdtUW0p9PioPnTj7x5CrG0QA2vnTHeHGALv5jh5J3/kFyDj5qEeOr+iorI8GjkFEV6GrdiSM5YqVRTSZpGKg/gY+xz9bp7EqdooeuNv5N5x/55s70tH+RC595Zzgzt7pxsSiDAEFaaiCFjzVpFN82eyXHdH2z5ksIDxwlzeTLZyYwwvZVvpj8joL+6TRBdi+Nc4jRfCsDs99LR9zMA6tKT6X7lUCxA1wEnqDXD/pJHbcAu+kyEZT8oyN0g17fuXNtZmgaCTFPPZTZ1ke/Hgz5OqsQXh/iavhpqGnRYqYEuMMFRJXo0tGmGsyDo07V9nXtAyPXqdNxw9hS/yKL3+fr8AgUO/Tu9FaQ1TlViFh2CGz77X836jwTVRpL4dnIQO+HgP+DWYujwA26SUrfoDVi4bR5MYa7B8L2SfWzvfmrw0Y8Enh4bottGAj8c7Aq0hqPj68GP5c9HF7EJo4veRSHOnADHmUKLvEh+p4W+UCGyPDelxt63t6WbaYIuFbv2IRWPWR2ypkqtFC01FV30k/t7u26ZrCcPmPWl6bKx7jqv3G3dAo2ZOnihBq9fSfep/vAvh4BesBpV7D1eHlSNHkxmPC7o1dz2LzQPUj4kAssiRXfntduyvK1Qvx4OZiYf7gUWNv9e+K5HRaIYfBHb2s89kIztC5LJ0SvycPy/mqtGqiOu34nxonXsjIY4KNP8pGAxl4Qkl6IAJknxQYT+ok7aIrSJ0cOM0WRNUkeEZuqkG+kgpV9p2COPeH4zAVICrIgLs1GtcdVavqLTXYmh1EiTxsQfpiNU09nTx2epIOyA8BBxqKVvA1+QdHmtl/gFQEzcBpb7EthPd2vvUsJy1ehY+XfUiPNhEVn/OQgJd5na/fU+uzU4aHwqfXHEAbAJ7+DXxwUJlgqOGOJz/DwYh/ZAUPeEEwI8k9k2Q2F5A4gI5/nSUHc3maOwG89sK3U7GoJAJ2ucWd88i3YTi58DQZPKGzdJ9q7bXyRfUzyPmRqeXxJmljpJayQFfjbGaajYcP0gb7bsq3MYqy51GqKmD11R64rj4T8rubhbbjktgniwYeJdtjSnduFyIlRIUhgojK6/JRnmiHkTd+cF+tQCKj+v/XJmDcFSV5k/qy3Dch3fQRMkSDDb41XkZNKoa4aEz73FPJYoJANyKWOG4esPZhi5lOZhT0eMMMI6LfQLdaZ7+obPVsLNQqNYqfBKY9AJK9H2czd88HqPU/tyN0wb6SDXvvIrtfKUHtznNt1aWNrgRdN4UynnIw73Hf0wLfcDIMDiKzqQR/tzq8XUX0g7JuNzsIoQ6pWUv3w3GXkdNZFA2k/fTbEE7snhJ9owL5O4PFrG7SCPJM7Nt4OYoT1aNUuCZCQU7bmqpO7oAYbf0cHD1skngjxdKPzNPackl7dm/Jip5nvRMdSBQmx1OIKHyk0QJHaVXASBGUYUsJbmCDzf0eIsSH5h7rGB9Gc473wgR1sQnoUddM2bowiZ9dQVcokbPcw/makHZIO9SRaAF7DUKP0C1yY/TBsskTgNkfMqJEVAlkmzYQjLC71VFPrgkxFXKFbbD7O7N0DM3tKMunZpNURajJyILErj37VdO6T4I3EMz9xeJsXYWEGAodA0FUVp8vEgLBHbqpv8jZL4L7zaZZ/81MKF+dM0P/aJGdQ8A8LI4hiYamG9GDgfv3viIG6vBdg3DNec26rc6w4H+8Jcjr7MP7Ba3D04N5zdch2IE1YiXKkyJkSO8Bz27z7VqQ9nfc2f1aDqPmd/bhTeVkSx7rSFfC/nScW34vyZb1UjKW2D1E47tyftt5ytw6OVf3nOUD2y3sFiTFIfBjDVYRFpinsNPh8z6F9Hu/GyWAyqS/aIfH5TjbCCM28WQXUIDaHMO9hc5102oA7Uc08awddlHSKeYY07J86TpGKyl9tv1Oo0fEeXiCLX/8Fm7N71pj2dxxc1hGjgYLv3VtMn+/HQb5UUcolOfDhPhNFGdwwhORB1h+/iJNsUeusl68nWR5IZczxmYeUsQpOELl5zjVTNXmlz23yWeEdTT9KybqhkFO4a/fessdEimLoRyGSkl5D7MEZorMAdsOWxDvv9n0yogd27Wt4llmIMBuvQ/MleQ8qccWjyI1lVhK+di9ALV13VEp6E2GhK7qcKHUo3zO2tcUfkpMXD6tR2YdNDO9IVOUwToXbUhWw8oDxTolyahRkIN+vMWHU57doVu6uI9IVPDAxu9g5tDn1DL71Txcn+T5PQe5QecMCsI/4LyeeQPaM+4nuK0+UMkjkr7Ig0S8kKJOo0wWKUSkCsNrS29JQxkWn9noQJt9whLUBHQgVjjmQRDo6hKfOOQycsyxF/iYh2TfOlsEjmN60NL4d3XQQeF4QjWMp2O+UIU1GRj9jYdHdXcSQuJbE5iM2zLGqVCn5Q230MPQjZxQMVfKrW4cuJlmyC8sQ7woWLNYEsxANnUQYizgULQuzaLAVO47z/eJWmYZvCFq2i2Z4c/mIxwrKx9/QFjCLgCDm8jdNaIkjj7cWV3cP9jFxGqrjXBbsdTfC6LdEV2Yz+Zel/wnopjWvG81LZLPDaJy3DGBoJOu9TJoJEDbhpGBQFgN980bHFkHremB8BA7PQrkqn7tDpqfcZhwu9SJf1we1BN5V3Gmen1O5Bf8CgsS3jqykZbfumc2tPDEdJrpksB+90fZ1kPgq4bsXWjMNThm3/F9X5gZeC64TnwIySSrhKQhdkyWLK43Q0hm9jlzdXJUaSia+EggWwqMhRV/wvb9ZS7EGSvifEEaryBjLmz0Rxp18f+dwr2cxeKRstYR+dvRuASNvBjkGIGzzeuB32ADHaw2WOCA8wCvBXg8jLV7SfEU3sn6dw1JHRFhwPrX2h+kx8WoSM1U4pWqy+tyM1uqs2seSzUb4VJNZN5lm5XNs4FrnUFCCsPE4ujfROkcPuj75WRqOcTdLfJHEejn25c+Bj7CO99P0SYXR/a1hQPl5ecWf7/HB8peqm7i59DwbBGr2Ls4yZYXQ5p3mlecGTCp1cTm1HfEdU3N+jJvneEC2gDoZ0CJsPU+uE/ik3+W5mcyiv6IuG/IVpV8TJ5SX22ssVmYGbDdRAuKIpx6elfk090hNE0IwxCwLLjm25UXkv5RaqX91uMlKyHcx8xvOrpuihCi/hZq/I3VdW7y+7FiJn6Qct/DMc+j75iV+GYHfSiJwtlmJIvW4010jL9xa1el33AY8apk/AOnSDydUCKqtTgdhAHEwdGqBgecbgmLqxv5xWPKg/I288OZAWcdzEyD65Bzy6RliPL/yvDLFQSgSJw26xhJdF93V7fWQuWyZlyRKUI9USlBLXxSDRg/FE/eShyTW5ynS7N+ewP6biGkygv/408TDm6tG+6F3eGgYlI73YHOaMw1Icy0ijpaBiypjEoWuP4FARsmLZYtD0EBrU3KBJPevSOkjjUF4TJpX3FbYzTOcXIjFu7AjnbFGKJ3t4yBCqzyaN7xyx1iQUgnqticKeXNF6I5spukrGlu+E9yNq3hc657wujuDktzwaZwj5jyzi37/9nEoAxWJ6EFiCdgBIotSxPvbxFJt1T90qQ0xxUdFs/CaElw2O6OWj3xRp8RZh2SS2KgW3RViXyxT9G5Q/vE23wzp+1swhuJJcsfM2bWch9wJlQANaKHUgYAO22GT6CrZulPv3R+bwSA5jhBkL3QZ7EaCTgbPNeIU2XSEcWhw6II1cLMBkW1m0z/j//XIXUETOPXh7u3xNLhBb0P+dGh6o35tge9fOj1yXgj2tAhbF7r7OX9Lo2EQ/hA8ZR+IHeJS43Z/xGjjhxS0CzpmUh4fumbet0NLltHGHj11onEwWdAdP5ZfUja4sxNCfhcDVHL4IHjPV0eiObGhNIgsJEO6JNF2ivfOX6qfU4rCabsUzRDswoWOSoENgm991WC5GmKbQbchgefam1OqaEmI6gnDhZzOXpsxnLJa/rThEh1BSxuMTP1BcwR7KbWkBdFwXKdPCh1Uw1ZWwmwhQdVcuEklZGqYS9nJLzzDQJu1fOlleJrLsAfcqHcklg6ZAtJQrnuYHWUItU1NeJwDG97dRlHNpiOAD7l/6wBk9lZ2kBaHjsVZiTTd+5+TtUhkk6WLmRf7WTAFJM5t8twznmo+pLMSPKabGo+D2k+MmvkfTyIR4wdvs368YddXCX9rAvRTxV80bkvxR2Oy5vqCSt2vqh/PmZjj0rcvP84eS2mHq9s5v6tUTXVyfZv7YUnDYUIj4Opy2UXBuu3Fl4xXe4lqDnaeMpM7efraxqLS8vvJ9I0Heye+74Rrabg4+wA860WeN2gcM/m8f2AWvXLUGIkyGNuj5gMNKR8iAOt14pH1jM+lDXVNmVcUhTQ9inJ7rVCVRMBmpjdTlmoMrlCh/TQ67KYWT4K/PY32TvkyFu1TLnBbrHq6u/80iQ6lg87Tw3F1OFu3/QKLqvQLXLDOOKqWRtYJbEiDUJtm7Yr3CME6bPnbaTiIq8NodpokroxjVeA5jpP00ObVhxZbgl0i02kkzDepLcd2Q1xRY751hyL+vyIstkygeBmdA1RVRwdzkgseiEorvRdl34oHW3vEkpKp4TNxQRh7Cz/E78BteAgXqiRmTWvzOEME0ILqScBAdJdbPoBa4c8cMrlZP6GyiQWSw6neHScQZTeIcumZ5OHKVts+R1olX6DgiMPEXrC3GNv2X1o6wsrXy/EZ1o7MGgsVriMM3TCSs1xe09NToxAdn+40DQ6yUBjZjc/+3qvXZ1pYCoT0PKD/zsrQ1/iSnCAVGJtV/0E5pg60yN5ESE5R5rOG5xHSQiKqMr/tbD4hMs8P9i+uxtY7S3MAKbPN0s3ssORGjwHHcrjQOOnqqEKBUxj8bYWbSwy0q0ygNdX2Z3jqEJMoTTUb3EitATA7xLCcTOsiqOsYKYgdjUg/mPPZhLJvfM4VkbkALS57gpVFdItaGV0EBh8/JcoIPegS80G60uEHu6R2tNIA3tEFAV40wmgq0W2XsniwRT4wcKVPWZ2pBbACjoRCgngO61S1HAHKLpuUxae+AD31+UqG/1GX5uoF+jNtoIAtBqdLrEVHmvilMBDKl4uAaKsy14FL9lmcqFSnsdieFvD/By2AK5tuC0KFNaEUhueS3AWVcffyabINLoRlZ/reNnaMEtcrh1o/ty5+17K51YsUWAdyN5Ynsx3L4WzDYuGHJpp+m6KN8/pcwjax+iORF91PCXvzG/l0hrqtWJULtjrbzYyWAjpnHfbHypCWc62W2URKp0KUV/o2ySOGhlMNeI1JZDMjicco4FbM/SAi01FVeCdsFIeG4kXPKMD50WfqG0JtAnTcT0DdDEVK5yZSfDlx16q185qjqG7pVQbY/9GGnzDxArcj1qBbY+RixgEy0tv5K3/t1HTScNHQ1WZKk9xnSOefSvHNEAeT+zA8fI+jvPAaz16dPuY1V2HDYZ9d8xPtbb6MbMpS0gQLYGvi2snBnkldNLBraoqqgv+MiY+aNwwH6HcBjEpYA3NA1NZP14aTGQ7X69HA6uOuvCZde5hQ+Vj9pE5eVi/Ra6u9kaIKH3N95OYvGvcV64BeKom467CZLSjdQDRARMMx4oAhL1CfLso5dtZK9RyEpPjMmu8evqodORCPGzfQdd/sBxphLKnaCSlLeO+y7p3KhkJdFb8qGJW+g2DC/ed4aB89tbc+8vRH1BNjHsCO5T+NnflkBoamSszapaDYcYvtRIIzFOR9mO6wpgSukruaR4Na2ScWPj9g0TqbFIUbIKwPAJG9pO27MA/gkSJvBJ4tWnxjOb2EZALRFsQ7lX9o70Kolk7F4lMUDaBRgufEACD1E/WoPsq86YQmdIGJCG7D/HGJwAkeuvCRb5lrgcmHqRCxs9Yyf53TlfiMkhiQAacPjrXiqDWkBKEMbrfXPnA8+Yartsa/DYvg5lx4gYbgzd3Yb3LMq1frWNcS4jzzkL8RmO/8ibav8Z/u7P0cixOJcPm6UoMAcRXV6ysDYhD71aVPblxvzBHLmFPs1hxl9r2kRajdNEjXsnXfXas3d7vNFv/aNvHNeLqUDls3DiwXH3CIOQKZDfdqRyzwdtZOkpaJntDlSPcczMMZ7dR/O+4GCkqE4cSjBiL28AD+8PqoboAXn/ABmZ7QLFT4EzbbWB0bN/3x1smO76o87oDZ3y9xydXiL+5M7sKjN6VuvzmOMKBuL5SzhaL7EYe23gPlE5IjBGf6wlNVXbC3CdztgozpQfv+2hFOEXBGpYPQNzZpd2pyp5SUsQdJK0nMhSOvXBo3xb1KO/by13GeCrT5xsqbv0RQSipIf8laLDQHenNkVyGIjC13Woo+xgcvQULpnvUyOL9kK6yB6Q8LJrPFY+F5S3aAGReKuZADtdnuOpbdlii5F8vpwtP+IJYkqndmO3MazH/+HTXmKv1XiiCVkM94XK9Docld/Fut4rnpCAizkPl/MyWoOhapkGSvE3BDHYG5cq71VyPN6RY+vL9KLZWRE39bIu+JCIrSWSvLxfRAzMVibPXdaBI3J8LMG/oL28m+yNU8BXDH8H5Ie06ckCEURL31dy1x8t8zJhYqXHLsx7zfgDrVOL3JsgbaBRkE2H9u1tKHHviKiWE7Uvtv8ts/+abP6khD934V3u7CfuIxwRYnwbQaebB3CXYY/GMYpmmNzCMkOm7IhyycBuVERAxa/ua1K1E/ARFi9Et5LCA5QbjmyKAwlo9+rEDjIWT9Gl89uuqhtoRKsh0AxxlZKVX8HHV68jMy1k+25rUQwj6RWsf7u/GK693OdQrDDjwGn+Jvi9Zvrl8ozYsTBVdusz5cohPjQ23DlUdPUf8LJ5+e/0i3vUcZ85HU9+UvBoDhorGl/dszt30gkf1gLRoLf7VJQ1ZU01P0d+wKBPCq5QEbADpAab9c/jZafq1X8GcLkVeSpJmo0ecZCoAt8qLTK435SIlEgGA=="><script src="/ScriptResource.axd?d=NJmAwtEo3IrtfaMHdqeUdy5BvdWM5SK35bjsZyUDhwC0mmSzQKXDTtj_njT7DicXlLM6uvjpqGW0ulqluW3h6lyjl5yITAhadqUkY1ux4bduSNlR67nV1fNWqJuAsIAn7ieojg2&amp;t=ffffffffecf19baa" type="text/javascript"></script><script src="/ScriptResource.axd?d=dwY9oWetJoJLFNYuuy2TXwZMQs3F4pA3Uhl945NUFM0GhW8nMZX7Qp0hK15Vueag8rRwX-4OSGVeA2RqvA1hKG0ND5mb4uVtAOVO52b6t5j4YFApcY237lBpcTv0aTXs-jSGvu7KlZXlT80g0&amp;t=ffffffffecf19baa" type="text/javascript"></script><input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="CA0B0334"><input type="hidden" name="__VIEWSTATEENCRYPTED" id="__VIEWSTATEENCRYPTED" value=""><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="Bi2R+79XjR9PsBBaMOJKT2p/257ebxzrdgAmAtoBZ6IOTYFK6E5GnT4el75Y7AG9qeZA9NCRp08ov2qfP6+rft0n7VxNqglOgWY9ErMTpfF6hHvfh+K6Z4cNBIuo9iLe/fVbLhh8WS646D8EbxGvyDqlQQfGl/GA1+8eAmcV2MtHGh733EjcGd17xbf44c3fHFIflIQamZaYNG5hQ62gVRWy1csl5P9sDj7ei95cXCG9PNB6BVUYensHrzVc747drsccMQdRSftU0Ycqpb4WPzYH8+CyCL68ng6A+Ghu3hZESwZLkbwNavGN82b8WPmDLwYnz9lU5mqWxNrIjvD26nb2vYuM6gPKAGv3PcGCRKVmcony5VS66XRsrQzDwely/ewdRA=="><script src="/DependencyHandler.axd/056b8850385f0a1b4f951c7ac7ce3e33/1413/js" type="text/javascript"></script><script type="text/javascript">
+//<![CDATA[
+Sys.WebForms.PageRequestManager._initialize('ScriptManager', 'Form', ['tdnn$ctr37582$View$ctr36146$XModPro$ctl00$ContentContactView$ContentContactView_UP','dnn_ctr37582_View_ctr36146_XModPro_ctl00_ContentContactView_ContentContactView_UP','tdnn$ctr37582$View$ctr36147$XModPro$ctl00$ContentDescriptionView$ContentDescriptionView_UP','dnn_ctr37582_View_ctr36147_XModPro_ctl00_ContentDescriptionView_ContentDescriptionView_UP','tdnn$ctr37582$View$ctr36155$XModPro$ctl00$PageVariablesView$PageVariablesView_UP','dnn_ctr37582_View_ctr36155_XModPro_ctl00_PageVariablesView_PageVariablesView_UP'], [], [], 90, '');
+//]]>
+</script><link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<!--CDF(Css|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css|DnnPageHeaderProvider|100)--><!--CDF(Css|https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css|DnnPageHeaderProvider|100)--><!--CDF(Css|/Portals/_default/Skins/CCISD/assets/css/dnncontra.css|DnnPageHeaderProvider|100)--><!--CDF(Css|/Portals/_default/Skins/CCISD/assets/css/menubarLinks.css|DnnPageHeaderProvider|100)--><!-- Theme pre-defined color scheme --><!--CDF(Css|/Portals/_default/Skins/CCISD/assets/css/colors/_base.css|DnnPageHeaderProvider|100)--><!-- Theme pre-defined color scheme --><!-- Start Header Section --><div class="hidden-header"></div>
+<header class="header"><div class="top-bar">
+        <div class="container-fluid">
+            <div class="row">
+    <div class="col-md-12">
+        <a href="#maincontent" class="hidden-skip-link">Skip to main content</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-3 hidden-sm-down">
+        <div class="CCISD-Title">
+    <a href="http://www.ccisd.us">CCISD District</a>
+</div>  
+    </div>
+    <div class="col-9">
+        <div class="general-functions-div">
+<ul class="list-inline general-functions">
+<!-- psSiteSearch --><li id="SearchLI" class="list-inline-item text-xs-center" aria-label="Search Box">
+        <div id="dnn_psSiteSearch_psSearchCtl">
+    <input name="dnn$psSiteSearch$txtSearchSkin" type="text" maxlength="255" id="dnn_psSiteSearch_txtSearchSkin" class="psTxtSearch" onkeydown="return __dnn_KeyDown('13', 'javascript:__doPostBack(%27dnn$psSiteSearch$cmdSearch%27,%27%27)', event);" onfocus="if(this.value=='Search...'){this.value='';}" onblur="if(this.value==''){this.value='Search...';}" value="Search..."><input type="image" name="dnn$psSiteSearch$cmdSearch" id="dnn_psSiteSearch_cmdSearch" class="psSearchTxtBtn" src="/DesktopModules/psSiteSearch/images/search-btn.png" alt="Search" align="top">
+</div>
+
+    </li>
+    <!--./psSiteSearch -->
+
+    
+
+        <!-- Address 
+    <li class="list-inline-item text-xs-center">
+        <a href="#">
+            <i class="fas fa-map-marker-alt material-icons"></i>
+        </a>
+    </li> ./Address -->
+
+    <!-- Phone -->
+    <li class="list-inline-item text-xs-center">
+        <a id="PhoneIcon" href="tel:3616957200">
+            <i class="fas fa-phone material-icons"></i>
+        </a>
+    </li>
+<!--./Phone -->
+
+    <!-- Login -->
+    <li class="list-inline-item text-xs-center">
+        
+<div id="dnn_dnnLogin_loginGroup" class="loginGroup">
+    <a id="dnn_dnnLogin_enhancedLoginLink" class="LoginLink" rel="nofollow" onclick="return dnnModal.show('https://www.ccisd.us/Login?returnurl=/Departments/Communications&amp;popUp=true',/*showReturn*/true,300,650,true,'')" href="https://www.ccisd.us/Login?returnurl=%2fDepartments%2fCommunications"><i class="fas fa-sign-in-alt material-icons"></i></a>
+</div>
+    </li>
+<!-- ./Login -->
+
+
+
+
+<!-- Languages --> 
+    <!-- ./Languages --> 
+
+
+
+
+<!-- Search 
+    <li class="list-inline-item text-xs-center btn-group">
+        <a href="#"><i class="material-icons" data-toggle="modal" data-target="#searchModal">search</i></a>        
+    </li> ./Search -->
+    
+
+</ul>
+</div> 
+    </div>
+</div>
+<!-- ./row -->
+
+ 
+        </div>
+    </div>
+<!-- ./top-bar -->
+    <!--<nav class="navbar navbar-full navbar-contra navbar-light">-->
+    <div class="menu-bar">
+        
+
+<div class="container-fluid" role="navigation">
+
+<nav class="navbar navbar-expand-lg navbar-light" aria-label="Main Menu"><button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+</button>
+
+<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+    
+
+<!-- ./ helper -->
+
+
+
+
+
+    			<div class="row align-items-center text-nowrap">
+				<div class="col-5">
+					<ul id="main-menu1" class="navbar-nav float-md-right">
+<li class="nav-item top-menu-item-top"><a href="/AboutUs" class="nav-link nav-color-font-override">About Us</a></li>
+						<li class="nav-item top-menu-item-top"><a href="/Departments" class="nav-link nav-color-font-override">Departments</a></li>
+						<li class="nav-item top-menu-item-top"><a href="/HumanResources" class="nav-link nav-color-font-override">Human Resources</a></li>
+					</ul>
+</div>
+		
+				<div class="col-2 m-0 p-0">
+					<div class="d-none d-lg-block d-xl-block">
+						<img class="logo-in-menu-top" src="/Portals/84/rsz2_1rsz_1ccisd_whiteoutline_mstrlogo.png" alt="District Logo">
+</div>
+				</div>
+				<div class="col-5">
+					<ul id="main-menu2" class="navbar-nav float-md-left">
+<li class="nav-item top-menu-item-top"><a href="https://jobs.ccisd.us/winocular/workspace/wSpace.exe?Action=wsJobsMain" data-testimage="https://jobs.ccisd.us/winocular/workspace/images/logo_small.gif" data-unavailable="https://www.ccisd.us/jobs" class="nav-link nav-color-font-override">Jobs</a></li>
+						<li class="nav-item top-menu-item-top"><a href="/StudentsParents" class="nav-link nav-color-font-override">Students &amp; Parents</a></li>
+						<li class="nav-item top-menu-item-top"><a href="/Schools" class="nav-link nav-color-font-override">Schools</a></li>
+		
+					</ul>
+</div>
+			</div>
+          
+</div>
+
+
+</nav>
+</div>
+ 
+    </div>
+    <!--</nav>  ./navbar -->
+</header><!-- ./Header --><div id="content-areas" role="main">
+        
+    <div class="container-fluid">
+        <div class="row"><div id="maincontent" class="col-md-12 HomePageTitleImage"><div id="dnn_ContentPane"><div class="DnnModule DnnModule-ModuleInjection DnnModule-37582">
+<a name="37582"></a><div id="dnn_ctr37582_ContentPane" class="NoPaddingNoTitleContentPane">
+<!-- Start_Module_37582 --><div id="dnn_ctr37582_ModuleContent" class="DNNModuleContent ModModuleInjectionC">
+	
+
+<div hidden data-permission="All.SuperUser">
+    <span id="dnn_ctr37582_View_MyLabel"></span>
+</div>
+<style>
+  .bootstrapIndiciator
+  {
+    position:fixed;
+    top:0;
+    z-index: 20000;
+    opacity: 0.8;
+  }
+
+
+</style>
+<div class="container bootstrapIndiciator" hidden data-permission="All.SuperUser">
+    <div class="row">
+        <div class="col">
+        <div class="d-block d-sm-none bg-warning text-white">
+            Extra Small
+        </div>
+        <div class="d-none d-sm-block d-md-none bg-info text-white">
+            Small
+        </div>
+        <div class="d-none d-md-block d-lg-none bg-success text-white">
+            Medium
+        </div>
+        <div class="d-none d-lg-block d-xl-none bg-primary text-white">
+            Large
+        </div>
+        <div class="d-none d-xl-block bg-light text-dark">
+            Extra Large
+        </div>
+
+        </div>
+    </div>
+</div> 
+
+
+
+<div id="dnn_ctr37582_View_PageVariables"><div class="DnnModule DnnModule-XModPro DnnModule-36155">
+<a name="36155"></a><div id="dnn_ctr37582_View_ctr36155_ContentPane" class="NoPaddingNoTitleContentPane">
+<!-- Start_Module_36155 --><div id="dnn_ctr37582_View_ctr36155_ModuleContent" class="DNNModuleContent ModXModProC">
+		
+
+
+
+
+<div id="dnn_ctr37582_View_ctr36155_XModPro_ctl00_PageVariablesView_PageVariablesView_UP">
+			<div id="dnn_ctr37582_View_ctr36155_XModPro_ctl00_PageVariablesView_pnlNoItems">
+				
+    <script>
+      var Permissions = '';
+      var GUID = '';
+      var TabSlugs = '';
+    </script>
+</div>
+		</div>
+
+	</div>
+<!-- End_Module_36155 -->
+</div>
+
+</div></div>
+<div class="container">
+    <div class="row">
+        <div id="dnn_ctr37582_View_PageSetting" class="col"><div class="DnnModule DnnModule-XModPro DnnModule-36154">
+<a name="36154"></a><div id="dnn_ctr37582_View_ctr36154_ContentPane" class="NoPaddingNoTitleContentPane">
+<!-- Start_Module_36154 --><div id="dnn_ctr37582_View_ctr36154_ModuleContent" class="DNNModuleContent ModXModProC">
+		
+
+
+
+
+
+    
+    <style>
+      .settingToggle.fa-toggle-on.fa-toggle-off
+      {
+        font-size:1.5em;
+      }
+      
+      .settingToggle.fa-toggle-on
+      {
+        color:Green;
+      }
+      
+      .settingToggle.fa-toggle-off
+      {
+        color:DimGrey;
+      }
+      
+    </style>
+<div class="row" disabled hidden data-permission="SettingEdit">
+        <div class="col">
+        </div>
+        <div class="col-1">
+          <input type="image" alt="Page Settings" src="/Icons/Sigma/Hostsettings_16X16_Standard.png" title="View ListPage's Settings" onclick="SettingChange();return false;">
+</div>
+      </div>
+
+    <div class="SettingSelection row" style="display:none">
+      <div class="col"> <!-- Main col -->
+
+      
+    <div class="row mx-sm-5" disabled hidden data-permission="ListPage.ContentEdit">
+        <div class="col-1 text-right">
+            
+                <!-- on (hidden) show green restore to turn off (unhide) -->
+                <a title="If off this content will not be displayed to anyone without permission to edit it" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl01%24ctl04%24ctl00','')"><span class="fas fa-toggle-on settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Is Active</div>
+
+    </div>
+
+    
+    <div class="row mx-sm-5" disabled hidden data-permission="ListPage.ContentEdit">
+        <div class="col-1 text-right">
+            
+                <!-- off (not hidden) show red X to turn on (hide) -->
+                <a title="If on this content will only be displayed to logged in staff" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl02%24ctl02%24ctl00','')"><span class="fas fa-toggle-off settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Staff Only</div>
+
+    </div>
+
+    
+    <div class="row mx-sm-5" disabled hidden data-permission="All.DBUser">
+        <div class="col-1 text-right">
+            
+                <!-- off (not hidden) show red X to turn on (hide) -->
+                <a title="If on the Banner Module will be hidden" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl03%24ctl02%24ctl00','')"><span class="fas fa-toggle-off settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Hide Banner Module</div>
+
+    </div>
+
+    
+    <div class="row mx-sm-5" disabled hidden data-permission="ContentPage.LayoutEdit">
+        <div class="col-1 text-right">
+            
+                <!-- on (hidden) show green restore to turn off (unhide) -->
+                <a title="If on the Calendar Module will be hidden" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl04%24ctl04%24ctl00','')"><span class="fas fa-toggle-on settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Hide Calendar Module</div>
+
+    </div>
+
+    
+    <div class="row mx-sm-5" disabled hidden data-permission="ContentPage.LayoutEdit">
+        <div class="col-1 text-right">
+            
+                <!-- off (not hidden) show red X to turn on (hide) -->
+                <a title="If on the Contact Module will be hidden" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl05%24ctl02%24ctl00','')"><span class="fas fa-toggle-off settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Hide Contact Module</div>
+
+    </div>
+
+    
+    <div class="row mx-sm-5" disabled hidden data-permission="All.DBUser">
+        <div class="col-1 text-right">
+            
+                <!-- off (not hidden) show red X to turn on (hide) -->
+                <a title="If on the ContentPage Module will be hidden" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl06%24ctl02%24ctl00','')"><span class="fas fa-toggle-off settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Hide ContentPage Module</div>
+
+    </div>
+
+    
+    <div class="row mx-sm-5" disabled hidden data-permission="ContentPage.LayoutEdit">
+        <div class="col-1 text-right">
+            
+                <!-- off (not hidden) show red X to turn on (hide) -->
+                <a title="If on the Description Module will be hidden" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl07%24ctl02%24ctl00','')"><span class="fas fa-toggle-off settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Hide Description Module</div>
+
+    </div>
+
+    
+    <div class="row mx-sm-5" disabled hidden data-permission="ContentPage.LayoutEdit">
+        <div class="col-1 text-right">
+            
+                <!-- off (not hidden) show red X to turn on (hide) -->
+                <a title="If on the Directory Module will be hidden" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl08%24ctl02%24ctl00','')"><span class="fas fa-toggle-off settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Hide Directory Module</div>
+
+    </div>
+
+    
+    <div class="row mx-sm-5" disabled hidden data-permission="Html.ContentCreate">
+        <div class="col-1 text-right">
+            
+                <!-- off (not hidden) show red X to turn on (hide) -->
+                <a title="If on the Html Module will be hidden" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl09%24ctl02%24ctl00','')"><span class="fas fa-toggle-off settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Hide Html Module</div>
+
+    </div>
+
+    
+    <div class="row mx-sm-5" disabled hidden data-permission="ContentPage.LayoutEdit">
+        <div class="col-1 text-right">
+            
+                <!-- off (not hidden) show red X to turn on (hide) -->
+                <a title="If on the Resource Module will be hidden" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl10%24ctl02%24ctl00','')"><span class="fas fa-toggle-off settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Hide Resource Module</div>
+
+    </div>
+
+    
+    <div class="row mx-sm-5" disabled hidden data-permission="All.DBUser">
+        <div class="col-1 text-right">
+            
+                <!-- off (not hidden) show red X to turn on (hide) -->
+                <a title="If on the Permission Module will be hidden" href="javascript:__doPostBack('dnn%24ctr37582%24View%24ctr36154%24XModPro%24ctl00%24PageSettingView%24PageSettingViewrptrListView%24ctl11%24ctl02%24ctl00','')"><span class="fas fa-toggle-off settingToggle"></span></a>
+                
+            
+                 
+        </div>
+        <div class="col-11">Hide Permission Module</div>
+
+    </div>
+
+    
+        <div class="row mx-sm-5">
+          <div class="col-11 offset-1 small bg-warning text-dark">Note: The page will have to be refreshed to see the effect of changing these settings</div>
+        </div>
+      </div> <!-- Main col -->
+      </div> <!-- Setting section -->
+
+    
+
+	</div>
+<!-- End_Module_36154 -->
+</div>
+
+</div></div>
+        <div id="SectionEditPane"></div>
+    </div>
+</div>
+
+
+
+
+
+<div id="dnn_ctr37582_View_ContentPanel">
+    <div id="dnn_ctr37582_View_Permission" class="container SectionContainer"><div class="DnnModule DnnModule-XModPro DnnModule-36150">
+<a name="36150"></a><div id="dnn_ctr37582_View_ctr36150_ContentPane" class="NoPaddingNoTitleContentPane">
+<!-- Start_Module_36150 --><div id="dnn_ctr37582_View_ctr36150_ModuleContent" class="DNNModuleContent ModXModProC">
+		
+
+
+
+
+<div id="dnn_ctr37582_View_ctr36150_XModPro_ctl00_ContentPermissionsView_pnlNoItems">
+			
+    <script type="text/javascript">
+
+      function PermissionChange() {
+        $('div.PermissionSelection').toggle();
+      }
+
+    </script><div class="row" disabled hidden data-permission="ContentPage.PermissionAssign">
+        <div class="col">
+        </div>
+        <div class="col-1">
+          <input type="image" alt="Permission Settings" src="/Icons/Sigma/Hostsettings_16X16_Standard.png" title="View user's permissions" onclick="PermissionChange();return false;">
+</div>
+      </div>
+    
+    <div class="PermissionSelection" style="display:none">
+      <div class="ContentSection row">
+        <div class="col">
+          Add User
+        </div>
+      </div>
+    </div>
+
+  
+		</div>
+
+	</div>
+<!-- End_Module_36150 -->
+</div>
+
+</div></div>
+    <div id="dnn_ctr37582_View_Banner"><div class="DnnModule DnnModule-XModPro DnnModule-36144">
+<a name="36144"></a><div id="dnn_ctr37582_View_ctr36144_ContentPane" class="NoPaddingNoTitleContentPane">
+<!-- Start_Module_36144 --><div id="dnn_ctr37582_View_ctr36144_ModuleContent" class="DNNModuleContent ModXModProC">
+		
+
+
+
+
+
+    <div>
+      <style>
+        .ContentTitle
+        {
+          position: relative;
+          text-align: center;
+        }
+
+        .ContentTitle > h1
+        {
+          position: absolute;
+          top: 40%;
+          left: 0;
+          width: 100%;
+          color: white;
+          font-size: 4vw;
+          text-shadow: 3px 3px 5px rgba(0, 0, 0, 1);
+          line-height: 8vmin;
+          background: #0000005c;
+
+        }
+
+        .ContentTitle > h1 > span
+        {
+          display: block;
+
+        }
+
+      </style>
+<div class="jumbotron-fluid ContentTitle">
+
+        
+            <img alt="" src="/portals/84/Images/Banners/Departments/OfficeofCommunications.jpg"><h1 class="">
+          <span>
+            Communications
+          </span>
+        </h1>
+
+      </div>
+
+    
+      </div>
+    
+
+	</div>
+<!-- End_Module_36144 -->
+</div>
+
+</div></div>
+    <div class="container">
+        <div class="row d-none mt-5">
+            <div class="col EditPanePlaceHolder"></div>
+        </div>
+        <div class="row">
+            <div class="order-md-2 col-md-4 col-lg-3 offset-md-1 mt-xs-3 mt-sm-4">
+                <div id="dnn_ctr37582_View_Contact" class="SectionContainer"><div class="DnnModule DnnModule-XModPro DnnModule-36146">
+<a name="36146"></a><div id="dnn_ctr37582_View_ctr36146_ContentPane" class="NoPaddingNoTitleContentPane">
+<!-- Start_Module_36146 --><div id="dnn_ctr37582_View_ctr36146_ModuleContent" class="DNNModuleContent ModXModProC">
+		
+
+
+
+
+<div id="dnn_ctr37582_View_ctr36146_XModPro_ctl00_ContentContactView_ContentContactView_UP">
+			
+    <section aria-labelledby="ContactTitle" class="ContentSection"><div class="row">
+
+        <div class="col">
+          <h1 id="ContactTitle">
+            Contact
+          </h1>
+        </div>
+
+        <div class="col-1">
+          
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col">
+          CCISD Administration Building
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          801 Leopard St.
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          Corpus Christi, Texas 78401
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          
+            <a style="color:#0000ff;" href="mailto:communications@ccisd.us">
+              communications@ccisd.us
+            </a>
+          
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          
+            <a style="color:#0000ff;" href="tel:(361)%20695-7410">
+              (361) 695-7410
+            </a>
+          
+        </div>
+      </div>
+      
+    </section>
+</div>
+
+	</div>
+<!-- End_Module_36146 -->
+</div>
+
+</div></div>
+            </div>
+            <div class="order-md-1 col-md-7 col-lg-8 mt-xs-3 mt-sm-4">
+                <div id="dnn_ctr37582_View_Description" class="SectionContainer"><div class="DnnModule DnnModule-XModPro DnnModule-36147">
+<a name="36147"></a><div id="dnn_ctr37582_View_ctr36147_ContentPane" class="NoPaddingNoTitleContentPane">
+<!-- Start_Module_36147 --><div id="dnn_ctr37582_View_ctr36147_ModuleContent" class="DNNModuleContent ModXModProC">
+		
+
+
+
+
+<div id="dnn_ctr37582_View_ctr36147_XModPro_ctl00_ContentDescriptionView_ContentDescriptionView_UP">
+			
+
+    <section aria-labelledby="DescriptionTitle" class="ContentSection"><div class="row">
+        <div class="col">
+          <h1 id="DescriptionTitle">
+            About Us
+          </h1>
+
+        </div>
+        <div class="col-1">
+          
+
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <p>
+            </p>
+<p>The Office of Communications works with media outlets and handles public relations and community relations. The Communications team also designs, edits and produces all district publications. We welcome feedback and comments: <strong><a href="mailto:enews@ccisd.us" style="color:#0000ff;">enews@ccisd.us</a></strong></p>
+
+<p>The Office of Communications also includes the liaison for The Corpus Christi Education Foundation, a local nonprofit that serves and supports Corpus Christi ISD. For more information about the foundation, please visit their website <strong><a href="http://www.ccef-ccisd.org" style="color:#0000ff;">www.ccef-ccisd.org</a></strong>.</p>
+
+          
+
+        </div>
+      </div>
+
+    </section>
+</div>
+
+	</div>
+<!-- End_Module_36147 -->
+</div>
+
+</div></div>
+            </div>
+            <div class="order-md-3 col-md-7 col-lg-8 mt-xs-3 mt-sm-4">                
+                <div id="dnn_ctr37582_View_Resource" class="SectionContainer"><div class="DnnModule DnnModule-XModPro DnnModule-36151">
+<a name="36151"></a><div id="dnn_ctr37582_View_ctr36151_ContentPane" class="NoPaddingNoTitleContentPane">
+<!-- Start_Module_36151 --><div id="dnn_ctr37582_View_ctr36151_ModuleContent" class="DNNModuleContent ModXModProC">
+		
+
+
+
+
+
+
+    
+
+    <section aria-labelledby="ResourceTitle" class="ContentSection"><h1 id="ResourceTitle">
+        Resources
+      </h1>
+
+      <ul id="ResourceTabList" class="nav nav-tabs ResourceTabUL" role="tablist"></ul>
+<div id="ResourceTabContent" class="tab-content">
+
+      </div>
+      
+
+      <div disabled hidden data-permission="Resource.ContentEdit">
+        
+        Add Resource
+      </div>
+
+      <button id="EditResourceSortOrder" onclick="ResourceEditSort();" type="button" class="btn btn-primary" disabled hidden data-permission="Resource.ContentEdit">
+        Edit Order
+      </button>
+      <button id="SaveResourceSortOrder" onclick="ResourceGetOrderClicked();" type="button" class="btn btn-primary" disabled hidden data-permission="Resource.ContentEdit">
+        Save Order
+      </button>
+    </section><div id="ResourceList" class="d-xl-none">
+
+      
+
+      
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="4747" data-category="CoronavirusCOVID19Information">
+              
+              
+              <a href="https://drive.google.com/file/d/1O4IAssxLG8xvojlQyji9h-KuRvr5VwUK/view?usp=sharing">
+                CCISD April 17, Update on School Closure
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="4759" data-category="CoronavirusCOVID19Information">
+              
+              
+              <a href="https://drive.google.com/file/d/1CZc-sO2P1q5JToKuK2lYHxDfcjxJyGlx/view?usp=sharing">
+                Grading Guidelines for 5th Six Weeks
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="4779" data-category="CoronavirusCOVID19Information">
+              
+              
+              <a href="https://drive.google.com/file/d/1Hco_HzfBn4gjXWvhK_kzKNW8SX2oz-yH/view?usp=sharing">
+                Class of 2020 FAQ
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="4599" data-category="CoronavirusCOVID19Information">
+              
+              
+              <a href="https://drive.google.com/file/d/1PgtwEAhGiwQgzYQ_MplLwfnCuOOMjD4P/view?usp=sharing">
+                Frequently Asked Questions
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="4600" data-category="CoronavirusCOVID19Information">
+              
+              
+              <a href="https://drive.google.com/file/d/17ULfNdmBdmQuJrIwtcyEZwGVgi-OAeWT/view?usp=sharing">
+                Corpus Christi ISD to provide free curbside lunch
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="4596" data-category="CoronavirusCOVID19Information">
+              
+              
+              <a href="https://www.cdc.gov/">
+                Centers for Disease Control and Prevention
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="4597" data-category="CoronavirusCOVID19Information">
+              
+              
+              <a href="https://www.cctexas.com/departments/health-district">
+                Corpus Christi Health District
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="3357" data-category="General">
+              
+              
+              <a href="https://www.cognitoforms.com/CorpusChristiIndependentSchoolDistrict1/AboveTheLineNominationForm">
+                Above the Line Nominations
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="2006" data-category="General">
+              
+              
+              <a href="https://form.jotform.com/90275749585169">
+                Graphic Design Request Form
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="2007" data-category="General">
+              
+              
+              <a href="https://drive.google.com/file/d/0B4fNRHPyiRRHaGRzd013bXpQSzA/view">
+                Guidelines for Flyers Distributed on Campuses
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="2686" data-category="General">
+              
+              
+              <a href="https://drive.google.com/file/d/1rXK9StKUQVwpm8ldl7iqrTvUPDUuK56w/view?usp=sharing">
+                Professional Presentation Tips
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="2580" data-category="General">
+              
+              
+              <a href="https://www.ccisd.us/Portals/84/CCISDPublicInformationRequestForm.pdf?ver=2019-09-11-152306-590&amp;timestamp=1568233479353">
+                Public Information Request
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="2010" data-category="General">
+              
+              
+              <a href="https://form.jotform.com/92206094471152">
+                Request for Publicity
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="2009" data-category="General">
+              
+              
+              <a href="https://drive.google.com/file/d/1vzpbhw1FEqPF9lSdCQ7Nv5BX8IStY1nZ/view?usp=sharing">
+                Request for Board Recognition
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="2012" data-category="General">
+              
+              
+              <a href="https://form.jotform.com/92205884345158">
+                Social Media Registration Form
+              </a>
+            </li>
+          
+      
+
+    
+      
+      
+        
+            <li class="list-group-item ResourceEntry" data-id="2011" data-category="General">
+              
+              
+              <a href="https://drive.google.com/file/d/0B3ekOZgvDUrQSlVkN0NpbExQWVk/view">
+                What's Public What's Not
+              </a>
+            </li>
+          
+      
+
+    
+      </div>
+
+    <!-- ResourceList div -->
+    
+
+	</div>
+<!-- End_Module_36151 -->
+</div>
+
+</div></div>
+            </div>
+            <div class="order-md-4 col-md-4 col-lg-3 offset-md-1 mt-xs-3 mt-sm-4">
+                <div id="dnn_ctr37582_View_Directory" class="SectionContainer"><div class="DnnModule DnnModule-XModPro DnnModule-36148">
+<a name="36148"></a><div id="dnn_ctr37582_View_ctr36148_ContentPane" class="NoPaddingNoTitleContentPane">
+<!-- Start_Module_36148 --><div id="dnn_ctr37582_View_ctr36148_ModuleContent" class="DNNModuleContent ModXModProC">
+		
+
+
+
+
+
+
+	</div>
+<!-- End_Module_36148 -->
+</div>
+
+</div></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="order-md-1 col-12 mt-xs-3 mt-sm-4">
+                <div id="dnn_ctr37582_View_Html" class="SectionContainer"><div class="DnnModule DnnModule-XModPro DnnModule-36149">
+<a name="36149"></a><div id="dnn_ctr37582_View_ctr36149_ContentPane" class="NoPaddingNoTitleContentPane">
+<!-- Start_Module_36149 --><div id="dnn_ctr37582_View_ctr36149_ModuleContent" class="DNNModuleContent ModXModProC">
+		
+
+
+
+
+<div id="dnn_ctr37582_View_ctr36149_XModPro_ctl00_ContentHtmlView_pnlNoItems">
+			
+  <div class="ContentSection row" disabled hidden data-permission="Html.ContentCreate">
+    <div class="col">
+      
+      Add Content
+    </div>
+  </div>
+
+
+		</div>
+
+	</div>
+<!-- End_Module_36149 -->
+</div>
+
+</div></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="order-md-1 col-12 mt-xs-3 mt-sm-4">
+                <div id="dnn_ctr37582_View_Calendar" class="SectionContainer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    
+    //Assumes DNN Doesn't change the id of the form.
+    var mainForm = document.getElementById('Form');
+
+    function AddContentClick()
+    {
+        
+        $('#AddContentButtonContainer').prop("hidden", true);
+        $('#AddContentFormContainer').prop("hidden", false);
+        $('#txtPageTitle').prop('required', true);
+    }
+
+    function CreateContentClick(isEdit)
+    {
+        var valid = CCISDContent.ValidateForm() && CCISDContent.SlugIsValid('txtPageTitle', isEdit);
+
+        if (valid === false)
+        {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+        else
+        {
+            ContentFormClose();
+        }
+
+        //mainForm.classList.add('was-validated');
+
+        return valid;
+    }
+
+    function ContentFormClose()
+    {        
+        $('#AddContentButtonContainer').prop("hidden", false);
+        $('#AddContentFormContainer').prop("hidden", true);
+        $('#txtPageTitle').prop('required', false);
+
+    }
+
+
+
+
+    
+
+
+
+
+    function CreateSelectOptionGroups()
+    {
+        var groups = {};
+
+        $("select option[data-category]").each(function ()
+        {
+             groups[$.trim($(this).attr("data-category"))] = true;
+        });
+
+        $.each(groups, function (c) {
+             $("select option[data-category='"+c+"']").wrapAll('<optgroup label="' + c + '">');
+        });
+
+
+        $('#ddlBanner').change(function ()
+        {            
+            UpdatePreviewImage();
+        });
+        
+        UpdatePreviewImage();
+    }
+
+    function UpdatePreviewImage()
+    {
+            var $sel = $('#ddlBanner' + ' option:selected');
+            var src = $sel.data("file");
+            $('#SelectedBannerImage').attr("src", src);
+            //console.log(SelectedImageID);
+    }
+
+    $(document).ready(function ()
+    {
+        if ($('#ddlBanner').length)
+        {
+            CreateSelectOptionGroups();
+        }
+
+        //Move the Section Edit Pane to the appropriate EditPanePlaceHolder for each page type.
+        $('#SectionEditPane').appendTo('.EditPanePlaceHolder').first();
+                    
+    });
+
+</script>
+</div>
+<!-- End_Module_37582 -->
+</div>
+
+</div></div></div></div>
+    </div>
+     
+</div> <!-- ./content-areas -->
+
+<!-- Start Footer -->
+<footer><div class="container-fluid" role="contentinfo">
+        <div class="row"><div id="dnn_FooterTopPane" class="col-md-12 footer-top-pane SecondaryColorBackground DNNEmptyPane"></div></div>
+
+<div class="row flex-items-xs-bottom justify-content-center">
+ 
+
+    <div class="col-12 col-lg-4 dnnSortable ui-sortable">
+
+        <div class="row" style="border-bottom: 1px solid #555555;">
+            <div class="col" style="margin-top:18px;">
+                <ul class="text-center text-lg-right" style="list-style:none;">
+<li class="footer-li"><a href="#">Contacts</a></li>
+                    <li class="footer-li"><a href="https://www.google.com/maps/place/801+Leopard+St,+Corpus+Christi,+TX+78401/@27.7960851,-97.401209,17z/data=!4m5!3m4!1s0x86685e5e160e6b53:0x5b41cb610ebbbc36!8m2!3d27.7960851!4d-97.3990203">Location</a></li>
+                    <li class="footer-li"><a href="#">User Policy</a></li>
+                    <li class="footer-li"><a href="https://www.ccisd.us/notice/accessibility">Notice to Persons with Disabilities</a></li>
+                </ul>
+</div>
+        </div>
+
+    </div>
+
+    <div class="col-12 col-lg-3 dnnSortable ui-sortable">
+
+        <div class="row justify-content-md-center">
+            <div class="col text-center"> <img style="max-width:160px;" src="/Portals/_default/Skins/CCISD/assets/images/Footer/FooterLogo.png" alt="CCISD Logo">
+</div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-1 pt-3 px-4"> <a href="https://www.youtube.com/channel/UC52FT5r1S17LaOZcqvfaoNw"><img style="max-width:30px;" src="/Portals/_default/Skins/CCISD/assets/images/Footer/YouTube_icon.png" alt="YouTube"></a>
+            </div>
+            <div class="col-1 pt-3 px-4"> <a href="https://www.facebook.com/CCISD"><img style="max-width:30px;" src="/Portals/_default/Skins/CCISD/assets/images/Footer/Facebook_icon.png" alt="Facebook"></a>
+            </div>
+            <div class="col-1 pt-3 px-4"> <a href="https://twitter.com/CCISD"><img style="max-width:30px;" src="/Portals/_default/Skins/CCISD/assets/images/Footer/Twitter_icon.png" alt="Twitter"></a>
+            </div>
+            <div class="col-1 pt-3 px-4"> <a href="https://Instagram.com/CorpusChristiISD"><img style="max-width:30px;" src="/Portals/_default/Skins/CCISD/assets/images/Footer/Instragram_icon.png" alt="Instagram"></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 col-lg-4 dnnSortable ui-sortable"> 
+        <div class="row" style="border-bottom: 1px solid #555555;">
+            <div class="col align-self-right" style="margin-top:18px;">
+                <ul class="text-center text-lg-left" style="list-style: none;">
+<li class="footer-li">Administration</li>
+                    <li class="footer-li">801 Leopard St.</li>
+                    <li class="footer-li">Corpus Christi Texas 78401</li>
+                    <li class="footer-li">
+<a id="DistrictFooterPhone" href="tel:361-695-7200">P: 361-695-7200</a> | <a href="https://www.ccisd.us">
+                            ccisd.us</a>
+                    </li>
+                </ul>
+</div>
+        </div>
+    </div>
+    <button type="submit" onclick="return false" hidden disabled>
+</button>
+</div>
+<div class="copyright-section">
+    <div class="row flex-items-xs-bottom">
+        <div class="col-sm text-xs-center text-sm-left">
+            <ul class="list-inline"></ul>
+</div>
+        <div class="col-sm text-xs-center text-sm-right">
+<span id="dnn_dnnCopyright_lblCopyright" class="SkinObject">Copyright 2020 by Corpus Christi ISD</span>
+</div>
+    </div>
+<!-- ./row -->
+</div> 
+    </div>    
+     
+     
+<script type="text/javascript">
+   var count = 0;
+
+   var trigger = setInterval(function(){
+        if($("#personaBar-iframe").length){
+            $('header').attr('style', 'padding-right: 75px;'); 
+            clearInterval(trigger);
+        }
+
+        if(++count === 10){
+            clearInterval(trigger);
+        }
+    }, 1000, 10);
+</script></footer><!-- ./Footer --><!-- Go To Top Link --><!--
+<a href="#" class="back-to-top"><i class="fa fa-angle-up"></i></a>   
+--><!--CDF(Javascript|https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js|DnnFormBottomProvider|100)--><!--CDF(Javascript|https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js|DnnFormBottomProvider|100)--><!--CDF(Javascript|/Portals/_default/Skins/CCISD/assets/js/jquery.smartmenus.js|DnnFormBottomProvider|100)--><!--CDF(Javascript|/Portals/_default/Skins/CCISD/assets/js/utils.js|DnnFormBottomProvider|100)--><!--CDF(Javascript|/Portals/_default/Skins/CCISD/assets/js/dnncontra.js|DnnFormBottomProvider|100)--><!--CDF(Javascript|/Portals/_default/Skins/CCISD/assets/js/CCISDContent.js|DnnFormBottomProvider|100)--><input name="ScrollTop" type="hidden" id="ScrollTop"><input name="__dnnVariable" type="hidden" id="__dnnVariable" autocomplete="off"><script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" type="text/javascript"></script><script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" type="text/javascript"></script><script src="/DependencyHandler.axd/1a0876d4a438c3bccb3548db2fb7dd5b/1413/js" type="text/javascript"></script><script type="text/javascript">
+  document.getElementById("KB_JSTester_JSEnabled").value = "1";
+  if(typeof jQuery != 'undefined'){document.getElementById("KB_JSTester_JQueryVsn").value = jQuery.fn.jquery;}
+</script><script type="text/javascript">
+(function($){
+$(document).ready(function(){
+
+      ResourceSetup();
+
+      ResourceCleanUpUL();
+
+    });
+})(jQuery);
+</script>
+</form>
+    <!--CDF(Javascript|/js/dnncore.js|DnnBodyProvider|100)--><!--CDF(Javascript|/js/dnn.modalpopup.js|DnnBodyProvider|50)--><!--CDF(Css|/Resources/Shared/stylesheets/dnndefault/7.0.0/default.css|DnnPageHeaderProvider|5)--><!--CDF(Css|/Portals/_default/Skins/CCISD/skin.css|DnnPageHeaderProvider|15)--><!--CDF(Css|/DesktopModules/ModuleInjection/module.css|DnnPageHeaderProvider|10)--><!--CDF(Css|/DesktopModules/ModuleInjection/module.css|DnnPageHeaderProvider|10)--><!--CDF(Css|/Portals/84/portal.css|DnnPageHeaderProvider|35)--><!--CDF(Javascript|/Resources/Shared/Scripts/jquery/jquery.hoverIntent.min.js|DnnBodyProvider|55)--><!--CDF(Javascript|/Resources/libraries/jQuery/03_02_01/jquery.js|DnnPageHeaderProvider|5)--><!--CDF(Javascript|/Resources/libraries/jQuery-Migrate/03_00_00/jquery-migrate.js|DnnPageHeaderProvider|6)--><!--CDF(Javascript|/Resources/libraries/jQuery-UI/01_12_01/jquery-ui.js|DnnPageHeaderProvider|10)-->
+    
+</body>
+</html>

@@ -102,51 +102,36 @@ scrape_and_process_sites <- function(list_of_args) {
   
 }
 
-download_link <- function(link, district, state, nces_id, my_date) {
+download_link <- function(link, district, state, nces_id, my_date, page_number) {
   print(str_c("processing link", link, "from ", nces_id))
-  i <- 1
   h <- read_html(link)
   
   base_dir <- str_c("output/", my_date, "/links/")
   
-  f <-str_c(base_dir, "LINK-", state, "-", district, "-", nces_id, "-",i,".xml")
+  f <-str_c(base_dir, "LINK-", state, "-", district, "-", nces_id, "-",page_number,".xml")
   
-  while (fs::file_exists(f)) {
-    i <- i + 1
-    f <-str_c(base_dir, "LINK-", state, "-", district, "-", nces_id, "-",i,".xml")
-  }
   if (!fs::file_exists(f)) {
     write_xml(h, f)
     print("downloaded xml")
   } else {
     print("already have, skipping")
   }
-  tibble(link = link, district = district, state = state, nces_id = nces_id, type = "LINK", found = TRUE)
+  tibble(link = link, district = district, state = state, nces_id = nces_id, page_number = page_number, type = "LINK", found = TRUE)
 }
 
 download_attachment <- function(link, district, state, nces_id, my_date) {
   print(str_c("processing attachment", link, "from ", nces_id))
-  i <- 1
   file_ext <- tools::file_ext(link)
   base_dir <- str_c("output/", my_date, "/attachments/")
   
-  f <-str_c(base_dir, "ATTACHMENT-", state, "-", district, "-", nces_id, "-",i, ".", file_ext)
-  
-  # if (fs::file_exists(f)) {
-  #   
-  # }
-  
-  while (fs::file_exists(f)) {
-    i <- i + 1
-    f <-str_c(base_dir, "ATTACHMENT", state, "-", district, "-", nces_id, "-",i, ".", file_ext)
-  }
+  f <-str_c(base_dir, "ATTACHMENT-", state, "-", district, "-", nces_id, "-",page_number, ".", file_ext)
   if (!fs::file_exists(f)) {
     download.file(link, destfile = f)
     print("downloaded ", file_ext)
   } else {
     print("already have, skipping")
   }
-  tibble(link = link, district = district, state = state, nces_id = nces_id, type = "ATTACHMENT", found = TRUE)
+  tibble(link = link, district = district, state = state, nces_id = nces_id, page_number = page_number, type = "ATTACHMENT", found = TRUE)
 }
 
 proc_links_and_attachments <- function(table_of_output, my_date) {
@@ -166,18 +151,22 @@ proc_links_and_attachments <- function(table_of_output, my_date) {
                            district = all_other$district_name, 
                            state = all_other$state,
                            nces_id = all_other$nces_id,
-                           my_date = my_date),
+                           my_date = my_date,
+                           page_number = all_other$page_number),
                       possibly(download_link,
                                otherwise = tibble(link = NA, district = NA, state = NA, nces_id = NA, 
+                                                  page_number = NA,
                                                   type = "LINK", found = FALSE)))
   
   attachment_output <- pmap(list(link = attachments$link,
                                  district = attachments$district_name, 
                                  state = attachments$state,
                                  nces_id = attachments$nces_id,
-                                 my_date = my_date),
+                                 my_date = my_date,
+                                 page_number = attachments$page_number),
                             possibly(download_attachment,
                                      otherwise = tibble(link = NA, district = NA, state = NA, nces_id = NA, 
+                                                        page_number = NA,
                                                         type = "ATTACHMENT", found = FALSE)))
   
   output_df <- map_df(link_output, ~.)
