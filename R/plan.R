@@ -47,13 +47,9 @@ source("R/functions.R") # Define your custom code as a bunch of functions.
 table_of_output <- read_csv("output/2020-04-19/table-of-output.csv")
 table_of_output
 
-# Scraping links
-<<<<<<< HEAD
-
 table_of_output <- read_csv("output/2020-04-19/table-of-output.csv")
 table_of_output <- table_of_output %>% 
   group_by(district_name, state, nces_id) %>% 
   mutate(page_number = row_number())
-=======
->>>>>>> 18688eea2564f9dd11a14690d2322b8047e0a33d
-scraped_links = proc_links_and_attachments(table_of_output, "2020-04-19")
+
+scraped_links = proc_links_and_attachments(table_of_output, "2020-04-19", which_to_scrape = "attachments")
