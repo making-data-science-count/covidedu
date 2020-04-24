@@ -182,3 +182,10 @@ proc_table_of_output <- function(table_of_output) {
     group_by(district_name, state, nces_id) %>% 
     mutate(page_number = row_number())
 }
+
+proc_my_date <- function(my_date) {
+  if (my_date == "") {
+    my_date <- Sys.Date()
+  } 
+  my_date
+}
