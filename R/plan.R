@@ -1,21 +1,25 @@
 plan = drake_plan(
   
-  my_date = Sys.Date(),
+  my_date = "2020-04-24",
+  search_term = c("covid*", "coron*", "closure"),
+  my_sample = 1:200,
   
-  processed_data = read_data(file_in('district-data-to-scrape.csv')),
-
+  processed_data_all = read_data(file_in('district-data-to-scrape.csv')),
+  processed_data = processed_data_all[my_sample, ],
+  
   table_of_output = scrape_and_process_sites(
-    my_date,
+    my_date, 
     list(processed_data$district,
          processed_data$state,
          processed_data$nces_id,
          processed_data$url),
-    search_term = c("covid*", "coron*", "closure")
-  ),
-
+    search_term = search_term),
+  
   table_of_output_processed = proc_table_of_output(table_of_output),
   
-  scraped_links = proc_links_and_attachments(table_of_output_processed, my_date, which_to_scrape = "both")
+  scraped_links = proc_links_and_attachments(table_of_output_processed, 
+                                             my_date,
+                                             which_to_scrape = "both")
   
 )
 
