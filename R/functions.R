@@ -8,13 +8,7 @@ read_data <- function(f) {
   d
 }
 
-detector <- function(x) {
-  str_detect(x, "coron*") |
-    str_detect(x, "covid*") |
-    str_detect(x, "closure")
-}
-
-access_site <- function(my_date, name, state, id, url) {
+access_site <- function(my_date, name, state, id, url, search_term) {
   
   base_dir <- str_c("output/", my_date, "/homepages/")
   
@@ -38,20 +32,18 @@ access_site <- function(my_date, name, state, id, url) {
   links <- h %>%
     html_nodes("a")
   
-  corona <- str_detect(tolower(t), "corona*")
-  covid <- str_detect(tolower(t), "covid*")
-  closure <- str_detect(tolower(t), "closure")
+  search_term_found <- any(str_detect(tolower(t), search_term))
   
   link_found <- links %>%
     html_text() %>%
     tolower() %>%
-    detector() %>%
+    any(str_detect(., search_term)) %>%
     any()
   
   link_logical_to_index <- links %>%
     html_text() %>%
     tolower() %>%
-    detector()
+    any(str_detect(., search_term)) 
   
   link_urls <- links %>%
     rvest::html_attr("href")
@@ -61,37 +53,36 @@ access_site <- function(my_date, name, state, id, url) {
   
   link_urls <- link_urls[link_logical_to_index]
   
-  print(str_c("Processed", base_dir, "-", state, "-", name, "-", id, "; ",
-              "found", corona, " ", covid, " ", closure))
+  print(str_c("Processed ", base_dir, "-", state, "-", name, "-", id, "; ",
+              "found ", search_term, ": ", str_detect(tolower(t), search_term)))
   
   tibble(district_name = name, state = state, nces_id = id, url = url,
-         corona = corona, covid = covid, closure = closure,
+         search_term_found = search_term,
          scraping_failed = FALSE,
          link_found = link_found,
          link = list(link_urls))
   
 }
 
-scrape_and_process_sites <- function(list_of_args) {
+scrape_and_process_sites <- function(my_date, list_of_args, search_term) {
   
   base_dir_exists <- fs::dir_exists(str_c("output/", list_of_args[[1]], "/"))
   
   if (!base_dir_exists) {
-    fs::dir_create(str_c("output/", list_of_args[[1]], "/"))
-    fs::dir_create(str_c("output/", list_of_args[[1]], "/homepages"))
+    fs::dir_create(str_c("output/", my_date, "/"))
+    fs::dir_create(str_c("output/", my_date, "/homepages"))
   }
   
-  output <- pmap(list(my_date = list_of_args[[1]], 
-                      name = list_of_args[[2]], state = list_of_args[[3]],
-                      id = list_of_args[[4]], url = list_of_args[[5]]), 
+  output <- pmap(list(my_date = my_date, 
+                      name = list_of_args[[1]], state = list_of_args[[2]],
+                      id = list_of_args[[3]], url = list_of_args[[4]]), 
+                 search_term = search_term, 
                  possibly(access_site,
                           otherwise = tibble(district_name = NA, 
                                              state = NA, 
                                              nces_id = NA, 
                                              url = NA, 
-                                             corona = NA,
-                                             covid = NA,
-                                             closure = NA,
+                                             search_term_found = NA,
                                              scraping_failed = TRUE, 
                                              link_found = NA,
                                              link = NA)))

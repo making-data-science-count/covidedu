@@ -19,11 +19,13 @@ source("R/functions.R") # Define your custom code as a bunch of functions.
 processed_data = read_data(file_in('district-data-to-scrape.csv'))
 
 table_of_output = scrape_and_process_sites(
-    list("2020-04-19",
-         processed_data$district,
-         processed_data$state,
-         processed_data$nces_id,
-         processed_data$url))
+  "2020-04-24",
+  list(processed_data$district,
+       processed_data$state,
+       processed_data$nces_id,
+       processed_data$url),
+  search_term = c("covid*", "coron*", "closure")
+  )
 
 write_csv(select(table_of_output, -link), "output/2020-04-19/table-of-output-no-links.csv")
 
@@ -50,5 +52,12 @@ l <- map(pdf_f, possibly(pdf_text, NULL))
 
 names(l) <- pdf_f
 
-pdf_d <- l %>% 
+pred <- function(x) {
+  x == ""
+}
+
+l <- l %>% discard(pred)
+
+
+lpdf_d <- l %>% 
   map_df(~.)
