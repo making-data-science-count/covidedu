@@ -176,5 +176,9 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
     return(output_df)
   }
 }
-# testing
-# proc_links_and_attachments(table_of_output[1:10, ], my_date = Sys.Date())
+
+proc_table_of_output <- function(table_of_output) {
+  table_of_output <- table_of_output %>% 
+    group_by(district_name, state, nces_id) %>% 
+    mutate(page_number = row_number())
+}
