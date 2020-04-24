@@ -17,5 +17,5 @@ There are two key parameters to set in [`R/plan.R`](R/plan.R):
 
 To run the web-scraper, run either:
 
-- the contents of [`R/make.R`](R/make.R)
+- the contents of [`make.R`](make.R)
 - or `drake::r_make()`
