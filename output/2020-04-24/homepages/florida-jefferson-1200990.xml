@@ -1,0 +1,1349 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Jefferson County School District</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700%7COpen+Sans:400,700" rel="stylesheet" type="text/css">
+<link rel="icon" href="/customers/FL/JeffersonCntySD/sysimages/custom/favicon.ico" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Jefferson County School District - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Jefferson County Middle/High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Jefferson Elementary School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Jefferson County Adult School - News" href="/rssNews.ashx?schoolId=3">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "FL_JeffersonCntySD",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<style type="text/css">
+		#news-list .article {
+			float: left;
+			position: relative;
+			margin-left: 1% !Important;
+			margin-right: 1% !Important;
+			height: auto;
+			min-height: 200px;
+			overflow: hidden;
+			width: 100% !important;
+			border: none !important;
+		}
+
+		#slideshow {
+			max-height: none !important;
+		}
+
+		.headerSpace {
+			max-height: initial !important;
+			overflow: initial !important;
+		}
+
+		.content-wrapper {
+			position: relative;
+		}
+
+		@media only screen and (max-width: 767px) {
+			#news-list .article {
+				width: 100% !important;
+				height: auto !important;
+			}
+		}
+
+		.middle-column .panel {
+			border-bottom: 2px solid #9E9FA3;
+			margin-bottom: 0 !important;
+			padding-bottom: 20px !important;
+		}
+	</style>
+<link href="https://cdn.schoolpointe.com/fullcalendar-2.4.0/fullcalendar.min.css" rel="stylesheet">
+<link href="https://cdn.schoolpointe.com/fullcalendar-2.4.0/fullcalendar.print.css" rel="stylesheet" media="print">
+<script src="https://cdn.schoolpointe.com/fullcalendar-2.4.0/lib/moment.min.js"></script><script src="https://cdn.schoolpointe.com/fullcalendar-2.4.0/fullcalendar.min.js"></script><script src="https://cdn.schoolpointe.com/fullcalendar-2.4.0/gcal.js"></script><link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=-62135596800000">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTg1ODk3NDQ2OA9kFgJmD2QWAmYPZBYEZg9kFgQCBA9kFgICAQ8WAh4LXyFJdGVtQ291bnQCAxYGZg9kFgJmDxUCI0plZmZlcnNvbiBDb3VudHkgTWlkZGxlL0hpZ2ggU2Nob29sATFkAgEPZBYCZg8VAhtKZWZmZXJzb24gRWxlbWVudGFyeSBTY2hvb2wBMmQCAg9kFgJmDxUCHUplZmZlcnNvbiBDb3VudHkgQWR1bHQgU2Nob29sATNkAgkPFgIeBGhyZWYFMi9zaXRlY3NzLmFzaHg/JmludHJhbmV0PTAmY2hlY2tzdW09LTYyMTM1NTk2ODAwMDAwZAIBDxYCHgZhY3Rpb24FAS8WCgIBD2QWBAIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8DBQEwZAIDDw9kFgIfAwUBMGQCBA8PZBYCHwMFATBkAgUPD2QWAh8DBQEwZAIDD2QWAgICD2QWAmYPFgIeBFRleHQFGzx1bCBjbGFzcz0nYWxlcnRMaXN0Jz48L3VsPmQCAw9kFgICAQ9kFgICAQ9kFgYCAQ8PFgIeC05hdmlnYXRlVXJsBQEvZBYCZg8PFgIfBAUgSmVmZmVyc29uIENvdW50eSBTY2hvb2wgRGlzdHJpY3RkZAILDw8WAh8FBQEvZGQCDQ8PFgQfBQUBLx8EBWA8c3BhbiBjbGFzcz0ic2Nob29sTmFtZVRvcCI+SmVmZmVyc29uPC9zcGFuPjxzcGFuIGNsYXNzPSJzY2hvb2xOYW1lQm90dG9tIj5Db3VudHkgU2Nob29sczwvc3Bhbj5kZAIHD2QWAmYPFgIfAAIBFgJmD2QWBGYPFQIgSmVmZmVyc29uIENvdW50eSBTY2hvb2wgRGlzdHJpY3QgSmVmZmVyc29uIENvdW50eSBTY2hvb2wgRGlzdHJpY3RkAgEPFQEQSkNTRCAtIHBpYy0wLmpwZ2QCCw9kFgoCAw9kFgICAQ9kFgICAQ9kFgJmDxYCHwRlZAIFD2QWBAIBD2QWCGYPFgIfBAUYU3VwZXJpbnRlbmRlbnQncyBNZXNzYWdlZAIBDxYCHwQFOjxwPjxzdHJvbmc+VGhlIEltcG9ydGFuY2Ugb2YgUHVibGljIEVkdWNhdGlvbjwvc3Ryb25nPjwvcD5kAgIPFgIeB1Zpc2libGVoFgICAw9kFgICAQ8PFgIfBmhkZAIDDw8WBh8EBUlSZWFkIE1vcmU8c3BhbiBjbGFzcz0ib2JzY3VyZSI+IGFib3V0IHRoZSBzdXBlcmludGVuZGVudCdzIG1lc3NhZ2U8L3NwYW4+HwUFDi9zdXBlcm1zZy5hc3B4HwZoZGQCAw8PFgIfBAUPTWFyaWFubmUgQXJidWx1ZGQCBw9kFgICAQ9kFgRmDw8WAh8GaGRkAgIPZBYEAgMPFgIfBmhkAgUPFgIfAAIEZAIJD2QWAgIBD2QWBmYPFgIfBAUeRkFNSUxZIEVNUE9XRVJNRU5UIFNDSE9MQVJTSElQZAIBDxYCHwQF2xo8cD5GQU1JTFkgRU1QT1dFUk1FTlQgU0NIT0xBUlNISVA8YnIgLz4NClRoZSBGYW1pbHkmbmJzcDsgRW1wb3dlcm1lbnQmbmJzcDsgU2Nob2xhcnNoaXAmbmJzcDsgKEZFUykmbmJzcDsgUHJvZ3JhbSZuYnNwOyB3YXMgZXN0YWJsaXNoZWQmbmJzcDsgZHVyaW5nIHRoZSZuYnNwOyAyMDE5IExlZ2lzbGF0aXZlJm5ic3A7PGJyIC8+DQpTZXNzaW9uIHRvJm5ic3A7IGVuaGFuY2UgRmxvcmlkYSYjMzk7cyBtZW51IG9mIGVkdWNhdGlvbiBvcHRpb25zLiBJdCB3aWxsIHByb3ZpZGUgY2hpbGRyZW4gd2hvc2UgZmFtaWxpZXMmbmJzcDs8YnIgLz4NCmhhdmUgbGltaXRlZCBmaW5hbmNpYWwgcmVzb3VyY2VzIHdpdGggdGhlIG9wcG9ydHVuaXR5IHRvIGF0dGVuZCB0aGUgc2Nob29sIHRoYXQgYmVzdCBtZWV0cyB0aGVpciZuYnNwOzxiciAvPg0KbmVlZHMgYW5kIGVuYWJsZXMgdGhlbSB0byByZWFjaCB0aGVpciBhY2FkZW1pYyBnb2Fscy48L3A+DQoNCjxwPlRoZSBGRVMgcHJvdmlkZXMgZWxpZ2libGUgc3R1ZGVudHMgYSBzY2hvbGFyc2hpcCB0byBhdHRlbmQgYSBwcml2YXRlIHNjaG9vbCBzZWxlY3RlZCBieSB0aGUgcGFyZW50LiZuYnNwOzxiciAvPg0KQSBzdHVkZW50IGlzIGVsaWdpYmxlIGZvciB0aGUgRkVTIGlmIHRoZSZuYnNwOyBzdHVkZW50IG1lZXRzIHRoZSBmb2xsb3dpbmcgY3JpdGVyaWE6PC9wPg0KDQo8cD4mYnJ2YmFyOyZuYnNwOyBUaGUgc3R1ZGVudCAmIzM5O3MgaG91c2Vob2xkIGluY29tZSBkb2VzIG5vdCBleGNlZWQgMzAwJSBvZiB0aGUgZmVkZXJhbCBwb3ZlcnR5IGxldmVsICgkNzcsMjUwIGZvciBhJm5ic3A7PGJyIC8+DQpmYW1pbHkgb2YgZm91cikgb3IgdGhlIHN0dWRlbnRzIG9uIHRoZSBkaXJlY3QgY2VydGlmaWNhdGlvbiBsaXN0IChsaXN0IG9mIGNoaWxkcmVuIHdobyBxdWFsaWZ5IGZvciZuYnNwOzxiciAvPg0KdGhlIGZvb2QgYXNzaXN0YW5jZSBwcm9ncmFtLCB0aGUgVGVtcG9yYXJ5IEFzc2lzdGFuY2UgdG8gTmVlZHkgRmFtaWxpZXMgUHJvZ3JhbSwgb3IgdGhlIEZvb2QmbmJzcDs8YnIgLz4NCkRpc3RyaWJ1dGlvbiBvbiBJbmRpYW4gUmVzZXJ2YXRpb25zIHByb2dyYW0pOyBvcjwvcD4NCg0KPHA+JmJydmJhcjsmbmJzcDsgVGhlIHN0dWRlbnQgaXMgY3VycmVudGx5IHBsYWNlZCwgb3IgZHVyaW5nIHRoZSBwcmV2aW91cyBzdGF0ZSBmaXNjYWwgeWVhciB3YXMgcGxhY2VkLCBpbiBmb3N0ZXImbmJzcDs8YnIgLz4NCmNhcmUgb3IgaW4gb3V0LW9mLWhvbWUgY2FyZSBhcyBkZWZpbmVkIGluIHNlY3Rpb24gMzkuMDEsIEZsb3JpZGEgU3RhdHV0ZXM7PGJyIC8+DQphbmQ8YnIgLz4NCiZicnZiYXI7IFRoZSBzdHVkZW50IGlzIGVsaWdpYmxlIHRvIGVucm9sbCBpbiBraW5kZXJnYXJ0ZW4gb3IgaGFzIHNwZW50IHRoZSBwcmlvciBzY2hvb2wgeWVhciAoMjAxOC0xOSkgaW4mbmJzcDs8YnIgLz4NCmF0dGVuZGFuY2UgYXQgYSBGbG9yaWRhIHB1YmxpYyBzY2hvb2wuIFByaW9yIGF0dGVuZGFuY2UgbWVhbnMgdGhlJm5ic3A7IHN0dWRlbnQgd2FzIGVucm9sbGVkIGluIGFuZCBpbiZuYnNwOzxiciAvPg0KYXR0ZW5kYW5jZSBhdCBhIEZsb3JpZGEgcHVibGljIHNjaG9vbCBkdXJpbmcgYm90aCB0aGUgT2N0b2JlciBhbmQgRmVicnVhcnkgc3R1ZGVudCBjb3VudHM7IGFuZDwvcD4NCg0KPHA+JmJydmJhcjsmbmJzcDsgUHJpb3IgdG8mbmJzcDsgc2Nob2xhcnNoaXAgZnVuZHMgYmVpbmcgYXdhcmRlZCwgdGhlIHN0dWRlbnQgbXVzdCBiZSBhY2NlcHRlZCBhbmQgZW5yb2xsZWQgaW4gYSZuYnNwOzxiciAvPg0KcGFydGljaXBhdGluZyBwcml2YXRlIHNjaG9vbC4gRm9yIGEgbGlzdCBvZiBlbGlnaWJsZSBzY2hvb2xzLCBwbGVhc2UgdmlldyB0aGUgRGVwYXJ0bWVudCYjMzk7cyBQcml2YXRlJm5ic3A7PGJyIC8+DQpTY2hvb2wmbmJzcDsgRGlyZWN0b3J5LiZuYnNwOyBBJm5ic3A7IHByaXZhdGUmbmJzcDsgc2Nob29sIHRoYXQmbmJzcDsgaXMgY3VycmVudGx5Jm5ic3A7IGVsaWdpYmxlJm5ic3A7IHRvJm5ic3A7IHBhcnRpY2lwYXRlJm5ic3A7IGluJm5ic3A7IGFueSZuYnNwOyBvZiZuYnNwOyZuYnNwOzxiciAvPg0KdGhlIHNjaG9sYXJzaGlwIHByb2dyYW1zIGlzIGVsaWdpYmxlIHRvIHBhcnRpY2lwYXRlIGluIHRoZSBGRVM7IGhvd2V2ZXImbmJzcDsgLCBwYXJlbnRzIHNob3VsZCBjb250YWN0Jm5ic3A7PGJyIC8+DQp0aGUgc2Nob29sIHRvIGlucXVpcmUgYXMgdG8mbmJzcDsgd2hldGhlciB0aGUgcHJpdmF0ZSBzY2hvb2wgd2lsbCBwYXJ0aWNpcGF0ZSBpbiB0aGUgcHJvZ3JhbS48L3A+DQoNCjxwPlBhcmVudHMgd2hvIG1lZXQgdGhlIGVsaWdpYmlsaXR5IHJlcXVpcmVtZW50cyBhYm92ZSBhbmQgYXJlIGludGVyZXN0ZWQgaW4gYXBwbHlpbmcgZm9yIHRoZSBGRVMmbmJzcDs8YnIgLz4NCnNob3VsZCBmaXJzdCBjb250YWN0Jm5ic3A7IG9uZSBvZiZuYnNwOyBGbG9yaWRhJiMzOTtzIHR3byZuYnNwOyBhcHByb3ZlZCZuYnNwOyBzY2hvbGFyc2hpcCBmdW5kaW5nJm5ic3A7IG9yZ2FuaXphdGlvbnMmbmJzcDsgKGNvbnRhY3QmbmJzcDs8YnIgLz4NCmluZm9ybWF0aW9uIGJlbG93KSB0byBjb21wbGV0ZSB0aGUgaW5jb21lIHZlcmlmaWNhdGlvbiBwcm9jZXNzLiBTdHVkZW50cyB3aG8gaGF2ZSBhbHJlYWR5IGFwcGxpZWQmbmJzcDs8YnIgLz4NCmZvciB0aGUgRmxvcmlkYSBUYXggQ3JlZGl0Jm5ic3A7IChGVEMpJm5ic3A7IFNjaG9sYXJzaGlwJm5ic3A7IHByb2dyYW0mbmJzcDsgbWF5Jm5ic3A7IGJlJm5ic3A7IGRldGVybWluZWQmbmJzcDsgdG8mbmJzcDsgbWVldCZuYnNwOyB0aGUmbmJzcDsgaW5jb21lJm5ic3A7PGJyIC8+DQplbGlnaWJpbGl0eSZuYnNwOyB3aXRob3V0IHJlc3VibWl0dGluZyBob3VzZWhvbGQgaW5jb21lIGRvY3VtZW50YXRpb24gdG8gdGhlIFNjaG9sYXJzaGlwIEZ1bmRpbmcmbmJzcDs8YnIgLz4NCk9yZ2FuaXphdGlvbi48YnIgLz4NCkZvciBtb3JlIGluZm9ybWF0aW9uLCBwbGVhc2UgdmlzaXQgdGhlIERlcGFydG1lbnQgb2YgRWR1Y2F0aW9uIHdlYnNpdGUgYXQgd3d3LkZsZG9lLm9yZy9GRVMuJm5ic3A7PC9wPg0KDQo8cD4mbmJzcDs8L3A+DQoNCjxwPlNjaG9sYXJzaGlwIEZ1bmRpbmcgT3JnYW5pemF0aW9ucyAoU0ZPcyk8L3A+DQoNCjxwPjxiciAvPg0KQUFBIFNjaG9sYXJzaGlwIEZvdW5kYXRpb24mbmJzcDs8L3A+DQoNCjxwPmh0dHA6Ly93d3cuYWFhc2Nob0lhcnNoaXBzLm9ycS88L3A+DQoNCjxwPjg4OC03MDctMjQ2NTwvcD4NCg0KPHA+aW5mb0BhYWFzY2hvbGFyc2hpcHMub3JnPC9wPg0KDQo8cD5TdGVwIFVwIGZvciBTdHVkZW50czwvcD4NCg0KPHA+aHR0cHM6Ly93d3cuc3RlcHVwZm9yc3R1ZGVudHMub3JxLzwvcD4NCg0KPHA+ODc3LTczNS03ODM3PC9wPg0KDQo8cD5pbmZvQHN0ZXB1cGZvcnN0dWRlbnRzLm9yZzwvcD4NCg0KPHA+Jm5ic3A7PC9wPmQCAw8PFgIfBQUbL2ZlYXR1cmVkL3d3dy1mbGRvZS1vcmctZmVzZGQCCw9kFgQCAQ9kFgZmDxYCHwBmZAIEDw8WAh8FBSEvY2FsTW9udGhWaWV3LmFzcHg/cz0wJnk9MjAyMCZtPTRkZAIGDw8WBB8FBUUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCZzY2hvb2xpZD0wJnR5cGVzPSZ2aWV3RGF0ZT00LzI0LzIwMjAfBAUIVmlldyBBbGxkZAIDD2QWBGYPPCsACgEADxYIHg1EYXlOYW1lRm9ybWF0CyonU3lzdGVtLldlYi5VSS5XZWJDb250cm9scy5EYXlOYW1lRm9ybWF0Ah4NTmV4dE1vbnRoVGV4dAUuPjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5HbyB0byBuZXh0IG1vbnRoPC9zcGFuPh4NUHJldk1vbnRoVGV4dAUyPDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5HbyB0byBwcmV2aW91cyBtb250aDwvc3Bhbj4eAlNEFgEGAICTbuLn1whkZAIBDw8WBh4GVGFyZ2V0BQZfYmxhbmsfBAUSVmlldyBGdWxsIENhbGVuZGFyHwUFJS9jYWxNb250aFZpZXcuYXNweD9zPTAmeT0yMDIwJm09NCZ0PTBkZAIRD2QWAmYPZBYCZg8WAh8AAgEWAmYPZBYCZg8VBQsvYWRhLXJlcG9ydA1BREEgUmVwb3J0aW5nBV9zZWxmJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5BREEgTGluazwvc3Bhbj4WZmEgZmEtdW5pdmVyc2FsLWFjY2Vzc2RkL7U85/sJU7B6k3kxP31MXhpAFfg=">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: '10trxb7job' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="headerback">
+            <header id="site-head"><div class="NavBack">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                <div class="navigation">
+                    <nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                            </button>
+                            <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome3" class="navbar-brand hidden-lg hidden-md " href="/"><span id="ctl00_ctl00_header_header_ctl00_schoolName">Jefferson County School District</span></a>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/234" title="Superintendent's Office">Superintendent's Office</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Content/226" title="About Us">About Us</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/2/Home" title="Jefferson Elementary School">Jefferson Elementary School</a></li>
+<li class="without-image"><a href="/1/Home" title="Jefferson County Middle/High School">Jefferson County Middle/High School</a></li>
+<li class="without-image"><a href="/3/Home" title="Jefferson County Adult School">Jefferson County Adult School</a></li>
+<li class="without-image"><a href="/content/258" target="_blank" title="Jefferson County Home School">Jefferson County Home School</a></li>
+<li class="without-image"><a href="/content/jflvs" target="_blank" title="Jefferson Virtual School">Jefferson Virtual School</a></li>
+<li class="without-image"><a href="/Content/198" title="Turning Point">Turning Point</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/170" title="Curriculum Instruction">Curriculum Instruction</a></li>
+<li class="without-image"><a href="/content/230" title="Exceptional Student Education">Exceptional Student Education</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Federal Programs">Federal Programs  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/90" title="Staff">Staff</a></li>
+<li class="without-image"><a href="" title="Title I">Title I</a></li>
+<li class="without-image"><a href="" title="Title VI">Title VI</a></li>
+<li class="without-image"><a href="/Content/96" title="21st CCLC Programs">21st CCLC Programs</a></li>
+<li class="without-image"><a href="" title="Families in Transition">Families in Transition</a></li>
+<li class="without-image"><a href="/content/268" title="Opportunity Scholarship Program">Opportunity Scholarship Program</a></li>
+<li class="without-image"><a href="/content/80" title="Home Education Program">Home Education Program</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/58" title="Finance">Finance</a></li>
+<li class="without-image"><a href="/Content/30" title="Food Services">Food Services</a></li>
+<li class="without-image"><a href="/content/250" title="Health Department">Health Department</a></li>
+<li class="without-image"><a href="/Content/56" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="/Content/50" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/Content/168" title="Transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/Content/98" title="For Students">For Students</a></li>
+<li class="without-image"><a href="/Content/32" title="For Parents">For Parents</a></li>
+<li class="without-image"><a href="/Content/22" title="For Staff">For Staff</a></li>
+<li class="without-image"><a href="/Communication" title="Communications">Communications</a></li>
+</ul>
+<div class="collapsedLinks">
+                                <ul>
+<li class="qlTitle">Quick Links</li>
+                                </ul>
+<ul class="nav navbar-nav left-nav-links">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="About Our District">About Our District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/10/my%20files/jefferson%20county%20schools%20district%20parent%20involvement%20plan%202016-2017.pdf?id=1423" title="2016-2017 District Parent Involvement Plan Summary">2016-2017 District Parent Involvement Plan Summary</a></li>
+<li class="without-image"><a href="/userfiles/10/my%20files/115402%20agmrnt%20%20contract%20(signed).pdf?id=1368" title="JCSB &amp; JCEA Agreement">JCSB &amp; JCEA Agreement</a></li>
+<li class="without-image"><a href="/docs/dip1314-0.pdf" title="District Improvement Plan">District Improvement Plan</a></li>
+<li class="without-image"><a href="http://www.jeffersonschooldistrict.org/userfiles/10/My%20Files/jcs%20equity%20report%20template.pdf?id=1495" title="Equity Report Handbook">Equity Report Handbook</a></li>
+<li class="without-image"><a href="/content/214" title="Media Guidelines">Media Guidelines</a></li>
+<li class="without-image"><a href="/docs/Student%20Progression%20Plan%202014-2015.pdf" title="Pupil Progression Plan">Pupil Progression Plan</a></li>
+<li class="without-image"><a href="/docs/organizational%20chart-0-0.pdf" title="Organizational Chart">Organizational Chart</a></li>
+<li class="without-image"><a href="/userfiles/102/my%20files/procedures%20for%20fed%20funds.pdf?id=1427" title="JCSD Procedures for Administration of Federal Funds">JCSD Procedures for Administration of Federal Funds</a></li>
+<li class="without-image"><a href="http://doeweb-prd.doe.state.fl.us/eds/nclbspar/index.cfm" title="School Public Accountability Report (SPAR)">School Public Accountability Report (SPAR)</a></li>
+<li class="without-image"><a href="http://www.jeffersonschooldistrict.org/userfiles/10/My%20Files/2016-2017%20Student%20Code%20of%20Conduct%20Final.pdf?id=1497" title="Student Code of Conduct 2016-2017">Student Code of Conduct 2016-2017</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="http://www.somersetjefferson.org" title="Somerset Jefferson County Schools">Somerset Jefferson County Schools</a></li>
+<li class="without-image"><a href="http://www.jeffersonschooldistrict.org/userfiles/10/My%20Files/2016-2017%20school%20year%20calendar%20(1)%20(1).pdf?id=1516" title="2016-2017 School Calendar">2016-2017 School Calendar</a></li>
+<li class="without-image"><a href="/userfiles/10/my%20files/2017-2018%20jcsd%20calendar.pdf?id=1616" title="2017-2018 School Calendar">2017-2018 School Calendar</a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/2018-2019%20school%20calendar%20final.pdf?id=1667" title="2018-2019 School Calendar">2018-2019 School Calendar</a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/2019-2020%20school%20calendar.pdf?id=1704" title="2019-2020 School Calendar">2019-2020 School Calendar</a></li>
+<li class="without-image"><a href="/content/272" target="_blank" title="Charter School Applications">Charter School Applications</a></li>
+<li class="without-image"><a href="/content/276" title="Home School ">Home School </a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/panhandle%20area%20educational%20consortium%20(paec)%20-%20my%20virtual%20classroom.pdf?id=1731" aria-label="" title="PACE - My Virtual Classroom">PACE - My Virtual Classroom</a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/home%20school%20letter%20of%20intent.pdf?id=1668" title="Home School Letter of Intent 2018">Home School Letter of Intent 2018</a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/adult%20school%20enrollment%20packet.pdf?id=1691" title="Adult Education Enrollment Forms">Adult Education Enrollment Forms</a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/ece%20flyer.pdf?id=1724" title="Jefferson County School District Adult Education">Jefferson County School District Adult Education</a></li>
+<li class="without-image"><a href="/Content/36" target="_blank" title="Policy Revisions 2016-2017 FY">Policy Revisions 2016-2017 FY</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Gallery">Photo Gallery</a></li>
+<li class="without-image"><a href="/Content/220" title="Public Forms &amp; Links">Public Forms &amp; Links</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" target="_blank" title="School Board Information">School Board Information</a></li>
+<li class="without-image"><a href="http://www.jeffersonschooldistrict.org/Content/60" title="Transcript Request">Transcript Request</a></li>
+<li class="with-image"><a href="http://my.paec.org/" target="_blank" title="PAEC Website"><img src="/userfiles/10/my%20files/jefferson94.png?id=1404&amp;width=210" alt="PAEC Website" title="PAEC Website" border="0"></a></li>
+<li class="with-image"><a href="http://www.transparencyflorida.gov/" target="_blank" title="Transparency Florida"><img src="/images/transparencyfloridalogo-w210.jpg" alt="Transparency Florida" title="Transparency Florida" border="0"></a></li>
+<li class="with-image"><a href="http://www.floridahealth.gov/chdJefferson/tobacco/tobaccofreejefferson.html" title="Tobacco Free"><img src="/images/Presentation1-w210.jpg" alt="Tobacco Free" title="Tobacco Free" border="0"></a></li>
+<li class="with-image"><a href="http://jefferson.weatherstem.com/jcmhs" title="WeatherStem Jefferson"><img src="/images/Capture1-w210-1.jpg" alt="WeatherStem Jefferson" title="WeatherStem Jefferson" border="0"></a></li>
+<li class="without-image"><a href="/Content/260" title="Education Funding Accountability Act">Education Funding Accountability Act</a></li>
+<li class="with-image"><a href="http://www.educationforjefferson.org" title="Jefferson County Education Foundation"><img src="/images/JCEFIconLogo-w210.jpg" alt="Jefferson County Education Foundation" title="Jefferson County Education Foundation" border="0"></a></li>
+</ul>
+<ul>
+<li class="qlTitle">Resources</li>
+                                </ul>
+</div>
+                        </div>
+                    </nav>
+</div>
+            </div>
+            <div class="col-lg-2 col-md-2 col-sm-2 hidden-xs header-elements">
+                
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+</div>
+        </div>
+    </div>
+</div>
+
+<div class="head-logo-container">
+    <div class="container">
+        <div class="row">
+            <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="logo" href="/"><span class="obscure">Logo link to home page</span></a>
+            <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome2" class="schoolName" href="/"><span class="schoolNameTop">Jefferson</span><span class="schoolNameBottom">County Schools</span></a>
+        </div>
+    </div>
+</div>
+
+
+	
+
+            </header>
+</div>
+
+        
+	
+	
+
+
+        <div class="headerSpace">
+            
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({
+			effect: 'fade',
+			pauseTime: 3000,
+			prevText: 'Prev',
+			nextText: 'Next',
+			animSpeed: 500,
+			afterLoad: function () {
+				if (typeof nivoAfterLoad === 'function' && nivoAfterLoad !== 'undefined') {
+					nivoAfterLoad();
+				}
+			},
+			beforeChange: function () {
+				if (typeof nivoBeforeChange === 'function' && nivoBeforeChange !== 'undefined') {
+					nivoBeforeChange();
+				}
+			},
+			afterChange: function () {
+				if (typeof nivoAfterChange === 'function' && nivoAfterChange !== 'undefined') {
+					nivoAfterChange();
+				}
+			}
+		});
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+		var slider = jQuery('.slides');
+
+		var nivoStartStopControl = jQuery('<div class="nivo-startstopNav"></div>');
+		$('#slideshow').append(nivoStartStopControl);
+        nivoStartStopControl.append('<span tabindex="0" href="#" id="nivoStart" title="Play Slideshow"><span><i class="fa fa-play" aria-hidden="true"></i></span><span class="obscure">play slideshow</span></span> <span tabindex="0" href="#" id="nivoStop" title="Pause Slideshow"><span><i class="fa fa-pause" aria-hidden="true"></i><span class="obscure">stop slideshow</span></span></span>');
+
+		jQuery('#nivoStop').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').stop();
+		});
+
+		jQuery('#nivoStart').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').start();
+		});
+	});
+</script><style type="text/css">
+	.nivo-startstopNav {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		z-index: 3;
+	}
+
+	.nivo-startstopNav .fa {
+		width: 25px;
+		height: 25px;
+		color: #000;
+		background-color: #fff;
+		border-radius: 50%;
+		font-size: 15px;
+		text-align: center;
+		line-height: 25px;
+	}
+
+	.nivo-startstopNav .fa:hover {
+		cursor: pointer;
+	}
+</style>
+<div id="slideshow" class="">
+	<div class="slides">
+		
+				<img title="Jefferson County School District" alt="Jefferson County School District" src="/images/full/JCSD%20-%20pic-0.jpg">
+</div>
+	
+</div>
+
+        </div>
+
+        <div class="content-wrapper">
+            
+	
+	
+
+
+            <div class="body-content-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="masterC alignment-stretch">
+                            
+	<div class="hidden-xs col-sm-4 col-md-3 col-lg-3 border-right border-bottom">
+		<div class="clearfix panel content">
+			
+				<h1>Quick Links
+				</h1>
+				<ul class="nav navbar-nav left-nav-links">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="About Our District">About Our District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/10/my%20files/jefferson%20county%20schools%20district%20parent%20involvement%20plan%202016-2017.pdf?id=1423" title="2016-2017 District Parent Involvement Plan Summary">2016-2017 District Parent Involvement Plan Summary</a></li>
+<li class="without-image"><a href="/userfiles/10/my%20files/115402%20agmrnt%20%20contract%20(signed).pdf?id=1368" title="JCSB &amp; JCEA Agreement">JCSB &amp; JCEA Agreement</a></li>
+<li class="without-image"><a href="/docs/dip1314-0.pdf" title="District Improvement Plan">District Improvement Plan</a></li>
+<li class="without-image"><a href="http://www.jeffersonschooldistrict.org/userfiles/10/My%20Files/jcs%20equity%20report%20template.pdf?id=1495" title="Equity Report Handbook">Equity Report Handbook</a></li>
+<li class="without-image"><a href="/content/214" title="Media Guidelines">Media Guidelines</a></li>
+<li class="without-image"><a href="/docs/Student%20Progression%20Plan%202014-2015.pdf" title="Pupil Progression Plan">Pupil Progression Plan</a></li>
+<li class="without-image"><a href="/docs/organizational%20chart-0-0.pdf" title="Organizational Chart">Organizational Chart</a></li>
+<li class="without-image"><a href="/userfiles/102/my%20files/procedures%20for%20fed%20funds.pdf?id=1427" title="JCSD Procedures for Administration of Federal Funds">JCSD Procedures for Administration of Federal Funds</a></li>
+<li class="without-image"><a href="http://doeweb-prd.doe.state.fl.us/eds/nclbspar/index.cfm" title="School Public Accountability Report (SPAR)">School Public Accountability Report (SPAR)</a></li>
+<li class="without-image"><a href="http://www.jeffersonschooldistrict.org/userfiles/10/My%20Files/2016-2017%20Student%20Code%20of%20Conduct%20Final.pdf?id=1497" title="Student Code of Conduct 2016-2017">Student Code of Conduct 2016-2017</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="http://www.somersetjefferson.org" title="Somerset Jefferson County Schools">Somerset Jefferson County Schools</a></li>
+<li class="without-image"><a href="http://www.jeffersonschooldistrict.org/userfiles/10/My%20Files/2016-2017%20school%20year%20calendar%20(1)%20(1).pdf?id=1516" title="2016-2017 School Calendar">2016-2017 School Calendar</a></li>
+<li class="without-image"><a href="/userfiles/10/my%20files/2017-2018%20jcsd%20calendar.pdf?id=1616" title="2017-2018 School Calendar">2017-2018 School Calendar</a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/2018-2019%20school%20calendar%20final.pdf?id=1667" title="2018-2019 School Calendar">2018-2019 School Calendar</a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/2019-2020%20school%20calendar.pdf?id=1704" title="2019-2020 School Calendar">2019-2020 School Calendar</a></li>
+<li class="without-image"><a href="/content/272" target="_blank" title="Charter School Applications">Charter School Applications</a></li>
+<li class="without-image"><a href="/content/276" title="Home School ">Home School </a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/panhandle%20area%20educational%20consortium%20(paec)%20-%20my%20virtual%20classroom.pdf?id=1731" aria-label="" title="PACE - My Virtual Classroom">PACE - My Virtual Classroom</a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/home%20school%20letter%20of%20intent.pdf?id=1668" title="Home School Letter of Intent 2018">Home School Letter of Intent 2018</a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/adult%20school%20enrollment%20packet.pdf?id=1691" title="Adult Education Enrollment Forms">Adult Education Enrollment Forms</a></li>
+<li class="without-image"><a href="/userfiles/384/my%20files/ece%20flyer.pdf?id=1724" title="Jefferson County School District Adult Education">Jefferson County School District Adult Education</a></li>
+<li class="without-image"><a href="/Content/36" target="_blank" title="Policy Revisions 2016-2017 FY">Policy Revisions 2016-2017 FY</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Gallery">Photo Gallery</a></li>
+<li class="without-image"><a href="/Content/220" title="Public Forms &amp; Links">Public Forms &amp; Links</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" target="_blank" title="School Board Information">School Board Information</a></li>
+<li class="without-image"><a href="http://www.jeffersonschooldistrict.org/Content/60" title="Transcript Request">Transcript Request</a></li>
+<li class="with-image"><a href="http://my.paec.org/" target="_blank" title="PAEC Website"><img src="/userfiles/10/my%20files/jefferson94.png?id=1404&amp;width=210" alt="PAEC Website" title="PAEC Website" border="0"></a></li>
+<li class="with-image"><a href="http://www.transparencyflorida.gov/" target="_blank" title="Transparency Florida"><img src="/images/transparencyfloridalogo-w210.jpg" alt="Transparency Florida" title="Transparency Florida" border="0"></a></li>
+<li class="with-image"><a href="http://www.floridahealth.gov/chdJefferson/tobacco/tobaccofreejefferson.html" title="Tobacco Free"><img src="/images/Presentation1-w210.jpg" alt="Tobacco Free" title="Tobacco Free" border="0"></a></li>
+<li class="with-image"><a href="http://jefferson.weatherstem.com/jcmhs" title="WeatherStem Jefferson"><img src="/images/Capture1-w210-1.jpg" alt="WeatherStem Jefferson" title="WeatherStem Jefferson" border="0"></a></li>
+<li class="without-image"><a href="/Content/260" title="Education Funding Accountability Act">Education Funding Accountability Act</a></li>
+<li class="with-image"><a href="http://www.educationforjefferson.org" title="Jefferson County Education Foundation"><img src="/images/JCEFIconLogo-w210.jpg" alt="Jefferson County Education Foundation" title="Jefferson County Education Foundation" border="0"></a></li>
+</ul>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('#menu_DistrictLeftLinks ul').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script><div class="clearfix LeftImages" style="height: 100%;">
+	
+
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+
+<div class="search">
+	<div class="search-icon">
+		<i class="fa fa-search"></i>
+	</div>
+	<div class="searchPad">
+		<label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+	<div style="display: inline; float: right;" class="searchgo">
+		<a title="Search" class="bSearch"><i class="fa fa-angle-right"></i></a>
+	</div>
+</div>
+
+			
+		</div>
+	</div>
+
+	<div class="col-xs-12 col-sm-8 col-md-5 col-lg-5 border-bottom middle-column">
+		
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+    
+
+	<div class="panel superMsg">
+		<div class="superPanel">
+			<h1>Welcome</h1>
+			<div class="superMessageBlock ">
+				
+<h1 class="super-message-title">
+    Superintendent's Message
+</h1>
+
+<div class="super-message">
+    <p><strong>The Importance of Public Education</strong></p>
+</div>
+
+
+
+
+
+				<br>
+</div>
+
+			<div class="superImageBlock ">
+				<div class="SuperName">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddleTop_supername">Marianne Arbulu</span>
+					<span>Superintendent</span>
+				</div>
+			</div>
+
+			<a class="superReadMore" href="/Superintendent">Read More</a>
+			<div class="clr"></div>
+		</div>
+	</div>
+
+
+		<div class="clearfix panel content">
+			
+	<h1>District News</h1>
+
+	<div class="news">
+		
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/home-school-and-covid-19">HOME SCHOOL EDUCATION COVID-19 UPDATE</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 15, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lblSummary" class="news-summary">Guidance from the Florida Department of Education</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkViewAll" title="Click to read more about: HOME SCHOOL EDUCATION COVID-19 UPDATE" class="view-all" href="/News/home-school-and-covid-19">Read More <span class="sr-only">about HOME SCHOOL EDUCATION COVID-19 UPDATE</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/21433">Bully Prevention</a>
+
+				<span class="news-post-date">Posted On: Thursday, May 30, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lblSummary" class="news-summary">Bullying in schools is of continued focus for Florida school districts, and Jefferson is no exception.  To assist parents with bullying prevention we offer the following tips and a reporting form to be completed and submitted to district and school administration.  The reporting form and ...</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkViewAll" title="Click to read more about: Bully Prevention" class="view-all" href="/News/21433">Read More <span class="sr-only">about Bully Prevention</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/21423">FortifyFL and Tiger Hotline -   Suspicious Activity Reporting </a>
+
+				<span class="news-post-date">Posted On: Monday, November 26, 2018</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lblSummary" class="news-summary">FortifyFL is an application that can be downloaded to your smart phone to allow parents and students to anonymously report suspicious activity or threats directly to school officials, local law enforcement and FDLE.  You can download the application at: https://getfortifyfl.com.  In Public Links on ...</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkViewAll" title="Click to read more about: FortifyFL and Tiger Hotline -   Suspicious Activity Reporting " class="view-all" href="/News/21423">Read More <span class="sr-only">about FortifyFL and Tiger Hotline -   Suspicious Activity Reporting </span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/21419">Adult Education Registration is Open </a>
+
+				<span class="news-post-date">Posted On: Wednesday, November 7, 2018</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lblSummary" class="news-summary">The Jefferson County School District is pleased to provide virtual courses with certified instructors for GED Preparatory classes and Adult Basic Education (ABE) classes for adult learners!</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkViewAll" title="Click to read more about: Adult Education Registration is Open " class="view-all" href="/News/21419">Read More <span class="sr-only">about Adult Education Registration is Open </span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+	<a href="/districtNewsArticles.aspx" class="view-all-news">View All News
+	</a>
+	<div class="clr">
+	</div>
+
+		</div>
+
+		
+	<div class="clearfix panel content">
+		
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        FAMILY EMPOWERMENT SCHOLARSHIP
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>FAMILY EMPOWERMENT SCHOLARSHIP<br>
+The Family  Empowerment  Scholarship  (FES)  Program  was established  during the  2019 Legislative <br>
+Session to  enhance Florida's menu of education options. It will provide children whose families <br>
+have limited financial resources with the opportunity to attend the school that best meets their <br>
+needs and enables them to reach their academic goals.</p>
+
+<p>The FES provides eligible students a scholarship to attend a private school selected by the parent. <br>
+A student is eligible for the FES if the  student meets the following criteria:</p>
+
+<p>¦  The student 's household income does not exceed 300% of the federal poverty level ($77,250 for a <br>
+family of four) or the students on the direct certification list (list of children who qualify for <br>
+the food assistance program, the Temporary Assistance to Needy Families Program, or the Food <br>
+Distribution on Indian Reservations program); or</p>
+
+<p>¦  The student is currently placed, or during the previous state fiscal year was placed, in foster <br>
+care or in out-of-home care as defined in section 39.01, Florida Statutes;<br>
+and<br>
+¦ The student is eligible to enroll in kindergarten or has spent the prior school year (2018-19) in <br>
+attendance at a Florida public school. Prior attendance means the  student was enrolled in and in <br>
+attendance at a Florida public school during both the October and February student counts; and</p>
+
+<p>¦  Prior to  scholarship funds being awarded, the student must be accepted and enrolled in a <br>
+participating private school. For a list of eligible schools, please view the Department's Private <br>
+School  Directory.  A  private  school that  is currently  eligible  to  participate  in  any  of  <br>
+the scholarship programs is eligible to participate in the FES; however  , parents should contact <br>
+the school to inquire as to  whether the private school will participate in the program.</p>
+
+<p>Parents who meet the eligibility requirements above and are interested in applying for the FES <br>
+should first contact  one of  Florida's two  approved  scholarship funding  organizations  (contact <br>
+information below) to complete the income verification process. Students who have already applied <br>
+for the Florida Tax Credit  (FTC)  Scholarship  program  may  be  determined  to  meet  the  income <br>
+eligibility  without resubmitting household income documentation to the Scholarship Funding <br>
+Organization.<br>
+For more information, please visit the Department of Education website at www.Fldoe.org/FES. </p>
+
+<p> </p>
+
+<p>Scholarship Funding Organizations (SFOs)</p>
+
+<p><br>
+AAA Scholarship Foundation </p>
+
+<p>http://www.aaaschoIarships.orq/</p>
+
+<p>888-707-2465</p>
+
+<p>info@aaascholarships.org</p>
+
+<p>Step Up for Students</p>
+
+<p>https://www.stepupforstudents.orq/</p>
+
+<p>877-735-7837</p>
+
+<p>info@stepupforstudents.org</p>
+
+<p> </p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+	</div>
+
+	</div>
+
+	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 border-left border-bottom">
+		<div class="clearfix panel content">
+			
+	<h1 class="events-title">Calendar &amp; Events</h1>
+	
+		<section id="upcoming-events"><ul></ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_hl_viewAllEvents" class="view-all" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/24/2020">View All</a>
+</footer><style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7365')" style="color:Black" title="Go to the previous month">&lt;<span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April 2020</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7426')" style="color:Black" title="Go to the next month">&gt;<span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">S</th>
+<th align="center" abbr="Monday" scope="col">M</th>
+<th align="center" abbr="Tuesday" scope="col">T</th>
+<th align="center" abbr="Wednesday" scope="col">W</th>
+<th align="center" abbr="Thursday" scope="col">T</th>
+<th align="center" abbr="Friday" scope="col">F</th>
+<th align="center" abbr="Saturday" scope="col">S</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=3/29/2020">29</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=3/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=3/31/2020">31</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/1/2020">1</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/2/2020">2</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/3/2020">3</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/5/2020">5</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/6/2020">6</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/7/2020">7</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/8/2020">8</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/9/2020">9</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/10/2020">10</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/12/2020">12</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/13/2020">13</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/14/2020">14</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/15/2020">15</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/16/2020">16</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/19/2020">19</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/20/2020">20</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/21/2020">21</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/23/2020">23</a></td>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/26/2020">26</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/27/2020">27</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/28/2020">28</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/29/2020">29</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,51,52&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+	</div>
+
+	<div class="clr">
+	</div>
+
+                        </div>
+
+                        <div class="clr"></div>
+
+                        
+	
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot"><div class="container">
+                    
+
+<div class="row">
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 footerinfo">
+		<h6>Contact Us</h6>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+			
+			<div class="footerName">
+			</div>
+			<div>
+				Jefferson County School District
+			</div>
+			<div>
+				 1490 West Washington Street
+			</div>
+			<div>
+				Monticello, FL 32344
+			</div>
+		</div>
+
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+			
+			<div>Phone:850-342-0100</div>
+			
+			<div>Fax:850-342-0108</div>
+			
+
+			<div>
+				<a href="http://maps.google.com/maps?q=%201490%20West%20Washington%20Street+Monticello+FL+32344">View Map &amp; Directions</a>
+			</div>
+		</div>
+		
+	</div>
+
+	<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+		<div id="social-links-bottom" class="social-links">
+			<h6>Stay Connected
+			</h6>
+			
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+			<div class="clr">
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-66591572-18', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script>
+</div>
+            </footer><div class="footer-branding-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <a href="http://www.schoolpointe.com" target="_blank" class="pull-right sp-footer-logo" alt="SchoolPointe">
+                                <img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPblack.png"></a>
+                            <div id="footer-links">
+                                <div class="cms-login" id="login-link">
+                                    <a href="/login.aspx" id="ctl00_ctl00_ctl05_A1" title="CMS Login" class="cms"><span class="obscure">Link to login page</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC1X7340PygpT2aBxjMC5apuiDHydsK03lx8Xtjj8McOnhM1E/Z+4AtYfBLjoqzHUNzx8re9P49CESeNcN+aUYUYylAVjuf883gda9qxPWJdWzlAW1I7BexV+czOzRObl3d50nMhilDDHAwFxGIx0wbFChwQ4Ex0vxOTS+4GFwX5O7kl0Ub38BaDmMgKQcEKVqNSQD67gQzTXdB4A0BTQX56TjzPdP4KgmIAJFo6XWNsVobKscM9xAMf7wwexMr1VQr6eny5cHvWE8n08cMlPMX4UUsMkilD+ZSI9iMjU0yDuCD8GsnLDl6GsgBmi45cgSxLOQJb0r0B03brVHI2aRHj1HX4bsgg9FALGXgdAnz+3fPXHQkoFYN6AHzJTqhMhgIUZHRyIop27ZqiAc5YtJ2CBmWGVEJRDuOVtSdk96ZySIM7oQRKLNMMfuEaYBPHf7UnvwclkPDJBJa1wKztDi6ksAKSxkS0J9AQoAbRkhRLYupP5UfZtzYMcETdrtRuebqUFNAgBxTdrc7p3lb5cG87gm7gyuj+DfF4g5gBMII5vbFKWePuk/HCjfYquEX2jQfetIrU0FyvbBObo1CEWr8JkkUFRwOfzMDwGZIdDlEZh0FsPpuONYQUyNniCyMIahBgL9N5WPrxm7gqXxJSO3bUUENDE9dXDnHAyMxZUeTfBuKQjtJNZCvgL3hOtBgN53JKgunZuEj8FebONNvrKSLQqlYIB6TKJFENEjsUkBLzAOx9UysQWNNGqUBe0wmZ11N1yVx/jqgB2/mbAHkazISKTMuizNiXiSwyoHGDIcvBxXS9J1pDBfJ5u5J2HPiBBN+Xr4uuDR+WtbHcMYtsYms3xHSKYhMkeSMxWk7MMjQy2jqouDmyradb3nBLSPm24J8mLJQ9K5ToZmSewp0Qk2VvFiQDTVcI9Q9wgwvj0GaEsvuvDOI+IORDvkjx+dyMqFXnjlCGU6fkizvUrOFeFS1Esht+gg==">
+</div>
+</form>
+</body>
+</html>

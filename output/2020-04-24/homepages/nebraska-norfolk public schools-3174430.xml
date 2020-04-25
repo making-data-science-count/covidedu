@@ -1,0 +1,822 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Norfolk Public School District - Norfolk Public School - Norfolk Nebraska</title>
+<meta name="Description" content="The Norfolk Public School District covers 68.8 square miles in Madison, Pierce, Stanton, and Wayne Counties in Northeast Nebraska.">
+<meta name="keywords" content="">
+<base href="//www.norfolkpublicschools.org/">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="Cache-Control" content="max-age=3600">
+<meta http-equiv="last-modified" content="Tue, 14 Apr 2020 08:14:06 CST">
+<link rel="canonical" href="https://www.norfolkpublicschools.org/">
+<!-- CSS --><link rel="stylesheet" type="text/css" href="/style.css?v=20190903">
+<link rel="stylesheet" type="text/css" href="/mce.css?v=20190903">
+<link rel="stylesheet" media="print" type="text/css" href="/assets/templates/site/css/print.css?v=20190903">
+<!--[if IE]>
+        <link href="/assets/templates/site/css/ie.css" rel="stylesheet" media="screen" type="text/css" />
+        <![endif]--><!--[if lt IE 9]>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+          <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+          <link href="/assets/templates/site/css/ie8.css?v=20190903" rel="stylesheet" media="screen" type="text/css" />
+        <![endif]--><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script><script type="text/javascript" src="/assets/templates/base/js/jquery.sidr.min.js"></script><script type="text/javascript" src="/assets/templates/base/js/table2div.js"></script><script type="text/javascript" src="/assets/templates/base/js/magnifico.min.js"></script><script type="text/javascript" src="/assets/templates/base/js/placeholder.js"></script><script type="text/javascript" src="assets/templates/base/js/jquery.flexslider-min.js"></script><script type="text/javascript" src="/assets/templates/site/js/main.js?v=20190903"></script><script>
+
+
+			
+$(window).load(function() {
+
+	
+    var mykey = 'AIzaSyCepP1hUEHJFDEtQFfvOD3dqqAGhLc6jDY';
+    var calendarid = 'tnl@npsne.org';
+
+
+	jQuery(function () {
+	  jQuery.ajaxSetup({ 
+		xhr: function() {
+		  if (jQuery.browser.msie) {
+			return new ActiveXObject("Microsoft.XMLHTTP");
+		  } else {
+			return new XMLHttpRequest();
+		  }
+		}
+	  })
+	});
+    function makeRequest() {
+      var newDate = new Date();
+
+      // temporary event filter only lists events in the next day. Ideally, it should list events until a quota of events (3) is met to fill out the widget.
+
+      jQuery.ajax({
+          type: 'GET',
+          url: encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + calendarid + '/events?'
+            + 'key=' + mykey
+            + '&singleEvents=true'
+            + '&timeMin=' + newDate.toISOString()
+            + '&orderBy=startTime'
+            + '&maxResults=5'),
+          dataType: 'jsonp',
+          success: function (response) {
+              sortAndFill(response.items);
+          },
+          error: function (response) {
+              console.log(response); //error!
+          }
+      });
+    }
+
+    makeRequest();
+
+    // functions for later use ///////////////
+
+    function convertISODate(ISOString) {
+      var date = new Date(ISOString);
+      return date;
+    }
+
+    // handles date object and returns a text string consisting of time of day in 12 hour, AM/PM format.
+    function convertToTime(date) {
+      var timeString;
+      var afternoon = false;
+
+      if (date.getHours() >= 12)
+        afternoon = true;
+
+      timeString = afternoon ? date.getHours() - 12 : date.getHours();
+      timeString = timeString == 0 ? 12 : timeString;
+      timeString += ":";
+      timeString += date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes();
+      timeString += " ";
+      timeString += afternoon ? "PM" : "AM";
+      if(timeString == "12:00 AM")timeString = "All Day";
+      return timeString;
+      
+      
+      
+       
+      
+      
+      
+      
+      
+      
+      
+    }
+    function formatMonth(month){
+        var form_month = '';
+        if(month == 1) form_month="Jan";
+        if(month == 2) form_month="Feb";
+        if(month == 3) form_month="Mar";
+        if(month == 4) form_month="Apr";
+        if(month == 5) form_month="May";
+        if(month == 6) form_month="Jun";
+        if(month == 7) form_month="Jul";
+        if(month == 8) form_month="Aug";
+        if(month == 9) form_month="Sept";
+        if(month == 10) form_month="Oct";
+        if(month == 11) form_month="Nov";
+        if(month == 12) form_month="Dec";
+        return form_month;
+    }
+    function formatMonthFull(month){
+        var form_month = '';
+        if(month == 1) form_month="January";
+        if(month == 2) form_month="February";
+        if(month == 3) form_month="March";
+        if(month == 4) form_month="April";
+        if(month == 5) form_month="May";
+        if(month == 6) form_month="June";
+        if(month == 7) form_month="July";
+        if(month == 8) form_month="August";
+        if(month == 9) form_month="September";
+        if(month == 10) form_month="October";
+        if(month == 11) form_month="November";
+        if(month == 12) form_month="December";
+        return form_month;
+    }
+
+ function reformatYear(year){
+        var form_year = year;
+        form_year = form_year+1900;
+        return form_year;
+    }
+    
+
+ function reformatMonth(month){
+        var form_month = '';
+        if(month == 0) form_month="January";
+        if(month == 1) form_month="February";
+        if(month == 2) form_month="March";
+        if(month == 3) form_month="April";
+        if(month == 4) form_month="May";
+        if(month == 5) form_month="June";
+        if(month == 6) form_month="July";
+        if(month == 7) form_month="August";
+        if(month == 8) form_month="September";
+        if(month == 9) form_month="October";
+        if(month == 10) form_month="November";
+        if(month == 11) form_month="December";
+        return form_month;
+    }
+    // encapsulate generation of single event element, return DOM object.
+    function generateElement(isToday, calEvent) {
+        // Construct container for each event.
+        // eventCont > linkify > info_cont > info_time + info_location
+      var startTime = (calEvent.start.dateTime)?convertISODate(calEvent.start.dateTime):convertISODate(calEvent.start.date+"T00:00:00-06:00");
+      var dateString = convertToTime(startTime);
+      //if (!isToday) dateString += " on " + generateDate(startTime);
+
+ var eventElement = document.createElement('li');
+        jQuery(eventElement).attr("href",calEvent.htmlLink)
+            .attr("onclick","window.open('"+ calEvent.htmlLink +"','','width=450,height=450,left='+(screen.availWidth/2-225)+',top='+(screen.availHeight/2-225)+'');return false;")
+             .attr("target","_blank");
+            
+var hovericon = document.createElement('div');
+      jQuery(hovericon).addClass('hover-icon')
+.appendTo(jQuery(eventElement));
+
+
+var iclass = document.createElement('i');
+      jQuery(iclass).addClass('fa fa-external-link')
+.appendTo(jQuery(hovericon));
+      
+      var info_date = document.createElement('div');
+      jQuery(info_date).addClass("datestamp")
+                    .appendTo(jQuery(eventElement));
+
+      var info_month = document.createElement('span');
+      jQuery(info_month).addClass("month")
+                    .text(formatMonth(startTime.getMonth() + 1))
+                   // .appendTo(jQuery(info_date));
+		
+      var info_time = document.createElement('span');
+        jQuery(info_time).addClass("date")
+		jQuery(info_time).text(startTime.getDate())
+					.appendTo(jQuery(info_date));
+
+	  var title_holder = document.createElement('div');
+		jQuery(title_holder).addClass("details")
+					.appendTo(jQuery(eventElement));
+		
+      var title = document.createElement("div"); 
+        jQuery(title).addClass("name")
+	    jQuery(title).appendTo(jQuery(title_holder))
+		jQuery(title).text(calEvent.summary);
+
+
+
+
+               
+              var info_dline = document.createElement('div');
+       jQuery(info_dline).addClass("date-time")
+
+      .text(reformatMonth(startTime.getMonth())+" "+startTime.getDate()+', '+reformatYear(startTime.getYear())+" • "+dateString)
+                    .appendTo(jQuery(title_holder));             
+                    
+
+
+
+
+
+
+
+      return eventElement;
+    }
+
+    // populate calendar. 
+    function sortAndFill(eventList) {
+      var today = new Date();
+      var i; //index
+      for (i = 0; i < eventList.length; i++) {
+        jQuery('#districtEvents').append(jQuery(generateElement(false, eventList[i])));
+      }        
+
+      if (jQuery('#districtEvents').children().length < 1)
+        jQuery('#districtEvents').append("<p>No events scheduled!</p>");
+
+      // fill.call(this, false, fill.call(this, true, 0));
+    }
+    	
+    
+    
+
+	});
+</script><script>
+	    	$(document).ready(function() {
+				
+				  $('.flexslider').flexslider({
+			    animation: "slide"
+			  });
+			});
+	    </script><style>
+  #footer {background-position:right center !important;}
+</style>
+<meta name="google-site-verification" content="V42z2hQbhadi-UedOLD6Vjt1Oq1z9HWS5VvDKZGhFMk">
+<meta name="msvalidate.01" content="A36CC67005CFFCF212DBD1AE5A2A0FB9">
+<script type="text/javascript">//<![CDATA[ 
+$(function(){
+$(".content_toggle").click(function () {
+    var div = $(this).parent().next();
+    if(div.is(":visible")) {
+      div.hide(450);
+$(this).html('+');
+    } else {
+        div.fadeIn(450);
+$(this).html('-');
+    };
+});
+});//]]>  
+
+</script><!--<script>
+	        $(window).load(function() {
+			  $('.flexslider').flexslider({
+			    animation: "slide"
+			  });
+			});
+		</script>--><!-- Paste Google Analytics Code Below --><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-15760756-51', 'auto');
+  ga('send', 'pageview');
+
+</script><link rel="canonical" href="https://www.norfolkpublicschools.org/">
+</head>
+<!-- Designed and Developed by IdeaBank Marketing (https://ideabank.marketing)
+
+  ___    _          ___            _     __  __          _       _   _           
+ |_ _|__| |___ __ _| _ ) __ _ _ _ | |__ |  \/  |__ _ _ _| |_____| |_(_)_ _  __ _ 
+  | |/ _` / -_) _` | _ \/ _` | ' \| / / | |\/| / _` | '_| / / -_)  _| | ' \/ _` |
+ |___\__,_\___\__,_|___/\__,_|_||_|_\_\ |_|  |_\__,_|_| |_\_\___|\__|_|_||_\__, |
+                                                                           |___/ 
+--><body class="homepage-1" id="home">
+<div id="wrapper">
+    <div id="main">
+        <header id="header"><!--TOP BAR--><div id="top-bar">
+		 <div class="row">
+		     <div class="security"><a target="_blank" href="https://norfolk-ne.safeschoolsalert.com/access#ticket_options%5Bsimple%5D=false&amp;new_ticket="><i class="fa fa-life-ring"></i> Report an Incident</a></div>
+		     <!--<div class="security"><a href="district/safety-and-security"><i class="fa fa-shield"></i> Safety & Security (Seguridad)</a>
+				  </div>-->
+			    <div class="translate"><a href="//translate.google.com/translate?u=https://www.norfolkpublicschools.org/%20%20%20"><i class="fa fa-comments"></i>Translate</a></div>
+		      </div>
+	   </div>
+	   
+     <!--FLAG-->
+	                    <div id="flag">
+		                    <div class="row">
+		                        <div class="aud">
+			                    <ul>
+<li>
+<a href="students/"><i class="fa fa-graduation-cap"></i> Students</a>
+				       <ul class="">
+<li class="first"><a href="https://ic.npsne.org/campus/portal/students/norfolk.jsp">Infinite Campus</a></li>
+<li class="last"><a href="http://mail.google.com/a/students.npsne.org">Google Login</a></li>
+</ul>
+</li>
+				  
+				   
+				   
+				 <li>
+<a href="parents/"><i class="fa fa-users"></i> Parents</a>
+				     <ul class="">
+<li class="first"><a href="https://ic.npsne.org/campus/portal/parents/norfolk.jsp">Infinite Campus</a></li>
+<li><a href="menus.html">Lunch Menus</a></li>
+<li><a href="find-a-staff-member.html">Staff Directory</a></li>
+<li class="last"><a href="district/board-of-education/">Board of Education</a></li>
+</ul>
+</li>
+				  <li>
+<a href="staff/"><i class="fa fa-folder-open"></i> Staff</a>
+				      <ul class="">
+<li class="first"><a href="http://mail.google.com/a/npsne.org">Google Login</a></li>
+<li class="last"><a href="http://ic.npsne.org/">Infinite Campus</a></li>
+</ul>
+</li>
+			       </ul>
+</div>
+		                        <div class="logo-holder">
+		                            <a href="https://www.norfolkpublicschools.org/" title="">
+		                            <div class="logo">
+		                            </div>
+		                            </a>
+		                        </div>
+		                        <div class="search-form">
+		                            <div class="hashtag">NPS on <i class="fa fa-twitter"></i> <a href="https://twitter.com/search?q=%23npspanthers&amp;src=typd&amp;lang=en" target="_blank">#npspanthers</a>
+</div>
+		                        <form class="sisea-search-form search" action="search-results.html" method="get">
+ <input class="search" type="text" name="search" placeholder="Search our site..." value=""><button class="button" type="submit"><i class="fa fa-search"></i></button>
+  <input type="hidden" name="id" value="26">
+</form>
+
+
+
+		                        </div>
+							</div>
+	                    </div>
+						
+						<!--MENU BAR-->
+						<div id="menu-bar">
+							<div class="row">
+								<div id="mobile-menu">
+		                            <a href="#sidr-main" id="sidr-menu">Menu</a>
+		                        </div>
+		                        <div id="navigation">
+		                            <nav class="main-nav"><h1>Norfolk Public Schools</h1>
+		                                
+		                                <ul class="nav">
+<li class="first"><a href="https://www.norfolkpublicschools.org/"><i class="fa fa-home"></i></a></li>
+	<li class="first has-dropdown">
+<a href="https://www.norfolkpublicschools.org/district/">District</a><ul class="dropdown">
+<li class="first"><a href="https://www.norfolkpublicschools.org/district/about-nps/">About NPS</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/district-admin/">District Administration</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/superintendent-corner/">Superintendent’s Corner</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/board-of-education/">Board of Education</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/business-services/">Business Services</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/communications/">Communications</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/news/" rel="category">News</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/safety-and-security">Safety &amp; Security</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/human-resources/">Human Resources</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/maintenance-and-facilities/">Maintenance, Facilities &amp; Transportation</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/student-services/">Student Services</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/teaching-and-learning/">Teaching and Learning</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/technology/">Technology</a></li>
+<li class="last"><a href="https://www.norfolkpublicschools.org/district/district-wellness/">District Wellness</a></li>
+</ul>
+</li>
+<li class="has-dropdown">
+<a href="https://www.norfolkpublicschools.org/schools/">Schools</a><ul class="dropdown">
+<li class="first"><a href="https://www.norfolkpublicschools.org/schools/norfolk-high-school/">Norfolk High School</a></li>
+<li><a href="https://www.norfolkpublicschools.org/schools/norfolk-junior-high/">Norfolk Junior High</a></li>
+<li><a href="https://www.norfolkpublicschools.org/schools/norfolk-middle-school/">Norfolk Middle School</a></li>
+<li><a href="https://www.norfolkpublicschools.org/schools/bel-air-elementary-school/">Bel Air Elementary</a></li>
+<li><a href="https://www.norfolkpublicschools.org/schools/grant-elementary/">Grant Elementary</a></li>
+<li><a href="https://www.norfolkpublicschools.org/schools/jefferson-elementary/">Jefferson Elementary</a></li>
+<li><a href="https://www.norfolkpublicschools.org/schools/lincoln-montessori-elementary/">Lincoln Montessori Elementary</a></li>
+<li><a href="https://www.norfolkpublicschools.org/schools/washington-elementary/">Washington Elementary</a></li>
+<li><a href="https://www.norfolkpublicschools.org/schools/westside-elementary/">Westside Elementary</a></li>
+<li><a href="https://www.norfolkpublicschools.org/schools/woodland-park-elementary/">Woodland Park Elementary</a></li>
+<li class="last"><a href="https://www.norfolkpublicschools.org/schools/little-panthers-preschool/">Little Panthers Preschool</a></li>
+</ul>
+</li>
+<li class="has-dropdown">
+<a href="https://www.norfolkpublicschools.org/calendars/">Calendars</a><ul class="dropdown">
+<li class="first"><a href="https://www.norfolkpublicschools.org/calendars/district-calendar.html">District Calendar</a></li>
+<li><a href="https://www.norfolkpublicschools.org/calendars/building-calendars.html">Building Calendars</a></li>
+<li><a href="http://www.heartlandathleticconference.org/public/genie/406/school/1081/" target="“_blank”">Activities Calendar</a></li>
+<li><a href="https://www.norfolkpublicschools.org/calendars/parent-calendar.html">Parent Calendar</a></li>
+<li class="last"><a href="https://www.norfolkpublicschools.org/calendars/staff-calendar.html">Staff Calendar</a></li>
+</ul>
+</li>
+<li class="has-dropdown">
+<a href="https://www.norfolkpublicschools.org/foundation/">Foundation</a><ul class="dropdown">
+<li class="first"><a href="https://www.norfolkpublicschools.org/foundation/donate.html">Donate</a></li>
+<li><a href="https://www.norfolkpublicschools.org/foundation/about.html">About Us</a></li>
+<li><a href="https://www.norfolkpublicschools.org/foundation/grant-opportunities/">Grant Opportunities</a></li>
+<li><a href="https://www.norfolkpublicschools.org/foundation/scholarships/">Scholarships</a></li>
+<li><a href="https://www.norfolkpublicschools.org/foundation/board-of-directors/">Board of Directors &amp; Staff</a></li>
+<li class="last"><a href="https://www.norfolkpublicschools.org/foundation/alumni.html">Alumni</a></li>
+</ul>
+</li>
+<li>
+	<a href="https://www.norfolkpublicschools.org/contact/" title="Contact Us" rel="category">Contact Us</a>
+</li>
+<li><a href="https://www.norfolkpublicschools.org/staff-directory.html">Staff Directory</a></li>
+<li class="last"><a href="https://www.norfolkpublicschools.org/district/human-resources/employment.html">Employment</a></li>
+</ul>
+<ul class="social">
+<li><a target="_blank" href="//facebook.com/npspanthers"><i class="fa fa-facebook-square"></i></a></li>
+			                                <li><a target="_blank" href="//twitter.com/npspanthers"><i class="fa fa-twitter-square"></i></a></li>
+			                                
+		                                </ul></nav>
+</div>
+							</div>
+						</div>
+                    
+                <!--CLOSE HEADER--> 
+
+    
+        <!-- Home Banner Connent -->
+</header><div class="alertbox"><div class="alert-text row">Norfolk Public Schools' buildings closed remainder of school year.  Grab N Go Meals available every Wednesday until 5/21/2020.  Home-based learning in effect 3/25/2020. </div></div>
+
+<!--OPEN TOP CONTENT-->
+                <section id="top-content"><div class="row">
+		                
+		                <!--MAIN NEWS-->
+		                <div class="main-news">
+			                <div class="flexslider">
+				            
+				            <ul class="slides">
+<li class="news-item">
+<div class="caption">
+<h3>NPS Buildings Closed Remainder of School Year</h3>
+ <p class="excerpt"></p>
+  <a href="https://www.norfolkpublicschools.org/district/news/2020/03/23/nps-buildings-closed-through-remainder-of-school-year/" class="more">Read More <i class="fa fa-arrow-circle-right"></i></a>
+				                </div>
+				               <div class="photo">
+				                    <img src="/assets/components/phpthumbof/cache/jjt-message.dc4fa28c8a9786532b05f5298b83043e.jpg">
+</div>
+			                </li>
+
+
+
+
+<li class="news-item">
+<div class="caption">
+<h3>Home-based Learning/Aprendizaje basado en el hogar</h3>
+ <p class="excerpt">Effective 3/25/2020</p>
+  <a href="https://www.norfolkpublicschools.org/district/teaching-and-learning/home-based-learning/" class="more">Read More <i class="fa fa-arrow-circle-right"></i></a>
+				                </div>
+				               <div class="photo">
+				                    <img src="/assets/components/phpthumbof/cache/nps-districtlogo-color.be08bd4cca9b33acfff59f8e1321812a.jpg">
+</div>
+			                </li>
+
+
+
+
+<li class="news-item">
+<div class="caption">
+<h3>Families First Coronavirus Response Act (FFCRA)</h3>
+ <p class="excerpt">NPS Staff Information</p>
+  <a href="https://www.norfolkpublicschools.org/district/business-services/employment-compensation-and-agreements/families-first-coronavirus-response-act-(ffcra).html" class="more">Read More <i class="fa fa-arrow-circle-right"></i></a>
+				                </div>
+				               <div class="photo">
+				                    <img src="/assets/components/phpthumbof/cache/nps-districtlogo-color.be08bd4cca9b33acfff59f8e1321812a.jpg">
+</div>
+			                </li>
+
+
+
+
+<li class="news-item">
+<div class="caption">
+<h3>Grab N Go  Meals at NPS</h3>
+ <p class="excerpt"></p>
+  <a href="https://www.norfolkpublicschools.org/district/news/2020/03/17/grab-n-go-breakfast-and-lunch-pickup-at-nps/" class="more">Read More <i class="fa fa-arrow-circle-right"></i></a>
+				                </div>
+				               <div class="photo">
+				                    <img src="/assets/components/phpthumbof/cache/grabngo-food-032020.a4c4c6726726962b4b37466f2a12f80f.jpg">
+</div>
+			                </li>
+
+
+
+
+
+
+
+<li class="news-item">
+<div class="caption">
+<h3>COVID-19 (Coronavirus)</h3>
+ <p class="excerpt"></p>
+  <a href="https://www.norfolkpublicschools.org/district/student-services/covid-19-(coronavirus).html" class="more">Read More <i class="fa fa-arrow-circle-right"></i></a>
+				                </div>
+				               <div class="photo">
+				                    <img src="/assets/components/phpthumbof/cache/download-cv.ccee29df8c11771585e42b47553c3a3e.jpg">
+</div>
+			                </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<li class="news-item">
+<div class="caption">
+<h3>Aftershock Free Take Home Lab Kits</h3>
+ <p class="excerpt">Thursdays, 3-6 p.m. pick up, Middle School (west side)</p>
+  <a href="https://www.norfolkpublicschools.org/district/news/2020/04/02/aftershock-free-take-home-lab-kits/" class="more">Read More <i class="fa fa-arrow-circle-right"></i></a>
+				                </div>
+				               <div class="photo">
+				                    <img src="/assets/components/phpthumbof/cache/aftershock-logo.ea2d0fdbfa1d673d6c36ee5c5bd51207.png">
+</div>
+			                </li>
+
+
+
+
+
+
+
+<li class="news-item">
+<div class="caption">
+<h3>Welcome to Norfolk Public Schools</h3>
+ <p class="excerpt"></p>
+  
+				                </div>
+				               <div class="photo">
+				                    <img src="/assets/components/phpthumbof/cache/defaultslide.7887f7449d7da140f2be00ac1fc3df2b.png">
+</div>
+			                </li>
+
+
+
+
+
+
+
+<li class="news-item">
+<div class="caption">
+<h3>2020 NHS Spring Special Events</h3>
+ <p class="excerpt">Follow this link for current details regarding graduations, honors night, prom, and summer…</p>
+  <a href="https://www.norfolkpublicschools.org/schools/norfolk-high-school/2020-spring-special-events/" class="more">Read More <i class="fa fa-arrow-circle-right"></i></a>
+				                </div>
+				               <div class="photo">
+				                    <img src="/assets/components/phpthumbof/cache/2020-spring-events.e1434d261804b7434e972a9193382a89.jpg">
+</div>
+			                </li>
+
+
+				             </ul>
+</div>
+		                </div>
+		                
+		                <!--EVENTS LIST-->
+		                
+    	
+    	
+		                <div class="events-list">
+			                <div class="events-container">
+				                <h4>Upcoming Events</h4>
+				                <ul class="events">
+<div id="districtEvents"></div>
+  
+					                
+				                </ul>
+<div class="more-events"><a href="calendars/district-calendar.html">View Full Calendar <i class="fa fa-arrow-circle-right"></i></a></div>
+				                
+				                
+				                
+				               
+		                </div>
+		            </div>
+		            
+		            	<!--FEATURED LINKS-->
+		                <div class="featured-links">
+			                <h4>Featured Links</h4>
+			                <ul class="featured">
+<li><a href="district/human-resources/employment.html" class="jobs">Employment<span class="sub">Jobs with Norfolk…</span></a></li> <li><a href="district/student-services/enrollment/" class="new">New to NPS?<span class="sub">Learn how to enroll</span></a></li> <li><a href="find-a-staff-member.html" class="staff">Staff Directory<span class="sub">Staff Directory</span></a></li>
+			                </ul>
+</div>
+		        
+		        <!--CLOSE TOP CONTENT-->
+	                </div>
+                </section><!--OPEN MIDDLE CONTENT--><section id="middle-content"><div class="row">
+		                
+		                <!--NEWS STORIES-->
+		                <div class="news-block">
+			                 <h5>News &amp; Announcements</h5>
+			                 <ul class="recent-news">
+<li>
+				                 	<div class="news-container">
+					                 	<div class="thumb">
+						                 	<a href="district/news/2020/04/14/norfolk-public-schools-recognizes-world-language-week-distinguished-scholar-award-for-2020/"><div class="cover">Read More <i class="fa fa-arrow-circle-right"></i>
+</div></a>
+						                 <img src="/assets/components/phpthumbof/cache/world-language-scholar-2020.150ec09d00d3cd96fc7e4aeb3037f99f.jpg">
+</div>
+					                 	<div class="details">
+						                 	<div class="headline"><a href="district/news/2020/04/14/norfolk-public-schools-recognizes-world-language-week-distinguished-scholar-award-for-2020/">Norfolk Public Schools recognizes World Language Week Distinguished Scholar Award for 2020.</a></div>
+						                 	<p class="excerpt">Norfolk Public Schools is excited to recognize NHS student Brynn Carmichael for being a World Language Week Distinguished Scholar Award recipient for 2020 by the Nebraska Department of Education.   
+The…</p>
+						                 	<a href="district/news/2020/04/14/norfolk-public-schools-recognizes-world-language-week-distinguished-scholar-award-for-2020/" class="more">Read More <i class="fa fa-arrow-circle-right"></i></a>
+					                 	</div>
+				                 	</div>
+				                 </li>
+<li>
+				                 	<div class="news-container">
+					                 	<div class="thumb">
+						                 	<a href="district/news/2020/04/13/2020-spring-events/"><div class="cover">Read More <i class="fa fa-arrow-circle-right"></i>
+</div></a>
+						                 <img src="/assets/components/phpthumbof/cache/2020-spring-events.9b9653ea42a1b8d14872a3667982dac9.jpg">
+</div>
+					                 	<div class="details">
+						                 	<div class="headline"><a href="district/news/2020/04/13/2020-spring-events/">2020 Spring Special Events</a></div>
+						                 	<p class="excerpt">Norfolk High School has set alternate dates and made alternate plans for some key 2020 spring events, including graduation, honors night, and prom. 
+Summer school plans are also being finalized. 
+Please…</p>
+						                 	<a href="district/news/2020/04/13/2020-spring-events/" class="more">Read More <i class="fa fa-arrow-circle-right"></i></a>
+					                 	</div>
+				                 	</div>
+				                 </li>
+<li>
+				                 	<div class="news-container">
+					                 	<div class="thumb">
+						                 	<a href="district/news/2020/04/08/john-erwin-to-be-norfolk-high-school-assistant-principal-for-2020-2021/"><div class="cover">Read More <i class="fa fa-arrow-circle-right"></i>
+</div></a>
+						                 <img src="/assets/components/phpthumbof/cache/nps-districtlogo-color.a2012c0dc9f6dbb21d6486cb1a7e8705.jpg">
+</div>
+					                 	<div class="details">
+						                 	<div class="headline"><a href="district/news/2020/04/08/john-erwin-to-be-norfolk-high-school-assistant-principal-for-2020-2021/">John Erwin to be Norfolk High School Assistant Principal for 2020-2021.</a></div>
+						                 	<p class="excerpt">Dr. Jami Jo Thompson announced to school district staff today that Mr. John Erwin will be the Assistant Principal at Norfolk High  School for the 2020-2021 school year.
+John Erwin has served NPS as former…</p>
+						                 	<a href="district/news/2020/04/08/john-erwin-to-be-norfolk-high-school-assistant-principal-for-2020-2021/" class="more">Read More <i class="fa fa-arrow-circle-right"></i></a>
+					                 	</div>
+				                 	</div>
+				                 </li>
+			                 
+			                 </ul>
+</div>
+		                
+		                <!--QUICKLINKS-->
+		                 <!--QUICKLINKS-->
+ 			                
+
+
+
+ 
+
+			                
+			                
+			                
+			                
+			                
+			                
+			                
+
+
+
+    
+         <div class="quicklinks"> 
+				                <h6>Quicklinks</h6>
+				                <ul class="quicklinks">
+<li><a href="https://www.norfolkpublicschools.org/district/teaching-and-learning/home-based-learning/">Home-based Learning (Aprendizaje basado en el hogar)</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/business-services/employment-compensation-and-agreements/families-first-coronavirus-response-act-(ffcra).html">Families First Coronavirus Response Act (FFCRA)</a></li>
+<li><a href="https://ic.npsne.org/campus/portal/parents/norfolk.jsp">Infinite Campus</a></li>
+<li><a href="district/business-services/nutrition-services.html">Free/Reduced Lunch Application</a></li>
+<li><a href="district/news/2018/01/11/success-pin-information/">Success Pin Nomination Form</a></li>
+<li><a href="district/safety-and-security">Safety &amp; Security (Seguridad)</a></li>
+<li><a href="https://www.norfolkpublicschools.org/district/teaching-and-learning/target-based-grading/">Target Based Grading</a></li>
+<li><a href="menus.html">Daily Menu</a></li>
+
+				                </ul>
+</div>
+
+
+
+		                <!--<div class="quicklinks">
+			                <h6>Quicklinks</h6>
+			                <ul class="quicklinks">
+				                <li><a href="district/human-resources/employment.html">Employment</a></li>
+				                <li><a href="http://www.lunchtimesolutions.com/norfolk-public-schools/" target="_blank">Daily Menu</a></li>
+				                <li><a href="district/student-services/enrollment/">New to NPS?</a></li>
+				                <li><a href="http://ic.npsne.org/campus/portal/norfolk.jsp" target="_blank">Infinite Campus</a></li>
+				                <li><a href="district/news/2018/01/11/success-pin-information/">Success Pin Info.</a></li>
+			                </ul>
+		                </div>-->
+		                
+		                <!--PANTHER PROMO-->
+		                <div class="panthers">
+			                <h6>Home of the Panthers</h6>
+			                <div class="image"></div>
+			                <a href="schools/norfolk-high-school/activities-and-athletics/schedules.html">Learn More</a>
+		                </div>
+		                
+		        <!--CLOSE MIDDLE CONTENT-->
+	                </div>
+                </section><!--OPEN PRE-FOOTER--><section id="pre-footer"><div class="row">
+		                
+		                <!--TWEETS BOX-->
+		                <div class="tweets">
+			                
+				                <h4>NPS on Twitter</h4>
+				                
+				                
+				                            <a class="twitter-timeline" data-dnt="true" href="https://twitter.com/npspanthers" data-widget-id="684417508288282624">Tweets by @npspanthers</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+		                
+		                <!--MISSION BOX-->
+		                <div class="mission">
+<div class="mission-content">
+<h5>Our Mission</h5>
+<p class="subhead">The mission of Norfolk Public Schools is to prepare all students to pursue their goals for the future.</p>
+<p class="vision">The vision of Norfolk Public Schools is to be a top performing school that provides outstanding educational opportunities for every student and is a source of pride and an asset to our community.</p>
+<div class="cta-area">
+<a class="secondary" href="district/about-nps/">Get to Know NPS</a> <a class="primary" href="district/student-services/enrollment/">How to Enroll</a>
+</div>
+</div>
+<div class="image"><img src="assets/templates/site/images/sample-student.png" alt="sample-student"></div>
+</div>
+		              
+		                
+		        <!--CLOSE PRE-FOOTER-->
+	                </div>
+                </section>
+</div>
+</div>
+ <!--OPEN FOOTER-->
+   <footer id="footer"><!--FOOTER NAV--><div class="footer-nav">
+		        <div class="row">
+		                            <div class="main-nav">
+		                            <ul class="nav">
+<li class="first"><a href="https://www.norfolkpublicschools.org/"><i class="fa fa-home"></i></a></li>
+	<li class="first"><a href="https://www.norfolkpublicschools.org/district/">District</a></li>
+<li><a href="https://www.norfolkpublicschools.org/schools/">Schools</a></li>
+<li><a href="https://www.norfolkpublicschools.org/calendars/">Calendars</a></li>
+<li><a href="https://www.norfolkpublicschools.org/foundation/">Foundation</a></li>
+<li><a href="https://www.norfolkpublicschools.org/contact/" rel="category">Contact Us</a></li>
+<li><a href="https://www.norfolkpublicschools.org/staff-directory.html">Staff Directory</a></li>
+<li class="last"><a href="https://www.norfolkpublicschools.org/district/human-resources/employment.html">Employment</a></li>
+</ul>
+</div>
+		        </div>
+	        </div>
+	        
+	        <!--FOOTER CONTENT-->
+	        <div class="footer-content">
+		        <div class="row">
+			        <div class="legal">
+<h6>Notice of Nondiscrimination</h6>
+<p>The Norfolk Public School District does not discriminate on the basis of sex, disability, race, color, religion, veteran status, national or ethnic origin, marital status, pregnancy, childbirth or related medical condition, or other protected status in its programs and activities and provides equal access to the Boy Scouts and other designated youth groups. The following persons have been designated to handle inquiries regarding the non-discrimination policies:</p>
+<p>Students: Mary Luhr, Director of Student Services: 512 Philip Avenue, Norfolk, NE 68701, 402-644-2500</p>
+<p>Employees and Others: Bill Robinson, Associate Superintendent: 512 Philip Avenue, Norfolk, NE 68701, 402-644-2500</p>
+<p>Complaints or concerns involving discrimination or needs for accommodation or access should be addressed to the appropriate Coordinator. For further information about anti-discrimination laws and regulations, or to file a complaint of discrimination with the Office for Civil Rights in the U.S. Department of Education (OCR), please contact the OCR at 601 East 12th Street, Room 353, Kansas City, MO  64106, (800) 368-1019 (voice), Fax (816) 426-3686, (800) 537-7697 (telecommunications device for the deaf), or <script language="Javascript" type="text/javascript"><!--document.write('<a href="mai');document.write('lto');document.write(':&#111;&#99;&#114;&#46;&#107;&#97;&#110;&#115;&#97;&#115;&#99;&#105;&#116;&#121;');document.write('@');document.write('&#101;&#100;&#46;&#103;&#111;&#118;">');document.write('&#111;&#99;&#114;&#46;&#107;&#97;&#110;&#115;&#97;&#115;&#99;&#105;&#116;&#121;&#64;&#101;&#100;&#46;&#103;&#111;&#118;<\/a>');// --></script></p>
+<noscript>ocr.kansascity at ed dot gov</noscript>. <a href="assets/site/district/documents/Complaint%20form%20-%20Discrimination.pdf" target="_blank">Download Complaint Form [PDF]</a>
+</div>
+					<div class="contact">
+					
+					<h6> Norfolk Public Schools</h6>
+<span class="address">512 West Phillip Avenue</span>
+<span class="address">PO Box 139</span>
+<span class="city">Norfolk, NE 68701</span>
+<span class="phone"><strong>Phone: 402-644-2500</strong></span>
+<span class="fax">Fax: 402-644-2506</span>
+						<a href="contact/" class="contact-us">Contact Us</a>
+						<a href="find-a-staff-member.html" class="staff">Find A Staff Member</a>
+					</div>
+		        </div>
+	        </div>
+	        
+	        <!--CREDITS-->
+	        <div class="credits">
+		        <div class="row">
+			        <div class="copyright">© <script>document.write(new Date().getFullYear())</script> Copyright Norfolk Public School - Norfolk Nebraska</div>
+			        <div class="links">
+<a href="sitemap.html">Site Map</a> <span class="divider">|</span> <a href="contact/">Contact Us</a> <span class="divider">|</span> <a href="privacy-policy.html">Privacy Policy</a>
+</div>
+					<div class="developer"><a href="https://www.ideabankmarketing.com">Website Design and Development by <em>IdeaBank Marketing</em>.</a></div>
+		        </div>
+	        </div>
+		
+		<!--CLOSE FOOTER-->
+        </footer><!--This page, MySQL queries took 0.5407 s for 735 queries(s), document parsing took 2.8900 s, for a total time of 3.4307 s, and retrieved from database.-->
+</body>
+</html>

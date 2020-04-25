@@ -1,0 +1,1485 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Bradford Exempted Village Schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://use.typekit.net/tyr6gsj.js"></script><script>try { Typekit.load({ async: true }); } catch (e) { }</script><link rel="icon" href="/userfiles/-13/My%20Files/favicon.ico" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Bradford Exempted Village Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Bradford Middle/High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Bradford Elementary School - News" href="/rssNews.ashx?schoolId=2">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "OH_BradfordEVS",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1518807542367">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTE4NjAwODg1NQ9kFgJmD2QWAmYPZBYEZg9kFgZmD2QWAmYPZBYCAgEPFgIeBFRleHQFIUJyYWRmb3JkIEV4ZW1wdGVkIFZpbGxhZ2UgU2Nob29sc2QCBA9kFgICAQ8WAh4LXyFJdGVtQ291bnQCAhYEZg9kFgJmDxUCG0JyYWRmb3JkIE1pZGRsZS9IaWdoIFNjaG9vbAExZAIBD2QWAmYPFQIaQnJhZGZvcmQgRWxlbWVudGFyeSBTY2hvb2wBMmQCBg8WAh4EaHJlZgUwL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0xNTE4ODA3NTQyMzY3ZAIBDxYCHgZhY3Rpb24FAS8WCgIBD2QWBAIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8EBQEwZAIDDw9kFgIfBAUBMGQCBA8PZBYCHwQFATBkAgUPD2QWAh8EBQEwZAIDD2QWBGYPDxYCHgdWaXNpYmxlZ2QWAgIBDxYCHwECARYCZg9kFgJmDxUFEUNvcm9uYXZpcnVzIEFsZXJ0BmFhMTExMQZmZmZmZmYFQWxlcnSEATxwPkJyYWRmb3JkIEVWU0Qgd2lsbCBiZSBjbG9zZWQgdG8gc3R1ZGVudHMgYmVnaW5uaW5nIE1vbmRheSAzLzE2LzIwMjAgdGhyb3VnaCBGcmlkYXkgNS8yMi8yMDIwLiBBbGwgbGVhcm5pbmcgd2lsbCBvY2N1ciBvbmxpbmUuPC9wPmQCAg8PFgIfBWdkFgJmDxYCHwAFqAI8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PGxpPjxzcGFuIGNsYXNzPSdhbGVydERhbmdlckNvbG9yJyBzdHlsZT0nYmFja2dyb3VuZC1jb2xvcjojYWExMTExOyBjb2xvcjojZmZmZmZmJz5BbGVydDo8L3NwYW4+IDxzcGFuIGNsYXNzPSdhbGVydFRleHRJbmZvJz48cD5CcmFkZm9yZCBFVlNEIHdpbGwgYmUgY2xvc2VkIHRvIHN0dWRlbnRzIGJlZ2lubmluZyBNb25kYXkgMy8xNi8yMDIwIHRocm91Z2ggRnJpZGF5IDUvMjIvMjAyMC4gQWxsIGxlYXJuaW5nIHdpbGwgb2NjdXIgb25saW5lLjwvcD48L3NwYW4+PC9saT48L3VsPmQCAw9kFgICAQ9kFgICAQ9kFgQCAQ8PFgIeC05hdmlnYXRlVXJsBQEvZGQCAw8PFgQfBgUBLx8ABWU8ZGl2IGNsYXNzPSJzY2hvb2xOYW1lVG9wIj5CcmFkZm9yZDwvZGl2PjxkaXYgY2xhc3M9InNjaG9vbE5hbWVCb3R0b20iPkV4ZW1wdGVkIFZpbGxhZ2UgU2Nob29sczwvZGl2PmRkAgkPZBYEAgEPZBYCAgEPZBYCZg8WAh8BAgEWAmYPZBYEZg8VAi1CcmFkZm9yZCBFeGVtcHRlZCBWaWxsYWdlICBTY2hvb2xzIEZyb250IFZpZXctQnJhZGZvcmQgRXhlbXB0ZWQgVmlsbGFnZSAgU2Nob29scyBGcm9udCBWaWV3ZAIBDxUBOy91c2VyZmlsZXMvMjAxNi0wOC9lZmVmMzRmNy1mOGM0LTRlNGMtYTdlMC0yYzMxMWEzZGRhMzAuanBnZAIDD2QWAgIBD2QWBGYPDxYCHwVoZGQCAg9kFgQCAw8WAh8FaGQCBQ8WAh8BAgVkAg0PZBYEZg9kFgYCAQ9kFgZmDxYCHwAFB1R3aXR0ZXJkAgEPFgIfAAXqAjxkaXYgY2xhc3M9ImJ0Z3JpZCI+DQo8ZGl2IGNsYXNzPSJyb3cgcm93LTEiPg0KPGRpdiBjbGFzcz0iY29sIGNvbC1tZC0xMiI+DQo8ZGl2IGNsYXNzPSJjb250ZW50Ij4NCjxwPjxhIGNsYXNzPSJ0d2l0dGVyLXRpbWVsaW5lIiBkYXRhLWhlaWdodD0iNTAwIiBocmVmPSJodHRwczovL3R3aXR0ZXIuY29tL0JyYWRmb3JkRVZTRD9yZWZfc3JjPXR3c3JjJTVFdGZ3Ij5Ud2VldHMgYnkgQnJhZGZvcmRFVlNEPC9hPg0KPHNjcmlwdCBhc3luYz0iIiBjaGFyc2V0PSJ1dGYtOCIgc3JjPSJodHRwczovL3BsYXRmb3JtLnR3aXR0ZXIuY29tL3dpZGdldHMuanMiPjwvc2NyaXB0Pg0KPC9wPg0KPC9kaXY+DQo8L2Rpdj4NCjwvZGl2Pg0KPC9kaXY+ZAIDDw8WAh8GBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTJkZAIDD2QWBmYPFgIfAAUJU2xpZGVTaG93ZAIBDxYCHwAFxgI8cD48aWZyYW1lIGFsbG93ZnVsbHNjcmVlbj0idHJ1ZSIgZnJhbWVib3JkZXI9IjAiIGhlaWdodD0iNTI0IiBtb3phbGxvd2Z1bGxzY3JlZW49InRydWUiIHNyYz0iaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vcHJlc2VudGF0aW9uL2QvZS8yUEFDWC0xdlRfUER6RjVDalI1RV96TFhVZFhDNzVGMVhKVENDd0pIcndPR1c5ZFhDa0w4YVNXVzFfMnRuZ3drQWZQSWs4bkRJbVBwTTBaeGVqUExyNS9lbWJlZD9zdGFydD10cnVlJmFtcDtsb29wPXRydWUmYW1wO2RlbGF5bXM9MTAwMDAiIHdlYmtpdGFsbG93ZnVsbHNjcmVlbj0idHJ1ZSIgd2lkdGg9IjUyNCI+PC9pZnJhbWU+PC9wPmQCAw8PFgIfBgUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0zZGQCBQ9kFgZmDxYCHwECBhYMAgEPZBYCZg8VBwUxNDI2MxRBcHIgMjcgLTxiciAvPiBNYXkgMUYvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCwxLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTE0MjYzDVdlbGxuZXNzIFdlZWsNV2VsbG5lc3MgV2VlawAAZAICD2QWAmYPFQcFMTQ0MTkGQXByIDMwRi9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MTQ0MTkNTW9jayBBY2NpZGVudA1Nb2NrIEFjY2lkZW50ABgxMDowMCBBTSAmbWRhc2g7IDI6MDAgUE1kAgMPZBYCZg8VBwUxMzg3NAVNYXkgMkYvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCwxLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTEzODc0BFByb20EUHJvbQAYNzozMCBQTSAmbWRhc2g7IDEwOjMwIFBNZAIED2QWAmYPFQcFMTM4ODkFTWF5IDZGL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0xMzg4OQtQVE8gTWVldGluZwtQVE8gTWVldGluZwAXNzowMCBQTSAmbWRhc2g7IDg6MDAgUE1kAgUPZBYCZg8VBwUxMzg4OAVNYXkgN0YvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCwxLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTEzODg4EEdyYW5kcGFyZW50cyBEYXkQR3JhbmRwYXJlbnRzIERheQAXODozMCBBTSAmbWRhc2g7IDk6MzAgQU1kAgYPZBYCZg8VBwUxMzg4NwVNYXkgOEYvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCwxLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTEzODg3HURhcmtlIENvdW50eSBTcGVjaWFsIE9seW1waWNzHURhcmtlIENvdW50eSBTcGVjaWFsIE9seW1waWNzAABkAgQPDxYCHwYFIS9jYWxNb250aFZpZXcuYXNweD9zPTAmeT0yMDIwJm09NGRkAgYPDxYEHwYFRS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wJnNjaG9vbGlkPTAmdHlwZXM9JnZpZXdEYXRlPTQvMjQvMjAyMB8ABRJWaWV3IEZ1bGwgQ2FsZW5kYXJkZAICD2QWAgIBD2QWBmYPFgIfAAUIQWJvdXQgVXNkAgEPFgIfAAWzDzxwPjxzdHJvbmc+V2VsY29tZSB0byBCcmFkZm9yZCBFeGVtcHRlZCBWaWxsYWdlIFNjaG9vbCBEaXN0cmljdCBhbmQgdGhhbmsgeW91IGZvciB2aXNpdGluZyBvdXIgd2Vic2l0ZSEmbmJzcDsgVGhpcyB3ZWJzaXRlIGlzIG9uZSBvZiB0aGUgdG9vbHMgd2Ugd2lsbCB1c2UgdG8gaW1wcm92ZSBjb21tdW5pY2F0aW9uIGJldHdlZW4gb3VyIHN0YWZmLCBwYXJlbnRzLCBzdHVkZW50cywgYW5kIHRoZSBCcmFkZm9yZCBjb21tdW5pdHkuJm5ic3A7IE91ciB3ZWJzaXRlIGNvbnRhaW5zIGEgdHJlbWVuZG91cyBhbW91bnQgb2YgaW5mb3JtYXRpb24gcmVnYXJkaW5nIG91ciBkaXN0cmljdCBhbmQgd2UgZmVlbCBpdCBpcyBhIHZhbHVhYmxlIHJlc291cmNlLjxiciAvPg0KPGJyIC8+DQombmJzcDsgPC9zdHJvbmc+PC9wPg0KDQo8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PHN0cm9uZz48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE2cHg7Ij5TY2hvb2wgSG91cnM6PGJyIC8+DQo8YnIgLz4NCk5vcm1hbCBEYXk6IDg6MTAgYW0gLTM6MTAgcG0gKEJ1aWxkaW5nIE9wZW5zIGZvciBzdHVkZW50cyBhdCA3OjQwIGFtKS48L3NwYW4+PC9zdHJvbmc+PC9wPg0KDQo8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PHN0cm9uZz48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE2cHg7Ij4yIEhvdXIgRGVsYXk6IDEwOjEwIGFtIC0zOjEwIHBtIChCdWlsZGluZyBPcGVucyBmb3Igc3R1ZGVudHMgYXQgOTo0MCBhbSkuPC9zcGFuPjwvc3Ryb25nPjxiciAvPg0KPGJyIC8+DQo8YnIgLz4NCiZuYnNwOzwvcD4NCg0KPHA+PHNwYW4gc3R5bGU9ImNvbG9yOiNGRjhDMDA7Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOiAyMHB4OyI+PHU+PHN0cm9uZz5CcmFkZm9yZCBWaXNpb24gU3RhdGVtZW50Ojwvc3Ryb25nPjwvdT48L3NwYW4+PC9zcGFuPjwvcD4NCg0KPHA+PHN0cm9uZz5CcmFkZm9yZCBTY2hvb2xzIHdpbGwgYmUgYSBzdHVkZW50LWNlbnRlcmVkIHNjaG9vbCBvZiBleGNlbGxlbmNlIHN1cHBvcnRlZCBieSBzdGFmZiwgc3R1ZGVudHMsIHBhcmVudHMsIGFuZCBjb21tdW5pdHkuPC9zdHJvbmc+PC9wPg0KDQo8cD4mbmJzcDs8L3A+DQoNCjxwPjxzcGFuIHN0eWxlPSJjb2xvcjojRkY4QzAwOyI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTogMjBweDsiPjx1PjxzdHJvbmc+QnJhZGZvcmQgTWlzc2lvbiBTdGF0ZW1lbnQ6PC9zdHJvbmc+PC91Pjwvc3Bhbj48L3NwYW4+PC9wPg0KDQo8cD48c3Ryb25nPkJyYWRmb3JkIFNjaG9vbHMgd2lsbDo8L3N0cm9uZz48L3A+DQoNCjx1bD4NCgk8bGk+PHN0cm9uZz5LZWVwIHN0dWRlbnRzIGF0IHRoZSBjZW50ZXIgb2YgYWxsIGRlY2lzaW9uczwvc3Ryb25nPjwvbGk+DQoJPGxpPjxzdHJvbmc+R2FpbiB0aGUgc3VwcG9ydCBvZiBzdHVkZW50cywgcGFyZW50cywgZWR1Y2F0b3JzLCBhbmQgY2l0aXplbnMgb2YgdGhlIGNvbW11bml0eTwvc3Ryb25nPjwvbGk+DQoJPGxpPjxzdHJvbmc+UHJvdmlkZSBhIHNhZmUsIGhpZ2ggcXVhbGl0eSBsZWFybmluZyBlbnZpcm9ubWVudDwvc3Ryb25nPjwvbGk+DQoJPGxpPjxzdHJvbmc+RGV2ZWxvcCBwcm9kdWN0aXZlLCByZXNwb25zaWJsZSBjaXRpemVucyB3aG8gcmVhY2ggdGhlaXIgZnVsbCBwb3RlbnRpYWw8L3N0cm9uZz48L2xpPg0KPC91bD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjIwcHg7Ij48dT48YSBocmVmPSIvdXNlcmZpbGVzLzcvbXkgZmlsZXMvYmVsaWVmIHN0YXRlbWVudHMucGRmP2lkPTIxMyIgdGFyZ2V0PSJfYmxhbmsiPjxzcGFuIHN0eWxlPSJjb2xvcjojRkY4QzAwOyI+PHN0cm9uZz5CcmFkZm9yZCBCZWxpZWYgU3RhdGVtZW50czogKGNsaWNrIGhlcmUpPC9zdHJvbmc+PC9zcGFuPjwvYT48L3U+PC9zcGFuPjwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD48c3Ryb25nPlRoYW5rIHlvdSBhbmQgZ28gUmFpbHJvYWRlcnMhPC9zdHJvbmc+PC9wPmQCAw8PFgIfBgUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0xZGQCEw9kFgZmDw8WAh8ABWU8ZGl2IGNsYXNzPSJzY2hvb2xOYW1lVG9wIj5CcmFkZm9yZDwvZGl2PjxkaXYgY2xhc3M9InNjaG9vbE5hbWVCb3R0b20iPkV4ZW1wdGVkIFZpbGxhZ2UgU2Nob29sczwvZGl2PmRkAgEPZBYCZg8WAh8BAgIWBGYPZBYCZg8VBQsvbG9naW4uYXNweCtCcmFkZm9yZCBFeGVtcHRlZCBWaWxsYWdlIFNjaG9vbHMgQ01TIExvZ2luBV9zZWxmJjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5DTVMgTG9naW48L3NwYW4+DWZhIGZhLXNpZ24taW5kAgEPZBYCZg8VBSBodHRwczovL3R3aXR0ZXIuY29tL0JyYWRmb3JkRVZTRAxUd2l0dGVyIEZlZWQGX2JsYW5rJDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5Ud2l0dGVyPC9zcGFuPg1mYSBmYS10d2l0dGVyZAIDD2QWAmYPFgIfAQICFgRmD2QWAmYPFQULL2xvZ2luLmFzcHgrQnJhZGZvcmQgRXhlbXB0ZWQgVmlsbGFnZSBTY2hvb2xzIENNUyBMb2dpbgVfc2VsZiY8c3BhbiBjbGFzcz0nb2JzY3VyZSc+Q01TIExvZ2luPC9zcGFuPg1mYSBmYS1zaWduLWluZAIBD2QWAmYPFQUgaHR0cHM6Ly90d2l0dGVyLmNvbS9CcmFkZm9yZEVWU0QMVHdpdHRlciBGZWVkBl9ibGFuayQ8c3BhbiBjbGFzcz0nb2JzY3VyZSc+VHdpdHRlcjwvc3Bhbj4NZmEgZmEtdHdpdHRlcmRk4p7z/YTNbKSU+CQiQMc1y4Ztocg=">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script><script src="/WebResource.axd?d=ciQs-AUcGllikzvJxOn4IY9qdpn5WXYfT_PMnTK91Xt8dksb258BJxYsmn4olEPTocq6JTsZH-_-9MV4tnJ7755rEvo1&amp;t=635875512900000000" type="text/javascript"></script><a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+<style type="text/css">
+    .alertdiv,
+    .alertReShow,
+    .alertList {
+        display: none;
+    }
+
+    .alertTab {
+        margin-left: 20px;
+    }
+
+    .alertTitle {
+        display: inline-block;
+        padding: 2px 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    .nextAlert {
+        background: #676767;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .alertCount {
+        position: absolute;
+        left: -115px;
+    }
+
+    .textalert {
+        color: #ffffff;
+        position: relative;
+    }
+
+    .alertBar {
+        z-index: 10;
+        font-weight: normal;
+        background: #373737;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#373737), to(#202020)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#373737, #202020); /* Chrome 10+, Saf5.1+ */
+        background-image: -moz-linear-gradient(#373737, #202020); /* FF3.6 */
+        background-image: -ms-linear-gradient(#373737, #202020); /* IE10 */
+        background-image: -o-linear-gradient(#373737, #202020); /* Opera 11.10+ */
+        background-image: linear-gradient(#373737, #202020);
+    }
+
+    a.closeAlert {
+        color: #fff;
+        font-size: 20px;
+    }
+
+    a.openAlert {
+        color: #fff;
+        font-size: 20px;
+        padding-right: 18px;
+        padding-top: 3px;
+    }
+
+    .alertDangerColor {
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .alertPrefix {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+        margin: 0;
+        border-radius: 3px;
+        font-size: 18px;
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+    .alertText {
+        display: inline-block;
+        width: 100%;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    #alertTicker > .alertTextInfo,
+    #alertTicker > .alertTextInfo > p:first-child, .alertTextInfo > span:first-child{display:inline;}
+    .popExclam {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .dark.alertBar{color:#fff;}
+     .dark.alertBar a{color:#fff; text-decoration:underline;}
+         .light.alertBar a{ text-decoration:underline;}
+        .popExclam i {
+            color: #aa1111 !important;
+            font-size: 55px;
+        }
+        .exclamText{padding-top:15px;}
+        .bottomRightEcxlam{position:fixed;z-index:1001;bottom:55px; right:25px;display:none;}
+</style>
+<!--[if lte IE 9]>
+	<style type="text/css">
+	    .alertBar {
+            background: #202020;
+        }
+	</style>
+<![endif]--><div id="ctl00_ctl00_ctl04_ctl01_bootstrapAlert">
+	
+    <div class="modal" tabindex="-1" role="dialog" id="alertModal" data-id="46" data-notification="False">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                
+
+                
+                        <div class="modal-header clearfix">
+                            <h1 class="modal-title alertTitle">
+                                Coronavirus Alert
+                            </h1>
+                        </div>
+
+                        <div class="modal-body">
+                                <div class="popExclam">
+<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  </div>
+                                <br><h2 style="background-color: #aa1111; color: #ffffff" class="alertPrefix">
+                                Alert:
+                            </h2>
+
+                            <div class="alertText">
+                                <p>Bradford EVSD will be closed to students beginning Monday 3/16/2020 through Friday 5/22/2020. All learning will occur online.</p>
+                            </div>
+                        </div>
+                    
+                
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/admin/js/alert/alertPopUp.js?version=2"></script>
+</div>
+
+
+
+<div id="ctl00_ctl00_ctl04_ctl01_BarAlert">
+	
+    <script>
+        $(document).ready(function () {
+            var startColor = "373737";
+            if (startColor == "ffffff") {
+                $(".alertBar").addClass("light");
+            }
+            else {
+                $(".alertBar").addClass("dark");
+            }
+        });
+
+    </script><div class="alert-margin">
+        <div style="position: relative; padding: 10px 45px 10px 10px;" class="alertdiv alertBar">
+            <div style="max-width: 980px; margin: 0 auto; font-size: 18px" class="textalert">
+                
+
+                <div id="alertTicker" tabindex="0"></div>
+            </div>
+
+            <ul class="alertList"><li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff">Alert:</span> <span class="alertTextInfo"><p>Bradford EVSD will be closed to students beginning Monday 3/16/2020 through Friday 5/22/2020. All learning will occur online.</p></span>
+</li></ul>
+<div style="position: absolute; right: 20px; top: 5px; z-index: 20;">
+                <a href="javascript:hideAlert()" class="closeAlert">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <span class="obscure">Close alert</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="alertReShow alertBar" style="position: relative; width: 100%; padding: 2px;">
+            <a style="float: right;" href="javascript:loadAlert()" class="openAlert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <span class="obscure">Open alert</span>
+            </a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>
+<div>
+      <a id="exclamationAlert" class="popExclam bottomRightEcxlam"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+</div>
+<script type="text/javascript" src="/admin/js/alert/alertDown.js?version=4"></script><script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'ILxAaM2Kec' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="headerback">
+            <header id="site-head"><div class="head-logo-container">
+    <div class="container">
+        <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome2" class="logo" href="/"><span class="obscure">Logo link to home page</span></a>
+        <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="schoolName" href="/"><div class="schoolNameTop">Bradford</div>
+<div class="schoolNameBottom">Exempted Village Schools</div></a>
+
+        <div class="header-elements hidden-xs">
+            
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+<div id="olc-login">
+                <a href="/login.aspx" class="olc-login">Sign-in to OLC
+                </a>
+            </div>
+
+            
+
+<div class="search-box">
+	<label for="txtSearchBox" class="obscure">Search site using Google</label><input id="txtSearchBox" type="text" class="search-box-input" placeholder="Search" onkeyup="return tableInputKeyPress(event)"><i class="search-box-go fa fa-search bSearch3"></i>
+</div>
+
+        </div>
+    </div>
+</div>
+
+    
+
+            </header><div class="NavBack">
+                <div class="container">
+                    <div class="row">
+                        <div class="navigation">
+                            <nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                                    </button>
+                                </div>
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav district-top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Middle/High School">Middle/High School</a></li>
+<li class="without-image"><a href="/2/home" title="Elementary School">Elementary School</a></li>
+<li class="without-image"><a href="https://www.bradford.k12.oh.us/districtBoardEd.aspx" title="Board of Education Office">Board of Education Office</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-label="" title="Staff Websites">Staff Websites  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://www.bradford.k12.oh.us/2/Teacher" aria-label="" title="Elementary Teacher Webpages">Elementary Teacher Webpages</a></li>
+<li class="without-image"><a href="https://www.bradford.k12.oh.us/1/Teacher" aria-label="" title="High School Teacher Webpages">High School Teacher Webpages</a></li>
+<li class="without-image"><a href="/staff" aria-label="" title="Staff Directory">Staff Directory</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration" title="Our Departments">Our Departments</a></li>
+<li class="without-image"><a href="https://www.bradford.k12.oh.us/alumni" title="Bradford Alumni">Bradford Alumni</a></li>
+<li class="without-image"><a href="/Content/16" title="Guidance">Guidance</a></li>
+<li class="without-image"><a href="/employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/content/68" title="Media Center">Media Center</a></li>
+<li class="without-image"><a href="/administration/16" title="Nurse">Nurse</a></li>
+<li class="without-image"><a href="/administration/20" title="Transportation">Transportation</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/Content/76" title="School Treasurer">School Treasurer</a></li>
+<li class="without-image"><a href="/superintendent" title="Superintendent">Superintendent</a></li>
+<li class="without-image"><a href="/content/dist-alumni" title="Distinguished Alumni">Distinguished Alumni</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSfzQ0cdyiJs6G8i4oVjUZ9YLuum1xKOqL97RcsWPK6tulNhow/viewform" title="Facility Agreements">Facility Agreements</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/calendar" title="Calendar">Calendar</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="For Students">For Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://docs.google.com/document/d/1bR1NAP95a_nsZ7ugMKiHhlczo0OJFwk6zXBP-KzexNc/edit?usp=sharing" target="_blank" title="Junior High/High School Student Handbook">Junior High/High School Student Handbook</a></li>
+<li class="without-image"><a href="https://www.bradford.k12.oh.us/docs/district/athletic%20handbook.pdf?id=37" title="Athletic Handbook">Athletic Handbook</a></li>
+<li class="without-image"><a href="https://miamicountyesc.owschools.com/owsoo/login/auth" target="_blank" title="Odysseyware">Odysseyware</a></li>
+<li class="without-image"><a href="http://www.uppervalleycc.org/" target="_blank" title="Upper Valley Career Center">Upper Valley Career Center</a></li>
+<li class="without-image"><a href="https://www.bradford.k12.oh.us/Content/16" title="Scholarships">Scholarships</a></li>
+<li class="without-image"><a href="/content/workpermit" title="Student Work Permits">Student Work Permits</a></li>
+<li class="without-image"><a href="/Content/128" title="School Supplies">School Supplies</a></li>
+<li class="without-image"><a href="http://bradfordoh.theaet.com/AETHome.aspx?ID=47619" title="FFA Website">FFA Website</a></li>
+<li class="without-image"><a href="https://login9.cloud1.tds.airast.org/student/V377/Pages/LoginShell.aspx?c=Ohio_PT" title="AIR Testing Portal--Practice">AIR Testing Portal--Practice</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title=" For Families"> For Families  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://secure.onecallnow.com/Access/FamilyProfile/FamilyProfile.aspx?G=ARVanMbOCc2ieHeik5QqWg%3d%3d" target="_blank" title="One Call Now Portal">One Call Now Portal</a></li>
+<li class="without-image"><a href="/2/Content/112" title="Title I Information">Title I Information</a></li>
+<li class="without-image"><a href="/content/militaryresources" title="Resources for Military Families">Resources for Military Families</a></li>
+<li class="without-image"><a href="/content/2" title="Enrollment">Enrollment</a></li>
+<li class="without-image"><a href="https://pa.metasolutions.net/district" title="Parent Gradebook Access">Parent Gradebook Access</a></li>
+<li class="without-image"><a href="/Content/124" title="Student Accident Insurance Forms">Student Accident Insurance Forms</a></li>
+<li class="without-image"><a href="/content/134" target="_blank" title="Community Resources for Families in Need">Community Resources for Families in Need</a></li>
+<li class="without-image"><a href="/Content/138" title="John Doe vs. State of Ohio">John Doe vs. State of Ohio</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://railroaderathletics.com/" aria-label="" title="Athletics">Athletics</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-label="" title="Staff Links">Staff Links  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://www.publicschoolworks.com/Pages/frameset.asp?di=372&amp;dia=gsiw9" title="Public School Works">Public School Works</a></li>
+<li class="without-image"><a href="https://kiosk.managementcouncil.org/" title="Employee Kiosk Login">Employee Kiosk Login</a></li>
+<li class="without-image"><a href="https://www.myscview.com/requisitions/requisition.aspx?d=BRADFORD%20" title="Requisitions">Requisitions</a></li>
+<li class="without-image"><a href="/content/94" aria-label="" title="January 2020 Open Enrollment Items">January 2020 Open Enrollment Items</a></li>
+<li class="without-image"><a href="https://www.dol.gov/whd/fmla/forms.htm" title="Family Medical Leave Act Information">Family Medical Leave Act Information</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdrArYpUX_ZoANNTkC-URLG3uq0THqEH5fQw3zwoAFr11vVGQ/viewform" title="Internal Facility Agreement Form">Internal Facility Agreement Form</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdyJL5WpCKMnPpfacJBEBG0c1aZjJT_TT6eFOnGNJfa0lawEw/viewform" title="Field Trip/Transportation Request Form">Field Trip/Transportation Request Form</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSeyWzlKDXLOZ7Ktaxe1nV3iGdAHwzMmyo9cmPIrDPU-l2anEw/viewform" title="Staff Emergency Medical Form">Staff Emergency Medical Form</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-label="" title="Food Service">Food Service  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/4" title="Food Service Department Page">Food Service Department Page</a></li>
+<li class="without-image"><a href="/userfiles/19/my%20files/2019-2020/food%20service/march%20breakfast.pdf?id=847" target="_blank" title="March Breakfast Menu">March Breakfast Menu</a></li>
+<li class="without-image"><a href="/userfiles/19/my%20files/2019-2020/food%20service/elem.mar.20%20(2).pdf?id=848" target="_blank" title="March Elementary Lunch Menu">March Elementary Lunch Menu</a></li>
+<li class="without-image"><a href="/userfiles/19/my%20files/2019-2020/food%20service/jr.hs.mar.20.pdf?id=849" target="_blank" title="March JH/HS Lunch Menus">March JH/HS Lunch Menus</a></li>
+</ul>
+</li>
+</ul>
+<div class="hidden-lg hidden-md hidden-sm">
+                                        <hr>
+<ul class="nav navbar-nav quicklinks">
+<li class="without-image"><a href="/" title="Home"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+<li class="without-image"><a href="/userfiles/19/my%20files/2019-2020%20school%20calendar%20for%20calendar.pdf?id=731" title="2019-2020 District Calendar">2019-2020 District Calendar</a></li>
+<li class="without-image"><a href="/userfiles/19/my%20files/2019-2020/bevsd%202020-2021%20calendar.pdf?id=835" title="2020-2021 School Calendar">2020-2021 School Calendar</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/content/66" title="District Profile">District Profile</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+</ul>
+</div>
+                                </div>
+                            </nav>
+</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+    
+    
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({ effect: 'fade', pauseTime: 3000, prevText: 'Prev', nextText: 'Next', animSpeed: 500   });
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+	});
+</script><div id="slideshow" tabindex="-1">
+	<div class="slides">
+		
+				<img title="Bradford Exempted Village  Schools Front View" alt="Bradford Exempted Village  Schools Front View" src="/images/full//userfiles/2016-08/efef34f7-f8c4-4e4c-a7e0-2c311a3dda30.jpg">
+</div>
+
+	
+</div>
+
+
+    <div class="newsWrapper">
+        
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+    <div class="container home-news">
+        <div class="news-panel">
+            <h1>District News
+            </h1>
+            <div class="news">
+                
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/120">Free Virtual Workshop for Children, Parents and Teachers</a>
+
+				<span class="news-post-date">Posted On: Monday, April 20, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl01_lblSummary" class="news-summary"><p>Best Friend Books is offering a virtual workshop on April 28, 2020 for teachers, parents and children. This workshop will be run from 1-2pm. This free event will provide parents and teachers with the practices for supporting the five areas of social emotional needs that can be understood by children. Each registered adult will be eligible for a drawing to receive a free Best Friend Book.  More information can be found on a flier attached <a href="/userfiles/19/my%20files/2019-2020/combsflyervirtual.pdf?id=936">HERE</a>. </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/118">Bradford Schools Coronavirus Statement update 3/26/2020</a>
+
+				<span class="news-post-date">Posted On: Thursday, March 26, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl02_lblSummary" class="news-summary"><p dir="ltr"><b id="docs-internal-guid-5e256e0c-7fff-e92e-b311-2a0b66ef7553">March 26, 2020</b></p>
+
+<p> </p>
+
+<p dir="ltr"><b id="docs-internal-guid-5e256e0c-7fff-e92e-b311-2a0b66ef7553">Dear Bradford Families,</b></p>
+
+<p dir="ltr"><b id="docs-internal-guid-5e256e0c-7fff-e92e-b311-2a0b66ef7553">In the ever changing situation, we want to continue to update the status of the Bradford EVSD.  As I have said before, the safety of our students and staff is always our top concern. During the past few weeks, our educational process across the district, across the state and across the nation have changed dramatically.  I am proud of our staff and students for the lessons being delivered and completed in a very non traditional manner. While nobody knows when these methods will return to “normal” we continue to try to make the best conditions possible for education.</b></p>
+
+<p> </p>
+
+<p dir="ltr"> </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl02_lnkViewAll" title="Click to read more about: Bradford Schools Coronavirus Statement update 3/26/2020" class="view-all" href="/News/118">Read More <span class="sr-only">about Bradford Schools Coronavirus Statement update 3/26/2020</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/117">Schedule of Operation</a>
+
+				<span class="news-post-date">Posted On: Thursday, March 26, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl03_lblSummary" class="news-summary"><p dir="ltr"><b id="docs-internal-guid-236bc094-7fff-0fcf-9bf7-55c138f2d10a">Schedule of Operation</b></p>
+
+<p> </p>
+
+<p dir="ltr"><b id="docs-internal-guid-236bc094-7fff-0fcf-9bf7-55c138f2d10a">During the time that Governor DeWine has closed schools to students in Ohio (currently through April 3, 2020), the operations of our school have been changed.  We are encouraging our community members to email staff or the needed administrators listed below, mail documents to the school, or leave messages on voicemail.  A complete directory can be found on our website at <a href="http://www.bradford.k12.oh.us">www.bradford.k12.oh.us</a> </b></p>
+
+<p dir="ltr"><b id="docs-internal-guid-236bc094-7fff-0fcf-9bf7-55c138f2d10a">This building is essentially CLOSED, but we will answer questions during regular school hours through the following:</b></p>
+
+<p> </p>
+
+<p dir="ltr"> </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl03_lnkViewAll" title="Click to read more about: Schedule of Operation" class="view-all" href="/News/117">Read More <span class="sr-only">about Schedule of Operation</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/111">Bradford Exempted Village Schools Calendar for 2020-2021</a>
+
+				<span class="news-post-date">Posted On: Tuesday, February 25, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl04_lblSummary" class="news-summary"><p>The calendar for the 2020-2021 school year has been approved. It can be found <a href="/userfiles/19/my%20files/2019-2020/bevsd%202020-2021%20calendar.pdf?id=835">HERE</a>.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl05_lnkTitle" class="news-title" href="/News/109">Spring Sports Fridge Calendar Updated as of 3/12/2020</a>
+
+				<span class="news-post-date">Posted On: Tuesday, February 18, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterMiddleTop_MasterNews_ctl00_rep_news_ctl05_lblSummary" class="news-summary"><p>The Spring Sports Fridge Calendar can be found <a href="/userfiles/19/my%20files/2019-2020/spring%20fridge%202020.docx%20(6).pdf?id=854">HERE!</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+            <a href="/districtNewsArticles.aspx" class="view-all-news">View All News
+            </a>
+            <div class="clr">
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+
+        
+        
+
+        <div class="body-content-container">
+            <div class="masterC alignment-stretch">
+                
+    
+    <div class="featureWrapper">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Twitter
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <div class="btgrid">
+<div class="row row-1">
+<div class="col col-md-12">
+<div class="content">
+<p><a class="twitter-timeline" data-height="500" href="https://twitter.com/BradfordEVSD?ref_src=twsrc%5Etfw">Tweets by BradfordEVSD</a>
+<script async="" charset="utf-8" src="https://platform.twitter.com/widgets.js"></script></p>
+</div>
+</div>
+</div>
+</div>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        SlideShow
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p><iframe allowfullscreen="true" frameborder="0" height="524" mozallowfullscreen="true" src="https://docs.google.com/presentation/d/e/2PACX-1vT_PDzF5CjR5E_zLXUdXC75F1XJTCCwJHrwOGW9dXCkL8aSWW1_2tngwkAfPIk8nDImPpM0ZxejPLr5/embed?start=true&amp;loop=true&amp;delayms=10000" webkitallowfullscreen="true" width="524"></iframe></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-12">
+                    <h1>Upcoming Events
+                    </h1>
+                    
+		<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-14263">
+			<div class="fa fa-calendar"></div>
+
+			<div class="event-date">
+				Apr 27 -<br> May 1
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=14263" title="Wellness Week">
+					Wellness Week
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-14419">
+			<div class="fa fa-calendar"></div>
+
+			<div class="event-date">
+				Apr 30
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=14419" title="Mock Accident">
+					Mock Accident
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				10:00 AM — 2:00 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-13874">
+			<div class="fa fa-calendar"></div>
+
+			<div class="event-date">
+				May 2
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=13874" title="Prom">
+					Prom
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				7:30 PM — 10:30 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-13889">
+			<div class="fa fa-calendar"></div>
+
+			<div class="event-date">
+				May 6
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=13889" title="PTO Meeting">
+					PTO Meeting
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				7:00 PM — 8:00 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-13888">
+			<div class="fa fa-calendar"></div>
+
+			<div class="event-date">
+				May 7
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=13888" title="Grandparents Day">
+					Grandparents Day
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				8:30 AM — 9:30 AM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-13887">
+			<div class="fa fa-calendar"></div>
+
+			<div class="event-date">
+				May 8
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=13887" title="Darke County Special Olympics">
+					Darke County Special Olympics
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		</ul></section><footer><a id="ctl00_ctl00_MasterContent_TopContentSection_ctl02_hl_viewAllEvents" class="view-all-events" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/24/2020">View Full Calendar</a>
+</footer>
+</div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <div class="content-section">
+        <div class="master-content-container">
+            <div class="hidden-xs col-sm-6 col-md-6 col-lg-6 backgroundcolor1">
+                <div class="clearfix panel content homepageleft">
+                    
+                        <h1>Quick Links
+                        </h1>
+                        <ul class="nav navbar-nav quicklinks">
+<li class="without-image"><a href="/" title="Home"><i class="fa fa-home" aria-hidden="true"></i>Home</a></li>
+<li class="without-image"><a href="/userfiles/19/my%20files/2019-2020%20school%20calendar%20for%20calendar.pdf?id=731" title="2019-2020 District Calendar">2019-2020 District Calendar</a></li>
+<li class="without-image"><a href="/userfiles/19/my%20files/2019-2020/bevsd%202020-2021%20calendar.pdf?id=835" title="2020-2021 School Calendar">2020-2021 School Calendar</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/content/66" title="District Profile">District Profile</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+</ul>
+</div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 backgroundcolor2">
+                <div class="clearfix panel content homepageright">
+                    
+    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        About Us
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p><strong>Welcome to Bradford Exempted Village School District and thank you for visiting our website!  This website is one of the tools we will use to improve communication between our staff, parents, students, and the Bradford community.  Our website contains a tremendous amount of information regarding our district and we feel it is a valuable resource.<br><br>
+  </strong></p>
+
+<p style="text-align: center;"><strong><span style="font-size:16px;">School Hours:<br><br>
+Normal Day: 8:10 am -3:10 pm (Building Opens for students at 7:40 am).</span></strong></p>
+
+<p style="text-align: center;"><strong><span style="font-size:16px;">2 Hour Delay: 10:10 am -3:10 pm (Building Opens for students at 9:40 am).</span></strong><br><br><br>
+ </p>
+
+<p><span style="color:#FF8C00;"><span style="font-size: 20px;"><u><strong>Bradford Vision Statement:</strong></u></span></span></p>
+
+<p><strong>Bradford Schools will be a student-centered school of excellence supported by staff, students, parents, and community.</strong></p>
+
+<p> </p>
+
+<p><span style="color:#FF8C00;"><span style="font-size: 20px;"><u><strong>Bradford Mission Statement:</strong></u></span></span></p>
+
+<p><strong>Bradford Schools will:</strong></p>
+
+<ul>
+<li><strong>Keep students at the center of all decisions</strong></li>
+	<li><strong>Gain the support of students, parents, educators, and citizens of the community</strong></li>
+	<li><strong>Provide a safe, high quality learning environment</strong></li>
+	<li><strong>Develop productive, responsible citizens who reach their full potential</strong></li>
+</ul>
+<p> </p>
+
+<p><span style="font-size:20px;"><u><a href="/userfiles/7/my%20files/belief%20statements.pdf?id=213" target="_blank"><span style="color:#FF8C00;"><strong>Bradford Belief Statements: (click here)</strong></span></a></u></span></p>
+
+<p> </p>
+
+<p><strong>Thank you and go Railroaders!</strong></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mapWrapper">
+
+        <div class="mapInfoWrapper">
+            <div class="container">
+                <div class="mapInfo">
+                    <h6>Contact Us
+                    </h6>
+                    
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 footer-address">
+                            <div>
+                                Bradford Exempted Village Schools
+                            </div>
+                            <div>
+                                760 Railroad Ave
+                            </div>
+                            <div>
+                                Bradford,
+					OH
+                                45308
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 footer-address">
+                            <div>
+                                <a href="http://maps.google.com/maps?q=760%20Railroad%20Ave+Bradford+OH+45308">View Map &amp; Directions
+                                </a>
+                            </div>
+                            
+                            <div>
+                                Phone:
+					937-448-2770
+                            </div>
+                            
+                            <div>
+                                Fax:
+					937-448-2493
+                            </div>
+                            
+                            <div>
+                                Email:
+					contact@bradford.k12.oh.us
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+                
+            </div>
+
+            <div class="clr"></div>
+        </div>
+
+        
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="row">
+    
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 contact-us">
+        <div id="footer-logo"></div>
+        <a id="ctl00_ctl00_ctl06_lnkSchoolHome1" class="schoolName hidden-xs" href="/"><div class="schoolNameTop">Bradford</div>
+<div class="schoolNameBottom">Exempted Village Schools</div></a>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 ocn-footer">
+        <div>
+            <style type="text/css">
+                <!-- .ocnAnchor {
+                    font-family: Arial, Helvetica, San-Serif;
+                    font-size: 9pt;
+                    color: #333333;
+                    text-decoration: none;
+                }
+
+                    .ocnAnchor a {
+                        font-family: Arial, Helvetica, San-Serif;
+                        font-size: 9pt;
+                        color: #333333;
+                        text-decoration: none;
+                    }
+
+                        .ocnAnchor a:hover {
+                            text-decoration: underline;
+                            cursor: hand;
+                        }
+                -->
+            </style>
+<table cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse; background: url('https://secure.onecallnow.com/Access/Images/one-call-now-banner-bg-blue.gif') no-repeat;"><tr>
+<td align="left" valign="top" style="padding-top: 2px; padding-bottom: 2px; padding-left: 15px; padding-right: 10px; width: 475px; height: 116px;">
+                        <table cellspacing="0" cellpadding="0" border="0" style="border-collapse: collapse;">
+<tr>
+<td align="left" valign="top" style="height: 82px; width: 160px;"><a title="Click here to visit One Call Now" href="http://www.onecallnow.com/" target="_blank">
+                                    <img src="https://secure.onecallnow.com/Access/Images/one-call-now-banner-logo.gif" style="height: 82px; width: 160px; border-width: 0px;"></a></td>
+                                <td align="center" valign="middle" style="width: 285px; padding-left: 10px; padding-right: 30px;">
+                                    <iframe width="275" height="78" frameborder="0" scrolling="no" marginheight="0" src="https://secure.onecallnow.com/Access/Banner/BannerWrapper.aspx?BT=LHB&amp;EGI=E2AokeiR36UYzlTZHwEJLQ%3d%3d&amp;S=00&amp;L=The+Latest+Message+for+Bradford+Exempted+Village+Schools&amp;F=2&amp;Y=s"></iframe>
+                                </td>
+                            </tr>
+<tr>
+<td align="right" valign="middle" colspan="2" style="padding-top: 10px; padding-bottom: 5px; padding-right: 10px;"><a title="Learn how One Call Now notification services can help you" class="ocnAnchor" rel="nofollow" href="http://www.onecallnow.com/education/public-k12-schools?utm_source=Listen%2BHere%20Banner&amp;utm_medium=Banner%2BWidget&amp;utm_campaign=ADMIN" target="_blank">Learn how One Call Now notification services can help you</a></td>
+                            </tr>
+</table>
+</td>
+                </tr></table>
+</div>
+    </div>
+    <div class="col-lg-4 col-md-4 col-xs-12">
+        <div class=" stay-connected">
+            <h6 class="stay-connected-header">Stay Connected
+        </h6>
+            <div class="row">
+                <div id="social-links" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fa">
+                    
+        <a href="/login.aspx" title="Bradford Exempted Village Schools CMS Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="https://twitter.com/BradfordEVSD" title="Twitter Feed" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter"></i>
+        </a>
+    
+
+                    <div class="clr">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</div>
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-75955204-43', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><div class="footer-branding-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <a href="http://www.schoolpointe.com" target="_blank" class="pull-right" alt="SchoolPointe">
+                                <img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPBlack.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0"><input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0"><input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""><input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,1766 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><!--[if IE 7]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Elk Point-Jefferson School District </title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1043073721">
+<meta name="google-play-app" content="app-id=com.schoolpointe.stayconnected">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="https://cdn.schoolpointe.com/images/apple-touch-icon.jpg">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Stay Connected", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "https://cdn.schoolpointe.com/images/apple-touch-icon.jpg", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><link rel="alternate" type="application/rss+xml" title="Elk Point-Jefferson School District  - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Middle School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Elementary School - News" href="/rssNews.ashx?schoolId=3">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "SD_ElkPointJeffersonSD",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link href="https://fonts.googleapis.com/css?family=Fjalla+One" rel="stylesheet">
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1554479521850">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTI1MTQ2MDg1MA9kFgJmD2QWAmYPZBYEZg9kFgYCAQ9kFgJmD2QWAgIBDxYCHgRUZXh0BSRFbGsgUG9pbnQtSmVmZmVyc29uIFNjaG9vbCBEaXN0cmljdCBkAgIPZBYCAgEPFgIeC18hSXRlbUNvdW50AgMWBmYPZBYCZg8VAgtIaWdoIFNjaG9vbAExZAIBD2QWAmYPFQINTWlkZGxlIFNjaG9vbAEyZAICD2QWAmYPFQIRRWxlbWVudGFyeSBTY2hvb2wBM2QCBA8WAh4EaHJlZgUwL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0xNTU0NDc5NTIxODUwZAIBDxYCHgZhY3Rpb24FAS8WCgIBD2QWBAIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8EBQEwZAIDDw9kFgIfBAUBMGQCBA8PZBYCHwQFATBkAgUPD2QWAh8EBQEwZAIDD2QWBGYPDxYCHgdWaXNpYmxlZ2QWAgIBDxYCHwECARYCZg9kFgJmDxUFDVNjaG9vbCBDbG9zZWQGMDQwMGZmBmZmZmZmZgVBbGVydK8BPHA+UGVyIEdvdmVybm9yJm5ic3A7Tm9lbSYjMzk7cyBhbm5vdW5jZW1lbnQgb24gTW9uZGF5LCBBcHJpbCZuYnNwOzZ0aCwgMjAyMCwgRWxrIFBvaW50LUplZmZlcnNvbiBTY2hvb2wgRGlzdHJpY3Qgd2lsbCBiZSBjbG9zZWQgdGhyb3VnaCB0aGUgcmVtYWluZGVyIG9mIHRoaXMgc2Nob29sIHllYXIuPC9wPmQCAg8PFgIfBWdkFgJmDxYCHwAF0wI8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PGxpPjxzcGFuIGNsYXNzPSdhbGVydERhbmdlckNvbG9yJyBzdHlsZT0nYmFja2dyb3VuZC1jb2xvcjojMDQwMGZmOyBjb2xvcjojZmZmZmZmJz5BbGVydDo8L3NwYW4+IDxzcGFuIGNsYXNzPSdhbGVydFRleHRJbmZvJz48cD5QZXIgR292ZXJub3ImbmJzcDtOb2VtJiMzOTtzIGFubm91bmNlbWVudCBvbiBNb25kYXksIEFwcmlsJm5ic3A7NnRoLCAyMDIwLCBFbGsgUG9pbnQtSmVmZmVyc29uIFNjaG9vbCBEaXN0cmljdCB3aWxsIGJlIGNsb3NlZCB0aHJvdWdoIHRoZSByZW1haW5kZXIgb2YgdGhpcyBzY2hvb2wgeWVhci48L3A+PC9zcGFuPjwvbGk+PC91bD5kAgMPZBYCAgEPZBYCAgEPZBYEAgMPDxYCHwAFygE8c3BhbiBjbGFzcz0ib2JzY3VyZSI+bGluayB0byBob21lIHBhZ2U8L3NwYW4+PHNwYW4gY2xhc3M9InRvcCI+RUxLIFBPSU5ULUpFRkZFUlNPTjwvc3Bhbj48c3BhbiBjbGFzcz0iYm90dG9tIj5TQ0hPT0wgRElTVFJJQ1QgNjEtNzwvc3Bhbj48c3BhbiBjbGFzcz0iYm90dG9tLW1vdHRvIj5TaG93aW5nIHByaWRlLi4uIFRha2luZyBBY3Rpb248L3NwYW4+ZGQCBw8PFgIfAAUkRWxrIFBvaW50LUplZmZlcnNvbiBTY2hvb2wgRGlzdHJpY3QgZGQCBQ9kFgICAQ9kFgQCAQ9kFgJmDxYCHwEC6QEW0gNmD2QWBGYPFQIAHEZyb250IEVudHJhbmNlIG9mIHRoZSBTY2hvb2xkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEwLzA4NDYwOTU3LTdiZjUtNDhmZC04ZWM1LTdlNDIyNWM5MzJiZC5qcGdkAgEPZBYEZg8VAgACUEVkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAzL2MzMDc1MmMzLTU3NTctNDFlMS05OGNlLTQ0NDU1YzlhMTU1MC5qcGdkAgIPZBYEZg8VAgACUEVkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAzLzVhNWU2MDIxLThiMTgtNDk0ZS1hMGQwLWExMDljNDA1NDdmOC5qcGdkAgMPZBYEZg8VAgAQU3RhdGUgUXVhbGlmaWVyc2QCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvNzZmZjNlOTYtZWMxOS00Y2JiLWEzNmYtMDIyZDViNGMxZmNjLmpwZ2QCBA9kFgRmDxUCABBSZWdpb24gV3Jlc3RsaW5nZAIBDxUBPC91c2VyZmlsZXMvMjAyMC0wMi8xN2M2NWM3NC03MGJlLTQ3MTAtODlkZS0xYjdmZjI2YmIzZDUuanBlZ2QCBQ9kFgRmDxUCAAZFZGdhcnNkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyL2MxYzQxMmQ1LWE2ZjctNGM3My04MTZhLTg0MzA3NTViMDgyMi5qcGdkAgYPZBYEZg8VAgAGRWRnYXJzZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi8yNTE0MWZjNy1iZDRiLTRmOTEtYjE1NS1iZWFmMzI1NmUyNmIuanBnZAIHD2QWBGYPFQIABkVkZ2Fyc2QCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvNzk5MjAwM2UtNDU3ZS00ODY1LTkyNjgtN2JlNjMwMmQ0OTgwLmpwZ2QCCA9kFgRmDxUCAAZFZGdhcnNkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyLzI1ODNkNmZhLTU2ZjItNDYxZi05YWU2LTEwMDI0OWJhYWJlYy5qcGdkAgkPZBYEZg8VAgAMU2NpZW5jZSBGYWlyZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi8xODIwNzU3ZC1mZDE1LTQ5ZDUtYjBkYy1kNzUxZTBlNjI5MWYuanBnZAIKD2QWBGYPFQIADFNjaWVuY2UgRmFpcmQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvMzczNjM4M2UtM2YwZS00MDUzLWIxOTEtZjY5MzA4ZDhmYzZhLmpwZ2QCCw9kFgRmDxUCAAxTY2llbmNlIEZhaXJkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyLzZlNWEyY2EwLWVkMWUtNGQzNi1hZGRkLTY5OTlkZmI0ZWI2MS5qcGdkAgwPZBYEZg8VAgAMU2NpZW5jZSBGYWlyZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi8wMDRkZDBmZS0yOTk0LTQ4ZmItYTJiOC1hZGM1Y2Y5MGI5MDcuanBnZAIND2QWBGYPFQIADFNjaWVuY2UgRmFpcmQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvMGFmNGI3YWItZjllNS00NjVlLWE0NTItYzZmZTkxM2I4OGE5LmpwZ2QCDg9kFgRmDxUCAAxTY2llbmNlIEZhaXJkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyLzY0YzYzN2U3LWQ3YmEtNDUzOS05YTdhLWM4ZmVjMjNkMjMzMC5qcGdkAg8PZBYEZg8VAgAMU2NpZW5jZSBGYWlyZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi8xYTM0NTY0ZC1iN2NlLTRkZGUtYjczZS1mMDFkMWMyYjgwMWUuanBnZAIQD2QWBGYPFQIADFNjaWVuY2UgRmFpcmQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvMDk5NTY5YTQtMGQ4Mi00NjM4LThjMzAtZDIzOTJhZjg3YjcxLmpwZ2QCEQ9kFgRmDxUCAAxTY2llbmNlIEZhaXJkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyLzRhZGQ4Yjg1LWU1N2MtNDhhYS1iNjk3LTQwODQxNWZiNjY4ZS5qcGdkAhIPZBYEZg8VAgAMU2NpZW5jZSBGYWlyZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi9kM2M3ODNiMi02ZDY0LTQ1MDMtODlmNS04OWY0MjhlZDhkMmYuanBnZAITD2QWBGYPFQIADFNjaWVuY2UgRmFpcmQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvYmRjZjU3NGItNjdmMy00NTEyLWFmM2QtNjk3OGFiNzhjMmY0LmpwZ2QCFA9kFgRmDxUCAAxTY2llbmNlIEZhaXJkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyLzFiMWM3OTVmLTQwYzQtNGRhMC04NjA5LThmYjE0NTYzZjNiYS5qcGdkAhUPZBYEZg8VAgAMU2NpZW5jZSBGYWlyZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi9iY2ZhODA5MS0yYzFjLTQ2YjctOGJkZC1kMGZlM2QyYmRmY2EuanBnZAIWD2QWBGYPFQIADFNjaWVuY2UgRmFpcmQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvMGQ1YTUwMzgtMjU0OS00NDRkLWE2M2MtYzYwNTVkYjJkMjNiLmpwZ2QCFw9kFgRmDxUCAAxTY2llbmNlIEZhcmlkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyLzhjMWNlYjk4LTNmZWYtNDcwZC05NDE5LWMzYzA4MDA4MTJkMS5qcGdkAhgPZBYEZg8VAgAMU2NpZW5jZSBGYXJpZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi8yYTZmNzcxYy0yYjU4LTQxNWMtYTQwMy05OThmYzUyNzlhMjQuanBnZAIZD2QWBGYPFQIACERydWcgRG9nZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi84Y2MwZjg2ZS02MDMwLTQzNGMtODU0Yy05ZjcyYmQ5ZmU5OTYuanBnZAIaD2QWBGYPFQIACkNob3BzdGlja3NkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyLzZhYTNjM2FkLWQ2NmYtNDk2Ny04ZDllLWViNWU2NTRlYjI0Mi5qcGdkAhsPZBYEZg8VAgAKQ2hvcHN0aWNrc2QCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvZTg2N2E0ODktNDQwZC00MDUwLWE2OTktODk5ZWE1YmQ5NGQyLmpwZ2QCHA9kFgRmDxUCAApDaG9wc3RpY2tzZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi85MzIxY2Y5Ny1lMDY0LTRjMTQtYTIwMi0zNmM3NDRhZGFkYzIuanBnZAIdD2QWBGYPFQIADVN0YXRlIE9uZSBBY3RkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyLzhiYjI1OWNkLThkZTMtNGZkNS05ZGU4LTIxYzE3MWZjMzBhZi5qcGdkAh4PZBYEZg8VAgANU3RhdGUgT25lIEFjdGQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvZDhjNmQzMDUtMDEwNC00NDhjLTk5NDctYjIwYjk0MDY5M2Y5LmpwZ2QCHw9kFgRmDxUCAAs1dGggU2NpZW5jZWQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvNDZmOWFmNmYtN2I5Ny00N2JmLTgzNjctNGZhOTk1ODc4NWU0LmpwZ2QCIA9kFgRmDxUCAAs1dGggU2NpZW5jZWQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvMjBmYjQ5OTQtYWFmNS00NjI0LWI4OGItNzkyYWUwYjQ2ODc3LmpwZ2QCIQ9kFgRmDxUCAAs1dGggU2NpZW5jZWQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvMWUzYWFjY2EtNzlkMC00ZjUzLWFmMmMtYmFkMTkxMGMzN2U4LmpwZ2QCIg9kFgRmDxUCAAkxMDB0aCBEYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyLzFkNWM3MGQ0LTYwZDAtNDNjOS04NjhhLTRjZTA5MzllNWJjZi5qcGdkAiMPZBYEZg8VAgAJMTAwdGggRGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi84NzU2MTkzZS1mYjJhLTQ4MDAtODA0Ny0yNjU5MzRlNGNkNTQuanBnZAIkD2QWBGYPFQIADkNvc21pYyBCb3dsaW5nZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMS8zOGI2ODYxZC1kNDFmLTQyNTgtOTMyMi1jMmY1Y2ZlN2NiMDYuanBnZAIlD2QWBGYPFQIABFNub3dkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAxLzM3MTM5OTE0LTFkOWYtNDU1OS05NzI2LTNlMDU4Y2E2NmE5Yi5qcGdkAiYPZBYEZg8VAgAEU25vd2QCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDEvNzUxNjMzNjktYWYzMS00MmEyLThkYmItYmIyZGUyMWIyZTMwLmpwZ2QCJw9kFgRmDxUCAARTbm93ZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMS9jZDA4MDVkOS03NjQ4LTRhMDQtYmZjMS0xMWNjZGE5MjgxNjEuanBnZAIoD2QWBGYPFQIAC1Zlcm0gQmF0dGxlZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMS8xOTA0MTkyZS01YTQwLTQwODYtOWM5MS03YTY5OThkYWJmOWQuanBnZAIpD2QWBGYPFQIABFNub3dkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAxLzhlZjJhNzUwLTA3M2EtNDRkOS05ZmMyLTA2YjZmMzAwNzQ3OC5qcGdkAioPZBYEZg8VAgAEU25vd2QCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDEvNzIxZjJhZDctYmU3NS00NTVlLWJlNmUtZDY2MThjMzFlOTE1LmpwZ2QCKw9kFgRmDxUCAARTbm93ZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMS9kNDg4MjAzMS05YWNkLTQ4NzctOWY2Mi0wZjUzZTg3YmRiMDIuanBnZAIsD2QWBGYPFQIABFNub3dkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAxLzVjMmY4YzBhLWRkMzMtNDY2MC05ZDIyLTRjMzExNDIzMmYxZi5qcGdkAi0PZBYEZg8VAgAEU25vd2QCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDEvZjBiNGJlOWMtMDEwYS00MmNjLThhNjYtZDc0MDE5N2IyNjAyLmpwZ2QCLg9kFgRmDxUCAARTbm93ZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMS84MWI4MjFlOS1jMDEwLTQzOTgtYjZiNi0wY2VlMjZlZjNjZDQuanBnZAIvD2QWBGYPFQIABFNub3dkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAxLzIyNjYwMmU1LTAwYmEtNDE1MC04MTEyLWYyYWI4OTEyNWQzNy5qcGdkAjAPZBYEZg8VAgAEU25vd2QCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDEvYWM1MzFiZTgtMzVhMi00YTk4LTg5OTMtOTU5ZWMxY2RiN2NjLmpwZ2QCMQ9kFgRmDxUCAAZCYXR0bGVkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAxL2M1NjMyZjQyLTFmOGUtNDQ3Yy1iMDc5LWQ5NjcxNzYwNTZlZC5qcGdkAjIPZBYEZg8VAgAGQmF0dGxlZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMS9lNzg0ZTJiOC02NzdjLTRlZGQtYjNiYi0yOWQ1ZDFjNDJlNmYuanBnZAIzD2QWBGYPFQIABkJhdHRsZWQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDEvYjgwZTNlYzctZjg0NS00NmY5LWJiMjEtM2E4NTY2NDlmMDcxLmpwZ2QCNA9kFgRmDxUCAAZCYXR0bGVkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAxL2JmY2Y1OWVkLWMwNjEtNDE3MS1iZmNmLTcxMDM2ZjMwYzU1NC5qcGdkAjUPZBYEZg8VAgAGQmF0dGxlZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMS8wNDVlOTE5Yi0xOWZlLTQ1YmMtODJhYy05ZWJhOThkNWE2YTYuanBnZAI2D2QWBGYPFQIABkJhdHRsZWQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDEvZTljYWMxMTItZTQ2My00MjM3LWJlNGMtM2E1ZWNjNTZmODcyLmpwZ2QCNw9kFgRmDxUCAAZCYXR0bGVkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAxLzE5ZmJmYWYwLTUzOWEtNDc0Mi1iM2Y0LWQwMDYwZjM3YjBjZS5qcGdkAjgPZBYEZg8VAgAGQmF0dGxlZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMS9hNWE2NWRiMS0wYTVlLTQzOTUtOTJlNy01YjA3NTZhOWI3Y2EuanBnZAI5D2QWBGYPFQIABkJhdHRsZWQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDEvYTkwZGQ2OWQtOGQ4Ni00MDI3LWJkODYtY2YyZjhhN2ZmMzQ0LmpwZ2QCOg9kFgRmDxUCAAZCYXR0bGVkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAxLzc2OGVmYTEzLTlkNjEtNGFjMi04MzgwLTQ0YTdjNWY3ZDYxZC5qcGdkAjsPZBYEZg8VAgAJQ2hyaXN0bWFzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMi8zZWUxNGI4My03YmM4LTQyOWEtYmI4Ni1lOTdmOTI3ZjZiMWEuanBnZAI8D2QWBGYPFQIACTFzdCBHcmFkZWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTIvNzVhOGRiMzctYzQwNi00MzRkLWJmMTctNDMyNWRkMWIwMjIwLmpwZ2QCPQ9kFgRmDxUCAAkxc3QgR3JhZGVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEyLzBmODg4MzhhLTQ3Y2MtNGI3ZC04ZmE1LTM0NzY0ODNiMjFiNy5qcGdkAj4PZBYEZg8VAgANN3RoIENoYW1waW9uc2QCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTIvM2NiZDdjYzQtMGJlNi00YjkyLWJiN2YtNDg2NjQyNmQyZjJjLmpwZ2QCPw9kFgRmDxUCAA44dGggQ29uZmVyZW5jZWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTIvNzg1MDlmN2EtZjI5Zi00MjcwLTk1NTktMzY2NTMxNzFhMTc2LmpwZ2QCQA9kFgRmDxUCAApIUyBDb25jZXJ0ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMi82YzA4MDlhZi01ZTdhLTRiNjQtYTQzMS0wNTFkMjNiNTcxYWYuanBnZAJBD2QWBGYPFQIACkhTIENvbmNlcnRkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEyL2VkODNmMTllLTJmMGYtNGMyYy1iMGI0LTZkNTI3MjJjNTE0NC5qcGdkAkIPZBYEZg8VAgAKSFMgQ29uY2VydGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTIvOTFhNGJhZTgtN2IwMy00NWQ0LTkzMTgtODJiYWE4ZTliZDVkLmpwZ2QCQw9kFgRmDxUCAAJQRWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTIvZDRhMjAwNTUtYWEwZC00N2U0LWFmZWQtYTc0NWEzNjYxNDVhLmpwZ2QCRA9kFgRmDxUCAAJQRWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTIvYmRkNjhjNTUtZjdmZC00ZmRjLWE0MjAtZTMyYzYyMjk5ZDI3LmpwZ2QCRQ9kFgRmDxUCAApNUyBDb25jZXJ0ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMi8xMTY1NGY3Mi04ZDllLTQ2ZGMtOTIwOS05NmU4MjIxZDgwZDguanBnZAJGD2QWBGYPFQIACk1TIENvbmNlcnRkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEyLzg1OGVhMGQ1LWMwZDQtNDY2ZS05ZTg4LWMyNGExZWE3NGY5ZS5qcGdkAkcPZBYEZg8VAgAKTVMgY29uY2VydGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTIvMzUyMjFhNGMtM2JkZi00YWQ5LWFmNmItMzkyNDFlZGUyODJiLmpwZ2QCSA9kFgRmDxUCABFDaHJpc3RtYXMgQ29uY2VydGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTIvNDkyOWQ3MGEtYWJmMi00ODRhLWJkZmEtN2IzY2RlNDExN2I2LmpwZ2QCSQ9kFgRmDxUCABFDaHJpc3RtYXMgQ29uY2VydGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTIvYzZkZGJmZmEtZGRmYS00OGU4LTkxMDctYTAwN2FlYjI3ZWUxLmpwZ2QCSg9kFgRmDxUCABJDaHJpc3RtYXN0IENvbmNlcnRkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEyLzhmZjRlOGQ2LTMxNGQtNGY4OC05YTFmLTk5MWI5ZjU2ZTJlNS5qcGdkAksPZBYEZg8VAgARQ2hyaXN0bWFzIENvbmNlcnRkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEyLzFmZmU2MTczLTAzYzYtNDA5NC1hNTA0LThlMWFjNmZjNDQzNS5qcGdkAkwPZBYEZg8VAgACUEVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExLzQyNjE0NTFjLTY5NWQtNGMwNy04YmQ3LTVlODhiOGFmZDM2Ni5qcGdkAk0PZBYEZg8VAgACUEVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExL2M1NWU5ZTY3LTEwZDktNGFjYy04N2VhLThmZWJjMGQxMTc5Yy5qcGdkAk4PZBYEZg8VAgACUEVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExLzQwNTc0NzZlLWI4YzctNGQ4ZS04ZDY5LWQ5NDc1OGYwNjA0ZC5qcGdkAk8PZBYEZg8VAgAIU3RhdGUgVkJkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExL2U4OGQ4NDBiLWM0NTEtNDRmMC1iZTcyLTU1MDhjYjhiOGM4Zi5qcGdkAlAPZBYEZg8VAgAIU3RhdGUgVkJkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExL2ZjMGY1MjZjLWEyZDItNDVhNy05MWUwLWZjZGE3ODUzMDdkYi5qcGdkAlEPZBYEZg8VAgAIU3RhdGUgVkJkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExLzM5MjhhMTFmLWEwZDUtNGQ1MS1hM2RjLTZlYjUxZDdjYjZlYS5qcGdkAlIPZBYEZg8VAgAQWWVhcnMgb2YgU2VydmljZWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTEvZDE0NmQ1MmItNjQzYy00MDA5LWFkYzYtYzlmYmFlNGI4Mjk5LmpwZ2QCUw9kFgRmDxUCAAhTb2RhayAxNmQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTEvZmI3NzUzZWUtMjk2ZS00NmQxLWJhMWUtOWE5MjZmYWRiMjJjLmpwZ2QCVA9kFgRmDxUCAAlRdWl6IEJvd2xkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExL2ZlZGU1YmI1LTYwNzUtNDI1Ni05MzU4LTlhNmJmMjc2NmNkZi5qcGdkAlUPZBYEZg8VAgAJUXVpeiBCb3dsZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMS9hMDRiMmUwMi00N2ZjLTRiMmItYjAxZC0wNzg1ZmRkY2JhNWIuanBnZAJWD2QWBGYPFQIACVF1aXogQm93bGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTEvMWFjZTU3NGQtYzVmMS00ZjJkLWE1YjEtNWI5OWI0NjM2Y2Q0LmpwZ2QCVw9kFgRmDxUCAAxNaW5pIENvdXJzZXNkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExLzI0ZjE0M2RkLWQ1OWMtNDA5Ny1iNzlkLTVlMDBiMWYzNDZjNy5qcGdkAlgPZBYEZg8VAgAMTWluaSBDb3Vyc2VzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMS81NjU3ODk1Yy1hZmYzLTQ0YjAtYjk3My1kY2ZmNjI0MTY3MTIuanBnZAJZD2QWBGYPFQIADE1pbmkgQ291cnNlc2QCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTEvMjkzYTYxYTEtNTk3MS00YzhiLTkzMDYtZDczMjBhZWQ4ZDFhLmpwZ2QCWg9kFgRmDxUCAAxNaW5pIENvdXJzZXNkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExL2MwZWI0Y2FlLTc5OWQtNDg0ZC1hYjk1LWI5ZmEwYjUxOTVmNS5qcGdkAlsPZBYEZg8VAgAMTWluaSBDb3Vyc2VzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMS9kYzFmZjhjYi0zMTBkLTRjYjItOWVjMS03YjZlNzcwNjM5MmIuanBnZAJcD2QWBGYPFQIADE1pbmkgQ291cnNlc2QCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTEvMGZhYzk5NGYtNWQzMC00MmY3LWFjNTYtMTBkZjU3OWE3MTdjLmpwZ2QCXQ9kFgRmDxUCAAxNaW5pIENvdXJzZXNkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExLzRjNWVlMjY3LTE3NTQtNGJhNS1hNzNmLTk4NWU5NjUyMTRmYy5qcGdkAl4PZBYEZg8VAgAMTWluaSBDb3Vyc2VzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMS8xMTdiZWJlZC05YzhlLTQ5Y2MtYjYyYi0wMTYwZTdmNTNjMmIuanBnZAJfD2QWBGYPFQIACUhhbGxvd2VlbmQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTAvODU3NDc2OTYtZjIzNS00ODE1LWJjYjItOWMzMjA0ODBhMWVjLmpwZ2QCYA9kFgRmDxUCAAlIYWxsb3dlZW5kAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEwLzdkZjE4NmMxLTc1ZDAtNDEwMC04OGQ3LTQ3M2QxOTVkMWYyZS5qcGdkAmEPZBYEZg8VAgAJSGFsbG93ZWVuZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC83ZTM2ODhiNi1lMmQxLTQ1ZmUtYjNiZC0xODEwNzg2NDZiZjMuanBnZAJiD2QWBGYPFQIACUhhbGxvd2VlbmQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTAvZmU2ZTcyZjgtNWQzOS00N2E5LTgxNTgtYWE0NjA4MWI2NWNhLmpwZ2QCYw9kFgRmDxUCAAlIYWxsb3dlZW5kAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEwLzA1ZDc5MGZkLTkxNjYtNGRjNi05ZWM4LWI1NWMxYjk3OWNiYi5qcGdkAmQPZBYEZg8VAgAJSGFsbG93ZWVuZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC82NTI4Y2M1MC0yNDU4LTQyNjktODE2Yy1lMWEwNDg3NTFjYTYuanBnZAJlD2QWBGYPFQIAC01hdGggR3JvdXBzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC9iZTQwZGRjMy04OTBkLTQyZjktOWNmYy1mOTcyNzU5ZTQ1OWMuanBnZAJmD2QWBGYPFQIAC01hdGggR3JvdXBzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC8zOTgyZjhlMy1lYTJhLTQ1NWQtYTZjZC1iOTM0NTZhNmMxNWIuanBnZAJnD2QWBGYPFQIAC01hdGggR3JvdXBzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC8zMDlkY2Y2ZS00MjVhLTQzOWMtOTE4Yy0xYzkxMzVkZmEyMDEuanBnZAJoD2QWBGYPFQIACVBlcCBSYWxseWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTAvZDBkNDZhZjQtYThlMi00ZTYzLTllMzYtZGFhNDQ4MDg3YjQ1LmpwZ2QCaQ9kFgRmDxUCAAlQZXAgUmFsbHlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEwL2JjMjE0MGIwLTA3YWMtNDNiMi1iNDNlLWFjN2U4ZmI3Yzc3Yi5qcGdkAmoPZBYEZg8VAgAJUGVwIFJhbGx5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC8xNWFhYWUyYS1hMTU0LTQ2MDAtYjk2Yy0zNWVhNjk5ZmUyYWEuanBnZAJrD2QWBGYPFQIADkZhbGwgUGVwIFJhbGx5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC83YjE4YTZiOS1iZjQ0LTRkNDktYTEwNi1hYjUyY2Y0M2U4Y2EuanBnZAJsD2QWBGYPFQIACkZhbGwgVm9jYWxkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEwL2IwYzkwMzhjLTY0YTQtNGQ1My1iYTFjLTg2Nzg1ODM5NzA3ZC5qcGdkAm0PZBYEZg8VAgAKRmFsbCBWb2NhbGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTAvZWY0NTQ5MGMtYmM2Yy00NGVkLWFhMjEtNmQ3OTZhODQ3YTFiLmpwZ2QCbg9kFgRmDxUCABNTdGF0ZSBDcm9zcyBDb3VudHJ5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC9mMzE3N2I0Ni05NmE3LTQzZmYtOWYxNy0yOGJmMzMxYWEwYzUuanBnZAJvD2QWBGYPFQIAB0hhdCBEYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEwL2FjMGRlYWQ0LTViYzEtNDFmYy1hN2Y5LTFmYThiM2U4MTdlNS5qcGdkAnAPZBYEZg8VAgAHSGF0IERheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTAvYWMzN2I2NjktZTcwMS00M2NkLTgxMjgtMjBkN2IyMTdiMzE1LmpwZ2QCcQ9kFgRmDxUCAARCYW5kZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC8wM2U5OWI0MC0zODU2LTRkY2ItYjU3Zi01NDQwZjA1NThiZjguanBnZAJyD2QWBGYPFQIAC0pWIEZvb3RiYWxsZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC85MzM4NDk2MS00ZjJkLTQwYzktYmVmMy1iNGU4NTE1NTcxNWEuanBnZAJzD2QWBGYPFQIADDh0aCBHcmFkZSBWQmQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTAvMTBkYzAxMTQtY2Y0ZS00Yzg0LTg3NzQtYjE5NjQ1NmM3YWRmLmpwZ2QCdA9kFgRmDxUCAAk3dGggZ3JhZGVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEwLzI1MDE2Yjc1LWQ0OTItNDYwNC05ZTJhLTJjYmM1MjJlMDQxOC5qcGdkAnUPZBYEZg8VAgALUGlnIHRoZSBQdWdkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEwLzdmNzAyOWQ0LWJkNzYtNDViOS04MjJlLWZiN2QyMDcxYzkwMi5qcGdkAnYPZBYEZg8VAgAJR2FycmV0c29uZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC8zMGY3MDAwZi1mMGI0LTRhZWEtYmMxMy03NzNmMjM0YzRhMmYuanBnZAJ3D2QWBGYPFQIACUdhcnJldHNvbmQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTAvYjc3MmY4N2QtNDk1Mi00OTNmLWJjNzQtYjU3OGI3ZDA2OTg4LmpwZ2QCeA9kFgRmDxUCABNNUyBCYW5kIEAgQmVyZXNmb3JkZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9mYTYzOTIxMi1iZjZjLTQ4ZjAtYjdmMS1mYmI3ZGE4ZjVlMjkuanBnZAJ5D2QWBGYPFQIAFE1TIEJhbmQgYXQgQmVyZXNmb3JkZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS81OWFlYTU5YS02OTdkLTQ0NTgtYWI4Ny1jMTY0MjkwZjJjNWMuanBnZAJ6D2QWBGYPFQIACUJlcmVzZm9yZGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvN2E5OTM4M2UtNGI1OC00NGRiLWJhNDgtNmE3NzVmNmRkNDY3LmpwZ2QCew9kFgRmDxUCAAlCZXJlc2ZvcmRkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2YyNTViZDE3LWU3OTctNDdmYy1iOTNiLWU0MjdmYjI2NTRlZC5qcGdkAnwPZBYEZg8VAgAJQmVyZXNmb3JkZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9mMGNjMDA0NS0zMDllLTRiNDItYmMxZi1mMjgwODcxZTEzZDEuanBnZAJ9D2QWBGYPFQIABUJlcmVzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9hMTgxZjU1MS0yMTE4LTQ4ODUtYTkyMS1mODNiODBlNTRiNWEuanBnZAJ+D2QWBGYPFQIADXZzLiBCZXJlc2ZvcmRkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2M5MWM4ZTE1LWQzMWYtNGZhYy05MWFhLTg4YzY1ODAwZjI0Ni5qcGdkAn8PZBYEZg8VAgAYQmVsbGUgRm91cmNoZSBUb3VybmFtZW50ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9mNGEzMTUzYi04NDQ5LTRlYTAtYmE3ZS05YWJmOTRiZThlMmMuanBnZAKAAQ9kFgRmDxUCAAZQYXJhZGVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2E4NzYyNWMzLTU3NjEtNDEzMi05ZGYzLWVlZjVkYzg5M2E4Yi5qcGdkAoEBD2QWBGYPFQIABlBhcmFkZWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvNDBjNjAwY2QtYzU3Yy00MzE5LWI5ODEtODljYTA4ZGYzNjI4LmpwZ2QCggEPZBYEZg8VAgAGUGFyYWRlZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS80NGYzZDVmYi01ZGQ5LTQ2Y2EtOGQ3NS1lMDJlZjYwMTg5MDMuanBnZAKDAQ9kFgRmDxUCAAZQYXJhZGVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5Lzk3NjJlZWFhLWRlZWItNGU3OS05MDNiLTA0NTc4NWRkZjQ0ZS5qcGdkAoQBD2QWBGYPFQIABlBhcmFkZWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZTY1YWU2MWYtOGVlNi00MTIxLTkwNzMtNWYyNDdiNWVjOWNiLmpwZ2QChQEPZBYEZg8VAgAGUGFyYWRlZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS82MzZiYzNhMi02MmEyLTRhZDktOTJlNC0wOGYwNzcyYjNjMDMuanBnZAKGAQ9kFgRmDxUCAAZQYXJhZGVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2NlMmY2ZjUxLTQ0OTUtNDk0My05MzNhLTI3ZDU5YjZlM2RlYy5qcGdkAocBD2QWBGYPFQIABlBhcmFkZWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvOWZkMDQ3ZTUtMmQwYi00M2FmLWExZWEtMDdhNDMxNTc5Y2YxLmpwZ2QCiAEPZBYEZg8VAgAGUGFyYWRlZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9mNjQ2NzNmYi1lY2E4LTRlNDMtOTBjNy02ZDMyMDNiYTFjMTcuanBnZAKJAQ9kFgRmDxUCAAZQYXJhZGVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzgxOGRjZWI2LTY3MmMtNDc2NC05ZTVjLWQ2YzI1ODQyZmU4Yi5qcGdkAooBD2QWBGYPFQIABlBhcmFkZWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZWJlZWM0ZGQtMDEwYS00MzA4LTg0OWEtNTg2YjMwODZkMDgxLmpwZ2QCiwEPZBYEZg8VAgAGUGFyYWRlZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS8xNWRhMGY0YS00ZDkxLTQwNGMtOWU3NS1mMTg0NGQ0NTIyNzYuanBnZAKMAQ9kFgRmDxUCAAZwYXJhZGVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2Y0ZDAxNDkzLTcyMDMtNDI3Ni1hYWFmLTkyMGY0NDM1NDg5MC5qcGdkAo0BD2QWBGYPFQIABlBhcmFkZWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvMDFkNzFjZjYtYzc1NS00OTVjLThlYTMtNDliNGU2ZWQ5ZmFmLmpwZ2QCjgEPZBYEZg8VAgAGUGFyYWRlZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS84MzcwMjk0Zi0yZmE0LTQxMDAtODlmNi1iMjE3NjEzMmNmMDEuanBnZAKPAQ9kFgRmDxUCAAxXb29kIENhcnZpbmdkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzRmZmQwMjMxLWY1NzQtNDFhMS1hMjg1LWIwNjk0MWZjYzcyYy5qcGdkApABD2QWBGYPFQIADFdvb2QgQ2FydmluZ2QCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvYjFjNzI4M2QtM2M3MS00YzFiLWE3M2ItMDBmNzM0ZjMxYWI5LmpwZ2QCkQEPZBYEZg8VAgAKQ29yb25hdGlvbmQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZDQ4NjY5YzUtNGJmMy00NGRiLWI4ZTEtZjhhYTc5MTExNDZiLmpwZ2QCkgEPZBYEZg8VAgAKQ29yb25hdGlvbmQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvNjgzNjdkMDMtZDBmYi00MWYzLWIzODctZTFlODRjNDQ1YjE4LmpwZ2QCkwEPZBYEZg8VAgAKY29yb25hdGlvbmQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvNDgyYTVlZTMtNDA4My00ZWJmLWExN2MtNDY4OGVhN2MzMTQ1LmpwZ2QClAEPZBYEZg8VAgAKQ29yb25hdGlvbmQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvNGQ5NGU2NzQtZmMzZi00ZDliLTgyYmMtMTgwYWE4ZGFiOTYwLmpwZ2QClQEPZBYEZg8VAgAKQ29yb25hdGlvbmQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvMDEwNjNkMGUtYjRjOC00M2I0LThhNTktZjNiZmNmZTNhOWQwLmpwZ2QClgEPZBYEZg8VAgARSFMgRmxvYXQgYnVpbGRpbmdkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2IxNTBlODE5LWRjOGYtNDI1OC1iMWRmLTQ5ZmQ4NmI4ZjZlOC5qcGdkApcBD2QWBGYPFQIAEUhTIEZsb2F0IEJ1aWxkaW5nZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS83NDY1MWY0NC1mZTM0LTRjZjktOTNiNy02NmRjMTlmZDA4MmQuanBnZAKYAQ9kFgRmDxUCABFIUyBGbG9hdCBCdWlsZGluZ2QCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZTRlNDI3MGItNGQ4Ni00ZTQxLTg3YmUtZGY2MmNiODVkMjI1LmpwZ2QCmQEPZBYEZg8VAgAORmxvYXQgQnVpbGRpbmdkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzUzMGE0MjdmLWIyYzYtNDViNy1iNTEzLTQ4OTFiNjIzMzVkNS5qcGdkApoBD2QWBGYPFQIADkZsb2F0IEJ1aWxkaW5nZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9lZTNmZWIwYy00YjJiLTQ3NDgtODgyNC05NGUwM2Q2YTVjNzQuanBnZAKbAQ9kFgRmDxUCABFNUyBGbG9hdCBCdWlsZGluZ2QCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvNWEyZWQ0MTYtYTBiZi00ZDlkLTg3NTUtZTRkYWE4NGZlNjk0LmpwZ2QCnAEPZBYEZg8VAgAORmxvYXQgQnVpbGRpbmdkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2VlOTI4MjQ5LWZhMzItNDZlMy05MTA4LWIzNDBkYmU5NTY2Ni5qcGdkAp0BD2QWBGYPFQIAClBoaWwgQmFrZXJkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2FhYjMwMThjLTVlZmYtNDRkZC04ZTEwLWU5YTExNTcyNDlhMi5qcGdkAp4BD2QWBGYPFQIAClBoaWwgQmFrZXJkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5Lzg4ZTZlYzIyLWZlZmQtNGIzZC04YjBiLWFmNDZiNDkwM2FkYy5qcGdkAp8BD2QWBGYPFQIAClBoaWwgQmFrZXJkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzgzOGEzYmIzLTg5NTEtNDZiZi1iYjBiLWI4OWI2ZTE5N2U1Mi5qcGdkAqABD2QWBGYPFQIAClBoaWwgQmFrZXJkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzY3YzdjMjU4LTc0NzAtNDUzYi1hMTNkLTg2ODFlMTM3MmYzNy5qcGdkAqEBD2QWBGYPFQIAClBoaWwgQmFrZXJkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2I3MGYzMGFlLWQxZDItNDg4Yi1iZjkwLTU1OWMwMDNlYjJmNC5qcGdkAqIBD2QWBGYPFQIADVZCIEhvbWVjb21pbmdkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2I1ZTBlMDEzLTliNzMtNDdlNi04MGZhLTgxZGQ1NTkxMmNjMi5qcGdkAqMBD2QWBGYPFQIAC01TIEtpY2tiYWxsZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9hOGJlZjdjZS0zODZlLTRjMGUtODJlMC1iMzM4OTA0NjdmMTAuanBnZAKkAQ9kFgRmDxUCAA1WQiBIb21lY29taW5nZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS8xNDEzODhhOS0xY2RhLTRkMDktYmM2Ni03MDY5NzFkNDY4NmUuanBnZAKlAQ9kFgRmDxUCAA1WQiBIb21lY29taW5nZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS8wZWFmMDAxZC05MzM0LTQzOTAtOWUwMC04Y2UyYjM1NDAyZTQuanBnZAKmAQ9kFgRmDxUCAAtNUyBLaWNrYmFsbGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvOTc2ZmJiOGUtNmY0MC00MmNlLWIxMDctNjA5ODY0MjNhYTIzLmpwZ2QCpwEPZBYEZg8VAgALTVMgS2lja2JhbGxkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2ZkYjljZjQzLWIyNDYtNGVkZS1hMjM2LTcxZmY0ZjY4NjQwNC5qcGdkAqgBD2QWBGYPFQIAC01TIEtpY2tiYWxsZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS80YmM5OGNhMC1iMjVhLTRmYTYtYTg3MC1lZTczMzVmODBlZWEuanBnZAKpAQ9kFgRmDxUCAAhNUyBDbGFzc2QCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvNmJlYWQxNDgtMWMzMy00OTlhLWE2ODgtMmU2OTk1ZDRhMTI3LmpwZ2QCqgEPZBYEZg8VAgAITVMgQ2xhc3NkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2ZiMWU4ZDZiLTMxN2MtNDMxNS1hOWVhLWMxN2YyOTJmMmUxZS5qcGdkAqsBD2QWBGYPFQIACE1TIENsYXNzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS8wODA0OGIzZi1mNTViLTQ5MGYtYmFjYS1mZDgwOWEzY2U4ZWIuanBnZAKsAQ9kFgRmDxUCAAhNUyBDbGFzc2QCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvMzVkMTlmNDYtODk0NC00ZjkyLTliNmMtMzEyZTg3OWM1ZTJlLmpwZ2QCrQEPZBYEZg8VAgAITVMgQ2xhc3NkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2QzYjJlNWU1LTMxODctNGVmMi1iZGVhLTM1MjE1ODgxNjE2OS5qcGdkAq4BD2QWBGYPFQIACE1TIENsYXNzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS85NWFhYWYwYy1lMDVmLTRjY2YtYWE5Ni1lNmFhNjUzODA0OGYuanBnZAKvAQ9kFgRmDxUCAAlNUyBDbGFzcyBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzhkN2M0ZjcxLWE5OGItNDVkOS05NTJkLTc0ZTAyZThhNjczNy5qcGdkArABD2QWBGYPFQIACFRodXJzZGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9mNGU2MjRlOC02OGEzLTQxNjYtYTNjZC0xMTAwZjQyYzlmMzcuanBnZAKxAQ9kFgRmDxUCAAhUaHVyc2RheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZDU5Y2NjYTAtMWE5MS00ZDhkLWI2ZGEtMTk5ODg2NDY5NWRjLmpwZ2QCsgEPZBYEZg8VAgAIVGh1cnNkYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2JhN2ZjMjJiLTRmMzctNDU5Yi1iNmFlLTYwMDVjMTAxMzRkOC5qcGdkArMBD2QWBGYPFQIACFRodXJzZGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS85YTljZDczYS1jYWM1LTRlOTEtYTJlYy1iNmU4MDc4ZWI0NTQuanBnZAK0AQ9kFgRmDxUCAAh0aHVyc2RheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZWNiMTgyMzktZmY4ZS00NGU2LWFiMmUtMzZhODFlZGMxMDY5LmpwZ2QCtQEPZBYEZg8VAgAIVGh1cnNkYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzFmZjFmZGIzLTcwMDktNDJjMC04NjdiLThhNjQwMGU3MzhiZC5qcGdkArYBD2QWBGYPFQIACFRodXJzZGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS84YWU0NWVkNS01NDhkLTQ3NmUtOTc2MS1iM2NjZTc3YTMzMzkuanBnZAK3AQ9kFgRmDxUCAAhUaHVyc2RheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvNDZmMjFhZWMtMTZhNi00N2I0LWIyNzMtNGU3OWZmOTZlMTcwLmpwZ2QCuAEPZBYEZg8VAgAUSG9tZWNvbWluZyBXZWRuZXNkYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2M4ZjA0ODU0LTE2ODItNDNiZi1iYmFiLThhYjY1OGU2M2NkMi5qcGdkArkBD2QWBGYPFQIAFEhvbWVjb21pbmcgV2VkbmVzZGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9lZjM3ODYzYS0zYWRkLTQ0MTAtYTRiMy0wNDA3NmExMmU1MGIuanBnZAK6AQ9kFgRmDxUCABRIb21lY29taW5nIFdlZG5lc2RheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvMzM1MzljODAtNDFjOS00NTIyLWFlYWItZmNmNjEwOWQxMWI1LmpwZ2QCuwEPZBYEZg8VAgAUSG9tZWNvbWluZyBXZWRuZXNkYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzZmNDdhNzQyLWNjY2MtNGU2My05NjEwLTRiNTcxZjg3NGRiZi5qcGdkArwBD2QWBGYPFQIACFR3aW4gRGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9iYTQ4OTAwMC04NmU4LTQxMDMtYTRkYS01M2U5MjM4MGQzYzYuanBnZAK9AQ9kFgRmDxUCABFIb21lY29taW5nIE1vbmRheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZTZmNjE5YmYtNTNlYi00OWRlLWEyYzUtYzQzZWM2ZjE1NzI3LmpwZ2QCvgEPZBYEZg8VAgARSG9tZWNvbWluZyBNb25kYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzUxNTdkNGY2LTJkNzYtNDlhZi1iY2MwLTAxNjdmMmUzMTNhYi5qcGdkAr8BD2QWBGYPFQIAEUhvbWVjb21pbmctTW9uZGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS8yMjU3Y2Q1ZC1lMzFlLTRmMDUtYmFjZC1hZThmMDZmZDZiOWYuanBnZALAAQ9kFgRmDxUCABFIb21lY29taW5nLU1vbmRheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZjMzMDI0N2QtOGJhMS00ZWYzLWFkMmUtN2JjNGY5MDA5NmRjLmpwZ2QCwQEPZBYEZg8VAgARSG9tZWNvbWluZy1Nb25kYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzkzZDVmZjI0LWY3MjgtNDY1Zi1iMzE0LTYwMTg2NzI2NzNkNC5qcGdkAsIBD2QWBGYPFQIAEUhvbWVjb21pbmctTW9uZGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS83NDYwODBlMS03ZThmLTQzMzMtYTU4NS0wZmUzZmM0MWY5NmUuanBnZALDAQ9kFgRmDxUCABFIb21lY29taW5nLU1vbmRheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvMjk5NGE1MGEtMWQ5Yy00NDYwLTgzNWEtNGNkNjc5MGE4YzgwLmpwZ2QCxAEPZBYEZg8VAgARSG9tY2VvbWluZy1Nb25kYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzZjMTQ0ZDRiLTA1NzItNDViOS04YTZlLTgyZTQ3NWNlNjUyMy5qcGdkAsUBD2QWBGYPFQIAEUhvbWVjb21pbmctTW9uZGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS81MjgwZDNjMS04NGIzLTRlODgtYTQzYS1lMWUzODdlMWQzMGMuanBnZALGAQ9kFgRmDxUCABFIb21lY29taW5nLU1vbmRheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvMjU0OTgzMTgtZWUxMS00NzBlLTk5NzAtNTJiN2FmNjNkNzkzLmpwZ2QCxwEPZBYEZg8VAgARSG9tZWNvbWluZy1Nb25kYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2ZhYjgyMzNkLTUwN2ItNDUzMC1iNzMyLWJhNDBmN2NjOTYwOS5qcGdkAsgBD2QWBGYPFQIAEUhvbWVjb21pbmctTW9uZGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9lNGY3ZTJiOS02MjI3LTQxMDctYmZkNy01ZTNiYWM3OTgzNmQuanBnZALJAQ9kFgRmDxUCABFIb21lY29taW5nLU1vbmRheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvOWM2NjRmYWQtNzI5Yy00ZTY2LWE3NjAtNTRmYjg0OWE3NzM4LmpwZ2QCygEPZBYEZg8VAgARSG9tZWNvbWluZy1Nb25kYXlkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5L2IyNGNkYWI2LTBhNDctNGZiMi1iNGNjLWJmOWQ1ZmFjMTkzNy5qcGdkAssBD2QWBGYPFQIAEUhvbWVjb21pbmctTW9uZGF5ZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOS9hNDkxNGNmZS0yNmQ4LTRkODUtOGU3Yy1mNGI5YmY1MWRmMzIuanBnZALMAQ9kFgRmDxUCABFIb21lY29taW5nLU1vbmRheWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvMmZjZGY2NDctZmVjYy00NjU3LWIzNmUtZTY0MGE3ZjI4ODVlLmpwZ2QCzQEPZBYEZg8VAgAHSGVsbGluZ2QCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvNGNjMGI1ZDYtY2Y1Yi00OThmLWFlMWMtNDQ2ZTAzMjRhYzMzLmpwZ2QCzgEPZBYEZg8VAgAHRkIgIEJFRWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZTM0NDJiNGQtMjMwZi00OWNhLTgyMTQtMGMzM2NmOTBjN2VjLmpwZ2QCzwEPZBYEZg8VAgAWVkIgdnMuIFNpb3V4IENpdHkgV2VzdGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDgvODkwNjY3ZTQtNDFmYS00ODQwLWI3NmQtYTMxNDM1M2JmODc4LmpwZ2QC0AEPZBYEZg8VAgAWVkIgdnMuIFNpb3V4IENpdHkgV2VzdGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDgvZGZiZTcxMzEtNDU4NC00MDA2LTlhMzAtYTVjYWRkMjEyZmY3LmpwZ2QC0QEPZBYEZg8VAgAQSksgQ2xpZmZvcmQgRWFyc2QCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDgvYjg4Mzc2NjEtOGJkNC00YmFhLWJkYzktODg1ZTgwZTI4MzkwLmpwZ2QC0gEPZBYEZg8VAgAMRm9vdGJhbGwgTUNNZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOC8wNGY2NTVlMC02ZDEwLTQ4ZDgtOTA1ZC1iNTM5MzZhZjVmOTguanBnZALTAQ9kFgRmDxUCAAxGb290YmFsbCBNQ01kAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA4L2I3OWEyNmQ0LThlYTItNDZjOS04ZDRiLTViOTk0YTJhNzExNy5qcGdkAtQBD2QWBGYPFQIADEZvb3RiYWxsIE1DTWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDgvNGU5YmZhYWEtYWZlNC00ZDY3LWFhNzYtZDIyZDhhODgzMmQxLmpwZ2QC1QEPZBYEZg8VAgAMRm9vdGJhbGwgTUNNZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOC81YWRiMjNjOC0zOWQ4LTQyNzUtYWI1Zi0zNzU0OWQ0NWEzYmEuanBnZALWAQ9kFgRmDxUCAAxGb290YmFsbCBNQ01kAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA4L2EwNWE4ZWJiLTM5MWQtNDNjYy04Njk1LTdjZWNlNGJlOTcyOS5qcGdkAtcBD2QWBGYPFQIADEZvb3RiYWxsIE1DTWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDgvZmZiNDZjYjUtZjJhMi00ODZhLTkwNzctNDY5NzNkMDY3NGY0LmpwZ2QC2AEPZBYEZg8VAgAMRm9vdGJhbGwgTUNNZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOC83NGIwZTg4MC0zOWU2LTRkOGEtOGQyZi03OTA0ZjRmZGZjMjUuanBnZALZAQ9kFgRmDxUCAAxGb290YmFsbCBNQ01kAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA4LzQyZGU0NjlmLWRmNTEtNDMwZi05NTQ0LTNmNzgwOWY3ZWFjOC5qcGdkAtoBD2QWBGYPFQIACTNyZCBHcmFkZWQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDgvOTRjYzlhYmYtMDM5MS00MzlmLWIzOWMtMTdjYTIxZjIwNmI1LmpwZ2QC2wEPZBYEZg8VAgAPMXN0IEdyYWRlIENsYXNzZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOC81Y2U1MzBhMS0zN2FkLTQ1OWItOWEwZC01ZDUwMDgwNjY0MTAuanBnZALcAQ9kFgRmDxUCAAkzcmQgR3JhZGVkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA4LzgxMGFkMmZhLTAzMmUtNDFhOC04ZGRkLWVkZGYxODU0ZDk0NS5qcGdkAt0BD2QWBGYPFQIAETFzdCBEYXkgb2YgU2Nob29sZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOC84MmJlOTkwYi1iMGU2LTQzYzAtOWY0OC0yYzUxOWRmNjY3M2YuanBnZALeAQ9kFgRmDxUCABExc3QgRGF5IG9mIFNjaG9vbGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDgvZjczN2M5YzUtY2UwOC00Y2YxLTgyYjgtOThjZGZhNGZhNTE0LmpwZ2QC3wEPZBYEZg8VAgARMXN0IERheSBvZiBTY2hvb2xkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA4LzQxYzljNDUxLTc4NDAtNGM2Ny05MTJhLTEwYTA3NTRlMmY5NS5qcGdkAuABD2QWBGYPFQIAETFzdCBEYXkgb2YgU2Nob29sZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOC82YTQ2MzkzMy0xM2MyLTQyMDMtYjgxYy1mMTdiMjZhY2ZmNDEuanBnZALhAQ9kFgRmDxUCABExc3QgRGF5IG9mIFNjaG9vbGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDgvMTcyMGI2ODEtNDFmNy00MGMyLTgzNDAtOWM0Y2RjZDA3MjA2LmpwZ2QC4gEPZBYEZg8VAgARMXN0IERheSBvZiBTY2hvb2xkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA4LzkyMzc2ZDJhLWE1NjktNDE3ZS05MTgyLWMxNDA1ZDE2ODY2OC5qcGdkAuMBD2QWBGYPFQIAETFzdCBEYXkgb2YgU2Nob29sZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOC85NjQwMjI2NC0xZDQ1LTQ4MmItOWVjMi1lODc0OWJiNDJhODMuanBnZALkAQ9kFgRmDxUCABExc3QgRGF5IG9mIFNjaG9vbGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDgvZmMxNjFkMmYtYzcxZS00ZGJkLWI3NDMtMjljYWJjMzYwZmUwLmpwZ2QC5QEPZBYEZg8VAgARMXN0IERheSBvZiBTY2hvb2xkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA4LzE5NmM0OWNmLTdmNmMtNDMyMy05NGYxLTc4YmVmYTExNTRkYS5qcGdkAuYBD2QWBGYPFQIAETFzdCBEYXkgb2YgU2Nob29sZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOC8zODA4ODNkNi1lODA3LTQ1OGYtYTVkOC1iNWY2MmQ0MGUxMTYuanBnZALnAQ9kFgRmDxUCABExc3QgRGF5IG9mIFNjaG9vbGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDgvY2NkNTYxZDktNTlkOS00YTk3LWJlYTYtZWE2NmUzNDU0OGFlLmpwZ2QC6AEPZBYEZg8VAgARMXN0IERheSBvZiBTY2hvb2xkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA4Lzk0OGRlMjQwLWQ4NjMtNDljMi04ZGNkLTJlNjY2MjZlNWEyNi5qcGdkAgMPZBYGZg8WAh8ABS9XZWxjb21lIHRvIEVsayBQb2ludC1KZWZmZXJzb24gRmVhdHVyZWQgQ29udGVudGQCAQ8WAh8ABdIBPHA+V2VsY29tZSB0byB0aGUgRWxrIFBvaW50LUplZmZlcnNvbiBTY2hvb2wgRGlzdHJpY3Qgd2Vic2l0ZS4gV2UgaG9wZSBvdXIgd2Vic2l0ZSBwcm92aWRlcyB5b3Ugd2l0aCB0aGUgbmVjZXNzYXJ5IGluZm9ybWF0aW9uIHlvdSBuZWVkLiBJZiB5b3UgcmVxdWlyZSBmdXJ0aGVyIGluZm9ybWF0aW9uLCBwbGVhc2UgY2FsbCB1cyBhdCAoNjA1KSAzNTYtNTk1MC48L3A+ZAIDDw8WAh4LTmF2aWdhdGVVcmwFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9MWRkAgkPZBYGAgEPZBYCAgMPZBYGAgEPFgIfAQIGFgwCAQ9kFgJmDxULBDEzMjdjPGRpdiBjbGFzcz0iZXZlbnQteWVhciI+MjAyMDwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LWRheSI+MzA8L2Rpdj48ZGl2IGNsYXNzPSJldmVudC1tb250aCI+QXByPC9kaXY+Qy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTEzMjcWQWxsIFN0YXRlIEphenogQmFuZCAgIBZBbGwgU3RhdGUgSmF6eiBCYW5kICAgBUFwcmlsAjMwE0BCcmFuZG9uIFZhbGxleSwgU0QXODozMCBBTSAmbWRhc2g7IDQ6MzAgUE0TQEJyYW5kb24gVmFsbGV5LCBTRBc4OjMwIEFNICZtZGFzaDsgNDozMCBQTWQCAg9kFgJmDxULBDEzMjhjPGRpdiBjbGFzcz0iZXZlbnQteWVhciI+MjAyMDwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LWRheSI+MDE8L2Rpdj48ZGl2IGNsYXNzPSJldmVudC1tb250aCI+TWF5PC9kaXY+Qy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTEzMjgWQWxsIFN0YXRlIEphenogQmFuZCAgIBZBbGwgU3RhdGUgSmF6eiBCYW5kICAgA01heQExE0BCcmFuZG9uIFZhbGxleSwgU0QXODozMCBBTSAmbWRhc2g7IDQ6MzAgUE0TQEJyYW5kb24gVmFsbGV5LCBTRBc4OjMwIEFNICZtZGFzaDsgNDozMCBQTWQCAw9kFgJmDxULBDEzMjljPGRpdiBjbGFzcz0iZXZlbnQteWVhciI+MjAyMDwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LWRheSI+MDI8L2Rpdj48ZGl2IGNsYXNzPSJldmVudC1tb250aCI+TWF5PC9kaXY+Qy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTEzMjkWQWxsIFN0YXRlIEphenogQmFuZCAgIBZBbGwgU3RhdGUgSmF6eiBCYW5kICAgA01heQEyE0BCcmFuZG9uIFZhbGxleSwgU0QXODozMCBBTSAmbWRhc2g7IDQ6MzAgUE0TQEJyYW5kb24gVmFsbGV5LCBTRBc4OjMwIEFNICZtZGFzaDsgNDozMCBQTWQCBA9kFgJmDxULBDEzNTZjPGRpdiBjbGFzcz0iZXZlbnQteWVhciI+MjAyMDwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LWRheSI+MDI8L2Rpdj48ZGl2IGNsYXNzPSJldmVudC1tb250aCI+TWF5PC9kaXY+Qy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTEzNTYlNS04IE1TIFNvbG8vU21hbGwgRW5zZW1ibGUgQ29udGVzdCAgICU1LTggTVMgU29sby9TbWFsbCBFbnNlbWJsZSBDb250ZXN0ICAgA01heQEyBEBFUEoYODozMCBBTSAmbWRhc2g7IDEyOjMwIFBNBEBFUEoYODozMCBBTSAmbWRhc2g7IDEyOjMwIFBNZAIFD2QWAmYPFQsEMTMzMGM8ZGl2IGNsYXNzPSJldmVudC15ZWFyIj4yMDIwPC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQtZGF5Ij4wNDwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LW1vbnRoIj5NYXk8L2Rpdj5DL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MTMzMBZIaWdoIFNjaG9vbCBDb25jZXJ0ICAgFkhpZ2ggU2Nob29sIENvbmNlcnQgICADTWF5ATQSQE1pZGRsZSBTY2hvb2wgR3ltFzc6MDAgUE0gJm1kYXNoOyA4OjMwIFBNEkBNaWRkbGUgU2Nob29sIEd5bRc3OjAwIFBNICZtZGFzaDsgODozMCBQTWQCBg9kFgJmDxULBDE4NTdjPGRpdiBjbGFzcz0iZXZlbnQteWVhciI+MjAyMDwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LWRheSI+MDU8L2Rpdj48ZGl2IGNsYXNzPSJldmVudC1tb250aCI+TWF5PC9kaXY+Qy9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTE4NTc4VHJhY2s6ICBHaXJscyBWYXJzaXR5IEludml0YXRpb25hbCB2cyBCZXJlc2ZvcmQgKEF3YXkpICA4VHJhY2s6ICBHaXJscyBWYXJzaXR5IEludml0YXRpb25hbCB2cyBCZXJlc2ZvcmQgKEF3YXkpICADTWF5ATUWQEJlcmVzZm9yZCBIaWdoIFNjaG9vbBc0OjAwIFBNICZtZGFzaDsgNDowMCBQTRZAQmVyZXNmb3JkIEhpZ2ggU2Nob29sFzQ6MDAgUE0gJm1kYXNoOyA0OjAwIFBNZAIFDw8WAh8GBSgvY2FsTW9udGhWaWV3LmFzcHg/c2Nob29saWQ9MCZ5PTIwMjAmbT00ZGQCBw8PFgQfBgVFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAmc2Nob29saWQ9MCZ0eXBlcz0mdmlld0RhdGU9NC8yNC8yMDIwHwAFCFZpZXcgQWxsZGQCAw9kFgICAQ9kFgRmDw8WAh8FaGRkAgIPZBYEAgMPFgIfBWhkAgUPFgIfAQIHZAIHD2QWBmYPFgIfAAUQRmVhdHVyZWQgUGljdHVyZWQCAQ8WAh8ABXs8cD48aW1nIGFsdD0iSG9tZSBvZiB0aGUgSHVza2llcyIgc3JjPSIvZG9jcy9kaXN0cmljdC9ob21lLWh1c2tpZXMucG5nP2lkPTM2NyZhbXA7d2lkdGg9MTE3MCIgc3R5bGU9IndpZHRoOiAxMTcwcHg7IiAvPjwvcD5kAgMPDxYCHwYFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9MmRkAg8PZBYKAgMPDxYEHwYFAS8fAAVcPHNwYW4gY2xhc3M9InRvcCI+RUxLIFBPSU5ULUpFRkZFUlNPTjwvc3Bhbj48c3BhbiBjbGFzcz0iYm90dG9tIj5TQ0hPT0wgRElTVFJJQ1QgNjEtNzwvc3Bhbj5kZAIFDw8WAh8ABWk8aSBjbGFzcz0iZmEgZmEtbWFwLW1hcmtlciIgYXJpYS1oaWRkZW49InRydWUiPjwvaT4mbmJzcDsmbmJzcDs0MDIgUy4gRG91Z2xhcyBTdHJlZXQsIEVsayBQb2ludCwgU0QgNTcwMjVkZAIHDw8WAh8ABZIBPGkgY2xhc3M9ImZhIGZhLXBob25lIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PC9pPiBQaG9uZTogNjA1LTM1Ni01OTUwJm5ic3A7Jm5ic3A7Jm5ic3A7PGkgY2xhc3M9ImZhIGZhLWZheCIgYXJpYS1oaWRkZW49IlRydWUiPjwvaT4gRmF4OiA2MDUtMzU2LTU5OTlkZAIJD2QWAmYPFgIfAQIFFgpmD2QWAmYPFQUGL2xvZ2luCUNNUyBMb2dpbgVfc2VsZiY8c3BhbiBjbGFzcz0nb2JzY3VyZSc+Q01TIExvZ2luPC9zcGFuPg1mYSBmYS1zaWduLWluZAIBD2QWAmYPFQUlaHR0cHM6Ly90d2l0dGVyLmNvbS9FcGpTY2hvb2w/bGFuZz1lbgtFUEogVHdpdHRlcgZfYmxhbmskPHNwYW4gY2xhc3M9J29ic2N1cmUnPlR3aXR0ZXI8L3NwYW4+DWZhIGZhLXR3aXR0ZXJkAgIPZBYCZg8VBSpodHRwczovL3d3dy5mYWNlYm9vay5jb20vRVBKU2Nob29sRGlzdHJpY3QoRWxrIFBvaW50LUplZmZlcnNvbiBTY2hvb2wgRGlzdHJpY3QgUGFnZQZfYmxhbmslPHNwYW4gY2xhc3M9J29ic2N1cmUnPkZhY2Vib29rPC9zcGFuPg5mYSBmYS1mYWNlYm9va2QCAw9kFgJmDxUFJmh0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9FUEpBY3Rpdml0aWVzE0VQSiBBY3Rpdml0aWVzIFBhZ2UGX2JsYW5rJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5GYWNlYm9vazwvc3Bhbj4OZmEgZmEtZmFjZWJvb2tkAgQPZBYCZg8VBSVodHRwczovL3d3dy5lcGouazEyLnNkLnVzLy9hZGEtcmVwb3J0DUFEQSBSZXBvcnRpbmcFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBMaW5rPC9zcGFuPhZmYSBmYS11bml2ZXJzYWwtYWNjZXNzZAIND2QWAmYPDxYCHwVoZGRkralyXnRB9je0QanTrMJxQw4k07E=">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+<style type="text/css">
+    .alertdiv,
+    .alertReShow,
+    .alertList {
+        display: none;
+    }
+
+    .alertTab {
+        margin-left: 20px;
+    }
+
+    .alertTitle {
+        display: inline-block;
+        padding: 2px 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    .nextAlert {
+        background: #676767;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .alertCount {
+        position: absolute;
+        left: -115px;
+    }
+
+    .textalert {
+        color: #ffffff;
+        position: relative;
+    }
+
+    .alertBar {
+        z-index: 10;
+        font-weight: normal;
+        background: #373737;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#373737), to(#202020)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#373737, #202020); /* Chrome 10+, Saf5.1+ */
+        background-image: -moz-linear-gradient(#373737, #202020); /* FF3.6 */
+        background-image: -ms-linear-gradient(#373737, #202020); /* IE10 */
+        background-image: -o-linear-gradient(#373737, #202020); /* Opera 11.10+ */
+        background-image: linear-gradient(#373737, #202020);
+    }
+
+    a.closeAlert {
+        color: #fff;
+        font-size: 20px;
+    }
+
+    a.openAlert {
+        color: #fff;
+        font-size: 20px;
+        padding-right: 18px;
+        padding-top: 3px;
+    }
+
+    .alertDangerColor {
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .alertPrefix {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+        margin: 0;
+        border-radius: 3px;
+        font-size: 18px;
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+    .alertText {
+        display: inline-block;
+        width: 100%;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    #alertTicker > .alertTextInfo,
+    #alertTicker > .alertTextInfo > p:first-child, .alertTextInfo > span:first-child{display:inline;}
+    .popExclam {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .dark.alertBar{color:#fff;}
+     .dark.alertBar a{color:#fff; text-decoration:underline;}
+         .light.alertBar a{ text-decoration:underline;}
+        .popExclam i {
+            color: #aa1111 !important;
+            font-size: 55px;
+        }
+        .exclamText{padding-top:15px;}
+        .bottomRightEcxlam{position:fixed;z-index:1001;bottom:55px; right:25px;display:none;}
+</style>
+<!--[if lte IE 9]>
+	<style type="text/css">
+	    .alertBar {
+            background: #202020;
+        }
+	</style>
+<![endif]--><div id="ctl00_ctl00_ctl04_ctl01_bootstrapAlert">
+	
+    <div class="modal" tabindex="-1" role="dialog" id="alertModal" data-id="28" data-notification="False">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                
+
+                
+                        <div class="modal-header clearfix">
+                            <h1 class="modal-title alertTitle">
+                                School Closed
+                            </h1>
+                        </div>
+
+                        <div class="modal-body">
+                                <div class="popExclam">
+<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  </div>
+                                <br><h2 style="background-color: #0400ff; color: #ffffff" class="alertPrefix">
+                                Alert:
+                            </h2>
+
+                            <div class="alertText">
+                                <p>Per Governor Noem's announcement on Monday, April 6th, 2020, Elk Point-Jefferson School District will be closed through the remainder of this school year.</p>
+                            </div>
+                        </div>
+                    
+                
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/admin/js/alert/alertPopUp.js?version=2"></script>
+</div>
+
+
+
+<div id="ctl00_ctl00_ctl04_ctl01_BarAlert">
+	
+    <script>
+        $(document).ready(function () {
+            var startColor = "373737";
+            if (startColor == "ffffff") {
+                $(".alertBar").addClass("light");
+            }
+            else {
+                $(".alertBar").addClass("dark");
+            }
+        });
+
+    </script><div class="alert-margin">
+        <div style="position: relative; padding: 10px 45px 10px 10px;" class="alertdiv alertBar">
+            <div style="max-width: 980px; margin: 0 auto; font-size: 18px" class="textalert">
+                
+
+                <div id="alertTicker" tabindex="0"></div>
+            </div>
+
+            <ul class="alertList"><li>
+<span class="alertDangerColor" style="background-color:#0400ff; color:#ffffff">Alert:</span> <span class="alertTextInfo"><p>Per Governor Noem's announcement on Monday, April 6th, 2020, Elk Point-Jefferson School District will be closed through the remainder of this school year.</p></span>
+</li></ul>
+<div style="position: absolute; right: 20px; top: 5px; z-index: 20;">
+                <a href="javascript:hideAlert()" class="closeAlert">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <span class="obscure">Close alert</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="alertReShow alertBar" style="position: relative; width: 100%; padding: 2px;">
+            <a style="float: right;" href="javascript:loadAlert()" class="openAlert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <span class="obscure">Open alert</span>
+            </a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>
+<div>
+      <a id="exclamationAlert" class="popExclam bottomRightEcxlam"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+</div>
+<script type="text/javascript" src="/admin/js/alert/alertDown.js?version=4"></script><script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'ILxAaM2Kec' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="headerback">
+            <header id="site-head"><div id="DesktopHeader" class="hidden-xs">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-4">
+				<div class="logoContainer clearfix">
+					<a id="ctl00_ctl00_header_header_ctl00_logoLink" class="logo" href="/"><span class="obscure">Logo link to home page</span></a>
+				</div>
+			</div>
+
+			<div class="col-xs-8 text-center">
+				<a id="ctl00_ctl00_header_header_ctl00_nameLink" class="nameLink" href="/"><span class="obscure">link to home page</span><span class="top">ELK POINT-JEFFERSON</span><span class="bottom">SCHOOL DISTRICT 61-7</span><span class="bottom-motto">Showing pride... Taking Action</span></a>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<nav id="topNav"><ul class="">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/BusRules.pdf" target="_blank" title="Bus Rules">Bus Rules</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/Content/mission-vision" title="Mission/Vision Statement">Mission/Vision Statement</a></li>
+<li class="without-image"><a href="/docs/district/negotiated%20agreement%20(2019-20).pdf?id=1308" target="_blank" title="2019-2020 Negotiated Agreement">2019-2020 Negotiated Agreement</a></li>
+<li class="without-image"><a href="/docs/district/standup.jpg?id=550" target="_blank" title="Project StandUp">Project StandUp</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District Info">District Info  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/2019-2020%20calendar.pdf?id=1456" target="_blank" title="2019-2020 School Year Calendar">2019-2020 School Year Calendar</a></li>
+<li class="without-image"><a href="/content/68" title="State Report Cards">State Report Cards</a></li>
+<li class="without-image"><a href="https://www.greatschools.org/gk/sbac-test-guide/" target="_blank" title="Parent Guide to SBAC Testing">Parent Guide to SBAC Testing</a></li>
+<li class="without-image"><a href="/docs/district/epj-auditreport19.pdf?id=1969" target="_blank" aria-label="" title="2019 EPJ Audit Report">2019 EPJ Audit Report</a></li>
+<li class="without-image"><a href="/Content/14" title='"The Husky" Newspaper'>"The Husky" Newspaper</a></li>
+<li class="without-image"><a href="/docs/district/newsletter-2019.pdf?id=1310" target="_blank" title="2019-2020 Newsletter">2019-2020 Newsletter</a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/Wellness_Policy_17-18.pdf" target="_blank" title="Wellness Policy">Wellness Policy</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/District/Forms" title="Public Notices">Public Notices</a></li>
+<li class="without-image"><a href="/docs/district/barriosentryplan.pdf?id=481" target="_blank" title="Supt. Entry Plan">Supt. Entry Plan</a></li>
+<li class="without-image"><a href="http://www.epj.k12.sd.us/docs/district/depts/24/Entry%20Plan%20Final%20Report.pdf" target="_blank" title="Supt. Entry Plan Final Report">Supt. Entry Plan Final Report</a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/epjbrochure1617.pdf" target="_blank" title="School Brochure">School Brochure</a></li>
+<li class="without-image"><a href="/alumni" title="Alumni">Alumni</a></li>
+<li class="without-image"><a href="/Communication" title="E-Communication ">E-Communication </a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="High/Middle School">High/Middle School  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Links-Forms" title="Handbooks, Forms &amp; Info">Handbooks, Forms &amp; Info</a></li>
+<li class="without-image"><a href="/content/hsmsannouncements" title="Announcements">Announcements</a></li>
+<li class="without-image"><a href="/docs/district/schedules/2019-2020%20hs%20schedule.pdf?id=1306" target="_blank" title="High School Class Schedule">High School Class Schedule</a></li>
+<li class="without-image"><a href="/docs/district/schedules/ms-schedule-2018-2019.pdf?id=421" target="_blank" title="Middle School Class Schedule">Middle School Class Schedule</a></li>
+<li class="without-image"><a href="/1/staff" title="High School Staff">High School Staff</a></li>
+<li class="without-image"><a href="/2/staff" title="Middle School Staff">Middle School Staff</a></li>
+<li class="without-image"><a href="/content/18" title="Planbook Parent Views">Planbook Parent Views</a></li>
+<li class="without-image"><a href="/docs/district/18-19-curriculum_guide.pdf?id=1943" target="_blank" aria-label="" title="HS Curriculum Guide">HS Curriculum Guide</a></li>
+<li class="without-image"><a href="/docs/district/2019-2020%20ms-hs%20supply%20list.pdf?id=1301" target="_blank" title="2019-2020 MS/HS Supply List">2019-2020 MS/HS Supply List</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Elementary">Elementary  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/3/Links-Forms" title="Handbooks, Forms &amp; Info">Handbooks, Forms &amp; Info</a></li>
+<li class="without-image"><a href="/content/elemannouncements" title="Announcements">Announcements</a></li>
+<li class="without-image"><a href="/Calendar/3" title="Elem. Calendar">Elem. Calendar</a></li>
+<li class="without-image"><a href="/3/staff" title="Elementary Staff">Elementary Staff</a></li>
+<li class="without-image"><a href="/content/18" title="Planbook Parent Views">Planbook Parent Views</a></li>
+<li class="without-image"><a href="/docs/building/3/2019-2020-elem-supply-list.pdf?id=1299" target="_blank" title="2019-2020 JK-5 Supply List">2019-2020 JK-5 Supply List</a></li>
+<li class="without-image"><a href="https://docs.google.com/spreadsheets/d/1SCspsr6jAJQ-t1FbvUR6uXCDWvj_Fd5I-tTCpByordY/edit?usp=sharing" target="_blank" title="Parent/Teacher Conference Sign-Up">Parent/Teacher Conference Sign-Up</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Activity Info">Activity Info  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.dakota12conference.org/public/genie/261/school/16/" target="_blank" title="Activities Calendar">Activities Calendar</a></li>
+<li class="without-image"><a href="/docs/district/athletics/handbook/epj-activities-handbook-2019-20.pdf?id=1295" target="_blank" title="2019-2020 Activities Handbook">2019-2020 Activities Handbook</a></li>
+<li class="without-image"><a href="/docs/district/athletics/2019-20%20physical%20form.pdf?id=1219" target="_blank" title="Physical Form">Physical Form</a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/PDF%20Forms/Booster-Member-Application-Fillable.pdf" target="_blank" title="EPJ Booster Club Membership Application">EPJ Booster Club Membership Application</a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/FacilityUse_Agreement.pdf" target="_blank" title="Facility Use Agreement">Facility Use Agreement</a></li>
+<li class="without-image"><a href="https://www.fieldtriprequest.com/" target="_blank" title="FieldTripRequest.com">FieldTripRequest.com</a></li>
+<li class="without-image"><a href="http://www.sdhsaa.com/" target="_blank" title="SDHSAA Website">SDHSAA Website</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/32" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/content/12" title="Fine Arts">Fine Arts</a></li>
+<li class="without-image"><a href="/Content/30" title="National Honors Society">National Honors Society</a></li>
+<li class="without-image"><a href="/Content/10" title="Educational Foundation">Educational Foundation</a></li>
+<li class="without-image"><a href="/content/66" title="EPJ PTO">EPJ PTO</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Food Service">Food Service  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/revised%20epj%20fsmc%20rfp%201%202020.pdf?id=1937" target="_blank" aria-label="" title="2020-2021 FSMC RFP ">2020-2021 FSMC RFP </a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/PDF%20Forms/Special_Diet_Form_and_Instructions.pdf" title="Special Diet Form &amp; Instructions">Special Diet Form &amp; Instructions</a></li>
+<li class="without-image"><a href="http://cdn.myschoolmenus.com/instance/2054357/district/21.html" target="_blank" title="Menus">Menus</a></li>
+<li class="without-image"><a href="/Content/22" title="Prices">Prices</a></li>
+<li class="without-image"><a href="/docs/district/free_reduce-meal-application.pdf?id=1304" target="_blank" title="Free/Reduce Meal Application">Free/Reduce Meal Application</a></li>
+<li class="without-image"><a href="/Content/24" title="Civil Rights Public Notification">Civil Rights Public Notification</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/8" title="Guidance">Guidance</a></li>
+<li class="without-image"><a href="/Content/26" title="Library">Library</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Ed. Resources">Ed. Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Accelerated Reader">Accelerated Reader  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.arbookfind.com/UserType.aspx" target="_blank" title="Bookfinder">Bookfinder</a></li>
+<li class="without-image"><a href="https://global-zone50.renaissance-go.com/welcomeportal/742239" target="_blank" title="Renaissance Growth Platform">Renaissance Growth Platform</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="BrainPOP">BrainPOP  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://www.brainpop.com/" target="_blank" title="BrainPOP.com">BrainPOP.com</a></li>
+<li class="without-image"><a href="https://jr.brainpop.com/" target="_blank" title="BrainPop Jr.">BrainPop Jr.</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSeK67yUbdDP1i68y1-mSAUMXmx4mDkN60UCsLk6lQMF57Xt_A/viewform" target="_blank" title="EPJ Bullying Form">EPJ Bullying Form</a></li>
+<li class="without-image"><a href="https://auth.fastbridge.org/login.do" target="_blank" title="Fast Bridge Login">Fast Bridge Login</a></li>
+<li class="without-image"><a href="https://mylearningplan.com" target="_blank" title="Frontline">Frontline</a></li>
+<li class="without-image"><a href="https://accounts.google.com/ServiceLogin?hl=en&amp;continue=https://www.google.com" target="_blank" title="Google Apps">Google Apps</a></li>
+<li class="without-image"><a href="https://sis2.ddncampus.net/campus/elk_point_jefferson.jsp" target="_blank" title="Infinite Campus Login">Infinite Campus Login</a></li>
+<li class="without-image"><a href="https://www.ixl.com/" target="_blank" title="IXL">IXL</a></li>
+<li class="without-image"><a href="https://login.k12.sd.us/adfs/ls/?client-request-id=0a1d3434-cc4c-474b-9835-116ac154c28a&amp;username=&amp;wa=wsignin1.0&amp;wtrealm=urn%3afederation%3aMicrosoftOnline&amp;wctx=estsredirect%3d2%26estsrequest%3drQIIAY2RPW_TQACGc3FqmgiJgopUCQEVYkBIdu7OF9tYYoixE1ynSdOmSpol8tclaeJesJ2G5Bcghqoj6siClJGpYoOxYujcX4CQQIiJkUQsbPAOj975eR5zSETaQ_hnWFhSgJQiwQuW769Ft3JrhNzNVT7b5TeFm4cfG59en4HsAGEx9sVxPAf3e0kyirV8no2TIWMDkVHa9wLRY2GeTZz8OQCXAMzTiizJsqwSrKhSAUsFgolIceBCz_EEqASKQKDqCY4DfUEi1EEUugVHda_SN2rFcdLDS7CoPwt-prOURWFnxOLkjDsBhpdUjdjqmqbei5_T3VKrLnfKsiPFpmsYuslUx6xHU6FSkaUAWVa8P23tefb2s2qBKPJOybSQQaYvnVbbbLS3mV3s-kOr2S7p5n67icNooM9KWzVfaSpqp8k65Sc7ShxNJNSkdRLNGjJRlSFuHErHLtXpZM79l9j3HL8wFLKjC45no-Co719mwNfMdchpq6u5tdRGajP1KwPeriwC3L6XeXDn3aPqyfn3b-sbSupiJW_rdm1LOnCPZzNk1fywePCia3t9zwhHlW6jtDc1d8eTYYKlofVU1dApD055_gsPfvDg1bXUh-y_ql3l1jFE6iKMgOAmUjUoa1hq_wY1" target="_blank" title="K-12 Email Login">K-12 Email Login</a></li>
+<li class="without-image"><a href="https://epjsd.owschools.com/owsoo/login/auth" target="_blank" title="Odysseyware">Odysseyware</a></li>
+<li class="without-image"><a href="https://portal.office.com" target="_blank" title="Office 365">Office 365</a></li>
+<li class="without-image"><a href="https://www.pbisapps.org/Pages/Default.aspx" target="_blank" title="PBISapps.org">PBISapps.org</a></li>
+<li class="without-image"><a href="https://www.planbook.com" target="_blank" title="Planbook.com">Planbook.com</a></li>
+<li class="without-image"><a href="https://www.quia.com/web" target="_blank" title="Quia">Quia</a></li>
+<li class="without-image"><a href="http://library.sd.gov/LIB/ERD/access/complete.aspx#.WL75528rLcc" target="_blank" title="SD State Library">SD State Library</a></li>
+<li class="without-image"><a href="http://successmaker.epj.k12.sd.us/lms/sm.view" target="_blank" title="SuccessMaker">SuccessMaker</a></li>
+<li class="without-image"><a href="https://teachers.rowlandreading.org/teachers/tp2Index.html#login" target="_blank" title="Superkids">Superkids</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSeS5QQHwAOvtd_YKOROey5JAIZFDz7cflGAUGITVrEn97sqmA/viewform?usp=sf_link" target="_blank" title="Tech Assistance Request Form">Tech Assistance Request Form</a></li>
+<li class="without-image"><a href="https://www-k6.thinkcentral.com/ePC/start.do" target="_blank" title="ThinkCentral">ThinkCentral</a></li>
+<li class="without-image"><a href="https://weather.com/weather/today/l/57025:4:US" target="_blank" title="Weather.com">Weather.com</a></li>
+<li class="without-image"><a href="https://wl.sui-online.com/EPJSD" target="_blank" title="Web Link - Staff">Web Link - Staff</a></li>
+<li class="without-image"><a href="http://www.leadercourier-times.com/" target="_blank" title="Leader-Courier">Leader-Courier</a></li>
+<li class="without-image"><a href="http://asbsd.org/" target="_blank" title="STATE: Associated School Board">STATE: Associated School Board</a></li>
+<li class="without-image"><a href="http://doe.sd.gov/" target="_blank" title="STATE: SD Dept. of Ed.">STATE: SD Dept. of Ed.</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community">Community  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://elkpoint.org/" target="_blank" title="City of Elk Point">City of Elk Point</a></li>
+<li class="without-image"><a href="http://www.jeffersonsd.com/" target="_blank" title="City of Jefferson">City of Jefferson</a></li>
+<li class="without-image"><a href="http://elkpoint.org/churches/" target="_blank" title="Elk Point Churches">Elk Point Churches</a></li>
+<li class="without-image"><a href="https://www.daysof59.com/" target="_blank" title="Jefferson Days of '59">Jefferson Days of '59</a></li>
+<li class="without-image"><a href="http://www.epjbsa.com/" target="_blank" title="EPJ Baseball &amp; Softball">EPJ Baseball &amp; Softball</a></li>
+<li class="without-image"><a href="http://elkpoint.org/community-pool/" target="_blank" title="Elk Point Pool">Elk Point Pool</a></li>
+<li class="without-image"><a href="https://www.thepointegolfandeventcenter.com/" target="_blank" title="The Pointe Golf Course &amp; Event Center">The Pointe Golf Course &amp; Event Center</a></li>
+<li class="without-image"><a href="http://www.elkpointedc.biz/index.php" target="_blank" title="Elk Point Economic Development">Elk Point Economic Development</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/at-home-learning" aria-label="" title="At Home Learning">At Home Learning</a></li>
+</ul></nav>
+</div>
+		</div>
+	</div>
+</div>
+
+<div id="MobileHeader" class="hidden-sm hidden-md hidden-lg">
+	<div class="wrap-mobileNavBar clearfix">
+		<a id="ctl00_ctl00_header_header_ctl00_MobileName" class="mobileName" href="/">Elk Point-Jefferson School District </a>
+
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MobileNav">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+			<span class="obscure">toggle menu</span>
+		</button>
+	</div>
+
+	<nav id="MobileNav" class="collapse"><h3>Top Links</h3>
+		<ul class="">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/BusRules.pdf" target="_blank" title="Bus Rules">Bus Rules</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/Content/mission-vision" title="Mission/Vision Statement">Mission/Vision Statement</a></li>
+<li class="without-image"><a href="/docs/district/negotiated%20agreement%20(2019-20).pdf?id=1308" target="_blank" title="2019-2020 Negotiated Agreement">2019-2020 Negotiated Agreement</a></li>
+<li class="without-image"><a href="/docs/district/standup.jpg?id=550" target="_blank" title="Project StandUp">Project StandUp</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District Info">District Info  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/2019-2020%20calendar.pdf?id=1456" target="_blank" title="2019-2020 School Year Calendar">2019-2020 School Year Calendar</a></li>
+<li class="without-image"><a href="/content/68" title="State Report Cards">State Report Cards</a></li>
+<li class="without-image"><a href="https://www.greatschools.org/gk/sbac-test-guide/" target="_blank" title="Parent Guide to SBAC Testing">Parent Guide to SBAC Testing</a></li>
+<li class="without-image"><a href="/docs/district/epj-auditreport19.pdf?id=1969" target="_blank" aria-label="" title="2019 EPJ Audit Report">2019 EPJ Audit Report</a></li>
+<li class="without-image"><a href="/Content/14" title='"The Husky" Newspaper'>"The Husky" Newspaper</a></li>
+<li class="without-image"><a href="/docs/district/newsletter-2019.pdf?id=1310" target="_blank" title="2019-2020 Newsletter">2019-2020 Newsletter</a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/Wellness_Policy_17-18.pdf" target="_blank" title="Wellness Policy">Wellness Policy</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/District/Forms" title="Public Notices">Public Notices</a></li>
+<li class="without-image"><a href="/docs/district/barriosentryplan.pdf?id=481" target="_blank" title="Supt. Entry Plan">Supt. Entry Plan</a></li>
+<li class="without-image"><a href="http://www.epj.k12.sd.us/docs/district/depts/24/Entry%20Plan%20Final%20Report.pdf" target="_blank" title="Supt. Entry Plan Final Report">Supt. Entry Plan Final Report</a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/epjbrochure1617.pdf" target="_blank" title="School Brochure">School Brochure</a></li>
+<li class="without-image"><a href="/alumni" title="Alumni">Alumni</a></li>
+<li class="without-image"><a href="/Communication" title="E-Communication ">E-Communication </a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="High/Middle School">High/Middle School  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Links-Forms" title="Handbooks, Forms &amp; Info">Handbooks, Forms &amp; Info</a></li>
+<li class="without-image"><a href="/content/hsmsannouncements" title="Announcements">Announcements</a></li>
+<li class="without-image"><a href="/docs/district/schedules/2019-2020%20hs%20schedule.pdf?id=1306" target="_blank" title="High School Class Schedule">High School Class Schedule</a></li>
+<li class="without-image"><a href="/docs/district/schedules/ms-schedule-2018-2019.pdf?id=421" target="_blank" title="Middle School Class Schedule">Middle School Class Schedule</a></li>
+<li class="without-image"><a href="/1/staff" title="High School Staff">High School Staff</a></li>
+<li class="without-image"><a href="/2/staff" title="Middle School Staff">Middle School Staff</a></li>
+<li class="without-image"><a href="/content/18" title="Planbook Parent Views">Planbook Parent Views</a></li>
+<li class="without-image"><a href="/docs/district/18-19-curriculum_guide.pdf?id=1943" target="_blank" aria-label="" title="HS Curriculum Guide">HS Curriculum Guide</a></li>
+<li class="without-image"><a href="/docs/district/2019-2020%20ms-hs%20supply%20list.pdf?id=1301" target="_blank" title="2019-2020 MS/HS Supply List">2019-2020 MS/HS Supply List</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Elementary">Elementary  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/3/Links-Forms" title="Handbooks, Forms &amp; Info">Handbooks, Forms &amp; Info</a></li>
+<li class="without-image"><a href="/content/elemannouncements" title="Announcements">Announcements</a></li>
+<li class="without-image"><a href="/Calendar/3" title="Elem. Calendar">Elem. Calendar</a></li>
+<li class="without-image"><a href="/3/staff" title="Elementary Staff">Elementary Staff</a></li>
+<li class="without-image"><a href="/content/18" title="Planbook Parent Views">Planbook Parent Views</a></li>
+<li class="without-image"><a href="/docs/building/3/2019-2020-elem-supply-list.pdf?id=1299" target="_blank" title="2019-2020 JK-5 Supply List">2019-2020 JK-5 Supply List</a></li>
+<li class="without-image"><a href="https://docs.google.com/spreadsheets/d/1SCspsr6jAJQ-t1FbvUR6uXCDWvj_Fd5I-tTCpByordY/edit?usp=sharing" target="_blank" title="Parent/Teacher Conference Sign-Up">Parent/Teacher Conference Sign-Up</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Activity Info">Activity Info  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.dakota12conference.org/public/genie/261/school/16/" target="_blank" title="Activities Calendar">Activities Calendar</a></li>
+<li class="without-image"><a href="/docs/district/athletics/handbook/epj-activities-handbook-2019-20.pdf?id=1295" target="_blank" title="2019-2020 Activities Handbook">2019-2020 Activities Handbook</a></li>
+<li class="without-image"><a href="/docs/district/athletics/2019-20%20physical%20form.pdf?id=1219" target="_blank" title="Physical Form">Physical Form</a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/PDF%20Forms/Booster-Member-Application-Fillable.pdf" target="_blank" title="EPJ Booster Club Membership Application">EPJ Booster Club Membership Application</a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/FacilityUse_Agreement.pdf" target="_blank" title="Facility Use Agreement">Facility Use Agreement</a></li>
+<li class="without-image"><a href="https://www.fieldtriprequest.com/" target="_blank" title="FieldTripRequest.com">FieldTripRequest.com</a></li>
+<li class="without-image"><a href="http://www.sdhsaa.com/" target="_blank" title="SDHSAA Website">SDHSAA Website</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/32" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/content/12" title="Fine Arts">Fine Arts</a></li>
+<li class="without-image"><a href="/Content/30" title="National Honors Society">National Honors Society</a></li>
+<li class="without-image"><a href="/Content/10" title="Educational Foundation">Educational Foundation</a></li>
+<li class="without-image"><a href="/content/66" title="EPJ PTO">EPJ PTO</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Food Service">Food Service  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/revised%20epj%20fsmc%20rfp%201%202020.pdf?id=1937" target="_blank" aria-label="" title="2020-2021 FSMC RFP ">2020-2021 FSMC RFP </a></li>
+<li class="without-image"><a href="http://www.elkpointjeffersonsd.sd.schools.bz/docs/district/PDF%20Forms/Special_Diet_Form_and_Instructions.pdf" title="Special Diet Form &amp; Instructions">Special Diet Form &amp; Instructions</a></li>
+<li class="without-image"><a href="http://cdn.myschoolmenus.com/instance/2054357/district/21.html" target="_blank" title="Menus">Menus</a></li>
+<li class="without-image"><a href="/Content/22" title="Prices">Prices</a></li>
+<li class="without-image"><a href="/docs/district/free_reduce-meal-application.pdf?id=1304" target="_blank" title="Free/Reduce Meal Application">Free/Reduce Meal Application</a></li>
+<li class="without-image"><a href="/Content/24" title="Civil Rights Public Notification">Civil Rights Public Notification</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/8" title="Guidance">Guidance</a></li>
+<li class="without-image"><a href="/Content/26" title="Library">Library</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Ed. Resources">Ed. Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Accelerated Reader">Accelerated Reader  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.arbookfind.com/UserType.aspx" target="_blank" title="Bookfinder">Bookfinder</a></li>
+<li class="without-image"><a href="https://global-zone50.renaissance-go.com/welcomeportal/742239" target="_blank" title="Renaissance Growth Platform">Renaissance Growth Platform</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="BrainPOP">BrainPOP  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://www.brainpop.com/" target="_blank" title="BrainPOP.com">BrainPOP.com</a></li>
+<li class="without-image"><a href="https://jr.brainpop.com/" target="_blank" title="BrainPop Jr.">BrainPop Jr.</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSeK67yUbdDP1i68y1-mSAUMXmx4mDkN60UCsLk6lQMF57Xt_A/viewform" target="_blank" title="EPJ Bullying Form">EPJ Bullying Form</a></li>
+<li class="without-image"><a href="https://auth.fastbridge.org/login.do" target="_blank" title="Fast Bridge Login">Fast Bridge Login</a></li>
+<li class="without-image"><a href="https://mylearningplan.com" target="_blank" title="Frontline">Frontline</a></li>
+<li class="without-image"><a href="https://accounts.google.com/ServiceLogin?hl=en&amp;continue=https://www.google.com" target="_blank" title="Google Apps">Google Apps</a></li>
+<li class="without-image"><a href="https://sis2.ddncampus.net/campus/elk_point_jefferson.jsp" target="_blank" title="Infinite Campus Login">Infinite Campus Login</a></li>
+<li class="without-image"><a href="https://www.ixl.com/" target="_blank" title="IXL">IXL</a></li>
+<li class="without-image"><a href="https://login.k12.sd.us/adfs/ls/?client-request-id=0a1d3434-cc4c-474b-9835-116ac154c28a&amp;username=&amp;wa=wsignin1.0&amp;wtrealm=urn%3afederation%3aMicrosoftOnline&amp;wctx=estsredirect%3d2%26estsrequest%3drQIIAY2RPW_TQACGc3FqmgiJgopUCQEVYkBIdu7OF9tYYoixE1ynSdOmSpol8tclaeJesJ2G5Bcghqoj6siClJGpYoOxYujcX4CQQIiJkUQsbPAOj975eR5zSETaQ_hnWFhSgJQiwQuW769Ft3JrhNzNVT7b5TeFm4cfG59en4HsAGEx9sVxPAf3e0kyirV8no2TIWMDkVHa9wLRY2GeTZz8OQCXAMzTiizJsqwSrKhSAUsFgolIceBCz_EEqASKQKDqCY4DfUEi1EEUugVHda_SN2rFcdLDS7CoPwt-prOURWFnxOLkjDsBhpdUjdjqmqbei5_T3VKrLnfKsiPFpmsYuslUx6xHU6FSkaUAWVa8P23tefb2s2qBKPJOybSQQaYvnVbbbLS3mV3s-kOr2S7p5n67icNooM9KWzVfaSpqp8k65Sc7ShxNJNSkdRLNGjJRlSFuHErHLtXpZM79l9j3HL8wFLKjC45no-Co719mwNfMdchpq6u5tdRGajP1KwPeriwC3L6XeXDn3aPqyfn3b-sbSupiJW_rdm1LOnCPZzNk1fywePCia3t9zwhHlW6jtDc1d8eTYYKlofVU1dApD055_gsPfvDg1bXUh-y_ql3l1jFE6iKMgOAmUjUoa1hq_wY1" target="_blank" title="K-12 Email Login">K-12 Email Login</a></li>
+<li class="without-image"><a href="https://epjsd.owschools.com/owsoo/login/auth" target="_blank" title="Odysseyware">Odysseyware</a></li>
+<li class="without-image"><a href="https://portal.office.com" target="_blank" title="Office 365">Office 365</a></li>
+<li class="without-image"><a href="https://www.pbisapps.org/Pages/Default.aspx" target="_blank" title="PBISapps.org">PBISapps.org</a></li>
+<li class="without-image"><a href="https://www.planbook.com" target="_blank" title="Planbook.com">Planbook.com</a></li>
+<li class="without-image"><a href="https://www.quia.com/web" target="_blank" title="Quia">Quia</a></li>
+<li class="without-image"><a href="http://library.sd.gov/LIB/ERD/access/complete.aspx#.WL75528rLcc" target="_blank" title="SD State Library">SD State Library</a></li>
+<li class="without-image"><a href="http://successmaker.epj.k12.sd.us/lms/sm.view" target="_blank" title="SuccessMaker">SuccessMaker</a></li>
+<li class="without-image"><a href="https://teachers.rowlandreading.org/teachers/tp2Index.html#login" target="_blank" title="Superkids">Superkids</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSeS5QQHwAOvtd_YKOROey5JAIZFDz7cflGAUGITVrEn97sqmA/viewform?usp=sf_link" target="_blank" title="Tech Assistance Request Form">Tech Assistance Request Form</a></li>
+<li class="without-image"><a href="https://www-k6.thinkcentral.com/ePC/start.do" target="_blank" title="ThinkCentral">ThinkCentral</a></li>
+<li class="without-image"><a href="https://weather.com/weather/today/l/57025:4:US" target="_blank" title="Weather.com">Weather.com</a></li>
+<li class="without-image"><a href="https://wl.sui-online.com/EPJSD" target="_blank" title="Web Link - Staff">Web Link - Staff</a></li>
+<li class="without-image"><a href="http://www.leadercourier-times.com/" target="_blank" title="Leader-Courier">Leader-Courier</a></li>
+<li class="without-image"><a href="http://asbsd.org/" target="_blank" title="STATE: Associated School Board">STATE: Associated School Board</a></li>
+<li class="without-image"><a href="http://doe.sd.gov/" target="_blank" title="STATE: SD Dept. of Ed.">STATE: SD Dept. of Ed.</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community">Community  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://elkpoint.org/" target="_blank" title="City of Elk Point">City of Elk Point</a></li>
+<li class="without-image"><a href="http://www.jeffersonsd.com/" target="_blank" title="City of Jefferson">City of Jefferson</a></li>
+<li class="without-image"><a href="http://elkpoint.org/churches/" target="_blank" title="Elk Point Churches">Elk Point Churches</a></li>
+<li class="without-image"><a href="https://www.daysof59.com/" target="_blank" title="Jefferson Days of '59">Jefferson Days of '59</a></li>
+<li class="without-image"><a href="http://www.epjbsa.com/" target="_blank" title="EPJ Baseball &amp; Softball">EPJ Baseball &amp; Softball</a></li>
+<li class="without-image"><a href="http://elkpoint.org/community-pool/" target="_blank" title="Elk Point Pool">Elk Point Pool</a></li>
+<li class="without-image"><a href="https://www.thepointegolfandeventcenter.com/" target="_blank" title="The Pointe Golf Course &amp; Event Center">The Pointe Golf Course &amp; Event Center</a></li>
+<li class="without-image"><a href="http://www.elkpointedc.biz/index.php" target="_blank" title="Elk Point Economic Development">Elk Point Economic Development</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/at-home-learning" aria-label="" title="At Home Learning">At Home Learning</a></li>
+</ul>
+<h3>Quick Links</h3>
+		<ul class="">
+<li class="without-image"><a href="/" title="District Home">District Home</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="https://www.youtube.com/channel/UCA3KILIymtopeihKrnyNGsA" target="_blank" title="Huskies Live Stream">Huskies Live Stream</a></li>
+<li class="without-image"><a href="/docs/district/2019-2020%20calendar.pdf?id=1456" target="_blank" title="2019-2020 Master Calendar">2019-2020 Master Calendar</a></li>
+<li class="without-image"><a href="/docs/district/newsletter-2019.pdf?id=1310" target="_blank" title="2019-2020 Newsletter">2019-2020 Newsletter</a></li>
+<li class="without-image"><a href="https://www.dakota12conference.org/public/genie/261/school/16/" target="_blank" title="Activities Calendar">Activities Calendar</a></li>
+<li class="without-image"><a href="/content/32" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="https://sis2.ddncampus.net/campus/portal/elk_point_jefferson.jsp" target="_blank" title="Student/Parent Campus Portal">Student/Parent Campus Portal</a></li>
+<li class="without-image"><a href="https://sis2.ddncampus.net/campus/elk_point_jefferson.jsp" target="_blank" title="Teacher Infinite Campus">Teacher Infinite Campus</a></li>
+<li class="without-image"><a href="http://cdn.myschoolmenus.com/instance/2054357/district/21.html" target="_blank" title="School Lunch Menu">School Lunch Menu</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+</ul>
+<ul class="">
+<li class="without-image"><a href="/" title="Footer Link Home">Footer Link Home</a></li>
+<li class="without-image"><a href="/Communication" title="Communication Registration">Communication Registration</a></li>
+</ul></nav>
+</div>
+
+	
+
+            </header>
+</div>
+
+        <div class="slideshowback">
+            
+	
+	<div class="slideshow-wrapper">
+		<div class="topGradient"></div>
+
+		<div class="container slide">
+			
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({
+			effect: 'fade',
+			pauseTime: 7000,
+			prevText: 'Prev',
+			nextText: 'Next',
+			animSpeed: 500,
+			afterLoad: function () {
+				if (typeof nivoAfterLoad === 'function' && nivoAfterLoad !== 'undefined') {
+					nivoAfterLoad();
+				}
+			},
+			beforeChange: function () {
+				if (typeof nivoBeforeChange === 'function' && nivoBeforeChange !== 'undefined') {
+					nivoBeforeChange();
+				}
+			},
+			afterChange: function () {
+				if (typeof nivoAfterChange === 'function' && nivoAfterChange !== 'undefined') {
+					nivoAfterChange();
+				}
+			}
+		});
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+		var slider = jQuery('.slides');
+
+		var nivoStartStopControl = jQuery('<div class="nivo-startstopNav"></div>');
+		$('#slideshow').append(nivoStartStopControl);
+        nivoStartStopControl.append('<span tabindex="0" href="#" id="nivoStart" title="Play Slideshow"><span><i class="fa fa-play" aria-hidden="true"></i></span><span class="obscure">play slideshow</span></span> <span tabindex="0" href="#" id="nivoStop" title="Pause Slideshow"><span><i class="fa fa-pause" aria-hidden="true"></i><span class="obscure">stop slideshow</span></span></span>');
+
+		jQuery('#nivoStop').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').stop();
+		});
+
+		jQuery('#nivoStart').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').start();
+		});
+	});
+</script><style type="text/css">
+	.nivo-startstopNav {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		z-index: 3;
+	}
+
+	.nivo-startstopNav .fa {
+		width: 25px;
+		height: 25px;
+		color: #000;
+		background-color: #fff;
+		border-radius: 50%;
+		font-size: 15px;
+		text-align: center;
+		line-height: 25px;
+	}
+
+	.nivo-startstopNav .fa:hover {
+		cursor: pointer;
+	}
+</style>
+<div id="slideshow" class="">
+	<div class="slides">
+		
+				<img title="" alt="Front Entrance of the School" src="/images/full//userfiles/2019-10/08460957-7bf5-48fd-8ec5-7e4225c932bd.jpg"><img title="" alt="PE" src="/images/full//userfiles/2020-03/c30752c3-5757-41e1-98ce-44455c9a1550.jpg"><img title="" alt="PE" src="/images/full//userfiles/2020-03/5a5e6021-8b18-494e-a0d0-a109c40547f8.jpg"><img title="" alt="State Qualifiers" src="/images/full//userfiles/2020-02/76ff3e96-ec19-4cbb-a36f-022d5b4c1fcc.jpg"><img title="" alt="Region Wrestling" src="/images/full//userfiles/2020-02/17c65c74-70be-4710-89de-1b7ff26bb3d5.jpeg"><img title="" alt="Edgars" src="/images/full//userfiles/2020-02/c1c412d5-a6f7-4c73-816a-8430755b0822.jpg"><img title="" alt="Edgars" src="/images/full//userfiles/2020-02/25141fc7-bd4b-4f91-b155-beaf3256e26b.jpg"><img title="" alt="Edgars" src="/images/full//userfiles/2020-02/7992003e-457e-4865-9268-7be6302d4980.jpg"><img title="" alt="Edgars" src="/images/full//userfiles/2020-02/2583d6fa-56f2-461f-9ae6-100249baabec.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/1820757d-fd15-49d5-b0dc-d751e0e6291f.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/3736383e-3f0e-4053-b191-f69308d8fc6a.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/6e5a2ca0-ed1e-4d36-addd-6999dfb4eb61.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/004dd0fe-2994-48fb-a2b8-adc5cf90b907.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/0af4b7ab-f9e5-465e-a452-c6fe913b88a9.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/64c637e7-d7ba-4539-9a7a-c8fec23d2330.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/1a34564d-b7ce-4dde-b73e-f01d1c2b801e.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/099569a4-0d82-4638-8c30-d2392af87b71.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/4add8b85-e57c-48aa-b697-408415fb668e.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/d3c783b2-6d64-4503-89f5-89f428ed8d2f.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/bdcf574b-67f3-4512-af3d-6978ab78c2f4.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/1b1c795f-40c4-4da0-8609-8fb14563f3ba.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/bcfa8091-2c1c-46b7-8bdd-d0fe3d2bdfca.jpg"><img title="" alt="Science Fair" src="/images/full//userfiles/2020-02/0d5a5038-2549-444d-a63c-c6055db2d23b.jpg"><img title="" alt="Science Fari" src="/images/full//userfiles/2020-02/8c1ceb98-3fef-470d-9419-c3c0800812d1.jpg"><img title="" alt="Science Fari" src="/images/full//userfiles/2020-02/2a6f771c-2b58-415c-a403-998fc5279a24.jpg"><img title="" alt="Drug Dog" src="/images/full//userfiles/2020-02/8cc0f86e-6030-434c-854c-9f72bd9fe996.jpg"><img title="" alt="Chopsticks" src="/images/full//userfiles/2020-02/6aa3c3ad-d66f-4967-8d9e-eb5e654eb242.jpg"><img title="" alt="Chopsticks" src="/images/full//userfiles/2020-02/e867a489-440d-4050-a699-899ea5bd94d2.jpg"><img title="" alt="Chopsticks" src="/images/full//userfiles/2020-02/9321cf97-e064-4c14-a202-36c744adadc2.jpg"><img title="" alt="State One Act" src="/images/full//userfiles/2020-02/8bb259cd-8de3-4fd5-9de8-21c171fc30af.jpg"><img title="" alt="State One Act" src="/images/full//userfiles/2020-02/d8c6d305-0104-448c-9947-b20b940693f9.jpg"><img title="" alt="5th Science" src="/images/full//userfiles/2020-02/46f9af6f-7b97-47bf-8367-4fa9958785e4.jpg"><img title="" alt="5th Science" src="/images/full//userfiles/2020-02/20fb4994-aaf5-4624-b88b-792ae0b46877.jpg"><img title="" alt="5th Science" src="/images/full//userfiles/2020-02/1e3aacca-79d0-4f53-af2c-bad1910c37e8.jpg"><img title="" alt="100th Day" src="/images/full//userfiles/2020-02/1d5c70d4-60d0-43c9-868a-4ce0939e5bcf.jpg"><img title="" alt="100th Day" src="/images/full//userfiles/2020-02/8756193e-fb2a-4800-8047-265934e4cd54.jpg"><img title="" alt="Cosmic Bowling" src="/images/full//userfiles/2020-01/38b6861d-d41f-4258-9322-c2f5cfe7cb06.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/37139914-1d9f-4559-9726-3e058ca66a9b.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/75163369-af31-42a2-8dbb-bb2de21b2e30.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/cd0805d9-7648-4a04-bfc1-11ccda928161.jpg"><img title="" alt="Verm Battle" src="/images/full//userfiles/2020-01/1904192e-5a40-4086-9c91-7a6998dabf9d.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/8ef2a750-073a-44d9-9fc2-06b6f3007478.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/721f2ad7-be75-455e-be6e-d6618c31e915.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/d4882031-9acd-4877-9f62-0f53e87bdb02.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/5c2f8c0a-dd33-4660-9d22-4c3114232f1f.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/f0b4be9c-010a-42cc-8a66-d740197b2602.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/81b821e9-c010-4398-b6b6-0cee26ef3cd4.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/226602e5-00ba-4150-8112-f2ab89125d37.jpg"><img title="" alt="Snow" src="/images/full//userfiles/2020-01/ac531be8-35a2-4a98-8993-959ec1cdb7cc.jpg"><img title="" alt="Battle" src="/images/full//userfiles/2020-01/c5632f42-1f8e-447c-b079-d967176056ed.jpg"><img title="" alt="Battle" src="/images/full//userfiles/2020-01/e784e2b8-677c-4edd-b3bb-29d5d1c42e6f.jpg"><img title="" alt="Battle" src="/images/full//userfiles/2020-01/b80e3ec7-f845-46f9-bb21-3a856649f071.jpg"><img title="" alt="Battle" src="/images/full//userfiles/2020-01/bfcf59ed-c061-4171-bfcf-71036f30c554.jpg"><img title="" alt="Battle" src="/images/full//userfiles/2020-01/045e919b-19fe-45bc-82ac-9eba98d5a6a6.jpg"><img title="" alt="Battle" src="/images/full//userfiles/2020-01/e9cac112-e463-4237-be4c-3a5ecc56f872.jpg"><img title="" alt="Battle" src="/images/full//userfiles/2020-01/19fbfaf0-539a-4742-b3f4-d0060f37b0ce.jpg"><img title="" alt="Battle" src="/images/full//userfiles/2020-01/a5a65db1-0a5e-4395-92e7-5b0756a9b7ca.jpg"><img title="" alt="Battle" src="/images/full//userfiles/2020-01/a90dd69d-8d86-4027-bd86-cf2f8a7ff344.jpg"><img title="" alt="Battle" src="/images/full//userfiles/2020-01/768efa13-9d61-4ac2-8380-44a7c5f7d61d.jpg"><img title="" alt="Christmas" src="/images/full//userfiles/2019-12/3ee14b83-7bc8-429a-bb86-e97f927f6b1a.jpg"><img title="" alt="1st Grade" src="/images/full//userfiles/2019-12/75a8db37-c406-434d-bf17-4325dd1b0220.jpg"><img title="" alt="1st Grade" src="/images/full//userfiles/2019-12/0f88838a-47cc-4b7d-8fa5-3476483b21b7.jpg"><img title="" alt="7th Champions" src="/images/full//userfiles/2019-12/3cbd7cc4-0be6-4b92-bb7f-4866426d2f2c.jpg"><img title="" alt="8th Conference" src="/images/full//userfiles/2019-12/78509f7a-f29f-4270-9559-36653171a176.jpg"><img title="" alt="HS Concert" src="/images/full//userfiles/2019-12/6c0809af-5e7a-4b64-a431-051d23b571af.jpg"><img title="" alt="HS Concert" src="/images/full//userfiles/2019-12/ed83f19e-2f0f-4c2c-b0b4-6d52722c5144.jpg"><img title="" alt="HS Concert" src="/images/full//userfiles/2019-12/91a4bae8-7b03-45d4-9318-82baa8e9bd5d.jpg"><img title="" alt="PE" src="/images/full//userfiles/2019-12/d4a20055-aa0d-47e4-afed-a745a366145a.jpg"><img title="" alt="PE" src="/images/full//userfiles/2019-12/bdd68c55-f7fd-4fdc-a420-e32c62299d27.jpg"><img title="" alt="MS Concert" src="/images/full//userfiles/2019-12/11654f72-8d9e-46dc-9209-96e8221d80d8.jpg"><img title="" alt="MS Concert" src="/images/full//userfiles/2019-12/858ea0d5-c0d4-466e-9e88-c24a1ea74f9e.jpg"><img title="" alt="MS concert" src="/images/full//userfiles/2019-12/35221a4c-3bdf-4ad9-af6b-39241ede282b.jpg"><img title="" alt="Christmas Concert" src="/images/full//userfiles/2019-12/4929d70a-abf2-484a-bdfa-7b3cde4117b6.jpg"><img title="" alt="Christmas Concert" src="/images/full//userfiles/2019-12/c6ddbffa-ddfa-48e8-9107-a007aeb27ee1.jpg"><img title="" alt="Christmast Concert" src="/images/full//userfiles/2019-12/8ff4e8d6-314d-4f88-9a1f-991b9f56e2e5.jpg"><img title="" alt="Christmas Concert" src="/images/full//userfiles/2019-12/1ffe6173-03c6-4094-a504-8e1ac6fc4435.jpg"><img title="" alt="PE" src="/images/full//userfiles/2019-11/4261451c-695d-4c07-8bd7-5e88b8afd366.jpg"><img title="" alt="PE" src="/images/full//userfiles/2019-11/c55e9e67-10d9-4acc-87ea-8febc0d1179c.jpg"><img title="" alt="PE" src="/images/full//userfiles/2019-11/4057476e-b8c7-4d8e-8d69-d94758f0604d.jpg"><img title="" alt="State VB" src="/images/full//userfiles/2019-11/e88d840b-c451-44f0-be72-5508cb8b8c8f.jpg"><img title="" alt="State VB" src="/images/full//userfiles/2019-11/fc0f526c-a2d2-45a7-91e0-fcda785307db.jpg"><img title="" alt="State VB" src="/images/full//userfiles/2019-11/3928a11f-a0d5-4d51-a3dc-6eb51d7cb6ea.jpg"><img title="" alt="Years of Service" src="/images/full//userfiles/2019-11/d146d52b-643c-4009-adc6-c9fbae4b8299.jpg"><img title="" alt="Sodak 16" src="/images/full//userfiles/2019-11/fb7753ee-296e-46d1-ba1e-9a926fadb22c.jpg"><img title="" alt="Quiz Bowl" src="/images/full//userfiles/2019-11/fede5bb5-6075-4256-9358-9a6bf2766cdf.jpg"><img title="" alt="Quiz Bowl" src="/images/full//userfiles/2019-11/a04b2e02-47fc-4b2b-b01d-0785fddcba5b.jpg"><img title="" alt="Quiz Bowl" src="/images/full//userfiles/2019-11/1ace574d-c5f1-4f2d-a5b1-5b99b4636cd4.jpg"><img title="" alt="Mini Courses" src="/images/full//userfiles/2019-11/24f143dd-d59c-4097-b79d-5e00b1f346c7.jpg"><img title="" alt="Mini Courses" src="/images/full//userfiles/2019-11/5657895c-aff3-44b0-b973-dcff62416712.jpg"><img title="" alt="Mini Courses" src="/images/full//userfiles/2019-11/293a61a1-5971-4c8b-9306-d7320aed8d1a.jpg"><img title="" alt="Mini Courses" src="/images/full//userfiles/2019-11/c0eb4cae-799d-484d-ab95-b9fa0b5195f5.jpg"><img title="" alt="Mini Courses" src="/images/full//userfiles/2019-11/dc1ff8cb-310d-4cb2-9ec1-7b6e7706392b.jpg"><img title="" alt="Mini Courses" src="/images/full//userfiles/2019-11/0fac994f-5d30-42f7-ac56-10df579a717c.jpg"><img title="" alt="Mini Courses" src="/images/full//userfiles/2019-11/4c5ee267-1754-4ba5-a73f-985e965214fc.jpg"><img title="" alt="Mini Courses" src="/images/full//userfiles/2019-11/117bebed-9c8e-49cc-b62b-0160e7f53c2b.jpg"><img title="" alt="Halloween" src="/images/full//userfiles/2019-10/85747696-f235-4815-bcb2-9c320480a1ec.jpg"><img title="" alt="Halloween" src="/images/full//userfiles/2019-10/7df186c1-75d0-4100-88d7-473d195d1f2e.jpg"><img title="" alt="Halloween" src="/images/full//userfiles/2019-10/7e3688b6-e2d1-45fe-b3bd-181078646bf3.jpg"><img title="" alt="Halloween" src="/images/full//userfiles/2019-10/fe6e72f8-5d39-47a9-8158-aa46081b65ca.jpg"><img title="" alt="Halloween" src="/images/full//userfiles/2019-10/05d790fd-9166-4dc6-9ec8-b55c1b979cbb.jpg"><img title="" alt="Halloween" src="/images/full//userfiles/2019-10/6528cc50-2458-4269-816c-e1a048751ca6.jpg"><img title="" alt="Math Groups" src="/images/full//userfiles/2019-10/be40ddc3-890d-42f9-9cfc-f972759e459c.jpg"><img title="" alt="Math Groups" src="/images/full//userfiles/2019-10/3982f8e3-ea2a-455d-a6cd-b93456a6c15b.jpg"><img title="" alt="Math Groups" src="/images/full//userfiles/2019-10/309dcf6e-425a-439c-918c-1c9135dfa201.jpg"><img title="" alt="Pep Rally" src="/images/full//userfiles/2019-10/d0d46af4-a8e2-4e63-9e36-daa448087b45.jpg"><img title="" alt="Pep Rally" src="/images/full//userfiles/2019-10/bc2140b0-07ac-43b2-b43e-ac7e8fb7c77b.jpg"><img title="" alt="Pep Rally" src="/images/full//userfiles/2019-10/15aaae2a-a154-4600-b96c-35ea699fe2aa.jpg"><img title="" alt="Fall Pep Rally" src="/images/full//userfiles/2019-10/7b18a6b9-bf44-4d49-a106-ab52cf43e8ca.jpg"><img title="" alt="Fall Vocal" src="/images/full//userfiles/2019-10/b0c9038c-64a4-4d53-ba1c-86785839707d.jpg"><img title="" alt="Fall Vocal" src="/images/full//userfiles/2019-10/ef45490c-bc6c-44ed-aa21-6d796a847a1b.jpg"><img title="" alt="State Cross Country" src="/images/full//userfiles/2019-10/f3177b46-96a7-43ff-9f17-28bf331aa0c5.jpg"><img title="" alt="Hat Day" src="/images/full//userfiles/2019-10/ac0dead4-5bc1-41fc-a7f9-1fa8b3e817e5.jpg"><img title="" alt="Hat Day" src="/images/full//userfiles/2019-10/ac37b669-e701-43cd-8128-20d7b217b315.jpg"><img title="" alt="Band" src="/images/full//userfiles/2019-10/03e99b40-3856-4dcb-b57f-5440f0558bf8.jpg"><img title="" alt="JV Football" src="/images/full//userfiles/2019-10/93384961-4f2d-40c9-bef3-b4e85155715a.jpg"><img title="" alt="8th Grade VB" src="/images/full//userfiles/2019-10/10dc0114-cf4e-4c84-8774-b196456c7adf.jpg"><img title="" alt="7th grade" src="/images/full//userfiles/2019-10/25016b75-d492-4604-9e2a-2cbc522e0418.jpg"><img title="" alt="Pig the Pug" src="/images/full//userfiles/2019-10/7f7029d4-bd76-45b9-822e-fb7d2071c902.jpg"><img title="" alt="Garretson" src="/images/full//userfiles/2019-10/30f7000f-f0b4-4aea-bc13-773f234c4a2f.jpg"><img title="" alt="Garretson" src="/images/full//userfiles/2019-10/b772f87d-4952-493f-bc74-b578b7d06988.jpg"><img title="" alt="MS Band @ Beresford" src="/images/full//userfiles/2019-09/fa639212-bf6c-48f0-b7f1-fbb7da8f5e29.jpg"><img title="" alt="MS Band at Beresford" src="/images/full//userfiles/2019-09/59aea59a-697d-4458-ab87-c164290f2c5c.jpg"><img title="" alt="Beresford" src="/images/full//userfiles/2019-09/7a99383e-4b58-44db-ba48-6a775f6dd467.jpg"><img title="" alt="Beresford" src="/images/full//userfiles/2019-09/f255bd17-e797-47fc-b93b-e427fb2654ed.jpg"><img title="" alt="Beresford" src="/images/full//userfiles/2019-09/f0cc0045-309e-4b42-bc1f-f280871e13d1.jpg"><img title="" alt="Beres" src="/images/full//userfiles/2019-09/a181f551-2118-4885-a921-f83b80e54b5a.jpg"><img title="" alt="vs. Beresford" src="/images/full//userfiles/2019-09/c91c8e15-d31f-4fac-91aa-88c65800f246.jpg"><img title="" alt="Belle Fourche Tournament" src="/images/full//userfiles/2019-09/f4a3153b-8449-4ea0-ba7e-9abf94be8e2c.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/a87625c3-5761-4132-9df3-eef5dc893a8b.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/40c600cd-c57c-4319-b981-89ca08df3628.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/44f3d5fb-5dd9-46ca-8d75-e02ef6018903.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/9762eeaa-deeb-4e79-903b-045785ddf44e.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/e65ae61f-8ee6-4121-9073-5f247b5ec9cb.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/636bc3a2-62a2-4ad9-92e4-08f0772b3c03.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/ce2f6f51-4495-4943-933a-27d59b6e3dec.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/9fd047e5-2d0b-43af-a1ea-07a431579cf1.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/f64673fb-eca8-4e43-90c7-6d3203ba1c17.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/818dceb6-672c-4764-9e5c-d6c25842fe8b.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/ebeec4dd-010a-4308-849a-586b3086d081.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/15da0f4a-4d91-404c-9e75-f1844d452276.jpg"><img title="" alt="parade" src="/images/full//userfiles/2019-09/f4d01493-7203-4276-aaaf-920f44354890.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/01d71cf6-c755-495c-8ea3-49b4e6ed9faf.jpg"><img title="" alt="Parade" src="/images/full//userfiles/2019-09/8370294f-2fa4-4100-89f6-b2176132cf01.jpg"><img title="" alt="Wood Carving" src="/images/full//userfiles/2019-09/4ffd0231-f574-41a1-a285-b06941fcc72c.jpg"><img title="" alt="Wood Carving" src="/images/full//userfiles/2019-09/b1c7283d-3c71-4c1b-a73b-00f734f31ab9.jpg"><img title="" alt="Coronation" src="/images/full//userfiles/2019-09/d48669c5-4bf3-44db-b8e1-f8aa7911146b.jpg"><img title="" alt="Coronation" src="/images/full//userfiles/2019-09/68367d03-d0fb-41f3-b387-e1e84c445b18.jpg"><img title="" alt="coronation" src="/images/full//userfiles/2019-09/482a5ee3-4083-4ebf-a17c-4688ea7c3145.jpg"><img title="" alt="Coronation" src="/images/full//userfiles/2019-09/4d94e674-fc3f-4d9b-82bc-180aa8dab960.jpg"><img title="" alt="Coronation" src="/images/full//userfiles/2019-09/01063d0e-b4c8-43b4-8a59-f3bfcfe3a9d0.jpg"><img title="" alt="HS Float building" src="/images/full//userfiles/2019-09/b150e819-dc8f-4258-b1df-49fd86b8f6e8.jpg"><img title="" alt="HS Float Building" src="/images/full//userfiles/2019-09/74651f44-fe34-4cf9-93b7-66dc19fd082d.jpg"><img title="" alt="HS Float Building" src="/images/full//userfiles/2019-09/e4e4270b-4d86-4e41-87be-df62cb85d225.jpg"><img title="" alt="Float Building" src="/images/full//userfiles/2019-09/530a427f-b2c6-45b7-b513-4891b62335d5.jpg"><img title="" alt="Float Building" src="/images/full//userfiles/2019-09/ee3feb0c-4b2b-4748-8824-94e03d6a5c74.jpg"><img title="" alt="MS Float Building" src="/images/full//userfiles/2019-09/5a2ed416-a0bf-4d9d-8755-e4daa84fe694.jpg"><img title="" alt="Float Building" src="/images/full//userfiles/2019-09/ee928249-fa32-46e3-9108-b340dbe95666.jpg"><img title="" alt="Phil Baker" src="/images/full//userfiles/2019-09/aab3018c-5eff-44dd-8e10-e9a1157249a2.jpg"><img title="" alt="Phil Baker" src="/images/full//userfiles/2019-09/88e6ec22-fefd-4b3d-8b0b-af46b4903adc.jpg"><img title="" alt="Phil Baker" src="/images/full//userfiles/2019-09/838a3bb3-8951-46bf-bb0b-b89b6e197e52.jpg"><img title="" alt="Phil Baker" src="/images/full//userfiles/2019-09/67c7c258-7470-453b-a13d-8681e1372f37.jpg"><img title="" alt="Phil Baker" src="/images/full//userfiles/2019-09/b70f30ae-d1d2-488b-bf90-559c003eb2f4.jpg"><img title="" alt="VB Homecoming" src="/images/full//userfiles/2019-09/b5e0e013-9b73-47e6-80fa-81dd55912cc2.jpg"><img title="" alt="MS Kickball" src="/images/full//userfiles/2019-09/a8bef7ce-386e-4c0e-82e0-b33890467f10.jpg"><img title="" alt="VB Homecoming" src="/images/full//userfiles/2019-09/141388a9-1cda-4d09-bc66-706971d4686e.jpg"><img title="" alt="VB Homecoming" src="/images/full//userfiles/2019-09/0eaf001d-9334-4390-9e00-8ce2b35402e4.jpg"><img title="" alt="MS Kickball" src="/images/full//userfiles/2019-09/976fbb8e-6f40-42ce-b107-60986423aa23.jpg"><img title="" alt="MS Kickball" src="/images/full//userfiles/2019-09/fdb9cf43-b246-4ede-a236-71ff4f686404.jpg"><img title="" alt="MS Kickball" src="/images/full//userfiles/2019-09/4bc98ca0-b25a-4fa6-a870-ee7335f80eea.jpg"><img title="" alt="MS Class" src="/images/full//userfiles/2019-09/6bead148-1c33-499a-a688-2e6995d4a127.jpg"><img title="" alt="MS Class" src="/images/full//userfiles/2019-09/fb1e8d6b-317c-4315-a9ea-c17f292f2e1e.jpg"><img title="" alt="MS Class" src="/images/full//userfiles/2019-09/08048b3f-f55b-490f-baca-fd809a3ce8eb.jpg"><img title="" alt="MS Class" src="/images/full//userfiles/2019-09/35d19f46-8944-4f92-9b6c-312e879c5e2e.jpg"><img title="" alt="MS Class" src="/images/full//userfiles/2019-09/d3b2e5e5-3187-4ef2-bdea-352158816169.jpg"><img title="" alt="MS Class" src="/images/full//userfiles/2019-09/95aaaf0c-e05f-4ccf-aa96-e6aa6538048f.jpg"><img title="" alt="MS Class " src="/images/full//userfiles/2019-09/8d7c4f71-a98b-45d9-952d-74e02e8a6737.jpg"><img title="" alt="Thursday" src="/images/full//userfiles/2019-09/f4e624e8-68a3-4166-a3cd-1100f42c9f37.jpg"><img title="" alt="Thursday" src="/images/full//userfiles/2019-09/d59ccca0-1a91-4d8d-b6da-1998864695dc.jpg"><img title="" alt="Thursday" src="/images/full//userfiles/2019-09/ba7fc22b-4f37-459b-b6ae-6005c10134d8.jpg"><img title="" alt="Thursday" src="/images/full//userfiles/2019-09/9a9cd73a-cac5-4e91-a2ec-b6e8078eb454.jpg"><img title="" alt="thursday" src="/images/full//userfiles/2019-09/ecb18239-ff8e-44e6-ab2e-36a81edc1069.jpg"><img title="" alt="Thursday" src="/images/full//userfiles/2019-09/1ff1fdb3-7009-42c0-867b-8a6400e738bd.jpg"><img title="" alt="Thursday" src="/images/full//userfiles/2019-09/8ae45ed5-548d-476e-9761-b3cce77a3339.jpg"><img title="" alt="Thursday" src="/images/full//userfiles/2019-09/46f21aec-16a6-47b4-b273-4e79ff96e170.jpg"><img title="" alt="Homecoming Wednesday" src="/images/full//userfiles/2019-09/c8f04854-1682-43bf-bbab-8ab658e63cd2.jpg"><img title="" alt="Homecoming Wednesday" src="/images/full//userfiles/2019-09/ef37863a-3add-4410-a4b3-04076a12e50b.jpg"><img title="" alt="Homecoming Wednesday" src="/images/full//userfiles/2019-09/33539c80-41c9-4522-aeab-fcf6109d11b5.jpg"><img title="" alt="Homecoming Wednesday" src="/images/full//userfiles/2019-09/6f47a742-cccc-4e63-9610-4b571f874dbf.jpg"><img title="" alt="Twin Day" src="/images/full//userfiles/2019-09/ba489000-86e8-4103-a4da-53e92380d3c6.jpg"><img title="" alt="Homecoming Monday" src="/images/full//userfiles/2019-09/e6f619bf-53eb-49de-a2c5-c43ec6f15727.jpg"><img title="" alt="Homecoming Monday" src="/images/full//userfiles/2019-09/5157d4f6-2d76-49af-bcc0-0167f2e313ab.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/2257cd5d-e31e-4f05-bacd-ae8f06fd6b9f.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/f330247d-8ba1-4ef3-ad2e-7bc4f90096dc.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/93d5ff24-f728-465f-b314-6018672673d4.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/746080e1-7e8f-4333-a585-0fe3fc41f96e.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/2994a50a-1d9c-4460-835a-4cd6790a8c80.jpg"><img title="" alt="Homceoming-Monday" src="/images/full//userfiles/2019-09/6c144d4b-0572-45b9-8a6e-82e475ce6523.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/5280d3c1-84b3-4e88-a43a-e1e387e1d30c.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/25498318-ee11-470e-9970-52b7af63d793.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/fab8233d-507b-4530-b732-ba40f7cc9609.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/e4f7e2b9-6227-4107-bfd7-5e3bac79836d.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/9c664fad-729c-4e66-a760-54fb849a7738.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/b24cdab6-0a47-4fb2-b4cc-bf9d5fac1937.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/a4914cfe-26d8-4d85-8e7c-f4b9bf51df32.jpg"><img title="" alt="Homecoming-Monday" src="/images/full//userfiles/2019-09/2fcdf647-fecc-4657-b36e-e640a7f2885e.jpg"><img title="" alt="Helling" src="/images/full//userfiles/2019-09/4cc0b5d6-cf5b-498f-ae1c-446e0324ac33.jpg"><img title="" alt="FB  BEE" src="/images/full//userfiles/2019-09/e3442b4d-230f-49ca-8214-0c33cf90c7ec.jpg"><img title="" alt="VB vs. Sioux City West" src="/images/full//userfiles/2019-08/890667e4-41fa-4840-b76d-a314353bf878.jpg"><img title="" alt="VB vs. Sioux City West" src="/images/full//userfiles/2019-08/dfbe7131-4584-4006-9a30-a5cadd212ff7.jpg"><img title="" alt="JK Clifford Ears" src="/images/full//userfiles/2019-08/b8837661-8bd4-4baa-bdc9-885e80e28390.jpg"><img title="" alt="Football MCM" src="/images/full//userfiles/2019-08/04f655e0-6d10-48d8-905d-b53936af5f98.jpg"><img title="" alt="Football MCM" src="/images/full//userfiles/2019-08/b79a26d4-8ea2-46c9-8d4b-5b994a2a7117.jpg"><img title="" alt="Football MCM" src="/images/full//userfiles/2019-08/4e9bfaaa-afe4-4d67-aa76-d22d8a8832d1.jpg"><img title="" alt="Football MCM" src="/images/full//userfiles/2019-08/5adb23c8-39d8-4275-ab5f-37549d45a3ba.jpg"><img title="" alt="Football MCM" src="/images/full//userfiles/2019-08/a05a8ebb-391d-43cc-8695-7cece4be9729.jpg"><img title="" alt="Football MCM" src="/images/full//userfiles/2019-08/ffb46cb5-f2a2-486a-9077-46973d0674f4.jpg"><img title="" alt="Football MCM" src="/images/full//userfiles/2019-08/74b0e880-39e6-4d8a-8d2f-7904f4fdfc25.jpg"><img title="" alt="Football MCM" src="/images/full//userfiles/2019-08/42de469f-df51-430f-9544-3f7809f7eac8.jpg"><img title="" alt="3rd Grade" src="/images/full//userfiles/2019-08/94cc9abf-0391-439f-b39c-17ca21f206b5.jpg"><img title="" alt="1st Grade Class" src="/images/full//userfiles/2019-08/5ce530a1-37ad-459b-9a0d-5d5008066410.jpg"><img title="" alt="3rd Grade" src="/images/full//userfiles/2019-08/810ad2fa-032e-41a8-8ddd-eddf1854d945.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/82be990b-b0e6-43c0-9f48-2c519df6673f.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/f737c9c5-ce08-4cf1-82b8-98cdfa4fa514.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/41c9c451-7840-4c67-912a-10a0754e2f95.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/6a463933-13c2-4203-b81c-f17b26acff41.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/1720b681-41f7-40c2-8340-9c4cdcd07206.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/92376d2a-a569-417e-9182-c1405d168668.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/96402264-1d45-482b-9ec2-e8749bb42a83.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/fc161d2f-c71e-4dbd-b743-29cabc360fe0.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/196c49cf-7f6c-4323-94f1-78befa1154da.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/380883d6-e807-458f-a5d8-b5f62d40e116.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/ccd561d9-59d9-4a97-bea6-ea66e34548ae.jpg"><img title="" alt="1st Day of School" src="/images/full//userfiles/2019-08/948de240-d863-49c2-8dcd-2e66626e5a26.jpg">
+</div>
+	
+	<img src="/userfiles/-2/My%20Files/Outline-grey.png?id=12" class="slideshow-overlay" alt="Slideshow overlay image">
+</div>
+
+
+			<img src="/userfiles/-2/My%20Files/Shadow.png?id=8" alt="large shadow" style="margin-top: -15px;" class="slideshow-shadow-home"><svg id="grabSVG" xmlns="http://www.w3.org/2000/svg" style="position: absolute;"><clippath id="myClip"><polygon style="fill: transparent; stroke: purple; stroke-width: 1" points="0 0 0 472 586 568 1172 472 1172 0 0 0"></polygon></clippath></svg><div class="feature-content belowSlideshowFeature">
+    
+    <h1 class="feature-content-title title">
+        Welcome to Elk Point-Jefferson Featured Content
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>Welcome to the Elk Point-Jefferson School District website. We hope our website provides you with the necessary information you need. If you require further information, please call us at (605) 356-5950.</p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			var polygon = $('#myClip>polygon');
+			$('#grabSVG').appendTo($('#slideshow .slides'));
+
+			$(window).resize(function () {
+				var width = $('#slideshow').width();
+				var height = $('#slideshow').height();
+
+				var y1 = parseInt(height * .83, 10);
+				var x1 = parseInt(width * .5, 10);
+
+				// 0 0     left top      0 0
+				// 0 472 left 80%        0 height*.83
+				// 586 568 50% bottom    width*.5 height
+				// 1172 472 100% 80%     width height*.83
+				// 1172 0 100% top       width 0
+				// 0 0   left top        0 0
+
+				polygon.attr('points',
+					"0 0 " +
+					"0 " + (y1 - 5) + " " +
+					x1 + " " + (height - 5) + " " +
+					width + " " + (y1 - 5) + " " +
+					width + " 0 " +
+					"0 0");
+			});
+
+			$(window).trigger('resize');
+		});
+
+		$(window).load(function () {
+			$(window).trigger('resize');
+		});
+	</script><div class="hidden">
+		<div id="captionContainer">
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			$('#captionContainer').appendTo('#slideshow .slides');
+			$('.nivo-caption').appendTo('#captionContainer');
+			$('.nivo-controlNav').appendTo('#captionContainer');
+			$('.slideshow-overlay').appendTo('#slideshow');
+		});
+	</script>
+</div>
+
+        
+	
+
+
+        <div class="body-content-container">
+            <div class="container">
+                <div class="masterC alignment-stretch">
+                    <div class="row">
+                        
+	<div class="content-section content-section-1 home-page">
+		<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3 backgroundcolor leftPanel">
+			<div class="divider"></div>
+
+			<div class="clearfix panel content">
+				
+	<div class="hidden-md hidden-lg">
+		<h1 class="news-header homeHeader">Live Feed</h1>
+
+		<div class="wrap-liveFeed">
+			
+
+<script src="/js/live-feed/feed.js?v=8"></script><script>
+    $(document).ready(function () {
+        $('.live-feed-container').liveFeed({
+            posts: parseInt('100', 10),
+            postId: parseInt('0', 10),
+            userId: parseInt('0', 10),
+            schoolId: parseInt('0', 10)
+        });
+    });
+</script><div class="live-feed-container">
+    <img title="loading..." alt="loading..." style="display: block; margin: auto;" src="https://cdn.schoolpointe.com/images/ripple-loader.gif">
+</div>
+
+		</div>
+	</div>
+
+	<div class="wrap-calendar clearfix">
+		<h1 class="news-header homeHeader">Calendar</h1>
+		
+
+<style type="text/css">
+	.event-date {
+		width: 55px;
+		text-align: center;
+		padding: 0;
+		border-radius: 3px;
+		font-size: 14px;
+		margin: 0 15px 0 0;
+		display: block;
+		float: left;
+		white-space: nowrap;
+		overflow: hidden;
+		border: 3px solid #555;
+	}
+
+	.event-date .event-month, .event-date .event-month2 {
+		background: #555;
+		padding: 2px 0;
+	}
+</style>
+<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-1327">
+			<div class="event-date">
+				<div class="event-year">2020</div>
+<div class="event-day">30</div>
+<div class="event-month">Apr</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3&amp;schoolid=0&amp;types=&amp;eventID=1327" title="All State Jazz Band   ">
+					All State Jazz Band   
+					<span class="obscure">April 30, @Brandon Valley, SD, 8:30 AM — 4:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@Brandon Valley, SD
+			</div>
+			<div class="event-time">
+				8:30 AM — 4:30 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-1328">
+			<div class="event-date">
+				<div class="event-year">2020</div>
+<div class="event-day">01</div>
+<div class="event-month">May</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3&amp;schoolid=0&amp;types=&amp;eventID=1328" title="All State Jazz Band   ">
+					All State Jazz Band   
+					<span class="obscure">May 1, @Brandon Valley, SD, 8:30 AM — 4:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@Brandon Valley, SD
+			</div>
+			<div class="event-time">
+				8:30 AM — 4:30 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-1329">
+			<div class="event-date">
+				<div class="event-year">2020</div>
+<div class="event-day">02</div>
+<div class="event-month">May</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3&amp;schoolid=0&amp;types=&amp;eventID=1329" title="All State Jazz Band   ">
+					All State Jazz Band   
+					<span class="obscure">May 2, @Brandon Valley, SD, 8:30 AM — 4:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@Brandon Valley, SD
+			</div>
+			<div class="event-time">
+				8:30 AM — 4:30 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-1356">
+			<div class="event-date">
+				<div class="event-year">2020</div>
+<div class="event-day">02</div>
+<div class="event-month">May</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3&amp;schoolid=0&amp;types=&amp;eventID=1356" title="5-8 MS Solo/Small Ensemble Contest   ">
+					5-8 MS Solo/Small Ensemble Contest   
+					<span class="obscure">May 2, @EPJ, 8:30 AM — 12:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@EPJ
+			</div>
+			<div class="event-time">
+				8:30 AM — 12:30 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-1330">
+			<div class="event-date">
+				<div class="event-year">2020</div>
+<div class="event-day">04</div>
+<div class="event-month">May</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3&amp;schoolid=0&amp;types=&amp;eventID=1330" title="High School Concert   ">
+					High School Concert   
+					<span class="obscure">May 4, @Middle School Gym, 7:00 PM — 8:30 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@Middle School Gym
+			</div>
+			<div class="event-time">
+				7:00 PM — 8:30 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-1857">
+			<div class="event-date">
+				<div class="event-year">2020</div>
+<div class="event-day">05</div>
+<div class="event-month">May</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,3&amp;schoolid=0&amp;types=&amp;eventID=1857" title="Track:  Girls Varsity Invitational vs Beresford (Away)  ">
+					Track:  Girls Varsity Invitational vs Beresford (Away)  
+					<span class="obscure">May 5, @Beresford High School, 4:00 PM — 4:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@Beresford High School
+			</div>
+			<div class="event-time">
+				4:00 PM — 4:00 PM
+			</div>
+		</li>
+	
+		</ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_events_hl_viewAllEvents" class="view-all-events" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/24/2020">View All</a>
+</footer>
+</div>
+
+	<h1 class="homeHeader">Quick Links</h1>
+	<div class="flag-top"></div>
+
+	<div class="nav-wrapper">
+		<ul class="nav navbar-nav quicklinks">
+<li class="without-image"><a href="/" title="District Home">District Home</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="https://www.youtube.com/channel/UCA3KILIymtopeihKrnyNGsA" target="_blank" title="Huskies Live Stream">Huskies Live Stream</a></li>
+<li class="without-image"><a href="/docs/district/2019-2020%20calendar.pdf?id=1456" target="_blank" title="2019-2020 Master Calendar">2019-2020 Master Calendar</a></li>
+<li class="without-image"><a href="/docs/district/newsletter-2019.pdf?id=1310" target="_blank" title="2019-2020 Newsletter">2019-2020 Newsletter</a></li>
+<li class="without-image"><a href="https://www.dakota12conference.org/public/genie/261/school/16/" target="_blank" title="Activities Calendar">Activities Calendar</a></li>
+<li class="without-image"><a href="/content/32" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="https://sis2.ddncampus.net/campus/portal/elk_point_jefferson.jsp" target="_blank" title="Student/Parent Campus Portal">Student/Parent Campus Portal</a></li>
+<li class="without-image"><a href="https://sis2.ddncampus.net/campus/elk_point_jefferson.jsp" target="_blank" title="Teacher Infinite Campus">Teacher Infinite Campus</a></li>
+<li class="without-image"><a href="http://cdn.myschoolmenus.com/instance/2054357/district/21.html" target="_blank" title="School Lunch Menu">School Lunch Menu</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+</ul>
+</div>
+
+	<div class="flag-bottom"></div>
+	<div class="flagShadow"></div>
+
+			</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-8 col-md-5 col-lg-5 backgroundcolor">
+			<div class="clearfix panel content">
+				
+	<div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+
+	<h1 class="news-header homeHeader">Latest News</h1>
+
+	<div>
+		
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/99">Superintendent Update</a>
+
+				<span class="news-post-date">Posted On: Friday, April 17, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lblSummary" class="news-summary"></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkViewAll" title="Click to read more about: Superintendent Update" class="view-all" href="/News/99">Read More <span class="sr-only">about Superintendent Update</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/97">MS/HS 3rd Quarter Honor Roll</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 8, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lblSummary" class="news-summary">Here are the 3rd Quarter Honor Roll Students</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkViewAll" title="Click to read more about: MS/HS 3rd Quarter Honor Roll" class="view-all" href="/News/97">Read More <span class="sr-only">about MS/HS 3rd Quarter Honor Roll</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/94">EPJ Coronavirus Resources</a>
+
+				<span class="news-post-date">Posted On: Wednesday, March 11, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkImage" class="news-image" href="/News/94"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_articleImage" src="/docs/_Thumb_/district/covid-19.png?id=1951&amp;thumbwidth=190&amp;fullwidth=500" alt="COVID-19" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lblSummary" class="news-summary">Latest information/resources on COVID-19.</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkViewAll" title="Click to read more about: EPJ Coronavirus Resources" class="view-all" href="/News/94">Read More <span class="sr-only">about EPJ Coronavirus Resources</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/90">Six Wrestlers Qualify for the State Tournament</a>
+
+				<span class="news-post-date">Posted On: Monday, February 24, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkImage" class="news-image" href="/News/90"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_articleImage" src="/docs/_Thumb_/district/header_photos/statequalifiers.jpg?id=1925&amp;thumbwidth=190&amp;fullwidth=500" alt="State Qualifiers" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lblSummary" class="news-summary">EPJ will be sending six wrestlers to the State Tournament at the Denny Sanford Premier Center in Sioux Falls on Feb 27-29.</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkViewAll" title="Click to read more about: Six Wrestlers Qualify for the State Tournament" class="view-all" href="/News/90">Read More <span class="sr-only">about Six Wrestlers Qualify for the State Tournament</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lnkTitle" class="news-title" href="/News/88">One Act Play Receives Superior Ranking</a>
+
+				<span class="news-post-date">Posted On: Monday, February 10, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lnkImage" class="news-image" href="/News/88"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_articleImage" src="/docs/_Thumb_/district/risevision/stateoneact1091.jpg?id=1884&amp;thumbwidth=190&amp;fullwidth=500" alt="State One Act" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lblSummary" class="news-summary">Along with a Superior Play Ranking, Six Superior Actor Awards were presented to the cast of Elephant's Graveyard at the State One Act Play Competition.</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lnkViewAll" title="Click to read more about: One Act Play Receives Superior Ranking" class="view-all" href="/News/88">Read More <span class="sr-only">about One Act Play Receives Superior Ranking</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lnkTitle" class="news-title" href="/News/87">Three EPJ Musicians Selected for All State Band</a>
+
+				<span class="news-post-date">Posted On: Friday, February 7, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lblSummary" class="news-summary">Dee Dee, Ella, and Kelsie will represent EPJ in the SDHSAA All State Band this March.</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lnkViewAll" title="Click to read more about: Three EPJ Musicians Selected for All State Band" class="view-all" href="/News/87">Read More <span class="sr-only">about Three EPJ Musicians Selected for All State Band</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_lnkTitle" class="news-title" href="/News/86">One Act Play Headed to State</a>
+
+				<span class="news-post-date">Posted On: Thursday, January 30, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_lnkImage" class="news-image" href="/News/86"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_articleImage" src="/docs/_Thumb_/district/risevision/oneactplay2.jpg?id=1848&amp;thumbwidth=190&amp;fullwidth=500" alt="One Act Play" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_lblSummary" class="news-summary">Our One Act Play Participates earned their way to the State Competition for the first time in 14 years!</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_lnkViewAll" title="Click to read more about: One Act Play Headed to State" class="view-all" href="/News/86">Read More <span class="sr-only">about One Act Play Headed to State</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+
+	<div class="view-more-block">
+		<a class="view-all-news" href="/districtNewsArticles.aspx">Show All<span class="obscure"> news articles</span></a>
+	</div>
+
+			</div>
+		</div>
+
+		<div class="hidden-xs hidden-sm col-md-4 col-lg-4 backgroundcolor">
+			<div class="clearfix panel content homepage">
+				
+					<h1 class="news-header homeHeader">Live Feed</h1>
+
+					<div class="wrap-liveFeed">
+						
+
+<script src="/js/live-feed/feed.js?v=8"></script><script>
+    $(document).ready(function () {
+        $('.live-feed-container').liveFeed({
+            posts: parseInt('100', 10),
+            postId: parseInt('0', 10),
+            userId: parseInt('0', 10),
+            schoolId: parseInt('0', 10)
+        });
+    });
+</script><div class="live-feed-container">
+    <img title="loading..." alt="loading..." style="display: block; margin: auto;" src="https://cdn.schoolpointe.com/images/ripple-loader.gif">
+</div>
+
+					</div>
+				
+
+				
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Featured Picture
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p><img alt="Home of the Huskies" src="/docs/district/home-huskies.png?id=367&amp;width=1170" style="width: 1170px;"></p>
+        </div>
+        
+        <div class="view-all-link-container">
+                <a id="ctl00_ctl00_MasterContent_ctl00_MainLink" class="view-all" href="/featured/2">Read More</a>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+			</div>
+		</div>
+
+		<div class="clr"></div>
+	</div>
+
+                    </div>
+
+                    <div class="clr"></div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+	
+
+
+
+        <div class="footerwrapper">
+            <footer id="site-foot"><div class="bg-footer2">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-3 centerOnMobile">
+				<nav id="footerNav"><ul class="">
+<li class="without-image"><a href="/" title="Footer Link Home">Footer Link Home</a></li>
+<li class="without-image"><a href="/Communication" title="Communication Registration">Communication Registration</a></li>
+</ul></nav>
+</div>
+
+			<div class="col-xs-12 col-sm-6 text-center">
+				<a id="ctl00_ctl00_ctl05_footerName" class="footerName" href="/"><span class="top">ELK POINT-JEFFERSON</span><span class="bottom">SCHOOL DISTRICT 61-7</span></a>
+                				<span id="ctl00_ctl00_ctl05_address" class="footerAddress"><i class="fa fa-map-marker" aria-hidden="true"></i>  402 S. Douglas Street, Elk Point, SD 57025</span>
+                	<span id="ctl00_ctl00_ctl05_phones" class="footerPhones"><i class="fa fa-phone" aria-hidden="true"></i> Phone: 605-356-5950   <i class="fa fa-fax" aria-hidden="True"></i> Fax: 605-356-5999</span>
+			</div>
+
+			<div class="col-xs-12 col-sm-3 rightOnDesktop centerOnMobile">
+				<div class="wrap-socialFooter">
+					
+        <a href="/login" title="CMS Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="https://twitter.com/EpjSchool?lang=en" title="EPJ Twitter" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/EPJSchoolDistrict" title="Elk Point-Jefferson School District Page" target="_blank">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/EPJActivities" title="EPJ Activities Page" target="_blank">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="https://www.epj.k12.sd.us//ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+				</div>
+
+				<div class="wrap-translate">
+					
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+</div>
+			</div>
+		</div>
+
+		<div class="row copyright">
+			<div class="col-xs-12 col-sm-6 centerOnMobile">
+				<span>
+
+<div id="copyrightNotice">
+	©  2020 Elk Point-Jefferson School District . <span id="ctl00_ctl00_ctl05_ctl03_allRights">All Rights Reserved</span>
+</div>
+</span>
+			</div>
+
+			<div class="col-xs-12 col-sm-6 centerOnMobile rightOnDesktop">
+				<a href="http://www.schoolpointe.com" target="_blank" alt="schoolpointe" class="schoolpointe">
+					<img src="https://cdn.schoolpointe.com/images/new/SPwhite.png" alt="SchoolPointe logo white"></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-117119388-18', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer>
+</div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987">
+</div>
+</form>
+</body>
+</html>

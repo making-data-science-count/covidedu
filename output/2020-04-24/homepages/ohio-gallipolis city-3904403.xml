@@ -1,0 +1,2249 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Gallipolis City Schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300%7CCrimson+Text%7COpen+Sans:300italic,400italic,600italic,700italic,800italic,400,800,700,600,300%7COswald%7CLato" rel="stylesheet" type="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Gallipolis City Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Gallia Academy High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Gallia Academy Middle School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Rio Grande Elementary School - News" href="/rssNews.ashx?schoolId=17">
+<link rel="alternate" type="application/rss+xml" title="Green Elementary School - News" href="/rssNews.ashx?schoolId=19">
+<link rel="alternate" type="application/rss+xml" title="Washington Elementary School - News" href="/rssNews.ashx?schoolId=25">
+<link rel="alternate" type="application/rss+xml" title="Stadium - News" href="/rssNews.ashx?schoolId=26">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "OH_GallipolisCitySD",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<style type="text/css">
+        .logo-container {
+            top: 55px;
+        }
+    </style>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('#slideshow .slides').nivoSlider({ effect: 'fade' });
+        });
+    </script><link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1581433742523">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTIxMTk4NDMyMDMPZBYCZg9kFgJmD2QWBGYPZBYEAgMPZBYCAgEPFgIeC18hSXRlbUNvdW50AgYWDGYPZBYCZg8VAhpHYWxsaWEgQWNhZGVteSBIaWdoIFNjaG9vbAExZAIBD2QWAmYPFQIcR2FsbGlhIEFjYWRlbXkgTWlkZGxlIFNjaG9vbAEyZAICD2QWAmYPFQIcUmlvIEdyYW5kZSBFbGVtZW50YXJ5IFNjaG9vbAIxN2QCAw9kFgJmDxUCF0dyZWVuIEVsZW1lbnRhcnkgU2Nob29sAjE5ZAIED2QWAmYPFQIcV2FzaGluZ3RvbiBFbGVtZW50YXJ5IFNjaG9vbAIyNWQCBQ9kFgJmDxUCB1N0YWRpdW0CMjZkAgUPFgIeBGhyZWYFMC9zaXRlY3NzLmFzaHg/JmludHJhbmV0PTAmY2hlY2tzdW09MTU4MTQzMzc0MjUyM2QCAQ8WAh4GYWN0aW9uBQEvFgoCAQ9kFgYCAQ9kFgpmDw9kFgIeCHRhYmluZGV4BQEwZAICDw9kFgIfAwUBMGQCAw8PZBYCHwMFATBkAgQPD2QWAh8DBQEwZAIFDw9kFgIfAwUBMGQCAw9kFgICAg9kFgJmDxYCHgRUZXh0BRs8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PC91bD5kAgcPDxYCHgdWaXNpYmxlaGRkAgMPZBYCAgEPZBYCAgEPZBYEAgEPDxYCHwQFF0dhbGxpcG9saXMgQ2l0eSBTY2hvb2xzZGQCBw8PFgIeC05hdmlnYXRlVXJsBQsvaW5kZXguYXNweGRkAgUPZBYCAgEPZBYCAgEPZBYEZg8WAh8AAgNkAgEPFgIfBAU2PHN0eWxlPiNzbGlkZXNob3d7cG9zaXRpb246cmVsYXRpdmU7ei1pbmRleDoxOzwvc3R5bGU+ZAIJD2QWCgIBD2QWAgIBD2QWAmYPFgIfBAWrDTx1bCBjbGFzcz0nc2YtdmVydGljYWwnID48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly93d3cuZ2Foc3N0YWRpdW0uY29tLycgdGFyZ2V0PSdfYmxhbmsnICB0aXRsZT0nU3RhZGl1bSBBbmQgU1RFTSBQcm9qZWN0Jz5TdGFkaXVtIEFuZCBTVEVNIFByb2plY3Q8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9Db21tdW5pY2F0aW9uJyAgIHRpdGxlPSdFIENvbW11bmljYXRpb25zIFNpZ24gVXAnPkUgQ29tbXVuaWNhdGlvbnMgU2lnbiBVcDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cHM6Ly9wYXltZW50cy5lZnVuZHNmb3JzY2hvb2xzLmNvbS92My9kaXN0cmljdHMvNTUzNjAvJyAgIHRpdGxlPSdFfkZ1bmRzJz5FfkZ1bmRzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwOi8vbXlmcmVlZG9tY2FmZS5jb20vR2FsbGlwb2xpcycgICB0aXRsZT0nTHVuY2ggQWNjb3VudCBBY2Nlc3MnPkx1bmNoIEFjY291bnQgQWNjZXNzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvdXNlcmZpbGVzLzEyNjAvbXkgZmlsZXMvdGhlIGNpdHkgb2YgZ2FsbGlwb2xpcyAtIHByb251bmNpYXRpb24ucGRmP2lkPTM5NycgICB0aXRsZT0nUHJvcGVyIFByb251bmNpYXRpb24gb2YgJnF1b3Q7R2FsbGlwb2xpcyZxdW90Oyc+UHJvcGVyIFByb251bmNpYXRpb24gb2YgIkdhbGxpcG9saXMiPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvdXNlcmZpbGVzLzEyNjAvbXkgZmlsZXMvcHVibGljIHJlY29yZHMgcG9saWN5IHBvc3RlciA3LTEwLTE1LnBkZj9pZD0zOTYnICAgdGl0bGU9J1B1YmxpYyBSZWNvcmRzIFBvbGljeSc+UHVibGljIFJlY29yZHMgUG9saWN5PC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwczovL3d3dy5ic250ZWFtc3BvcnRzLmNvbS92My9zaG9wL3RlYW1fc2hvcC9HQWFwcDE4MiMvJyAgIHRpdGxlPSdOSUtFIFNob3AgLSBQbGVhc2UgRW50ZXIgQ29kZSBHQWFwcDE4Mic+TklLRSBTaG9wIC0gUGxlYXNlIEVudGVyIENvZGUgR0FhcHAxODI8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly9vaC5wb3J0YWwuYWlyYXN0Lm9yZy9vY2JhLycgICB0aXRsZT0nT2hpbyYjMzk7cyBTdGF0ZSBUZXN0IFBvcnRhbCc+T2hpbydzIFN0YXRlIFRlc3QgUG9ydGFsPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwczovL2dhbGxpcG9saXNzY2hvb2xzLmdvZm14LmNvbS9sb2dpbicgICB0aXRsZT0nRk1YIEhlbHBkZXNrJz5GTVggSGVscGRlc2s8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly93d3cucGFyY2htZW50LmNvbS91L3JlZ2lzdHJhdGlvbi8xOTE5NC9hY2NvdW50JyAgIHRpdGxlPSdUcmFuc2NyaXB0IFJlcXVlc3QnPlRyYW5zY3JpcHQgUmVxdWVzdDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cHM6Ly9nb28uZ2wvZm9ybXMvUGs5bHhOVVJja0hiVDVKeDEnIHRhcmdldD0nX2JsYW5rJyAgdGl0bGU9J09ubGluZSBGZWUgQ29sbGVjdGlvbiBTeXN0ZW0nPk9ubGluZSBGZWUgQ29sbGVjdGlvbiBTeXN0ZW08L2E+PC9saT48L3VsPmQCAw9kFgICAQ9kFgICAQ9kFgJmDxYCHwQFnQs8dWwgY2xhc3M9J3NmLXZlcnRpY2FsJyA+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvRGlzdHJpY3QvTGlua3MtRm9ybXMnICAgdGl0bGU9J0Zvcm1zJz5Gb3JtczwvYT48L2xpPjxsaSBjbGFzcz0naGFzLWZseW91dCc+PGEgaHJlZj0nIycgICB0aXRsZT0nUHVibGljIE5vdGljZXMnPlB1YmxpYyBOb3RpY2VzPC9hPjx1bCBjbGFzcz0nZmx5b3V0Jz48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvMTI2MC9teSBmaWxlcy9wdWJsaWMgbm90aWNlcy90aXRsZSA5LnBkZj9pZD0yODU2JyAgIHRpdGxlPSdUaXRsZSBJViBOb25kaXNjcmltaW5hdGlvbic+VGl0bGUgSVYgTm9uZGlzY3JpbWluYXRpb248L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvMTI2MC9teSBmaWxlcy9mb29kIHNlcnZpY2VzL25vbmRpc2NyaW1pbmF0aW9uLnBkZj9pZD0yODI1JyAgIHRpdGxlPSdGb29kIFNlcnZpY2VzIE5vbmRpc2NyaW1pbmF0aW9uJz5Gb29kIFNlcnZpY2VzIE5vbmRpc2NyaW1pbmF0aW9uPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvdXNlcmZpbGVzLzEyNjAvbXkgZmlsZXMvcHVibGljIG5vdGljZXMvZmVycGEucGRmP2lkPTI4NTcnICAgdGl0bGU9J0ZFUlBBIC0gTm90aWZpY2F0aW9uIG9mIFJpZ2h0cyc+RkVSUEEgLSBOb3RpZmljYXRpb24gb2YgUmlnaHRzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvdXNlcmZpbGVzLzEyNjAvbXkgZmlsZXMvcHVibGljIG5vdGljZXMvZmVycGEgZGlyZWN0b3J5IGluZm8ucGRmP2lkPTI4NTgnICAgdGl0bGU9J0ZFUlBBIC0gTm90aWNlIGZvciBEaXJlY3RvcnkgSW5mb3JtYXRpb24nPkZFUlBBIC0gTm90aWNlIGZvciBEaXJlY3RvcnkgSW5mb3JtYXRpb248L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvMTI2MC9teSBmaWxlcy9wdWJsaWMgbm90aWNlcy9jYXJlZXIgYW5kIHRlY2huaWNhbCBlZHVjYXRpb24gbWV0aG9kcyBvZiBhZG1pbmlzdHJhdGlvbi5wZGY/aWQ9Mjg2MicgICB0aXRsZT0nTm9uZGlzY3JpbWluYXRpb24gUG9saWN5IC0gQ2FyZWVyIGFuZCBUZWNobmljYWwgRWR1Y2F0aW9uJz5Ob25kaXNjcmltaW5hdGlvbiBQb2xpY3kgLSBDYXJlZXIgYW5kIFRlY2huaWNhbCBFZHVjYXRpb248L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvMTI2MC9teSBmaWxlcy9wdWJsaWMgbm90aWNlcy9ub3RpY2Utb2YtcHJvcG9zZWQtY2xhc3MtYWN0aW9uLXNldHRsZW1lbnQtZG9lLnBkZj9pZD0yOTA2JyAgIHRpdGxlPSdEb2Ugdi4gU3RhdGUgb2YgT2hpbyc+RG9lIHYuIFN0YXRlIG9mIE9oaW88L2E+PC9saT48L3VsPjwvbGk+PC91bD5kAgUPZBYGAgEPZBYIZg8WAh8EBRhTdXBlcmludGVuZGVudCdzIE1lc3NhZ2VkAgEPFgIfBAX/AzxwPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTZweDsiPjxzcGFuIHN0eWxlPSJjb2xvcjojMDAwMENEOyI+PHN0cm9uZz5NZWFscyBmb3IgU3R1ZGVudHM8L3N0cm9uZz48L3NwYW4+PC9zcGFuPjwvcD5HYWxsaXBvbGlzIENpdHkgU2Nob29scyB3aWxsIGJlIG9mZmVyaW5nIGx1bmNoZXMgdG8gZ28gZm9yIGFsbCBzdHVkZW50cyBhbmQgY29tbXVuaXR5IG1lbWJlcnMgd2hvIGFyZSAxOCBvciB5b3VuZ2VyLiAgTHVuY2hlcyBtYXkgYmUgcGlja2VkIHVwIGF0IHRoZSBHYWxsaWEgQWNhZGVteSBNaWRkbGUgU2Nob29sIEZvdXJ0aCBBdmVudWUgZW50cmFuY2UgZnJvbSAxMTowMCBhLm0uIC0gMTI6MzAgcC5tLiBzdGFydGluZyBvbiBUdWVzZGF5LCBNYXJjaCAxN3RoLiAgQXMgb2Ygbm93LCB0aGVzZSBzZXJ2aWNlcyB3aWxsIHJ1biB0aHJvdWdoIEFwcmlsIDNyZCBhbmQgd2lsbCBjb3ZlciB0aGUgZGF5cyB0aGF0IHN0dWRlbnRzIHdpbGwgYmUgb3V0IG9mIHNjaG9vbCB1bmRlciBHb3Zlcm5vciAuLi5kAgIPFgIfBWhkAgMPDxYGHwQFCVJlYWQgTW9yZR8GBQ4vc3VwZXJtc2cuYXNweB8FaGRkAgMPDxYCHwQFDENyYWlnIFdyaWdodGRkAgUPFgIfBWhkAgcPZBYCAgEPZBYEZg8PFgIfBWhkZAICD2QWBAIDDxYCHwVoZAIFDxYCHwACBGQCDw9kFgQCAQ9kFgZmDxYCHwACBhYMAgEPZBYCZg8VBwUyODQ5MQZBcHIgMjROL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwxNywxOSwyNSwyNiZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTI4NDkxFlByZXNjaG9vbCBSZWdpc3RyYXRpb24WUHJlc2Nob29sIFJlZ2lzdHJhdGlvbhZAUmlvIEdyYW5kZSBFbGVtZW50YXJ5AGQCAg9kFgJmDxUHBTI4NDY0BkFwciAyNE4vY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDE3LDE5LDI1LDI2JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9Mjg0NjQbS2luZGVyZ2FydGVuIFNwcmluZyBQcm9ncmFtG0tpbmRlcmdhcnRlbiBTcHJpbmcgUHJvZ3JhbRZAV2FzaGluZ3RvbiBFbGVtZW50YXJ5EUJlZ2lucyBAIDEwOjAwIEFNZAIDD2QWAmYPFQcFMjg0NzcGTWF5IDA0Ti9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMTcsMTksMjUsMjYmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yODQ3NxdLIC0gMm5kIEdyYWRlIEZpZWxkIERheRdLIC0gMm5kIEdyYWRlIEZpZWxkIERheRhAR3JlZW4gRWxlbWVudGFyeSBTY2hvb2wAZAIED2QWAmYPFQcFMjg0NjcGTWF5IDA2Ti9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMTcsMTksMjUsMjYmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yODQ2NxkzcmQgLSA1dGggR3JhZGUgRmllbGQgRGF5GTNyZCAtIDV0aCBHcmFkZSBGaWVsZCBEYXkWQFdhc2hpbmd0b24gRWxlbWVudGFyeRBCZWdpbnMgQCA5OjE1IEFNZAIFD2QWAmYPFQcFMjg0OTIGTWF5IDA3Ti9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDIsMTcsMTksMjUsMjYmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yODQ5MhdLIC0gMm5kIEdyYWRlIEZpZWxkIERheRdLIC0gMm5kIEdyYWRlIEZpZWxkIERheRZAUmlvIEdyYW5kZSBFbGVtZW50YXJ5AGQCBg9kFgJmDxUHBTI4NDc4Bk1heSAxMU4vY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDE3LDE5LDI1LDI2JnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9Mjg0NzgZM3JkIC0gNXRoIEdyYWRlIEZpZWxkIERheRkzcmQgLSA1dGggR3JhZGUgRmllbGQgRGF5GEBHcmVlbiBFbGVtZW50YXJ5IFNjaG9vbABkAgQPDxYCHwYFIS9jYWxNb250aFZpZXcuYXNweD9zPTAmeT0yMDIwJm09NGRkAgYPDxYEHwYFRS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wJnNjaG9vbGlkPTAmdHlwZXM9JnZpZXdEYXRlPTQvMjQvMjAyMB8EBQ9WaWV3IEFsbCBFdmVudHNkZAIDD2QWBGYPPCsACgEADxYIHg1EYXlOYW1lRm9ybWF0CyonU3lzdGVtLldlYi5VSS5XZWJDb250cm9scy5EYXlOYW1lRm9ybWF0Ah4NTmV4dE1vbnRoVGV4dAUvPj48c3BhbiBjbGFzcz0nb2JzY3VyZSc+R28gdG8gbmV4dCBtb250aDwvc3Bhbj4eDVByZXZNb250aFRleHQFMzw8PHNwYW4gY2xhc3M9J29ic2N1cmUnPkdvIHRvIHByZXZpb3VzIG1vbnRoPC9zcGFuPh4CU0QWAQYAgJNu4ufXCGRkAgEPDxYGHgZUYXJnZXQFBl9ibGFuax8EBRJWaWV3IEZ1bGwgQ2FsZW5kYXIfBgUlL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00JnQ9MGRkAg8PZBYCZg8WAh8AAgQWCGYPZBYCZg8VAwhpbnRyYW5ldBQvaW50cmFuZXRfbG9naW4uYXNweAlJbnRyYW5ldCBkAgEPZBYCZg8VAwNyc3MNL3Jzc05ld3MuYXNoeANSU1NkAgIPZBYCZg8VAwNjbXMLL2xvZ2luLmFzcHgKQ01TIExvZ2luIGQCAw9kFgJmDxUDB3R3aXR0ZXIfaHR0cHM6Ly90d2l0dGVyLmNvbS9HYWxsaWFQcmlkZQdUd2l0dGVyZGRLkaVU75cMhNw33ug7wwQiAiCXiA==">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        function createCookie(name, value, days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            }
+
+            else var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+
+            return null;
+        }
+
+        function eraseCookie(name) {
+            createCookie(name, "", -1);
+        }
+
+        function setColorPreference(colorPreference) {
+            if (colorPreference >= 1 && colorPreference <= 4) {
+                var colors = [
+                    { b: "#000000", t: "#ffffff" },
+                    { b: "#ffffff", t: "#000000" },
+                    { b: "#000000", t: "#ffff00" },
+                    { b: "#fe0000", t: "#ffffff" }
+                ];
+            }
+
+            $('body').attr('id', 'colorOverride');
+
+            var css = "<style type='text/css'> body#colorOverride * { background-color:" + colors[colorPreference - 1].b + " !important; color:" + colors[colorPreference - 1].t + " !important;} *:focus {color:" + colors[colorPreference - 1].t + "; border:1px dotted " + colors[colorPreference - 1].t + "}</style>";
+            $('#helperStyle').html(css);
+            createCookie('colorchange', colorPreference, 1);
+        }
+
+        function setTextSize(textSize) {
+            $('#resizingText').html('<style type="text/css"> \
+		        #middle-nav ul li a, nav#top-nav li a {font-size:' + (14 + textSize) + 'pt;} \
+                h1, #content-right header {font-size:' + (24 + textSize) + 'px;} \
+                #news-list .article .news-summary, section#upcoming-events ul a, .foot2 li a, .aside-content li a{font-size:' + (13 + textSize) + 'px;} \
+                .foot2 li ul li a{font-size:' + (13 + textSize) + 'pt;} \
+                #news-list .article a.news-title{font-size:' + (14 + textSize) + 'pt;} \
+                #school-map span{font-size:' + (13 + textSize) + 'pt;} \
+                .foot2 li ul li a, .sf-vertical li a, ul.nav.navbar-nav > li > a{font-size:' + (13 + textSize) + 'px !important;} \
+                html, body, table, tr, td, div, .panel, .panel p, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, img, ins, kbd, q, s, samp, small, strike, sub, sup, var, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, article, aside, canvas, details, embed, figure, figcaption, footer, header, footer,hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{font-size:' + (13 + textSize) + 'pt !important; line-height: ' + (13 + textSize) + 'pt ; } \
+                </style>');
+            createCookie('textsize', textSize, 1);
+        }
+
+        var textSize = readCookie('textsize');
+
+        if (textSize && textSize != 0) {
+            textSize = parseInt(textSize, 10);
+            setTextSize(textSize);
+        }
+
+        var colorPreference = readCookie('colorchange');
+
+        if (colorPreference && colorPreference != 0) {
+            colorPreference = parseInt(colorPreference, 10);
+            setColorPreference(colorPreference);
+        }
+
+        $('.vision-helper-revert').click(function () {
+            eraseCookie('textsize');
+            eraseCookie('colorchange');
+            textSize = 0;
+            $('#resizingText').empty();
+            $('#helperStyle').empty();
+        });
+
+        $('.vision-helper-change-font-size').click(function () {
+            var add = parseInt($(this).data('size-add'), 10);
+            textSize += add;
+            if (textSize < 1) textSize = 1;
+            setTextSize(textSize);
+        });
+
+        $('.color-preference').click(function () {
+            var colorPreference = parseInt($(this).data('color-preference'), 10);
+            setColorPreference(colorPreference);
+        });
+    });
+</script><div style="position: relative;" class="visionBardiv">
+    <div class="vision-helper-wrapper">
+        <div id="helperStyle"></div>
+        <div id="resizingText"></div>
+        <strong class="vision-helper-label">Text Options for the Visually Impaired</strong>
+        <strong class="vision-helper-label">Font Size:</strong>
+        <a href="javascript:void(0)" class="vision-helper-button vision-helper-change-font-size" data-size-add="-1" title="Decrease font size">a-</a>
+        <a href="javascript:void(0)" class="vision-helper-button vision-helper-change-font-size" data-size-add="1" title="Increase font size">A+</a>
+        <strong class="vision-helper-label">Color:</strong>
+        <a href="javascript:void(0);" data-color-preference="1" class="color-preference color-1 vision-helper-button" title="Change the color of the page to white on black">A</a>
+        <a href="javascript:void(0);" data-color-preference="2" class="color-preference color-2 vision-helper-button" title="Change the color of the page to black on white">A</a>
+        <a href="javascript:void(0);" data-color-preference="3" class="color-preference color-3 vision-helper-button" title="Change the color of the page to yellow on black">A</a>
+        <a href="javascript:void(0)" title="Undo Changes" class="vision-helper-button vision-helper-revert">Revert <i class="fa fa-undo" aria-hidden="true"></i></a>
+
+        <div style="position: absolute; right: 2px; top: 0px; z-index: 20;">
+            <a href="javascript:hideVisionBar()" class="closeAlert">
+                <i class="fa fa-times" aria-hidden="true"></i><span class="obscure">Close vision bar</span>
+            </a>
+        </div>
+
+        <div style="clear: both;"></div>
+    </div>
+</div>
+
+<div class="visionBarReShow" style="position: relative; width: 100%; padding: 2px;">
+    <a style="float: right;" href="javascript:loadVisionBar()" class="openAlert">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i><span class="obscure">Open vision bar</span>
+    </a>
+
+    <div style="clear: both;"></div>
+</div>
+
+<style type="text/css">
+    .visionBardiv
+    {
+        display: none;
+    }
+
+    .visonBarReShow
+    {
+        display: none;
+    }
+
+    #helperStyle,
+    #resizingText
+    {
+        display: none;
+    }
+
+    .vision-helper-wrapper
+    {
+        line-height: 25px !important;
+        font-size: 20px !important;
+        z-index: 10;
+        position: relative;
+        font-weight: normal;
+        background: #fff;
+        border-bottom: solid 1px gainsboro;
+        padding: 10px 15px;
+    }
+
+    .vision-helper-button
+    {
+        border: solid 1px gainsboro;
+    }
+
+    .vision-helper-button,
+    .vision-helper-button > i
+    {
+        line-height: 25px !important;
+        font-size: 20px !important;
+        display: inline-block;
+        padding: 0px 10px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .vision-helper-button:hover,
+    .vision-helper-button:active
+    {
+        border: solid 1px #333;
+        cursor: pointer;
+        color: black;
+        text-decoration: none;
+    }
+
+    .vision-helper-label
+    {
+        line-height: 25px !important;
+        font-size: 20px !important;
+        display: inline-block;
+        padding: 0px 10px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .vision-helper-revert
+    {
+        float: right;
+        border: solid 1px transparent;
+        margin-right: 10px;
+    }
+
+    a.color-1
+    {
+        color: #fff !important;
+        background: #000 !important;
+    }
+
+    a.color-2
+    {
+        color: #000 !important;
+        background: #fff !important;
+    }
+
+    a.color-3
+    {
+        color: #FFFF00 !important;
+        background: #000 !important;
+    }
+
+    a.color-4
+    {
+        color: #fff !important;
+        background: #fe0000 !important;
+    }
+</style>
+<script type="text/javascript" src="/admin/js/visionbar/visionBar.js"></script><div class="headerback">
+            <header id="site-head"></header><div class="NavBack">
+    <div class="navigation container">
+        <nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand hidden-lg hidden-md " href="#">
+                    <span id="ctl00_ctl00_header_header_ctl00_schoolName">Gallipolis City Schools</span>
+                </a>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav district-top-nav-links">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Gallia Academy High School">Gallia Academy High School</a></li>
+<li class="without-image"><a href="/2/Home" title="Gallia Academy Middle School">Gallia Academy Middle School</a></li>
+<li class="without-image"><a href="/19/Home" title="Green Elementary">Green Elementary</a></li>
+<li class="without-image"><a href="/17/Home" title="Rio Grande Elementary">Rio Grande Elementary</a></li>
+<li class="without-image"><a href="/25/Home" title="Washington Elementary">Washington Elementary</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar">Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/1260/my%20files/yearly%20calendars/2020-21.pdf?id=2935" title="2020-2021">2020-2021</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/yearly%20calendars/2019-20.pdf?id=2745" title="2019-2020">2019-2020</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/yearly%20calendars/2018-19%20calendar.pdf?id=2412" title="2018-2019">2018-2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/yearly%20calendars/2017-18.pdf?id=2119" title="2017-2018">2017-2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/yearly%20calendars/2016-2017.pdf?id=1309" target="_blank" title="2016-2017">2016-2017</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Education">Board of Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board Policies ">Board Policies   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/134" title="Section A - Foundations and Basic Commitments">Section A - Foundations and Basic Commitments</a></li>
+<li class="without-image"><a href="/Content/136" aria-label="" title="Section B - School Board Governance &amp; Operations">Section B - School Board Governance &amp; Operations</a></li>
+<li class="without-image"><a href="/Content/140" title="Section C - General School Administration">Section C - General School Administration</a></li>
+<li class="without-image"><a href="/Content/142" title="Section D - Fiscal Management">Section D - Fiscal Management</a></li>
+<li class="without-image"><a href="/content/144" title="Section E - Support Services">Section E - Support Services</a></li>
+<li class="without-image"><a href="/Content/146" title="Section F - Facilities Development">Section F - Facilities Development</a></li>
+<li class="without-image"><a href="/content/148" aria-label="" title="Section G - Personnel">Section G - Personnel</a></li>
+<li class="without-image"><a href="/Content/150" title="Section H - Negotiations">Section H - Negotiations</a></li>
+<li class="without-image"><a href="/Content/152" aria-label="" title="Section I - Instruction">Section I - Instruction</a></li>
+<li class="without-image"><a href="/content/156" aria-label="" title="Section J - Student ">Section J - Student </a></li>
+<li class="without-image"><a href="/Content/158" title="Section K - School-Community Relations">Section K - School-Community Relations</a></li>
+<li class="without-image"><a href="/Content/172" title="Section L - Education Agency Relations">Section L - Education Agency Relations</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Board" title="Board Members">Board Members</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Board Meeting Reports">Board Meeting Reports  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="2019-20">2019-20  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2019-20/july%2017,%202019.pdf?id=2824" title="July 17, 2019">July 17, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2019-20/august%2021,%202019.pdf?id=2855" title="August 21, 2019">August 21, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2019-20/september%2018,%202019.pdf?id=2867" title="September 18, 2019">September 18, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2019-20/october%2016.%202019.pdf?id=2880" title="October 16, 2019">October 16, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/november%204,%202019%20special.pdf?id=2897" title="November 4, 2019 - Special">November 4, 2019 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2019-20/november%2020,%202019.pdf?id=2905" title="November 20, 2019">November 20, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2019-20/december%2018,%202019.pdf?id=2920" title="December 18, 2019">December 18, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2019-20/january%2015,%202020.pdf?id=2924" title="January 15, 2020">January 15, 2020</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2019-20/february%2019,%202020.pdf?id=2936" title="February 19, 2020">February 19, 2020</a></li>
+<li class="without-image"><a href="/userfiles/1305/my%20files/gallipolis%20city%20school%20district.pdf?id=2955" aria-label="" title="March 18, 2020">March 18, 2020</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2019-20/april%2015,%202020.pdf?id=2984" aria-label="" title="April 15, 2020">April 15, 2020</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="2018-19">2018-19  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/july%2018,%202018.pdf?id=2590" title="July 18, 2018">July 18, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/august%2015,%202018.pdf?id=2618" title="August 15, 2018">August 15, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/september%2019,%202018.pdf?id=2659" title="September 19, 2018">September 19, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/september%2028,%202018%20-%20special.pdf?id=2665" title="September 28, 2018 - Special">September 28, 2018 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/october%2017,%202018.pdf?id=2670" title="October 17, 2018">October 17, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/november%2015,%202018.pdf?id=2678" title="November 14, 2018">November 14, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/december%2019,%202018.pdf?id=2693" title="December 19, 2018">December 19, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/january%207,%202019.pdf?id=2704" title="January 7, 2019">January 7, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/february%2020,%202019.pdf?id=2724" title="February 20, 2019">February 20, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/march%2020,%202019.pdf?id=2744" title="March 20, 2019">March 20, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/april%2017,%202019.pdf?id=2777" title="April 17, 2019">April 17, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/report.pdf?id=2788" title="May 15, 2019">May 15, 2019</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2018-19/june%2019,%202019.pdf?id=2818" title="June 19, 2019">June 19, 2019</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="2017-18">2017-18  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/july%2019,%202017.pdf?id=2221" title="July 19, 2017">July 19, 2017</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/july%2024,%202017%20special.pdf?id=2222" title="July 24, 2017 - Special">July 24, 2017 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/july%2031,%202017%20special.pdf?id=2224" title="July 31, 2017 - Special">July 31, 2017 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/boe%20report.pdf?id=2233" title="August 9, 2017 - Special">August 9, 2017 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/august%2016,%202017.pdf?id=2248" title="August 16, 2017">August 16, 2017</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/september%2020,%202017.pdf?id=2281" title="September 20, 2017">September 20, 2017</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/october%2018,%202017.pdf?id=2290" title="October 18, 2017">October 18, 2017</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/november%2015,%202017.pdf?id=2328" title="November 15, 2017">November 15, 2017</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/december%206,%202017%20special.pdf?id=2331" title="December 6, 2017 - Special">December 6, 2017 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/december%2020,%202017.pdf?id=2363" title="December 20, 2018">December 20, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/january%2010,%202018.pdf?id=2345" title="January 10, 2018">January 10, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/february%2021,%202018.pdf?id=2371" title="February 21, 2018">February 21, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/march%2021,%202018.pdf?id=2413" title="March 21, 2018">March 21, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/april%2011,%202018%20special.pdf?id=2423" title="April 11, 2018 - Special">April 11, 2018 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/april%2018,%202018.pdf?id=2438" title="April 18, 2018">April 18, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/may%2016,%202018.pdf?id=2452" title="May 16, 2018">May 16, 2018</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/may%2023,%202018%20special.pdf?id=2453" title="May 23, 2018 - Special">May 23, 2018 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/june%208,%202018%20special.pdf?id=2466" title="June 8, 2018 - Special">June 8, 2018 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2017-18/june%2020,%202018.pdf?id=2520" title="June 20, 2018">June 20, 2018</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="2016-17">2016-17  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/july%2020,%202016.pdf?id=1491" target="_blank" title="July 20, 2016">July 20, 2016</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/august%2017,%202016.pdf?id=1492" target="_blank" title="August 17, 2016">August 17, 2016</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/august%2022,%202016%20special.pdf?id=1493" target="_blank" title="August 22, 2016 - Special">August 22, 2016 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/september%2022,%202016.pdf?id=1494" title="September 21, 2016">September 21, 2016</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/october%2020,%202016.pdf?id=1495" title="October 19,  2016">October 19,  2016</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/november%2010,%202016.pdf?id=1497" title="November 9, 2016">November 9, 2016</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/december%2022,%202016.pdf?id=1496" title="December 21, 2016">December 21, 2016</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/january%2010,%202017.pdf?id=1498" title="January 10, 2017">January 10, 2017</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/boe%20report.pdf?id=1961" title="February 15, 2017">February 15, 2017</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/march%2015,%202017.pdf?id=2128" title="March 15, 2017">March 15, 2017</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2016-17/april%2019,%202017.pdf?id=2150" title="April 19, 2017">April 19, 2017</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2016-17/may%2017,%202017.pdf?id=2201" title="May 17, 2017">May 17, 2017</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2016-17/may%2031,%202017%20special.pdf?id=2203" title="May 31, 2017 - Special">May 31, 2017 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/2016-17/june%2021,%202017.pdf?id=2207" title="June 21, 2017">June 21, 2017</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="2015-16">2015-16  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/january%2019,%202016.pdf?id=1482" target="_blank" title="January 14, 2016 ">January 14, 2016 </a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/february%2018,%202016.pdf?id=1483" target="_blank" title="February 17, 2016">February 17, 2016</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/march%201,%202016%20special.pdf?id=1484" target="_blank" title="March 1, 2016 - Special">March 1, 2016 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/march%2017,%202016.pdf?id=1485" target="_blank" title="March 16, 2016">March 16, 2016</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/april%2021,%202016.pdf?id=1486" target="_blank" title="April 20, 2016">April 20, 2016</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/may%2019,%202016.pdf?id=1487" target="_blank" title="May 18, 2016">May 18, 2016</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/june%201,%202016%20special.pdf?id=1488" target="_blank" title="June 1, 2016 - Special">June 1, 2016 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/june%206,%202016%20special.pdf?id=1489" target="_blank" title="June 6, 2016 - Special">June 6, 2016 - Special</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/board%20meeting%20reports/june%2016,%202016.pdf?id=1490" target="_blank" title="June 15, 2016">June 15, 2016</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/athletics" title="Athletics ">Athletics </a></li>
+<li class="without-image"><a href="/administration/6" title="Curriculum &amp; Instruction ">Curriculum &amp; Instruction </a></li>
+<li class="without-image"><a href="/administration/30" title="Food Services  ">Food Services  </a></li>
+<li class="without-image"><a href="/Content/178" title="Gifted Program ">Gifted Program </a></li>
+<li class="without-image"><a href="/1/Department/276" title="Guidance Department">Guidance Department</a></li>
+<li class="without-image"><a href="/administration/36" title="Maintenance ">Maintenance </a></li>
+<li class="without-image"><a href="/administration/1" title="Special Education ">Special Education </a></li>
+<li class="without-image"><a href="/administration/24" title="Superintendent ">Superintendent </a></li>
+<li class="without-image"><a href="/administration/16" title="Technology ">Technology </a></li>
+<li class="without-image"><a href="/Content/176" title="Title 1 Federal Funds">Title 1 Federal Funds</a></li>
+<li class="without-image"><a href="/administration/19" title="Transportation/Safety ">Transportation/Safety </a></li>
+<li class="without-image"><a href="/administration/3" title="Treasurer/Finance ">Treasurer/Finance </a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="https://sites.google.com/gc-k12.org/gallipolis-city-schools/home" title="District Links">District Links</a></li>
+</ul>
+<ul class="nav navbar-nav left-nav-top">
+<li class="without-image"><a href="http://www.gahsstadium.com/" target="_blank" title="Stadium And STEM Project">Stadium And STEM Project</a></li>
+<li class="without-image"><a href="/Communication" title="E Communications Sign Up">E Communications Sign Up</a></li>
+<li class="without-image"><a href="https://payments.efundsforschools.com/v3/districts/55360/" title="E~Funds">E~Funds</a></li>
+<li class="without-image"><a href="http://myfreedomcafe.com/Gallipolis" title="Lunch Account Access">Lunch Account Access</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/the%20city%20of%20gallipolis%20-%20pronunciation.pdf?id=397" title='Proper Pronunciation of "Gallipolis"'>Proper Pronunciation of "Gallipolis"</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/public%20records%20policy%20poster%207-10-15.pdf?id=396" title="Public Records Policy">Public Records Policy</a></li>
+<li class="without-image"><a href="https://www.bsnteamsports.com/v3/shop/team_shop/GAapp182#/" title="NIKE Shop - Please Enter Code GAapp182">NIKE Shop - Please Enter Code GAapp182</a></li>
+<li class="without-image"><a href="http://oh.portal.airast.org/ocba/" title="Ohio's State Test Portal">Ohio's State Test Portal</a></li>
+<li class="without-image"><a href="https://gallipolisschools.gofmx.com/login" title="FMX Helpdesk">FMX Helpdesk</a></li>
+<li class="without-image"><a href="http://www.parchment.com/u/registration/19194/account" title="Transcript Request">Transcript Request</a></li>
+<li class="without-image"><a href="https://goo.gl/forms/Pk9lxNURckHbT5Jx1" target="_blank" title="Online Fee Collection System">Online Fee Collection System</a></li>
+</ul>
+</div>
+        </nav>
+</div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="hidden-xs hidden-sm col-md-9 col-lg-9">
+            <div class="head-logo-container">
+                <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="logo" href="/index.aspx"><span class="obscure">Logo link to home page</span></a>
+                <div id="head-shape1" class="artifact"></div>
+            </div>
+        </div>
+        <div class="hidden-xs hidden-sm col-md-3 col-lg-3">
+            <div class="header-elements">
+                <div class="search">
+                    <div>
+                        <div valign="top" style="" class="searchPad">
+                            <label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+                        <div style="display: inline; float: right;" class="searchgo">
+                            <a title="Search" class="bSearch glyphicon glyphicon-search"><span class="obscure">Search Site button</span></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="google_translate_element">
+                </div>
+
+                <script type="text/javascript">
+                    function googleTranslateElementInit() {
+                        new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+                    }
+	                    	</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+        </div>
+    </div>
+</div>
+
+	
+
+
+            
+        </div>
+        
+	
+    <div class="container">
+        
+<script type="text/javascript" src="/admin/js/Cycle2/jquery.cycle2.dev.js"></script><script src="https://player.vimeo.com/api/player.js"></script><script type="text/javascript">
+    // https://stackoverflow.com/a/51789311/5629100
+    var YoutubeVideos = (function () {
+        var playersYoutube = [],	// players array (to control players individually)
+            queueYoutube = [];		// videos queue (once api is ready, transform this into YT player)
+
+        // Constructor
+        function YoutubeVideos() { }
+
+        // Add elements to queue
+        YoutubeVideos.prototype.add = function ($video) {
+            queueYoutube.push($video);
+        };
+
+        // Finds player based on the id of the iframe element
+        YoutubeVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersYoutube.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Load Youtube API
+        YoutubeVideos.prototype.loadApi = function () {
+            $.getScript("https://www.youtube.com/iframe_api", function () {
+                window.onYouTubeIframeAPIReady = function () {
+                    queueYoutube.forEach(function ($video) {
+                        var loopBit = function () {
+                            if ($video.data('loop-video') == true) {
+                                return 1;
+                            }
+                            return 0;
+                        };
+
+                        var player = new YT.Player($video.get(0), {
+                            width: $video.data('frame-width'),
+                            height: $video.data('frame-height'),
+                            videoId: $video.data('video-id'),
+                            events: {
+                                'onStateChange': onPlayerStateChange,
+                                'onReady': onPlayerReady
+                            },
+                            playerVars: {
+                                autoplay: 0,
+                                rel: 0,
+                                enablejsapi: 1,
+                                loop: loopBit
+                            },
+                            origin: window.location.origin
+                        });
+
+                        playersYoutube.push({
+                            playerId: $video.attr('id'),
+                            player: player
+                        });
+                    });
+                };
+            });
+        };
+
+        return YoutubeVideos;
+    })();
+
+    // Modified from https://stackoverflow.com/a/51789311/5629100
+    var VimeoVideos = (function () {
+        var queueVimeo = [],		// queue of elements which will become players.
+            playersVimeo = [];		// players array (to control players individually)
+
+        // Constructor
+        function VimeoVideos() { }
+
+        // Add elements to queue
+        VimeoVideos.prototype.add = function ($video) {
+            queueVimeo.push($video);
+        };
+
+        // Converts queue to players.
+        VimeoVideos.prototype.loadPlayers = function () {
+            queueVimeo.forEach(function (item, index) {
+                var vimeoOptions = {
+                    id: $(item).data('video-id'),
+                    autoplay: false,
+                    muted: ($(item).data('autoplay') == true) ? true : false
+                };
+
+                playersVimeo[index] = {
+                    playerId: $(item).attr('id'),
+                    player: new Vimeo.Player(item, vimeoOptions)
+                };
+            });
+        };
+
+        // Finds player based on the id of the iframe element
+        VimeoVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersVimeo.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Adds listeners to the players that have been created now so they interact
+        // correctly with the header galleries.
+        VimeoVideos.prototype.bindListeners = function () {
+            playersVimeo.forEach(function (item) {
+                item.player.on('play', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+                    $wrapSlideshow.find('.cycle-pager').fadeOut();
+                    $wrapSlideshow.find('.playPause').fadeOut();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('pause', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                    $(this.element.parentNode).data('paused', true);
+                    $wrapSlideshow.find('.cycle-pager').fadeIn();
+                    $wrapSlideshow.find('.playPause').fadeIn();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('ended', function () {
+                    if ($(this.element.parentNode).data('loop-video') == true) {
+                        this.play();
+                    } else {
+                        var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                        $(this.element.parentNode).data('paused', true);
+                        $wrapSlideshow.find('.cycle-pager').fadeIn();
+                        $wrapSlideshow.find('.playPause').fadeIn();
+                        $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                    }
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.ready().then(function () {
+                    if ($(this).parents('.cycle-slide-active').length > 0 && $(this).data('autoplay') == true) {
+                        this.play();
+                    }
+                });
+            });
+        };
+
+        return VimeoVideos;
+    })();
+
+    // When the Youtube video is paused, ends, or begins, we need to either
+    // show or hide the slideshow controls and either pause or resume the
+    // slideshow. We also handle looping the Youtube videos here because the
+    // Youtube API is not 100% reliable for that function.
+    function onPlayerStateChange(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        var $wrapSlideshow = $videoElem.parents('.wrap-slideshow').first();
+        var videoState = e.data;
+
+        if (videoState == YT.PlayerState.PAUSED) {
+            $videoElem.data('paused', true);
+            $wrapSlideshow.find('.cycle-pager').fadeIn();
+            $wrapSlideshow.find('.playPause').fadeIn();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+        }
+
+        if (videoState == YT.PlayerState.ENDED) {
+            if ($videoElem.data('loop-video') == true) {
+                playYoutubePlayerById($videoElem.attr('id'));
+            } else {
+                $videoElem.siblings('.youtubeVideoThumbnail').show();
+                $videoElem.siblings('.youtubeVideoThumbnailPlay').show();
+                $wrapSlideshow.find('.cycle-pager').fadeIn();
+                $wrapSlideshow.find('.playPause').fadeIn();
+                $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+            }
+        }
+
+        if (videoState == YT.PlayerState.PLAYING) {
+            $videoElem.data('paused', false);
+            $videoElem.siblings('.youtubeVideoThumbnail').fadeOut();
+            $videoElem.siblings('.youtubeVideoThumbnailPlay').fadeOut();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+            $wrapSlideshow.find('.cycle-pager').fadeOut();
+            $wrapSlideshow.find('.playPause').fadeOut();
+        }
+    }
+
+    function onPlayerReady(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        if ($videoElem.parent('.cycle-slide-active').length > 0 && $videoElem.data('autoplay') == true) {
+            e.target.mute();
+            forcePlayYoutubePlayer(e.target);
+        }
+    }
+
+    function pauseYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            forcePauseYoutubePlayer(player);
+        }
+    }
+
+    function forcePauseYoutubePlayer(player) {
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePauseYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function playYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        forcePlayYoutubePlayer(player);
+    }
+
+    function muteYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.mute();
+    }
+
+    function forcePlayYoutubePlayer(player) {
+        player.playVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePlayYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function pauseVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.pause();
+        }
+    }
+
+    function playVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.play();
+        }
+    }
+
+    function addYouTubeStyles(videoId, containerWidth, containerHeight, videoWidth, videoHeight, videoZoom) {
+        var containerRatio = containerWidth / containerHeight;
+        var videoRatio = videoWidth / videoHeight;
+        var trueSize = $('#' + videoId).parents('.headerGalleryV2').innerWidth() / containerWidth;
+        var styles = '#' + videoId + ' {';
+
+        if (containerRatio === videoRatio) { // Video already fits the size of the container.
+            styles += 'top: 0;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+            styles += 'height: 100%;';
+        } else if (containerRatio > videoRatio) { // Container wider than video, needs to cut off top and bottom of video to scale.
+            var scale = (containerWidth / videoWidth);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateY(-' + (((videoHeight * scale) - containerHeight) / (videoHeight * scale) * 50) + '%);'
+            }
+        } else { // Container taller than video, needs to cut off left and right of video to scale.
+            var scale = (containerHeight / videoHeight);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'height: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateX(-' + (((videoWidth * scale) - containerWidth) / (videoWidth * scale) * 50) + '%);'
+            }
+        }
+
+        styles += '}';
+
+        if ($('#youtubeVideo' + videoId + 'Styles').length > 0) {
+            $('#youtubeVideo' + videoId + 'Styles').remove();
+        }
+
+        var styleTag = $('<style id="#youtubeVideo' + videoId + 'Styles"></style>')
+        $('head').append(styleTag);
+        $(styleTag).append(styles);
+    }
+
+    // Global Variables
+    var youtubes = new YoutubeVideos();
+    var vimeos = new VimeoVideos();
+
+    $(document).ready(function () {
+        $('.youtubeVideoSlide').each(function () {
+            youtubes.add($(this));
+        });
+
+        youtubes.loadApi();
+
+        $('.vimeoVideoSlide').each(function () {
+            vimeos.add($(this));
+        });
+
+        vimeos.loadPlayers();
+        vimeos.bindListeners();
+
+        $('.wrap-slideshow').on('click', '.youtubeVideoThumbnailPlay, .youtubeVideoThumbnail', function () {
+            playYoutubePlayerById($(this).data('player-id'));
+        });
+    });
+
+    $(document).on('cycle-initialized', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+        var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+        var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+        if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true) {
+            youtubeSlide.parents('.headerGalleryV2').cycle('pause');
+        }
+
+        if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true) {
+            vimeoSlide.parents('.headerGalleryV2').cycle('pause');
+            playVimeoPlayerById(vimeoSlide.attr('id'));
+        }
+
+        $('.cycle-pager > span').attr('tabindex', 0);
+    });
+
+    $(document).ready(function () {
+        // For ADA Compliance
+        $('.wrap-slideshow').on('keydown', '.prevNext > i, .cycle-pager > span, .playPause > i', function (e) {
+            if (e.keyCode === 32 || e.keyCode === 13) {
+                e.preventDefault();
+                $(this).click();
+            }
+        });
+    });
+</script><script>
+    $(document).ready(function () {
+        $slideshow = $('#slideshow').cycle({
+            'pauseOnHover': '#slideshow',
+            'slides': '> .slide',
+            'pager': '.slideshow.cycle-pager',
+            'pagerTemplate': '<span class="page"><span class="obscure">slide number {{slideNum}}</span></span>',
+            'autoHeight': '1900:600',
+            'timeout': 4000,
+            'fx': 'fade',
+            'log': false
+        });
+
+        setTimeout(function () {
+            $('.wrap-slideshow.slideshow .playPause .fa-play').on('click', function () {
+                $slideshow.cycle('resume');
+                $('#slideshow').data('paused', false);
+            });
+
+            $('.wrap-slideshow.slideshow .playPause .fa-pause').on('click', function () {
+                $slideshow.cycle('pause');
+                $('#slideshow').data('paused', true);
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-left').on('click', function () {
+                $slideshow.cycle('prev');
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-right').on('click', function () {
+                $slideshow.cycle('next');
+            });
+        }, 500);
+
+        $slideshow.on('cycle-before', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0) {
+                pauseYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0) {
+                pauseVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+        $slideshow.on('cycle-after', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true && youtubeSlide.data('paused') != true) {
+                muteYoutubePlayerById(youtubeSlide.attr('id'))
+                playYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true && vimeoSlide.data('paused') != true) {
+                playVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+	
+    });
+</script><div class="wrap-slideshow slideshow">
+    <div id="slideshow" class="headerGalleryV2">
+        
+                <div id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rptPhotos_ctl00_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2015-10/0b859544-8d2f-40c1-a904-4c0df2cf1069.jpg?nocache=635798157217421710" style="border-width:0px;"><div class="caption">
+		<div class="captionTop">
+			Green Elementary
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rptPhotos_ctl01_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2015-11/e52ebfd8-9324-44c0-8ff5-a12aa0799a13.jpg?nocache=635827630993724822" style="border-width:0px;"><div class="caption">
+		<div class="captionTop">
+			Rio Grande Elementary
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rptPhotos_ctl02_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2015-10/89c37ed5-7260-4689-8059-c0a0c7e1724f.jpg?nocache=635793097673927069" style="border-width:0px;"><div class="caption">
+		<div class="captionTop">
+			Washington Elementary
+		</div>
+	</div>
+</div>
+            
+    </div>
+
+    <div class="prevNext">
+        <i class="fa fa-chevron-left" aria-label="previous slide" tabindex="0"></i>
+        <i class="fa fa-chevron-right" aria-label="next slide" tabindex="0"></i>
+    </div>
+
+    <div class="cycle-pager slideshow"></div>
+
+    <div class="playPause">
+        <i class="fa fa-play" aria-label="play, resume header gallery" tabindex="0"></i>
+        <i class="fa fa-pause" aria-label="pause, stop header gallery" tabindex="0"></i>
+    </div>
+</div>
+
+
+<style>
+    .caption {
+        position: absolute;
+        bottom: 25%;
+        left: 0;
+        width: 100%;
+        padding: 0 20%;
+        z-index: 2;
+    }
+</style>
+<style>#slideshow{position:relative;z-index:1;</style>
+<style type="text/css">
+    .wrap-slideshow {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .slide {
+        display: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide.cycle-slide-active {
+        display: block;
+        animation-name: fadeIn;
+        animation-duration: 1000ms;
+    }
+
+    .slide img {
+        width: 100%;
+        display: block;
+    }
+
+    .caption,
+    .caption a {
+        color: #fff;
+    }
+
+    .captionTop,
+    .captionBottom {
+        display: none;
+    }
+
+    .cycle-slide-active .captionTop {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        animation-name: slideInRight;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-slide-active .captionBottom {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.4);
+        text-align: center;
+        animation-name: slideInLeft;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-pager {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        z-index: 2;
+    }
+
+    .cycle-pager .page {
+        display: inline-block;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+    .cycle-pager .page:before {
+        display: inline-block;
+        content: '';
+        width: 12px;
+        height: 12px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        line-height: 1px;
+    }
+
+    .cycle-pager .page.cycle-pager-active:before {
+        background-color: white;
+    }
+
+    .playPause {
+        position: absolute;
+        bottom: 0px;
+        right: 10px;
+        padding: 0;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .playPause i {
+        margin-bottom: 3px;
+    }
+
+    .playPause i.fa-play {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 8px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause i.fa-play:before {
+        margin-top: -1px;
+        margin-right: -2px;
+    }
+
+    .playPause i.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 9px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause svg.fa-play,
+    .playPause svg.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 11px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -15px;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .prevNext svg {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+    }
+
+    .prevNext svg.fa-chevron-left {
+        padding-left: 3px;
+    }
+
+    .prevNext svg.fa-chevron-right {
+        padding-right: 3px;
+    }
+
+    .prevNext i {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext .fa-chevron-left {
+        left: 20px;
+    }
+
+    .prevNext svg:first-child,
+    .prevNext .fa-chevron-left:before {
+        margin-left: -2px;
+    }
+
+    .prevNext .fa-chevron-right {
+        right: 20px;
+    }
+
+    .prevNext svg:last-child,
+    .prevNext .fa-chevron-right:before {
+        margin-right: -2px;
+    }
+
+    .wrap-slideshow .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('');
+        background-size: contain;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+
+    .vimeoVideoSlide {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+    }
+
+    .vimeoVideoSlide iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .youtubeVideoSlide {
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide .youtubeVideoThumbnail {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        object-fit: contain;
+        object-position: center;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .youtubeVideoThumbnailPlay {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background-color: #f00;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    .youtubeVideoThumbnailPlay i {
+        margin: 0 -2px 0 0;
+        line-height: 100%;
+    }
+
+    @keyframes none {
+        from {
+            display: block;
+        }
+
+        to {
+            display: block;
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            left: 100%;
+        }
+
+        60% {
+            left: -10px;
+        }
+
+        to {
+            left: 0;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            right: 100%;
+        }
+
+        60% {
+            right: -10px;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+<style id="youtubeStyles"></style>
+</div>
+
+
+        <div class="content-wrapper">
+            <div class="TopShadowBackground"></div>
+            <div class="TopBoxBackground"></div>
+
+            
+            
+            <div class="body-content-container">
+                <div class="container">
+                    <div class="masterC alignment-stretch">
+                        <div class="row">
+                            
+	<div class="hidden-xs col-sm-4 col-md-3 col-lg-3 backgroundcolor">
+		<div class="clearfix panel content">
+			
+				<h1>Quick Links
+				</h1>
+				<ul class="sf-vertical">
+<li class="without-image"><a href="http://www.gahsstadium.com/" target="_blank" title="Stadium And STEM Project">Stadium And STEM Project</a></li>
+<li class="without-image"><a href="/Communication" title="E Communications Sign Up">E Communications Sign Up</a></li>
+<li class="without-image"><a href="https://payments.efundsforschools.com/v3/districts/55360/" title="E~Funds">E~Funds</a></li>
+<li class="without-image"><a href="http://myfreedomcafe.com/Gallipolis" title="Lunch Account Access">Lunch Account Access</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/the%20city%20of%20gallipolis%20-%20pronunciation.pdf?id=397" title='Proper Pronunciation of "Gallipolis"'>Proper Pronunciation of "Gallipolis"</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/public%20records%20policy%20poster%207-10-15.pdf?id=396" title="Public Records Policy">Public Records Policy</a></li>
+<li class="without-image"><a href="https://www.bsnteamsports.com/v3/shop/team_shop/GAapp182#/" title="NIKE Shop - Please Enter Code GAapp182">NIKE Shop - Please Enter Code GAapp182</a></li>
+<li class="without-image"><a href="http://oh.portal.airast.org/ocba/" title="Ohio's State Test Portal">Ohio's State Test Portal</a></li>
+<li class="without-image"><a href="https://gallipolisschools.gofmx.com/login" title="FMX Helpdesk">FMX Helpdesk</a></li>
+<li class="without-image"><a href="http://www.parchment.com/u/registration/19194/account" title="Transcript Request">Transcript Request</a></li>
+<li class="without-image"><a href="https://goo.gl/forms/Pk9lxNURckHbT5Jx1" target="_blank" title="Online Fee Collection System">Online Fee Collection System</a></li>
+</ul>
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+		
+			
+<div class="clearfix LeftImages" style="height: 100%;">
+    <ul class="sf-vertical">
+<li class="without-image"><a href="/District/Links-Forms" title="Forms">Forms</a></li>
+<li class="has-flyout">
+<a href="#" title="Public Notices">Public Notices</a><ul class="flyout">
+<li class="without-image"><a href="/userfiles/1260/my%20files/public%20notices/title%209.pdf?id=2856" title="Title IV Nondiscrimination">Title IV Nondiscrimination</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/food%20services/nondiscrimination.pdf?id=2825" title="Food Services Nondiscrimination">Food Services Nondiscrimination</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/public%20notices/ferpa.pdf?id=2857" title="FERPA - Notification of Rights">FERPA - Notification of Rights</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/public%20notices/ferpa%20directory%20info.pdf?id=2858" title="FERPA - Notice for Directory Information">FERPA - Notice for Directory Information</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/public%20notices/career%20and%20technical%20education%20methods%20of%20administration.pdf?id=2862" title="Nondiscrimination Policy - Career and Technical Education">Nondiscrimination Policy - Career and Technical Education</a></li>
+<li class="without-image"><a href="/userfiles/1260/my%20files/public%20notices/notice-of-proposed-class-action-settlement-doe.pdf?id=2906" title="Doe v. State of Ohio">Doe v. State of Ohio</a></li>
+</ul>
+</li>
+</ul>
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+
+		
+	</div>
+	<div class="col-xs-12 col-sm-8 col-md-5 col-lg-5 backgroundcolor">
+
+		
+    <div id="start-content"></div>
+    <div id="uw_skip_to_main_content_anchor"></div>
+    <div class="panel superMsg">
+        <div class="superPanel">
+
+            
+<h1 class="super-message-title">
+    Superintendent's Message
+</h1>
+
+<div class="maincontentsection">
+<div class="super-message">
+    <p><span style="font-size:16px;"><span style="color:#0000CD;"><strong>Meals for Students</strong></span></span></p>Gallipolis City Schools will be offering lunches to go for all students and community members who are 18 or younger.  Lunches may be picked up at the Gallia Academy Middle School Fourth Avenue entrance from 11:00 a.m. - 12:30 p.m. starting on Tuesday, March 17th.  As of now, these services will run through April 3rd and will cover the days that students will be out of school under Governor ...
+</div>
+
+
+
+
+</div>
+            <br><a href="/Superintendent" style="float: right;">Read More</a>
+            <div class="SuperName">
+                <span id="ctl00_ctl00_MasterContent_ContentColumnMiddleTop_supername">Craig Wright</span>
+            </div>
+            <div class="clr"></div>
+        </div>
+    </div>
+
+    
+
+
+
+		<div class="clearfix panel content">
+			
+    <h1>District News
+    </h1>
+    <div class="news">
+        
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/2243">New Athletic Physical Form for 2020-21</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 16, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lblSummary" class="news-summary"><p>Athletic Physical forms for the 2020-21 school year are now available.  You may access them from the <strong>District Home Page</strong> under the Forms section in "Athletics" or click the link below:</p>
+
+<p><a href="https://www.gallipoliscityschools.k12.oh.us/District/Links-Forms">https://www.gallipoliscityschools.k12.oh.us/District/Links-Forms</a></p>
+
+<p> </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkViewAll" title="Click to read more about: New Athletic Physical Form for 2020-21" class="view-all" href="/News/2243">Read More <span class="sr-only">about New Athletic Physical Form for 2020-21</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/2241">COVID - 19 Prevention</a>
+
+				<span class="news-post-date">Posted On: Saturday, April 4, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lblSummary" class="news-summary"><p><a href="/userfiles/1260/my%20files/news/2019-20/covid-19/0826_001.jpg?id=2974">Ways to Help Prevent COVID-19</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/2240">Food Resources</a>
+
+				<span class="news-post-date">Posted On: Saturday, April 4, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lblSummary" class="news-summary"><p>A list of places that are providing food during the pandemic.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkViewAll" title="Click to read more about: Food Resources" class="view-all" href="/News/2240">Read More <span class="sr-only">about Food Resources</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/2239">COVID-19 AND CHILDREN</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 2, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lblSummary" class="news-summary"><p>2 New Updates concerning COVID-19:</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkViewAll" title="Click to read more about: COVID-19 AND CHILDREN" class="view-all" href="/News/2239">Read More <span class="sr-only">about COVID-19 AND CHILDREN</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+    <a href="/districtNewsArticles.aspx" class="view-all-news">View All News
+    </a>
+    <div class="clr">
+    </div>
+
+		</div>
+
+        
+		
+
+        
+		
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 backgroundcolor">
+		
+		
+
+		<div class="clearfix panel content">
+			
+    <h1>Calendar &amp; Events</h1>
+    
+		<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-28491">
+			<div class="event-date">
+				Apr 24
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,17,19,25,26&amp;schoolid=0&amp;types=&amp;eventID=28491" title="Preschool Registration">
+					Preschool Registration
+				</a>
+			</div>
+			<div class="event-location">
+				@Rio Grande Elementary
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-28464">
+			<div class="event-date">
+				Apr 24
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,17,19,25,26&amp;schoolid=0&amp;types=&amp;eventID=28464" title="Kindergarten Spring Program">
+					Kindergarten Spring Program
+				</a>
+			</div>
+			<div class="event-location">
+				@Washington Elementary
+			</div>
+			<div class="event-time">
+				Begins @ 10:00 AM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-28477">
+			<div class="event-date">
+				May 04
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,17,19,25,26&amp;schoolid=0&amp;types=&amp;eventID=28477" title="K - 2nd Grade Field Day">
+					K - 2nd Grade Field Day
+				</a>
+			</div>
+			<div class="event-location">
+				@Green Elementary School
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-28467">
+			<div class="event-date">
+				May 06
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,17,19,25,26&amp;schoolid=0&amp;types=&amp;eventID=28467" title="3rd - 5th Grade Field Day">
+					3rd - 5th Grade Field Day
+				</a>
+			</div>
+			<div class="event-location">
+				@Washington Elementary
+			</div>
+			<div class="event-time">
+				Begins @ 9:15 AM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-28492">
+			<div class="event-date">
+				May 07
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,17,19,25,26&amp;schoolid=0&amp;types=&amp;eventID=28492" title="K - 2nd Grade Field Day">
+					K - 2nd Grade Field Day
+				</a>
+			</div>
+			<div class="event-location">
+				@Rio Grande Elementary
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-28478">
+			<div class="event-date">
+				May 11
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2,17,19,25,26&amp;schoolid=0&amp;types=&amp;eventID=28478" title="3rd - 5th Grade Field Day">
+					3rd - 5th Grade Field Day
+				</a>
+			</div>
+			<div class="event-location">
+				@Green Elementary School
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		</ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_hl_viewAllEvents" class="view-all" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/24/2020">View All Events</a>
+</footer><style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7365')" style="color:Black" title="Go to the previous month">&lt;&lt;<span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April 2020</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7426')" style="color:Black" title="Go to the next month">&gt;&gt;<span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">S</th>
+<th align="center" abbr="Monday" scope="col">M</th>
+<th align="center" abbr="Tuesday" scope="col">T</th>
+<th align="center" abbr="Wednesday" scope="col">W</th>
+<th align="center" abbr="Thursday" scope="col">T</th>
+<th align="center" abbr="Friday" scope="col">F</th>
+<th align="center" abbr="Saturday" scope="col">S</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=3/29/2020">29</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=3/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=3/31/2020">31</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/1/2020">1</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/2/2020">2</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/3/2020">3</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/5/2020">5</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/6/2020">6</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/7/2020">7</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/8/2020">8</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/9/2020">9</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/10/2020">10</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/12/2020">12</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/13/2020">13</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/14/2020">14</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/15/2020">15</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/16/2020">16</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/19/2020">19</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/20/2020">20</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/21/2020">21</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/23/2020">23</a></td>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/26/2020">26</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/27/2020">27</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/28/2020">28</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/29/2020">29</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,51,52,56,57,58,61,62,65,66,67&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+	</div>
+	<div class="clr">
+	</div>
+
+                        </div>
+                        <div class="clr">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div id="social-links">
+            
+                    <a class="intranet" href="/Login/Intranet"><i class="fa"></i>
+                        <span class="obscure">Intranet </span>
+                    </a>
+                
+                    <a class="rss" href="/rssNews.ashx"><i class="fa"></i>
+                        <span class="obscure">RSS</span>
+                    </a>
+                
+                    <a class="cms" href="/login.aspx"><i class="fa"></i>
+                        <span class="obscure">CMS Login </span>
+                    </a>
+                
+                    <a class="twitter" href="https://twitter.com/GalliaPride"><i class="fa"></i>
+                        <span class="obscure">Twitter</span>
+                    </a>
+                
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footerinfo">
+        
+        <div class="footerName">
+        </div>
+        <div>
+            Gallipolis City Schools  |  61 State Street  |  Gallipolis, OH 45631
+        </div>
+        <div>
+            
+			Phone:740.446.3211  	  |  Fax:740-446-6433
+        </div>
+        <div>
+            <a href="http://maps.google.com/maps?q=61%20State%20Street+Gallipolis+OH+45631">View Map &amp; Directions
+            </a>
+        </div>
+        
+    </div>
+
+</div>
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-52979721-37', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><div class="footer-branding-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <a href="http://www.schoolpointe.com" target="_blank" class="pull-right" alt="SchoolPointe">
+                                <img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPwhite.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC1CVnKLj4P3P0qMJ5iPstcBiDHydsK03lx8Xtjj8McOnhM1E/Z+4AtYfBLjoqzHUNzx8re9P49CESeNcN+aUYUYylAVjuf883gda9qxPWJdWzlAW1I7BexV+czOzRObl3d50nMhilDDHAwFxGIx0wbFChwQ4Ex0vxOTS+4GFwX5O7kl0Ub38BaDmMgKQcEKVqNSQD67gQzTXdB4A0BTQX56TjzPdP4KgmIAJFo6XWNsVobKscM9xAMf7wwexMr1VQr6eny5cHvWE8n08cMlPMX4UUsMkilD+ZSI9iMjU0yDuCD8GsnLDl6GsgBmi45cgSxLOQJb0r0B03brVHI2aRHj1HX4bsgg9FALGXgdAnz+3fPXHQkoFYN6AHzJTqhMhgIUZHRyIop27ZqiAc5YtJ2CBmWGVEJRDuOVtSdk96ZySIM7oQRKLNMMfuEaYBPHf7UnvwclkPDJBJa1wKztDi6ksAKSxkS0J9AQoAbRkhRLYupP5UfZtzYMcETdrtRuebqUFNAgBxTdrc7p3lb5cG87gm7gyuj+DfF4g5gBMII5vbFKWePuk/HCjfYquEX2jQfetIrU0FyvbBObo1CEWr8JkkUFRwOfzMDwGZIdDlEZh0FsPpuONYQUyNniCyMIahBgL9N5WPrxm7gqXxJSO3bUUENDE9dXDnHAyMxZUeTfBuKQjtJNZCvgL3hOtBgN53JKgunZuEj8FebONNvrKSLQqlYIB6TKJFENEjsUkBLzAOx9UysQWNNGqUBe0wmZ11N1yVx/jqgB2/mbAHkazISKTMuizNiXiSwyoHGDIcvBxXS9J1pDBfJ5u5J2HPiBBN+Xr4uuDR+WtbHcMYtsYms3xHSKYhMkeSMxWk7MMjQy2jqouDmyradb3nBLSPm24J8mLJQ9K5ToZmSewp0Qk2VvFiQDTVcI9Q9wgwvj0GaEsvuvDOI+IORDvkjx+dyMqFUy3cp0z+3MAo7VauGkmnjQ3WUl7A==">
+</div>
+</form>
+</body>
+</html>

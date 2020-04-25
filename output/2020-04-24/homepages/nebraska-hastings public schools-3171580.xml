@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta name="msvalidate.01" content="A36CC67005CFFCF212DBD1AE5A2A0FB9">
+<title>Assuring the essential. Expanding the possible. - Hastings Public Schools</title>
+<meta name="Description" content="Hastings Public Schools homepage.">
+<meta name="keywords" content="">
+<base href="https://hastingspublicschools.org">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="Cache-Control" content="max-age=3600">
+<meta http-equiv="last-modified" content="Fri, 20 Mar 2020 16:02:18 CST">
+<link rel="canonical" href="https://hastingspublicschools.org/">
+<!-- CSS --><link rel="stylesheet" type="text/css" href="/style.css?v=09202018">
+<link rel="stylesheet" type="text/css" href="/mce.css?v=09202018">
+<link rel="stylesheet" media="print" type="text/css" href="/assets/templates/site/css/print.css?v=09202018">
+<!--[if IE]>
+        <link href="/assets/templates/site/css/ie.css" rel="stylesheet" media="screen" type="text/css" />
+        <![endif]--><!--[if lt IE 9]>
+          <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+          <script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js"></script>
+          <link href="/assets/templates/site/css/ie8.css?v=09202018" rel="stylesheet" media="screen" type="text/css" />
+        <![endif]--><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script><script type="text/javascript" src="/assets/templates/base/js/magnifico.min.js"></script><script async type="text/javascript" src="/assets/templates/base/js/jquery.sidr.min.js"></script><script async type="text/javascript" src="/assets/templates/base/js/table2div.js"></script><script async type="text/javascript" src="/assets/templates/site/js/jquery.flexslider-min.js"></script><script async type="text/javascript" src="/assets/templates/base/js/placeholder.js"></script><script async type="text/javascript" src="/assets/templates/site/js/main.js?v=09202018"></script><script>
+	        $(window).load(function() {
+			  $('.flexslider').flexslider({
+			    animation: "fade"
+			  });
+			});
+		</script><!-- Paste Google Analytics Code Below --><script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-65952180-12', 'auto');
+  ga('send', 'pageview');
+
+</script><script>
+
+var tz = 'America/Chicago';	
+	
+	
+	
+			
+$(window).load(function() {
+
+    var mykey = 'AIzaSyCepP1hUEHJFDEtQFfvOD3dqqAGhLc6jDY';
+    var calendarid = 'hpswebcal@gmail.com';
+    var calids =  calendarid.split(",");
+    var items = {};
+	jQuery(function () {
+	  jQuery.ajaxSetup({ 
+		xhr: function() {
+		  if (jQuery.browser.msie) {
+			return new ActiveXObject("Microsoft.XMLHTTP");
+		  } else {
+			return new XMLHttpRequest();
+		  }
+		}
+	  })
+	});
+    function makeRequest(e) {
+      var newDate = new Date();
+
+      // temporary event filter only lists events in the next day. Ideally, it should list events until a quota of events (3) is met to fill out the widget.
+
+      jQuery.ajax({
+          type: 'GET',
+          url: encodeURI('https://www.googleapis.com/calendar/v3/calendars/' + e + '/events?'
+            + 'key=' + mykey
+            + '&singleEvents=true'
+            + '&timeMin=' + newDate.toISOString()
+            + '&orderBy=startTime'
+            + '&maxResults=3'),
+          dataType: 'jsonp',
+          success: function (response) {
+              items = jQuery.merge(response.items,items);
+              items.sort(function(a,b) {return (a.start.dateTime > b.start.dateTime) ? 1 : ((b.start.dateTime > a.start.dateTime) ? -1 : 0);} );
+              items.slice(0,8);
+              var limit = items.slice(0,8);
+              sortAndFill(limit);
+          },
+          error: function (response) {
+              console.log(response); //error!
+          }
+      });
+    }
+    for(i = 0; i < calids.length; i++){
+        makeRequest(calids[i]);
+    }
+    
+        //console.log(items);
+
+    // functions for later use ///////////////
+
+    function convertISODate(ISOString) {
+      var date = new Date(ISOString);
+      return date;
+    }
+
+    // handles date object and returns a text string consisting of time of day in 12 hour, AM/PM format.
+    function convertToTime(date) {
+      var timeString;
+      var afternoon = false;
+
+      if (date.getHours() >= 12)
+        afternoon = true;
+
+      timeString = afternoon ? date.getHours() - 12 : date.getHours();
+      timeString = timeString == 0 ? 12 : timeString;
+      timeString += ":";
+      timeString += ( date.getMinutes() % 100 == 0 ) ? "0" + date.getMinutes() : date.getMinutes();
+      timeString += " ";
+      timeString += afternoon ? "PM" : "AM";
+      if(timeString == "12:00 AM")timeString = "All Day";
+      return timeString;
+    }
+    function formatMonth(month){
+        var form_month = '';
+        if(month == 1) form_month="Jan";
+        if(month == 2) form_month="Feb";
+        if(month == 3) form_month="Mar";
+        if(month == 4) form_month="Apr";
+        if(month == 5) form_month="May";
+        if(month == 6) form_month="Jun";
+        if(month == 7) form_month="Jul";
+        if(month == 8) form_month="Aug";
+        if(month == 9) form_month="Sept";
+        if(month == 10) form_month="Oct";
+        if(month == 11) form_month="Nov";
+        if(month == 12) form_month="Dec";
+        return form_month;
+    }
+    function formatMonthFull(month){
+        var form_month = '';
+        if(month == 1) form_month="January";
+        if(month == 2) form_month="February";
+        if(month == 3) form_month="March";
+        if(month == 4) form_month="April";
+        if(month == 5) form_month="May";
+        if(month == 6) form_month="June";
+        if(month == 7) form_month="July";
+        if(month == 8) form_month="August";
+        if(month == 9) form_month="September";
+        if(month == 10) form_month="October";
+        if(month == 11) form_month="November";
+        if(month == 12) form_month="December";
+        return form_month;
+    }
+
+ function reformatYear(year){
+        var form_year = year;
+        form_year = form_year+1900;
+        return form_year;
+    }
+    
+
+ function reformatMonth(month){
+        var form_month = '';
+        if(month == 0) form_month="January";
+        if(month == 1) form_month="February";
+        if(month == 2) form_month="March";
+        if(month == 3) form_month="April";
+        if(month == 4) form_month="May";
+        if(month == 5) form_month="June";
+        if(month == 6) form_month="July";
+        if(month == 7) form_month="August";
+        if(month == 8) form_month="September";
+        if(month == 9) form_month="October";
+        if(month == 10) form_month="November";
+        if(month == 11) form_month="December";
+        return form_month;
+    }
+    // encapsulate generation of single event element, return DOM object.
+    function generateElement(isToday, calEvent) {
+        // Construct container for each event.
+        // eventCont > linkify > info_cont > info_time + info_location
+        //console.log(calEvent);
+        
+        // this next line, during daylight savings should be -4,not should be -5
+        
+      var startTime = (calEvent.start.dateTime)?convertISODate(calEvent.start.dateTime):convertISODate(calEvent.start.date+"T00:00:00-06:00");
+      
+      
+      
+      var dateString = convertToTime(startTime);
+      //if (!isToday) dateString += " on " + generateDate(startTime);
+
+ var eventElement = document.createElement('li');
+// jQuery(eventElement).addClass("event")
+
+        
+      var info_date = document.createElement('div');
+      jQuery(info_date).text(formatMonth(startTime.getMonth() + 1)+' '+startTime.getDate()+', '+reformatYear(startTime.getYear()))
+      
+      
+    
+     
+      
+      jQuery(info_date).addClass("date")
+                    .appendTo(jQuery(eventElement));
+
+    
+		
+    
+
+	 // var title_holder = document.createElement('div');
+	//	jQuery(title_holder).addClass("event-details")
+				//	.appendTo(jQuery(eventElement));
+		
+      var title = document.createElement("div"); 
+        jQuery(title).addClass("name")
+	    jQuery(title).appendTo(jQuery(eventElement));
+	
+		
+		
+		
+		
+		
+		
+		
+			  var link = document.createElement('a');
+			   jQuery(link).attr("href",calEvent.htmlLink+"&ctz="+tz)
+            .attr("onclick","window.open('"+ calEvent.htmlLink +"&ctz="+tz+"','','width=450,height=450,left='+(screen.availWidth/2-225)+',top='+(screen.availHeight/2-225)+'');return false;")
+             .attr("target","_blank")
+					.appendTo(jQuery(title));
+		
+		
+		   var title2 = document.createElement("span"); 
+      
+	    jQuery(title2).appendTo(jQuery(link))
+		jQuery(title2).text(calEvent.summary);
+		
+		
+		
+		
+		       
+		
+
+
+      var info = document.createElement('div');
+        jQuery(info).text(calEvent.description)
+       jQuery(info).addClass("descrip")
+                   .appendTo(jQuery(eventElement));   
+                    
+                    
+                 
+
+
+ //     var info_dline = document.createElement('div');
+     
+    //   jQuery(info_dline).addClass("time")
+//
+    //  .text(dateString+" • " +calEvent.location  )
+                  //  .appendTo(jQuery(info));           
+                    
+                    
+                    
+                    
+                    
+                    
+
+      return eventElement;
+    }
+
+    // populate calendar. 
+    function sortAndFill(eventList) {
+    jQuery('#districtEvents').empty();
+      var today = new Date();
+      var i; //index
+      for (i = 0; i < eventList.length; i++) {
+        jQuery('#districtEvents').append(jQuery(generateElement(false, eventList[i])));
+      }        
+
+      if (jQuery('#districtEvents').children().length < 1)
+        jQuery('#districtEvents').append("<li>No events scheduled!</li>");
+
+      // fill.call(this, false, fill.call(this, true, 0));
+    }
+    	});
+</script><link rel="canonical" href="https://hastingspublicschools.org/">
+</head>
+<body id="home">
+<div id="wrapper">
+    <div id="main">
+                     <!--OPEN HEADER-->
+                <header id="header"><!--TOP BAR--><div class="top-bar">
+		                <div class="row">
+			                <div class="sec-nav">
+				                <ul>
+<li><a href="https://hastingspublicschools.org/"><i class="fa fa-home"></i> Home</a></li>
+					                <li class="translate">
+<a href="//translate.google.com/translate?tl=es&amp;u=https://hastingspublicschools.org/"><i class="fa fa-comments"></i> Translate</a>
+					                <ul id="otherlan">
+<li><a href="//translate.google.com/translate?tl=es&amp;u=https://hastingspublicschools.org/">Español</a></li>
+				                <li><a href="//translate.google.com/translate?tl=zh-CN&amp;u=https://hastingspublicschools.org/">Chinese [Traditional]</a></li>
+				                <li><a href="//translate.google.com/translate?tl=zh-TW&amp;u=https://hastingspublicschools.org/">Chinese [Simplified]</a></li>
+				                <li><a href="//translate.google.com/translate?tl=it&amp;u=https://hastingspublicschools.org/">Italian</a></li>
+				                <li><a href="//translate.google.com/translate?tl=pt&amp;u=https://hastingspublicschools.org/">Portuguese</a></li>
+				                <li><a href="//translate.google.com/translate?tl=ar&amp;u=https://hastingspublicschools.org/">Arabic</a></li>
+</ul>
+</li>
+
+					                <li><a href="https://hastingspublicschools.org/district/employment/"><i class="fa fa-briefcase"></i> Employment</a></li>
+									<li><a href="https://hastingspublicschools.org/new-to-hps.html"><i class="fa fa-star"></i> New to HPS?</a></li>
+				                </ul>
+</div>
+			                <div class="aud-nav">
+				                <ul>
+<li><a href="https://hastingspublicschools.org/students/">Students</a></li>
+					                <li><a href="https://hastingspublicschools.org/parents/">Parents</a></li>
+					                <li><a href="https://hastingspublicschools.org/staff/">Staff</a></li>
+				                </ul>
+</div>
+		                </div>
+	                </div>
+	                
+	                <!--MENU BAR-->
+                    <div class="row header-menu-items">
+                        <div class="logo-holder">
+                            <a href="https://hastingspublicschools.org/" title="Hastings Public Schools"><div class="logo" style="background-image:url(/assets/site/images/logos/logo.png)">Hastings<span class="sub">Public Schools</span>
+</div></a>
+                        </div>
+                        <div class="search-tools"> 
+							<div class="social">
+								<ul>
+<li><span class="hint--top hint--bounce" data-hint="Facebook"><a target="_blank" href="http://facebook.com/pages/Hastings-Public-Schools/161125763912972"><i class="fa fa-facebook-square">Facebook (opens in new window)</i></a></span></li>
+					            
+					           
+					           
+					            <li><span class="hint--top hint--bounce" data-hint="RSS"><a href="https://hastingspublicschools.org/district/feed.rss"><i class="fa fa-rss-square">RSS</i></a></span></li>
+							   
+								</ul>
+</div>
+							
+							
+							
+							
+							 <div class="search-bar">
+			                    </div>
+							<div class="search-box">
+							    <form id="search" action="https://hastingspublicschools.org/search-results.html" method="get">
+
+			                	<input type="text" name="search" placeholder="Search our site..." value="" aria-label="Search"><button class="button" aria-label="Search Button" value="Search" type="submit"><i class="fa fa-search"></i></button>  <input type="hidden" name="id" value="36">
+</form>
+			                
+			                
+			                
+							</div>
+                        </div>
+                        <div id="mobile-menu">
+                            <a href="/#sidr-main" id="sidr-menu">Menu</a>
+                        </div>
+                        <div id="navigation">
+                            <nav class="main-nav"><h1>Hastings Public Schools</h1>
+                                 <ul>
+<li class="first has-dropdown">
+<a aria-label="Home &gt; Schools" href="https://hastingspublicschools.org/schools/">Schools</a><ul class="dropdown">
+<li class="first"><a aria-label="Home &gt; Alcott Elementary" href="https://hastingspublicschools.org/schools/alcott-elementary/">Alcott Elementary</a></li>
+<li><a aria-label="Home &gt; Hawthorne Elementary" href="https://hastingspublicschools.org/schools/hawthorne-elementary/">Hawthorne Elementary</a></li>
+<li><a aria-label="Home &gt; Lincoln Elementary" href="https://hastingspublicschools.org/schools/lincoln-elementary/">Lincoln Elementary</a></li>
+<li><a aria-label="Home &gt; Longfellow Elementary" href="https://hastingspublicschools.org/schools/longfellow-elementary/">Longfellow Elementary</a></li>
+<li><a aria-label="Opens in a new window" href="https://hastingspublicschools.org/schools/watson-elementary/" target="“_blank”">Watson Elementary</a></li>
+<li><a aria-label="Home &gt; Hastings Middle School" href="https://hastingspublicschools.org/schools/hastings-middle-school/">Hastings Middle School</a></li>
+<li class="last"><a aria-label="Home &gt; Hastings High School" href="https://hastingspublicschools.org/schools/hastings-high-school/">Hastings High School</a></li>
+</ul>
+</li>
+<li class="has-dropdown">
+<a aria-label="Home &gt; District" href="https://hastingspublicschools.org/district/">District</a><ul class="dropdown">
+<li class="first"><a aria-label="Home &gt; Departments" href="https://hastingspublicschools.org/district/departments/">Departments</a></li>
+<li><a aria-label="Home &gt; Board of Education" href="https://hastingspublicschools.org/district/board-of-education/">Board of Education</a></li>
+<li><a aria-label="Home &gt; CIA" href="https://sites.google.com/a/hhstigers.com/cia-home/">CIA</a></li>
+<li><a aria-label="Home &gt; Join our team!" href="https://hastingspublicschools.org/district/employment/">Join our team!</a></li>
+<li><a aria-label="Home &gt; Boundaries and Enrollment" href="https://hastingspublicschools.org/district/enrollment/">Boundaries and Enrollment</a></li>
+<li><a aria-label="Home &gt; Food Services" href="https://hastingspublicschools.org/district/food-services/">Food Services</a></li>
+<li><a aria-label="Home &gt; News" href="https://hastingspublicschools.org/district/news/" rel="category">News</a></li>
+<li><a aria-label="Home &gt; Learn More about HPS" href="https://hastingspublicschools.org/district/lrngcommunity/">Learn More about HPS</a></li>
+<li><a aria-label="Home &gt; Community Links" href="https://hastingspublicschools.org/district/community-links.html">Community Links</a></li>
+<li><a aria-label="Home &gt; Instrument Donation" href="https://hastingspublicschools.org/district/instrument-donation.html">Instrument Donation</a></li>
+<li><a aria-label="Home &gt; Maintenance Work Order" href="https://hastingspublicschools.org/district/maintenance-work-order.html">Maintenance Work Order</a></li>
+<li class="last"><a aria-label="Home &gt; Notice of Non-Discrimination" href="https://hastingspublicschools.org/district/notice-of-non-discrimination.html">Notice of Non-Discrimination</a></li>
+</ul>
+</li>
+<li class="has-dropdown">
+<a aria-label="Home &gt; Hastings Public Schools Foundation" href="https://hastingspublicschools.org/foundation/">Foundation</a><ul class="dropdown">
+<li class="first"><a aria-label="Home &gt; About the Foundation" href="https://hastingspublicschools.org/foundation/about-staff.html">About the Foundation</a></li>
+<li><a aria-label="Home &gt; Meet Us" href="https://hastingspublicschools.org/foundation/meet-us.html">Meet Us</a></li>
+<li><a aria-label="Opens in a new window" href="https://www.facebook.com/hastingspublicschoolsalumni" target="“_blank”">See Us On Facebook</a></li>
+<li><a aria-label="Home &gt; Past HHS Scholarship Winners" href="https://hastingspublicschools.org/foundation/scholarships.html">Past HHS Scholarship Winners</a></li>
+<li><a aria-label="Home &gt; Special Scholarship Journals" href="https://hastingspublicschools.org/foundation/scholarship-updates.html">Special Scholarship Journals</a></li>
+<li><a aria-label="Home &gt; Upcoming Reunions" href="https://hastingspublicschools.org/foundation/upcoming-reunions/">Upcoming Reunions</a></li>
+<li><a aria-label="Home &gt; Staff Idea Grant Program" href="https://hastingspublicschools.org/foundation/staff-idea-grant-program/">Staff Idea Grant Program</a></li>
+<li><a aria-label="Home &gt; Alumni Obituaries" href="https://hastingspublicschools.org/foundation/alumni-obituaries/">Alumni Obituaries</a></li>
+<li><a aria-label="Home &gt; Brick Project" href="https://hastingspublicschools.org/foundation/brick-project.html">Brick Project</a></li>
+<li><a aria-label="Home &gt; Membership" href="https://hastingspublicschools.org/foundation/membership.html">Membership</a></li>
+<li><a aria-label="Home &gt; News" href="https://hastingspublicschools.org/foundation/news/announcements/">News</a></li>
+<li class="last"><a aria-label="Home &gt; Planned Giving: Your Legacy?" href="https://hastingspublicschools.org/foundation/planned-giving.html">Planned Giving: Your Legacy?</a></li>
+</ul>
+</li>
+<li><a aria-label="Home &gt; Contact Us" href="https://hastingspublicschools.org/contact/" rel="category">Contact Us</a></li>
+<li><a aria-label="Home &gt; Staff Directory" href="https://hastingspublicschools.org/staff-directory.html">Staff Directory</a></li>
+<li class="last has-dropdown">
+<a aria-label="Home &gt; Calendars" href="https://hastingspublicschools.org/calendars/">Calendars</a><ul class="dropdown">
+<li class="first"><a aria-label="Home &gt; District Calendar" href="https://hastingspublicschools.org/calendars/district-calendar.html" district calendar>District Calendar</a></li>
+<li><a aria-label="Home &gt; School Calendars" href="https://hastingspublicschools.org/calendars/school-calendars.html" school calendars>School Calendars</a></li>
+<li><a aria-label="Home &gt; SH Activities Calendar" href="https://www.gnaconference.org/public/genie/415/school/2/">SH Activities Calendar</a></li>
+<li class="last"><a aria-label="Home &gt; Days of Attendance Calendar" href="https://hastingspublicschools.org/calendars/days-of-attendance-calendar.html" days of attendance calendar>Days of Attendance Calendar</a></li>
+</ul>
+</li>
+</ul></nav>
+</div>
+                    </div>
+                </header><!--CLOSE HEADER--><!-- Home Banner Connent --><!--OPEN HOME MAIN--><div id="main-content">
+	                <section class="row"><div class="header-bg">
+		                  	<img alt="Section Header Image" src="/assets/components/phpthumbof/cache/dist-hdr.98d2d0a6a385ad9e7a44090149cc3630.jpg">
+</div>
+		                  <div class="slider">
+			                <div class="flexslider">
+		                    <ul class="slides">
+<li><div class="main-news">
+			                <div class="image">
+			                    
+			                    
+			                 
+			                    <img alt="A Message from our Superintendent" src="/assets/components/phpthumbof/cache/ImportantAnnouncement.406d6f633e87aa5633ff0341f6ab33be.jpg"><!--/assets/site/images/district/news/2020/ImportantAnnouncement.jpg--><!--/assets/site/images/district/news/2020/ImportantAnnouncement.jpg-->
+</div>
+			                <div class="details">
+				                <h2><a href="https://hastingspublicschools.org/district/news/supt-message.html">A Message from our Superintendent</a></h2>
+				                <div class="dateline">Published  April 02, 2020</div>
+				                <p class="excerpt">Mr. Schneider's video message
+En Español clic aquí
+Hello, to everybody in the Hastings Public Schools family.
+It’s kind of a tough day today because last night we were notified by the governor of Nebraska that it is now official,…</p>
+			                </div>
+			                <div class="actions">
+					            <div class="share">
+					                <a href="/#">Share <i class="fa fa-share-alt"></i></a>
+					            
+					           
+            
+           <ul class="share_list">
+<li><a rel="popup" href="http://www.facebook.com/sharer.php?u=https://hastingspublicschools.org/district/news/supt-message.html"><span class="fa fa-facebook-square"></span> Facebook</a></li>
+                <li><a rel="popup" href="http://twitter.com/share?text=A%20Message%20from%20our%20Superintendenturl=https://hastingspublicschools.org/district/news/supt-message.html"><span class="fa fa-twitter"></span> Twitter</a></li>
+                <li><a href="mailto:?subject=A%20Message%20from%20our%20Superintendent%20-%20Hastings%20Public%20Schools%20-%20https://hastingspublicschools.org/district/news/supt-message.html"><span class="fa fa-envelope-o"></span> Email</a></li>
+                <li><a rel="popup" href="https://plus.google.com/share?url=https://hastingspublicschools.org/district/news/supt-message.html"><span class="fa fa-google-plus-square"></span> Google+</a></li>
+                <li><a rel="popup" href="http://pinterest.com/pin/create/button/?url=https://hastingspublicschools.org/district/news/supt-message.html"><span class="fa fa-pinterest"></span> Pinterest</a></li>
+            </ul>
+</div>
+					            <div class="more"><a aria-label="Read More about A Message from our Superintendent" href="https://hastingspublicschools.org/district/news/supt-message.html">Read More <i class="fa fa-plus-circle"></i></a></div>
+				            </div>
+		                </div></li>
+<li><div class="main-news">
+			                <div class="image">
+			                    
+			                    
+			                 
+			                    <img alt="Information for Food Needs/ Información para las necesidades alimentarias" src="/assets/components/phpthumbof/cache/lunch.9360aaa178ff5b58c3a2cb23014dac25.jpg"><!--/assets/site/images/district/news/2020/lunch.jpg--><!--/assets/site/images/district/news/2020/lunch.jpg-->
+</div>
+			                <div class="details">
+				                <h2><a href="https://hastingspublicschools.org/district/news/information-for-food-needs.html">Information for Food Needs/ Información para las necesidades alimentarias</a></h2>
+				                <div class="dateline">Published  March 16, 2020</div>
+				                <p class="excerpt">Local Food ProgramsInformation for students in Hastings Public Schools, Hastings, NE
+While we are working to provide breakfast and lunch services to our students during this school closure, this will take some time. For now,…</p>
+			                </div>
+			                <div class="actions">
+					            <div class="share">
+					                <a href="/#">Share <i class="fa fa-share-alt"></i></a>
+					            
+					           
+            
+           <ul class="share_list">
+<li><a rel="popup" href="http://www.facebook.com/sharer.php?u=https://hastingspublicschools.org/district/news/information-for-food-needs.html"><span class="fa fa-facebook-square"></span> Facebook</a></li>
+                <li><a rel="popup" href="http://twitter.com/share?text=Information%20for%20Food%20Needs/%20Informaci%C3%B3n%20para%20las%20necesidades%20alimentariasurl=https://hastingspublicschools.org/district/news/information-for-food-needs.html"><span class="fa fa-twitter"></span> Twitter</a></li>
+                <li><a href="mailto:?subject=Information%20for%20Food%20Needs/%20Informaci%C3%B3n%20para%20las%20necesidades%20alimentarias%20-%20Hastings%20Public%20Schools%20-%20https://hastingspublicschools.org/district/news/information-for-food-needs.html"><span class="fa fa-envelope-o"></span> Email</a></li>
+                <li><a rel="popup" href="https://plus.google.com/share?url=https://hastingspublicschools.org/district/news/information-for-food-needs.html"><span class="fa fa-google-plus-square"></span> Google+</a></li>
+                <li><a rel="popup" href="http://pinterest.com/pin/create/button/?url=https://hastingspublicschools.org/district/news/information-for-food-needs.html"><span class="fa fa-pinterest"></span> Pinterest</a></li>
+            </ul>
+</div>
+					            <div class="more"><a aria-label="Read More about Information for Food Needs/ Información para las necesidades alimentarias" href="https://hastingspublicschools.org/district/news/information-for-food-needs.html">Read More <i class="fa fa-plus-circle"></i></a></div>
+				            </div>
+		                </div></li>
+<li><div class="main-news">
+			                <div class="image">
+			                    
+			                    
+			                 
+			                    <img alt="Kindergarten Registration- Start here!" src="/assets/components/phpthumbof/cache/KindONLINE%21%21.b80941c537f2977b5c987a68bbf72795.jpg"><!--/assets/site/images/district/news/2020/KindONLINE!!.jpg--><!--/assets/site/images/district/news/2020/KindRegHere2.jpg-->
+</div>
+			                <div class="details">
+				                <h2><a href="https://hastingspublicschools.org/district/news/kind-reg-online.html">Kindergarten Registration- Start here!</a></h2>
+				                <div class="dateline">Published  April 22, 2020</div>
+				                <p class="excerpt"> 
+En Español
+ 
+Starting kindergarten is an exciting time for you and your child and we want the sign-up process to go as smoothly as possible for your family.
+Kindergarten registration can now be started online to make the…</p>
+			                </div>
+			                <div class="actions">
+					            <div class="share">
+					                <a href="/#">Share <i class="fa fa-share-alt"></i></a>
+					            
+					           
+            
+           <ul class="share_list">
+<li><a rel="popup" href="http://www.facebook.com/sharer.php?u=https://hastingspublicschools.org/district/news/kind-reg-online.html"><span class="fa fa-facebook-square"></span> Facebook</a></li>
+                <li><a rel="popup" href="http://twitter.com/share?text=Kindergarten%20Registration-%20Start%20here!url=https://hastingspublicschools.org/district/news/kind-reg-online.html"><span class="fa fa-twitter"></span> Twitter</a></li>
+                <li><a href="mailto:?subject=Kindergarten%20Registration-%20Start%20here!%20-%20Hastings%20Public%20Schools%20-%20https://hastingspublicschools.org/district/news/kind-reg-online.html"><span class="fa fa-envelope-o"></span> Email</a></li>
+                <li><a rel="popup" href="https://plus.google.com/share?url=https://hastingspublicschools.org/district/news/kind-reg-online.html"><span class="fa fa-google-plus-square"></span> Google+</a></li>
+                <li><a rel="popup" href="http://pinterest.com/pin/create/button/?url=https://hastingspublicschools.org/district/news/kind-reg-online.html"><span class="fa fa-pinterest"></span> Pinterest</a></li>
+            </ul>
+</div>
+					            <div class="more"><a aria-label="Read More about Kindergarten Registration- Start here!" href="https://hastingspublicschools.org/district/news/kind-reg-online.html">Read More <i class="fa fa-plus-circle"></i></a></div>
+				            </div>
+		                </div></li>
+<li><div class="main-news">
+			                <div class="image">
+			                    
+			                    
+			                 
+			                    <img alt="Kindergarten Registration/ Registro de Kindergarten" src="/assets/components/phpthumbof/cache/kinder-regis-vert2.7c781bf5ded9934be4d824c5ddb286ed.jpg"><!--/assets/site/images/district/news/2018/kinder-regis-vert2.jpg--><!--/assets/site/images/district/news/colored-pencils.jpeg-->
+</div>
+			                <div class="details">
+				                <h2><a href="https://hastingspublicschools.org/district/news/kinder-regist.html">Kindergarten Registration/ Registro de Kindergarten</a></h2>
+				                <div class="dateline">Published  April 13, 2020</div>
+				                <p class="excerpt">When: Anytime
+Time: Monday - Friday; 10:00 a.m. - 2:00 p.m.
+Where: The school assigned to your area of residence (“home school”) Boundaries MapParents of incoming Kindergarten students must register their child for the upcoming…</p>
+			                </div>
+			                <div class="actions">
+					            <div class="share">
+					                <a href="/#">Share <i class="fa fa-share-alt"></i></a>
+					            
+					           
+            
+           <ul class="share_list">
+<li><a rel="popup" href="http://www.facebook.com/sharer.php?u=https://hastingspublicschools.org/district/news/kinder-regist.html"><span class="fa fa-facebook-square"></span> Facebook</a></li>
+                <li><a rel="popup" href="http://twitter.com/share?text=Kindergarten%20Registration/%20Registro%20de%20Kindergartenurl=https://hastingspublicschools.org/district/news/kinder-regist.html"><span class="fa fa-twitter"></span> Twitter</a></li>
+                <li><a href="mailto:?subject=Kindergarten%20Registration/%20Registro%20de%20Kindergarten%20-%20Hastings%20Public%20Schools%20-%20https://hastingspublicschools.org/district/news/kinder-regist.html"><span class="fa fa-envelope-o"></span> Email</a></li>
+                <li><a rel="popup" href="https://plus.google.com/share?url=https://hastingspublicschools.org/district/news/kinder-regist.html"><span class="fa fa-google-plus-square"></span> Google+</a></li>
+                <li><a rel="popup" href="http://pinterest.com/pin/create/button/?url=https://hastingspublicschools.org/district/news/kinder-regist.html"><span class="fa fa-pinterest"></span> Pinterest</a></li>
+            </ul>
+</div>
+					            <div class="more"><a aria-label="Read More about Kindergarten Registration/ Registro de Kindergarten" href="https://hastingspublicschools.org/district/news/kinder-regist.html">Read More <i class="fa fa-plus-circle"></i></a></div>
+				            </div>
+		                </div></li>
+ 
+</ul>
+</div>
+</div>
+		                <div class="slogan">
+			                Assuring the essential. <span class="line2">Expanding the possible.</span>
+		                </div>
+		                <div class="events">
+			                <h3>Upcoming Events</h3>
+			                <ul id="districtEvents" class="events-list"></ul>
+<div class="links">
+				                 <a href="https://hastingspublicschools.org/calendars/district-calendar.html"><i class="fa fa-calendar-o"></i> View Full Calendar</a>
+
+				                
+				               
+			                </div>
+		                </div>
+	                </section>
+</div>
+                <!--CLOSE HOME MAIN-->
+                
+                <!--OPEN HOME SECONDARY-->
+                <div id="secondary">
+	                <div class="row">
+	                	
+	                	<!--ANNOUNCEMENTS-->
+	                	<div class="announcements">
+		                	<h4>District Announcements</h4>
+		                	<ul class="news-list">
+<li class="has-photo">
+			                		<div class="image"><img alt="Kindergarten Registration- Start here! image" src="/assets/components/phpthumbof/cache/KindRegHere2.fc0f40afd998b65db02d99108682ad35.jpg"></div>
+			                		<div class="details">
+				                		<!--<div class="dateline">Apr 22, 2020</div>-->
+				                		<div class="headline"><a href="https://hastingspublicschools.org/district/news/kind-reg-online.html">Kindergarten Registration- Start here!</a></div>
+				                		<p class="excerpt"> 
+En Español
+ 
+Starting kindergarten is an exciting time for you and your child and we want the sign-up process to go as smoothly as possible for your family.
+Kindergarten registration can now be started online to make the…
+				                		<a aria-label="Read More about Kindergarten Registration- Start here!" href="https://hastingspublicschools.org/district/news/kind-reg-online.html" class="more">Read the rest of this article</a></p>
+			                		</div>
+			                	</li>
+<li class="has-photo">
+			                		<div class="image"><img alt="2020 Educator and Young Educator image" src="/assets/components/phpthumbof/cache/toy-graphic.c003d6a09e2b0fb70eee2571df66f4b1.jpg"></div>
+			                		<div class="details">
+				                		<!--<div class="dateline">Apr 20, 2020</div>-->
+				                		<div class="headline"><a href="https://hastingspublicschools.org/district/news/edu-of-year.html">2020 Educator and Young Educator</a></div>
+				                		<p class="excerpt">Hastings Public Schools proudly announces
+The 2020 Educator of the Year
+   Ruth Raun
+Ms. Raun, a Grade 4 teacher at Longfellow Elementary, has been with the District for twenty-three years. Ms. Raun has served on various…
+				                		<a aria-label="Read More about 2020 Educator and Young Educator" href="https://hastingspublicschools.org/district/news/edu-of-year.html" class="more">Read the rest of this article</a></p>
+			                		</div>
+			                	</li>
+<li class="has-photo">
+			                		<div class="image"><img alt="Ballot Initiative- Morton image" src="/assets/components/phpthumbof/cache/BallotInitiativeGraphic.09124c16996e36dd15403edd6146c0ca.jpg"></div>
+			                		<div class="details">
+				                		<!--<div class="dateline">Apr 16, 2020</div>-->
+				                		<div class="headline"><a href="https://hastingspublicschools.org/district/news/ballot-morton.html">Ballot Initiative- Morton</a></div>
+				                		<p class="excerpt">This video gives information about the Ballot Initiative for the renovation of Morton Elementary into a preschool center and administrative offices. 
+
+Video Transcript / Transcripción del video
+Frequently Asked Questions 
+Preguntas…
+				                		<a aria-label="Read More about Ballot Initiative- Morton" href="https://hastingspublicschools.org/district/news/ballot-morton.html" class="more">Read the rest of this article</a></p>
+			                		</div>
+			                	</li>
+
+		                	</ul>
+<a href="https://hastingspublicschools.org/district/news/" class="news">See All News <i class="fa fa-caret-right"></i></a>
+	                	</div>
+	                	
+	                	<!--SIDEBAR-->
+	                	<aside class="sidebar"><!--FEATURE--><div class="feature">
+			                	<div class="image"><img alt="Construction Update" src="/assets/site/images/district/news/2016/construction-update-july.jpg"></div>
+			                	<div class="details">
+				                	<div class="headline"><a href="https://hastingspublicschools.org/district/const-updt/">Construction Update</a></div>
+				                	<div class="descrip">Construction progress...</div>
+				                	<a href="https://hastingspublicschools.org/district/const-updt/" class="more">Find Out More <i class="fa fa-plus-circle"></i></a>
+			                	</div>
+		                	</div>
+		                	<!--QUICKLINKS-->
+		                	<div class="quicklinks">
+			                	<h5>Quicklinks</h5>
+			                	<ul>
+<!--QUICKLINKS--><li><a aria-label="Opens in New WIndow" target="_blank" href="https://www.education.ne.gov">NE Department of Education</a></li>
+<li><a aria-label="Opens in New WIndow" target="_blank" href="http://nep.education.ne.gov/Districts/Index/01-0018-000?DataYears=20162017">HPS State of Schools</a></li>
+<li><a aria-label="Opens in New WIndow" target="_blank" href="https://hastingspublicschools.org/district/notice-of-non-discrimination.html">Notice of Non-Discrimination</a></li>
+<li><a aria-label="Opens in New WIndow" target="_blank" href="http://hastingspublicschools.org/district/lrngcommunity/wellness.html">District Wellness Policy</a></li>
+<li><a aria-label="Opens in New WIndow" target="_blank" href="https://hastingspublicschools.org/district/employment/">Join our Team!</a></li>
+<li><a aria-label="Opens in New WIndow" target="_blank" href="https://sites.google.com/hpstigers.org/hart/home">HART</a></li>
+
+
+
+			                     </ul>
+</div>
+		                	<div class="accreditation"><img alt="Accredited" src="assets/templates/site/images/accred-seal-blues.jpg"></div>
+	                	</aside>
+</div>
+                </div>
+                <!--CLOSE HOME SECONDARY-->
+                
+            </div>
+        </div>
+    
+     <!--FOOTER-->
+        <footer id="footer"><div class="row">
+				<div class="footer-bg"><img alt="Footer Background Image" src="assets/templates/site/images/footer-bg.jpg"></div>
+				<div class="school-finder">
+					<h6>Find Your School</h6>
+					<ul>
+<li><a href="https://hastingspublicschools.org/schools/longfellow-elementary/">Longfellow Elementary</a></li>
+<li><a href="https://hastingspublicschools.org/schools/alcott-elementary/">Alcott Elementary</a></li>
+<li><a href="https://hastingspublicschools.org/schools/hawthorne-elementary/">Hawthorne Elementary</a></li>
+<li><a href="https://hastingspublicschools.org/schools/lincoln-elementary/">Lincoln Elementary</a></li>
+<li><a href="https://hastingspublicschools.org/schools/watson-elementary/">Watson Elementary</a></li>
+<li><a href="https://hastingspublicschools.org/schools/hastings-middle-school/">Hastings Middle School</a></li>
+<li><a href="https://hastingspublicschools.org/schools/hastings-high-school/">Hastings High School</a></li>
+					</ul>
+<div class="contact">
+						<h6>Hastings Public Schools</h6>
+						<div class="address">1924 West A Street <br>Hastings, NE 68901</div>
+						<div class="phone">Phone: <a href="tel:4024617500">402-461-7500</a>
+</div>
+						<div class="fax">Fax: 402-461-7509</div>
+					</div>
+				</div>
+				<div class="right-col">
+					<div class="mission">
+						<h6>Our Mission</h6>
+						<p>Our fundamental purpose is to assure all students acquire the knowledge, skills, and behaviors essential to be successful individuals and responsible citizens.</p>
+						<a href="https://hastingspublicschools.org/district/lrngcommunity/missionvision.html">Learn More <i class="fa fa-caret-right"></i></a>
+					</div>
+					
+					<div class="mission">
+						<h6>Notice of Non-Discrimination</h6>
+						<p>The Hastings Public School District does not discriminate on the basis of sex, disability, race, color, religion, veteran status, national or ethnic origin, ... </p>
+						<a href="https://hastingspublicschools.org/district/notice-of-non-discrimination.html">Read complete <i class="fa fa-caret-right"></i></a>
+					</div>
+					
+				</div>
+				<div class="credits">
+					<div class="copyright">Copyright <script>document.write(new Date().getFullYear())</script> Hastings Public Schools</div>
+					<div class="links">
+<a href="https://hastingspublicschools.org/site-map.html">Site Map</a> <span class="divider">|</span> <a href="https://hastingspublicschools.org/privacy-policy.html">Privacy Policy</a> <span class="divider">|</span>
+					
+					 <a href="https://hastingspublicschools.org/district/notice-of-non-discrimination.html">Non-Discrimination Notice</a>
+					
+					</div>
+					<div class="dev"><a aria-label="Opens in New Window" href="http://ideabankmarketing.com" target="_blank">Website Design and Development by IdeaBank Marketing.</a></div>
+				</div>
+	        </div>
+        </footer><!--This page, MySQL queries took 0.2120 s for 326 queries(s), document parsing took 2.2441 s, for a total time of 2.4561 s, and retrieved from database.-->
+</body>
+</html>

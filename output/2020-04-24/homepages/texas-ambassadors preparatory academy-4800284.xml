@@ -1,0 +1,848 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Ambassadors Preparatory Academy </title>
+<meta name="Keywords" content="Ambassadors Preparatory Academy ">
+<meta name="Description" content="Ambassadors Preparatory Academy ">
+<meta name="Author" content="Ambassadors Preparatory Academy ">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta property="og:image" content="http://images.schoolinsites.com/images/education.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="200">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/css.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/demo4/style.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src="JavaScripts/jquery-1.8.3.min.js"></script><link href="/CommonTemplates/SiteElements/Styles/Include-Styles.asp" type="text/css" rel="stylesheet">
+<link href="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/Styles.css" rel="stylesheet" type="text/css">
+<!--script src="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/JavaScripts.js" type="text/javascript"></script--><script type="text/javascript">
+	//-----------------------------------------------------------------------------------------------
+	//Edit CSS, currently set up for Pirobox fix
+	//-----------------------------------------------------------------------------------------------
+		function getCSSRule(ruleName, deleteFlag) {               // Return requested style obejct
+		   ruleName=ruleName.toLowerCase();    
+		   
+			if (document.styleSheets) {                            
+				for (var i=0; i<document.styleSheets.length; i++) { 
+					var styleSheet=document.styleSheets[i];
+					var styleSheetHref = styleSheet.href;
+					if ((styleSheetHref != null) && (styleSheetHref.indexOf("pirobox") != -1))
+						piroStyle = i;
+				}
+
+				var styleSheet=document.styleSheets[piroStyle];
+				 var ii=0;                                        // Initialize subCounter.
+				 var cssRule=false;                               // Initialize cssRule. 
+
+				 do {                                             // For each rule in stylesheet
+					if (styleSheet.cssRules) {                    // Browser uses cssRules?
+					   cssRule = styleSheet.cssRules[ii];         // Yes --Mozilla Style
+					} else {                                      // Browser usses rules?
+					   cssRule = styleSheet.rules[ii];            // Yes IE style. 
+					}                                             // End IE check.
+
+					if (cssRule)  {                               // If we found a rule...
+					   if ((typeof(cssRule.selectorText) != 'undefined') && (cssRule.selectorText.toLowerCase()==ruleName)) { //  match ruleName?
+						  if (deleteFlag=='delete') {             // Yes.  Are we deleteing?
+							 if (styleSheet.cssRules) {           // Yes, deleting...
+								styleSheet.deleteRule(ii);        // Delete rule, Moz Style
+							 } else {                             // Still deleting.
+								styleSheet.removeRule(ii);        // Delete rule IE style.
+							 }                                    // End IE check.
+							 return true;                         // return true, class deleted.
+						  } else {                                // found and not deleting.
+							 return cssRule;                      // return the style object.
+						  }                                       // End delete Check
+					   }                                          // End found rule name
+					}                                             // end found cssRule
+					ii++;                                         // Increment sub-counter
+				 } while (cssRule)  
+			}
+			return false;
+		}
+
+
+		function killCSSRule(ruleName) {                          // Delete a CSS rule   
+		   return getCSSRule(ruleName,'delete');                  // just call getCSSRule w/delete flag.
+		}                                                         // end killCSSRule
+
+		function addCSSRule(ruleName) {                           // Create a new css rule
+		   if (document.styleSheets) {                            // Can browser do styleSheets?
+			  if (!getCSSRule(ruleName)) {                        // if rule doesn't exist...
+				 if (document.styleSheets[0].addRule) {           // Browser is IE?
+					document.styleSheets[0].addRule(ruleName, null,0);      // Yes, add IE style
+				 } else {                                         // Browser is IE?
+					document.styleSheets[0].insertRule(ruleName+' { }', 0); // Yes, add Moz style.
+				 }                                                // End browser check
+			  }                                                   // End already exist check.
+		   }                                                      // End browser ability check.
+		   return getCSSRule(ruleName);                           // return rule we just created.
+		} 
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//Get/Set cookies for mobile site
+	//-----------------------------------------------------------------------------------------------
+		function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			createCookie(name,"",-1);
+		}
+		
+		
+		
+		var fullSite = readCookie('FullSite');
+		var mobileDev = readCookie('MobileDevice');
+		var mobileNoRedirect = readCookie('MobileNoRedirect');
+		
+		if(fullSite && mobileDev) {
+			if((fullSite != 'True') && (mobileNoRedirect != '1') && (mobileDev == 'True'))
+				window.location = 'http://www.apagalv.org/mobile/default.asp';
+		}
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//photo album / lightbox init
+	//-----------------------------------------------------------------------------------------------
+		$(document).ready(function() {
+			if ($("a[class^='pirobox']").length > 0) {
+				$().piroBox({
+						my_speed: 400, //animation speed
+						bg_alpha: 0.7, //background opacity
+						slideShow : true, // true == slideshow on, false == slideshow off
+						slideSpeed : 4, //slideshow duration in seconds(3 to 6 Recommended)
+						close_all : '.piro_close,.piro_overlay'// add class .piro_overlay(with comma)if you want overlay click close piroBox
+				});
+			}
+		});
+
+		var UserAgent = navigator.userAgent;
+		//alert(UserAgent);
+		if (UserAgent.indexOf("MSIE 10") != -1)
+			TheAgent = "IE10"
+		else{
+			if (UserAgent.indexOf("MSIE") != -1)
+				TheAgent = "IE"
+			else
+				TheAgent = ""
+		}
+		
+		//Pirobox + Google Translate workaround for non-IE browsers. Dynamically changes CSS for pirobox after the translate widget has loaded.
+		if (TheAgent == ""){
+			theTimeout = setTimeout('GoogleCountdown()', 2000);	
+		}
+		
+		function GoogleCountdown() {
+			var element =  document.getElementById('google_translate_element');
+			if ((typeof(element) != 'undefined') && (element != null))
+			{
+				var PiroContent = getCSSRule('.pirobox_content');
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					//x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+					
+				
+				if(y < 700)
+					PiroContent.style.top = "16%";
+				else{
+					if(y > 900)
+						PiroContent.style.top = "23%";
+					else
+						PiroContent.style.top = "20%";
+				}
+				
+			}
+		}
+	//-----------------------------------------------------------------------------------------------
+		
+		
+		//Use onClick=SlideLink() in the slide show overlay for slide links work
+		function SlideLink() {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			//figure out which div is showing and set Link var
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			//if an anchor exists store values to "h" (for HREF) and "t" (for Target)
+			if (Link.firstChild.nodeName == "A") {
+				h = Link.firstChild.href;
+				t = Link.firstChild.target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				h = Link.getElementsByTagName('A')[0].href;
+				t = Link.getElementsByTagName('A')[0].target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+		}
+		//Make sure the cursor is a link pointer when a link exists (called by function SlideCursor())
+		function SlideCursorCheck(me) {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			if (Link.firstChild.nodeName == "A") {
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.firstChild.href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.etElementsByTagName('A')[0].href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+		}
+		//Function to change cursor on slide show overlay
+		var CursorCheck = false;
+		function SlideCursor(me) {
+			Elem = me;			
+			if (CursorCheck == false) {
+				var Start_SlideCursor = setInterval("SlideCursorCheck(Elem)", 500);
+				CursorCheck = true;
+			}
+		}
+		
+		function Login()
+		{
+			var loginPage = 'https://securesite.schoolinsites.com/loginv2/common/?p=1';
+			var loginDomain = 'http://www.apagalv.org';
+			loginPage = loginPage + '&login_for=' + loginDomain;
+			
+			window.location.href = loginPage;
+		}
+		
+		var imgAltTagsFix = function() {
+			$('img.gsc-branding-img').attr("alt", "Google Custom Search Branding");
+			$('input.gsc-search-button').attr('alt', "Google Custom Search Button");
+		};
+		
+		window.__gcse = {
+			callback: imgAltTagsFix
+		};
+		
+		function a11yClick(event){
+			if(event.type === 'click'){
+				return true;
+			}
+			else if(event.type === 'keypress'){
+				var code = event.charCode || event.keyCode;
+				if((code === 32)|| (code === 13)){
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	</script><style type="text/css" media="screen">
+		body{
+	margin: 0;
+	padding: 25px 0 0 0;}
+div#ToggleNav{
+	position:absolute; /* only effects browsers that cannot accept Fixed positioning */
+	top: 0; /* only effects browsers that cannot accept Fixed positioning */
+	left: 0; /* only effects browsers that cannot accept Fixed positioning */
+	background: #000 url(/images/Admin/Skins/HardCandyBlack/images/ToggleLoginBg.gif) repeat-x top left;
+	border-bottom: 0px solid #333;
+	border-top: 0px solid #FFFFFF;
+	width:100%;
+	height:25px;
+	z-index: 1000;
+	overflow:hidden;}
+div#ToggleNav td{
+	font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #9EA8C3;}
+div#ToggleNav input {
+	margin: 0;
+	padding: 0;
+	font: normal 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #303040;
+	vertical-align:middle;}
+div#ToggleNav .loginWrapper {
+	float: right;
+	height: 100%;
+}
+div#ToggleNav .formWrapper {
+	padding-right: 3px;
+	padding-left: 3px;
+	display: inline-block; 
+	*display: inline;}
+div#ToggleNav .formUsername {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/UsernameBg.gif) no-repeat top left;}
+div#ToggleNav .formPassword {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/PasswordBg.gif) no-repeat top left;}
+div#ToggleNav .formSelected {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/LoginFieldBlank.gif) repeat-x top left;}
+div#ToggleNav .formButton {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat 0 0;}
+div#ToggleNav .formButtonHover {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat -46px 0;}
+div#ToggleNav a.help:link, div#ToggleNav a.help:visited {
+	display:block;
+	height: 16px;
+	color: #D9D8E6;
+	border: 0;
+	margin: 4px 5px 0 1px;}
+div#ToggleNav a.help:hover, div#ToggleNav a.help:active {
+	display: block;
+	height: 16px;
+	border: 0;}
+body > div#ToggleNav .formUsername {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formPassword {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formSelected {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formButton {margin-bottom: 3px;}/* non-IE browsers only */
+body > div#ToggleNav .formButtonHover {margin-bottom: 3px;}/* non-IE browsers only */
+@media screen {
+	body > div#ToggleNav{
+		position:fixed;}
+}
+
+* html div#AdminDefaultIncludes{
+	position: fixed;
+	top: 25px;
+	bottom:0;
+ 	width: 100%;
+	_position: absolute;
+	_top: expression( ( 25 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+	_height: expression( ( -25 + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );}
+				* html body {
+					overflow:hidden;}
+				* html div#AdminDefaultIncludes{
+					overflow: auto;	}
+			
+	</style>
+<!--[if lte IE 9]>
+	<style type="text/css" media="screen">
+		* html body {
+			overflow:auto;}
+	</style>
+	<![endif]--><script type="text/javascript" src="/JavaScripts/JavaScripts.js"></script><script type="text/javascript">
+			TopBar = '<div class="loginWrapper">' +
+						'<div class="formWrapper"><a href="/admin1/securelogin.asp" aria-label="Log In" title="Go to Secure Login Page" alt="Log In" class="formButton" border="0" onFocus="this.className=\'formButtonHover\'"  onMouseOver="this.className=\'formButtonHover\'" onblur="this.className=\'formButton\'" onMouseOut="this.className=\'formButton\'">Login button</a></div>' +
+					 '</div>';
+		</script><script type="text/javascript">
+		if(typeof(BottomBar) == 'undefined')
+			var BottomBar = ' ';
+		$(document).ready(function() {
+			$("body").prepend('<div id="ToggleNav">' + TopBar + '</div>' + BottomBar);	
+		});
+	
+	</script><!--[if lte IE 9]>
+	<div id="AdminDefaultIncludes">
+	<![endif]--><link href="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/Styles2018.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/js/skipnav.js"></script><script type="text/javascript">
+		//Show hide search drop down
+		function ShowSearch() {
+			var SearchDropDown = document.getElementById("SearchDropDown");
+			if (SearchDropDown.style.display != "block") {
+				SearchDropDown.style.display = "block";
+			}else {
+				SearchDropDown.style.display = "none";
+			}
+		}
+	</script><script type="text/javascript"><!--//--><![CDATA[//><!--
+	startList = function() {
+		if (document.all&&document.getElementById) {
+			navRoot = document.getElementById("nav");
+			for (i=0; i<navRoot.childNodes.length; i++) {
+				node = navRoot.childNodes[i];
+				if (node.nodeName=="LI") {
+					node.onmouseover=function() {
+						this.className+=" over";
+					}
+					node.onmouseout=function() {
+						this.className=this.className.replace(" over", "");
+					}
+				}
+			}
+		}
+	}
+	window.onload=startList;
+	//--><!]]></script><script type="text/javascript">
+NiceTitles.autoCreated = null;
+NiceTitles = null;
+	function colNavShow(el) {
+		var col = document.getElementById(el);
+		//col.style.display='block';
+		col.style.visibility='visible';
+	}
+	function colNavHide(el) {
+		var col = document.getElementById(el);
+		//col.style.display='none';
+		col.style.visibility='hidden';
+	}
+</script><script type="text/javascript">
+// search input label effect
+// to activate, at the end of the page call inputLabel('ElementIdTag','Default Input Text') for each input field to show text.
+function inputLabel(id, defaultTxt) {
+	var inputId = document.getElementById(id);
+	// onFocus action
+	inputId.onfocus = function() {
+		if (inputId.value == defaultTxt) {
+			inputId.value = '';
+			inputId.style.color = '#333';
+		}else {
+			inputId.select();
+		}
+	};
+	// onBlur action
+	inputId.onblur = function() {
+		if (inputId.value == '') {
+			inputId.value = defaultTxt;
+			inputId.style.color = '#ccc';
+		}
+	};
+	// enter default text at page load
+	if (inputId.value == '') {
+		inputId.value = defaultTxt;
+		inputId.style.color = '#ccc';
+	}
+}
+</script><!-- This fixes the issue where drop down menus are hidden behind embedded YouTube videos  --><script> 
+$(document).ready(function() { 
+$("iframe").each(function(){ 
+var ifr_source = $(this).attr('src'); 
+var wmode = "wmode=transparent"; 
+if(ifr_source.indexOf('?') != -1) { 
+var getQString = ifr_source.split('?'); 
+var oldString = getQString[1]; 
+var newString = getQString[0]; 
+$(this).attr('src',newString+'?'+wmode+'&'+oldString); 
+} 
+else $(this).attr('src',ifr_source+'?'+wmode); 
+}); 
+}); 
+</script><!-- End YouTube fix --><link rel="Shortcut Icon" type="image/ico" href="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/images/favicon.ico">
+<link rel="icon" href="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+<div class="IndexPage">
+	<table role="presentation" align="center" cellpadding="0" cellspacing="0" width="1020" border="0" id="PageWrapper">
+<tr>
+<td valign="top" style="padding: 0; height: 36px;">
+            <div id="topnavcontainer">
+<div role="navigation" aria-label="Main menu">
+<ul class="nav">
+<li><a href="/">Home</a></li>
+         
+    <!--Division Main Link Include -->
+	
+			<li class="TopNav">
+				<a href="?DivisionID=17963" target="" style="cursor: default;">PARENTS</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=17963&amp;LMID=808809">
+											Newsletter/Information  								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=MainPage&amp;L=1&amp;DivisionID=17963&amp;LMID=808815">
+											Portal 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=Forms&amp;L=1&amp;DivisionID=17963&amp;LMID=808812">
+											PTO 								
+										</a>
+									</li>
+								
+										<li>
+											<a href="?PN=Pages&amp;SubP=Level1Page&amp;L=0&amp;DivisionID=17963&amp;PageID=33871">
+												Resources for learning at home 
+											</a>
+										</li>
+										
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=17964" target="" style="cursor: default;">STUDENTS</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=Contact&amp;L=1&amp;DivisionID=17964&amp;LMID=808830">
+											Student/Parent Contract 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=MainPage&amp;L=1&amp;DivisionID=17964&amp;LMID=808837">
+											  								
+										</a>
+									</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=17968" target="" style="cursor: default;">FACULTY/STAFF</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=StaffList&amp;L=1&amp;DivisionID=17968&amp;LMID=808867">
+											Contact  								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=Forms&amp;L=1&amp;DivisionID=17968&amp;LMID=808856">
+											Information/Forms 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=Links&amp;L=1&amp;DivisionID=17968&amp;LMID=808858">
+											Grade-book 								
+										</a>
+									</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=17969" target="" style="cursor: default;">PROGRAMS</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=Articles&amp;L=1&amp;DivisionID=17969&amp;LMID=809067">
+											Academics 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=17969&amp;LMID=809073">
+											Extra Curricular/Electives 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=Employment&amp;L=1&amp;DivisionID=17969&amp;LMID=809074">
+											Special Programs 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=MainPage&amp;L=1&amp;DivisionID=17969&amp;LMID=809079">
+											Sports 								
+										</a>
+									</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=18100" target="" style="cursor: default;">EMPLOYMENT</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=Employment&amp;L=1&amp;DivisionID=18100&amp;LMID=812663">
+											Job Openings 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=Contact&amp;L=1&amp;DivisionID=18100&amp;LMID=812661">
+											Mailing Address 								
+										</a>
+									</li>
+								
+				</ul>
+</li>
+<li>
+<a href="/?PN=News2">News</a>
+    </li>
+<li><a href="/?PN=AboutUs">About APA</a></li>
+	<li><a href="/?PN=Contact">Contact</a></li>
+	<li><a href="Default.asp?PN=AdvancedSearch">Search</a></li>
+		
+             
+	
+	
+</ul>
+</div>
+</div>
+            </td>
+        </tr>
+<tr style="padding: 0; height: 132px;">
+<td valign="top"><a href="%5C"><img src="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/images/HeaderBackground.png" alt="Home" width="1020" height="132" border="0"></a></td>
+       </tr>
+<tr>
+<td valign="top">
+            <!--Begin Main/Default Split -->
+							<!--Begin Slideshow -->
+				<div id="SlideShowContainer">
+                  <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
+<td align="left" valign="top" id="SlideLeftShadow">
+                      </td>
+                      <td id="SlideshowStatic">
+                         
+                      </td>
+                      <td>
+                         <div id="Slideshow">
+                           <!-- slide show -->
+                           <div style="width:661px; height:325px; overflow:hidden; position:absolute; z-index:0;">
+			<div>
+			<script src="/JavaScripts/fotorama-4.6.4/fotorama.js"></script><style>
+.fotorama__html div,
+.fotorama__html a {
+  display: block;
+  height: 100%;
+  /* Transparent links are not clickable in IE,
+     but non-existent background fixes this.
+    (Put an empty 1×1 image here to avoid
+     errors in console.)
+  background: url(_.gif); */
+}
+
+</style>
+<div class="fotorama" data-width="100%" data-fit="cover" data-maxheight="325" data-transition="crossfade" data-autoplay="1000" data-loop="true" data-transitionduration="500" data-stopautoplayontouch="false" data-arrows="true" data-click="false" data-swipe="true" data-nav="false">
+	 
+	 
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_703/085db2ecbd7c5243e408466905b24344.jpg" data-caption="Learning from Home Web Page" alt="Learning from Home Web Page">
+		
+			<a href="https://sites.google.com/apagalv.org/ambassadorsprep/home" target="_self" style="font-size:0;">https://sites.google.com/apagalv.org/ambassadorsprep/home</a>
+		
+		</div>
+			
+</div>
+
+
+
+			</div>
+		</div>
+                           <div id="SlideOverlay"></div>
+                         </div>
+                      </td>
+                      <td align="left" valign="top" id="SlideRightShadow">
+                      </td>
+                    </tr></table>
+</div>
+                <div id="maincontent"></div>
+  <!--Begin 3 Columns -->
+<table role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0"><tr>
+<td align="left" valign="top" id="SideLeftShadow"></td>
+  <td>
+  <div id="MiddleWrapper">
+      <table role="presentation" width="990" border="0" cellspacing="0" cellpadding="0"><tbody><tr>
+<td align="left" valign="top">
+              <a onfocus="document.getElementById('column_1').style.display='';" onmouseover="document.getElementById('column_1').style.display='';" href="" onclick="return false;" style="text-decoration:none;">
+              <img src="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/images/columnhead1.png" alt="District"></a>
+              <br><div id="column_1" style="display:none;margin:0px; padding:5px; background-color:#FFFFFF;" onfocus="document.getElementById('column_1').style.display='';" onmouseover="document.getElementById('column_1').style.display='';" onblur="document.getElementById('column_1').style.display='none';" onmouseout="document.getElementById('column_1').style.display='none';">
+                    <p><span style="font-family: 'book antiqua', palatino; color: #008000;"><a href="http://images.pcmac.org/Uploads/AmbassadorsPrep/AmbassadorsPrep/Sites/DocumentsCategories/Documents/Welcome%20Statement%20Reduced_%7BSISA1FCA7786994%7D.pdf" target="_blank"><img src="http://images.pcmac.org//images/Users/rmimidis@apagalv.org/Welcome_Statement_Reduced.jpg" border="0" width="100" style="color: #000000; font-family: Verdana, Arial, Helvetica, sans-serif;"></a>   </span><span style="color: #008000; font-family: 'book antiqua', palatino;">     </span><span style="color: #008000;"><a href="http://images.pcmac.org/Uploads/AmbassadorsPrep/AmbassadorsPrep/Sites/DocumentsCategories/Documents/141015%20APA.m4v" target="_blank"><img src="http://images.pcmac.org//images/Users/rmimidis@apagalv.org/Vid.jpg" border="0" width="162" height="115"></a></span></p>
+<p><span style="font-family: 'book antiqua', palatino; color: #008000;"><span style="font-size: 13px;"><strong>   <a href="http://images.pcmac.org/Uploads/AmbassadorsPrep/AmbassadorsPrep/Sites/DocumentsCategories/Documents/Welcome%20Statement%20Reduced_%7BSISA1FCA7786994%7D.pdf" target="_blank"><span style="color: #008000;"><em><span style="text-decoration: underline;">About Our School</span></em></span></a></strong>             </span><a href="http://images.pcmac.org/Uploads/AmbassadorsPrep/AmbassadorsPrep/Sites/DocumentsCategories/Documents/141015%20APA.m4v" target="_blank"><span style="color: #008000;"><em><span style="font-size: 13px;"><strong>(Click for Video)</strong></span></em></span></a></span></p>
+<p style="text-align: left;"><span style="text-decoration: underline; font-family: 'book antiqua', palatino; font-size: 10px;"><strong><a href="http://www.apagalv.org/?DivisionID=17963" target="_blank"><span style="color: #008000; text-decoration: underline;">Curriculum Information</span></a></strong></span></p>
+<p><span style="font-family: 'book antiqua', palatino; font-size: 10px; color: #008000;"><strong><span style="text-decoration: underline;"><span style="text-decoration: underline;"><a href="http://images.pcmac.org/Uploads/AmbassadorsPrep/AmbassadorsPrep/Sites/DocumentsCategories/Documents/2017%20Accountability%20Rating_%7BSIS85819F0CD41A%7D.pdf" target="_blank" title="2017 Accountability Rating"><span style="text-decoration: underline; color: #008000;">State Accountabili</span></a><a href="http://images.pcmac.org/Uploads/AmbassadorsPrep/AmbassadorsPrep/Sites/DocumentsCategories/Documents/2017%20Accountability%20Rating_%7BSIS85819F0CD41A%7D.pdf" target="_blank" title="2017 Accountability Rating"><span style="text-decoration: underline; color: #008000;">ty Rating</span></a></span></span></strong></span></p>
+<p><span style="font-family: 'book antiqua', palatino; font-size: 10px; color: #008000;"><strong><span style="text-decoration: underline;"><span style="text-decoration: underline;"><a href="http://ambassadorsprep.schoolinsites.com/Download.asp?L=0&amp;LMID=&amp;PN=&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=Documents&amp;Act=Download&amp;T=1&amp;I=380944" target="_blank" title="survey"><span style="text-decoration: underline; color: #008000;">House Bill 5 Community Survey</span></a></span></span></strong></span></p>
+<p><span style="font-family: 'book antiqua', palatino; font-size: 10px; color: #008000;"><strong><span style="text-decoration: underline;"><span style="text-decoration: underline;"><a href="http://images.pcmac.org/Uploads/AmbassadorsPrep/AmbassadorsPrep/Sites/DocumentsCategories/Documents/Texas%20Transition%20and%20Employment%20Guide%202014.pdf" target="_blank"><span style="text-decoration: underline; color: #008000;"><span style="text-decoration: underline;">Texas Transition and Employment Guide</span></span></a></span></span></strong></span></p>
+<p style="text-align: left;"><em><span style="font-family: 'book antiqua', palatino; font-size: 10px; color: #008000;"><strong><span style="text-decoration: underline;"><span style="text-decoration: underline;"><a href="http://ambassadorsprep.schoolinsites.com/?PN=Contact" target="_blank" title="Info"><span style="text-decoration: underline; color: #008000;">Contact </span></a></span><span style="text-decoration: underline;"><a href="http://ambassadorsprep.schoolinsites.com/?PN=Contact" target="_blank" title="Info"><span style="text-decoration: underline; color: #008000;">U</span></a></span><span style="text-decoration: underline;"><a href="http://ambassadorsprep.schoolinsites.com/?PN=Contact" target="_blank" title="Info"><span style="text-decoration: underline; color: #008000;">s</span></a></span></span>   <a href="http://www.apagalv.org/Default.asp?PN=Employment&amp;L=1&amp;DivisionID=18100&amp;LMID=812663&amp;ToggleSideNav=ShowAll" target="_blank"><span style="text-decoration: underline; color: #008000;"><span style="text-decoration: underline;">Employment</span></span></a>   <a href="http://images.pcmac.org/Uploads/AmbassadorsPrep/AmbassadorsPrep/Sites/DocumentsCategories/Documents/Enrollment%20Form_%7BSISA7CFC0AC851E%7D.pdf" target="_blank"><span style="text-decoration: underline; color: #008000;"><span style="text-decoration: underline;">Enrollment Form</span></span></a></strong></span></em></p>
+<p style="text-align: left;"><span style="font-family: 'book antiqua', palatino; font-size: 10px; color: #008000;"><strong> </strong></span></p>
+<p style="text-align: center;"><em><span style="font-family: 'book antiqua', palatino; color: #008000;"> <span class="s1">Ambassadors Preparatory Academy does not discriminate on the basis of sex, disability, race, color, age, or national origin in its </span><span class="s2">educational programs, activities, or employment as required by Title IX, Section 504 and Title VI.</span></span></em></p>
+              </div>
+      </td> 
+      <td align="left" valign="top">
+      <img src="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/images/spacer.gif" alt="spacer" width="15">
+</td>
+      <td align="left" valign="top">
+              <a onfocus="document.getElementById('column_2').style.display='';" onmouseover="document.getElementById('column_2').style.display='';" href="" onclick="return false;" style="text-decoration:none;">
+              <img src="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/images/columnhead2.png" alt="Schools"></a>
+              <br><div id="column_2" style="display:none;margin:0px; padding:5px; background-color:#FFFFFF;" onfocus="document.getElementById('column_2').style.display='';" onmouseover="document.getElementById('column_2').style.display='';" onblur="document.getElementById('column_2').style.display='none';" onmouseout="document.getElementById('column_2').style.display='none';">
+                      <p><span style="font-size: 16px;"><strong>COVID-19 UPDATE</strong></span></p>
+<p dir="ltr"><span>April 1st Update: </span><span>Ambassadors Preparatory Academy is joining other districts in the state by closing until May 4. </span></p>
+<p dir="ltr"><span>Governor Abbott announced Tuesday, March 31, that all schools in Texas should close through April 30, with an anticipated re-opening on May 4, mirroring recommendations from the federal government, to further reduce the spread of COVID-19. </span></p>
+<p dir="ltr"><span>The health and safety of our students, staff, and community is our first priority. We ask everyone in the Ambassadors Preparatory Academy community to do your part to help prevent the spread of the virus by adhering to local stay-at-home orders and taking everyday preventative actions to stop transmission.</span></p>
+<p><a href="http://www.apagalv.org/Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=17963&amp;LMID=808809">Read more here</a></p>
+<p> </p>
+<p><a href="http://www.apagalv.org/?DivisionID=17964"><strong><span style="font-size: 16px;">LEARNING FROM HOME RESOURCES</span></strong></a></p>
+<p> </p>
+              </div>
+      </td>
+      <td align="left" valign="top">
+      <img src="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/images/spacer.gif" alt="spacer" width="15">
+</td>
+      <td align="left" valign="top">
+              <a onfocus="document.getElementById('column_3').style.display='';" onmouseover="document.getElementById('column_3').style.display='';" href="" onclick="return false;" style="text-decoration:none;">
+              <img src="http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/images/columnhead3.png" alt="Schools"></a>
+              <br><div id="column_3" style="display:none;margin:0px; padding:5px; background-color:#FFFFFF;" onfocus="document.getElementById('column_3').style.display='';" onmouseover="document.getElementById('column_3').style.display='';" onblur="document.getElementById('column_3').style.display='none';" onmouseout="document.getElementById('column_3').style.display='none';">
+                      <p style="text-align: left;" align="center"><span style="color: #008000; font-size: 16px;"></span>Ambassadors Preparatory Academy CLOSED until May 4, 2020 due to COVID-19 pandemic.</p>
+<p style="text-align: left;" align="center">For more information visit our <a href="https://sites.google.com/apagalv.org/ambassadorsprep/home?authuser=0">Learning from Home web page</a> for COVID-19 information and school closure updates.</p>
+<p style="text-align: left;" align="center">How to stay healthy and avoid illness - <a href="https://drive.google.com/file/d/1Rel219CyDsE-4OX_sAc4SGG-_eefJ_zQ/view?usp=sharing">Check out our infographic here!</a></p>
+<p style="text-align: left;" align="center"><a href="https://www.smore.com/5g3be" title="March Newsletter"><strong>March Newsletter</strong></a></p>
+<p style="text-align: left;" align="center"><a href="https://www.smore.com/5g3be" title="March Newsletter"><iframe frameborder="0" height="600" scrolling="auto" src="https://www.smore.com/5g3be-newsletter?embed=1" style="min-width: 320px; border: none;" title="Newsletter" width="100%"></iframe></a></p>
+              </div>
+      </td>
+						  
+						  
+      </tr></tbody></table>
+</div>    
+  </td>
+  <td align="left" valign="top" id="SideRightShadow"></td>
+  </tr></table>
+<!--End Main/Default Split -->
+</td>
+		</tr>
+</table>
+<table role="presentation" align="center" cellpadding="0" cellspacing="0" width="1020" border="0" id="BottomWrapper">
+<tr>
+<td valign="top" align="center" id="HomeTableShadow">
+						  <p style="text-align: center;"><span style="font-size: 10px;"><a href="https://www.paypal.com/donate/?token=VXF2-gnBHix0ozMy5QNGxju8DC8Dxhq4JxMjYQ6oU4ISuJGoF2BX47qlGtlt4gqLupI9wm&amp;country.x=US&amp;locale.x=US" target="_blank"><span></span><input alt="PayPal - The safer, easier way to pay online!" name="submit" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" type="image"></a>                                                                                                                  <a href="https://www.facebook.com/ambassadorspreparatoryacademy/" target="_blank" title="facebook"> <img src="http://images.pcmac.org//images/Users/webmaster@ambassadorsprep.com//fb.gif" border="0" alt="Facebook" width="30" height="30" style="font-size: 10px;"></a>     <a href="https://twitter.com" target="_blank" title="twitter"><img src="http://images.pcmac.org//images/Users/webmaster@ambassadorsprep.com//twitt2.gif" border="0" alt="Twitter" width="30" height="30"></a></span></p>
+			</td>
+		</tr>
+<tr>
+<td valign="top" align="center" id="FooterBackground">
+			<div id="LegalInfo">
+            <!--Footer -->
+	             <div id="FooterBackground">
+	                     <div class="footeraddress">5001 Avenue U | Galveston, Texas 77551 | Phone: 409.762.1115</div>
+	                     <div style="width: 990px; padding-top: 5px;" align="center">
+	                      <div id="Legal">
+	<a href="http://www.schoolinsites.com/"><img src="/images/SisPoweredSmall.png" id="PoweredBy" height="30" width="120" alt="Powered and Designed by SCHOOLinSITES"></a>
+	
+	<p class="right">
+		Copyright © 2020  Ambassadors Preparatory Academy 
+	</p>
+</div>
+
+	                    </div>
+	             </div>
+
+            </div>
+			</td>
+		</tr>
+</table>
+</div>
+
+<script type="text/javascript">
+	inputLabel('SearchIndexInput','Search');
+</script><script type="text/javascript">
+	// search input function
+	inputLabel('SearchDefaultInput','Search');
+	// side navigation show/hide all function
+	function ToggleSideNav() {
+		var NavDiv = document.getElementById("ToggleSideNavDivision");
+		var NavAll = document.getElementById("ToggleSideNavShowAll");
+		var NavLoad = "<span style='background:#c44; color:#fff; font: 12px/2 Arial, sans-serif;'>Loading...</span>"
+		if (NavAll.style.display == "block") {
+			if (NavDiv.innerHTML == "") {
+				NavDiv.innerHTML = NavLoad;
+				NavAll.style.display = "none";
+				NavDiv.style.display = "block";
+				doPost('CommonTemplates/SiteElements/Navigation/Include-AjaxToggle.asp?&ToggleSideNav=DivisionOnly&NavFile=2', "", "processResultDivNav");
+			}else {
+				SideNavSwitch();
+			}
+			NavAll.style.display = "none";
+			NavDiv.style.display = "block";
+		}else {
+			if (NavAll.innerHTML == "") {
+				NavAll.innerHTML = NavLoad;
+				doPost('CommonTemplates/SiteElements/Navigation/Include-AjaxToggle.asp?&ToggleSideNav=ShowAll&NavFile=2', "", "processResultShowAll");
+			}
+			NavAll.style.display = "block";
+			NavDiv.style.display = "none";
+			SideNavSwitch("open");
+		}
+	}
+	function SideNavSwitch(Show) {
+		var Link = document.getElementById("ToggleSideNavLink");
+		var NavTitle = document.getElementById("DivNavTitle");
+		if (Show == "open") {
+			//Link.style.backgroundImage = "url(http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/images/opentriangle.gif)";
+			Link.innerHTML = "Hide other sections";
+			NavTitle.innerHTML = "&nbsp;";
+		}else {
+			//Link.style.backgroundImage = "url(http://images.pcmac.org/Websites/AmbassadorsPrep/AmbassadorsPrep/images/triangle.gif)";
+			ActiveTitle = document.getElementById("IncNavDivisionOnlyTitle");
+			Link.innerHTML = "Show all";
+			NavTitle.innerHTML = ActiveTitle.innerHTML;
+			ActiveTitle.style.display = "none";
+		}
+	}
+	
+	function doPost(url, content, callback_name){
+		var async_request = false;
+		// IE
+		if (window.ActiveXObject) {
+		    async_request = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		// Mozilla/Safari
+		else if (window.XMLHttpRequest) {
+		    async_request = new XMLHttpRequest();
+		    async_request.overrideMimeType('text/xml');
+		}
+		async_request.open('POST', url, true);
+		async_request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		async_request.onreadystatechange = function(){
+		    if (async_request.readyState == 4) {
+		        response_content = async_request.responseText;
+		        eval(callback_name + '(response_content);');
+		    }
+		}
+		async_request.send(content);
+	}
+	function processResultDivNav(result) {
+		//alert(result);
+		document.getElementById('ToggleSideNavDivision').innerHTML = result;
+		SideNavSwitch();
+	}
+	function processResultShowAll(result) {
+		//alert(result);
+		document.getElementById('ToggleSideNavShowAll').innerHTML = result;
+	}
+</script>
+</body>
+</html>

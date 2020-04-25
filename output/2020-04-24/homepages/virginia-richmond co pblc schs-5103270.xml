@@ -1,0 +1,1524 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Richmond County Public Schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Crimson+Text%7COpen+Sans%7COpen+Sans+Condensed:300" rel="stylesheet">
+<link rel="icon" href="/userfiles/-18/My%20Files/img/R-Logo.png?id=23" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1043073721">
+<meta name="google-play-app" content="app-id=com.schoolpointe.stayconnected">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="https://cdn.schoolpointe.com/images/apple-touch-icon.jpg">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Stay Connected", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "https://cdn.schoolpointe.com/images/apple-touch-icon.jpg", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><link rel="alternate" type="application/rss+xml" title="Richmond County Public Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Rappahannock High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Richmond County Elementary / Middle School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Mackey-Thompson Learning Center - News" href="/rssNews.ashx?schoolId=3">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "VA_RichmondCntyPS",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=-62135596800000">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJOTc5MjczMTU5D2QWAmYPZBYCZg9kFgRmD2QWBmYPZBYCZg9kFgICAQ8WAh4EVGV4dAUeUmljaG1vbmQgQ291bnR5IFB1YmxpYyBTY2hvb2xzZAIED2QWAgIBDxYCHgtfIUl0ZW1Db3VudAIDFgZmD2QWAmYPFQIYUmFwcGFoYW5ub2NrIEhpZ2ggU2Nob29sATFkAgEPZBYCZg8VAipSaWNobW9uZCBDb3VudHkgRWxlbWVudGFyeSAvIE1pZGRsZSBTY2hvb2wBMmQCAg9kFgJmDxUCH01hY2tleS1UaG9tcHNvbiBMZWFybmluZyBDZW50ZXIBM2QCBg8WAh4EaHJlZgUyL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0tNjIxMzU1OTY4MDAwMDBkAgEPFgIeBmFjdGlvbgUBLxYKAgEPZBYEAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwQFATBkAgMPD2QWAh8EBQEwZAIEDw9kFgIfBAUBMGQCBQ8PZBYCHwQFATBkAgMPZBYCAgIPZBYCZg8WAh8ABRs8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PC91bD5kAgMPZBYCAgEPZBYCAgEPZBYEAgEPDxYCHgtOYXZpZ2F0ZVVybAUBL2RkAgMPDxYEHwUFAS8fAAV5PGltZyBzcmM9Jy91c2VyZmlsZXMvLTE4L215IGZpbGVzL2ltZy9yY3BzLWxvZ28ucG5nP2lkPTE1JjMwMCcgY2xhc3M9J3NjaG9vbE5hbWUnIGFsdD0nUmljaG1vbmQgQ291bnR5IFB1YmxpYyBTY2hvb2xzJyAvPmRkAgUPZBYCAgEPZBYCAgEPZBYCZg8WAh8BAgQWCGYPZBYEZg8VAgA1QWN0b3JzIHN0YW5kaW5nIGFuZCBzaXR0aW5nIG9uIGEgc3RhZ2UgZHVyaW5nIGEgcGxheS5kAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA1L2E1MTQ0ZWE4LWY1Y2YtNDg0NS1iMDUwLTE2YzFlMTFiNmU1MC5qcGdkAgEPZBYEZg8VAgAwQmFza2V0YmFsbCBwbGF5ZXJzIGluIGEgdGVhbSBodWRkbGUgYmVmb3JlIGdhbWUuZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wNS8yNDMyMTM3My02NTE2LTRhNWYtYWQ2MC03Yzg4NzFhZTMwZjAuanBnZAICD2QWBGYPFQIANFNpeCBiYXNlYmFsbCBwbGF5ZXJzIHdpdGggcmVkIGplcnNleXMgYW5kIGdyZXkgaGF0cy5kAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA1L2JiZWU3NDJhLTk1MDEtNDgzYi1iMDkzLWM3YTkyZmRlYTBmMy5qcGdkAgMPZBYEZg8VAgBNUkhTIFNvZnRiYWxsIHBsYXllcnMgdG8gdGhlIHJpZ2h0IG9mIFZIU0wgR3JvdXAgMUEgMjAxOCBTdGF0ZSBDaGFtcGlvbnMgc2lnbi5kAgEPFQE7L3VzZXJmaWxlcy8yMDE4LTExL2NmYmQ5OTRhLWJjYzgtNDlhMS05MDliLTliZjQ3NjM0OTViMy5qcGdkAgkPZBYGAgEPZBYCAgEPZBYCZg8WAh8ABYANPHVsIGNsYXNzPSdzZi12ZXJ0aWNhbCcgPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvMjAyOTAnICBhcmlhLWxhYmVsPSIiIHRpdGxlPSdPbmxpbmUgU3R1ZGVudCBNYXRlcmlhbHMnPk9ubGluZSBTdHVkZW50IE1hdGVyaWFsczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQyLzQwJyAgYXJpYS1sYWJlbD0iIiB0aXRsZT0nIEZvcm1zICZhbXA7IExpbmtzJz48aSBjbGFzcz0iZmEgZmEtZmlsZS10ZXh0LW8iIGFyaWEtaGlkZGVuPSJ0cnVlIj48L2k+IEZvcm1zICYgTGlua3M8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly93d3cubm9ydGhlcm5uZWNrZGlzdHJpY3R2YS5vcmcvcHVibGljL2dlbmllLzI5My9zY2hvb2wvNy8nICAgdGl0bGU9JyBBdGhsZXRpY3MgU2NoZWR1bGUnPjxpIGNsYXNzPSJmYSBmYS10cm9waHkiIGFyaWEtaGlkZGVuPSJ0cnVlIj48L2k+IEF0aGxldGljcyBTY2hlZHVsZTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2NvbnRlbnQvbWVudXMnICAgdGl0bGU9J0x1bmNoIE1lbnVzJz5MdW5jaCBNZW51czwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cHM6Ly93d3cuYXBwbGl0cmFjay5jb20vcmljaG1vbmRjb3VudHlrMTJ2YS9vbmxpbmVhcHAnICBhcmlhLWxhYmVsPSIiIHRpdGxlPScgSm9iIE9wcG9ydHVuaXRpZXMnPiBKb2IgT3Bwb3J0dW5pdGllczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cHM6Ly9yaWNobW9uZC1jb3VudHkuaW5zdHJ1Y3R1cmUuY29tJyB0YXJnZXQ9J19ibGFuaycgIHRpdGxlPSdDYW52YXMnPkNhbnZhczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cHM6Ly9yaWNobW9uZC1jb3VudHkucG93ZXJzY2hvb2wuY29tL3B1YmxpYy8nIHRhcmdldD0nX2JsYW5rJyAgdGl0bGU9J1Bvd2Vyc2Nob29sIChTdHVkZW50L1BhcmVudCknPlBvd2Vyc2Nob29sIChTdHVkZW50L1BhcmVudCk8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHBzOi8vbG9naW4uZnJvbnRsaW5lZWR1Y2F0aW9uLmNvbS9sb2dpbj9zaWduaW49MjI0NzllOWRkNWEyNjU5ZTczY2ZlNDVlNmVmZGIwMjUmYW1wO3Byb2R1Y3RJZD1BQlNNR01UJmFtcDtjbGllbnRJZD1BQlNNR01UIy9sb2dpbicgdGFyZ2V0PSdfYmxhbmsnICB0aXRsZT0nQUVTT1AnPkFFU09QPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwczovL3JpY2htb25kLWVzcy5zZWN1cmUub3BlbnJkYS5uZXQvdXNlci9sb2dpbicgdGFyZ2V0PSdfYmxhbmsnICB0aXRsZT0nRW1wbG95ZWUgU2VsZi1TZXJ2ZSc+RW1wbG95ZWUgU2VsZi1TZXJ2ZTwvYT48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b29sIEJvYXJkIE1lZXRpbmdkZAIEDxUBGjxiciAvPkBTY2hvb2wgQm9hcmQgT2ZmaWNlZAIFDw8WAh8ABRRXZWRuZXNkYXksIDUvMTMvMjAyMGRkAhIPZBYIAgEPDxYCHwAFKzxmb250IHN0eWxlPSdjb2xvcjojZmZmJz5NYXk8L2ZvbnQ+PGJyIC8+MTNkZAIDDw8WBB8FBTYvY2FsZW5kYXJXZWVrVmlldy5hc3B4P2V2ZW50SUQ9NjE5NSZ2aWV3RGF0ZT01LzEzLzIwMjAfAAUZU2Nob29sIEJvYXJkIE1lZXRpbmcsIFNCT2RkAgQPFQEAZAIFDw8WAh8ABRRXZWRuZXNkYXksIDUvMTMvMjAyMGRkAhMPZBYIAgEPDxYCHwAFKzxmb250IHN0eWxlPSdjb2xvcjojZmZmJz5NYXk8L2ZvbnQ+PGJyIC8+MTNkZAIDDw8WBB8FBTYvY2FsZW5kYXJXZWVrVmlldy5hc3B4P2V2ZW50SUQ9NjIwNSZ2aWV3RGF0ZT01LzEzLzIwMjAfAAURQVAgTWljcm9lY29ub21pY3NkZAIEDxUBAGQCBQ8PFgIfAAUUV2VkbmVzZGF5LCA1LzEzLzIwMjBkZAIFDw8WAh8FBSEvY2FsTW9udGhWaWV3LmFzcHg/cz0wJnk9MjAyMCZtPTRkZAIHDw8WAh8FBUUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCZzY2hvb2xpZD0wJnR5cGVzPSZ2aWV3RGF0ZT00LzI0LzIwMjBkZAIDD2QWBGYPPCsACgEADxYIHg1EYXlOYW1lRm9ybWF0CyonU3lzdGVtLldlYi5VSS5XZWJDb250cm9scy5EYXlOYW1lRm9ybWF0Ah4NTmV4dE1vbnRoVGV4dAUvPj48c3BhbiBjbGFzcz0nb2JzY3VyZSc+R28gdG8gbmV4dCBtb250aDwvc3Bhbj4eDVByZXZNb250aFRleHQFMzw8PHNwYW4gY2xhc3M9J29ic2N1cmUnPkdvIHRvIHByZXZpb3VzIG1vbnRoPC9zcGFuPh4CU0QWAQYAgJNu4ufXCGRkAgEPDxYGHgZUYXJnZXQFBl9ibGFuax8ABRJWaWV3IEZ1bGwgQ2FsZW5kYXIfBQUlL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00JnQ9MGRkAg8PZBYMAgEPFgIeCWlubmVyaHRtbAUeUmljaG1vbmQgQ291bnR5IFB1YmxpYyBTY2hvb2xzZAIDDxYCHwwFJTkyIFdhbG51dCBTdHJlZXQ8YnIvPldhcnNhdywgVkEgMjI1NzJkAgUPFgIfAgU+aHR0cDovL21hcHMuZ29vZ2xlLmNvbS9tYXBzP3E9OTIgV2FsbnV0IFN0cmVldCtXYXJzYXcrVkErMjI1NzJkAgcPZBYCAgEPFgIfDAUTUGhvbmU6IDgwNC0zMzMtMzY4MWQCCQ9kFgICAQ8WAh8MBRFGYXg6IDgwNC0zMzMtNTU4NmQCCw9kFgJmDxYCHwECBBYIZg9kFgJmDxUFNmh0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9SaWNobW9uZENvdW50eVB1YmxpY1NjaG9vbHMvMSxSaWNobW9uZCBDb3VudHkgUHVibGljIFNjaG9vbHMgRmFjZWJvb2sgUGFnZQZfYmxhbmslPHNwYW4gY2xhc3M9J29ic2N1cmUnPkZhY2Vib29rPC9zcGFuPhVmYSBmYS1mYWNlYm9vay1zcXVhcmVkAgEPZBYCZg8VBQYvbG9naW4YQ29udGVudCBNYW5hZ2VtZW50IExvZ2luBV9zZWxmJjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5DTVMgTG9naW48L3NwYW4+DWZhIGZhLXNpZ24taW5kAgIPZBYCZg8VBSttYWlsdG86Q29udGFjdFNCT0ByaWNobW9uZC1jb3VudHkuazEyLnZhLnVzE0NvbnRhY3QgdXMgYnkgRW1haWwFX3NlbGYhPHNwYW4gY2xhc3M9J29ic2N1cmUnPk1haWw8L3NwYW4+FWZhIGZhLWVudmVsb3BlLXNxdWFyZWQCAw9kFgJmDxUFCy9hZGEtcmVwb3J0DUFEQSBSZXBvcnRpbmcFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBMaW5rPC9zcGFuPhZmYSBmYS11bml2ZXJzYWwtYWNjZXNzZGSNg04FYkAjkPJULDIsD+JQCJOutQ==">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: '2ywk7sLCO2' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><script>
+    $(document).ready(function () {
+        var firstLoad = true;
+        var dostuff = function () {
+            if ($(window).width() > 767 || firstLoad) {
+                var links = $('.nav.navbar-nav.headerNav1 > li');
+                var linkWidth = 1 / links.size() * 100;
+                links.each(function () {
+                    $(this).css({ width: (linkWidth + "%") });
+                });
+            }
+        };
+
+        dostuff();
+        $(window).resize(dostuff);
+    });
+</script><div class="headerback">
+    <header id="site-head" class="container"><div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10 col-xl-10">
+                        <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="crest" href="/"><span class="obscure">Logo link to home page</span></a>
+                        <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome2" class="schoolLogo" href="/"><img src="/userfiles/-18/my%20files/img/rcps-logo.png?id=15&amp;300" class="schoolName" alt="Richmond County Public Schools"></a>
+                    </div>
+
+                    <div class="hidden-xs hidden-sm col-md-2 col-lg-2 col-xl-2">
+                        
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+<div class="search">
+                            <div>
+                                <div class="searchPad">
+                                    <label for="txtSearch" class="obscure">Search site using Google</label>
+                                    <input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+
+                                <div class="searchGo">
+                                    <a title="Search" class="bSearch glyphicon glyphicon-search">
+                                        <span class="obscure">Search Site button</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <a href="/login.aspx" class="olcSignin">Sign-in to OLC</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header><div class="navTopBorder"></div>
+
+    <nav id="DistrictHeaderNav"><div class="container hidden-lg hidden-md hidden-sm">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavCollapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 collapse navbar-collapse" id="topNavCollapse">
+                    <ul class="nav navbar-nav headerNav1">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="About Us">About Us  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/36" title="Vision &amp; Mission">Vision &amp; Mission</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Superintendent">Superintendent  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/superintendent" title="Superintendents Message">Superintendents Message</a></li>
+<li class="without-image"><a href="/Content/28" title="Professional Profile">Professional Profile</a></li>
+<li class="without-image"><a href="/Content/30" title="Ask the Superintendent">Ask the Superintendent</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/42" title="Strategic Plans">Strategic Plans</a></li>
+<li class="without-image"><a href="/Content/34" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Content/40" title="Forms ">Forms </a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/" title="School Board Office">School Board Office</a></li>
+<li class="without-image"><a href="/rhs/home" title="Rappahannock High School">Rappahannock High School</a></li>
+<li class="without-image"><a href="/rcem/home" title="Richmond County Elementary &amp; Middle School">Richmond County Elementary &amp; Middle School</a></li>
+<li class="without-image"><a href="/mtlc/home" title="Mackey-Thompson Learning Center">Mackey-Thompson Learning Center</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Instruction and Federal Programs">Instruction and Federal Programs  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/68" title="Instructional Support">Instructional Support</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Title 1">Title 1  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="/Content/66" title="Program Information">Program Information</a></li></ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Instructional Technology Resource Teacher">Instructional Technology Resource Teacher  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="/Content/64" title="Internet Safety">Internet Safety</a></li></ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Gifted Education">Gifted Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/72" title="Gifted Program">Gifted Program</a></li>
+<li class="without-image"><a href="/Content/70" title="Gifted  After-School Programs">Gifted  After-School Programs</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="English Language Learners (ELL's)">English Language Learners (ELL's)  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/74" title="ELL Parent Resources">ELL Parent Resources</a></li>
+<li class="without-image"><a href="/Content/76" title="ELL Teacher Resources">ELL Teacher Resources</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/20274" title="Homeless Education Information">Homeless Education Information</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Budget and Finance">Budget and Finance  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/financeinformation" aria-label="" title="Finance/Payroll Information">Finance/Payroll Information</a></li>
+<li class="without-image"><a href="/content/403bparticipation" title="403(b) Annual Notice of Participation">403(b) Annual Notice of Participation</a></li>
+<li class="without-image"><a href="/content/teachersalaryscale" title="Teacher Salary Scale">Teacher Salary Scale</a></li>
+<li class="without-image"><a href="/content/budget" aria-label="" title="School Budget">School Budget</a></li>
+<li class="without-image"><a href="/content/averageperpupilcost" title="Average Per Pupil Cost">Average Per Pupil Cost</a></li>
+<li class="without-image"><a href="/Content/electronic-w2" title="Electronic Form W-2">Electronic Form W-2</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Human Resources">Human Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/24" title="Application Process">Application Process</a></li>
+<li class="without-image"><a href="https://www.applitrack.com/richmondcountyk12va/onlineapp" aria-label="" title="Job Opportunities">Job Opportunities</a></li>
+<li class="without-image"><a href="https://www.varetire.org/mnews" target="_blank" title="VRS Member News - External Page">VRS Member News - External Page</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/nutrition" title="School Nutrition">School Nutrition</a></li>
+<li class="without-image"><a href="#" title="Regional Programs">Regional Programs</a></li>
+<li class="without-image"><a href="#" title="Operations and Maintenance">Operations and Maintenance</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Special Education">Special Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/aboutspecialeducation" title="About Special Education">About Special Education</a></li>
+<li class="without-image"><a href="/content/childfind" title="Child Find Campaign">Child Find Campaign</a></li>
+<li class="without-image"><a href="/Content/96" title="Online Resources">Online Resources</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Technology">Technology  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/52" title="About Technology">About Technology</a></li>
+<li class="without-image"><a href="/Content/58" title="Technology Plan">Technology Plan</a></li>
+<li class="without-image"><a href="/Content/60" title="RHS 1:1 Program">RHS 1:1 Program</a></li>
+<li class="without-image"><a href="/Content/56" title="Staff Technology Resources">Staff Technology Resources</a></li>
+<li class="without-image"><a href="/Content/54" title="Website Accessibility">Website Accessibility</a></li>
+<li class="without-image"><a href="/Content/20258" target="_blank" title="Tech Files">Tech Files</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="#" title="Transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents &amp; Students">Parents &amp; Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/schoolaccounts" title="School Accounts">School Accounts</a></li>
+<li class="without-image"><a href="https://www.boarddocs.com/vsba/rcps/Board.nsf/Public#" target="_blank" title="School Policy - Code of Conduct">School Policy - Code of Conduct</a></li>
+<li class="without-image"><a href="/Content/82" title="Graduation Requirements">Graduation Requirements</a></li>
+<li class="without-image"><a href="/content/parentnotifications" aria-label="" title="Parent Notifications">Parent Notifications</a></li>
+<li class="without-image"><a href="/Content2/40#studentforms" title="Student Forms">Student Forms</a></li>
+<li class="without-image"><a href="/Content/20308" aria-label="" title="Registration">Registration</a></li>
+<li class="without-image"><a href="/Content/msb" title="My School Bucks">My School Bucks</a></li>
+<li class="without-image"><a href="/Content/84" title="Medical Action Plans">Medical Action Plans</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Faculty &amp; Staff">Faculty &amp; Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://login.frontlineeducation.com/login?signin=801feaedabe727f3b2dc39c20f5c2aec&amp;productId=ABSMGMT&amp;clientId=ABSMGMT#/login" target="_blank" title="AESOP">AESOP</a></li>
+<li class="without-image"><a href="/Content/benefits" title="Benefits">Benefits</a></li>
+<li class="without-image"><a href="https://www.applitrack.com/richmondcountyk12va/onlineapp/" aria-label="" title="Employment Opportunities">Employment Opportunities</a></li>
+<li class="without-image"><a href="/Content2/40#staffforms" title="Forms">Forms</a></li>
+<li class="without-image"><a href="https://richmond-county.powerschool.com/teachers" target="_blank" title="PowerTeacher">PowerTeacher</a></li>
+<li class="without-image"><a href="#" title="Professional Development">Professional Development</a></li>
+<li class="without-image"><a href="https://richmond-ess.secure.openrda.net/user/login" target="_blank" title="Self-Service Portal">Self-Service Portal</a></li>
+<li class="without-image"><a href="/Content/staffnotifications" title="Staff Notifications">Staff Notifications</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="School Board">School Board  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/boardmembers" title="Members">Members</a></li>
+<li class="without-image"><a href="/content/meetingdates" title="Meeting Dates">Meeting Dates</a></li>
+<li class="without-image"><a href="http://www.boarddocs.com/vsba/rcps/Board.nsf/Public" title="Policy Manual">Policy Manual</a></li>
+<li class="without-image"><a href="#" title="Legal Notices">Legal Notices</a></li>
+<li class="without-image"><a href="#" title="Request for Proposal">Request for Proposal</a></li>
+<li class="without-image"><a href="http://www.boarddocs.com/vsba/rcps/Board.nsf/Public" target="_blank" title="Board Docs">Board Docs</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community">Community  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/80" title="Partners in Education">Partners in Education</a></li>
+<li class="without-image"><a href="/Content/62" title="Facilities Use">Facilities Use</a></li>
+</ul>
+</li>
+</ul>
+<div class="hidden-sm hidden-md hidden-lg">
+                        <h1 style="display:block;width:100%;text-align:center;padding:10px 0;color:#fff;font-weight:900;">QUICK LINKS</h1>
+                        <ul class="nav navbar-nav headerNav2">
+<li class="without-image"><a href="/Content/20290" aria-label="" title="Online Student Materials">Online Student Materials</a></li>
+<li class="without-image"><a href="/Content2/40" aria-label="" title=" Forms &amp; Links"><i class="fa fa-file-text-o" aria-hidden="true"></i> Forms &amp; Links</a></li>
+<li class="without-image"><a href="http://www.northernneckdistrictva.org/public/genie/293/school/7/" title=" Athletics Schedule"><i class="fa fa-trophy" aria-hidden="true"></i> Athletics Schedule</a></li>
+<li class="without-image"><a href="/content/menus" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="https://www.applitrack.com/richmondcountyk12va/onlineapp" aria-label="" title=" Job Opportunities"> Job Opportunities</a></li>
+<li class="without-image"><a href="https://richmond-county.instructure.com" target="_blank" title="Canvas">Canvas</a></li>
+<li class="without-image"><a href="https://richmond-county.powerschool.com/public/" target="_blank" title="Powerschool (Student/Parent)">Powerschool (Student/Parent)</a></li>
+<li class="without-image"><a href="https://login.frontlineeducation.com/login?signin=22479e9dd5a2659e73cfe45e6efdb025&amp;productId=ABSMGMT&amp;clientId=ABSMGMT#/login" target="_blank" title="AESOP">AESOP</a></li>
+<li class="without-image"><a href="https://richmond-ess.secure.openrda.net/user/login" target="_blank" title="Employee Self-Serve">Employee Self-Serve</a></li>
+<li class="without-image"><a href="#" title="School Policy">School Policy</a></li>
+<li class="without-image"><a href="/Content/20286" title="NonDiscrimination">Statement of Non-Discrimination</a></li>
+</ul>
+</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+	
+
+
+        
+	
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#slideshow .slides').nivoSlider();
+            $('.slides.nivoSlider').append("<div class='slideshowGrad'></div>");
+        });
+    </script><div class="slideshowWrapper">
+        
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({ effect: 'fade', pauseTime: 3000, prevText: 'Prev', nextText: 'Next', animSpeed: 500   });
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+	});
+</script><div id="slideshow" tabindex="-1">
+	<div class="slides">
+		
+				<img title="" alt="Actors standing and sitting on a stage during a play." src="/images/full//userfiles/2019-05/a5144ea8-f5cf-4845-b050-16c1e11b6e50.jpg"><img title="" alt="Basketball players in a team huddle before game." src="/images/full//userfiles/2019-05/24321373-6516-4a5f-ad60-7c8871ae30f0.jpg"><img title="" alt="Six baseball players with red jerseys and grey hats." src="/images/full//userfiles/2019-05/bbee742a-9501-483b-b093-c7a92fdea0f3.jpg"><img title="" alt="RHS Softball players to the right of VHSL Group 1A 2018 State Champions sign." src="/images/full//userfiles/2018-11/cfbd994a-bcc8-49a1-909b-9bf4763495b3.jpg">
+</div>
+
+	
+</div>
+
+    </div>
+
+
+
+        
+        
+
+        <div class="body-content-container">
+            <div class="container extraPad">
+                <div class="masterC alignment-stretch">
+                    <div class="row">
+                        
+	<div class="content-section content-section-1">
+		<div class="hidden-xs col-sm-4 col-md-3 col-lg-3 backgroundcolor">
+			<div class="clearfix panel content">
+				
+					<h1 class="sectionHead">Quick Links</h1>
+
+					<ul class="sf-vertical">
+<li class="without-image"><a href="/Content/20290" aria-label="" title="Online Student Materials">Online Student Materials</a></li>
+<li class="without-image"><a href="/Content2/40" aria-label="" title=" Forms &amp; Links"><i class="fa fa-file-text-o" aria-hidden="true"></i> Forms &amp; Links</a></li>
+<li class="without-image"><a href="http://www.northernneckdistrictva.org/public/genie/293/school/7/" title=" Athletics Schedule"><i class="fa fa-trophy" aria-hidden="true"></i> Athletics Schedule</a></li>
+<li class="without-image"><a href="/content/menus" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="https://www.applitrack.com/richmondcountyk12va/onlineapp" aria-label="" title=" Job Opportunities"> Job Opportunities</a></li>
+<li class="without-image"><a href="https://richmond-county.instructure.com" target="_blank" title="Canvas">Canvas</a></li>
+<li class="without-image"><a href="https://richmond-county.powerschool.com/public/" target="_blank" title="Powerschool (Student/Parent)">Powerschool (Student/Parent)</a></li>
+<li class="without-image"><a href="https://login.frontlineeducation.com/login?signin=22479e9dd5a2659e73cfe45e6efdb025&amp;productId=ABSMGMT&amp;clientId=ABSMGMT#/login" target="_blank" title="AESOP">AESOP</a></li>
+<li class="without-image"><a href="https://richmond-ess.secure.openrda.net/user/login" target="_blank" title="Employee Self-Serve">Employee Self-Serve</a></li>
+<li class="without-image"><a href="#" title="School Policy">School Policy</a></li>
+<li class="without-image"><a href="/Content/20286" title="NonDiscrimination">Statement of Non-Discrimination</a></li>
+</ul>
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-8 col-md-6  col-lg-6 backgroundcolor">
+			<div class="clearfix panel content">
+				
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+
+    <h1 class="sectionHead">District News</h1>
+    
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/82">Special Meeting Notice</a>
+
+				<span class="news-post-date">Posted On: Tuesday, April 21, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lblSummary" class="news-summary"><p>The Richmond County School Board will hold a special meeting on Wednesday, April 29, 2020 at 3:00 p.m. in the library at Rappahannock High School, Warsaw, VA 22572 to discuss the 2020-2021 budget. Adhering to the COVID-19 guidelines for social distancing, no more than 10 people will be allowed to attend.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkViewAll" title="Click to read more about: Special Meeting Notice" class="view-all" href="/News/82">...Read More <span class="sr-only">about Special Meeting Notice</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/75">Coronavirus Update 3-23-2020</a>
+
+				<span class="news-post-date">Posted On: Monday, March 23, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lblSummary" class="news-summary"><p>RCPS Families</p>
+
+<p>If you have not yet heard, schools across Virginia are closed for the remainder of the school year.</p>
+
+<p>There are many questions that we have about this action and what it means for students and families. Over the next few days, we will get more information from the VDOE about graduation, meals and the continuity of learning. A more detailed letter is attached to this post.</p>
+
+<p> </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkViewAll" title="Click to read more about: Coronavirus Update 3-23-2020" class="view-all" href="/News/75">...Read More <span class="sr-only">about Coronavirus Update 3-23-2020</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/70">Proposed Budget for 2020-2021</a>
+
+				<span class="news-post-date">Posted On: Thursday, March 12, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lblSummary" class="news-summary"><p><a href="/userfiles/3/my%20files/rcps%202021%20budget%20presentation%20-%20bos-checked.pdf?id=315" target="_blank">Download a copy of the 2020-2021 proposed budget for Richmond County Public Schools</a>.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkViewAll" title="Click to read more about: Proposed Budget for 2020-2021" class="view-all" href="/News/70">...Read More <span class="sr-only">about Proposed Budget for 2020-2021</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+		</div>
+
+		<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 backgroundcolor">
+			<div class="clearfix panel content">
+				
+    <h1 class="sectionHead">Calendar</h1>
+
+    
+<div id="event-wrapper">
+	
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl00_rep_startDate"><font style="color:#fff">Apr</font><br>24</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl00_lb_eventName" href="/calendarWeekView.aspx?eventID=6475&amp;viewDate=4/24/2020">Duty-free Payday Lunch</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl00_rep_startDate2" style="font-weight:bold;">Friday, 4/24/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl01_rep_startDate"><font style="color:#fff">Apr</font><br>26</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl01_lb_eventName" href="/calendarWeekView.aspx?eventID=6490&amp;viewDate=4/26/2020">Strings Crewe Recital </a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl01_rep_startDate2" style="font-weight:bold;">Sunday, 4/26/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl02_rep_startDate"><font style="color:#fff">Apr</font><br>28</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl02_lb_eventName" href="/calendarWeekView.aspx?eventID=6351&amp;viewDate=4/28/2020">3rd Field Trip VMFA Richmond</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl02_rep_startDate2" style="font-weight:bold;">Tuesday, 4/28/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl03_rep_startDate"><font style="color:#fff">Apr</font><br>30</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl03_lb_eventName" href="/calendarWeekView.aspx?eventID=5970&amp;viewDate=4/30/2020">Star Lunch Honesty</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl03_rep_startDate2" style="font-weight:bold;">Thursday, 4/30/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl04_rep_startDate"><font style="color:#fff">Apr</font><br>30</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl04_lb_eventName" href="/calendarWeekView.aspx?eventID=5984&amp;viewDate=4/30/2020">1st Field Trip VA Rep</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl04_rep_startDate2" style="font-weight:bold;">Thursday, 4/30/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl05_rep_startDate"><font style="color:#fff">May</font><br>05</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl05_lb_eventName" href="/calendarWeekView.aspx?eventID=6210&amp;viewDate=5/5/2020">AP Calculus A/B</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl05_rep_startDate2" style="font-weight:bold;">Tuesday, 5/5/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl06_rep_startDate"><font style="color:#fff">May</font><br>06</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl06_lb_eventName" href="/calendarWeekView.aspx?eventID=5879&amp;viewDate=5/6/2020">AP English 12 Testing</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl06_rep_startDate2" style="font-weight:bold;">Wednesday, 5/6/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl07_rep_startDate"><font style="color:#fff">May</font><br>06</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl07_lb_eventName" href="/calendarWeekView.aspx?eventID=6209&amp;viewDate=5/6/2020">AP European History</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl07_rep_startDate2" style="font-weight:bold;">Wednesday, 5/6/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl08_rep_startDate"><font style="color:#fff">May</font><br>07</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl08_lb_eventName" href="/calendarWeekView.aspx?eventID=6208&amp;viewDate=5/7/2020">AP Physics I</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl08_rep_startDate2" style="font-weight:bold;">Thursday, 5/7/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl09_rep_startDate"><font style="color:#fff">May</font><br>08</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl09_lb_eventName" href="/calendarWeekView.aspx?eventID=6338&amp;viewDate=5/8/2020">Journalism 6th Field Trip CBS 6</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl09_rep_startDate2" style="font-weight:bold;">Friday, 5/8/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl10_rep_startDate"><font style="color:#fff">May</font><br>08</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl10_lb_eventName" href="/calendarWeekView.aspx?eventID=5877&amp;viewDate=5/8/2020">AP U.S. History</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl10_rep_startDate2" style="font-weight:bold;">Friday, 5/8/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl11_rep_startDate"><font style="color:#fff">May</font><br>08</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl11_lb_eventName" href="/calendarWeekView.aspx?eventID=6207&amp;viewDate=5/8/2020">AP Art History</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl11_rep_startDate2" style="font-weight:bold;">Friday, 5/8/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl12_rep_startDate"><font style="color:#fff">May</font><br>08</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl12_lb_eventName" href="/calendarWeekView.aspx?eventID=6148&amp;viewDate=5/8/2020">I/E BETA Meeting</a>
+					<br>@RHS<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl12_rep_startDate2" style="font-weight:bold;">Friday, 5/8/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl13_rep_startDate"><font style="color:#fff">May</font><br>11</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl13_lb_eventName" href="/calendarWeekView.aspx?eventID=5868&amp;viewDate=5/11/2020">AP Environmental Test</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl13_rep_startDate2" style="font-weight:bold;">Monday, 5/11/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl14_rep_startDate"><font style="color:#fff">May</font><br>11</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl14_lb_eventName" href="/calendarWeekView.aspx?eventID=5851&amp;viewDate=5/11/2020">PTO Mtg- Renee</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl14_rep_startDate2" style="font-weight:bold;">Monday, 5/11/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl15_rep_startDate"><font style="color:#fff">May</font><br>12</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl15_lb_eventName" href="/calendarWeekView.aspx?eventID=6206&amp;viewDate=5/12/2020">AP Psychology</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl15_rep_startDate2" style="font-weight:bold;">Tuesday, 5/12/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl16_rep_startDate"><font style="color:#fff">May</font><br>13</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl16_lb_eventName" href="/calendarWeekView.aspx?eventID=5875&amp;viewDate=5/13/2020">AP English 11 Testing</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl16_rep_startDate2" style="font-weight:bold;">Wednesday, 5/13/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl17_rep_startDate"><font style="color:#fff">May</font><br>13</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl17_lb_eventName" href="/calendarWeekView.aspx?eventID=5941&amp;viewDate=5/13/2020">RCPS School Board Meeting</a>
+					<br>@School Board Office<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl17_rep_startDate2" style="font-weight:bold;">Wednesday, 5/13/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl18_rep_startDate"><font style="color:#fff">May</font><br>13</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl18_lb_eventName" href="/calendarWeekView.aspx?eventID=6195&amp;viewDate=5/13/2020">School Board Meeting, SBO</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl18_rep_startDate2" style="font-weight:bold;">Wednesday, 5/13/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+			<div class="UpcomingEvents" style="">
+				<div class="leftev" style="">
+					<div class="eventImage" style="">
+					</div>
+					<div class="imageTime">
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl19_rep_startDate"><font style="color:#fff">May</font><br>13</span>
+					</div>
+				</div>
+				<div class="rightev">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl19_lb_eventName" href="/calendarWeekView.aspx?eventID=6205&amp;viewDate=5/13/2020">AP Microeconomics</a>
+					<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_rep_events_ctl19_rep_startDate2" style="font-weight:bold;">Wednesday, 5/13/2020</span>
+				</div>
+				<div style="clear: both;">
+				</div>
+			</div>
+		
+</div>
+
+<footer></footer><style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7365')" style="color:Black" title="Go to the previous month">&lt;&lt;<span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April 2020</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7426')" style="color:Black" title="Go to the next month">&gt;&gt;<span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">S</th>
+<th align="center" abbr="Monday" scope="col">M</th>
+<th align="center" abbr="Tuesday" scope="col">T</th>
+<th align="center" abbr="Wednesday" scope="col">W</th>
+<th align="center" abbr="Thursday" scope="col">T</th>
+<th align="center" abbr="Friday" scope="col">F</th>
+<th align="center" abbr="Saturday" scope="col">S</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/29/2020">29</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/31/2020">31</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/1/2020">1</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/2/2020">2</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/3/2020">3</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/5/2020">5</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/6/2020">6</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/7/2020">7</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/8/2020">8</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/9/2020">9</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/10/2020">10</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/12/2020">12</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/13/2020">13</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/14/2020">14</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/15/2020">15</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/16/2020">16</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/19/2020">19</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/20/2020">20</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/21/2020">21</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/23/2020">23</a></td>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/26/2020">26</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/27/2020">27</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/28/2020">28</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/29/2020">29</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+		</div>
+
+		<div class="clr"></div>
+	</div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+        
+        
+	<div class="MiddleTop">
+		<div class="shadowoverlay"></div>
+
+		<div class="container">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 backgroundcolor">
+				<div class="clearfix panel2 content">
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div id="school-map">
+            <h6 class="footerHead">Contact Us</h6>
+
+            <div style="float: left; margin-right: 30px;">
+                <span id="ctl00_ctl00_ctl06_hName">Richmond County Public Schools</span>
+                <span id="ctl00_ctl00_ctl06_hAddress">92 Walnut Street<br>Warsaw, VA 22572</span>
+            </div>
+
+            <div style="float: left;">
+                <span id="AddInfo">
+                    <a href="http://maps.google.com/maps?q=92%20Walnut%20Street+Warsaw+VA+22572" id="ctl00_ctl00_ctl06_mapLink">
+                        View Map &amp; Directions
+                    </a>
+                </span>
+
+                <span id="AddInfo">
+                    <div id="ctl00_ctl00_ctl06_dphone">
+                        <span id="ctl00_ctl00_ctl06_hPhone" style="display: inline;">Phone: 804-333-3681</span>
+                    </div>
+                </span>
+
+                <span id="AddInfo">
+                    <div id="ctl00_ctl00_ctl06_dfax">
+                        <span id="ctl00_ctl00_ctl06_hfax" style="display: inline;">Fax: 804-333-5586</span>
+                    </div>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div id="social-links">
+            <h6 class="footerHead">Stay Connected</h6>
+            
+        <a href="https://www.facebook.com/RichmondCountyPublicSchools/1" title="Richmond County Public Schools Facebook Page" target="_blank">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook-square"></i>
+        </a>
+    
+        <a href="/login" title="Content Management Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="mailto:ContactSBO@richmond-county.k12.va.us" title="Contact us by Email" target="_self">
+            <span class="obscure">Mail</span>
+            <i class="fa fa-envelope-square"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <a href="http://www.schoolpointe.com" target="_blank" title="SchoolPointe" class="schoolpointe">
+            <img src="https://cdn.schoolpointe.com/images/new/SPwhite.png" alt="SchoolPointe white logo"></a>
+    </div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-100716415-6', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer>
+</div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC2y0RaXMa4UwjI6v2I7rkPHiDHydsK03lx8Xtjj8McOnhM1E/Z+4AtYfBLjoqzHUNzx8re9P49CESeNcN+aUYUYylAVjuf883gda9qxPWJdWzlAW1I7BexV+czOzRObl3d50nMhilDDHAwFxGIx0wbFChwQ4Ex0vxOTS+4GFwX5O7kl0Ub38BaDmMgKQcEKVqNSQD67gQzTXdB4A0BTQX56TjzPdP4KgmIAJFo6XWNsVobKscM9xAMf7wwexMr1VQr6eny5cHvWE8n08cMlPMX4UUsMkilD+ZSI9iMjU0yDuCD8GsnLDl6GsgBmi45cgSxLOQJb0r0B03brVHI2aRHj1HX4bsgg9FALGXgdAnz+3fPXHQkoFYN6AHzJTqhMhgIUZHRyIop27ZqiAc5YtJ2CBmWGVEJRDuOVtSdk96ZySIM7oQRKLNMMfuEaYBPHf7UnvwclkPDJBJa1wKztDi6ksAKSxkS0J9AQoAbRkhRLYupP5UfZtzYMcETdrtRuebqUFNAgBxTdrc7p3lb5cG87gm7gyuj+DfF4g5gBMII5vbFKWePuk/HCjfYquEX2jQfetIrU0FyvbBObo1CEWr8JkkUFRwOfzMDwGZIdDlEZh0FsPpuONYQUyNniCyMIahBgL9N5WPrxm7gqXxJSO3bUUENDE9dXDnHAyMxZUeTfBuKQjtJNZCvgL3hOtBgN53JKgunZuEj8FebONNvrKSLQqlYIB6TKJFENEjsUkBLzAOx9UysQWNNGqUBe0wmZ11N1yVx/jqgB2/mbAHkazISKTMuizNiXiSwyoHGDIcvBxXS9J1pDBfJ5u5J2HPiBBN+Xr4uuDR+WtbHcMYtsYms3xHSKYhMkeSMxWk7MMjQy2jqouDmyradb3nBLSPm24J8mLJQ9K5ToZmSewp0Qk2VvFiQDTVcI9Q9wgwvj0GaEsvuvDOI+IORDvkjx+dyMqFUIrAarktjk93HjgecsgvxDfTMMNQ==">
+</div>
+</form>
+</body>
+</html>

@@ -1,0 +1,2109 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Poland Local Schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Oswald:400,700%7COpen+Sans:400,700" rel="stylesheet" type="text/css">
+<link rel="icon" href="/Customers/OH/PolandLclSchs/sysimages/custom/favicon.ico" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Poland Local Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Poland Seminary High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Poland Middle School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Poland Union Elementary - News" href="/rssNews.ashx?schoolId=4">
+<link rel="alternate" type="application/rss+xml" title="McKinley Elementary - News" href="/rssNews.ashx?schoolId=7">
+<link rel="alternate" type="application/rss+xml" title="Athletics - News" href="/rssNews.ashx?schoolId=8">
+<link rel="alternate" type="application/rss+xml" title="PSHS Guidance Department - News" href="/rssNews.ashx?schoolId=9">
+<link rel="alternate" type="application/rss+xml" title="Poland Union Preschool - News" href="/rssNews.ashx?schoolId=10">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "OH_PolandLclSchs",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<style type="text/css">
+        #news-list .article {
+            float: left;
+            position: relative;
+            margin-left: 2% !Important;
+            margin-right: 2% !Important;
+            height: 200px;
+            overflow: hidden;
+            width: 46% !important;
+            border: none !important;
+        }
+
+        #slideshow {
+            max-height: none !important;
+        }
+
+        @media only screen and (max-width: 767px) {
+            #news-list .article {
+                width: 100% !important;
+                height: auto !important;
+            }
+        }
+    </style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1518211156443">
+<script type="text/javascript">
+        var _monsido = _monsido || [];
+        _monsido.push(['_setDomainToken', 'xQURVXUhhsBqsVlw2pKW8Q']);
+        _monsido.push(['_withStatistics', 'true']);
+    </script><script async src="//cdn.monsido.com/tool/javascripts/monsido.js"></script><script async type="text/javascript" src="//pagecorrect.monsido.com/v1/page-correct.js"></script>
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTI1NDYxMjkxOA9kFgJmD2QWAmYPZBYEZg9kFgQCBA9kFgICAQ8WAh4LXyFJdGVtQ291bnQCBxYOZg9kFgJmDxUCG1BvbGFuZCBTZW1pbmFyeSBIaWdoIFNjaG9vbAExZAIBD2QWAmYPFQIUUG9sYW5kIE1pZGRsZSBTY2hvb2wBMmQCAg9kFgJmDxUCF1BvbGFuZCBVbmlvbiBFbGVtZW50YXJ5ATRkAgMPZBYCZg8VAhNNY0tpbmxleSBFbGVtZW50YXJ5ATdkAgQPZBYCZg8VAglBdGhsZXRpY3MBOGQCBQ9kFgJmDxUCGFBTSFMgR3VpZGFuY2UgRGVwYXJ0bWVudAE5ZAIGD2QWAmYPFQIWUG9sYW5kIFVuaW9uIFByZXNjaG9vbAIxMGQCBg8WAh4EaHJlZgUwL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0xNTE4MjExMTU2NDQzZAIBDxYCHgZhY3Rpb24FAS8WCgIBD2QWBAIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8DBQEwZAIDDw9kFgIfAwUBMGQCBA8PZBYCHwMFATBkAgUPD2QWAh8DBQEwZAIDD2QWAgICDw8WAh4HVmlzaWJsZWdkFgJmDxYCHgRUZXh0BZcCPHVsIGNsYXNzPSdhbGVydExpc3QnPjxsaT48c3BhbiBjbGFzcz0nYWxlcnREYW5nZXJDb2xvcicgc3R5bGU9J2JhY2tncm91bmQtY29sb3I6I2FhMTExMTsgY29sb3I6I2Y2ZWZlZic+QWxlcnQ6PC9zcGFuPiA8c3BhbiBjbGFzcz0nYWxlcnRUZXh0SW5mbyc+PHA+PGEgaHJlZj0iaHR0cDovL3d3dy5wb2xhbmRidWxsZG9ncy5jb20vQ29udGVudC9jb3ZpZC0xOSI+Q09ST05BVklSVVMgVVBEQVRFOiBDT1ZJRC0xOSBMYXRlc3QgSW5mb3JtYXRpb248L2E+PC9wPjwvc3Bhbj48L2xpPjwvdWw+ZAIDD2QWAgIBD2QWAgIBD2QWBgIBDw8WAh4LTmF2aWdhdGVVcmwFAS9kFgICAQ8PFgIfBQUUUG9sYW5kIExvY2FsIFNjaG9vbHNkZAIJDw8WAh8GBQEvZGQCCw8PFgQfBgUBLx8FBRRQb2xhbmQgTG9jYWwgU2Nob29sc2RkAgcPZBYEZg8WAh8AAgpkAgEPFgIfBQU2PHN0eWxlPiNzbGlkZXNob3d7cG9zaXRpb246cmVsYXRpdmU7ei1pbmRleDoxOzwvc3R5bGU+ZAILD2QWDAIBD2QWAgIBD2QWAmYPFgIfBQXqFTx1bCBjbGFzcz0nbmF2IG5hdmJhci1uYXYgbGVmdC1uYXYtbGlua3MnID48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50L2FjY2Vzc2liaWxpdHknICAgdGl0bGU9J0FjY2Vzc2liaWxpdHknPkFjY2Vzc2liaWxpdHk8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9hZGEtcmVwb3J0JyAgIHRpdGxlPSdBREEgUmVwb3J0Jz5BREEgUmVwb3J0PC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvJyAgIHRpdGxlPSdEaXN0cmljdCBIb21lJz5EaXN0cmljdCBIb21lPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29udGVudC9kaXN0cmljdHByb2ZpbGUnICAgdGl0bGU9J1BvbGFuZCBMb2NhbCBTY2hvb2xzIERpc3RyaWN0IFByb2ZpbGUnPlBvbGFuZCBMb2NhbCBTY2hvb2xzIERpc3RyaWN0IFByb2ZpbGU8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHBzOi8vd3d3LnBvbGFuZGJ1bGxkb2dzLmNvbS9Db250ZW50Mi9ib2UnICAgdGl0bGU9J0JvYXJkIG9mIEVkdWNhdGlvbic+Qm9hcmQgb2YgRWR1Y2F0aW9uPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwczovL2dvLmJvYXJkZG9jcy5jb20vb2gvcG9sYW5kL0JvYXJkLm5zZi9QdWJsaWMnICAgdGl0bGU9J0JvYXJkIFBvbGljeSc+Qm9hcmQgUG9saWN5PC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvc3RhZmYnICAgdGl0bGU9J1N0YWZmIERpcmVjdG9yeSc+U3RhZmYgRGlyZWN0b3J5PC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC8zNjInICAgdGl0bGU9JzIwMTktMjAyMCBDYWxlbmRhcic+MjAxOS0yMDIwIENhbGVuZGFyPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29udGVudC81MTInICBhcmlhLWxhYmVsPSIiIHRpdGxlPScyMDIwIC0gMjAyMSBDYWxlbmRhciAoQWRvcHRlZCAyLzI0LzIwKSc+MjAyMCAtIDIwMjEgQ2FsZW5kYXIgKEFkb3B0ZWQgMi8yNC8yMCk8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50LzQ3NicgICB0aXRsZT0nMjAyMCBLaW5kZXJnYXJ0ZW4gUmVnaXN0cmF0aW9uJz4yMDIwIEtpbmRlcmdhcnRlbiBSZWdpc3RyYXRpb248L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50LzM3MicgICB0aXRsZT0nU3RyYXRlZ2ljIFBsYW4nPlN0cmF0ZWdpYyBQbGFuPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC8zMzInICAgdGl0bGU9J0luc3RydWN0aW9uYWwgVGltZXMnPkluc3RydWN0aW9uYWwgVGltZXM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9Db250ZW50LzMzNCcgICB0aXRsZT0nQ3VycmljdWx1bSBVcGRhdGUnPkN1cnJpY3VsdW0gVXBkYXRlPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC80MDQnICAgdGl0bGU9J0ZhY2lsaXRpZXMnPkZhY2lsaXRpZXM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9Db250ZW50LzM1NicgICB0aXRsZT0nQnVzaW5lc3MgQWR2aXNvcnkgQ291bmNpbCc+QnVzaW5lc3MgQWR2aXNvcnkgQ291bmNpbDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2NvbnRlbnQvMTQ0JyAgIHRpdGxlPSdUZWNobm9sb2d5IGluIHRoZSBQb2xhbmQgU2Nob29scyc+VGVjaG5vbG9neSBpbiB0aGUgUG9sYW5kIFNjaG9vbHM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly93d3cucG9sYW5kYnVsbGRvZ3MuY29tL0NvbnRlbnQvMzc0JyAgIHRpdGxlPSdGb3JtcyAmYW1wOyBMaW5rcyc+Rm9ybXMgJiBMaW5rczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvNDAyJyAgIHRpdGxlPSdTbm93IERlbGF5cyAvIENsb3NpbmdzJz5Tbm93IERlbGF5cyAvIENsb3NpbmdzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwOi8vd3d3LnBvbGFuZGJ1bGxkb2dzLmNvbS9Db250ZW50L21pbGl0YXJ5cmVwb3J0aW5ncmVxdWlyZW1lbnQnICAgdGl0bGU9J01pbGl0YXJ5IFJlcXVpcmVtZW50IEZvcm0nPk1pbGl0YXJ5IFJlcXVpcmVtZW50IEZvcm08L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9Db250ZW50LzQwMCcgICB0aXRsZT0nS2luZGVyZ2FydGVuIFJlZ2lzdHJhdGlvbic+S2luZGVyZ2FydGVuIFJlZ2lzdHJhdGlvbjwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cDovL3d3dy5wb2xhbmRidWxsZG9ncy5jb20vQ29udGVudC90ZXN0dGFsa2ZvcnBhcmVudHMnICAgdGl0bGU9J1Rlc3QgVGFsayBmb3IgUGFyZW50cyc+VGVzdCBUYWxrIGZvciBQYXJlbnRzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC8yODYnICAgdGl0bGU9J0J1bGx5aW5nICZhbXA7IEhhcmFzc21lbnQnPkJ1bGx5aW5nICYgSGFyYXNzbWVudDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvUmFwdG9yJyAgIHRpdGxlPSdSYXB0b3InPlJhcHRvciBWaXNpdG9yIE1hbmFnZW1lbnQgU3lzdGVtPC9hPjwvbGk+PC91bD5kAgMPZBYCAgEPZBYCAgEPZBYCZg8WAh8FZWQCBw9kFgICAQ9kFgQCAQ8PFgIfBQUNRGlzdHJpY3QgTmV3c2RkAgMPDxYCHwUFjlM8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTozNnB4OyI+PGEgaHJlZj0iaHR0cHM6Ly9saXZlc3RyZWFtLmNvbS9hY2NvdW50cy8xMjk5MDg5MC9ldmVudHMvOTA5MTkxMyI+QXByaWwgMjAsIDIwMjAgNjowMCBQLk0uJm5ic3A7Qk9FIE1lZXRpbmcgTGl2ZXN0cmVhbTwvYT48L3NwYW4+PC9wPg0KDQo8cD4mbmJzcDs8L3A+DQoNCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjI2cHg7Ij48YSBocmVmPSIvdXNlcmZpbGVzLzMvbXkgZmlsZXMvYm9hcmQgd29yayBzZXNzaW9uIHZpcnR1YWwgNC4yMC4yMDIwLnBkZj9pZD00NTk0Ij5Qb2xhbmQmbmJzcDtCb2FyZCBvZiBFZHVjYXRpb24gV29yayBTZXNzaW9uIE1lZXRpbmcgQWdlbmRhIEFwcmlsIDIwLCAyMDIwPC9hPjwvc3Bhbj48L3A+DQoNCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij4mbmJzcDs8L3A+DQoNCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjQ4cHg7Ij48YSBocmVmPSJodHRwczovL3d3dy5wb2xhbmRidWxsZG9ncy5jb20vZGlzdHJpY3ROZXdzQXJ0aWNsZS5hc3B4P2FydElEPTE1MzgmYW1wO3ByZXZpZXc9dHJ1ZSZhbXA7c2Nob29sSUQ9MCI+Q2xhc3Mgb2YgMjAyMCBUcmlidXRlPC9hPjwvc3Bhbj48L3A+DQoNCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjQ4cHg7Ij48YSBocmVmPSJodHRwczovL2xpdmVzdHJlYW0uY29tL2FjY291bnRzLzEyOTkwODkwL2V2ZW50cy85MDk3MjQ1Ij5MaXZlc3RyZWFtPC9hPjwvc3Bhbj48YnIgLz4NCkZyaWRheSwgQXByaWwgMjR0aCBhdCA4OjIwcG08L3A+DQoNCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij4mbmJzcDs8L3A+DQoNCjxoMSBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PHN0cm9uZz5PaGlvIFByaW1hcnkgRWxlY3Rpb24sIEV4dGVuc2lvbiBvZiBBYnNlbnRlZSBWb3Rpbmc8L3N0cm9uZz48L2gxPg0KDQo8cD5PbiBNYXJjaCAyNywgMjAyMCwgR292ZXJub3IgRGVXaW5lIHNpZ25lZCBlbWVyZ2VuY3kgbGVnaXNsYXRpb24gdG8gcHJvdmlkZSByZWxpZWYgdG8gT2hpb2FucyBkdXJpbmcgdGhlIENPVklELTE5IHBhbmRlbWljLCB3aGljaCBpbmNsdWRlcyBhbiBleHRlbnNpb24gb2YgYWJzZW50ZWUgdm90aW5nIGZvciBPaGlvJnJzcXVvO3MgMjAyMCBwcmltYXJ5IGVsZWN0aW9uLiZuYnNwOzwvcD4NCg0KPHA+VGhlIGV4dGVuc2lvbiBpcyBlZmZlY3RpdmUgdGhyb3VnaCBBcHJpbCAyOCwgMjAyMCBhbmQgYXBwbGllcyB0byBpbmRpdmlkdWFscyB3aG8gd2VyZSByZWdpc3RlcmVkIHRvIHZvdGUgaW4gT2hpbyBhcyBvZiBGZWJydWFyeSAxOCwgMjAyMCBidXQgZGlkIG5vdCBjYXN0IGEgYmFsbG90IGluIHRoZSBNYXJjaCAxNywgMjAyMCBwcmltYXJ5IGVsZWN0aW9uLCBvciBpbiBhbnkgc3BlY2lhbCBlbGVjdGlvbiBoZWxkIG9uIHRoYXQgZGF5LjwvcD4NCg0KPHA+VGhlIFNlY3JldGFyeSBvZiBTdGF0ZSB3aWxsIHNlbmQgYSBwb3N0Y2FyZCB0byBlYWNoIHZvdGVyIHdpdGggbm90aWZpY2F0aW9uIG9mIHRoZSBtZXRob2RzIGJ5IHdoaWNoIHlvdSBtYXkgb2J0YWluIGFuIGFwcGxpY2F0aW9uIGZvciBhbiBhYnNlbnQgdm90ZXImcnNxdW87cyBiYWxsb3QsIHRoZSBwcm9jZWR1cmVzIGFuZCBkZWFkbGluZXMgdG8gYXBwbHkgZm9yIGFuIGFic2VudCB2b3RlciZyc3F1bztzIGJhbGxvdCwgYW5kIHRoZSBwcm9jZWR1cmVzIGFuZCBkZWFkbGluZXMgdG8gcmV0dXJuIHZvdGVkIGJhbGxvdHMgdG8gdGhlIG9mZmljZSBvZiB0aGUgTWFob25pbmcgQ291bnR5IEJvYXJkIG9mIEVsZWN0aW9ucy4gUmV0dXJuIHBvc3RhZ2Ugd2lsbCBiZSBwcmVwYWlkLiZuYnNwOyZuYnNwOzwvcD4NCg0KPHA+VG8gcHJpbnQgYW4gYXBwbGljYXRpb24sIHBsZWFzZSB2aXNpdCZuYnNwOzxhIGRhdGEtc2FmZXJlZGlyZWN0dXJsPSJodHRwczovL3d3dy5nb29nbGUuY29tL3VybD9xPWh0dHA6Ly92b3RlLm1haG9uaW5nY291bnR5b2guZ292LyZhbXA7c291cmNlPWdtYWlsJmFtcDt1c3Q9MTU4NTY4MDM3Mjg1MDAwMCZhbXA7dXNnPUFGUWpDTkh2bVE2eTNMNkpXdFA1X2ZJRm5vRjRPX2poV1EiIGhyZWY9Imh0dHA6Ly92b3RlLm1haG9uaW5nY291bnR5b2guZ292LyIgdGFyZ2V0PSJfYmxhbmsiPlZvdGUuTWFob25pbmdjb3VudHlvaC48d2JyIC8+Z292PC9hPiZuYnNwO29yIGNhbGwgdGhlIE1haG9uaW5nIENvdW50eSBCb2FyZCBvZiBFbGVjdGlvbnMgYXQgMzMwLTc4My0yNDcyIHRvIHJlcXVlc3QgYW4gYXBwbGljYXRpb24gYmUgc2VudCB0byB5b3UuJm5ic3A7IFdoaWxlIHZvdGVycyBhcmUgZW5jb3VyYWdlZCB0byBzdGF5IGhvbWUgYW5kIHJlY2VpdmUgYW5kIHJldHVybiBhbiBhcHBsaWNhdGlvbiB2aWEgbWFpbCwgYXBwbGljYXRpb25zIG1heSBiZSBwaWNrZWQtdXAgYXQgdGhlIFJlbmFpc3NhbmNlIEJ1aWxkaW5nLCAzNDUgT2FrIEhpbGwgQXZlbnVlLCBZb3VuZ3N0b3duLCBPaGlvIDQ0NTAyIGZyb20gYSBjb250YWluZXIgaG9sZGVyIGFic2VudGVlIGFwcGxpY2F0aW9uLiBBIGNvbXBsZXRlZCBhcHBsaWNhdGlvbiBtYXkgYmUgcmV0dXJuZWQgdG8gdGhlIERyb3AgQm94IE9mZmljZSBsb2NhdGVkIGJlbG93IHRoZSBjb250YWluZXIuPC9wPg0KDQo8cD5SZWdpc3RlcmVkIHZvdGVycyBtdXN0IGFwcGx5IGZvciBhYnNlbnQgdm90ZXImcnNxdW87cyBiYWxsb3RzIGJ5IG1haWwgdG8gdGhlIE1haG9uaW5nIENvdW50eSBCb2FyZCBvZiBFbGVjdGlvbnMgYnkgbm9vbiBvbiBBcHJpbCAyNSwgMjAyMC4mbmJzcDsgQmFsbG90cyByZWNlaXZlZCBieSBtYWlsIGF0IHRoZSBvZmZpY2Ugb2YgdGhlIEJvYXJkIG9mIEVsZWN0aW9ucyBtdXN0IGJlIHBvc3RtYXJrZWQgb24gb3IgYmVmb3JlIEFwcmlsIDI3LCAyMDIwLCB1bmxlc3MgdGhlIHZvdGVyIGlzIGVsaWdpYmxlIGZvciBhbiBleHRlbmRlZCBkZWFkbGluZSBhcyBkZXRlcm1pbmVkIGJ5IHRoZSBCb2FyZCBvZiBFbGVjdGlvbnMgaW4gYWNjb3JkYW5jZSB3aXRoIHN0YXRlIGxhdy48L3A+DQoNCjxwPlZvdGVycyB3aG8gYXJlIGJsaW5kIG9yIHZpc3VhbGx5IGltcGFpcmVkLCBvciB2b3RlcnMgdGhhdCBhcmUgdW5hYmxlIHRvIHJlY2VpdmUgbWFpbCBhdCB0aGUgcGxhY2Ugd2hlcmUgdGhleSByZXNpZGUgb3IgYW5vdGhlciBsb2NhdGlvbiBtYXkgY2FzdCBhYnNlbnQgdm90ZXImcnNxdW87cyBiYWxsb3RzIGluLXBlcnNvbiBhdCB0aGUgTWFob25pbmcgQ291bnR5IEJvYXJkIG9mIEVsZWN0aW9ucyBvbiBBcHJpbCAyOCwgMjAyMCBub3QgbGF0ZXIgdGhhbiA3OjMwIHAubS4gVm90ZXJzIHdobyBhcmUgc2ljaywgaGF2ZSBhIGRpc2FiaWxpdHkgb3IgYXJlIG90aGVyd2lzZSBjb25maW5lZCB3aWxsIGJlIHByb3ZpZGVkIGFzc2lzdGFuY2UgZnJvbSB0aGUgTWFob25pbmcgQ291bnR5IEJvYXJkIG9mIEVsZWN0aW9ucyBpbiBjYXN0aW5nIGFic2VudCB2b3RlciZyc3F1bztzIGJhbGxvdHMuPC9wPg0KDQo8cD5Gb3IgbW9yZSBpbmZvcm1hdGlvbiBhbmQgYXNzaXN0YW5jZSBjb25jZXJuaW5nIGFic2VudGVlIHZvdGluZywgcGxlYXNlIGNvbnRhY3QgdGhlIE1haG9uaW5nIENvdW50eSBCb2FyZCBvZiBFbGVjdGlvbnMgb3IgdmlzaXQgdGhlaXIgd2Vic2l0ZSBhdCZuYnNwOzxhIGRhdGEtc2FmZXJlZGlyZWN0dXJsPSJodHRwczovL3d3dy5nb29nbGUuY29tL3VybD9xPWh0dHBzOi8vdm90ZS5tYWhvbmluZ2NvdW50eW9oLmdvdi8mYW1wO3NvdXJjZT1nbWFpbCZhbXA7dXN0PTE1ODU2ODAzNzI4NTAwMDAmYW1wO3VzZz1BRlFqQ05HRGV3TEc5NGtacW5fTTlUM2dVYzJWaVJxUlNRIiBocmVmPSJodHRwczovL3ZvdGUubWFob25pbmdjb3VudHlvaC5nb3YvIiB0YXJnZXQ9Il9ibGFuayI+aHR0cHM6Ly92b3RlLjx3YnIgLz5tYWhvbmluZ2NvdW50eW9oLmdvdi88L2E+LiZuYnNwO0Fsc28sIHRoZSBNYWhvbmluZyBDb3VudHkgQm9hcmQgb2YgRWxlY3Rpb25zIGhhcyBpc3N1ZWQgZ3VpZGFuY2UgdGhyb3VnaCAmbGRxdW87MjAyMCBQcmltYXJ5IEZyZXF1ZW50bHkgQXNrZWQgUXVlc3Rpb25zLCZyZHF1bzsgd2hpY2ggbWF5IGJlIGFjY2Vzc2VkIGF0Jm5ic3A7PGEgZGF0YS1zYWZlcmVkaXJlY3R1cmw9Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vdXJsP3E9aHR0cHM6Ly93d3cuc29zLnN0YXRlLm9oLnVzL2VsZWN0aW9ucy92b3RlcnMvMjAyMC1wcmltYXJ5LWZyZXF1ZW50bHktYXNrZWQtcXVlc3Rpb25zLyZhbXA7c291cmNlPWdtYWlsJmFtcDt1c3Q9MTU4NTY4MDM3Mjg1MDAwMCZhbXA7dXNnPUFGUWpDTkdzSXQxWUt4TndCT3l5MDlISzhBRUVpZVN3U0EiIGhyZWY9Imh0dHBzOi8vd3d3LnNvcy5zdGF0ZS5vaC51cy9lbGVjdGlvbnMvdm90ZXJzLzIwMjAtcHJpbWFyeS1mcmVxdWVudGx5LWFza2VkLXF1ZXN0aW9ucy8iIHRhcmdldD0iX2JsYW5rIj5odHRwczovL3d3dy5zb3Muc3RhdGUub2guPHdiciAvPnVzL2VsZWN0aW9ucy92b3RlcnMvMjAyMC08d2JyIC8+cHJpbWFyeS1mcmVxdWVudGx5LWFza2VkLTx3YnIgLz5xdWVzdGlvbnMvPC9hPi48L3A+DQoNCjxociAvPg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MjhweDsiPjxiIGlkPSJkb2NzLWludGVybmFsLWd1aWQtZjhhMzViNmQtN2ZmZi1jOWE1LWVkMGItZWQwZDhhM2VjZjI2Ij5LaW5kZXJnYXJ0ZW4gU2NyZWVuaW5nIGhhcyBiZWVuIHBvc3Rwb25lZCBpbmRlZmluaXRlbHkuPC9iPjwvc3Bhbj48L3A+DQoNCjxociAvPg0KPHAgZGlyPSJsdHIiIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjI4cHg7Ij5NYXJjaCAxNywgMjAyMCwgUHJpbWFyeSBFbGVjdGlvbjxiciAvPg0KPGEgaHJlZj0iaHR0cHM6Ly92b3RlLm1haG9uaW5nY291bnR5b2guZ292LzE4OC9SZXF1ZXN0LWFuLUFic2VudGVlLUJhbGxvdCI+Q2xpY2sgaGVyZSB0byBvYnRhaW4geW91ciBBYnNlbnRlZSBCYWxsb3QgZnJvbSB0aGUgTWFob25pbmcgQ291bnR5IEJvYXJkIG9mIEVsZWN0aW9uczwvYT48L3NwYW4+PC9wPg0KDQo8cCBkaXI9Imx0ciIgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPiZuYnNwOzwvcD4NCg0KPHAgZGlyPSJsdHIiIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48c3BhbiBzdHlsZT0iZm9udC1zaXplOjI2cHg7Ij5BbGwgUG9sYW5kIFNjaG9vbHMgUGxheWdyb3VuZHMgY2xvc2VkIHBlciBEci4gQW15IEFjdG9uJm5ic3A7TVBIIERpcmVjdG9yIG9yZGVyIHRvIGxpbWl0IHNwcmVhZCBvZiB0aGUgbm92ZWwgY29yb25hdmlydXMuPC9zcGFuPjwvcD4NCg0KPHAgZGlyPSJsdHIiIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij4mbmJzcDs8L3A+DQoNCjxwIGRpcj0ibHRyIiBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PGltZyBhbHQ9IlBNUyBQbGF5Z3JvdW5kIiBzcmM9Ii91c2VyZmlsZXMvMy9teSUyMGZpbGVzL3BsYXlncm91bmRzL2ltZy0yNjcxLmpwZWc/aWQ9NDU3MyZhbXA7d2lkdGg9MzMyIiBzdHlsZT0id2lkdGg6IDMzMnB4OyBoZWlnaHQ6IDE2NnB4OyIgLz48aW1nIGFsdD0iVW5pb24gUGxheWdyb3VuZCIgc3JjPSIvdXNlcmZpbGVzLzMvbXklMjBmaWxlcy9pbWctMjY3Mi5qcGVnP2lkPTQ1NzQmYW1wO3dpZHRoPTMzMiIgc3R5bGU9IndpZHRoOiAzMzJweDsgaGVpZ2h0OiAxNjZweDsiIC8+PC9wPg0KDQo8cCBkaXI9Imx0ciIgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxpbWcgYWx0PSJEb2JiaW5zIFBsYXlncm91bmQiIHNyYz0iL3VzZXJmaWxlcy8zL215JTIwZmlsZXMvaW1nLTI2NzMuanBlZz9pZD00NTc1JmFtcDt3aWR0aD0zMzIiIHN0eWxlPSJ3aWR0aDogMzMycHg7IGhlaWdodDogMTQ5cHg7IiAvPjxpbWcgYWx0PSJOb3J0aCBQbGF5Z3JvdW5kIiBzcmM9Ii91c2VyZmlsZXMvMy9teSUyMGZpbGVzL2ltZy0zMzI3LmpwZz9pZD00NTc2JmFtcDt3aWR0aD0zMzIiIHN0eWxlPSJ3aWR0aDogMzMycHg7IGhlaWdodDogMTQ5cHg7IiAvPjwvcD4NCg0KPHAgZGlyPSJsdHIiIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij4mbmJzcDs8L3A+DQoNCjxwIGRpcj0ibHRyIiBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTo0OHB4OyI+PGEgaHJlZj0iaHR0cDovL3d3dy5wb2xhbmRidWxsZG9ncy5jb20vQ29udGVudC9jb3ZpZC0xOSI+Q09ST05BVklSVVMgVVBEQVRFOiBDT1ZJRC0xOSBMYXRlc3QgSW5mb3JtYXRpb248L2E+PC9zcGFuPjwvcD4NCg0KPHAgZGlyPSJsdHIiIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij4mbmJzcDs8L3A+DQoNCjxwIGRpcj0ibHRyIiBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PGEgaHJlZj0iaHR0cHM6Ly93d3cucG9sYW5kYnVsbGRvZ3MuY29tL3N0YWZmIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjM2cHg7Ij5UZWFjaGVyIERpcmVjdG9yeTwvc3Bhbj48L2E+PC9wPg0KDQo8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+Jm5ic3A7PC9wPg0KDQo8aDEgZGlyPSJsdHIiIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij5XZWxjb21lIHRvIHRoZSBQb2xhbmQgTG9jYWwgU2Nob29sIERpc3RyaWN0LCBob21lIG9mIHRoZSBCdWxsZG9ncy48L2gxPg0KDQo8cCBkaXI9Imx0ciIgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPlRoZSBQb2xhbmQgTG9jYWwgU2Nob29sIERpc3RyaWN0ICZuYnNwOyhQTFNEKSBpcyBtYWRlIHVwIG9mIGZvdXIgc2Nob29scywgVW5pb24gRWxlbWVudGFyeSAoIFByZXNjaG9vbC1HcmFkZSAyKSwgTWNLaW5sZXkgRWxlbWVudGFyeSAoMy01KSwgUG9sYW5kIE1pZGRsZSBTY2hvb2wgKDYtOCkgYW5kIFBvbGFuZCBTZW1pbmFyeSBIaWdoIFNjaG9vbCAoOS0xMi4pPC9wPg0KDQo8cCBkaXI9Imx0ciIgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPlRoZSBQb2xhbmQgTG9jYWwgU2Nob29scyBzdGFydGVkIGluIDE4MDIuICZuYnNwO091ciB2aXNpb24gaXMgdG8gYnVpbGQgdXBvbiBhIHRyYWRpdGlvbiBvZiBleGNlbGxlbmNlIGFuZCBvdXIgY29yZSB2YWx1ZXMuIERvaW5nIHRoaXMsIHRoZSBQb2xhbmQgTG9jYWwgU2Nob29scyB3aWxsIGJlIGEgbGVhZGluZyBjZW50ZXIgb2YgbGVhcm5pbmcgZm9yIHN0dWRlbnRzLiAmbmJzcDtQb2xhbmQgTG9jYWwgU2Nob29scyBhcmUgY29tbWl0dGVkIHRvIHByb3ZpZGluZyBzdHVkZW50cyB3aXRoIGEgd2VsbC1yb3VuZGVkIGVkdWNhdGlvbiwgcHJlcGFyaW5nIGV2ZXJ5IHN0dWRlbnQgZm9yIHN1Y2Nlc3MgYW5kIG1lZXRpbmcgdGhlIGluZGl2aWR1YWwgbmVlZHMgb2Ygc3R1ZGVudHMuPC9wPg0KDQo8cCBkaXI9Imx0ciI+Jm5ic3A7PC9wPg0KDQo8cCBkaXI9Imx0ciI+UE9MQU5EIFNDSE9PTFMgTUlTU0lPTiBTVEFURU1FTlQ8L3A+DQoNCjxwIGRpcj0ibHRyIj5FZHVjYXRlLCBlbXBvd2VyIGFuZCBpbnNwaXJlIGV2ZXJ5IHN0dWRlbnQgYXQgZXZlcnkgb3Bwb3J0dW5pdHkuPC9wPg0KDQo8cCBkaXI9Imx0ciI+Jm5ic3A7PC9wPg0KDQo8cCBkaXI9Imx0ciI+UE9MQU5EIFNDSE9PTFMgVklTSU9OPC9wPg0KDQo8cCBkaXI9Imx0ciI+QnVpbHQgdXBvbiBhIHRyYWRpdGlvbiBvZiBleGNlbGxlbmNlIGFuZCBvdXIgY29yZSB2YWx1ZXMsIHRoZSBQb2xhbmQgTG9jYWwgU2Nob29scyB3aWxsIGJlIGEgbGVhZGluZyBjZW50ZXIgb2YgbGVhcm5pbmcgZm9yIGFsbCBzdHVkZW50cy48L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHAgZGlyPSJsdHIiPkNPUkUgVkFMVUVTPC9wPg0KDQo8dWwgZGlyPSJsdHIiIHN0eWxlPSJtYXJnaW4tbGVmdDogNDBweDsiPg0KCTxsaT5QbGFjZSB0aGUgbmVlZHMgYW5kIHdlbGZhcmUgb2Ygc3R1ZGVudHMgZmlyc3QuPC9saT4NCgk8bGk+UmVzcGVjdCB0aGUgaW5oZXJlbnQgdmFsdWUgb2YgZWFjaCBzdHVkZW50LjwvbGk+DQoJPGxpPk51cnR1cmUgYSBkZXNpcmUgZm9yIGxpZmVsb25nIGxlYXJuaW5nLjwvbGk+DQoJPGxpPkJ1aWxkIGNvbW11bml0eSBlbmdhZ2VtZW50LjwvbGk+DQoJPGxpPk9wZXJhdGUgd2l0aCBhY2NvdW50YWJpbGl0eSBhbmQgdHJhbnNwYXJlbmN5LjwvbGk+DQoJPGxpPlVwaG9sZCB0aGUgdHJhZGl0aW9uIG9mIG91ciBzY2hvb2xzIHdpdGhpbiB0aGUgY29tbXVuaXR5LjwvbGk+DQoJPGxpPkVkdWNhdGUgd2l0aGluIGEgY29sbGFib3JhdGl2ZSwgY3JlYXRpdmUsIGFuZCBjdWx0aXZhdGluZyBsZWFybmluZyBlbnZpcm9ubWVudC48L2xpPg0KCTxsaT5FbmNvdXJhZ2UgcGFyZW50IGFuZCBjb21tdW5pdHkgaW52b2x2ZW1lbnQuPC9saT4NCgk8bGk+QnVpbGQgaG9uZXN0IGFuZCB0cnVzdGluZyByZWxhdGlvbnNoaXBzIHRoYXQgcmVzcGVjdCBhbGwgcGVvcGxlLjwvbGk+DQo8L3VsPg0KDQo8aDEgZGlyPSJsdHIiIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48YiBpZD0iZG9jcy1pbnRlcm5hbC1ndWlkLTU3MTRmZmRkLTdmZmYtZGI5Ny0yOTI3LTZmNmRjNDc0OTRiMCI+U3RhdGUgQXVkaXQgU2hvd3MgUG9zaXRpdmUgRmluYW5jaWFsIFN0YW5kaW5nIEZvciBQb2xhbmQgTG9jYWwgU2Nob29sIERpc3RyaWN0PC9iPjwvaDE+DQoNCjxwIGRpcj0ibHRyIiBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZTozNnB4OyI+PGEgaHJlZj0iL3VzZXJmaWxlcy8zL215IGZpbGVzL2NvbXBsaWFudCBwZGYvcG9sYW5kLXByZXNlbnRhdGlvbl9maW5hbCBkcmFmdF9ta3AucGRmP2lkPTQ0ODUiPlBlcmZvcm1hbmNlIEF1ZGl0IFVwZGF0ZSBQcmVzZW50YXRpb248L2E+PC9zcGFuPjwvcD4NCg0KPHAgZGlyPSJsdHIiPlRoZSBPaGlvIEF1ZGl0b3Igb2YgU3RhdGUgcmVwb3J0cyBhIDEzIG1pbGxpb24gZG9sbGFyIHR1cm5hcm91bmQgZm9yIHRoZSBQb2xhbmQgTG9jYWwgU2Nob29sIERpc3RyaWN0LiBBIHJlcG9ydCBmcm9tIHRoZSBzdGF0ZSZyc3F1bztzIG9mZmljZSB3YXMgcHJlc2VudGVkIGF0IHRoZSBCb2FyZCBvZiBFZHVjYXRpb24gbWVldGluZyBvbiBGZWJydWFyeSAyNCwgMjAyMC48L3A+DQoNCjxwIGRpcj0ibHRyIj5UaGUgUG9sYW5kIExvY2FsIFNjaG9vbCBEaXN0cmljdCAoUExTRCkgd2FzIGF1ZGl0ZWQgYnkgdGhlIHN0YXRlIGR1ZSB0byBhIHByb2plY3RlZCBmdW5kIGJhbGFuY2UgZGVmaWNpdCBwcm92aWRlZCBieSB0aGUgTWF5IDIwMTcgZml2ZS15ZWFyLWZvcmVjYXN0LiBUaGUgYXVkaXQgbGlzdGVkIHNldmVyYWwgcmVjb21tZW5kYXRpb25zIHRoZSBkaXN0cmljdCBjb3VsZCBpbXBsZW1lbnQgdG8gcmVkdWNlIGV4cGVuc2VzLiBUaGUgUG9sYW5kIEJvYXJkIG9mIEVkdWNhdGlvbiBhbmQgZGlzdHJpY3QgYWRtaW5pc3RyYXRvcnMgbG9va2VkIGF0IHRoZSByZWNvbW1lbmRhdGlvbnMgYW5kIG1hZGUgZGVjaXNpb25zIGJhc2VkIG9uIHdoYXQgd2FzIGJlc3QgZm9yIHN0dWRlbnQgYWNoaWV2ZW1lbnQuIE5vdCBhbGwgcmVjb21tZW5kYXRpb25zIGZyb20gdGhlIHN0YXRlIHdlcmUgYWN0ZWQgdXBvbi4gU29tZSBvZiB0aGUgc3RlcHMgdGFrZW4gaW5jbHVkZSB0aGUgZm9sbG93aW5nOiZuYnNwOyZuYnNwOzwvcD4NCg0KPHVsPg0KCTxsaSBkaXI9Imx0ciI+DQoJPHAgZGlyPSJsdHIiIHJvbGU9InByZXNlbnRhdGlvbiI+QSBCdXMvVmVoaWNsZSBSZXBsYWNlbWVudCBQbGFuPC9wPg0KCTwvbGk+DQoJPGxpIGRpcj0ibHRyIj4NCgk8cCBkaXI9Imx0ciIgcm9sZT0icHJlc2VudGF0aW9uIj5UZWNobm9sb2d5IFJlcGxhY2VtZW50IFBsYW48L3A+DQoJPC9saT4NCgk8bGkgZGlyPSJsdHIiPg0KCTxwIGRpcj0ibHRyIiByb2xlPSJwcmVzZW50YXRpb24iPlJlZHVjaW5nIGV4cGVuZGl0dXJlcyBieSBicmluZ2luZyBzb21lIHNlcnZpY2VzIGJhY2sgdG8gUExTRDwvcD4NCgk8L2xpPg0KCTxsaSBkaXI9Imx0ciI+DQoJPHAgZGlyPSJsdHIiIHJvbGU9InByZXNlbnRhdGlvbiI+SGVhdGluZyBhbmQgY29vbGluZyBjb25zZXJ2YXRpb24gcHJvZ3JhbXM8L3A+DQoJPC9saT4NCgk8bGkgZGlyPSJsdHIiPg0KCTxwIGRpcj0ibHRyIiByb2xlPSJwcmVzZW50YXRpb24iPlJlb3JnYW5pemF0aW9uIG9mIGRpc3RyaWN0IHBlcnNvbm5lbCZuYnNwOzwvcD4NCgk8L2xpPg0KCTxsaSBkaXI9Imx0ciI+DQoJPHAgZGlyPSJsdHIiIHJvbGU9InByZXNlbnRhdGlvbiI+Q2xvc2luZyBEb2JiaW5zIEVsZW1lbnRhcnkgU2Nob29sPC9wPg0KCTwvbGk+DQo8L3VsPg0KDQo8cD48YnIgLz4NCldoZW4gaXQgY29tZXMgdG8gZmluYW5jZXMsIHRoZXJlIGFyZSBzZXZlcmFsIG90aGVyIHBvc2l0aXZlIHN0ZXBzIHRvIG5vdGUsIGFzIHJlcG9ydGVkIGluIHRoZSBmaXZlLXllYXItZm9yZWNhc3QgYWRvcHRlZCBpbiBPY3RvYmVyIDIwMTkuIFRoZSB1bnJlc2VydmVkIGZ1bmQgYmFsYW5jZXMgdGhyb3VnaCBGaXNjYWwgWWVhciAyMDI0IGlzIGluIHRoZSBibGFjay4gU2Vjb25kLCB0aGUgYW5udWFsIGRlYnQgc2VydmljZSBwYXltZW50IGhhcyBiZWVuIHJlZHVjZWQgYnkgbW9yZSB0aGFuICQxNjAsMDAwIGFubnVhbGx5IGZvciB0aGUgbmV4dCBmb3VyIHllYXJzIGR1ZSB0byByZWZpbmFuY2luZyBvZiB0aGUgZGlzdHJpY3QmcnNxdW87cyBvdXRzdGFuZGluZyBkZWJ0LjwvcD5kZAIJD2QWAgIBD2QWAgICD2QWAgIDDxYCHwBmZAILD2QWAgIBD2QWBmYPFgIfBQUYU3VwZXJpbnRlbmRlbnQncyBNZXNzYWdlZAIBDxYCHwVlZAIDDw8WAh8GBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTFkZAIND2QWAgIBD2QWBmYPFgIfAAIGFgwCAQ9kFgJmDxUHBTQ0ODkzK0ZlYjxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMjQ8L2Rpdj5VL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMsNCw1LDYsNyw4LDksMTAmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD00NDg5Mw1Cb2FyZCBNZWV0aW5nDUJvYXJkIE1lZXRpbmcVQFBvbGFuZCBUb3duc2hpcCBIYWxsEEJlZ2lucyBAIDY6MDAgUE1kAgIPZBYCZg8VBwU0NDg2OCtBcHI8ZGl2IGNsYXNzPSJldmVudC1kYXRlLW51bWJlciI+IDI0PC9kaXY+VS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzLDQsNSw2LDcsOCw5LDEwJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9NDQ4NjgtR2lybHMgVmFyc2l0eSBTb2Z0YmFsbCBAIEhvd2xhbmQgSGlnaCBTY2hvb2wgLUdpcmxzIFZhcnNpdHkgU29mdGJhbGwgQCBIb3dsYW5kIEhpZ2ggU2Nob29sIDZARmlyZXN0b25lIFN0YWRpdW0sIDE1NzUgRmlyZXN0b25lIFBhcmt3YXksIE9oaW8gNDQzMDEQQmVnaW5zIEAgNDowMCBQTWQCAw9kFgJmDxUHBTQ0ODY5K0FwcjxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMjU8L2Rpdj5VL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMsNCw1LDYsNyw4LDksMTAmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD00NDg2OR5HaXJscyBWYXJzaXR5IFNvZnRiYWxsIEAgT1BFTiAeR2lybHMgVmFyc2l0eSBTb2Z0YmFsbCBAIE9QRU4gNkBGaXJlc3RvbmUgU3RhZGl1bSwgMTU3NSBGaXJlc3RvbmUgUGFya3dheSwgT2hpbyA0NDMwMRFCZWdpbnMgQCAxMjowMCBBTWQCBA9kFgJmDxUHBTQ0OTIwK0FwcjxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMjU8L2Rpdj5VL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMsNCw1LDYsNyw4LDksMTAmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD00NDkyMD1Cb3lzIEZyZXNobWFuIEJhc2ViYWxsIEAgQ0FOQ0VMTEVEIC0tIE1hcmxpbmd0b24gSGlnaCBTY2hvb2wgPUJveXMgRnJlc2htYW4gQmFzZWJhbGwgQCBDQU5DRUxMRUQgLS0gTWFybGluZ3RvbiBIaWdoIFNjaG9vbCAgQE1hcmxpbmd0b24gSGlnaCBTY2hvb2wsICwgT2hpbyAQQmVnaW5zIEAgMTowMCBQTWQCBQ9kFgJmDxUHBTQ0ODg5K0FwcjxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMjY8L2Rpdj5VL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMsNCw1LDYsNyw4LDksMTAmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD00NDg4OStHaXJscyBWYXJzaXR5IFNvZnRiYWxsIEAgU29sb24gSGlnaCBTY2hvb2wgK0dpcmxzIFZhcnNpdHkgU29mdGJhbGwgQCBTb2xvbiBIaWdoIFNjaG9vbCAfQERpYW1vbmQgQ3J5c3RhbCBGaWVsZCwgLCBPaGlvIBFCZWdpbnMgQCAxMTowMCBBTWQCBg9kFgJmDxUHBTQ0OTM1K0FwcjxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMjY8L2Rpdj5VL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMsNCw1LDYsNyw4LDksMTAmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD00NDkzNTxHaXJscyBWYXJzaXR5IFNvZnRiYWxsIEAgQ0FOQ0VMTEVEIC0tIFJpdmVyc2lkZSBIaWdoIFNjaG9vbCA8R2lybHMgVmFyc2l0eSBTb2Z0YmFsbCBAIENBTkNFTExFRCAtLSBSaXZlcnNpZGUgSGlnaCBTY2hvb2wgH0BEaWFtb25kIENyeXN0YWwgRmllbGQsICwgT2hpbyAQQmVnaW5zIEAgMTowMCBQTWQCBA8PFgIfBgUhL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00ZGQCBg8PFgQfBgVFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAmc2Nob29saWQ9MCZ0eXBlcz0mdmlld0RhdGU9NC8yNC8yMDIwHwUFD1ZpZXcgQWxsIEV2ZW50c2RkAhEPZBYCZg8WAh8AAgIWBGYPZBYCZg8VAw1mYSBmYS1zaWduLWluKGh0dHA6Ly93d3cucG9sYW5kYnVsbGRvZ3MuY29tL2xvZ2luLmFzcHgJQ01TIExvZ2luZAIBD2QWAmYPFQMPZmEgYWRhUmVwb3J0aW5nKGh0dHA6Ly93d3cucG9sYW5kYnVsbGRvZ3MuY29tL2FkYS1yZXBvcnQNQURBIFJlcG9ydGluZ2RkptvQ4abk48xVSx1aJN65HAR57hA=">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+<style type="text/css">
+    .alertdiv,
+    .alertReShow,
+    .alertList {
+        display: none;
+    }
+
+    .alertTab {
+        margin-left: 20px;
+    }
+
+    .alertTitle {
+        display: inline-block;
+        padding: 2px 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    .nextAlert {
+        background: #676767;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .alertCount {
+        position: absolute;
+        left: -115px;
+    }
+
+    .textalert {
+        color: #313131;
+        position: relative;
+    }
+
+    .alertBar {
+        z-index: 10;
+        font-weight: normal;
+        background: #373737;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e0e0e0)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#ffffff, #e0e0e0); /* Chrome 10+, Saf5.1+ */
+        background-image: -moz-linear-gradient(#ffffff, #e0e0e0); /* FF3.6 */
+        background-image: -ms-linear-gradient(#ffffff, #e0e0e0); /* IE10 */
+        background-image: -o-linear-gradient(#ffffff, #e0e0e0); /* Opera 11.10+ */
+        background-image: linear-gradient(#ffffff, #e0e0e0);
+    }
+
+    a.closeAlert {
+        color: #fff;
+        font-size: 20px;
+    }
+
+    a.openAlert {
+        color: #fff;
+        font-size: 20px;
+        padding-right: 18px;
+        padding-top: 3px;
+    }
+
+    .alertDangerColor {
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .alertPrefix {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+        margin: 0;
+        border-radius: 3px;
+        font-size: 18px;
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+    .alertText {
+        display: inline-block;
+        width: 100%;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    #alertTicker > .alertTextInfo,
+    #alertTicker > .alertTextInfo > p:first-child, .alertTextInfo > span:first-child{display:inline;}
+    .popExclam {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .dark.alertBar{color:#fff;}
+     .dark.alertBar a{color:#fff; text-decoration:underline;}
+         .light.alertBar a{ text-decoration:underline;}
+        .popExclam i {
+            color: #aa1111 !important;
+            font-size: 55px;
+        }
+        .exclamText{padding-top:15px;}
+        .bottomRightEcxlam{position:fixed;z-index:1001;bottom:55px; right:25px;display:none;}
+</style>
+<!--[if lte IE 9]>
+	<style type="text/css">
+	    .alertBar {
+            background: #e0e0e0;
+        }
+	</style>
+<![endif]--><div id="ctl00_ctl00_ctl06_ctl01_BarAlert">
+	
+    <script>
+        $(document).ready(function () {
+            var startColor = "ffffff";
+            if (startColor == "ffffff") {
+                $(".alertBar").addClass("light");
+            }
+            else {
+                $(".alertBar").addClass("dark");
+            }
+        });
+
+    </script><div class="alert-margin">
+        <div style="position: relative; padding: 10px 45px 10px 10px;" class="alertdiv alertBar">
+            <div style="max-width: 980px; margin: 0 auto; font-size: 18px" class="textalert">
+                
+
+                <div id="alertTicker" tabindex="0"></div>
+            </div>
+
+            <ul class="alertList"><li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#f6efef">Alert:</span> <span class="alertTextInfo"><p><a href="http://www.polandbulldogs.com/Content/covid-19">CORONAVIRUS UPDATE: COVID-19 Latest Information</a></p></span>
+</li></ul>
+<div style="position: absolute; right: 20px; top: 5px; z-index: 20;">
+                <a href="javascript:hideAlert()" class="closeAlert">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <span class="obscure">Close alert</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="alertReShow alertBar" style="position: relative; width: 100%; padding: 2px;">
+            <a style="float: right;" href="javascript:loadAlert()" class="openAlert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <span class="obscure">Open alert</span>
+            </a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>
+<div>
+      <a id="exclamationAlert" class="popExclam bottomRightEcxlam"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+</div>
+<script type="text/javascript" src="/admin/js/alert/alertDown.js?version=4"></script><script type="text/javascript">var _userway_config = { position: 1, /*color: '#053e67', language: 'en', */ account: '10trxb7job' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="wrap-header">
+            <div class="headerback">
+                <header id="site-head" class="container"><div class="row">
+                        
+    
+        
+
+<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+	<div class="NavBack">
+		<div class="navigation">
+			<nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button>
+					<a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome3" class="navbar-brand hidden-lg hidden-md" href="/">
+						<div class="logo-mobile"></div>
+						<span id="ctl00_ctl00_header_header_ctl00_schoolName">Poland Local Schools</span></a>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/content/362" title="2019 Calendar">2019 Calendar</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Poland Seminary High School">Poland Seminary High School</a></li>
+<li class="without-image"><a href="/2/home" target="_blank" title="Poland Middle School">Poland Middle School</a></li>
+<li class="without-image"><a href="/7/home" title="McKinley Elementary">McKinley Elementary</a></li>
+<li class="without-image"><a href="/4/home" title="Union Elementary">Union Elementary</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/8/home" target="_blank" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/content/284" target="_blank" title="Food Service Department">Food Service Department</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/436" target="_blank" title="Student Services">Student Services</a></li>
+<li class="without-image"><a href="/content/388" target="_blank" title="District Nursing Services">District Nursing Services</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/72" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/content/2" target="_blank" title="Transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Education">Board of Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/boe" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/content/206" target="_blank" title="Office of the Treasurer">Office of the Treasurer</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Employment">Employment  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/204" target="_blank" title="Substitute Teachers">Substitute Teachers</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/employment" target="_blank" title="Employment Opportunities">Employment Opportunities</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" aria-label="" title="Parent/Student Links">Parent/Student Links  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://classroom.google.com/" aria-label="" title="Google Classroom">Google Classroom</a></li>
+<li class="without-image"><a href="https://mail.google.com/" aria-label="" title="Google Email">Google Email</a></li>
+<li class="without-image"><a href="https://zoom.us/join" aria-label="" title="Zoom Meeting Join">Zoom Meeting Join</a></li>
+<li class="without-image"><a href="https://parentaccess.access-k12.org/" aria-label="" title="ProgressBook Parent Access">ProgressBook Parent Access</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/ferpa" target="_blank" title="Family Educational Rights and Privacy Act">Family Educational Rights and Privacy Act</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/accessingteacherwebsites%20%20" title="Instructions for Accessing Teacher Websites">Instructions for Accessing Teacher Websites</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-label="" title="Staff Links">Staff Links  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://central.access-k12.org/" aria-label="" title="Progressbook">Progressbook</a></li>
+<li class="without-image"><a href="https://polandschools.illuminateed.com/" aria-label="" title="Illuminate DNA Staff">Illuminate DNA Staff</a></li>
+<li class="without-image"><a href="https://zoom.us/signin" aria-label="" title="Zoom Login">Zoom Login</a></li>
+<li class="without-image"><a href="https://classroom.google.com/" aria-label="" title="Google Classroom">Google Classroom</a></li>
+<li class="without-image"><a href="https://mail.google.com/" aria-label="" title="Google Email">Google Email</a></li>
+<li class="without-image"><a href="https://www.aesoponline.com/login2.asp" aria-label="" title="AESOP">AESOP</a></li>
+<li class="without-image"><a href="https://selfservice.access-k12.org/" aria-label="" title="Change Teacher Password">Change Teacher Password</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdRcMgYIoCTxIJkO6EsyujKve7s4EvN63Wm0SnmvhfVhqHUPw/viewform?usp=sf_link" aria-label="" title="Donors Choose">Donors Choose</a></li>
+<li class="without-image"><a href="https://www.publicschoolworks.com/Pages/actManager.asp?di=1013&amp;dia=yvuue&amp;&amp;mi=7" aria-label="" title="Maintenance Work Request">Maintenance Work Request</a></li>
+<li class="without-image"><a href="https://polandschools.freshdesk.com/support/login" aria-label="" title="Technology Work Request">Technology Work Request</a></li>
+<li class="without-image"><a href="https://www.publicschoolworks.com/LMS/login.php?di=1013&amp;dia=yvuue&amp;url=http%3A%2F%2Fwww.publicschoolworks.com%2FLMS%2FlmsStudentView.php%3Flanding%3Dmycoursepage&amp;" aria-label="" title="Public School Works Staff Training">Public School Works Staff Training</a></li>
+<li class="without-image"><a href="https://samegoal.org/iep/a/polandschools.org" aria-label="" title="Same Goal IEP">Same Goal IEP</a></li>
+<li class="without-image"><a href="https://www.access-k12.org/" aria-label="" title="ACCESS">ACCESS</a></li>
+<li class="without-image"><a href="https://kiosk.managementcouncil.org/" aria-label="" title="HR Kiosk">HR Kiosk</a></li>
+</ul>
+</li>
+</ul>
+<div class="collapsedLinks">
+						<ul>
+<li class="qlTitle">Quick Links</li>
+						</ul>
+<ul class="nav navbar-nav left-nav-links">
+<li class="without-image"><a href="/content/accessibility" title="Accessibility">Accessibility</a></li>
+<li class="without-image"><a href="/ada-report" title="ADA Report">ADA Report</a></li>
+<li class="without-image"><a href="/" title="District Home">District Home</a></li>
+<li class="without-image"><a href="/content/districtprofile" title="Poland Local Schools District Profile">Poland Local Schools District Profile</a></li>
+<li class="without-image"><a href="https://www.polandbulldogs.com/Content2/boe" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="https://go.boarddocs.com/oh/poland/Board.nsf/Public" title="Board Policy">Board Policy</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Content/362" title="2019-2020 Calendar">2019-2020 Calendar</a></li>
+<li class="without-image"><a href="/content/512" aria-label="" title="2020 - 2021 Calendar (Adopted 2/24/20)">2020 - 2021 Calendar (Adopted 2/24/20)</a></li>
+<li class="without-image"><a href="/content/476" title="2020 Kindergarten Registration">2020 Kindergarten Registration</a></li>
+<li class="without-image"><a href="/content/372" title="Strategic Plan">Strategic Plan</a></li>
+<li class="without-image"><a href="/Content/332" title="Instructional Times">Instructional Times</a></li>
+<li class="without-image"><a href="/Content/334" title="Curriculum Update">Curriculum Update</a></li>
+<li class="without-image"><a href="/Content/404" title="Facilities">Facilities</a></li>
+<li class="without-image"><a href="/Content/356" title="Business Advisory Council">Business Advisory Council</a></li>
+<li class="without-image"><a href="/content/144" title="Technology in the Poland Schools">Technology in the Poland Schools</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/374" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/Content/402" title="Snow Delays / Closings">Snow Delays / Closings</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/militaryreportingrequirement" title="Military Requirement Form">Military Requirement Form</a></li>
+<li class="without-image"><a href="/Content/400" title="Kindergarten Registration">Kindergarten Registration</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/testtalkforparents" title="Test Talk for Parents">Test Talk for Parents</a></li>
+<li class="without-image"><a href="/Content/286" title="Bullying &amp; Harassment">Bullying &amp; Harassment</a></li>
+<li class="without-image"><a href="/Content/Raptor" title="Raptor">Raptor Visitor Management System</a></li>
+</ul>
+<ul>
+<li class="qlTitle">Resources</li>
+						</ul>
+</div>
+				</div>
+			</nav>
+</div>
+	</div>
+</div>
+
+<div class="hidden-xs col-sm-3 col-md-2 col-lg-2">
+	<div class="header-elements">
+		<div class="search">
+			<div>
+				<div valign="top" style="" class="searchPad">
+					<label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+				<div style="display: inline; float: right;" class="searchgo">
+					<a alt="Search" title="Search" class="bSearch">Search</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="google_translate_element">
+		</div>
+		<script type="text/javascript">
+			function googleTranslateElementInit() {
+				new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+			}
+		</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+</div>
+
+<div class="head-logo-container">
+	<a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="logo" href="/"><span class="obscure">Logo link to home page</span></a>
+	<a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome2" class="schoolName" href="/">Poland Local Schools</a>
+</div>
+
+
+    
+
+                    </div>
+                </header>
+</div>
+
+            
+    
+    
+
+
+            <div class="headerSpace">
+                
+<script type="text/javascript" src="/admin/js/Cycle2/jquery.cycle2.dev.js"></script><script src="https://player.vimeo.com/api/player.js"></script><script type="text/javascript">
+    // https://stackoverflow.com/a/51789311/5629100
+    var YoutubeVideos = (function () {
+        var playersYoutube = [],	// players array (to control players individually)
+            queueYoutube = [];		// videos queue (once api is ready, transform this into YT player)
+
+        // Constructor
+        function YoutubeVideos() { }
+
+        // Add elements to queue
+        YoutubeVideos.prototype.add = function ($video) {
+            queueYoutube.push($video);
+        };
+
+        // Finds player based on the id of the iframe element
+        YoutubeVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersYoutube.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Load Youtube API
+        YoutubeVideos.prototype.loadApi = function () {
+            $.getScript("https://www.youtube.com/iframe_api", function () {
+                window.onYouTubeIframeAPIReady = function () {
+                    queueYoutube.forEach(function ($video) {
+                        var loopBit = function () {
+                            if ($video.data('loop-video') == true) {
+                                return 1;
+                            }
+                            return 0;
+                        };
+
+                        var player = new YT.Player($video.get(0), {
+                            width: $video.data('frame-width'),
+                            height: $video.data('frame-height'),
+                            videoId: $video.data('video-id'),
+                            events: {
+                                'onStateChange': onPlayerStateChange,
+                                'onReady': onPlayerReady
+                            },
+                            playerVars: {
+                                autoplay: 0,
+                                rel: 0,
+                                enablejsapi: 1,
+                                loop: loopBit
+                            },
+                            origin: window.location.origin
+                        });
+
+                        playersYoutube.push({
+                            playerId: $video.attr('id'),
+                            player: player
+                        });
+                    });
+                };
+            });
+        };
+
+        return YoutubeVideos;
+    })();
+
+    // Modified from https://stackoverflow.com/a/51789311/5629100
+    var VimeoVideos = (function () {
+        var queueVimeo = [],		// queue of elements which will become players.
+            playersVimeo = [];		// players array (to control players individually)
+
+        // Constructor
+        function VimeoVideos() { }
+
+        // Add elements to queue
+        VimeoVideos.prototype.add = function ($video) {
+            queueVimeo.push($video);
+        };
+
+        // Converts queue to players.
+        VimeoVideos.prototype.loadPlayers = function () {
+            queueVimeo.forEach(function (item, index) {
+                var vimeoOptions = {
+                    id: $(item).data('video-id'),
+                    autoplay: false,
+                    muted: ($(item).data('autoplay') == true) ? true : false
+                };
+
+                playersVimeo[index] = {
+                    playerId: $(item).attr('id'),
+                    player: new Vimeo.Player(item, vimeoOptions)
+                };
+            });
+        };
+
+        // Finds player based on the id of the iframe element
+        VimeoVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersVimeo.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Adds listeners to the players that have been created now so they interact
+        // correctly with the header galleries.
+        VimeoVideos.prototype.bindListeners = function () {
+            playersVimeo.forEach(function (item) {
+                item.player.on('play', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+                    $wrapSlideshow.find('.cycle-pager').fadeOut();
+                    $wrapSlideshow.find('.playPause').fadeOut();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('pause', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                    $(this.element.parentNode).data('paused', true);
+                    $wrapSlideshow.find('.cycle-pager').fadeIn();
+                    $wrapSlideshow.find('.playPause').fadeIn();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('ended', function () {
+                    if ($(this.element.parentNode).data('loop-video') == true) {
+                        this.play();
+                    } else {
+                        var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                        $(this.element.parentNode).data('paused', true);
+                        $wrapSlideshow.find('.cycle-pager').fadeIn();
+                        $wrapSlideshow.find('.playPause').fadeIn();
+                        $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                    }
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.ready().then(function () {
+                    if ($(this).parents('.cycle-slide-active').length > 0 && $(this).data('autoplay') == true) {
+                        this.play();
+                    }
+                });
+            });
+        };
+
+        return VimeoVideos;
+    })();
+
+    // When the Youtube video is paused, ends, or begins, we need to either
+    // show or hide the slideshow controls and either pause or resume the
+    // slideshow. We also handle looping the Youtube videos here because the
+    // Youtube API is not 100% reliable for that function.
+    function onPlayerStateChange(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        var $wrapSlideshow = $videoElem.parents('.wrap-slideshow').first();
+        var videoState = e.data;
+
+        if (videoState == YT.PlayerState.PAUSED) {
+            $videoElem.data('paused', true);
+            $wrapSlideshow.find('.cycle-pager').fadeIn();
+            $wrapSlideshow.find('.playPause').fadeIn();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+        }
+
+        if (videoState == YT.PlayerState.ENDED) {
+            if ($videoElem.data('loop-video') == true) {
+                playYoutubePlayerById($videoElem.attr('id'));
+            } else {
+                $videoElem.siblings('.youtubeVideoThumbnail').show();
+                $videoElem.siblings('.youtubeVideoThumbnailPlay').show();
+                $wrapSlideshow.find('.cycle-pager').fadeIn();
+                $wrapSlideshow.find('.playPause').fadeIn();
+                $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+            }
+        }
+
+        if (videoState == YT.PlayerState.PLAYING) {
+            $videoElem.data('paused', false);
+            $videoElem.siblings('.youtubeVideoThumbnail').fadeOut();
+            $videoElem.siblings('.youtubeVideoThumbnailPlay').fadeOut();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+            $wrapSlideshow.find('.cycle-pager').fadeOut();
+            $wrapSlideshow.find('.playPause').fadeOut();
+        }
+    }
+
+    function onPlayerReady(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        if ($videoElem.parent('.cycle-slide-active').length > 0 && $videoElem.data('autoplay') == true) {
+            e.target.mute();
+            forcePlayYoutubePlayer(e.target);
+        }
+    }
+
+    function pauseYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            forcePauseYoutubePlayer(player);
+        }
+    }
+
+    function forcePauseYoutubePlayer(player) {
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePauseYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function playYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        forcePlayYoutubePlayer(player);
+    }
+
+    function muteYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.mute();
+    }
+
+    function forcePlayYoutubePlayer(player) {
+        player.playVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePlayYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function pauseVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.pause();
+        }
+    }
+
+    function playVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.play();
+        }
+    }
+
+    function addYouTubeStyles(videoId, containerWidth, containerHeight, videoWidth, videoHeight, videoZoom) {
+        var containerRatio = containerWidth / containerHeight;
+        var videoRatio = videoWidth / videoHeight;
+        var trueSize = $('#' + videoId).parents('.headerGalleryV2').innerWidth() / containerWidth;
+        var styles = '#' + videoId + ' {';
+
+        if (containerRatio === videoRatio) { // Video already fits the size of the container.
+            styles += 'top: 0;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+            styles += 'height: 100%;';
+        } else if (containerRatio > videoRatio) { // Container wider than video, needs to cut off top and bottom of video to scale.
+            var scale = (containerWidth / videoWidth);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateY(-' + (((videoHeight * scale) - containerHeight) / (videoHeight * scale) * 50) + '%);'
+            }
+        } else { // Container taller than video, needs to cut off left and right of video to scale.
+            var scale = (containerHeight / videoHeight);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'height: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateX(-' + (((videoWidth * scale) - containerWidth) / (videoWidth * scale) * 50) + '%);'
+            }
+        }
+
+        styles += '}';
+
+        if ($('#youtubeVideo' + videoId + 'Styles').length > 0) {
+            $('#youtubeVideo' + videoId + 'Styles').remove();
+        }
+
+        var styleTag = $('<style id="#youtubeVideo' + videoId + 'Styles"></style>')
+        $('head').append(styleTag);
+        $(styleTag).append(styles);
+    }
+
+    // Global Variables
+    var youtubes = new YoutubeVideos();
+    var vimeos = new VimeoVideos();
+
+    $(document).ready(function () {
+        $('.youtubeVideoSlide').each(function () {
+            youtubes.add($(this));
+        });
+
+        youtubes.loadApi();
+
+        $('.vimeoVideoSlide').each(function () {
+            vimeos.add($(this));
+        });
+
+        vimeos.loadPlayers();
+        vimeos.bindListeners();
+
+        $('.wrap-slideshow').on('click', '.youtubeVideoThumbnailPlay, .youtubeVideoThumbnail', function () {
+            playYoutubePlayerById($(this).data('player-id'));
+        });
+    });
+
+    $(document).on('cycle-initialized', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+        var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+        var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+        if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true) {
+            youtubeSlide.parents('.headerGalleryV2').cycle('pause');
+        }
+
+        if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true) {
+            vimeoSlide.parents('.headerGalleryV2').cycle('pause');
+            playVimeoPlayerById(vimeoSlide.attr('id'));
+        }
+
+        $('.cycle-pager > span').attr('tabindex', 0);
+    });
+
+    $(document).ready(function () {
+        // For ADA Compliance
+        $('.wrap-slideshow').on('keydown', '.prevNext > i, .cycle-pager > span, .playPause > i', function (e) {
+            if (e.keyCode === 32 || e.keyCode === 13) {
+                e.preventDefault();
+                $(this).click();
+            }
+        });
+    });
+</script><script>
+    $(document).ready(function () {
+        $slideshow = $('#slideshow').cycle({
+            'pauseOnHover': '#slideshow',
+            'slides': '> .slide',
+            'pager': '.slideshow.cycle-pager',
+            'pagerTemplate': '<span class="page"><span class="obscure">slide number {{slideNum}}</span></span>',
+            'autoHeight': '1920:690',
+            'timeout': 3000,
+            'fx': 'fade',
+            'log': false
+        });
+
+        setTimeout(function () {
+            $('.wrap-slideshow.slideshow .playPause .fa-play').on('click', function () {
+                $slideshow.cycle('resume');
+                $('#slideshow').data('paused', false);
+            });
+
+            $('.wrap-slideshow.slideshow .playPause .fa-pause').on('click', function () {
+                $slideshow.cycle('pause');
+                $('#slideshow').data('paused', true);
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-left').on('click', function () {
+                $slideshow.cycle('prev');
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-right').on('click', function () {
+                $slideshow.cycle('next');
+            });
+        }, 500);
+
+        $slideshow.on('cycle-before', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0) {
+                pauseYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0) {
+                pauseVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+        $slideshow.on('cycle-after', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true && youtubeSlide.data('paused') != true) {
+                muteYoutubePlayerById(youtubeSlide.attr('id'))
+                playYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true && vimeoSlide.data('paused') != true) {
+                playVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+	
+    });
+</script><div class="wrap-slideshow slideshow">
+    <div id="slideshow" class="headerGalleryV2">
+        
+                <div id="ctl00_ctl00_ctl07_rptPhotos_ctl00_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-01/5a8af856-e787-4803-8131-663be7a1a3c7.jpg" alt="Eighth grade students in library looking at books as part of book tasting assignment." style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_ctl07_rptPhotos_ctl01_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-01/03cbf5be-78de-417d-b79a-da8ffc842560.jpg" alt="Three female eighth grade students . " style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_ctl07_rptPhotos_ctl02_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-01/0f535048-77de-433d-9d55-a9489dc391ff.jpg" alt="Eighth grade students in library looking at books as part of book tasting assignment. " style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_ctl07_rptPhotos_ctl03_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-01/2902d7b2-34d7-465f-b9f3-726e6f12b05a.jpg" alt="McKinley students in class working on an assignment." style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_ctl07_rptPhotos_ctl04_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-01/21b8576e-03c5-4117-81fe-f229a39c6e27.jpg" alt="McKinley students in class." style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_ctl07_rptPhotos_ctl05_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-01/800ffade-1c64-4390-9ad3-ca9ac0c93dee.jpg" alt="Two McKinley students smiling in class." style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_ctl07_rptPhotos_ctl06_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-01/cd45e3b3-d403-4d35-a686-06249e37fc3d.jpg" alt="Students at Poland Union Elementary School" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_ctl07_rptPhotos_ctl07_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-01/f50d3a39-b0c8-4929-bddd-39cd99a2be4b.jpg" alt="Students at Poland Union Elementary" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_ctl07_rptPhotos_ctl08_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2019-10/fe3cdc88-2a0f-4e42-829b-68485b293d9e.jpg" alt="Students at Poland Union" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_ctl07_rptPhotos_ctl09_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2019-09/214f21b8-48d5-4b70-9d3c-a188b380729e.jpg" alt="students wearing green for Start With Hello Week." style="border-width:0px;">
+</div>
+            
+    </div>
+
+    <div class="prevNext">
+        <i class="fa fa-chevron-left" aria-label="previous slide" tabindex="0"></i>
+        <i class="fa fa-chevron-right" aria-label="next slide" tabindex="0"></i>
+    </div>
+
+    <div class="cycle-pager slideshow"></div>
+
+    <div class="playPause">
+        <i class="fa fa-play" aria-label="play, resume header gallery" tabindex="0"></i>
+        <i class="fa fa-pause" aria-label="pause, stop header gallery" tabindex="0"></i>
+    </div>
+</div>
+
+
+<style>
+    .caption {
+        position: absolute;
+        bottom: 25%;
+        left: 0;
+        width: 100%;
+        padding: 0 20%;
+        z-index: 2;
+    }
+</style>
+<style>#slideshow{position:relative;z-index:1;</style>
+<style type="text/css">
+    .wrap-slideshow {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .slide {
+        display: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide.cycle-slide-active {
+        display: block;
+        animation-name: fadeIn;
+        animation-duration: 1000ms;
+    }
+
+    .slide img {
+        width: 100%;
+        display: block;
+    }
+
+    .caption,
+    .caption a {
+        color: #fff;
+    }
+
+    .captionTop,
+    .captionBottom {
+        display: none;
+    }
+
+    .cycle-slide-active .captionTop {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        animation-name: slideInRight;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-slide-active .captionBottom {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.4);
+        text-align: center;
+        animation-name: slideInLeft;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-pager {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        z-index: 2;
+    }
+
+    .cycle-pager .page {
+        display: inline-block;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+    .cycle-pager .page:before {
+        display: inline-block;
+        content: '';
+        width: 12px;
+        height: 12px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        line-height: 1px;
+    }
+
+    .cycle-pager .page.cycle-pager-active:before {
+        background-color: white;
+    }
+
+    .playPause {
+        position: absolute;
+        bottom: 0px;
+        right: 10px;
+        padding: 0;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .playPause i {
+        margin-bottom: 3px;
+    }
+
+    .playPause i.fa-play {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 8px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause i.fa-play:before {
+        margin-top: -1px;
+        margin-right: -2px;
+    }
+
+    .playPause i.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 9px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause svg.fa-play,
+    .playPause svg.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 11px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -15px;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .prevNext svg {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+    }
+
+    .prevNext svg.fa-chevron-left {
+        padding-left: 3px;
+    }
+
+    .prevNext svg.fa-chevron-right {
+        padding-right: 3px;
+    }
+
+    .prevNext i {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext .fa-chevron-left {
+        left: 20px;
+    }
+
+    .prevNext svg:first-child,
+    .prevNext .fa-chevron-left:before {
+        margin-left: -2px;
+    }
+
+    .prevNext .fa-chevron-right {
+        right: 20px;
+    }
+
+    .prevNext svg:last-child,
+    .prevNext .fa-chevron-right:before {
+        margin-right: -2px;
+    }
+
+    .wrap-slideshow .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('');
+        background-size: contain;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+
+    .vimeoVideoSlide {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+    }
+
+    .vimeoVideoSlide iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .youtubeVideoSlide {
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide .youtubeVideoThumbnail {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        object-fit: contain;
+        object-position: center;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .youtubeVideoThumbnailPlay {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background-color: #f00;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    .youtubeVideoThumbnailPlay i {
+        margin: 0 -2px 0 0;
+        line-height: 100%;
+    }
+
+    @keyframes none {
+        from {
+            display: block;
+        }
+
+        to {
+            display: block;
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            left: 100%;
+        }
+
+        60% {
+            left: -10px;
+        }
+
+        to {
+            left: 0;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            right: 100%;
+        }
+
+        60% {
+            right: -10px;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+<style id="youtubeStyles"></style>
+</div>
+        </div>
+
+        <div class="content-wrapper">
+            
+
+            <div class="body-content-container">
+                <div class="container">
+                    <div class="masterC alignment-stretch">
+                        <div class="row">
+                            
+    <div class="hidden-xs col-sm-4 col-md-3 col-lg-3 backgroundcolor">
+        <div class="clearfix panel content">
+            
+                <h1>Quick Links</h1>
+                <ul class="nav navbar-nav left-nav-links">
+<li class="without-image"><a href="/content/accessibility" title="Accessibility">Accessibility</a></li>
+<li class="without-image"><a href="/ada-report" title="ADA Report">ADA Report</a></li>
+<li class="without-image"><a href="/" title="District Home">District Home</a></li>
+<li class="without-image"><a href="/content/districtprofile" title="Poland Local Schools District Profile">Poland Local Schools District Profile</a></li>
+<li class="without-image"><a href="https://www.polandbulldogs.com/Content2/boe" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="https://go.boarddocs.com/oh/poland/Board.nsf/Public" title="Board Policy">Board Policy</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/Content/362" title="2019-2020 Calendar">2019-2020 Calendar</a></li>
+<li class="without-image"><a href="/content/512" aria-label="" title="2020 - 2021 Calendar (Adopted 2/24/20)">2020 - 2021 Calendar (Adopted 2/24/20)</a></li>
+<li class="without-image"><a href="/content/476" title="2020 Kindergarten Registration">2020 Kindergarten Registration</a></li>
+<li class="without-image"><a href="/content/372" title="Strategic Plan">Strategic Plan</a></li>
+<li class="without-image"><a href="/Content/332" title="Instructional Times">Instructional Times</a></li>
+<li class="without-image"><a href="/Content/334" title="Curriculum Update">Curriculum Update</a></li>
+<li class="without-image"><a href="/Content/404" title="Facilities">Facilities</a></li>
+<li class="without-image"><a href="/Content/356" title="Business Advisory Council">Business Advisory Council</a></li>
+<li class="without-image"><a href="/content/144" title="Technology in the Poland Schools">Technology in the Poland Schools</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/374" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/Content/402" title="Snow Delays / Closings">Snow Delays / Closings</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/militaryreportingrequirement" title="Military Requirement Form">Military Requirement Form</a></li>
+<li class="without-image"><a href="/Content/400" title="Kindergarten Registration">Kindergarten Registration</a></li>
+<li class="without-image"><a href="http://www.polandbulldogs.com/Content/testtalkforparents" title="Test Talk for Parents">Test Talk for Parents</a></li>
+<li class="without-image"><a href="/Content/286" title="Bullying &amp; Harassment">Bullying &amp; Harassment</a></li>
+<li class="without-image"><a href="/Content/Raptor" title="Raptor">Raptor Visitor Management System</a></li>
+</ul>
+</div>
+        
+            
+<div class="clearfix LeftImages" style="height: 100%;">
+    
+
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+
+        
+
+        
+        
+    </div>
+
+    <div class="col-xs-12 col-sm-8 col-md-5 col-lg-5 backgroundcolor">
+        
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+
+    <div id="ctl00_ctl00_MasterContent_ContentColumnMiddleTop_Featured" class="clearfix panel content">
+        <h1><span id="ctl00_ctl00_MasterContent_ContentColumnMiddleTop_pContentTitle">District News</span></h1>
+        <span id="ctl00_ctl00_MasterContent_ContentColumnMiddleTop_pContentText"><p style="text-align: center;"><span style="font-size:36px;"><a href="https://livestream.com/accounts/12990890/events/9091913">April 20, 2020 6:00 P.M. BOE Meeting Livestream</a></span></p>
+
+<p> </p>
+
+<p style="text-align: center;"><span style="font-size:26px;"><a href="/userfiles/3/my%20files/board%20work%20session%20virtual%204.20.2020.pdf?id=4594">Poland Board of Education Work Session Meeting Agenda April 20, 2020</a></span></p>
+
+<p style="text-align: center;"> </p>
+
+<p style="text-align: center;"><span style="font-size:48px;"><a href="https://www.polandbulldogs.com/districtNewsArticle.aspx?artID=1538&amp;preview=true&amp;schoolID=0">Class of 2020 Tribute</a></span></p>
+
+<p style="text-align: center;"><span style="font-size:48px;"><a href="https://livestream.com/accounts/12990890/events/9097245">Livestream</a></span><br>
+Friday, April 24th at 8:20pm</p>
+
+<p style="text-align: center;"> </p>
+
+<h1 style="text-align: center;"><strong>Ohio Primary Election, Extension of Absentee Voting</strong></h1>
+
+<p>On March 27, 2020, Governor DeWine signed emergency legislation to provide relief to Ohioans during the COVID-19 pandemic, which includes an extension of absentee voting for Ohio’s 2020 primary election. </p>
+
+<p>The extension is effective through April 28, 2020 and applies to individuals who were registered to vote in Ohio as of February 18, 2020 but did not cast a ballot in the March 17, 2020 primary election, or in any special election held on that day.</p>
+
+<p>The Secretary of State will send a postcard to each voter with notification of the methods by which you may obtain an application for an absent voter’s ballot, the procedures and deadlines to apply for an absent voter’s ballot, and the procedures and deadlines to return voted ballots to the office of the Mahoning County Board of Elections. Return postage will be prepaid.  </p>
+
+<p>To print an application, please visit <a data-saferedirecturl="https://www.google.com/url?q=http://vote.mahoningcountyoh.gov/&amp;source=gmail&amp;ust=1585680372850000&amp;usg=AFQjCNHvmQ6y3L6JWtP5_fIFnoF4O_jhWQ" href="http://vote.mahoningcountyoh.gov/" target="_blank">Vote.Mahoningcountyoh.<wbr></wbr>gov</a> or call the Mahoning County Board of Elections at 330-783-2472 to request an application be sent to you.  While voters are encouraged to stay home and receive and return an application via mail, applications may be picked-up at the Renaissance Building, 345 Oak Hill Avenue, Youngstown, Ohio 44502 from a container holder absentee application. A completed application may be returned to the Drop Box Office located below the container.</p>
+
+<p>Registered voters must apply for absent voter’s ballots by mail to the Mahoning County Board of Elections by noon on April 25, 2020.  Ballots received by mail at the office of the Board of Elections must be postmarked on or before April 27, 2020, unless the voter is eligible for an extended deadline as determined by the Board of Elections in accordance with state law.</p>
+
+<p>Voters who are blind or visually impaired, or voters that are unable to receive mail at the place where they reside or another location may cast absent voter’s ballots in-person at the Mahoning County Board of Elections on April 28, 2020 not later than 7:30 p.m. Voters who are sick, have a disability or are otherwise confined will be provided assistance from the Mahoning County Board of Elections in casting absent voter’s ballots.</p>
+
+<p>For more information and assistance concerning absentee voting, please contact the Mahoning County Board of Elections or visit their website at <a data-saferedirecturl="https://www.google.com/url?q=https://vote.mahoningcountyoh.gov/&amp;source=gmail&amp;ust=1585680372850000&amp;usg=AFQjCNGDewLG94kZqn_M9T3gUc2ViRqRSQ" href="https://vote.mahoningcountyoh.gov/" target="_blank">https://vote.<wbr></wbr>mahoningcountyoh.gov/</a>. Also, the Mahoning County Board of Elections has issued guidance through “2020 Primary Frequently Asked Questions,” which may be accessed at <a data-saferedirecturl="https://www.google.com/url?q=https://www.sos.state.oh.us/elections/voters/2020-primary-frequently-asked-questions/&amp;source=gmail&amp;ust=1585680372850000&amp;usg=AFQjCNGsIt1YKxNwBOyy09HK8AEEieSwSA" href="https://www.sos.state.oh.us/elections/voters/2020-primary-frequently-asked-questions/" target="_blank">https://www.sos.state.oh.<wbr></wbr>us/elections/voters/2020-<wbr></wbr>primary-frequently-asked-<wbr></wbr>questions/</a>.</p>
+
+<hr>
+<p style="text-align: center;"><span style="font-size:28px;"><b id="docs-internal-guid-f8a35b6d-7fff-c9a5-ed0b-ed0d8a3ecf26">Kindergarten Screening has been postponed indefinitely.</b></span></p>
+
+<hr>
+<p dir="ltr" style="text-align: center;"><span style="font-size:28px;">March 17, 2020, Primary Election<br><a href="https://vote.mahoningcountyoh.gov/188/Request-an-Absentee-Ballot">Click here to obtain your Absentee Ballot from the Mahoning County Board of Elections</a></span></p>
+
+<p dir="ltr" style="text-align: center;"> </p>
+
+<p dir="ltr" style="text-align: center;"><span style="font-size:26px;">All Poland Schools Playgrounds closed per Dr. Amy Acton MPH Director order to limit spread of the novel coronavirus.</span></p>
+
+<p dir="ltr" style="text-align: center;"> </p>
+
+<p dir="ltr" style="text-align: center;"><img alt="PMS Playground" src="/userfiles/3/my%20files/playgrounds/img-2671.jpeg?id=4573&amp;width=332" style="width: 332px; height: 166px;"><img alt="Union Playground" src="/userfiles/3/my%20files/img-2672.jpeg?id=4574&amp;width=332" style="width: 332px; height: 166px;"></p>
+
+<p dir="ltr" style="text-align: center;"><img alt="Dobbins Playground" src="/userfiles/3/my%20files/img-2673.jpeg?id=4575&amp;width=332" style="width: 332px; height: 149px;"><img alt="North Playground" src="/userfiles/3/my%20files/img-3327.jpg?id=4576&amp;width=332" style="width: 332px; height: 149px;"></p>
+
+<p dir="ltr" style="text-align: center;"> </p>
+
+<p dir="ltr" style="text-align: center;"><span style="font-size:48px;"><a href="http://www.polandbulldogs.com/Content/covid-19">CORONAVIRUS UPDATE: COVID-19 Latest Information</a></span></p>
+
+<p dir="ltr" style="text-align: center;"> </p>
+
+<p dir="ltr" style="text-align: center;"><a href="https://www.polandbulldogs.com/staff"><span style="font-size:36px;">Teacher Directory</span></a></p>
+
+<p style="text-align: center;"> </p>
+
+<h1 dir="ltr" style="text-align: center;">Welcome to the Poland Local School District, home of the Bulldogs.</h1>
+
+<p dir="ltr" style="text-align: center;">The Poland Local School District  (PLSD) is made up of four schools, Union Elementary ( Preschool-Grade 2), McKinley Elementary (3-5), Poland Middle School (6-8) and Poland Seminary High School (9-12.)</p>
+
+<p dir="ltr" style="text-align: center;">The Poland Local Schools started in 1802.  Our vision is to build upon a tradition of excellence and our core values. Doing this, the Poland Local Schools will be a leading center of learning for students.  Poland Local Schools are committed to providing students with a well-rounded education, preparing every student for success and meeting the individual needs of students.</p>
+
+<p dir="ltr"> </p>
+
+<p dir="ltr">POLAND SCHOOLS MISSION STATEMENT</p>
+
+<p dir="ltr">Educate, empower and inspire every student at every opportunity.</p>
+
+<p dir="ltr"> </p>
+
+<p dir="ltr">POLAND SCHOOLS VISION</p>
+
+<p dir="ltr">Built upon a tradition of excellence and our core values, the Poland Local Schools will be a leading center of learning for all students.</p>
+
+<p> </p>
+
+<p dir="ltr">CORE VALUES</p>
+
+<ul dir="ltr" style="margin-left: 40px;">
+<li>Place the needs and welfare of students first.</li>
+	<li>Respect the inherent value of each student.</li>
+	<li>Nurture a desire for lifelong learning.</li>
+	<li>Build community engagement.</li>
+	<li>Operate with accountability and transparency.</li>
+	<li>Uphold the tradition of our schools within the community.</li>
+	<li>Educate within a collaborative, creative, and cultivating learning environment.</li>
+	<li>Encourage parent and community involvement.</li>
+	<li>Build honest and trusting relationships that respect all people.</li>
+</ul>
+<h1 dir="ltr" style="text-align: center;"><b id="docs-internal-guid-5714ffdd-7fff-db97-2927-6f6dc47494b0">State Audit Shows Positive Financial Standing For Poland Local School District</b></h1>
+
+<p dir="ltr" style="text-align: center;"><span style="font-size:36px;"><a href="/userfiles/3/my%20files/compliant%20pdf/poland-presentation_final%20draft_mkp.pdf?id=4485">Performance Audit Update Presentation</a></span></p>
+
+<p dir="ltr">The Ohio Auditor of State reports a 13 million dollar turnaround for the Poland Local School District. A report from the state’s office was presented at the Board of Education meeting on February 24, 2020.</p>
+
+<p dir="ltr">The Poland Local School District (PLSD) was audited by the state due to a projected fund balance deficit provided by the May 2017 five-year-forecast. The audit listed several recommendations the district could implement to reduce expenses. The Poland Board of Education and district administrators looked at the recommendations and made decisions based on what was best for student achievement. Not all recommendations from the state were acted upon. Some of the steps taken include the following:  </p>
+
+<ul>
+<li dir="ltr">
+	<p dir="ltr" role="presentation">A Bus/Vehicle Replacement Plan</p>
+	</li>
+	<li dir="ltr">
+	<p dir="ltr" role="presentation">Technology Replacement Plan</p>
+	</li>
+	<li dir="ltr">
+	<p dir="ltr" role="presentation">Reducing expenditures by bringing some services back to PLSD</p>
+	</li>
+	<li dir="ltr">
+	<p dir="ltr" role="presentation">Heating and cooling conservation programs</p>
+	</li>
+	<li dir="ltr">
+	<p dir="ltr" role="presentation">Reorganization of district personnel </p>
+	</li>
+	<li dir="ltr">
+	<p dir="ltr" role="presentation">Closing Dobbins Elementary School</p>
+	</li>
+</ul>
+<p><br>
+When it comes to finances, there are several other positive steps to note, as reported in the five-year-forecast adopted in October 2019. The unreserved fund balances through Fiscal Year 2024 is in the black. Second, the annual debt service payment has been reduced by more than $160,000 annually for the next four years due to refinancing of the district’s outstanding debt.</p></span>
+    </div>
+
+   
+
+
+
+        <div class="clearfix panel content maincontent">
+            
+    <h1>District News</h1>
+
+    <div class="news">
+        
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+	</style>
+<section id="news-list"><div class="clr">
+			</div>
+			</section>
+</div>
+
+    <a href="/districtNewsArticles.aspx" class="view-all-news">View All News</a>
+
+    <div class="clr"></div>
+
+        </div>
+
+        
+    <div class="clearfix panel content">
+        
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Superintendent's Message
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+    </div>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 backgroundcolor ">
+        <div class="clearfix panel content maincontent">
+            
+    <h1>Calendar &amp; Events</h1>
+    
+		<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-44893">
+			<div class="event-date">
+				Feb<div class="event-date-number"> 24</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5,6,7,8,9,10&amp;schoolid=0&amp;types=&amp;eventID=44893" title="Board Meeting">
+					Board Meeting
+				</a>
+			</div>
+			<div class="event-location">
+				@Poland Township Hall
+			</div>
+			<div class="event-time">
+				Begins @ 6:00 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-44868">
+			<div class="event-date">
+				Apr<div class="event-date-number"> 24</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5,6,7,8,9,10&amp;schoolid=0&amp;types=&amp;eventID=44868" title="Girls Varsity Softball @ Howland High School ">
+					Girls Varsity Softball @ Howland High School 
+				</a>
+			</div>
+			<div class="event-location">
+				@Firestone Stadium, 1575 Firestone Parkway, Ohio 44301
+			</div>
+			<div class="event-time">
+				Begins @ 4:00 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-44869">
+			<div class="event-date">
+				Apr<div class="event-date-number"> 25</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5,6,7,8,9,10&amp;schoolid=0&amp;types=&amp;eventID=44869" title="Girls Varsity Softball @ OPEN ">
+					Girls Varsity Softball @ OPEN 
+				</a>
+			</div>
+			<div class="event-location">
+				@Firestone Stadium, 1575 Firestone Parkway, Ohio 44301
+			</div>
+			<div class="event-time">
+				Begins @ 12:00 AM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-44920">
+			<div class="event-date">
+				Apr<div class="event-date-number"> 25</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5,6,7,8,9,10&amp;schoolid=0&amp;types=&amp;eventID=44920" title="Boys Freshman Baseball @ CANCELLED -- Marlington High School ">
+					Boys Freshman Baseball @ CANCELLED -- Marlington High School 
+				</a>
+			</div>
+			<div class="event-location">
+				@Marlington High School, , Ohio 
+			</div>
+			<div class="event-time">
+				Begins @ 1:00 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-44889">
+			<div class="event-date">
+				Apr<div class="event-date-number"> 26</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5,6,7,8,9,10&amp;schoolid=0&amp;types=&amp;eventID=44889" title="Girls Varsity Softball @ Solon High School ">
+					Girls Varsity Softball @ Solon High School 
+				</a>
+			</div>
+			<div class="event-location">
+				@Diamond Crystal Field, , Ohio 
+			</div>
+			<div class="event-time">
+				Begins @ 11:00 AM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-44935">
+			<div class="event-date">
+				Apr<div class="event-date-number"> 26</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3,4,5,6,7,8,9,10&amp;schoolid=0&amp;types=&amp;eventID=44935" title="Girls Varsity Softball @ CANCELLED -- Riverside High School ">
+					Girls Varsity Softball @ CANCELLED -- Riverside High School 
+				</a>
+			</div>
+			<div class="event-location">
+				@Diamond Crystal Field, , Ohio 
+			</div>
+			<div class="event-time">
+				Begins @ 1:00 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		</ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_eventsUc_hl_viewAllEvents" class="view-all" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/24/2020">View All Events</a>
+</footer><div class="wrap-viewFullCalendar">
+        <a href="/calendar">View Full Calendar</a>
+    </div>
+
+        </div>
+
+        
+        
+    </div>
+    <div class="clr">
+    </div>
+
+                        </div>
+
+                        <div class="clr"></div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="row">
+    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div id="social-links-bottom">
+                
+                              <a class="fa fa-sign-in" href="http://www.polandbulldogs.com/login.aspx">
+                                   <span class="obscure">CMS Login</span>
+                              </a>
+                    
+                              <a class="fa adaReporting" href="http://www.polandbulldogs.com/ada-report">
+                                   <span class="obscure">ADA Reporting</span>
+                              </a>
+                    
+		</div>
+	</div>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footerinfo">
+		
+				<div class="footerName">
+				
+				</div>
+				<div>
+						Poland Local Schools  |  3199 Dobbins Road  |  Poland, OH 44514
+				</div>
+        	<div>
+				
+			Phone:330-757-7000  |  Fax:330-757-2390
+                	</div>
+        				<div>
+					<a href="http://maps.google.com/maps?q=3199%20Dobbins%20Road+Poland+OH+44514">
+						View Map &amp; Directions
+					</a>
+				</div>
+		
+	</div>
+
+</div>
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-61700231-46', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><div class="footer-branding-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <a href="http://www.schoolpointe.com" target="_blank" class="sp-footer-logo" alt="SchoolPointe">
+                                <img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPwhite.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987">
+</div>
+</form>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a').on('click', function () {
+                var href = $(this).attr('href');
+
+                if (href.startsWith('/') || href.startsWith('#') || href.startsWith('javascript:')) {
+                    return;
+                }
+
+                if (href.startsWith('http')) {
+                    href = href.substring(href.indexOf('://') + 3, href.length - 1);
+                }
+
+                if (href.startsWith('www.')) {
+                    href = href.substring(4, href.length - 1);
+                }
+
+                if (href.startsWith('polandbulldogs.com') || href.startsWith('poland.k12.oh.us') || href.startsWith('polandlclschs.oh.schools.bz')) {
+                    return;
+                }
+
+                var x = window.confirm("You are about to leave Poland Local Schools' website. This link is not under the control of the Poland Local Schools, and is not responsible for the contents of any linked site or any link contained in a linked site, or any changes or updates to such sites. We are providing this link to you only as a convenience, and the inclusion of any link does not imply endorsement of the site by the district. Are you sure you want to leave?")
+                return x;
+            });
+
+            $('.cycle-pager > span').attr('tabindex', 0);
+        });
+    </script><script>
+    $(document).ready(function () {
+        $('body').on('keyup', function (e) {
+            var keyCode = e.keyCode || e.which;
+
+            if (keyCode == 9) {
+                var $focusedParents = $(':focus').parents('.dropdown.open');
+                var $openMenus = $('.dropdown.open');
+
+                if ($focusedParents.length < $openMenus.length) {
+                    $openMenus.not($focusedParents).removeClass('open');
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

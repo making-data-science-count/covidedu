@@ -6,7 +6,7 @@ plan = drake_plan(
   
   processed_data = read_data(file_in('district-data-to-scrape.csv')),
   
-  my_date_proc = proc_my_date(my_date)
+  my_date_proc = proc_my_date(my_date),
   
   table_of_output = scrape_and_process_sites(
     my_date_proc, 
