@@ -149,7 +149,7 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
     
   }
   
-  if (which_to_scrape == "links" | which_to_scrape == "both) {
+  if (which_to_scrape == "links" | which_to_scrape == "both") {
     
     link_output <- pmap(list(link = all_other$link,
                              district = all_other$district_name, 
@@ -161,6 +161,7 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
                                  otherwise = tibble(link = NA, district = NA, state = NA, nces_id = NA, 
                                                     page_number = NA,
                                                     type = "LINK", found = FALSE)))
+    
     link_df <- map_df(link_output, ~.)
     
   }
