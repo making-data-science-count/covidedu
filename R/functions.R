@@ -163,9 +163,10 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
                                  otherwise = tibble(link = NA, district = NA, state = NA, nces_id = NA, 
                                                     page_number = NA,
                                                     type = "LINK", found = FALSE)))
-    output_df <- map_df(link_output, ~.)
+
     
   }
+  output_df <- map_df(link_output, ~.)
   attachment_df <- map_df(attachment_output, ~.)
   
   if (which_to_scrape == "both") {
