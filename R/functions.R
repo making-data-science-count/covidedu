@@ -129,9 +129,6 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
   if (!fs::dir_exists(str_c("output/", my_date, "/links"))) fs::dir_create(str_c("output/", my_date, "/links"))
   if (!fs::dir_exists(str_c("output/", my_date, "/attachments"))) fs::dir_create(str_c("output/", my_date, "/attachments"))
   
-  # table_of_output <- table_of_output %>% 
-  #   unnest(link)
-  
   table_of_output$file_ext <- tools::file_ext(table_of_output$link)
   
   attachments <- filter(table_of_output, file_ext %in% c("pdf", ".docx", ".png", ".doc"))
@@ -148,10 +145,11 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
                                        otherwise = tibble(link = NA, district = NA, state = NA, nces_id = NA, 
                                                           page_number = NA,
                                                           type = "ATTACHMENT", found = FALSE)))
+      attachment_df <- map_df(attachment_output, ~.)
     
   }
   
-  if (which_to_scrape == "links") {
+  if (which_to_scrape == "links" | which_to_scrape == "both) {
     
     link_output <- pmap(list(link = all_other$link,
                              district = all_other$district_name, 
@@ -163,17 +161,16 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
                                  otherwise = tibble(link = NA, district = NA, state = NA, nces_id = NA, 
                                                     page_number = NA,
                                                     type = "LINK", found = FALSE)))
-    output_df <- map_df(link_output, ~.)
+    link_df <- map_df(link_output, ~.)
     
   }
-  attachment_df <- map_df(attachment_output, ~.)
   
   if (which_to_scrape == "both") {
-    return(list(output_df, attachment_df))
+    return(list(link_df, attachment_df))
   } else if (which_to_scrape == "attachments") {
     return(attachment_df)
   } else {
-    return(output_df)
+    return(link_df)
   }
 }
 
