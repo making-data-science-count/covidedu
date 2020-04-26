@@ -1,6 +1,6 @@
 # covid-edu
 
-This project uses [{drake}](https://github.com/ropensci/drake) to facilitate the reproducibility of the analysis. While it is named {covidedu} because it was intended to be used to understand districts' responses to the COVID-19 pandemic, it can also be used to programmatically access other information from districts by changing the `search_term` (see more below).
+While this project is named {covidedu} because it was intended to be used to understand districts' responses to the COVID-19 pandemic, it can also be used to programmatically access other information from districts by changing the `search_term` (see more below).
 
 ## Required packages
 
@@ -15,7 +15,4 @@ There are two key parameters to set in [`R/plan.R`](R/plan.R):
 
 ## How to run
 
-To run the web-scraper, run either:
-
-- the contents of [`make.R`](make.R)
-- or `drake::r_make()`
+To run the web-scraper, run he contents of [`make.R`](make.R).

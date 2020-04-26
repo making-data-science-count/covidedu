@@ -115,7 +115,7 @@ download_attachment <- function(link, district, state, nces_id, page_number, my_
   file_ext <- tools::file_ext(link)
   base_dir <- str_c("output/", my_date, "/attachments/")
   
-  f <-str_c(base_dir, "ATTACHMENT-", state, "-", district, "-", nces_id, "-",page_number, ".", file_ext)
+  f <-str_c(base_dir, "ATTACHMENT-", state, "-", district, "-", nces_id, "-", page_number, ".", file_ext)
   if (!fs::file_exists(f)) {
     download.file(link, destfile = f)
     print("downloaded ", file_ext)
