@@ -24,7 +24,7 @@ Set two key parameters to set in [`R/plan.R`](R/plan.R):
 
 #### Running the scraper
 
-To run the web-scraper, run the contents of [`R/plan.R`](R/plan.R). This may take a considerable period of time (at least 10-15 hours); if the scraper is halted, it can be re-started without re-downloading data (so long as `my_date` is the same for all of the data for the same data collection)
+To run the web-scraper, run the contents of [`R/plan.R`](R/plan.R). This may take a considerable period of time (at least 10-15 hours); if the scraper is stoped for any reason, it can be re-started without re-downloading data (so long as `my_date` is the same for all of the data for the same data collection, as this variable is used to check whether data was already downloaded).
 
 ## Output
 
