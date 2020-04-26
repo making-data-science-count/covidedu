@@ -25,8 +25,6 @@ All of the required packages are listed in [`R/packages.R`](R/packages.R).
 
 When complete, output will be in the sub-directory of the `output` directory with the value of `my_date` (e.g., `output/2020-04-26/`). 
 
-The output includes:
-
 ### The results of programatically accessing districts' websites
 
 - `homepages` (the XML for districts' homepages)
