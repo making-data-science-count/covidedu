@@ -8,7 +8,7 @@ While this project is named {covidedu} because it was intended to be used to und
 
 All of the required packages are listed in [`R/packages.R`](R/packages.R).
 
-## How to run
+## How to use
 
 1. Set two key parameters to set in [`R/plan.R`](R/plan.R):
 
