@@ -15,4 +15,4 @@ There are two key parameters to set in [`R/plan.R`](R/plan.R):
 
 ## How to run
 
-To run the web-scraper, run he contents of [`make.R`](make.R).
+To run the web-scraper, run the contents of [`R/plan.R`](R/plan.R).
