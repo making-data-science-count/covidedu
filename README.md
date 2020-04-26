@@ -41,6 +41,6 @@ When complete, output will be in the sub-directory of the `output` directory wit
 - `summary_of_table_of_links` (summary statistics for the districts for which sraping was successful; as of 2020-04-26, approximately 92% of districts' websites were accessible, and so this table should include rows for 92% of the districts with data available from the NCES)
 - `scraped_links` (summary statistics for the links and attachents)
 
-### Related work
+## Related work
 
 - https://github.com/making-data-science-count/covidapp
