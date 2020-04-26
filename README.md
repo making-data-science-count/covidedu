@@ -1,4 +1,4 @@
-# covid-edu
+# covidedu
 
 ## Background
 
