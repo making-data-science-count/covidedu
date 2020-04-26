@@ -1,5 +1,7 @@
 # covid-edu
 
+## Background
+
 While this project is named {covidedu} because it was intended to be used to understand districts' responses to the COVID-19 pandemic, it can also be used to programmatically access other information from districts by changing the `search_term` (see more below).
 
 ## Required packages
