@@ -1,6 +1,6 @@
 # covid-edu
 
-### Background
+## Background
 
 This project is named {covidedu} because it was intended to be used to understand districts' responses to the COVID-19 pandemic.
 
