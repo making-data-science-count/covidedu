@@ -32,18 +32,17 @@ access_site <- function(my_date, name, state, id, url, search_term) {
   links <- h %>%
     html_nodes("a")
   
-  search_term_found <- any(str_detect(tolower(t), search_term))
+  search_term_found <- any(str_detect(tolower(links), search_term))
   
   link_found <- links %>%
-    html_text() %>%
+    # html_text() %>%
     tolower() %>%
-    any(str_detect(., search_term)) %>%
-    any()
+    any(str_detect(., search_term))
   
   link_logical_to_index <- links %>%
-    html_text() %>%
+    #html_text() %>%
     tolower() %>%
-    any(str_detect(., search_term)) 
+    str_detect(., search_term)
   
   link_urls <- links %>%
     rvest::html_attr("href")
@@ -178,7 +177,25 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
 proc_table_of_output <- function(table_of_output) {
   table_of_output <- table_of_output %>% 
     group_by(district_name, state, nces_id) %>% 
-    mutate(page_number = row_number())
+    mutate(page_number = row_number()) %>% 
+    ungroup() %>% 
+    spread(search_term_found, link_found) %>% 
+    mutate_if(is.logical, replace_na, FALSE) %>% 
+    select(-`<NA>`) %>% 
+    filter(!is.na(district_name))
+}
+
+create_summary_table <- function(proc_table_of_output) {
+  out <- proc_table_of_output %>% 
+    select(district_name:link) %>% 
+    distinct(district_name, nces_id, state, .keep_all = TRUE) %>% 
+    select(-scraping_failed) %>% 
+    rename(list_of_links_containing_search_term = link)
+  
+  out$n_links_found <- map_int(out$list_of_links_containing_search_term, length)
+  out$any_link_found <- if_else(out$n_links_found > 0, TRUE, FALSE)
+  out %>% 
+    select(district_name, state, nces_id, url, any_link_found, n_links_found, list_of_links_containing_search_term)
 }
 
 proc_my_date <- function(my_date) {
