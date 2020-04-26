@@ -1,6 +1,6 @@
 # covid-edu
 
-## Background
+### Background
 
 This project is named {covidedu} because it was intended to be used to understand districts' responses to the COVID-19 pandemic.
 
@@ -8,11 +8,11 @@ The districts' websites were obtained primarily through the [National Center for
 
 But, it can also be used to programmatically access other information from districts by changing the `search_term` (which defaults to `c("covid*", "corona*", "closure")`, but can easily be changed; see details in the how to use section below).
 
-## Required packages
+### Required packages
 
 All of the required packages are listed in [`R/packages.R`](R/packages.R).
 
-## How to use
+### How to use
 
 1. Set two key parameters to set in [`R/plan.R`](R/plan.R):
 
@@ -31,11 +31,11 @@ When complete, output will be in the sub-directory of the `output` directory wit
 - `links` (XML pages containing any pages linked from districts' homepages containing the search term [either the link text or the underlying hyperlink])
 - `attachments` (any PDF, PNG, DOC, or DOCX files linked from districts' homepages containing the search term [either the link text or the underlying hyperlink])
 
-### Summary statistics
+##### Summary statistics
 
 - `summary_of_table_of_links` (summary statistics for the districts for which sraping was successful; as of 2020-04-26, approximately 92% of districts' websites were accessible, and so this table should include rows for 92% of the districts with data available from the NCES)
 - `scraped_links` (summary statistics for the links and attachents)
 
-## Related work
+### Related work
 
 - https://github.com/making-data-science-count/covidapp
