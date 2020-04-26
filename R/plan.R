@@ -8,7 +8,7 @@ search_term = c("covid*", "coron*", "closure")
 processed_data = read_data('district-data-to-scrape.csv')
 
 # just for testing
-processed_data <- processed_data[1:25, ]
+# processed_data <- processed_data[1:25, ]
 
 my_date_proc = proc_my_date(my_date)
 
