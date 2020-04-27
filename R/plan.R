@@ -1,7 +1,7 @@
 source("R/packages.R")
 source("R/functions.R")
 
-my_date = "2020-04-25"
+my_date = ""
 
 search_term = c("covid*", "coron*", "closure")
 

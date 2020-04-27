@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!-- Mobile Metas --><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The School District of Howards Grove</title>
+<script>
+//<![CDATA[
+window.gon={};gon.current_user_id=null;gon.organization="howardsgrovewi";
+//]]>
+</script><link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900,400italic,700italic" rel="stylesheet" type="text/css">
+<link href="https://fonts.googleapis.com/css?family=Cinzel:400,700" rel="stylesheet">
+<link href="/assets/apptegy_cms/themes/howardsgrovewi/favicon-b0225417ecdaf754667871d39a85428a.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<script src="/assets/apptegy_cms/themes/howardsgrovewi/application-bcebecffe373c126512330b7e8becf00.js" type="text/javascript"></script><link href="/assets/apptegy_cms/themes/howardsgrovewi/application-25bf75b1a7b0e9a42c83bbfda469121a.css" media="all" rel="stylesheet" type="text/css">
+</head>
+<body class="homepage cbp-spmenu-push">
+    
+              <header id="header" class="clearfix"><a class="logo" href="/">
+    <h1>The School District of <span>Howards Grove</span>
+</h1>
+    <img alt="The School District of Howards Grove" src="/assets/apptegy_cms/themes/howardsgrovewi/logo-6768e3092e5a3eb409ef95e792a0b35b.png"></a>
+  <span class="search-icon"></span>
+    
+    <div class="search-overlay">
+      <div class="wrap-content">
+        <h1>Search Site</h1>
+          <form id="search-form" action="#">
+            <label for="q" style="display: none;">Search Form</label>
+            <input id="q" type="text" autocomplete="off" autofocus="" aria-describedby="instructions" aria-owns="all_results"><label for="text" style="display: none;">Form Text</label>
+            <input id="text" type="text" disabled autocomplete="off" class="search-term-shadow">
+</form>
+        <div id="instructions" class="visually-hidden">
+          This search form uses an instant search feature. As you type, search results will appear automatically below the search field. When you've entered you desired search terms use tab to navigate through the available results and hit enter to open the selected page or document.
+        </div>
+        <div id="all_results">
+          <div class="search-results" id="pages_results"></div>
+          <div class="search-results" id="articles_results"></div>
+          <div class="search-results" id="live_feed_results"></div>
+          <div class="search-results" id="staff_results"></div>
+          <div class="search-results" id="documents_results"></div>
+          <div class="search-results" id="events_results"></div>
+          <div class="search-results" id="scores_results"></div>
+        </div>
+
+        <div class="close-icon">
+          <div id="hits"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+  $(".search-icon").click(function(e) {
+    $(".search-overlay").addClass('open');
+    $('.search-overlay form input[type="text"]').focus();
+    $("body").addClass('overflowhidden');
+  });
+
+  $(".close-icon").click(function(e) {
+    $(".search-overlay").removeClass('open');
+    $("body").removeClass('overflowhidden');
+  });
+</script><script src="https://cdn.jsdelivr.net/instantsearch.js/1/instantsearch.min.js" type="text/javascript"></script><script>
+
+  $(document).ready(function() {
+    $('.search-results').hide();
+
+    $("#q").on("keyup", function(e){
+
+      if($.trim(this.value).length) {
+        $(".search-results").fadeIn("fast");
+      }else{
+        $(".search-results").fadeOut("fast");
+      }
+    });
+
+    var pageTemplate = '<div class="item clearfix">' +
+      '<div class="info">' +
+        '<div class="title">'+
+        '{{#page_link}}<a href="{{url}}" target="_blank">{{/page_link}}'+
+        '{{^page_link}}<a href="/o/{{organization_alias}}/page/{{{slug}}}">{{/page_link}}'+
+        '{{{_highlightResult.name.value}}}</a></div>'+
+        '<p>{{{_highlightResult.content_summary.value}}}</p>'+
+      '</div>'+
+    '</div>';
+
+    var livefeedTemplate = '<div class="item clearfix">' +
+      '<div class="info">' +
+        '<div class="autor">{{{_highlightResult.author_name.value}}}</div>'+
+        '<p><a href="/o/{{{organization_alias}}}/live_feed/#lf_{{{objectID}}}">{{{_highlightResult.status.value}}}</a></p>'+
+      '</div>'+
+    '</div>';
+
+    var articleTemplate = '<div class="item clearfix">' +
+      '<div class="image">' +
+        '<img src="{{{first_image}}}" onerror="this.style.display = \'none\';">'+
+      '</div>' +
+      '<div class="info">' +
+        '<div class="title"><a href="/article/{{{objectID}}}?org={{{organization_alias}}}">{{{_highlightResult.title.value}}}</a></div>'+
+        '<p>{{{_highlightResult.content_summary.value}}}</p>'+
+      '</div>'+
+    '</div>';
+
+    var eventTemplate = '<div class="item clearfix">' +
+      '<div class="info">' +
+        '<div class="title"><a href="/o/{{{organization_alias}}}/events/#event_{{{objectID}}}">{{{_highlightResult.title.value}}}</a></div>'+
+        '<div class="time">{{{_highlightResult.when.value}}}</div>'+
+        '<p>{{{_highlightResult.where.value}}}</p>'+
+      '</div>'+
+    '</div>';
+
+    var scoreTemplate = '<div class="item clearfix">' +
+      '<div class="info">' +
+        '<div class="title">{{{_highlightResult.away_team.value}}}<span>{{{away_score}}}&nbsp;&nbsp;&nbsp;&nbsp;{{{home_score}}}</span>{{{_highlightResult.home_team.value}}}</div>'+
+        '<div class="time">{{{_highlightResult.when.value}}}</div>'+
+        '<p><a href="/o/{{{organization_alias}}}/athletics?filter={{{section_filter_id}}}#score_{{{objectID}}}">{{{_highlightResult.where.value}}}</a></p>'+
+        '<p>{{{_highlightResult.description.value}}}</p>'+
+      '</div>'+
+    '</div>';
+
+    var staffTemplate = '<div class="item clearfix">' +
+      '<div class="image">' +
+        '<img src="{{{avatar}}}" onerror="this.src=\'/assets/apptegy_cms/default_avatar.png\'">'+
+      '</div>' +
+      '<div class="info">' +
+        '<div class="title"><a href="/o/{{{organization_alias}}}/staff/#s_{{{objectID}}}">{{{_highlightResult.full_name.value}}}</a></div>'+
+        '<p>'+
+          '<a href="/o/{{{organization_alias}}}/staff/#s_{{{objectID}}}">'+
+            '{{{_highlightResult.title.value}}}'+
+            '<br>'+
+            '{{{_highlightResult.department.value}}}'+
+            '<br>'+
+            '{{{phone_number}}}'+
+            '<br>'+
+            '{{{email}}}'+
+          '</a>'+
+        '</p>'+
+      '</div>'+
+    '</div>';
+
+    var documentTemplate = '<div class="item clearfix">' +
+      '<div class="info">' +
+        '<div class="title">'+
+          '<a href="{{url}}">{{{_highlightResult.name.value}}} (DOC)</a>'+
+        '</div>'+
+        '<div class="file-format">'+
+          'File format:&nbsp;&nbsp;'+
+          '<span>{{{_highlightResult.file_extension.value}}}</span>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+    var delay = (function(){
+      var timer = 0;
+      return function(callback, ms){
+        clearTimeout (timer);
+        timer = setTimeout(callback, ms);
+      };
+    })();
+
+    var search_page = instantsearch({
+      searchFunction: function(helper) {
+      if (helper.state.query === '') {
+        return;
+      }
+      delay(function(){
+      }, 1000 );
+      helper.search();
+      },
+      appId: 'UGFXPYTIF9',
+      apiKey: '85b82754bbcc3e3d14315ce353901c79',
+      indexName: 'ApptegyCms_Page_production',
+      searchParameters: {
+        disjunctiveFacets: ['organization', 'organization_alias']
+      },
+    });
+
+    var search_live_feed = instantsearch({
+      searchFunction: function(helper) {
+      if (helper.state.query === '') {
+        return;
+      }
+      delay(function(){
+      }, 1000 );
+      helper.search();
+      },
+      appId: 'UGFXPYTIF9',
+      apiKey: '85b82754bbcc3e3d14315ce353901c79',
+      indexName: 'LiveFeed_production',
+      searchParameters: {
+        disjunctiveFacets: ['organization']
+      },
+    });
+
+    var search_articles = instantsearch({
+      searchFunction: function(helper) {
+      if (helper.state.query === '') {
+        return;
+      }
+      delay(function(){
+      }, 1000 );
+      helper.search();
+      },
+      appId: 'UGFXPYTIF9',
+      apiKey: '85b82754bbcc3e3d14315ce353901c79',
+      indexName: 'Article_production',
+      searchParameters: {
+        disjunctiveFacets: ['organization']
+      },
+    });
+
+    var search_events = instantsearch({
+      searchFunction: function(helper) {
+      if (helper.state.query === '') {
+        return;
+      }
+      delay(function(){
+      }, 1000 );
+      helper.search();
+      },
+      appId: 'UGFXPYTIF9',
+      apiKey: '85b82754bbcc3e3d14315ce353901c79',
+      indexName: 'Event_production',
+      searchParameters: {
+        disjunctiveFacets: ['organization']
+      },
+    });
+
+    var search_scores = instantsearch({
+      searchFunction: function(helper) {
+      if (helper.state.query === '') {
+        return;
+      }
+      delay(function(){
+      }, 1000 );
+      helper.search();
+      },
+      appId: 'UGFXPYTIF9',
+      apiKey: '85b82754bbcc3e3d14315ce353901c79',
+      indexName: 'ScoresSchedule_production',
+      searchParameters: {
+        disjunctiveFacets: ['organization']
+      },
+    });
+
+    var search_documents = instantsearch({
+      searchFunction: function(helper) {
+      if (helper.state.query === '') {
+        return;
+      }
+      delay(function(){
+      }, 1000 );
+      helper.search();
+      },
+      appId: 'UGFXPYTIF9',
+      apiKey: '85b82754bbcc3e3d14315ce353901c79',
+      indexName: 'Asset_production',
+      searchParameters: {
+        disjunctiveFacets: ['organization']
+      },
+    });
+
+    var search_staff = instantsearch({
+      searchFunction: function(helper) {
+      if (helper.state.query === '') {
+        return;
+      }
+      delay(function(){
+      }, 1000 );
+      helper.search();
+      },
+      appId: 'UGFXPYTIF9',
+      apiKey: '85b82754bbcc3e3d14315ce353901c79',
+      indexName: 'Directory_production',
+      searchParameters: {
+        disjunctiveFacets: ['organization']
+      },
+    });
+
+
+    search_page.addWidget(
+      instantsearch.widgets.searchBox({
+        container: '#q',
+        autofocus: false,
+      })
+    );
+
+    search_live_feed.addWidget(
+      instantsearch.widgets.searchBox({
+        container: '#q',
+        autofocus: false,
+      })
+    );
+
+    search_articles.addWidget(
+      instantsearch.widgets.searchBox({
+        container: '#q',
+        autofocus: false
+      })
+    );
+
+    search_events.addWidget(
+      instantsearch.widgets.searchBox({
+        container: '#q',
+        autofocus: false
+      })
+    );
+
+    search_scores.addWidget(
+      instantsearch.widgets.searchBox({
+        container: '#q',
+        autofocus: false
+      })
+    );
+
+    search_documents.addWidget(
+      instantsearch.widgets.searchBox({
+        container: '#q',
+        autofocus: false
+      })
+    );
+
+    search_staff.addWidget(
+      instantsearch.widgets.searchBox({
+        container: '#q',
+        autofocus: false
+      })
+    );
+
+    search_page.addWidget({
+      init: function(args) {
+        args.helper.addDisjunctiveFacetRefinement(
+          'organization', gon.organization
+        );
+      }
+    });
+
+    search_live_feed.addWidget({
+      init: function(args) {
+        args.helper.addDisjunctiveFacetRefinement(
+          'organization', gon.organization
+        );
+      }
+    });
+
+    search_articles.addWidget({
+      init: function(args) {
+        args.helper.addDisjunctiveFacetRefinement(
+          'organization', gon.organization
+        );
+      }
+    });
+
+    search_events.addWidget({
+      init: function(args) {
+        args.helper.addDisjunctiveFacetRefinement(
+          'organization', gon.organization
+        );
+      }
+    });
+
+    search_scores.addWidget({
+      init: function(args) {
+        args.helper.addDisjunctiveFacetRefinement(
+          'organization', gon.organization
+        );
+      }
+    });
+
+    search_documents.addWidget({
+      init: function(args) {
+        args.helper.addDisjunctiveFacetRefinement(
+          'organization', gon.organization
+        );
+      }
+    });
+
+    search_staff.addWidget({
+      init: function(args) {
+        args.helper.addDisjunctiveFacetRefinement(
+          'organization', gon.organization
+        );
+      }
+    });
+
+    search_page.addWidget(
+      instantsearch.widgets.hits({
+        container: '#pages_results',
+        templates: {
+          empty: '',
+          item: pageTemplate
+        },
+        hitsPerPage: 10
+      })
+    );
+
+    search_live_feed.addWidget(
+      instantsearch.widgets.hits({
+        container: '#live_feed_results',
+        templates: {
+          empty: '',
+          item: livefeedTemplate
+        },
+        hitsPerPage: 5
+      })
+    );
+
+    search_articles.addWidget(
+      instantsearch.widgets.hits({
+        container: '#articles_results',
+        templates: {
+          empty: '',
+          item: articleTemplate
+        },
+        hitsPerPage: 10
+      })
+    );
+
+    search_events.addWidget(
+      instantsearch.widgets.hits({
+        container: '#events_results',
+        templates: {
+          empty: '',
+          item: eventTemplate
+        },
+        hitsPerPage: 5
+      })
+    );
+
+    search_scores.addWidget(
+      instantsearch.widgets.hits({
+        container: '#scores_results',
+        templates: {
+          empty: '',
+          item: scoreTemplate
+        },
+        hitsPerPage: 5
+      })
+    );
+
+    search_documents.addWidget(
+      instantsearch.widgets.hits({
+        container: '#documents_results',
+        templates: {
+          empty: '',
+          item: documentTemplate
+        },
+        hitsPerPage: 10
+      })
+    );
+
+    search_staff.addWidget(
+      instantsearch.widgets.hits({
+        container: '#staff_results',
+        templates: {
+          empty: '',
+          item: staffTemplate
+        },
+        hitsPerPage: 10
+      })
+    );
+
+    search_page.start();
+    search_live_feed.start();
+    search_articles.start();
+    search_events.start();
+    search_scores.start();
+    search_documents.start();
+    search_staff.start();
+  });
+
+
+</script><script>
+  $(".search-icon").click(function(e) {
+          $(".search-overlay").addClass('open');
+          $('.search-overlay form input[type="text"]').focus();
+          $("body").addClass('overflowhidden');
+        });
+
+  $(".close-icon").click(function(e) {
+          $(".search-overlay").removeClass('open');
+          $("body").removeClass('overflowhidden');
+        });
+</script><nav id="left-nav" class="nav" role="navigation"><div class="menu-btn"><span>Menu</span></div>
+    <div class="menu-wrap" style="overflow: visible;">
+      <ul class="first-nav clearfix">
+<li class="live-feed">
+          <a href="/live_feed">
+            <span><img alt="Feed-icon" src="/assets/apptegy_cms/themes/howardsgrovewi/menu/feed-icon-6a5b64be42fee9b82ca16075b876c1ed.png"></span>
+            Live Feed
+          </a>
+        </li>
+        <li class="news">
+          <a href="/news">
+            <span><img alt="News-icon" src="/assets/apptegy_cms/themes/howardsgrovewi/menu/news-icon-273a2b161a0134232a99782eb17f3279.png"></span>
+            News
+          </a>
+        </li>
+        <li class="events">
+          <a href="/events">
+            <span>  <img alt="Events" src="/assets/apptegy_cms/themes/howardsgrovewi/menu/events-dbe0be74f5c1820c9f62100b2ec75758.png"></span>
+            Events
+          </a>
+        </li>
+          <li class="staff">
+            <a href="/staff">
+              <span>  <img alt="Staff" src="/assets/apptegy_cms/themes/howardsgrovewi/menu/staff-479b5d216999b721c257576afd035128.png"></span>
+              Staff
+            </a>
+          </li>
+          <li class="documents">
+            <a href="/documents">
+              <span> <img alt="Documents" src="/assets/apptegy_cms/themes/howardsgrovewi/menu/documents-f073eca866f7b4922cc76fb121770b36.png"></span>
+              Documents
+            </a>
+          </li>
+      </ul>
+<ul style="overflow:visible" class="second-nav clearfix">
+<li class="item test">
+              <a href="/2019-state-volleyball-information" target="">
+                2019 State Volleyball Information
+              </a>
+          </li>
+          <li class="item test">
+              <span> ABOUT US </span>
+              <ul>
+<li>
+                      <a href="/superintendent-s-message--9" target="">
+                        Superintendent's Message
+                      </a>
+                    </li>
+                    <li>
+                        <span><a href="/philosophy-of-education" target="">
+                            Philosophy of Education
+                          </a></span>
+                      <ul>
+<li>
+                            <a href="/2018-19-registration" target="">
+                              2018-19 Registration
+                            </a>
+                          </li>
+                      </ul>
+</li>
+                    <li>
+                      <a href="/about-the-district--3" target="">
+                        About the District
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/about-the-community" target="">
+                        About the Community
+                      </a>
+                    </li>
+                    <li>
+                      <a href="http://wisedash.dpi.wi.gov/Dashboard/Page/Home/Topic%20Area/WSAS/" target="_blank">
+                        School Performance Report
+                      </a>
+                    </li>
+                    <li>
+                      <a href="http://howardsgrovewi.apptegy.us/o/district/browse/11331" target="_blank">
+                        District Newsletters
+                      </a>
+                    </li>
+              </ul>
+</li>
+          <li class="item test">
+              <a href="/human-resources--43" target="">
+                Human Resources
+              </a>
+          </li>
+          <li class="item test">
+              <span> ENROLLMENT </span>
+              <ul>
+<li>
+                      <a href="https://dpi.wi.gov/open-enrollment" target="_blank">
+                        Public School Open Enrollment
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://5il.co/al9y" target="_blank">
+                        DISTRICT NOTICE - Open Enrollment Information
+                      </a>
+                    </li>
+              </ul>
+</li>
+          <li class="item test">
+              <span> BOARD OF EDUCATION </span>
+              <ul>
+<li>
+                      <a href="/school-board-members--22" target="">
+                        School Board Members
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/meetings--3" target="">
+                        Meetings
+                      </a>
+                    </li>
+                    <li>
+                      <a href="http://howardsgrovewi.apptegy.us/o/district/browse/11327" target="_blank">
+                        School Board Minutes
+                      </a>
+                    </li>
+                    <li>
+                      <a href="http://howardsgrovewi.apptegy.us/o/district/browse/11325" target="_blank">
+                        School Board Agendas
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/annual-notices--3" target="">
+                        Annual Notices
+                      </a>
+                    </li>
+                    <li>
+                      <a href="http://www.boarddocs.com/wi/hgsd/Board.nsf/Public?open&amp;id=policies" target="_blank">
+                        Bylaws &amp; Policies
+                      </a>
+                    </li>
+              </ul>
+</li>
+          <li class="item test">
+              <span> EMPLOYMENT OPPORTUNITIES </span>
+              <ul>
+<li>
+                      <a href="https://wecan.education.wisc.edu/#/Employer/3498/Vacancies/2" target="_blank">
+                        Support Staff
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://wecan.education.wisc.edu/#/Employer/3498/Vacancies/1" target="_blank">
+                        Professional/Certified Staff
+                      </a>
+                    </li>
+              </ul>
+</li>
+          <li class="item test">
+              <a href="/staff-resources--40" target="">
+                Staff Resources
+              </a>
+          </li>
+          <li class="item test">
+              <a href="/food-service--43" target="">
+                Food Service
+              </a>
+          </li>
+          <li class="item test">
+              <span> FOR PARENTS </span>
+              <ul>
+<li>
+                      <a href="https://skyward.iscorp.com/scripts/wsisa.dll/WService=wseduhowardsgrovewi/seplog01.w" target="_blank">
+                        Skyward Family Access
+                      </a>
+                    </li>
+                    <li>
+                      <a href="https://payments.efundsforschools.com/v3/districts/55818" target="_blank">
+                        e~Funds for Schools-updated
+                      </a>
+                    </li>
+              </ul>
+</li>
+          <li class="item test">
+              <a href="/weather-related-info" target="">
+                Weather Related Info
+              </a>
+          </li>
+          <li class="item test">
+              <a href="https://owc.enterprise.earthnetworks.com/OnlineWeatherCenter.aspx?aid=6435" target="_blank">
+                HGMS Weather Station
+              </a>
+          </li>
+          <li class="item test">
+              <a href="https://www.hgcenterforthearts.org/" target="_blank">
+                HG Center for the Arts
+              </a>
+          </li>
+          <li class="item test">
+              <a href="/district-calendars--34" target="">
+                District Calendars
+              </a>
+          </li>
+      </ul>
+<span class="menu-close"></span>
+    </div>
+  </nav><nav id="right-nav" class="nav" role="navigation" style="padding-right: 0px !important;"><div class="menu-btn">
+<span>Schools</span>
+      <div class="menu-wrap">
+        <ul>
+<li>
+              <a style="font-weight: bold;" href="/o/district">
+                District
+              </a>
+            </li>
+            <li>
+              <a style="font-weight: bold;" href="/o/high-school">
+                High School
+              </a>
+            </li>
+            <li>
+              <a style="font-weight: bold;" href="/o/middle-school">
+                Middle School
+              </a>
+            </li>
+            <li>
+              <a style="font-weight: bold;" href="/o/northview-elementary">
+                Northview Elementary
+              </a>
+            </li>
+        </ul>
+</div>
+    </div>
+  </nav><!--
+<div id="change_language_form">
+  <form accept-charset="UTF-8" action="/apptegy_cms/change_language" class="custom" method="get"><div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="&#x2713;" /></div>
+  <label for="lang" style="display: none;">Change Language Form</label>
+      <select class="language-dropdown" id="lang" name="lang"><option value="english" selected="selected">english</option></select>
+</form></div>
+
+
+--></header><style>
+  .second-nav li span {
+      margin-bottom: 30px;
+  display: block;
+  }
+  .second-nav li.has-child ul {
+  min-width: 290px;
+  }
+</style>
+<!-- ======================== SLIDER ======================== --><div id="slider" class="clearfix">
+      <div class="slider-container">
+          <div class="slide">
+            <img src="https://7af9b0bdcd37bc7c24bf-aece35cd6f51cb37062b91723e7adf34.ssl.cf1.rackcdn.com/photo/data/10711/Layer_1.png" alt="">
+</div>
+      </div>
+      <div class="slider-info" style="z-index: 0;">
+        <h2>Howards Grove School District</h2>
+<p>Resources for Parents during COVID-19 School Closure</p>
+<p>Please <a href="https://5il.co/dvax" target="_blank">click here</a></p>
+      </div>
+    </div>
+    <!-- ======================== MAIN CONTENT ======================== -->
+    <div id="showLeftPush" style="pointer-events:none;"></div>
+    <div class="main" role="main">
+      <div class="container clearfix">
+        
+              <!-- Begin first-col -->
+<div class="first-col">
+  <div class="col-item live-feeds-wrapper active">
+    <h4>Live Feed</h4>
+    <img alt="Live-feed-bg" src="/assets/apptegy_cms/themes/howardsgrovewi/live-feed-bg-89b1ca1f243065a229c468fdc0753376.jpg"><div class="hover-content">
+        <div class="live-feed">
+          <div class="right-content">
+            <p><a href="/live_feed#lf_866304">
+                HGSD - Covid19 Alternate Grading Policy click on link -https://www.smore.com/frtxm  ...
+                </a>
+            </p>
+            <span class="time">2 days ago</span>
+            <span class="autor">Scott Fritz</span>
+          </div>
+        </div>
+        <div class="live-feed">
+          <div class="right-content">
+            <p><a href="/live_feed#lf_791857">
+                UPDATE:  The Howards Grove School District will be closed TUESDAY MARCH 17th.  This change is due to a ban issued by the Governor's ...
+                </a>
+            </p>
+            <span class="time">about 1 month ago</span>
+            <span class="autor">Chris Peterson</span>
+          </div>
+        </div>
+        <div class="live-feed">
+          <div class="right-content">
+            <p><a href="/live_feed#lf_605782">
+                Howards Grove School District Exceeds Expectation on State Report Card:  Northview Elementary School and Middle School Significantl ...
+                </a>
+            </p>
+            <span class="time">5 months ago</span>
+            <span class="autor">Chris Peterson</span>
+          </div>
+        </div>
+    </div>
+    <a href="/live_feed" class="see-more"><span>SEE ALL posts</span></a>
+  </div>
+  <div class="col-item news-wrapper active">
+    <h4>News</h4>
+    <img alt="News-bg" src="/assets/apptegy_cms/themes/howardsgrovewi/news-bg-8a0e23f4431aecf2241b607a8cf77e35.jpg"><div class="hover-content">
+        <div class="news">
+          <div class="right-content">
+            <p><a style="font-weight: bold; text-transform: uppercase" href="/article/237237">HGSD Covid19 Alternative Grading Policy</a></p>
+            <span class="autor">Scott Fritz</span>
+            <span class="date">24 April 2020</span>
+          </div>
+        </div>
+        <div class="news">
+          <div class="right-content">
+            <p><a style="font-weight: bold; text-transform: uppercase" href="/article/237224">Parent Letter 4.24</a></p>
+            <span class="autor">Chris Peterson</span>
+            <span class="date">24 April 2020</span>
+          </div>
+        </div>
+        <div class="news">
+          <div class="right-content">
+            <p><a style="font-weight: bold; text-transform: uppercase" href="/article/233321">Parent letter 4.17.2020</a></p>
+            <span class="autor">Chris Peterson</span>
+            <span class="date">17 April 2020</span>
+          </div>
+        </div>
+    </div>
+    <a href="/news" class="see-more"><span>SEE ALL NEWS</span></a>
+  </div>
+  <!-- End first-col -->
+</div>
+<div class="second-col">
+  <!-- Date -->
+  <div class="col-item date-wrapper">
+    <p>
+      <span class="day">Sunday</span>
+      <span class="number">26</span>
+      <span class="month-year">April 2020</span>
+    </p>
+  </div>
+  <!-- Athletics -->
+  <div class="col-item athletics-wrapper">
+    <span><a href="http://www.thebigeast.org/public/genie/772/school/4/"> <img alt="Logo" src="/assets/apptegy_cms/themes/howardsgrovewi/logo-6768e3092e5a3eb409ef95e792a0b35b.png"></a></span>
+    <p> Calendar</p>
+  </div>
+  <!-- End Athletics -->
+</div>
+<!-- End second-col -->
+<div class="col-item events-wrapper active">
+  <!-- Athletics -->
+  <!-- Events -->
+  <h4>Important Dates</h4>
+  <img alt="Calendar-bg" src="/assets/apptegy_cms/themes/howardsgrovewi/calendar-bg-d92c66d56c2d25c1c962c083a4964a1c.jpg"><div class="hover-content">
+  </div>
+  <a href="/events" class="see-more events-btn"><span>See all events</span></a>
+</div>
+<style>
+  .athletics-wrapper span img {
+      position: relative;
+      z-index: 1000;
+  }
+</style>
+</div>
+    </div>
+    <!-- ======================== FOOTER ======================== -->
+    
+              <footer id="footer"><div class="container clearfix">
+    <div class="footer-col">
+      <h5 style="font-size: 2.5rem">District</h5>
+      <p>403 Audubon Road
+        <br>
+        Howards Grove, WI 53083
+        <br>
+        PH: 920-565-4454
+        <br>
+        FAX 920-565-4461
+        <br><a href="https://docs.google.com/forms/d/e/1FAIpQLSfeAz4dDSvkjBBYd-kN6pVmo7jbilB9obNR6uD5vhbi-fTeRg/viewform" target="_blank" style="color:white">Contact Webmaster</a>
+      </p>
+    </div>
+    <div class="footer-col">
+      <h5 style="font-size: 2.5rem">quicklinks</h5>
+      <ul class="footer-links">
+<li> <a href="/live_feed">  Live Feed </a>
+</li>
+        <li> <a href="/news"> News </a> </li>
+        <li> <a href="/events">  Events </a>
+</li>
+        <li> <a href="/staff">  Staff </a>
+</li>
+      </ul>
+</div>
+      <!--
+<div class="footer-col">
+        <h5>&nbsp</h5>
+
+        <ul class="footer-links">
+<li> <a href=/dining>  Dining </a></li>
+<li> <a href=/staff> Staff </a> </li>
+<li> <a href=/documents> Documents  </a></li>
+
+   </div>
+-->
+      <div class="footer-col last" style="padding-top: 54px;">
+        <div class="social"> <a href="https://www.facebook.com/howardsgrovesd/" class="fb">Facebook</a> <a href="https://twitter.com/HowardsGroveSD" class="tw">Twitter</a> </div>
+        <div class="footer-col apps"> <a href="https://itunes.apple.com/us/app/howards-grove-school-district-wi/id1217468557?ls=1&amp;mt=8" class="appstore">Appstore</a> <a href="https://play.google.com/store/apps/details?id=com.apptegy.howardsgrove" class="google-play">Google play</a> </div>
+      </div>
+    </div>
+    <div class="container copyright">
+      <p>Copyright © The School District of Howards Grove 2017. All rights reserved. Powered by <a href="http://www.apptegy.com/" target="_blank">apptegy</a> </p>
+    </div>
+  </footer><script type="text/javascript">
+    $(document).ready(function() {
+    
+    	$(".menu-wrap .second-nav").gridalicious({
+    		gutter: 0,
+    		width: 421,
+    	});
+    
+    });
+  </script><style>
+    .menu-wrap .second-nav {display: inline-flex;}
+         	 .partial-container .block-container .edit-block {
+     		 z-index: 10;
+     	 }
+     	 .partial-container .block-container.editable {
+     	     padding-top: 35px;
+     	 }
+  </style>
+<!-- ======================== JAVASCRIPTS ======================== --><script type="text/javascript">
+      $('.col-item').hover(function() {
+         $(this).toggleClass('hover');
+      });
+      
+      $('.live-feeds-wrapper p, .col-item.events-wrapper p, .col-item.news-wrapper p').dotdotdot({
+         watch: 'window'
+      });
+    </script><script type="text/javascript">
+      $(document).ready(function() {
+         if ($(window).width() > 1040) {
+                  var sliderheight = $('#slider').height();
+                  var headerheight = $('#header').height();
+                  var windowheight = $(window).height();
+                  var leftSliderHeight = $('#slider .slider-info').height();
+                  var imgheight = windowheight - headerheight - 10;
+                  $('.slider-container img, #slider,.slider-container  .bx-wrapper .bx-viewport').css("max-height", imgheight);
+                  $('.slider-container img, #slider, .slider-container  .bx-wrapper .bx-viewport').css("min-height", leftSliderHeight + 60);
+                  //$('#left-nav .menu-wrap').css("height", imgheight);
+               } else {
+                  $('.slider-container img, #slider,.slider-container  .bx-wrapper .bx-viewport').css("max-height", "100%");
+                  $('.slider-container img, #slider, .bx-wrapper .bx-viewport').css("min-height", 90);
+                  //$('#left-nav .menu-wrap').css("height", "auto");
+               }
+      
+      
+         $('.slider-container').bxSlider({
+            mode: 'horizontal',
+            auto: ($('.slider-container').children('div.slide').length < 2) ? false : true,
+            pause: 3500,
+            adaptiveHeight: true,
+            speed: 1500,
+            onSliderLoad: function() {
+               if ($(window).width() > 1040) {
+                  var sliderheight = $('#slider').height();
+                  var headerheight = $('#header').height();
+                  var windowheight = $(window).height();
+                  var leftSliderHeight = $('#slider .slider-info').height();
+                  var imgheight = windowheight - headerheight - 10;
+                  $('.slider-container img, #slider,.slider-container  .bx-wrapper .bx-viewport').css("max-height", imgheight);
+                  $('.slider-container img, #slider, .slider-container  .bx-wrapper .bx-viewport').css("min-height", leftSliderHeight + 60);
+                  //$('#left-nav .menu-wrap').css("height", imgheight);
+               } else {
+                  $('.slider-container img, #slider,.slider-container  .bx-wrapper .bx-viewport').css("max-height", "100%");
+                  $('.slider-container img, #slider, .bx-wrapper .bx-viewport').css("min-height", 90);
+                  //$('#left-nav .menu-wrap').css("height", "auto");
+               }
+               $(window).resize(function() {
+                  if ($(window).width() > 1040) {
+                     var sliderheight = $('#slider').height();
+                     var headerheight = $('#header').height();
+                     var windowheight = $(window).height();
+                     var leftSliderHeight = $('#slider .slider-info').height();
+                     var imgheight = windowheight - headerheight - 10;
+                     $('.slider-container img, #slider, .slider-container  .bx-wrapper .bx-viewport').css("max-height", imgheight);
+                     $('.slider-container img, #slider, .slider-container  .bx-wrapper .bx-viewport').css("min-height", leftSliderHeight + 60);
+                     // $('#left-nav .menu-wrap').css("height", imgheight);
+                  } else {
+                     $('.slider-container img, #slider,.slider-container  .bx-wrapper .bx-viewport').css("max-height", "100%");
+                     $('.slider-container img, #slider, .slider-container  .bx-wrapper .bx-viewport').css("min-height", 90);
+                     //$('#left-nav .menu-wrap').css("height", "auto");
+                  }
+               });
+            }
+      
+         });
+      
+      
+      
+      });
+    </script><script>
+      $(document).ready(function() {
+      document.getElementById("cboxNext").setAttribute("aria-label", "Next Photo");
+      document.getElementById("cboxPrevious").setAttribute("aria-label", "Previous Photo");
+      document.getElementById("cboxSlideshow").setAttribute("aria-label", "Slide Show");
+      });
+    </script>
+</body>
+</html>

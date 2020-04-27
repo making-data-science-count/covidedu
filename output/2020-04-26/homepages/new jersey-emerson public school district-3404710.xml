@@ -1,0 +1,1088 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<link rel="Shortcut Icon" type="image/ico" href="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/images/favicon.ico">
+<link rel="icon" href="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/images/favicon.ico" type="image/x-icon">
+<title>Emerson Board of Education</title>
+<meta name="Keywords" content="Emerson Board of Education">
+<meta name="Description" content="Emerson Board of Education">
+<meta name="Author" content="Emerson Board of Education">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta property="og:image" content="http://images.schoolinsites.com/images/education.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="200">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/css.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/demo4/style.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src="JavaScripts/jquery-1.8.3.min.js"></script><link href="/CommonTemplates/SiteElements/Styles/Include-Styles.asp" type="text/css" rel="stylesheet">
+<link href="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Styles.css" rel="stylesheet" type="text/css">
+<!--script src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/JavaScripts.js" type="text/javascript"></script--><script type="text/javascript">
+	//-----------------------------------------------------------------------------------------------
+	//Edit CSS, currently set up for Pirobox fix
+	//-----------------------------------------------------------------------------------------------
+		function getCSSRule(ruleName, deleteFlag) {               // Return requested style obejct
+		   ruleName=ruleName.toLowerCase();    
+		   
+			if (document.styleSheets) {                            
+				for (var i=0; i<document.styleSheets.length; i++) { 
+					var styleSheet=document.styleSheets[i];
+					var styleSheetHref = styleSheet.href;
+					if ((styleSheetHref != null) && (styleSheetHref.indexOf("pirobox") != -1))
+						piroStyle = i;
+				}
+
+				var styleSheet=document.styleSheets[piroStyle];
+				 var ii=0;                                        // Initialize subCounter.
+				 var cssRule=false;                               // Initialize cssRule. 
+
+				 do {                                             // For each rule in stylesheet
+					if (styleSheet.cssRules) {                    // Browser uses cssRules?
+					   cssRule = styleSheet.cssRules[ii];         // Yes --Mozilla Style
+					} else {                                      // Browser usses rules?
+					   cssRule = styleSheet.rules[ii];            // Yes IE style. 
+					}                                             // End IE check.
+
+					if (cssRule)  {                               // If we found a rule...
+					   if ((typeof(cssRule.selectorText) != 'undefined') && (cssRule.selectorText.toLowerCase()==ruleName)) { //  match ruleName?
+						  if (deleteFlag=='delete') {             // Yes.  Are we deleteing?
+							 if (styleSheet.cssRules) {           // Yes, deleting...
+								styleSheet.deleteRule(ii);        // Delete rule, Moz Style
+							 } else {                             // Still deleting.
+								styleSheet.removeRule(ii);        // Delete rule IE style.
+							 }                                    // End IE check.
+							 return true;                         // return true, class deleted.
+						  } else {                                // found and not deleting.
+							 return cssRule;                      // return the style object.
+						  }                                       // End delete Check
+					   }                                          // End found rule name
+					}                                             // end found cssRule
+					ii++;                                         // Increment sub-counter
+				 } while (cssRule)  
+			}
+			return false;
+		}
+
+
+		function killCSSRule(ruleName) {                          // Delete a CSS rule   
+		   return getCSSRule(ruleName,'delete');                  // just call getCSSRule w/delete flag.
+		}                                                         // end killCSSRule
+
+		function addCSSRule(ruleName) {                           // Create a new css rule
+		   if (document.styleSheets) {                            // Can browser do styleSheets?
+			  if (!getCSSRule(ruleName)) {                        // if rule doesn't exist...
+				 if (document.styleSheets[0].addRule) {           // Browser is IE?
+					document.styleSheets[0].addRule(ruleName, null,0);      // Yes, add IE style
+				 } else {                                         // Browser is IE?
+					document.styleSheets[0].insertRule(ruleName+' { }', 0); // Yes, add Moz style.
+				 }                                                // End browser check
+			  }                                                   // End already exist check.
+		   }                                                      // End browser ability check.
+		   return getCSSRule(ruleName);                           // return rule we just created.
+		} 
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//Get/Set cookies for mobile site
+	//-----------------------------------------------------------------------------------------------
+		function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			createCookie(name,"",-1);
+		}
+		
+		
+		
+		var fullSite = readCookie('FullSite');
+		var mobileDev = readCookie('MobileDevice');
+		var mobileNoRedirect = readCookie('MobileNoRedirect');
+		
+		if(fullSite && mobileDev) {
+			if((fullSite != 'True') && (mobileNoRedirect != '1') && (mobileDev == 'True'))
+				window.location = 'http://www.emersonschools.org/mobile/default.asp';
+		}
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//photo album / lightbox init
+	//-----------------------------------------------------------------------------------------------
+		$(document).ready(function() {
+			if ($("a[class^='pirobox']").length > 0) {
+				$().piroBox({
+						my_speed: 400, //animation speed
+						bg_alpha: 0.7, //background opacity
+						slideShow : true, // true == slideshow on, false == slideshow off
+						slideSpeed : 4, //slideshow duration in seconds(3 to 6 Recommended)
+						close_all : '.piro_close,.piro_overlay'// add class .piro_overlay(with comma)if you want overlay click close piroBox
+				});
+			}
+		});
+
+		var UserAgent = navigator.userAgent;
+		//alert(UserAgent);
+		if (UserAgent.indexOf("MSIE 10") != -1)
+			TheAgent = "IE10"
+		else{
+			if (UserAgent.indexOf("MSIE") != -1)
+				TheAgent = "IE"
+			else
+				TheAgent = ""
+		}
+		
+		//Pirobox + Google Translate workaround for non-IE browsers. Dynamically changes CSS for pirobox after the translate widget has loaded.
+		if (TheAgent == ""){
+			theTimeout = setTimeout('GoogleCountdown()', 2000);	
+		}
+		
+		function GoogleCountdown() {
+			var element =  document.getElementById('google_translate_element');
+			if ((typeof(element) != 'undefined') && (element != null))
+			{
+				var PiroContent = getCSSRule('.pirobox_content');
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					//x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+					
+				
+				if(y < 700)
+					PiroContent.style.top = "16%";
+				else{
+					if(y > 900)
+						PiroContent.style.top = "23%";
+					else
+						PiroContent.style.top = "20%";
+				}
+				
+			}
+		}
+	//-----------------------------------------------------------------------------------------------
+		
+		
+		//Use onClick=SlideLink() in the slide show overlay for slide links work
+		function SlideLink() {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			//figure out which div is showing and set Link var
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			//if an anchor exists store values to "h" (for HREF) and "t" (for Target)
+			if (Link.firstChild.nodeName == "A") {
+				h = Link.firstChild.href;
+				t = Link.firstChild.target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				h = Link.getElementsByTagName('A')[0].href;
+				t = Link.getElementsByTagName('A')[0].target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+		}
+		//Make sure the cursor is a link pointer when a link exists (called by function SlideCursor())
+		function SlideCursorCheck(me) {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			if (Link.firstChild.nodeName == "A") {
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.firstChild.href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.etElementsByTagName('A')[0].href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+		}
+		//Function to change cursor on slide show overlay
+		var CursorCheck = false;
+		function SlideCursor(me) {
+			Elem = me;			
+			if (CursorCheck == false) {
+				var Start_SlideCursor = setInterval("SlideCursorCheck(Elem)", 500);
+				CursorCheck = true;
+			}
+		}
+		
+		function Login()
+		{
+			var loginPage = 'https://securesite.schoolinsites.com/loginv2/common/?p=1';
+			var loginDomain = 'http://www.emersonschools.org';
+			loginPage = loginPage + '&login_for=' + loginDomain;
+			
+			window.location.href = loginPage;
+		}
+		
+		var imgAltTagsFix = function() {
+			$('img.gsc-branding-img').attr("alt", "Google Custom Search Branding");
+			$('input.gsc-search-button').attr('alt', "Google Custom Search Button");
+		};
+		
+		window.__gcse = {
+			callback: imgAltTagsFix
+		};
+		
+		function a11yClick(event){
+			if(event.type === 'click'){
+				return true;
+			}
+			else if(event.type === 'keypress'){
+				var code = event.charCode || event.keyCode;
+				if((code === 32)|| (code === 13)){
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	</script><style type="text/css" media="screen">
+		body{
+	margin: 0;
+	padding: 25px 0 0 0;}
+div#ToggleNav{
+	position:absolute; /* only effects browsers that cannot accept Fixed positioning */
+	top: 0; /* only effects browsers that cannot accept Fixed positioning */
+	left: 0; /* only effects browsers that cannot accept Fixed positioning */
+	background: #000 url(/images/Admin/Skins/HardCandyBlack/images/ToggleLoginBg.gif) repeat-x top left;
+	border-bottom: 0px solid #333;
+	border-top: 0px solid #FFFFFF;
+	width:100%;
+	height:25px;
+	z-index: 1000;
+	overflow:hidden;}
+div#ToggleNav td{
+	font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #9EA8C3;}
+div#ToggleNav input {
+	margin: 0;
+	padding: 0;
+	font: normal 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #303040;
+	vertical-align:middle;}
+div#ToggleNav .loginWrapper {
+	float: right;
+	height: 100%;
+}
+div#ToggleNav .formWrapper {
+	padding-right: 3px;
+	padding-left: 3px;
+	display: inline-block; 
+	*display: inline;}
+div#ToggleNav .formUsername {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/UsernameBg.gif) no-repeat top left;}
+div#ToggleNav .formPassword {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/PasswordBg.gif) no-repeat top left;}
+div#ToggleNav .formSelected {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/LoginFieldBlank.gif) repeat-x top left;}
+div#ToggleNav .formButton {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat 0 0;}
+div#ToggleNav .formButtonHover {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat -46px 0;}
+div#ToggleNav a.help:link, div#ToggleNav a.help:visited {
+	display:block;
+	height: 16px;
+	color: #D9D8E6;
+	border: 0;
+	margin: 4px 5px 0 1px;}
+div#ToggleNav a.help:hover, div#ToggleNav a.help:active {
+	display: block;
+	height: 16px;
+	border: 0;}
+body > div#ToggleNav .formUsername {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formPassword {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formSelected {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formButton {margin-bottom: 3px;}/* non-IE browsers only */
+body > div#ToggleNav .formButtonHover {margin-bottom: 3px;}/* non-IE browsers only */
+@media screen {
+	body > div#ToggleNav{
+		position:fixed;}
+}
+
+* html div#AdminDefaultIncludes{
+	position: fixed;
+	top: 25px;
+	bottom:0;
+ 	width: 100%;
+	_position: absolute;
+	_top: expression( ( 25 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+	_height: expression( ( -25 + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );}
+				* html body {
+					overflow:hidden;}
+				* html div#AdminDefaultIncludes{
+					overflow: auto;	}
+			
+	</style>
+<!--[if lte IE 9]>
+	<style type="text/css" media="screen">
+		* html body {
+			overflow:auto;}
+	</style>
+	<![endif]--><script type="text/javascript" src="/JavaScripts/JavaScripts.js"></script><script type="text/javascript">
+			TopBar = '<div class="loginWrapper">' +
+						'<div class="formWrapper"><a href="/admin1/securelogin.asp" aria-label="Log In" title="Go to Secure Login Page" alt="Log In" class="formButton" border="0" onFocus="this.className=\'formButtonHover\'"  onMouseOver="this.className=\'formButtonHover\'" onblur="this.className=\'formButton\'" onMouseOut="this.className=\'formButton\'">Login button</a></div>' +
+					 '</div>';
+		</script><script type="text/javascript">
+		if(typeof(BottomBar) == 'undefined')
+			var BottomBar = ' ';
+		$(document).ready(function() {
+			$("body").prepend('<div id="ToggleNav">' + TopBar + '</div>' + BottomBar);	
+		});
+	
+	</script><!--[if lte IE 9]>
+	<div id="AdminDefaultIncludes">
+	<![endif]--><link href="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Styles2018.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+		
+			.QuickLinksTitle {display: none;}
+			#QuickLinkButtons a.QuickLinks {padding: 0;}
+		
+	</style>
+<script type="text/javascript">
+		//Show hide search drop down
+		function ShowSearch() {
+			var SearchDropDown = document.getElementById("SearchDropDown");
+			if (SearchDropDown.style.display != "block") {
+				SearchDropDown.style.display = "block";
+			}else {
+				SearchDropDown.style.display = "none";
+			}
+		}
+		function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+	</script><script type="text/javascript"><!--//--><![CDATA[//><!--
+	startList = function() {
+		if (document.all&&document.getElementById) {
+			navRoot = document.getElementById("nav");
+			for (i=0; i<navRoot.childNodes.length; i++) {
+				node = navRoot.childNodes[i];
+				if (node.nodeName=="LI") {
+					node.onmouseover=function() {
+						this.className+=" over";
+					}
+					node.onmouseout=function() {
+						this.className=this.className.replace(" over", "");
+					}
+				}
+			}
+		}
+	}
+	window.onload=startList;
+	//--><!]]></script><!-- Skip Nav--><script type="text/javascript" src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/js/skipnav.js"></script>
+</head>
+<body onload="MM_preloadImages('http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/facebook_rollover.png','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/twitter_rollover.png','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/rss_rollover.png','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box1_rollover.jpg','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box2_rollover.jpg','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box3_rollover.jpg','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box4_rollover.jpg','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/readmore_rollover.png')">
+<div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+	<center>
+    <table role="presentation" width="100%" border="0" align="center" cellpadding="0" cellspacing="0" id="SiteWrapper"><tr>
+<td align="center" valign="top">
+            <table role="presentation" width="988" border="0" cellspacing="0" cellpadding="0" align="center" id="PageWrapper">
+<!--- Top Bar: Social Icons and Search Bar ---><tr height="36" width="988" align="center" bgcolor="#323232">
+<td width="988">
+                      <!-- Search -->
+                       <!-- <div style="width: 198px; float: right; padding-bottom: 4px;">
+                          <form action="Default.asp?PN=AdvancedSearch&amp;Act=SearchNow" method="post" name="frmSearch" target="_top" style="margin:0; padding:0;">
+                          <div id="SearchDefaultWrapper">
+                              <div id="SearchDefault">
+                                  <input name="SearchModule" type="hidden" value="0">
+                                  <input name="Keyword" type="text" value="Search" id="SearchDefaultInput"  style="vertical-align:middle;"
+                                  onblur="if(this.value.length == 0) this.value='Search';" onClick="if(this.value == 'Search') this.value='';" />
+                                  <input type="image" src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/images/spacer.gif" width="33" height="27" style="vertical-align:middle; horizontal-align: right;" name="Search" type="submit" onClick="if(Keyword.length&lt;3){alert('Your Keyword has to be atleast 3 characters long.\n\nPlease enter a valid Keyword.');};" value="Go" />
+                              </div>
+                          </div>
+                          </form>
+                        </div>-->
+                        <!-- End Search -->
+                        <div style="width: 118px; float: right; padding-top: 4px;"> 
+                         
+                          <a href="https://twitter.com/EmersonSupt" target="_blank"><img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/twitter.png" alt="Twitter" name="twitter" border="0" width="25" height="25" id="twitter" style="margin-left: 40px; margin-right: 10px;" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('twitter','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/twitter_rollover.png',1)" onfocus="MM_swapImgRestore()" onblur="MM_swapImage('twitter','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/twitter_rollover.png',1)"></a>
+                          <a href="/?PN=RSSFeeds"><img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/rss.png" alt="RSS" name="rss" border="0" width="25" height="25" id="rss" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('rss','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/rss_rollover.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('rss','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/rss_rollover.png',1)"></a> 
+                        </div>
+                      </td>
+                </tr>
+<!--- End Top Bar: Social Icons and Search Bar ---><!--- Header ---><tr align="center">
+<td align="center" id="Header" width="988">
+                      <a href="/"><img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/images/HeaderHomeClick.gif" alt="Home" height="165" border="0" style="align: left;"></a>
+                  </td>  
+                </tr>
+<!--- End Header ---><!--- Top Nav ---><tr align="center" style="height: 54px;">
+<td style="height: 53px;" align="center" valign="top" width="988">
+                      <div id="topnavcontainer">
+<div role="navigation" aria-label="Main menu">
+<ul class="nav">
+<!--School Drop Down Main Link Include --><li class="TopNav">
+<a href="/?PN=Schools2">Schools</a>
+		<ul>
+<li class="DropTitle">Elementary Schools</li>
+							
+				<li><a href="http://memorial.emersonschools.org" target="_blank">Memorial Elementary School</a></li>
+				
+				<li><a href="http://villano.emersonschools.org" target="_blank">Patrick M. Villano Elementary School</a></li>
+				
+							<li class="DropTitle">High Schools</li>
+							
+				<li><a href="http://ejshs.emersonschools.org" target="_blank">Emerson Junior-Senior High School</a></li>
+				
+		</ul>
+</li>	
+               
+    <!--Division Main Link Include -->
+	
+			<li class="TopNav">
+				<a href="?DivisionID=20085" target="" style="cursor: default;">About Us</a>
+				<ul>
+<li>
+									<a href="?DivisionID=20085&amp;DepartmentID=22820">
+										Contact Us
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20085&amp;DepartmentID=22822">
+										Employment Opportunities
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20085&amp;DepartmentID=22823">
+										Map &amp; Directions
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=20080" target="" style="cursor: default;">District</a>
+				<ul>
+<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=22804">
+										Board of Education
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=22805">
+										Superintendent
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=22806">
+										Business Office
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=22807">
+										District Policies
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=23292">
+										Enrolling Your Child
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=27617">
+										Food Service
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=22810">
+										Meeting Dates
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=22811">
+										Strategic Planning 2015-2020
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=29580">
+										Strategic Planning 2020-2025
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=22808">
+										Use of Facilities
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=24638">
+										Academic Calendar
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20080&amp;DepartmentID=28307">
+										School Performance Reports
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=20083" target="" style="cursor: default;">Departments</a>
+				<ul>
+<li>
+									<a href="?DivisionID=20083&amp;DepartmentID=22812">
+										Athletics
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20083&amp;DepartmentID=24885">
+										Buildings and Grounds
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20083&amp;DepartmentID=22815">
+										Curriculum
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20083&amp;DepartmentID=22816">
+										Nursing &amp; Wellness
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20083&amp;DepartmentID=22817">
+										Professional Development
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20083&amp;DepartmentID=22814">
+										School Counseling
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20083&amp;DepartmentID=22813">
+										Special Services
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20083&amp;DepartmentID=22818">
+										Technology
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20083&amp;DepartmentID=25977">
+										Title 1 ASPIRE
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=20083&amp;DepartmentID=23663">
+										Emerson Community School
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=20315" target="" style="cursor: default;">Calendar</a>
+				<ul></ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=21562" target="" style="cursor: default;">Staff Links</a>
+				<ul></ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=23529" target="" style="cursor: default;">Referendum</a>
+				<ul>
+<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=29579">
+										Memorial Construction Time Lapse
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=28272">
+										Referendum Background
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=28273">
+										Plans By School
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=29025">
+										Plan Highlights
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=28261">
+										Frequently Asked Questions
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=29104">
+										Flyer
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=29126">
+										Referendum Video
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=29192">
+										Flyover Video
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=29151">
+										Referendum Public Presentation
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=29281">
+										Renderings
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=28275">
+										Document Archive
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=23529&amp;DepartmentID=28274">
+										Vote
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=23928" target="" style="cursor: default;">Employment Opportunities</a>
+				<ul></ul>
+</li>
+</ul>
+</div>
+</div>
+                  </td>
+                </tr>
+<!--- End Top Nav ---><!--- Main Area ---><tr align="center">
+<td align="center" width="988" valign="top">
+                      	<table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0">
+<!-- Slideshow --><tr align="center">
+<td valign="top">
+              <div id="Slideshow">
+                <div style="height:355px; overflow:hidden;">
+			<div style="width:988px; height:355px;">
+			<script src="/Javascripts/swissarmy.js" type="text/javascript">
+/***********************************************
+* Swiss Army Image slide show script  - � John Davenport Scheuer: http://home.comcast.net/~jscheuer1/
+* This notice MUST stay intact for legal use
+* Visit Dynamic Drive at http://www.dynamicdrive.com/ for full original source code
+***********************************************/
+//http://www.dynamicdrive.com/dynamicindex14/swissarmy/index.htm
+</script><script type="text/javascript">
+		 
+	var slides=[];
+				
+	//(use false for no preloading and for when using no image buttons as controls):
+	var preload_ctrl_images=false;
+	//SET IMAGE PATHS. Extend or contract array as needed
+	//fadeimages[#]=["Image URL", "Link URL", "Link Target", "Tool Tip Text"]
+	
+		slides[0]=["http://images.pcmac.org/cache/Site_1233/82deab08cb0e5dfcdda836789b0de4f6.jpg", "", "", "_self"];
+		
+		slides[1]=["http://images.pcmac.org/cache/Site_1233/412e419803e379526d09fb52c59d3899.jpg", "", "", "_blank"];
+		
+		slides[2]=["http://images.pcmac.org/cache/Site_1233/32c77682fb40e2ec6f9262a7453dfd20.jpg", "", "", "_blank"];
+		
+		slides[3]=["http://images.pcmac.org/cache/Site_1233/590cdaf7a2bdba1dc6cb1cbad60d0152.jpg", "", "", "_blank"];
+		
+		slides[4]=["http://images.pcmac.org/cache/Site_1233/de074d24c38a3a30a7d4d685edf6b71c.jpg", "", "", "_blank"];
+		
+		slides[5]=["http://images.pcmac.org/cache/Site_1233/bd62fee160fa51564b3c2bea016d50ed.jpg", "", "", "_self"];
+		
+		slides[6]=["http://images.pcmac.org/cache/Site_1233/ad19778ce51f63a1b10b0144a0983972.jpg", "", "", "_self"];
+		
+		slides[7]=["http://images.pcmac.org/cache/Site_1233/d3bdf270e04bf8c3cd9cfcec20e29d42.jpg", "", "", "_self"];
+		
+		slides[8]=["http://images.pcmac.org/cache/Site_1233/a0bf66bcb7123bc771bec05cdf6706ec.jpg", "", "", "_self"];
+			
+	
+	var fadebgcolor="white"
+</script><script type="text/javascript">
+	//new fadeshow(IMAGES_ARRAY_NAME, slideshow_width, slideshow_height, borderwidth, delay, pause on mouseover (0=no, 1=yes), optionalRandomOrder)
+	//new fadeshow(fadeimages, 988, 355, 0, 5000, 0)
+	new inter_slide(slides,988,355)
+</script>
+</div>
+		</div>
+              </div>
+             </td>
+          </tr>
+<!-- End Slideshow --><tr><td height="17"> </td></tr>
+<!-- Boxes --><tr>
+<td>
+              <div style="width: 988px;">
+               <a href="http://memorialelem.nj.eboe.schoolinsites.com" target="_blank"><img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box1.jpg" style="margin-right: -3px;" alt="Memorial" name="box1" id="box1" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('box1','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box1_rollover.jpg',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('box1','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box1_rollover.jpg',1)"></a>
+               <a href="http://villanoelem.nj.eboe.schoolinsites.com" target="_blank"><img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box2.jpg" style="margin-right: -3px;" alt="Villano" name="box2" id="box2" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('box2','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box2_rollover.jpg',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('box2','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box2_rollover.jpg',1)"></a>
+               <a href="http://emersonhigh.nj.eboe.schoolinsites.com" target="_blank"><img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box3.jpg" style="margin-right: -3px;" alt="EJSHS" name="box3" id="box3" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('box3','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box3_rollover.jpg',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('box3','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box3_rollover.jpg',1)"></a>
+               <a href="/?DivisionID=20083&amp;DepartmentID=22815"><img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box4.jpg" style="margin-right: -3px;" alt="Curriculum" name="box4" id="box4" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('box4','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box4_rollover.jpg',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('box4','','http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/Box4_rollover.jpg',1)"></a>
+              </div>
+             </td>
+          </tr>
+<!-- End Boxes -->
+</table>
+<!-- Main Greeting, QuickLinks, Twitter Area --><table role="presentation" style="height: 275px; width: 988; align: center; margin-top: 27px; margin-bottom: 20px;"><tr>
+<td valign="top" class="Column1b" style="width: 726px;">
+                <div style="width: 726px; height: 280px; overflow: hidden; margin-top: -3px;">
+					<div id="maincontent"></div>
+                  
+<div align="left">		
+<span class="header" role="heading" aria-level="1">Welcome to The Emerson Public School District</span><br><h3>
+<span style="font-family: arial, helvetica, sans-serif; font-size: 16px;">Non scholae sed vitae discimus - </span><em style="font-family: arial, helvetica, sans-serif; font-size: 16px;">We learn not for school, but for life.</em>
+</h3>
+<p style="text-align: justify;"><span style="font-family: arial, helvetica, sans-serif; font-size: 13px;">With over 1,200 students attending our three schools, we take great pride in welcoming you to Emerson: Home of the Cavos! Steeped in a long tradition of academic excellence, student-centered learning and community spirit, we believe in the potential of our students, the ability of our teachers, and the support of our parent community.</span></p>
+<p style="text-align: justify;"><span style="font-family: arial, helvetica, sans-serif; font-size: 13px;">Our schools focus on modeling and cultivating the habits of mind, body, and heart that promote a fulfilling and rewarding life.To do this we strive to know all of our students by name and need ensuring that all can take advantage of our academic and social-emotional offerings. As part of our commitment as an American public school, we seek to nurture the qualities of citizenship that are central to a vibrant and participatory democracy.</span></p>
+<p style="text-align: justify;"><span style="font-family: arial, helvetica, sans-serif; font-size: 13px;">Please visit and browse our district website. In it you will find district information, school updates, student success stories, and a full overview of all that Emerson Public School has to offer its students and community. We take pride in being the academic and social center of our town for generations, and we look forward to future growth and success.</span></p>
+<br>
+</div>
+<script language="JavaScript" type="text/JavaScript">
+	$(document).ready(function() {
+		document.title = "Emerson Board of Education";
+	})
+</script>
+</div>
+              </td>
+              <td valign="top">
+                  <div style="border-left-style: solid; border-width: 1px; height: 275px; border-color:#ccc;"></div>
+              </td>
+              <td valign="top" class="Column2" style="width: 221px;">
+                <div style="width: 221px; height: 280px; overflow: hidden;">
+                  	<p style="font: Arial, Verdana, Helvetica, sans-serif; font-size: 20px; color: #822b28; text-transform: uppercase; font-weight: bold; margin-top: -5px;">QUICKLINKS</p>
+                    <div class="AccentColor3 SideNavigation">
+                    <div style="margin-top: -10px; margin-bottom: 20px;" align="left">
+                        	
+			<div id="QuickLinks">
+				
+					<a href="http://www.emersonschools.org/?DivisionID=20080&amp;DepartmentID=22804&amp;SubDepartmentID=13769%20" target="_blank" class="QuickLinks">
+						At-Home Learning Updates
+					</a>
+					
+					<a href="https://drive.google.com/file/d/1Vam2Q_A0pLtj6AknUaGUEXiOc0fufQJM/view?usp=sharing" target="_blank" class="QuickLinks">
+						Instructional Continuity Plan
+					</a>
+					
+					<a href="https://drive.google.com/file/d/1-crPKVg9aDcesfpXdeNi_vlN9J7VsVx5/view?usp=sharing" target="_blank" class="QuickLinks">
+						Online BOE Meeting Information
+					</a>
+					
+					<a href="http://www.emersonschools.org/?DivisionID=20080&amp;DepartmentID=22811" target="_blank" class="QuickLinks">
+						15-20 District Strategic Planning
+					</a>
+					
+					<a href="https://drive.google.com/file/d/0BxLWfHguIWc8NVB5aGprN3BKUC1zVlo0NEhLbkZWeGVOTVhz/view?usp=sharing" target="_blank" class="QuickLinks">
+						Have a Question?
+					</a>
+					
+					<a href="http://www.emersonschools.org/?DivisionID=23928" target="_blank" class="QuickLinks">
+						Employment Opportunities
+					</a>
+					
+					<a href="https://drive.google.com/file/d/0BxLWfHguIWc8TW9yR3k5ODE0VzZyeVBGWjBHRy1VVkJJbDVB/view?usp=sharing" target="_blank" class="QuickLinks">
+						18-19 Standardized Testing Presentation
+					</a>
+					
+			</div>
+			
+                    </div>
+                    </div>
+                </div>	
+              </td>
+             
+              <td valign="top" class="Column3" style="width: 222px;">
+               
+              </td>	
+             </tr></table>
+<!-- End Main Greeting, QuickLinks, Twitter Area --><!-- News Area --><table role="presentation" style="height: 275px; width: 988; align: center;"><tr>
+<td valign="top" class="Column1c" style="width: 726px; height: 300px; overflow: hidden;">
+                <div style="width: 726px; height: 300px; overflow: hidden;">
+                  <p style="font: Arial, Verdana, Helvetica, sans-serif; font-size: 20px; color: #822b28; text-transform: uppercase; font-weight: bold; margin-top: -5px;">
+                     <a href="/Default.asp?PN=News2">DISTRICT NEWS<img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/images/NewsArrow.png" alt="District News" style="margin-left: 10px;"></a>
+                     </p>
+<div style="margin-top: -15px; margin-left: -2px;">
+      <table><tr>
+<td>
+		
+			<div class="homepagenews" style="float:left;width:217px;height:230px; margin-right: 13px;">
+				
+				<a href="javascript:;" onclick="openme('news','/Common/News2/HomePagePopUps/Default.asp?ItemID=105410&amp;ISrc=District&amp;Itype=News',540,400); return false;" class="newsimage"><img src="http://images.schoolinsites.com/cache/Site_1233/07877e0a23631f9af0f8ab1fa40da866.jpg" width="223" border="0" alt="News Article Image"></a>
+				
+				
+					<span class="newstitlecontainer">
+						<a href="javascript:;" onclick="openme('news','/Common/News2/HomePagePopUps/Default.asp?ItemID=105410&amp;ISrc=District&amp;Itype=News',540,400); return false;" class="newstitle">
+							Principal Espinoza needs your Videos!
+						</a>
+					</span>
+				
+					
+						<span class="newsdescription">Please share your 15 second videos of thanks to jespinoza@emersonschools.org by 4/19/20. </span>
+                    
+                    <span class="newsreadmore">
+						<a href="javascript:;" onclick="openme('news','/Common/News2/HomePagePopUps/Default.asp?ItemID=105410&amp;ISrc=District&amp;Itype=News',540,400); return false;">
+							<img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/readmore.png" alt="Read More" style="border:0;"></a>
+					</span>
+					
+			</div>
+			
+			<div class="homepagenews" style="float:left;width:217px;height:230px; margin-right: 13px;">
+				
+				<a href="javascript:;" onclick="openme('news','/Common/News2/HomePagePopUps/Default.asp?ItemID=105409&amp;ISrc=District&amp;Itype=News',540,400); return false;" class="newsimage"><img src="http://images.schoolinsites.com/cache/Site_1233/88dd64d2403dedc8ba1196bf4065e952.jpg" width="223" border="0" alt="News Article Image"></a>
+				
+				
+					<span class="newstitlecontainer">
+						<a href="javascript:;" onclick="openme('news','/Common/News2/HomePagePopUps/Default.asp?ItemID=105409&amp;ISrc=District&amp;Itype=News',540,400); return false;" class="newstitle">
+							Memorial says Thank You!
+						</a>
+					</span>
+				
+					
+						<span class="newsdescription">Heartfelt gratitude for all of our local heroes from our youngest Cavos!  </span>
+                    
+                    <span class="newsreadmore">
+						<a href="javascript:;" onclick="openme('news','/Common/News2/HomePagePopUps/Default.asp?ItemID=105409&amp;ISrc=District&amp;Itype=News',540,400); return false;">
+							<img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/readmore.png" alt="Read More" style="border:0;"></a>
+					</span>
+					
+			</div>
+			
+			<div class="homepagenews" style="float:left;width:217px;height:230px; margin-right: 13px;">
+				
+				<a href="javascript:;" onclick="openme('news','/Common/News2/HomePagePopUps/Default.asp?ItemID=105408&amp;ISrc=District&amp;Itype=News',540,400); return false;" class="newsimage"><img src="http://images.schoolinsites.com/cache/Site_1233/b229f7fc90dd705617b1d15007caaf4a.jpg" width="223" border="0" alt="News Article Image"></a>
+				
+				
+					<span class="newstitlecontainer">
+						<a href="javascript:;" onclick="openme('news','/Common/News2/HomePagePopUps/Default.asp?ItemID=105408&amp;ISrc=District&amp;Itype=News',540,400); return false;" class="newstitle">
+							The Villano View
+						</a>
+					</span>
+				
+					
+						<span class="newsdescription">Spend some time today browsing the hard work of our Villano Elementary students at  
+https://thevillanoview.org/ </span>
+                    
+                    <span class="newsreadmore">
+						<a href="javascript:;" onclick="openme('news','/Common/News2/HomePagePopUps/Default.asp?ItemID=105408&amp;ISrc=District&amp;Itype=News',540,400); return false;">
+							<img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/Images/readmore.png" alt="Read More" style="border:0;"></a>
+					</span>
+					
+			</div>
+			
+		</td>
+  		</tr></table>
+</div>
+                  
+                </div>
+              </td>
+              <td valign="top">
+                  <div style="border-left-style: solid; border-width: 1px; height: 300px; border-color:#ccc;"></div>
+              </td>
+              <td valign="top" class="Column2b" style="width: 241px; height: 250px;">
+                <div style="width: 241px; height: 300px; overflow: hidden;">
+                  <p style="font: Arial, Verdana, Helvetica, sans-serif; font-size: 20px; color: #822b28; text-transform: uppercase; font-weight: bold; margin-top: -5px;">
+                    <a href="https://twitter.com/EmersonSupt" target="_blank">TWITTER<img src="http://images.pcmac.org/Websites/EmersonBOE/EmersonBOE/images/NewsArrow.png" alt="Twitter Page" style="margin-left: 10px;"></a>
+                  </p>
+                  <div style="margin-top: -25px;">
+                <a class="twitter-timeline" width="222" href="https://twitter.com/EmersonSupt" data-widget-id="571437322001199104" data-chrome="noheader nofooter noborders transparent" data-tweet-limit="2">Tweets by @EmersonSupt</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+                </div>		
+              </td>
+              
+             </tr></table>
+<!-- End News Area --><script type="text/javascript">
+	
+		//Get buttons from Quick Links
+		function ShowButtons() {
+			var qL = document.getElementById('QuickLinks');
+			if (qL) {document.getElementById('QuickLinkButtons').innerHTML = qL.innerHTML;}
+		}
+		ShowButtons();
+		
+		//Load event for cross browser onLoad action
+		function addLoadEvent(func) { 
+			var oldonload = window.onload; 
+			if (typeof window.onload != 'function') { window.onload = func; } else {  window.onload = function() { if (oldonload) { oldonload(); } func(); } } 
+		} 
+		
+		//fix the top navigation width in case the user adds too many links	
+		addLoadEvent(function() { 
+			var topNav = document.getElementById('TopNavigation'), topNavItem = topNav.lastChild;
+			topNav.style.width = topNav.offsetWidth + 'px';
+			if (topNav.offsetHeight > (topNavItem.offsetHeight * 1.2)) {while (topNav.offsetHeight > (topNavItem.offsetHeight * 1.2) && topNav.offsetWidth < 1000 ) {topNav.style.width = topNav.offsetWidth + 15 + 'px';}}
+		});
+	
+		
+	</script>
+</td>
+                </tr>
+<!--- End Main Area ---><!--- Back To Top Button ---><a href="#" class="back-to-top">Back to Top</a>
+              <!--- End Back To Top Button --->
+            </table>
+<script>            
+			jQuery(document).ready(function() {
+				var offset = 220;
+				var duration = 500;
+				jQuery(window).scroll(function() {
+					if (jQuery(this).scrollTop() > offset) {
+						jQuery('.back-to-top').fadeIn(duration);
+					} else {
+						jQuery('.back-to-top').fadeOut(duration);
+					}
+				});
+				
+				jQuery('.back-to-top').click(function(event) {
+					event.preventDefault();
+					jQuery('html, body').animate({scrollTop: 0}, duration);
+					return false;
+				})
+			});
+		</script><script type="text/javascript">
+	
+		//Get buttons from Quick Links
+		function ShowButtons() {
+			var qL = document.getElementById('QuickLinks');
+			if (qL) {document.getElementById('QuickLinkButtons').innerHTML = qL.innerHTML;}
+		}
+		ShowButtons();
+		
+		//Load event for cross browser onLoad action
+		function addLoadEvent(func) { 
+			var oldonload = window.onload; 
+			if (typeof window.onload != 'function') { window.onload = func; } else {  window.onload = function() { if (oldonload) { oldonload(); } func(); } } 
+		} 
+		
+		//fix the top navigation width in case the user adds too many links	
+		addLoadEvent(function() { 
+			var topNav = document.getElementById('TopNavigation'), topNavItem = topNav.lastChild;
+			topNav.style.width = topNav.offsetWidth + 'px';
+			if (topNav.offsetHeight > (topNavItem.offsetHeight * 1.2)) {while (topNav.offsetHeight > (topNavItem.offsetHeight * 1.2) && topNav.offsetWidth < 1000 ) {topNav.style.width = topNav.offsetWidth + 15 + 'px';}}
+		});
+	
+		
+	</script><!--Footer --><div id="FooterBackground">
+                     <div class="footeraddress">133 Main Street | Emerson NJ, 07630 | Ph: 201-262-3875 | Fx: 201-599-4160</div>
+                     <div style="width: 988px; padding-top: 5px; padding-bottom: 75px;" align="center">
+                      <div id="Legal">
+	<a href="http://www.schoolinsites.com/"><img src="/images/SisPoweredSmall.png" id="PoweredBy" height="30" width="120" alt="Powered and Designed by SCHOOLinSITES"></a>
+	
+	<p class="right">
+		Copyright © 2020  Emerson Board of Education
+	</p>
+</div>
+<br><br><p style="text-align: center;">*As per the Anti-Bullying Bill of Rights Act (ABR) (P.L.2010, c.122), Emerson Public Schools has posted its Anti-Bullying Bill of Rights Act grades to the school district's webpage and to each individual school's webpage. Please feel free to contact Denise Connon, Anti-Bullying Coordinator if you have any questions.*<br><br> District Anti-Bullying Coordinator: Denise Connon<br><a href="mailto:DConnon@emersonschools.org">DConnon@emersonschools.org</a><br> Memorial Anti-Bullying Specialist: Ana Gashi<br><a href="mailto:agashi@emersonschools.org">AGashi@emersonschools.org</a><br> Villano Anti-Bullying Specialist: Kristy Friedman<br><a href="mailto:KFriedman@emersonschools.org">KFriedman@emersonschools.org</a><br><br><a href="https://drive.google.com/file/d/0BxLWfHguIWc8dkw5ZS1JdDRselNXZF92N1BvWGlzXzZnMWVJ/view?usp=sharing" target="_blank">HIB District and School Self-Assessment Grade Report</a><br><a href="https://drive.google.com/file/d/1HkHfdVzXSPlIV1-47gyc25ruDuvy7Iif/view" target="_blank">HIB District Policy</a></p>
+                     </div>
+             </div>
+         </td>
+      </tr></table>
+</center>
+</body>
+</html>

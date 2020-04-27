@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>
+	Box-elder - Montana Field Guide
+</title>
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" type="image/gif" href="/favicon.gif">
+<!--meta name="DC.Title" content="Montana Field Guide" /--><meta name="DC.Creator" content="Webmaster, David Ratz, Natural Heritage Program - Webmaster, Montana Fish, Wildlife and Parks">
+<meta name="DC.Subject" content="Wildlife, Information, Species, Concern, distribution, habitat, ecology, phenology, diagnostic, characteristics, photos">
+<!--meta name="DC.Description" content="Montana Field Guide contains a wealth of information about Montana's diverse species." /--><meta name="DC.Publisher" content="Natural Heritage Program and Montana Fish, Wildlife &amp; Parks">
+<meta name="Keywords" content="Wildlife, Information, Species, Concern, distribution, habitat, ecology, phenology, diagnostic, characteristics, photos, David, Dave, Ratz, Helena, Montana">
+<meta name="Description" content="Montana Field Guide contains a wealth of information about Montana's diverse species.">
+<script type="text/javascript" src="jquery/jquery-1.11.1.min.js"></script><script type="text/javascript" src="/code/jquery-ui-1.11.4/jquery-ui.min.js?1"></script><link rel="stylesheet" href="/code/jquery-ui-1.11.4/jquery-ui.min.css" type="text/css" media="all">
+<script type="text/javascript" src="jquery/jquery.scrollTo-1.4.1-min.js"></script><script type="text/javascript" src="jquery/jquery.parseQuery.js?1"></script><script language="javascript">
+		var currentSort = '';
+		function changeSort(obj) {
+			// refresh this page with a new sort option
+			var s = obj.selectedIndex;
+			var currentlocation = document.location.href;
+			// remove the '&sort=' from the current URL if necessary
+			var atpos = currentlocation.indexOf('?sort');
+			if (atpos > -1) currentlocation = currentlocation.substring(0, atpos) + currentlocation.substring(atpos+7);
+			atpos = currentlocation.indexOf('&sort');
+			if (atpos > -1) currentlocation = currentlocation.substring(0, atpos) + currentlocation.substring(atpos+7);
+			// Figure out if there are already options in the querystring
+			var mychar = (currentlocation.indexOf('?') > -1) ? '&' : '?';
+			document.location.href = currentlocation + mychar + 'sort=' + obj.options[s].value;
+		}
+		
+		function DownloadPDF(elcodes, RptTitle, sort, referrer) {
+			if (typeof RptTitle === "undefined" || RptTitle == null) { RptTitle = "test"; }
+			if (typeof sort === "undefined" || sort == null) { sort = currentSort; }
+			if (typeof referrer === "undefined" || referrer == null) { referrer = "Undefined"; }
+			var myform = '<form id="pdfform" action="http://FieldGuide.mt.gov/DownloadPDF.aspx" method="post" target="_blank">';
+			//var myform = '<form id="pdfform" action="http://localhost/DEV/FieldGuide/DownloadPDF.aspx" method="post" target="_blank">';
+			myform += '<input type="hidden" id="title" name="title" value="' + RptTitle + '" />';
+			myform += '<input type="hidden" id="elcodes" name="elcodes" value="' + elcodes + '" />';
+			myform += "<input type='hidden' id='cite' name='cite' value='http://FieldGuide.mt.gov' />";
+			myform += '<input type="hidden" id="sort" name="sort" value="' + sort + '" />';
+			myform += '<input type="hidden" id="referrer" name="referrer" value="/CustomFieldGuidePDF/FieldGuide/' + referrer + '" />';
+			myform += '</form>';
+			console.log(myform);
+			$("body").append(myform);
+			$("#pdfform").submit().remove();
+		}
+
+		function DisplayThumbs(group) {
+			try {
+				group = encodeURI(group);
+				$("#divThumbs").html("<div class='pageHeading2'>Images</div>Loading primary photos...").show();
+				$.scrollTo($("#divThumbs"));
+				$("#divThumbs").load("displayThumbs.aspx?" + group);
+			} catch (err) { 
+				console.debug("err=" + err);
+				$("#divThumbs").html("<div class='pageHeading2'>Images</div>zzzOops! There was an error loading images.<br/ >An email has been sent to the developer.");
+			}
+		}
+		function OpenThumb(elcode) {
+			try {
+				// This either creates/reuses the window named "fgThumb" or if they continued browsing in the fbThumb window, it makes a new window by appending "1" to the window name.
+				var winname = window.name;
+				if (winname.startsWith("fgThumb")) {
+					winname = winname + "1";
+				} else {
+					winname = "fgThumb";
+				}
+				// RATZ edit 20190204 to open thumbs in a new window
+				winname = "_blank";
+				window.open("speciesDetail.aspx?ELCODE=" + elcode, winname);
+			} catch (err) { 
+			}
+		}
+	</script><style type="text/css" media="all">
+        @import url(css/screen.css?16);
+        
+	    #intro {background:#060 url(./images/header_top_dicots.jpg) top right no-repeat;}
+	    
+	    #imageHeader {background-image:url(./images/header_main_dicots.jpg);} 
+	    
+	</style>
+<link rel="stylesheet" type="text/css" media="print" href="css/print.css">
+</head>
+<body>
+    <!--img id="bgImg" class="bg" src="http://mt.gov/images/background10.jpg" alt="Background image" style="min-height: 100%; min-width: 1024px; width: 100%; height: auto; position: fixed; top: 0; left: 0; z-index: -1;">
+    <div id="header" style="border-bottom: 1px solid #151515!important;height: 35px!important;position: relative!important;margin: 0 auto!important;font-size: 80%!important;background: black!important;">
+    <a href="http://mt.gov"><img class="headerlogo" src="http://mt.gov/images/logomtgov.png" alt="mt.gov logo" width="134" height="30"></a><p class="tagline">Montana's Official State Website</p><ul class="mtgovnav"><li><a href="http://mt.gov/services/default.mcpx">Services</a></li><li><a href="http://mt.gov/govt/agencylisting.mcpx">Agencies</a></li><li><div id="livesearch"><form id="searchform" action="http://mt.gov/search.mcpx" name="search" method="get" onclick="document.search.q.style.backgroundColor = '#FFFFFF';' "><div id="searchwrap"><input title="Search For" id="searchitem" type="text" name="q" onclick="this.value='';"><input type="hidden" value="homepage" name="via"><input type="hidden" value="013380590290877010950:3ubczas3i44" name="cx"><input type="hidden" value="FORID:11" name="cof"><input type="hidden" value="UTF-8" name="ie"><input id="Image1" type="image" src="http://mt.gov/images/icons/search-icon.png" name="q"></div></form></div></li></ul></div-->
+    
+    <div id="contain">
+	<span itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="MTNHP"></span>
+		<div id="sort" class="noprint">
+			<select title="Change Species Sort" id="sortOrder" name="sortOrder" onchange="javascript:changeSort(this)"><option value="2">Sort by Common Name</option>
+<option value="3">Sort by Scientific Name</option>
+<option value="1">Sort by Taxonomy</option></select>
+</div>
+		<!-- Begin Search Panel -->
+			<div id="searchPanel" class="noprint">
+				<form id="searchForm" name="searchForm" action="search.aspx" method="post">
+					<span id="search">
+							<span id="SearchLabel" style="padding-top:0px;">
+								Search Field Guide
+								<br><a href="AdvancedSearch.aspx">Advanced Search</a>
+							</span>
+							<input name="q" type="text" id="q" accesskey="s" class="textbox" title="Search For"><input type="submit" name="searchButton" value="Go" id="searchButton" class="sButton"></span>
+				</form>
+			</div>
+		<!-- End Search Panel -->
+
+		<div id="block">
+			<div id="intro" class="noprint">
+				<div id="logo">
+					<a href="http://mt.gov/"><img src="images/mtgovlogo.gif" alt="mt.gov - Montana's Official Website" width="245" height="67"></a>
+				</div>
+				<div id="capitol"></div>
+				<div id="title"><h1><a href="default.aspx">Montana Field Guide</a></h1></div>
+			</div>
+			<div id="menus" class="noprint">
+				<ul id="menuL">
+<li><a href="default.aspx">Field Guide Home</a></li>
+					<li><a href="displayClasses.aspx?Kingdom=Animalia">Animals</a></li>
+					<li><a href="displayClasses.aspx?Kingdom=Plantae">Plants</a></li>
+					<li><a href="displayClasses.aspx?Kingdom=Fungi">Lichens</a></li>
+					<li><a href="displayES_LCLU.aspx">Ecological Systems</a></li>
+
+					<li style="display:;"><a href="Invasives.aspx">Invasives</a></li>
+
+				</ul>
+<ul id="menuR">
+<li><a href="helpP.aspx">Help</a></li>
+				
+				</ul>
+</div>
+
+			<div id="gif" class="noprint"><img src="images/mtgovhead.gif" alt="MT Gov Logo" width="800" height="90"></div>
+                        
+			<div id="imageHeader" class="noprint">
+				<div id="google_translate_element" style="float:right; margin:1px 2px 0 0; opacity:0.9;"></div>
+<script type="text/javascript">function googleTranslateElementInit() { new google.translate.TranslateElement({pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, gaTrack: true, gaId: 'UA-4472119-4'}, 'google_translate_element'); }</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script><img src="images/blank.gif" width="740" height="100" style="border:none;" alt="Montana Field Guide">
+</div>
+            
+			<div id="wrapper">
+            
+				<div id="pageTitle">			
+					
+    <h2>Montana Field Guides</h2>
+
+				</div>
+			
+
+				<div id="mainleft">
+				   <form name="aspnetForm" method="post" action="speciesDetail.aspx?elcode=PDACE01090" id="aspnetForm">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTIwMDQ0MTM1MDFkZKaCH2XWk2xIgJegnB0bIrBY2Lcs"><input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="4FE6526C"><style type="text/css" media="all">
+		#sortOrder { display:none !important; }
+		.navright { width:1px !important; display:none !important; }
+		#mainleft { width:727px !important; border-right-width:0px !important; }
+		#soundfile { cursor:pointer; }
+		h5 { margin:5px 0px 0px 0px; text-decoration:underline; color:#600; }
+		.ranks { position:relative; margin:0px 0px 0px 65px !important; }
+		.ranks span { display:block; position:absolute; left:-60px; }
+		#divRangeMapLegend { margin-left:10px; clear:both; float:none; }
+		#divRangeMapLegend img { cursor:pointer; float:left; margin-left:4px; }
+		#divRangeMapLegend img.disabled { display:none; opacity:0.85; filter:alpha(opacity=85); }
+		div.rmLegend { position:relative; float:left; margin:0px 4px 4px 0px; width:80px; height:15px; overflow:hidden; border:solid 1px black; cursor:pointer; }
+		div.rmLegend img { position:absolute; top:0px; left:0px; float:none !important; margin-left:0px !important; padding:0px !important; }
+		div.rmLegend span { position:absolute; top:0px; left:0px; right:0px; bottom:0px; text-align:center; padding-top:1px; font-weight:bold; font-size:10px; }
+		
+	</style>
+<div id="_ctl0_contentMain_normalContent">
+	
+
+
+
+    <div align="left" class="drilldown">
+<div id="divOtherNHPGuides" style="display:none;">
+	<style>
+		#divOtherNHPGuides {
+			float:right; 
+			display:block; 
+			width:140px;
+			font-size:80%;
+			color: #777;
+		}
+		#divOtherNHPGuides > p {
+			margin:0px;
+			font-weight:bold;
+		}
+		#divOtherNHPGuides > div {
+			max-height:100px;
+			overflow-y:auto; 
+			border:solid 1px #e9e9e9;
+		}
+		#divOtherNHPGuides > div span {
+			display: block;
+			padding:2px 4px;
+			cursor: pointer;
+		}
+		#divOtherNHPGuides > div span:hover {
+			text-decoration:none;
+			color:#000;
+			background-color:#f1f1f1;
+		}
+	</style>
+<p>View in other NatureServe Network Field Guides</p>
+	<div>
+		<span>NatureServe</span>
+		<hr>
+<span>Montana</span>
+		<span>Utah</span>
+		<span>Wyoming</span>
+		<span>Idaho</span>
+		<span>Wisconsin</span>
+		<span>British Columbia</span>
+		<hr>
+<span>South Carolina</span>
+		<span>Yukon</span>
+		<hr>
+<span>California</span>
+		<span>New York</span>
+	</div>
+	<script language="javascript">
+		$(document).ready(function() {
+			var SciName = "Acer negundo".toLowerCase();
+			var ELCODE = "PDACE01090".toUpperCase();
+			if ("|gavia immer|gavia pacifica|gavia stellata|gavia adamsii|".indexOf("|" + SciName + "|") > -1) {
+				$("#divOtherNHPGuides").show();
+				$("#divOtherNHPGuides > div span").off("click").on("click", function() {
+					var whichState = $(this).html().toLowerCase();
+					var offsiteLink = "";
+					switch (whichState) {
+						case "idaho": offsiteLink = 'https://idfg.idaho.gov/species/taxa/explore?name="' + SciName + '"'; break;
+						case "montana": offsiteLink = "http://fieldguide.mt.gov/search.aspx?q=" + SciName; break;
+						case "utah": offsiteLink = "http://fieldguide.wildlife.utah.gov/?Species=" + SciName; break;
+						case "wyoming": offsiteLink = "http://fieldguide.wyndd.org/?Species=" + SciName; break;
+						case "california": offsiteLink = "https://nrm.dfg.ca.gov/taxaquery/TaxonSearch.aspx?tbxSearchTerm=" + SciName; break;
+						case "new york": offsiteLink = "http://www.acris.nynhp.org/search.php?name=" + SciName; break;
+						case "south carolina": offsiteLink = "http://dnr.sc.gov/search.html?q=" + SciName; break;
+						case "wisconsin": offsiteLink = "https://dnr.wi.gov/topic/EndangeredResources/Animals.asp?mode=detail&SpecCode=" + ELCODE; break;
+						case "british columbia": offsiteLink = "http://a100.gov.bc.ca/pub/eswp/reports.do?elcode=" + ELCODE; break;
+						case "yukon": offsiteLink = "http://search.gov.yk.ca/search?btnG=Search&site=&client=default_frontend&proxystylesheet=default_frontend&output=xml_no_dtd&lr=lang_en&site=Environment&q=" + SciName; break;
+						case "natureserve": offsiteLink = "http://explorer.natureserve.org/servlet/NatureServe?searchName=" + SciName; break;
+						case "aaa": offsiteLink = "" + SciName; break;
+						case "bbb": offsiteLink = "" + ELCODE; break;
+					}
+					if (offsiteLink) {
+						var testpopup = window.open(offsiteLink);
+						if (testpopup == null) { 
+							alert("Please be sure to adjust your popup blockers to allow popups from this site."); 
+						} else { 
+							testpopup.focus(); 
+						}
+					}
+				});
+			}
+		});
+		
+	</script>
+</div>
+		<ul>
+<li>
+<b>Home</b> - <a href="default.aspx">Other Field Guides</a>
+
+				<ul>
+<li>
+<b>Kingdom - Plants - </b><span class="latinName"><a href="displayPhyDiv.aspx?kingdom=Plantae">Plantae</a></span>
+						<ul>
+<li>
+<b>Division - Flowering Plants - </b><span class="latinName"><a href="displayClasses.aspx?phylum=Anthophyta">Anthophyta</a></span>
+								<ul>
+<li>
+<b>Class - Dicots - </b><span class="latinName"><a href="displayOrders.aspx?class=Dicotyledoneae">Dicotyledoneae</a></span>
+										<ul>
+<li>
+<b>Order - Maple / Sumac / Creosotebush - </b><span class="latinName"><a href="displayFamily.aspx?order=Sapindales">Sapindales</a></span>
+												<ul>
+<li>
+<b>Family - Maples - </b><span class="latinName"><a href="displaySpecies.aspx?family=Aceraceae">Aceraceae</a></span>
+														<ul>
+<li><b>Species - Box-elder - <span class="latinName">Acer negundo</span></b></li>
+														</ul>
+</li>
+												</ul>
+</li>
+										</ul>
+</li>
+								</ul>
+</li>
+						</ul>
+</li>
+				</ul>
+</li>
+		</ul>
+<div style="margin:10px 0px; float:none; clear:both; border-bottom:solid 1px black;"> </div>
+    </div>
+
+	<div class="dataItemBody">
+
+
+
+		<span itemprop="name" class="speciesTitle">Box-elder - <span class="latinName">Acer negundo</span></span><br><br><div class="imageViewer">
+		
+<script src="jquery/galleria/galleria-1.4.2.js"></script><script type="text/javascript">
+	$(document).ready(function() {
+		Galleria.loadTheme('jquery/galleria/themes/classic/galleria.classic.min.js');
+		Galleria.configure({
+			popupLinks: true,
+			_toggleInfo: false
+		});
+		Galleria.run('.galleria');
+	});
+</script><div id="main_image" style="display:none;">
+    <div class="galleria">
+<a href="http://mtnhp.org/thumbnail/defaultGen.aspx?itemid=278065&amp;names=Box-elder%20Acer%20negundo&amp;copyright=Jim%20Hanson&amp;photographer=Jim%20Hanson&amp;maxWidth=434&amp;maxHeight=400"><img itemprop="primaryImageOfPage" src="http://mtnhp.org/thumbnail/defaultGen.aspx?itemid=278065&amp;names=Box-elder%20Acer%20negundo&amp;copyright=Jim%20Hanson&amp;photographer=Jim%20Hanson&amp;maxWidth=100" data-title="Clusters of staminate flowers dangle from leaf axils on this male tree." data-link="http://mtnhp.org/thumbnail/defaultGen.aspx?itemid=278065&amp;maxWidth=1024&amp;maxHeight=768"></a><a href="http://mtnhp.org/thumbnail/defaultGen.aspx?itemid=278064&amp;names=Box-elder%20Acer%20negundo&amp;copyright=Jim%20Hanson&amp;photographer=Jim%20Hanson&amp;maxWidth=434&amp;maxHeight=400"><img src="http://mtnhp.org/thumbnail/defaultGen.aspx?itemid=278064&amp;names=Box-elder%20Acer%20negundo&amp;copyright=Jim%20Hanson&amp;photographer=Jim%20Hanson&amp;maxWidth=100" data-title="Box-elder" data-link="http://mtnhp.org/thumbnail/defaultGen.aspx?itemid=278064&amp;maxWidth=1024&amp;maxHeight=768"></a><a href="http://mtnhp.org/thumbnail/defaultGen.aspx?itemid=278066&amp;names=Box-elder%20Acer%20negundo&amp;copyright=Jim%20Hanson&amp;photographer=Jim%20Hanson&amp;maxWidth=434&amp;maxHeight=400"><img src="http://mtnhp.org/thumbnail/defaultGen.aspx?itemid=278066&amp;names=Box-elder%20Acer%20negundo&amp;copyright=Jim%20Hanson&amp;photographer=Jim%20Hanson&amp;maxWidth=100" data-title="The leaves, usually with 3 leaflets that are sparingly and coarsely toothed, may resemble those of poison ivy." data-link="http://mtnhp.org/thumbnail/defaultGen.aspx?itemid=278066&amp;maxWidth=1024&amp;maxHeight=768"></a><script type="text/javascript">$(document).ready(function($) { $('#main_image').fadeIn(1000); }); </script>
+</div>
+</div>
+
+
+
+<style media="screen,projection" type="text/css">
+	html, body {margin:0px; padding:0px; }
+	#main_image {position:relative; margin:0px;height:400px;width:434px;background:black; text-align:center; padding-top:1px !important; padding-bottom:20px;}
+	.galleria {width:100%; height:100%; background:#000; }
+</style>
+<div class="noprint" style="background-color:#fff; font-size:10px; text-align:right;">
+				<a href="statusCodes.aspx?scrollto=images">Image Copyright and Usage Information</a>
+			</div>
+		</div>
+
+
+
+
+
+		<div style="float:left; width:272px;">
+<span id="SOCLinks"><nobr><a target="fieldguide" title="see definition" href="http://FieldGuide.mt.gov/statusCodes.aspx#exotic">Native Species</a><br></nobr></span><br><b>Global Rank</b>: <a title="see definition" href="statusCodes.aspx?scrollto=msrc:rank">G5</a><br><b>State Rank</b>: <a title="see definition" href="statusCodes.aspx?scrollto=msrc:rank">S5</a>
+			
+			<br><br><b><u>Agency Status</u></b><br><b>USFWS</b>: <a title="see definition" href="statusCodes.aspx?scrollto=usfws"></a><br><b>USFS</b>: <a title="see definition" href="statusCodes.aspx?scrollto=usfs"></a><br><b>BLM</b>: <a title="see definition" href="statusCodes.aspx?scrollto=blm"></a><br><b>MNPS Threat Rank</b>: <a title="see definition" href="statusCodes.aspx?scrollto=mnps"></a><br><b>C-value</b>: <a title="see definition" href="statusCodes.aspx?scrollto=cvalue">3</a><br><br><span class="externalLinks noprint">
+				<p style="border-bottom: solid 1px black; margin-top: 6px; margin-bottom: 6px; font-weight: bold;">External Links</p>
+				<table cellpadding="0" cellspacing="0" border="0"><tr>
+<td>
+							
+								<a href="#" onclick="showMapper('PDACE01090'); return false;" target="MapViewer" title="View Observations in Map Viewer"><img id="imgMapViewerObs" src="images/Logo_Blank.png" border="0"></a><br><a href="http://explorer.natureserve.org/servlet/NatureServe?searchName=Acer%20negundo" target="_blank" title="View NatureServe data for this species"><img id="imgNatureServe" src="images/Logo_Blank.png" border="0"></a><br><a href="http://plants.usda.gov/java/nameSearch?keywordquery=Acer%20negundo&amp;mode=sciname" target="_blank" title="View NRCS (Natural Resources Conservation Service) data for this species"><img id="imgNRCS" src="images/Logo_Blank.png" border="0"></a><br>
+</td>
+						<td>
+							<a href="http://images.google.com/images?q=Acer%20negundo" target="_blank" title="Google for more images"><img id="imgGoogleImages" src="images/Logo_Blank.png" border="0"></a><br><a href="http://google.com/search?q=Acer%20negundo" target="_blank" title="Google for more web pages"><img id="imgGoogleWeb" src="images/Logo_Blank.png" border="0"></a><br>
+</td>
+					</tr></table></span>
+
+
+		</div>
+	</div>
+	
+
+	<div style="clear:left"> </div>
+
+		<div class="pageHeading2">General Description</div>
+		<div itemprop="mainEntity" id="gen" class="dataItemBody editme">Small dioecious trees to 15 m. Twigs glabrate to pilose. Leaves 3-<br> or -(rarely)5-foliolate; leaflets pubescent on veins beneath, lanceolate to ovate, coarsely few-toothed, 3–8 cm long; lateral pair asymmetric. Inflorescence: female flowers in pendent racemes from axillary buds; male flowers fascicled. Flowers unisexual, green; sepals ca. 1 mm long; petals absent. Samara 2–3 cm long, the seed ca. 1 cm long <a href="https://shop.brit.org/products/manual-of-montana-vascular-plants" target="_blank">(Lesica 2012. Manual of Montana Vascular Plants. BRIT Press. Fort Worth, TX)</a>.</div>
+		<br><a name="RangeMaps"></a>
+		
+			<div class="pageHeading2">Species Range</div>
+			<div id="dist" class="dataItemBody">
+				
+					<b>Montana Range</b><br><img id="imgRangeMap" src="http://FieldGuide.mt.gov/RangeMaps/RangeMap_PDACE01090.jpg"><br><div id="divRangeMapLegend">
+					
+								<div class="rmLegend" title="View Year-round Range" rm="http://FieldGuide.mt.gov/RangeMaps/RangeMap_PDACE01090_Y.jpg">
+									<img src="/code/CreateColorImage.aspx?w=120&amp;h=17&amp;c=d087f8"><span>Year-round</span>
+								</div>
+							
+						<div style="clear:both; float:none; font-size:80%; padding:5px;"></div>
+					
+					</div>
+					<!--img src="images/RangeMapLegend.gif" style="margin-left:47px;"/><br /-->
+					
+				<div style="line-height:0px; height:0px; clear:both; float:none;"> </div>
+				<br>
+</div>
+			<br><div class="pageHeading2">Range Comments</div>
+			<span id="range" class="editme">Throughout temperate North America <a href="https://shop.brit.org/products/manual-of-montana-vascular-plants" target="_blank">(Lesica 2012. Manual of Montana Vascular Plants. BRIT Press. Fort Worth, TX)</a>.</span>
+			<br><br><div class="pageHeading2">Observations in Montana Natural Heritage Program Database</div>
+		<b>Number of Observations:</b> 104<br><br><span style="font-size:80%;">(Click on the following maps and charts to see full sized version)</span>
+		<span style="font-size:80%; margin-left:40px;"><a href="statusCodes.aspx?scrollto=maps">Map Help and Descriptions</a></span>
+		<br><div class="dataItemBody" style="margin-top:10px; float:left; text-align:center;">
+				<b>Relative Density</b><br><a href="http://FieldGuide.mt.gov/RangeMaps/GenObsMap_PDACE01090_FS.jpg" target="MapsCharts" title="View Fullsized"><img src="http://FieldGuide.mt.gov/RangeMaps/GenObsMap_PDACE01090.jpg" border="0"></a><br>
+</div>
+		
+			<div class="dataItemBody" style="margin-top:10px; float:left; text-align:center;">
+				<b>Recency</b><br><a href="http://FieldGuide.mt.gov/RangeMaps/RecencyMap_PDACE01090_FS.jpg" target="MapsCharts" title="View Fullsized"><img src="http://FieldGuide.mt.gov/RangeMaps/RecencyMap_PDACE01090.jpg" border="0"></a><br>
+</div>
+		
+		<div style="line-height:0px; height:0px; clear:both; float:none;"> </div>
+		<div class="dataItemBody" style="margin-top:10px; margin-right:0px; text-align:left; border:solid 0px blue;">
+			
+				<a href="http://FieldGuide.mt.gov/ObsChart_FS.aspx?elcode=PDACE01090" target="MapsCharts" title="View Fullsized"><img src="http://FieldGuide.mt.gov/RangeMaps/ObsChart_PDACE01090.png" border="0" style="vertical-align:top;"></a>
+			
+				<a href="http://FieldGuide.mt.gov/AnnualChart_FS.aspx?elcode=PDACE01090" target="MapsCharts" title="View Fullsized"><img src="http://FieldGuide.mt.gov/RangeMaps/AnnualChart_PDACE01090.png" border="0" style="vertical-align:top;"></a>
+			
+			<br><span style="font-size:80%; margin-left:36px;">(Observations spanning multiple months or years are excluded from time charts)</span>
+		</div>
+		<br><br><br><div class="pageHeading2">Habitat</div>
+		<div id="habt" class="dataItemBody editme">Riparian forest, woodlands, roadsides, fields; plains, valleys <a href="https://shop.brit.org/products/manual-of-montana-vascular-plants" target="_blank">(Lesica 2012. Manual of Montana Vascular Plants. BRIT Press. Fort Worth, TX)</a>.</div>
+		
+		<br><div class="pageHeading2">References</div>
+	<div id="cit" class="dataItemBody divWhiteFolders">
+		<ul>
+<li id="addCited" class="folder">Additional References<span class="WCLegend">Legend:  <img src="images/iconDOC.gif" width="12" height="12"> View Online Publication</span><br><a class="sendCitationLink" title="Send us a citation" href="mailto:apipp@mt.gov;sblum@mt.gov;bburkholder@mt.gov?subject=Citation%20for%20Species%20Field%20Guide&amp;body=A%20Citation%20suggestion%20for%20page:%20http://FieldGuide.mt.gov%2fspeciesDetail.aspx%3felcode%3dPDACE01090%0D---">Do you know of a citation we're missing?</a><ul class="citations">
+<li>
+<img src="images/16Blank.gif" border="0">Baril, S.F. 1977. Benthic invertebrate distribution, abundance, and diversity in Rosebud Creek, Montana. M.Sc. Thesis. Bozeman, MT: Montana State University. 97 p.</li>
+<li>
+<img src="images/16Blank.gif" border="0">Brammer, J.A. 1991. The effects of supersaturation of dissolved gases on aquatic invertebrates of the Bighorn River downstream of Yellowtail Afterbay Dam. M. Sc. Thesis. Bozeman, MT: Montana State University. 132 p.</li>
+<li>
+<img src="images/16Blank.gif" border="0">Egan, J.L. 1957. Some relationships between mule deer and alfalfa production in Powder River County, Montana. M.Sc. Thesis. Bozeman, MT: Montana State University. 34 p.</li>
+<li>
+<img src="images/16Blank.gif" border="0">Eng, R.L. 1952. A two-summer study of the effects on bird populations of chlordane bait and aldrin spray as used forgrasshopper control. M.Sc. Thesis. Bozeman, MT: Montana State University. 27 p.</li>
+<li>
+<img src="images/16Blank.gif" border="0">Gobeille, J.E. 1992. The effect of fire on Merriams turkey brood habitat in southeastern Montana. M.Sc. Thesis. Bozeman, MT: Montana State University.  61 p.</li>
+<li>
+<img src="images/16Blank.gif" border="0">Jones, W. W. 1901. Preliminary flora of Gallatin County. M.S. Thesis. Bozeman, MT: Montana State College. 78 pp.</li>
+<li>
+<a target="worldcat" title="View Online Publication" href="http://www.brit.org/brit-press/books/montana"><img src="images/iconDOC.gif" border="0"></a>Lesica, P., M.T. Lavin, and P.F. Stickney. 2012. Manual of Montana Vascular Plants. Fort Worth, TX: BRIT Press. viii + 771 p.</li>
+<li>
+<img src="images/16Blank.gif" border="0">Little, E.L., Jr. 1979. Checklist of United States trees (native and naturalized). Agriculture Handbook No. 541. U.S. Forest Service, Washington, D.C. 375 pp.</li>
+<li>
+<img src="images/16Blank.gif" border="0">Rauscher, R.L. 1995.  Deer use of irrigated alfalfa along the Yellowstone River, Custer County, Montana. M.Sc. Thesis. Bozeman, MT: Montana State University. 50 p.</li>
+<li>
+<img src="images/16Blank.gif" border="0">Scow, K.L. 1981. Ecological distribution of small mammals at Sarpy Creek, Montana, with special consideration of the Deer Mouse, Peromyscus maniculatus. M.Sc. Thesis. Bozeman, Montana: Montana State University. 73 p.</li>
+<li>
+<img src="images/16Blank.gif" border="0">Selting, J.P. 1994. Seasonal use of agricultural lands by Mule Deer, White-Tailed Deer, and Pronghorn Antelope in Carter County, Montana. M.Sc. Thesis. Bozeman, Montana: Montana State University. 66 p.</li>
+</ul>
+</li>
+			<li class="folder noprint">Web Search Engines for Articles on "Box-elder"
+				<ul>
+<li><a target="_blank" href="http://www.worldcat.org/search?qt=worldcat_org_all&amp;q=Acer%20negundo">WorldCat</a></li>
+					<!--li><a target="_blank" href="http://search.ebscohost.com/login.aspx?direct=true&site=eds-live&authtype=ip,guest&custid=s8251094&groupid=main&profile=edslis%20&bquery=Acer negundo&uquery=Acer negundo">Discover It!</a></li-->
+					<li><a target="_blank" href="http://scholar.google.com/scholar?q=Acer%20negundo&amp;hl=en&amp;btnG=Search&amp;as_sdt=800000001&amp;as_sdtp=on">Google Scholar</a></li>
+					<li><a target="_blank" href="http://books.google.com/books?q=Acer%20negundo&amp;btnG=Search+Books">Google Books</a></li>
+					<li><a target="_blank" href="http://www.science.gov/scigov/result-list/collections:SCIGOVIMAGE-NSF,SCRNNIE,TOXNETTOXLINE,CFSAN,NISTDBS,TREESEARCH,USGSPUBS,CDER,EPRINT,CFR,SCIGOV-WRIGHT,CBER,NASA-TRS,SCIGOVIMAGE-SCICINEMA,SCIGOV-DOEP,CONGRESS-111,SCIGOV-DOEDE,USPTO,USDA-FNICWEB,CONGRESS-112,SCIGOVIMAGE-MEDLINEPLUS,NCI,SCIGOV-ESTSC,DOE-PATENT-XML,ERIC,EPA-NSCEP,SCIGOV-NISIC,NASAWEB,EPA-EIMS,SCIGOV-CON-113,DOE-RDACC,SCIGOV-USFS,NREL-AFDC,PMC,SCIGOV-MAS,NSFPUBS,SCIGOV-STC,NIH-MEDLINEPLUS,DTIC-ST,TOXNETHSDB,PESTICIDES,EIAPUBS,TEKTRAN,SCIGOVIMAGE-USGS,NOAA,SCIGOVIMAGE-NASA,NSDL,SCIGOV-ASDC,PUBMED,NREL-WEB,CFR2012,CFR2013,FEDREG,CFR2011,SCIGOVWS,SCIGOV-HHH,NASAADS,SCIGOVIMAGE-PLANTS,CLINICALTRIALS,SCIGOV-IRIS,NTIS,SCIGOV-OPENAGRICOLA,DOTNTL,CFR2014/fullRecord:Acer%20negundo/">Science.gov</a></li>
+				</ul>
+</li>
+			
+		</ul>
+</div>
+
+	<div id="divLoginStuff" class="noprint" style="font-size:10px; color:#a9a9a9;">
+		<span id="spnLogin" style="cursor:pointer;">Login</span>
+		<span id="spnLogout" style="cursor:pointer;">Logout</span>
+		<div id="divLogin" style="display:none; border:solid 1px black;">
+			Name: <input type="text" id="txtN">
+			Password: <input type="password" id="txtP"><span id="spnGo" style="color:#0000ff; cursor:pointer;">Send</span>
+			<span id="spnCancel" style="color:#0000ff; cursor:pointer;">Cancel</span>
+		</div>
+	</div>
+
+
+    <style type="text/css" media="all">
+		.assoc_ES { margin-top:0px; margin-bottom:10px; }
+		.assoc_ES li { width:650px; display:block; text-align:top; font-size:10px; line-height:11px; margin-top:3px; margin-bottom:3px; list-style-type:none; zoom:1; *display: inline; }
+		.assoc_ES li a, .assoc_species li a:visited { text-decoration:none; }
+		.assoc_ES li a:hover { text-decoration:underline; }
+		
+		.editable { background-color:yellow; cursor:pointer; }
+		#revertItems { border:solid 2px black; background-color:#e9e9e9; }
+		#revertItems tr:hover { background-color:cyan; cursor:pointer; }
+	</style>
+<script type="text/javascript" src="jquery/jquery.jeditable.js"></script><script language="javascript">
+		var role = "";
+		
+		$(document).ready(function() {
+			// Do stuff when the document is loaded
+
+			// --------------
+			// turn off the Sort By control
+			document.getElementById('sortOrder').style.display='none';
+			// stretch the main content and hide the side bar for the detail pages
+			$(".navright").css("width","1px").hide();
+			document.getElementById("mainleft").style.width = 727+'px';
+			document.getElementById("mainleft").style.borderRightWidth = 0;
+			$(".externalLinks img")
+				.hover(
+					function() { $(this).addClass("imgborder"); },
+					function() { $(this).removeClass("imgborder"); }
+				);
+			$("#NoPhotos img")
+				.hover(
+					function() { $(this).addClass("imgborder"); },
+					function() { $(this).removeClass("imgborder"); }
+				);
+			$("#divRangeMapLegend img").click(function(){
+				var rm = $(this).attr("rm");
+				$("#imgRangeMap").attr("src",rm);
+			});
+			$("div.rmLegend").click(function(){
+				var rm = $(this).attr("rm");
+				$("#imgRangeMap").attr("src",rm);
+			});
+
+
+			// --------------
+			// Adjust any GreenFolders or WhiteFolders so the LI becomes a Folder Treeview and add Expand All / Collapse All
+			$('div.divWhiteFolders li.folder').each(function(){
+				// Start all folders as closed
+				$(this).children().hide();
+				// Temporarily decouple the child list, wrap the remaining text in an anchor, then reattach it.
+				var sub_ul = $(this).children().remove();
+				$(this).prepend('<span class="icon">&nbsp;</span>').wrapInner('<a/>').find('a').click(function(){
+					// toggle the child and adjust the parent class
+					if (sub_ul.is(":visible")) {
+						sub_ul.hide();
+						$(this).parent().removeClass('open');
+					} else {
+						sub_ul.show();
+						$(this).parent().addClass('open');
+					}
+				});
+				$(this).append(sub_ul);
+			});
+			// Add the Expand All / Collapse All if needed
+			$('div.divWhiteFolders div.ExpandCollapse').each(function(){
+				$(this).html("<a onclick='return ExpandAll(this);'>Expand All</a> | <a onclick='return CollapseAll(this);'>Collapse All</a>");
+			});
+			
+
+			// --------------
+			// set the page up for editing
+			if (role == '1') {
+
+				$('#spnLogin').hide();
+				$('#spnLogout').show();
+				$('#spnLogout').click(function(){
+					$.get('Login.aspx?un=zzz' + '&d=' + new Date().getTime(), function(response) {
+						if (response == 'true') {
+							location.reload(true);
+						} else {
+							alert('Error on logout');
+						}
+					});
+				});
+				$('.editme').addClass('editable').editable('edit.aspx', {
+					type		: 'textarea',
+					indicator	: 'Saving...',
+					tooltip		: 'Click to edit',
+					onblur		: 'ignore',
+					onsubmit	: clearRevertItems,
+					onreset		: clearRevertItems,
+					cancel		: 'Cancel',
+					submit		: 'Save',
+					data        : function(value, settings) {
+                                    /* Convert <br> to newLine */
+                                    var retval = value.replace(/<br[\s\/]?>/gi, '\n');
+                                    return retval;					                
+                                  }
+				});
+				// Add the function to revert to previous values
+				$('.editme').each(function(intIndex){
+					var currentEditMe = $(this);
+					var myfield = currentEditMe.attr('id');
+					var elcode = 'PDACE01090';
+					var revert = $('<a style="margin-left:30px; cursor:pointer;">REVERT to a previous value</a>');
+					$(revert).click(function(event) {
+						clearRevertItems();
+						//alert('editRevert.aspx?f=' + myfield + '&e=' + elcode + '&d=' + new Date().getTime());
+						$.get('editRevert.aspx?f=' + myfield + '&e=' + elcode + '&d=' + new Date().getTime(), function(response) {
+							// When we get the values back from the server, create a div to show and allow clicks
+							var obj = $('<div id="revertItems">' + response + '</div>');
+							$(obj).children('table').children('tbody').children('tr').children('td').click(function() {
+								var myvalue = $(this).parent('tr').children('td').html();
+								$(obj).prev().prev().html(myvalue);
+								$.get('edit.aspx?e=' + elcode + '&id=' + myfield + '&value=' + myvalue + '&d=' + new Date().getTime(), function(response) {});
+								$(obj).remove();
+							});
+							revert.after(obj);
+							$.scrollTo($('#revertItems').prev().prev().prev());
+						});
+						return false;
+					});
+					currentEditMe.after(revert);
+				});
+
+			} else {
+
+				$('#spnLogin').show();
+				$('#spnLogout').hide();
+				$('#spnLogin').click(function(){
+					$('#divLogin').show();
+					$('#txtN').focus();
+				});
+				$('#txtP').keydown(function(e) {	
+					if(e.keyCode == 13) { $('#spnGo').click(); return false; }
+				});
+				$('#spnCancel').click(function(){
+					$('#divLogin').hide();
+				});
+				$('#spnGo').click(function(){
+					$.get('Login.aspx?un=' + $('#txtN').val() + '&pw=' + $('#txtP').val() + '&d=' + new Date().getTime(), function(response) {
+						if (response == 'true') {
+							location.reload(true);
+						} else {
+							alert('Invalid login');
+							$('#divLogin').hide();
+						}
+					});
+				});
+
+			}
+
+
+			// --------------
+			// Parse the querystring for Section jumps
+			var ref = $.parseQuery().ref;
+			if (ref != null) {
+				// Open the two main reference folders
+				setTimeout(" $('#litCited').find('a:first').click();  $('#addCited').find('a:first').click();  $('body').scrollTo($('#cit'), 0, {offset: {top:-60}});", 500);
+			} else {
+				// Open the Associated EcoSystems folders
+				$("#AssociatedESH").find("a:first").click();
+				$("#AssociatedESL").find("a:first").click();
+			}
+			if (window.location.hash == "#rank") {
+				setTimeout(" $('#rank').find('a:first').click();  $('body').scrollTo($('#rank'), 0, {offset: {top:-55}});", 500);
+			}
+		});
+
+
+		function fixSpecialChars(settings) {
+			//alert(settings);
+		}
+
+		function clearRevertItems() {
+			// Clear out any existing revertItems boxes
+			$('#revertItems').remove();
+		}
+
+		function showMapper(elcode) {
+			var testpopup = window.open('http://mtnhp.org/MapViewer/?t=7&elcode=' + elcode, 'testpopup', 'width=1024, height=768, status=0, toolbar=1, location=1, menubar=1, directories=0, resizable=1, scrollbars=1');
+			if (testpopup == null) {
+				location.href = 'http://mtnhp.org/MapViewer/?t=7&elcode=' + elcode;
+			} else {
+				testpopup.focus();
+			}
+		}
+
+		function showLargeImageUrl(url) {
+			var _url = 'http://mtnhp.org/thumbnail/defaultGen.aspx?img=' + url;
+			var testpopup = window.open(unescape(url), 'testpopup', 'width=800, height=600, status=0, toolbar=1, location=0, menubar=0, directories=0, resizable=1, scrollbars=1');
+			if (testpopup == null) {
+				location.href = unescape(_url);
+			} else {
+				try { testpopup.focus(); } catch(err) {};
+			}
+		}
+
+		function doAddObs() {
+			var myform = '<form id="frmAddObs" action="http://mtnhp.org/AddObs/" method="post" target="_blank">';
+			myform += '<input type="hidden" name="Application" value="Field Guide" />';
+			myform += '</form>';
+			$("body").append(myform);
+			$("#frmAddObs").submit().remove();
+		}
+		
+	</script>
+</div>
+
+
+
+
+
+					</form>
+				</div>
+				
+				
+				
+
+				<div class="navright noprint" style="background-color:#6C7E5D;">
+					<div id="heritageSideBar">
+						<a href="http://mtnhp.org/" target="_blank" title="Visit the MT Natural Heritage homepage"><img src="images/nhp_logo_sm2.gif" alt="Montana Natural Heritage Program" align="absmiddle"></a>
+						<div class="standardLinks">
+							<ul>
+<li><a href="http://mtnhp.org/MapViewer/" target="_blank">Map Viewer</a></li>
+								<li><a href="http://mtnhp.org/SpeciesSnapshot/" target="_blank">Species Snapshot</a></li>
+								<li><a href="http://mtnhp.org/SpeciesOfConcern/?AorP=a" target="_blank">Animal SOC Report</a></li>
+								<li><a href="http://mtnhp.org/SpeciesOfConcern/?AorP=p" target="_blank">Plant SOC Report</a></li>
+								<li><a href="http://mtnhp.org/nwi/" target="_blank">Wetlands Information</a></li>
+							</ul>
+</div>
+						<div class="facebookicons">
+						    <table><tr>
+<td style="line-height:12px; text-align:center;">Stay Connected<br>with MTNHP</td>
+<td>
+<a href="http://www.facebook.com/pages/Helena-MT/Montana-Natural-Heritage-Program/149153959657" title="Find MTNHP on Facebook" target="_blank"><img src="http://fieldguide.mt.gov/images/facebook_sm.gif" alt="Facebook Link" border="0"></a><a href="https://twitter.com/mtnhp" title="Follow MTNHP on Twitter" target="_blank"><img src="http://fieldguide.mt.gov/images/twitter_sm.gif" alt="Twitter Link" border="0"></a>
+</td>
+</tr></table>
+</div>
+					</div>
+    			</div>
+    			<div class="navright noprint" style="background-image:none; background-color:#dfdfdf; height:5px;"></div>
+				<div class="navright noprint" style="background-image:none; padding-top:0px; background-color:#6C7E5D;">
+					<div id="fwpSideBar">
+						<a href="http://fwp.mt.gov/" target="_blank" title="Visit the MT Fish, Wildlife &amp; Parks homepage"><img src="images/fwp_logo_sm2.gif" alt="Montana Fish, Wildlife &amp; Parks" align="absmiddle"></a>
+						<div class="standardLinks">
+							<ul>
+<li><a href="http://fwp.mt.gov/fishAndWildlife/species/speciesOfConcern/" target="_blank">Species of Concern</a></li>
+								<li><a href="http://fwp.mt.gov/fishAndWildlife/species/endangered/" target="_blank">Endangered Species</a></li>
+								<li><a href="http://fwp.mt.gov/fishAndWildlife/livingWithWildlife/" target="_blank">Living With Wildlife</a></li>
+								<!--li id="rangerLI" style="display:none; line-height:10px;"><a href="http://fwp.mt.gov/education/ecosystem/home.html" target="_blank"><span style="font-size:80%;">Kids Guide<br />Discover Montana's EcoSystems</span></a></li-->
+						        <li>Kids Guide<br><a href="http://fwp.mt.gov/education/ecosystem/home.html" target="_blank"><img src="images/discoverMTEcoSystems2.gif" alt="Discover Montana's EcoSystems" align="absmiddle" border="0" style="border:none !important;"></a>
+</li>
+							</ul>
+</div>
+					    <div id="rangerSideBar" style="display:none; text-align:center; color:#dde3d5; font-weight:bold;">
+					    </div>					
+    					<div class="facebookicons">
+						    <table><tr>
+<td style="line-height:12px; text-align:center;">Stay Connected<br>with FWP</td>
+<td>
+<a href="http://www.facebook.com/MontanaFWP" title="Find FWP on Facebook" target="_blank"><img src="http://fieldguide.mt.gov/images/facebook_sm.gif" alt="Facebook Link" border="0"></a><a href="https://twitter.com/#!/MontanaFWP" title="Follow FWP on Twitter" target="_blank"><img src="http://fieldguide.mt.gov/images/twitter_sm.gif" alt="Twitter Link" border="0"></a>
+</td>
+</tr></table>
+</div>
+					</div>
+				</div>
+
+    			<div class="navright noprint" style="background-image:none; background-color:#dfdfdf; height:5px;"></div>
+				<div class="navright noprint" style="background-image:none; padding-top:0px; background-color:#FFFFFF; border-bottom:none;">
+					<div style="background-color:White; padding:4px 2px 0px 2px;">
+					    <h4 style="margin:0px;">Take us with you! <img alt="PDF icon" src="images/PDF.png" style="float:right;">
+</h4>
+					    <p style="margin:0px 0px 4px 6px;">
+					        Look for this PDF icon at the top of each page as you <b>search</b> and <b>browse</b>.  You can download select species by searching or when you're on a Taxa page like Class, Order, and Family.
+					        <br><br>
+					        Here's some links if you want to download a whole group.
+					    </p>
+				        <table class="OfflineFieldguide">
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("elcodepattern=AM","Mammals of Montana",1,"All Mammals");'>Mammals</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("elcodepattern=AB","Birds of Montana",1,"All Birds");'>Birds</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("elcodepattern=AR","Reptiles of Montana",1,"All Reptiles");'>Reptiles</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("elcodepattern=AA","Amphibians of Montana",1,"All Amphibians");'>Amphibians</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("elcodepattern=AF","Fish of Montana",1,"All Fish");'>Fish</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("elcodepattern=I","Invertebrates of Montana",1,"All Invertebrates");'>Invertebrates</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("order=Lepidoptera","Butterflies and Moths of Montana",1,"All Lepidoptera");'>Butterflies / Moths</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("order=Odonata","Dragonflies and Damselflies of Montana",1,"All Odonata");'>Dragonflies / Damselflies</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("class=Filicopsida","Ferns and allies of Montana",1,"All FernsAndAllies");'>Ferns and allies</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("class=Pinopsida","Conifers of Montana",1,"All Conifers");'>Conifers</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("class=Dicotyledoneae","Flowering Plants (Dicots) of Montana",1,"All Dicots");'>Flowering Plants (Dicots)</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("class=Monocotyledoneae","Flowering Plants (Monocots) of Montana",1,"All Monocots");'>Flowering Plants (Monocots)</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("elcodepattern=NB","Bryophytes of Montana",1,"All Bryophytes");'>Bryophytes</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("elcodepattern=NL","Lichens of Montana",1,"All Lichens");'>Lichens</a></td></tr>
+<tr><td><a target="_blank" onmouseup="ga('send', 'pageview', '/CustomFieldGuidePDF/FieldGuide/All Ecological_Systems');" href="PDF_Reports/MT_Fieldguide_Ecological_Systems.pdf">Ecological Systems</a></td></tr>
+<tr><td><a target="_blank" href="javascript:void(0)" onclick='DownloadPDF("noxious","Noxious Weeds and Regulated Plants of Montana",1,"All NoxiousWeeds");'>Noxious Weeds</a></td></tr>
+</table>
+</div>
+				</div>
+
+	            
+				<div id="footerCitation">
+<b>Citation for data on this website:</b><br>Box-elder — Acer negundo.  Montana Field Guide.  <span itemprop="author" itemscope itemtype="http://schema.org/Person"><span itemprop="name">Montana Natural Heritage Program</span></span>.  Retrieved on <span itemprop="datePublished" content="2020-26-54"> April 26, 2020</span>, from <span itemprop="url">http://FieldGuide.mt.gov/speciesDetail.aspx?elcode=PDACE01090</span>
+</div>
+
+			</div>
+
+			<div id="footer" class="noprint">
+	            
+				<div id="footfloat"><a href="http://mt.gov/"><img src="images/foot.gif" alt="MT.gov"></a></div>
+				<ul>
+<li><a title="Privacy &amp; Security Policy" href="http://mt.gov/1240-X06.pdf">Privacy &amp; Security</a></li>
+					<li><a title="Accessibility" href="http://mt.gov/discover/disclaimer.asp#accessibility">Accessibility</a></li>
+				<li><a title="Contact Us" href="mailto:apipp@mt.gov;sblum@mt.gov;bburkholder@mt.gov?cc=dratz@mt.gov;bmaxell@mt.gov&amp;subject=Plant%20Field%20Guide%20Feedback&amp;body=Feedback%20from%20page:%20http://FieldGuide.mt.gov%2fspeciesDetail.aspx%3felcode%3dPDACE01090%0D---">Contact Us</a></li>
+					<li><a title="Search" href="http://mtnhp.org/search.asp">Search</a></li>
+				</ul>
+</div>
+
+			<div id="footerbottomshadow" class="noprint"> </div>
+            
+		</div>
+
+    </div>
+    <div id="userCount" class="noprint">
+    
+    </div>
+
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-4472119-4', 'auto');
+if (location.hostname == 'localhost') {
+	// Keep my localhost development from generating hits
+	ga('set', 'sendHitTask', null);
+}
+ga('send', 'pageview');
+</script><script async src="https://www.google-analytics.com/analytics.js"></script><!-- End Google Analytics --><script language="javascript">
+	$(document).ready(function() {
+		// See if this list only has one item, if so, skip to the next lower level
+		try {
+			if (location.href.indexOf("displaySpecies.aspx") == -1) {
+				if ($(".itemList .link").length == 1) {
+					$(".itemList .link").find("a").click();
+				}
+			}
+		} catch (err) {}
+		// See if we need to ScrollTo any section
+		var qScrollTo = $.parseQueryLower().scrollto;
+		if (qScrollTo) { 
+			setTimeout(" try { $('body').scrollTo($(\"[name='" + qScrollTo + "' i]\"), 0, {offset: {top:-60}}); } catch(err){}", 500); 
+		}
+		
+		try {
+			$('#q').focus();
+
+/*
+// Not sure how to make pressing ENTER on a "saved item" will submit the form
+			$('#q').keypress(function(e) {
+				var f;
+				f = e.which || e.keyCode || e.key;
+				console.log(f);
+				if (f == 10 || f == 13) {
+					if (this.value) {
+						$("#searchForm").submit();
+						//$("#searchButton").trigger("click");
+					}
+					//return false;
+				}
+			});
+*/
+
+		} catch (err) {}
+	});
+</script>
+</body>
+</html>

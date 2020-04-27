@@ -1,0 +1,1242 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Home - Woodcliff Lake Schools</title>
+<link rel="icon" href="/images//userfiles/-4/my%20files/download.jpg?id=660&amp;width=32" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1432832437">
+<meta name="google-play-app" content="app-id=com.schoolpointe.nj_woodclifflakesd">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="/userfiles/-12/my%20files/appicon-final.png?id=729&amp;width=200">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Woodcliff Lake School District", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "/userfiles/-12/my%20files/appicon-final.png?id=729&width=200", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><link rel="alternate" type="application/rss+xml" title="Woodcliff Lake Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Woodcliff Middle School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Dorchester Elementary School - News" href="/rssNews.ashx?schoolId=2">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "NJ_WoodcliffLakeSD",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link href="https://fonts.googleapis.com/css?family=Crimson+Text%7CRuda" rel="stylesheet">
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1568058202560">
+<style>
+		.bg-header3 {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			width: 100%;
+			background-color: rgba(255,255,255,0.8);
+			z-index: 1;
+		}
+	</style>
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUENTM4MQ9kFgJmD2QWAmYPZBYEZg9kFgYCAQ9kFgJmD2QWAgIBDxYCHgRUZXh0BRZXb29kY2xpZmYgTGFrZSBTY2hvb2xzZAICD2QWAgIBDxYCHgtfIUl0ZW1Db3VudAICFgRmD2QWAmYPFQIXV29vZGNsaWZmIE1pZGRsZSBTY2hvb2wBMWQCAQ9kFgJmDxUCHERvcmNoZXN0ZXIgRWxlbWVudGFyeSBTY2hvb2wBMmQCBA8WAh4EaHJlZgUwL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0xNTY4MDU4MjAyNTYwZAIBDxYCHgZhY3Rpb24FAS8WCgIBD2QWBAIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8EBQEwZAIDDw9kFgIfBAUBMGQCBA8PZBYCHwQFATBkAgUPD2QWAh8EBQEwZAIDD2QWAgICDw8WAh4HVmlzaWJsZWdkFgJmDxYCHwAFzAE8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PGxpPjxzcGFuIGNsYXNzPSdhbGVydERhbmdlckNvbG9yJyBzdHlsZT0nYmFja2dyb3VuZC1jb2xvcjojYWExMTExOyBjb2xvcjojZmZmZmZmJz5BbGVydDo8L3NwYW4+IDxzcGFuIGNsYXNzPSdhbGVydFRleHRJbmZvJz48cD5Xb29kY2xpZmYgTGFrZSBTY2hvb2xzIGFyZSBjbG9zZWQ8L3A+PC9zcGFuPjwvbGk+PC91bD5kAgMPZBYCAgEPZBYCAgEPZBYGAgEPDxYCHwAFbTxpIGNsYXNzPSJmYSBmYS1tYXAtbWFya2VyIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PC9pPiZuYnNwOyZuYnNwOzEzNCBXb29kY2xpZmYgQXZlbnVlLCBXb29kY2xpZmYgTGFrZSwgTkogMDc2NzdkZAIHDw8WBB8ABS08c3BhbiBjbGFzcz0ib2JzY3VyZSI+bGluayB0byBob21lcGFnZTwvc3Bhbj4eC05hdmlnYXRlVXJsBQEvZGQCDQ8PFgIfAAUWV29vZGNsaWZmIExha2UgU2Nob29sc2RkAgUPZBYCAgEPZBYCZg8WAh8BAgoWFGYPZBYEZg8VAgA2V29vZGNsaWZmIE1pZGRsZSBTY2hvb2wgd2l0aCBPbGQgU2Nob29sIEhvdXNlIGFuZCBzaWduZAIBDxUBOy91c2VyZmlsZXMvMjAxOC0wNi9iZWQ3ZTlhOC02MTk1LTQxMGEtYWFjYy0zOTg3MzgyMmZiMDIuanBnZAIBD2QWBGYPFQIALERvcmNoZXN0ZXIgRWxlbWVudGFyeSBTY2hvb2wgLWxvd2VyIGVudHJhbmNlZAIBDxUBOy91c2VyZmlsZXMvMjAxOC0wNi85NDc1YjMwMi04MGY4LTRjNjgtOGYxNi00ZjNmNTc2Zjg3YzkuanBnZAICD2QWBGYPFQIALk5ldyBEb3JjaGVzdGVyIHBsYXlncm91bmQtIGxvd2VyIGxldmVsLSB2aWV3IDFkAgEPFQE7L3VzZXJmaWxlcy8yMDE4LTEwL2QyMTgzNWE3LTJiNDItNDU1Zi04ODg0LWFlODMyYzdlNWQ4Ny5qcGdkAgMPZBYEZg8VAgAuTmV3IERvcmNoZXN0ZXIgcGxheWdyb3VuZCAtbG93ZXIgbGV2ZWwtIHZpZXcgMmQCAQ8VATsvdXNlcmZpbGVzLzIwMTgtMTAvZmYwYjY1NzUtNjBhMi00ZmRmLWEwM2QtOWMyYTY2NGNmYWMyLmpwZ2QCBA9kFgRmDxUCABtEb3JjaGVzdGVyIHVwcGVyIHBsYXlncm91bmRkAgEPFQE7L3VzZXJmaWxlcy8yMDE4LTA2LzYwZjc3OWMwLWFiMDgtNDdhZC04Nzg2LTc2YjQ1N2E5MjEyYS5qcGdkAgUPZBYEZg8VAgAUV0NNUyBDT1VSVFlBUkQgUk9TRVNkAgEPFQE7L3VzZXJmaWxlcy8yMDE4LTA2LzZhOGIzMmE1LTk2M2YtNGYzMy05MDViLTgzMmY1Mjk2MTQ1Ny5qcGdkAgYPZBYEZg8VAgBJV29vZGNsaWZmIE1pZGRsZSBTY2hvb2wgLSBiYWNrIHZpZXcgb2YgTWVkaWEgQ2VudGVyIHdpdGggYmFza2V0YmFsbCBjb3VydGQCAQ8VATsvdXNlcmZpbGVzLzIwMTgtMDYvZGQ4MGMyMzctZTY1Ni00NGU0LWE3NTMtODY5ZTJiMGM3MDUwLmpwZ2QCBw9kFgRmDxUCADZXb29kY2xpZmYgTGFrZSBNaWRkbGUgU2Nob29sIC1NZWRpYSBDZW50ZXIgLSBzaWRlIHZpZXdkAgEPFQE7L3VzZXJmaWxlcy8yMDE4LTA2L2JkZWQ5NDEwLTliM2UtNDNiZS1iNjA0LTFkY2YzMzcxOTQzZC5qcGdkAggPZBYEZg8VAgAkRG9yY2hlc3RlciBTY2hvb2wgR3ltbmFzaXVtIGVudHJhbmNlZAIBDxUBOy91c2VyZmlsZXMvMjAxOC0wNi9kNzg4ODliOC00MTgxLTQ2NjgtYmEwZS01ZmMzZmYyY2NmYjYuanBnZAIJD2QWBGYPFQIAH1dvb2RjbGlmZiBTY2hvb2wgZnJvbnQgZW50cmFuY2VkAgEPFQE7L3VzZXJmaWxlcy8yMDE4LTA2LzE2NWJmMzRjLTVmYTktNDM3Ny1hMzA0LTYyMTc0N2NjMjIyZS5qcGdkAgkPZBYMAgMPZBYGZg8WAh8ABQdXZWxjb21lZAIBDxYCHwAFrwM8cD5UaGUmbmJzcDtXb29kY2xpZmYgTGFrZSBTY2hvb2wgRGlzdHJpY3QmbmJzcDtzZXJ2ZXMgdGhlIGNvbW11bml0eSByZXNpZGVudHMgb2YgdGhlIEJvcm91Z2ggb2YgV29vZGNsaWZmIExha2UsIE5ldyBKZXJzZXkuIFRoZSBzY2hvb2wgYW5kIGNvbW11bml0eSBhcmUgbG9jYXRlZCBpbiBCZXJnZW4gQ291bnR5IGFuZCBhcmUgc2l0dWF0ZWQgaW4gdGhlIG5vcnRoZXJuIHBhcnQgb2YgdGhpcyBjb3VudHkuIEFsbCBzY2hvb2wtYWdlIHN0dWRlbnRzIGFyZSBzZXJ2ZWQgdGhyb3VnaCBhIHZhcmlldHkgb2YgcHJvZ3JhbXMgaW4gZ3JhZGVzIHByZS1raW5kZXJnYXJ0ZW4gdGhyb3VnaCBlaWdodGggZ3JhZGUuIEhpZ2ggc2Nob29sIGFnZWQgc3R1ZGVudHMgaW4gdGhlIGNvbW11bml0eSBhdHRlbmQgdGhlIFBhc2NhY2sgSGlsbHMgSGlnaCBTY2hvb2wuPC9wPmQCAw8PFgIfBgUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0xZGQCBQ8PFgIfBgUNLzAvZmVhdHVyZWQvMWRkAgcPZBYCZg8PFgIfBWhkZAIJD2QWBmYPFgIfAAUOVG9kYXkgaXM6ICBEYXlkAgEPFgIfAAW+CDxkaXYgaWQ9InJlc3VsdCI+DQo8cD48bWV0YSBjaGFyc2V0PSJ1dGYtOCIgLz48L3A+DQoNCjxkaXYgY2xhc3M9InRodW1ibmFpbCBoaWRkZW4iPjxpbWcgYWx0PSIiIGlkPSJkYXlJbWFnZSIgc3JjPSIiIC8+PC9kaXY+DQo8L2Rpdj4NCjxzY3JpcHQgc3JjPSIvdXNlcmZpbGVzLy0xMi9NeSBGaWxlcy90b2RheXNkYXljb2RlMi9jYWxlbmRhckRheXMuanMiID48L3NjcmlwdCA+DQoNCjxwID4mbmJzcDsmbmJzcDs8YSBocmVmPSJodHRwczovL3d3dy5mYWNlYm9vay5jb20vV29vZGNsaWZmTGFrZVNjaG9vbHMvIiA+PGltZyBhbHQ9IkZhY2Vib29rIiBzcmM9Ii91c2VyZmlsZXMvNDMvbXklMjBmaWxlcy9mYWNlYm9vay5wbmc/aWQ9Mzc0JmFtcDt3aWR0aD01NSIgc3R5bGU9IndpZHRoOiA1NXB4OyBoZWlnaHQ6IDU1cHg7IiAvPiZuYnNwOyAmbmJzcDsgJm5ic3A7Jm5ic3A7PGltZyBhbHQ9IkZhY2Vib29rIFNjcmVlbnNob3QiIHNyYz0iL3VzZXJmaWxlcy80My9teSUyMGZpbGVzL2Rpc3RyaWN0L2ZhY2Vib29rJTIwc2NyZWVuJTIwc2hvdC5qcGc/aWQ9Mzc2JmFtcDt3aWR0aD0yMDAiIHN0eWxlPSJ3aWR0aDogMjAwcHg7IGhlaWdodDogMTI1cHg7IGJvcmRlci13aWR0aDogMnB4OyBib3JkZXItc3R5bGU6IHNvbGlkOyIgLz48L2EgPjwvcCA+DQoNCjxwID48YSBocmVmPSJodHRwczovL3d3dy5pbnN0YWdyYW0uY29tL3djbHNjaG9vbGRpc3RyaWN0LyIgPjxpbWcgYWx0PSJJbnN0YWdyYW0iIHNyYz0iL3VzZXJmaWxlcy80My9teSUyMGZpbGVzL2Rpc3RyaWN0LzU4MGI1N2ZjZDk5OTZlMjRiYzQzYzUyMS5wbmc/aWQ9Mzc3JmFtcDt3aWR0aD03NSIgc3R5bGU9IndpZHRoOiA3NXB4OyBoZWlnaHQ6IDc1cHg7IiAvPiZuYnNwOyZuYnNwOzxpbWcgYWx0PSJJbnN0YWdyYW0gc2NyZWVuIHNob3QiIHNyYz0iL3VzZXJmaWxlcy80My9teSUyMGZpbGVzL2Rpc3RyaWN0L2luc3RhZ3JhbSUyMHNjcmVlbiUyMHNob3QuanBnP2lkPTM3OCZhbXA7d2lkdGg9MjAwIiBzdHlsZT0id2lkdGg6IDIwMHB4OyBoZWlnaHQ6IDExMnB4OyBib3JkZXItd2lkdGg6IDJweDsgYm9yZGVyLXN0eWxlOiBzb2xpZDsiIC8+PC9hID48L3AgPmQCAw8PFgIfBgUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0yZGQCCw9kFgZmDxYCHwAFDURpc3RyaWN0IE5ld3NkAgEPFgIfAAWPFzxwPjxhIGhyZWY9Ii91c2VyZmlsZXMvNDMvbXkgZmlsZXMvY292aWQxOS93b29kY2xpZmYgbGFrZSBwbGFuIHJldmlzZWQgMy4yMy4yMC5wZGY/aWQ9MzM1MSI+PGltZyBhbHQ9IlByZXBhcmVkbmVzcyBQbGFuIiBoZWlnaHQ9Ijc3IiBzcmM9Ii91c2VyZmlsZXMvODkvbXklMjBmaWxlcy9jb3ZpZCUyMDE5L3BsYW4lMjBsaW5rJTIwcGljLnBuZz9pZD0zMzQ3JmFtcDt3aWR0aD0yNTAiIHdpZHRoPSIyMzciIC8+PC9hPjwvcD4NCg0KPHA+PHN0cm9uZz48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE0cHg7Ij48c3BhbiBjbGFzcz0iVW5kZXJsaW5lIiBzdHlsZT0idGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTsiPjxhIGhyZWY9Imh0dHBzOi8vc2l0ZXMuZ29vZ2xlLmNvbS93b29kY2xpZmYtbGFrZS5jb20vd2NscmVtb3RlbGVhcm5pbmcvaG9tZSI+PHNwYW4gc3R5bGU9ImNvbG9yOiMwMDAwRkY7Ij48c3BhbiBjbGFzcz0iVW5kZXJsaW5lIj5SZW1vdGUgTGVhcm5pbmcgV2Vic2l0ZTwvc3Bhbj48L3NwYW4+PC9hPjwvc3Bhbj48L3NwYW4+PC9zdHJvbmc+PC9wPg0KDQo8cD48c3Ryb25nPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTRweDsiPjxzcGFuIGNsYXNzPSJVbmRlcmxpbmUiIHN0eWxlPSJ0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lOyI+PGEgZGF0YS1zYWZlcmVkaXJlY3R1cmw9Imh0dHBzOi8vd3d3Lmdvb2dsZS5jb20vdXJsP3E9aHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vZm9ybXMvZC9lLzFGQUlwUUxTZlFRWHJXcmIzYmlLVE1vRmprRXRPN3VBZjhOTmMzLUZqdm1rUTB3NE5DNnV1ZE9nL3ZpZXdmb3JtP3VzcCUzRHNmX2xpbmsmYW1wO3NvdXJjZT1nbWFpbCZhbXA7dXN0PTE1ODQ3MjAzNzUzODgwMDAmYW1wO3VzZz1BRlFqQ05GTjhLRUZZNlpxX1EzeFE5dm9OSUlJOTEzb2dBIiBocmVmPSJodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9mb3Jtcy9kL2UvMUZBSXBRTFNmUVFYcldyYjNiaUtUTW9GamtFdE83dUFmOE5OYzMtRmp2bWtRMHc0TkM2dXVkT2cvdmlld2Zvcm0/dXNwPXNmX2xpbmsiIHRhcmdldD0iX2JsYW5rIj48c3BhbiBzdHlsZT0iY29sb3I6IzAwMDBGRjsiPjxzcGFuIGNsYXNzPSJVbmRlcmxpbmUiPldvb2RjbGlmZiBMYWtlIEZhbWlseSBBc3Npc3RhbmNlIFJlcXVlc3Q8L3NwYW4+PC9zcGFuPjwvYT48L3NwYW4+PC9zcGFuPjwvc3Ryb25nPjwvcD4NCg0KPHA+TXMuIFBlbm5lbGxvIGFuZCB0aGUgV0NNUyBzdGFmZiB3YW50ZWQgdG8gZ2l2ZSB5b3UgYSB0YXN0ZSBvZiBGcm96ZW4gSnIuLi5mcm9tIGEgZGlzdGFuY2UuIEVuam95ICZxdW90OzxzdHJvbmc+PGEgaHJlZj0iaHR0cHM6Ly9kcml2ZS5nb29nbGUuY29tL2ZpbGUvZC8xd1o2QlViYnhMLTM4dW5oVkJaSnpFeXFiRTE0RFp1MW0vdmlldz91c3A9c2hhcmluZyI+PHNwYW4gc3R5bGU9ImNvbG9yOiMwMDAwRkY7Ij5JbiBRdWFyYW50aW5lPC9zcGFuPjwvYT48L3N0cm9uZz4mcXVvdDs8L3A+DQoNCjxwPioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKioqKio8L3A+DQoNCjxwPjxpbWcgYWx0PSJsb2dvIiBoZWlnaHQ9Ijc5IiBzcmM9Imh0dHA6Ly93d3cud29vZGNsaWZmLWxha2UuY29tL3VzZXJmaWxlcy84OS9NeSUyMEZpbGVzL05ldyUyMEZvbGRlci9TY3JlZW4lMjBTaG90JTIwMjAxOC0xMS0xNCUyMGF0JTIwMi4wNS4yMCUyMFBNLnBuZz9pZD0xNDc0IiB3aWR0aD0iMTU2IiAvPjwvcD4NCg0KPHA+R28gdG8gdGhlIEFwcCBTdG9yZSB0byBkb3dubG9hZCBvdXIgRGlzdHJpY3QgYXBwIG9uIHlvdXIgbW9iaWxlIGRldmljZS48YnIgLz4NCiZuYnNwOzwvcD4NCg0KPHA+PGltZyBhbHQ9Ik9uZSBjYWxsIG5vdyIgaGVpZ2h0PSI1NiIgc3JjPSIvdXNlcmZpbGVzLzg5L215JTIwZmlsZXMvc2NyZWVuJTIwc2hvdCUyMDIwMTktMDgtMDYlMjBhdCUyMDEuMjQuNDglMjBwbS5wbmc/aWQ9MjU5NSIgd2lkdGg9IjEzMyIgLz48L3A+DQoNCjxwPklmIHlvdSBoYXZlIG5vdCBhbHJlYWR5IHJlZ2lzdGVyZWQgZm9yIG91ciBkaXN0cmljdCYjMzk7cyBlbWVyZ2VuY3kgYWxlcnRzLCBwbGVhc2UgY2xpY2sgPGEgaHJlZj0iaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vZm9ybXMvZC8xTjc1NVozS1l3RHctdmdNNzJIUTVWOC1ZWEJabWRZSGFHaDEwaVVzR1R4by9lZGl0IiB0YXJnZXQ9Il9ibGFuayI+PHNwYW4gY2xhc3M9IlVuZGVybGluZSIgc3R5bGU9InRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7Ij48c3Ryb25nPmhlcmU8L3N0cm9uZz48L3NwYW4+PC9hPiB0byByZWdpc3Rlci4gVGhpcyBsaXN0IHdpbGwgb25seSBiZSB1cGRhdGVkIGF0IHRoZSBlbmQgb2YgZWFjaCBtb250aC48L3A+DQoNCjxwPklmIHlvdSBoYXZlIGFscmVhZHkgcmVnaXN0ZXJlZCBidXQgd291bGQgbGlrZSB0byB1cGRhdGUgeW91ciBpbmZvcm1hdGlvbiwgcGxlYXNlIGdvIHRvIDxhIGhyZWY9Imh0dHBzOi8vd3d3Lm15Y2FsbG5vdy5jb20vIiB0YXJnZXQ9Il9ibGFuayI+PHNwYW4gY2xhc3M9IlVuZGVybGluZSIgc3R5bGU9InRleHQtZGVjb3JhdGlvbjp1bmRlcmxpbmU7Ij48c3Ryb25nPk15Q2FsbE5vdzwvc3Ryb25nPjwvc3Bhbj48L2E+IGFuZCBjbGljayB0aGUgZ3JlZW4gJnF1b3Q7U2lnbiBVcCZxdW90OyBidXR0b24gdG8gY3JlYXRlIGFuIGFjY291bnQuJm5ic3A7IFlvdSB3aWxsIHRoZW4gYmUgYWJsZSB0byBlZGl0IHlvdXIgY29udGFjdCBpbmZvcm1hdGlvbi48L3A+DQoNCjxwPkhvdyBkbyB3ZSBjYWxsIGEgc25vdyBkYXk/PGJyIC8+DQpDbGljayA8YSBocmVmPSJodHRwczovL2NvbnRhLmNjLzJPbThYNVciIHRhcmdldD0iX2JsYW5rIj48c3BhbiBjbGFzcz0iVW5kZXJsaW5lIiBzdHlsZT0idGV4dC1kZWNvcmF0aW9uOnVuZGVybGluZTsiPmhlcmU8L3NwYW4+PC9hPiBmb3IgdGhlIFN1cGVyaW50ZW5kZW50JiMzOTtzIGxldHRlci48L3A+DQoNCjxwPiZuYnNwOzwvcD5kAgMPDxYCHwYFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9M2RkAg0PDxYCHwYFDS8wL2ZlYXR1cmVkLzNkZAIPD2QWCmYPDxYCHwAFFldvb2RjbGlmZiBMYWtlIFNjaG9vbHNkZAIBDw8WAh8ABTIxMzQgV29vZGNsaWZmIEF2ZW51ZTxiciAvPldvb2RjbGlmZiBMYWtlLCBOSiAwNzY3N2RkAgIPDxYCHwAFUTxzdHJvbmc+UGhvbmU6PC9zdHJvbmc+ICgyMDEpIDkzMC01NjAwIDxiciAvPjxzdHJvbmc+RmF4Ojwvc3Ryb25nPiAoMjAxKSA5MzAtMDQ4OGRkAgMPZBYCZg8WAh8BAgYWDGYPZBYCZg8VBQYvbG9naW4YQ29udGVudCBNYW5hZ2VtZW50IExvZ2luBV9zZWxmJjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5DTVMgTG9naW48L3NwYW4+DWZhIGZhLXNpZ24taW5kAgEPZBYCZg8VBRUvSW50cmFuZXQvQ29udGVudC8zMjIUSW50cmFuZXQgU3RhZmYgTG9naW4FX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkludHJhbmV0PC9zcGFuPg1mYSBmYS1zaXRlbWFwZAICD2QWAmYPFQUuaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL1dvb2RjbGlmZkxha2VTY2hvb2xzLx9Xb29kY2xpZmYgU2Nob29scyBGYWNlYm9vayBQYWdlBl9ibGFuayU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+RmFjZWJvb2s8L3NwYW4+FWZhIGZhLWZhY2Vib29rLXNxdWFyZWQCAw9kFgJmDxUFF2h0dHBzOi8vbWFpbC5nb29nbGUuY29tBUdtYWlsBl9ibGFuayM8c3BhbiBjbGFzcz0nb2JzY3VyZSc+R29vZ2xlPC9zcGFuPgxmYSBmYS1nb29nbGVkAgQPZBYCZg8VBSdodHRwczovL2luc3RhZ3JhbS5jb20vd2Nsc2Nob29sZGlzdHJpY3QJSW5zdGFncmFtBV9zZWxmJjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5JbnN0YWdyYW08L3NwYW4+D2ZhIGZhLWluc3RhZ3JhbWQCBQ9kFgJmDxUFCy9hZGEtcmVwb3J0DUFEQSBSZXBvcnRpbmcFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBMaW5rPC9zcGFuPhZmYSBmYS11bml2ZXJzYWwtYWNjZXNzZAIFD2QWBmYPFgIfAAUKTGVhcm4gbW9yZWQCAQ8WAh8AZWQCAw8PFgIfBgUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz00ZGRko9CgUL0fB01sp9CcyzxDnphtF3A=">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+<style type="text/css">
+    .alertdiv,
+    .alertReShow,
+    .alertList {
+        display: none;
+    }
+
+    .alertTab {
+        margin-left: 20px;
+    }
+
+    .alertTitle {
+        display: inline-block;
+        padding: 2px 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    .nextAlert {
+        background: #676767;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .alertCount {
+        position: absolute;
+        left: -115px;
+    }
+
+    .textalert {
+        color: #ffffff;
+        position: relative;
+    }
+
+    .alertBar {
+        z-index: 10;
+        font-weight: normal;
+        background: #373737;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#373737), to(#202020)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#373737, #202020); /* Chrome 10+, Saf5.1+ */
+        background-image: -moz-linear-gradient(#373737, #202020); /* FF3.6 */
+        background-image: -ms-linear-gradient(#373737, #202020); /* IE10 */
+        background-image: -o-linear-gradient(#373737, #202020); /* Opera 11.10+ */
+        background-image: linear-gradient(#373737, #202020);
+    }
+
+    a.closeAlert {
+        color: #fff;
+        font-size: 20px;
+    }
+
+    a.openAlert {
+        color: #fff;
+        font-size: 20px;
+        padding-right: 18px;
+        padding-top: 3px;
+    }
+
+    .alertDangerColor {
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .alertPrefix {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+        margin: 0;
+        border-radius: 3px;
+        font-size: 18px;
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+    .alertText {
+        display: inline-block;
+        width: 100%;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    #alertTicker > .alertTextInfo,
+    #alertTicker > .alertTextInfo > p:first-child, .alertTextInfo > span:first-child{display:inline;}
+    .popExclam {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .dark.alertBar{color:#fff;}
+     .dark.alertBar a{color:#fff; text-decoration:underline;}
+         .light.alertBar a{ text-decoration:underline;}
+        .popExclam i {
+            color: #aa1111 !important;
+            font-size: 55px;
+        }
+        .exclamText{padding-top:15px;}
+        .bottomRightEcxlam{position:fixed;z-index:1001;bottom:55px; right:25px;display:none;}
+</style>
+<!--[if lte IE 9]>
+	<style type="text/css">
+	    .alertBar {
+            background: #202020;
+        }
+	</style>
+<![endif]--><div id="ctl00_ctl00_ctl05_ctl01_BarAlert">
+	
+    <script>
+        $(document).ready(function () {
+            var startColor = "373737";
+            if (startColor == "ffffff") {
+                $(".alertBar").addClass("light");
+            }
+            else {
+                $(".alertBar").addClass("dark");
+            }
+        });
+
+    </script><div class="alert-margin">
+        <div style="position: relative; padding: 10px 45px 10px 10px;" class="alertdiv alertBar">
+            <div style="max-width: 980px; margin: 0 auto; font-size: 18px" class="textalert">
+                
+
+                <div id="alertTicker" tabindex="0"></div>
+            </div>
+
+            <ul class="alertList"><li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff">Alert:</span> <span class="alertTextInfo"><p>Woodcliff Lake Schools are closed</p></span>
+</li></ul>
+<div style="position: absolute; right: 20px; top: 5px; z-index: 20;">
+                <a href="javascript:hideAlert()" class="closeAlert">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <span class="obscure">Close alert</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="alertReShow alertBar" style="position: relative; width: 100%; padding: 2px;">
+            <a style="float: right;" href="javascript:loadAlert()" class="openAlert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <span class="obscure">Open alert</span>
+            </a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>
+<div>
+      <a id="exclamationAlert" class="popExclam bottomRightEcxlam"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+</div>
+<script type="text/javascript" src="/admin/js/alert/alertDown.js?version=4"></script><script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: '2ywk7sLCO2' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><header id="site-head"><div id="DesktopHeader" class="hidden-xs">
+	<div class="bg-header1">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-6">
+					<span id="ctl00_ctl00_header_header_ctl00_lblMapText" class="headerMapText"><i class="fa fa-map-marker" aria-hidden="true"></i>  134 Woodcliff Avenue, Woodcliff Lake, NJ 07677</span>
+				</div>
+
+				<div class="col-xs-6">
+					<div class="wrap-search">
+						
+
+<div class="search-box">
+	<label for="txtSearchBox" class="obscure">Search site using Google</label><input id="txtSearchBox" type="text" class="search-box-input" placeholder="Search" onkeyup="return tableInputKeyPress(event)"><i class="search-box-go fa fa-search bSearch3"></i>
+</div>
+					</div>
+
+					<a id="ctl00_ctl00_header_header_ctl00_linkSignIn" class="headerSignInLink pull-right" href="/login">Sign In</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-header2">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<a id="ctl00_ctl00_header_header_ctl00_linkLogo" class="logo" href="/"><span class="obscure">link to homepage</span></a>
+
+					<div class="wrap-quickLinks">
+						<ul>
+<li class="dropdown">
+								<a href="#" class="dropdown-toggle quicklinksDropdown" data-toggle="dropdown" title="Quick Links"><i class="fa fa-link" aria-hidden="true"></i>Quick Links <strong class="caret"></strong></a>
+								<ul class="dropdown-menu">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/Athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="http://visitor.r20.constantcontact.com/d.jsp?llr=is9gssnab&amp;p=oi&amp;m=1114093349448&amp;sit=tj7axg4hb" title="Constant Contact Registration">Constant Contact Registration</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/p5512%20%20harassment%20(1).pdf?id=46" title="HIB Information">HIB Information</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/fy17abrselfassessment5880%20(1).pdf?id=47" title="HIB Grades">HIB Grades</a></li>
+<li class="without-image"><a href="/Communication" title="Communications Registration">Communications Registration</a></li>
+</ul>
+</li>
+						</ul>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-header3">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<ul class="topNav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/2/home" title="Dorchester Elementary">Dorchester Elementary</a></li>
+<li class="without-image"><a href="/1/home" title="Woodcliff Middle School">Woodcliff Middle School</a></li>
+<li class="without-image"><a href="http://www.woodclifflakesd.nj.schools.bz/" title="District">District</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District ">District   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/board" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/superintendent" title="Superintendent ">Superintendent </a></li>
+<li class="without-image"><a href="/Content/budget" title="Budget">Budget</a></li>
+<li class="without-image"><a href="http://www.straussesmay.com/seportal/Public/pubELANOnline.aspx?id=62b04d5fb6a340a495288c88c6ea846a" title="Policy Book">Policy Book</a></li>
+<li class="without-image"><a href="/Content/curriculum-k-8" title="Curriculum K-8">Curriculum K-8</a></li>
+<li class="without-image"><a href="/Content/teacher-evaluation-system-" title="Teacher Evaluation System ">Teacher Evaluation System </a></li>
+<li class="without-image"><a href="/Content/386" aria-label="" title="Job Opportunities ">Job Opportunities </a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="CST">CST  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/364" title="Welcome &amp; Program Overview">Welcome &amp; Program Overview</a></li>
+<li class="without-image"><a href="/Content/366" target="_blank" title="Child Study Team">Child Study Team</a></li>
+<li class="without-image"><a href="/userfiles/43/my%20files/district/foldable_flyer_special_ed.pdf?id=509" title="Program Description">Program Description</a></li>
+<li class="without-image"><a href="https://www.wclsepac.com/" title="SEPAC">SEPAC</a></li>
+<li class="without-image"><a href="/Content/368" title="Mental Health Resources">Mental Health Resources</a></li>
+<li class="without-image"><a href="/Content/370" title="Coping with Traumatic Events">Coping with Traumatic Events</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="School Year Calendar">School Year Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/89/my%20files/2019-2020%20final%20district%20calendar.pdf?id=1790" target="_blank" title="2019-2020 BOE Approved Calendar">2019-2020 BOE Approved Calendar</a></li>
+<li class="without-image"><a href="http://www.woodcliff-lake.com/userfiles/89/My%20Files/2020-2021%20Final%20Calendar-1.pdf?id=3098" target="_blank" title="2020-2021 BOE Approved Calendar">2020-2021 BOE Approved Calendar</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/staff" title="District Directory">District Directory</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Online Payments">Online Payments  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="https://www.myschoolbucks.com/ver2/login/getmain?requestAction=home" title="My School Bucks">My School Bucks</a></li></ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="For Teachers">For Teachers  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://ps.woodcliff-lake.com/teachers/pw.html" title="PowerTeacher">PowerTeacher</a></li>
+<li class="without-image"><a href="https://login.myschoolbuilding.com/msb" target="_blank" title="Maintenance/Work Orders">Maintenance/Work Orders</a></li>
+<li class="without-image"><a href="https://login.myschoolbuilding.com/msb?acctNum=1284067840" target="_blank" title="Facilities Use Request">Facilities Use Request</a></li>
+<li class="without-image"><a href="https://helpdesk.bergen.org/helpdesk/WebObjects/Helpdesk.woa" target="_blank" title="Bergen Help Desk">Bergen Help Desk</a></li>
+<li class="without-image"><a href="https://login.frontlineeducation.com/login?signin=bf783f52f500d647a6eaba5a257b7e79&amp;productId=pd&amp;clientId=pd#/login" target="_blank" title="My Learning Plan/Oasys">My Learning Plan/Oasys</a></li>
+<li class="without-image"><a href="http://www.woodcliff-lake.com/Content/teachertalk2-0%20%20" title="Teacher Talk 2.0">Teacher Talk 2.0</a></li>
+</ul>
+</li>
+</ul>
+</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="MobileHeader" class="hidden-sm hidden-md hidden-lg">
+	<div class="wrap-mobileNavBar clearfix">
+		<a id="ctl00_ctl00_header_header_ctl00_MobileName" class="mobileName" href="/">Woodcliff Lake Schools</a>
+
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MobileNav">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+			<span class="obscure">toggle menu</span>
+		</button>
+	</div>
+
+	<nav id="MobileNav" class="collapse"><h2>Quick Links</h2>
+
+		<ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/Athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="http://visitor.r20.constantcontact.com/d.jsp?llr=is9gssnab&amp;p=oi&amp;m=1114093349448&amp;sit=tj7axg4hb" title="Constant Contact Registration">Constant Contact Registration</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/p5512%20%20harassment%20(1).pdf?id=46" title="HIB Information">HIB Information</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/fy17abrselfassessment5880%20(1).pdf?id=47" title="HIB Grades">HIB Grades</a></li>
+<li class="without-image"><a href="/Communication" title="Communications Registration">Communications Registration</a></li>
+</ul>
+<ul class="">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/2/home" title="Dorchester Elementary">Dorchester Elementary</a></li>
+<li class="without-image"><a href="/1/home" title="Woodcliff Middle School">Woodcliff Middle School</a></li>
+<li class="without-image"><a href="http://www.woodclifflakesd.nj.schools.bz/" title="District">District</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District ">District   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/board" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/superintendent" title="Superintendent ">Superintendent </a></li>
+<li class="without-image"><a href="/Content/budget" title="Budget">Budget</a></li>
+<li class="without-image"><a href="http://www.straussesmay.com/seportal/Public/pubELANOnline.aspx?id=62b04d5fb6a340a495288c88c6ea846a" title="Policy Book">Policy Book</a></li>
+<li class="without-image"><a href="/Content/curriculum-k-8" title="Curriculum K-8">Curriculum K-8</a></li>
+<li class="without-image"><a href="/Content/teacher-evaluation-system-" title="Teacher Evaluation System ">Teacher Evaluation System </a></li>
+<li class="without-image"><a href="/Content/386" aria-label="" title="Job Opportunities ">Job Opportunities </a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="CST">CST  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/364" title="Welcome &amp; Program Overview">Welcome &amp; Program Overview</a></li>
+<li class="without-image"><a href="/Content/366" target="_blank" title="Child Study Team">Child Study Team</a></li>
+<li class="without-image"><a href="/userfiles/43/my%20files/district/foldable_flyer_special_ed.pdf?id=509" title="Program Description">Program Description</a></li>
+<li class="without-image"><a href="https://www.wclsepac.com/" title="SEPAC">SEPAC</a></li>
+<li class="without-image"><a href="/Content/368" title="Mental Health Resources">Mental Health Resources</a></li>
+<li class="without-image"><a href="/Content/370" title="Coping with Traumatic Events">Coping with Traumatic Events</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="School Year Calendar">School Year Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/89/my%20files/2019-2020%20final%20district%20calendar.pdf?id=1790" target="_blank" title="2019-2020 BOE Approved Calendar">2019-2020 BOE Approved Calendar</a></li>
+<li class="without-image"><a href="http://www.woodcliff-lake.com/userfiles/89/My%20Files/2020-2021%20Final%20Calendar-1.pdf?id=3098" target="_blank" title="2020-2021 BOE Approved Calendar">2020-2021 BOE Approved Calendar</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/staff" title="District Directory">District Directory</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Online Payments">Online Payments  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="https://www.myschoolbucks.com/ver2/login/getmain?requestAction=home" title="My School Bucks">My School Bucks</a></li></ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="For Teachers">For Teachers  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://ps.woodcliff-lake.com/teachers/pw.html" title="PowerTeacher">PowerTeacher</a></li>
+<li class="without-image"><a href="https://login.myschoolbuilding.com/msb" target="_blank" title="Maintenance/Work Orders">Maintenance/Work Orders</a></li>
+<li class="without-image"><a href="https://login.myschoolbuilding.com/msb?acctNum=1284067840" target="_blank" title="Facilities Use Request">Facilities Use Request</a></li>
+<li class="without-image"><a href="https://helpdesk.bergen.org/helpdesk/WebObjects/Helpdesk.woa" target="_blank" title="Bergen Help Desk">Bergen Help Desk</a></li>
+<li class="without-image"><a href="https://login.frontlineeducation.com/login?signin=bf783f52f500d647a6eaba5a257b7e79&amp;productId=pd&amp;clientId=pd#/login" target="_blank" title="My Learning Plan/Oasys">My Learning Plan/Oasys</a></li>
+<li class="without-image"><a href="http://www.woodcliff-lake.com/Content/teachertalk2-0%20%20" title="Teacher Talk 2.0">Teacher Talk 2.0</a></li>
+</ul>
+</li>
+</ul>
+<ul class="faFix">
+<li class="without-image"><a href="http://www.wclpfa.com/WlL/index.cfm" target="_blank" title="PFA">PFA</a></li>
+<li class="without-image"><a href="http://www.wclef.com/" target="_blank" title="WCLEF">WCLEF</a></li>
+<li class="without-image"><a href="/Content/316" target="_blank" title="ATB">ATB</a></li>
+<li class="without-image"><a href="http://www.woodclifflakesd.nj.schools.bz/staff" title="Directory">Directory</a></li>
+<li class="without-image"><a href="/Content/380" target="_blank" aria-label="" title="Woodcliff Weekly ">Woodcliff Weekly </a></li>
+<li class="without-image"><a href="https://ps.woodcliff-lake.com/public/" title="PowerSchool">PowerSchool</a></li>
+</ul>
+<ul class="">
+<li class="without-image"><a href="https://visitor.r20.constantcontact.com/manage/optin?v=001fCAWzVK3QXCGYMI1lIKWj2DvMF2vp7FBoO_dN_sr_wKedLGxjzm6Ww%3D%3D" target="_blank" title="Constant Contact">Constant Contact</a></li>
+<li class="without-image"><a href="/userfiles/89/my%20files/p5512%20.pdf?id=941" target="_blank" title="HIB Policy">HIB Policy</a></li>
+<li class="without-image"><a href="http://www.woodcliff-lake.com/userfiles/89/My%20Files/FY19_ABR_SELF_ASSESSMENT_5880.pdf?id=2534" target="_blank" title="HIB Grades Report">HIB Grades Report</a></li>
+</ul></nav>
+</div>
+
+	
+
+        </header><div class="wrap-slideshow">
+		
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({
+			effect: 'fade',
+			pauseTime: 3000,
+			prevText: 'Prev',
+			nextText: 'Next',
+			animSpeed: 500,
+			afterLoad: function () {
+				if (typeof nivoAfterLoad === 'function' && nivoAfterLoad !== 'undefined') {
+					nivoAfterLoad();
+				}
+			},
+			beforeChange: function () {
+				if (typeof nivoBeforeChange === 'function' && nivoBeforeChange !== 'undefined') {
+					nivoBeforeChange();
+				}
+			},
+			afterChange: function () {
+				if (typeof nivoAfterChange === 'function' && nivoAfterChange !== 'undefined') {
+					nivoAfterChange();
+				}
+			}
+		});
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+		var slider = jQuery('.slides');
+
+		var nivoStartStopControl = jQuery('<div class="nivo-startstopNav"></div>');
+		$('#slideshow').append(nivoStartStopControl);
+        nivoStartStopControl.append('<span tabindex="0" href="#" id="nivoStart" title="Play Slideshow"><span><i class="fa fa-play" aria-hidden="true"></i></span><span class="obscure">play slideshow</span></span> <span tabindex="0" href="#" id="nivoStop" title="Pause Slideshow"><span><i class="fa fa-pause" aria-hidden="true"></i><span class="obscure">stop slideshow</span></span></span>');
+
+		jQuery('#nivoStop').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').stop();
+		});
+
+		jQuery('#nivoStart').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').start();
+		});
+	});
+</script><style type="text/css">
+	.nivo-startstopNav {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		z-index: 3;
+	}
+
+	.nivo-startstopNav .fa {
+		width: 25px;
+		height: 25px;
+		color: #000;
+		background-color: #fff;
+		border-radius: 50%;
+		font-size: 15px;
+		text-align: center;
+		line-height: 25px;
+	}
+
+	.nivo-startstopNav .fa:hover {
+		cursor: pointer;
+	}
+</style>
+<div id="slideshow" class="">
+	<div class="slides">
+		
+				<img title="" alt="Woodcliff Middle School with Old School House and sign" src="/images/full//userfiles/2018-06/bed7e9a8-6195-410a-aacc-39873822fb02.jpg"><img title="" alt="Dorchester Elementary School -lower entrance" src="/images/full//userfiles/2018-06/9475b302-80f8-4c68-8f16-4f3f576f87c9.jpg"><img title="" alt="New Dorchester playground- lower level- view 1" src="/images/full//userfiles/2018-10/d21835a7-2b42-455f-8884-ae832c7e5d87.jpg"><img title="" alt="New Dorchester playground -lower level- view 2" src="/images/full//userfiles/2018-10/ff0b6575-60a2-4fdf-a03d-9c2a664cfac2.jpg"><img title="" alt="Dorchester upper playground" src="/images/full//userfiles/2018-06/60f779c0-ab08-47ad-8786-76b457a9212a.jpg"><img title="" alt="WCMS COURTYARD ROSES" src="/images/full//userfiles/2018-06/6a8b32a5-963f-4f33-905b-832f52961457.jpg"><img title="" alt="Woodcliff Middle School - back view of Media Center with basketball court" src="/images/full//userfiles/2018-06/dd80c237-e656-44e4-a753-869e2b0c7050.jpg"><img title="" alt="Woodcliff Lake Middle School -Media Center - side view" src="/images/full//userfiles/2018-06/bded9410-9b3e-43be-b604-1dcf3371943d.jpg"><img title="" alt="Dorchester School Gymnasium entrance" src="/images/full//userfiles/2018-06/d78889b8-4181-4668-ba0e-5fc3ff2ccfb6.jpg"><img title="" alt="Woodcliff School front entrance" src="/images/full//userfiles/2018-06/165bf34c-5fa9-4377-a304-621747cc222e.jpg">
+</div>
+	
+</div>
+
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			$('#slideshow .slides').append('<div class="captionContainer" />');
+			$('#slideshow .nivo-caption').appendTo($('#slideshow .captionContainer'));
+			$('#slideshow .nivo-controlNav').appendTo($('#slideshow .captionContainer'));
+		});
+	</script><section id="site-body"><div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+
+	<div class="bg-body1 hidden-xs">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 text-center">
+					<ul class="middleNav">
+<li class="without-image"><a href="http://www.wclpfa.com/WlL/index.cfm" target="_blank" title="PFA">PFA</a></li>
+<li class="without-image"><a href="http://www.wclef.com/" target="_blank" title="WCLEF">WCLEF</a></li>
+<li class="without-image"><a href="/Content/316" target="_blank" title="ATB">ATB</a></li>
+<li class="without-image"><a href="http://www.woodclifflakesd.nj.schools.bz/staff" title="Directory">Directory</a></li>
+<li class="without-image"><a href="/Content/380" target="_blank" aria-label="" title="Woodcliff Weekly ">Woodcliff Weekly </a></li>
+<li class="without-image"><a href="https://ps.woodcliff-lake.com/public/" title="PowerSchool">PowerSchool</a></li>
+</ul>
+</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-body2">
+		<div class="bg-body2-overlay"></div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-4 bg-leftGrey vertPad20">
+					<div class="panel">
+						
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Welcome
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>The Woodcliff Lake School District serves the community residents of the Borough of Woodcliff Lake, New Jersey. The school and community are located in Bergen County and are situated in the northern part of this county. All school-age students are served through a variety of programs in grades pre-kindergarten through eighth grade. High school aged students in the community attend the Pascack Hills High School.</p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+					</div>
+
+					<div class="viewAllContainer">
+						<div>
+							<a id="ctl00_ctl00_MasterContent_ReadMoreFC1" href="/0/featured/1">Read More</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-12 col-sm-4 vertPad20 heightCheck">
+					
+
+
+					<div class="panel">
+						
+<div class="feature-content todays-day-is">
+    
+    <h1 class="feature-content-title title">
+        Today is:  Day
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <div id="result">
+<p><meta charset="utf-8"></p>
+
+<div class="thumbnail hidden"><img alt="" id="dayImage" src=""></div>
+</div>
+<script src="/userfiles/-12/My%20Files/todaysdaycode2/calendarDays.js"></script><p>  <a href="https://www.facebook.com/WoodcliffLakeSchools/"><img alt="Facebook" src="/userfiles/43/my%20files/facebook.png?id=374&amp;width=55" style="width: 55px; height: 55px;">      <img alt="Facebook Screenshot" src="/userfiles/43/my%20files/district/facebook%20screen%20shot.jpg?id=376&amp;width=200" style="width: 200px; height: 125px; border-width: 2px; border-style: solid;"></a></p>
+
+<p><a href="https://www.instagram.com/wclschooldistrict/"><img alt="Instagram" src="/userfiles/43/my%20files/district/580b57fcd9996e24bc43c521.png?id=377&amp;width=75" style="width: 75px; height: 75px;">  <img alt="Instagram screen shot" src="/userfiles/43/my%20files/district/instagram%20screen%20shot.jpg?id=378&amp;width=200" style="width: 200px; height: 112px; border-width: 2px; border-style: solid;"></a></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+					</div>
+
+				</div>
+
+				<div class="col-xs-12 col-sm-4 vertPad20 heightCheck">
+					<div class="panel-fade">
+						
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        District News
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p><a href="/userfiles/43/my%20files/covid19/woodcliff%20lake%20plan%20revised%203.23.20.pdf?id=3351"><img alt="Preparedness Plan" height="77" src="/userfiles/89/my%20files/covid%2019/plan%20link%20pic.png?id=3347&amp;width=250" width="237"></a></p>
+
+<p><strong><span style="font-size:14px;"><span class="Underline" style="text-decoration:underline;"><a href="https://sites.google.com/woodcliff-lake.com/wclremotelearning/home"><span style="color:#0000FF;"><span class="Underline">Remote Learning Website</span></span></a></span></span></strong></p>
+
+<p><strong><span style="font-size:14px;"><span class="Underline" style="text-decoration:underline;"><a data-saferedirecturl="https://www.google.com/url?q=https://docs.google.com/forms/d/e/1FAIpQLSfQQXrWrb3biKTMoFjkEtO7uAf8NNc3-FjvmkQ0w4NC6uudOg/viewform?usp%3Dsf_link&amp;source=gmail&amp;ust=1584720375388000&amp;usg=AFQjCNFN8KEFY6Zq_Q3xQ9voNIII913ogA" href="https://docs.google.com/forms/d/e/1FAIpQLSfQQXrWrb3biKTMoFjkEtO7uAf8NNc3-FjvmkQ0w4NC6uudOg/viewform?usp=sf_link" target="_blank"><span style="color:#0000FF;"><span class="Underline">Woodcliff Lake Family Assistance Request</span></span></a></span></span></strong></p>
+
+<p>Ms. Pennello and the WCMS staff wanted to give you a taste of Frozen Jr...from a distance. Enjoy "<strong><a href="https://drive.google.com/file/d/1wZ6BUbbxL-38unhVBZJzEyqbE14DZu1m/view?usp=sharing"><span style="color:#0000FF;">In Quarantine</span></a></strong>"</p>
+
+<p>**********************************************************************************</p>
+
+<p><img alt="logo" height="79" src="http://www.woodcliff-lake.com/userfiles/89/My%20Files/New%20Folder/Screen%20Shot%202018-11-14%20at%202.05.20%20PM.png?id=1474" width="156"></p>
+
+<p>Go to the App Store to download our District app on your mobile device.<br>
+ </p>
+
+<p><img alt="One call now" height="56" src="/userfiles/89/my%20files/screen%20shot%202019-08-06%20at%201.24.48%20pm.png?id=2595" width="133"></p>
+
+<p>If you have not already registered for our district's emergency alerts, please click <a href="https://docs.google.com/forms/d/1N755Z3KYwDw-vgM72HQ5V8-YXBZmdYHaGh10iUsGTxo/edit" target="_blank"><span class="Underline" style="text-decoration:underline;"><strong>here</strong></span></a> to register. This list will only be updated at the end of each month.</p>
+
+<p>If you have already registered but would like to update your information, please go to <a href="https://www.mycallnow.com/" target="_blank"><span class="Underline" style="text-decoration:underline;"><strong>MyCallNow</strong></span></a> and click the green "Sign Up" button to create an account.  You will then be able to edit your contact information.</p>
+
+<p>How do we call a snow day?<br>
+Click <a href="https://conta.cc/2Om8X5W" target="_blank"><span class="Underline" style="text-decoration:underline;">here</span></a> for the Superintendent's letter.</p>
+
+<p> </p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+					</div>
+
+					<div class="viewAllContainer">
+						<div>
+							<a id="ctl00_ctl00_MasterContent_ReadMoreFC3" href="/0/featured/3">Read More</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-body3">
+		<div class="container">
+			<div class="row">
+				
+
+<div class="col-xs-12 col-sm-6">
+	<div class="buildingLinkBackground" style="background-image:url('/docs/building/1/building.jpg?id=816');">
+		<a href="/1/home">
+			<span class="buildingText" style="background-image:url('/userfiles/-18/My%20Files/DoNotDelete/Middle-School-Title.png?id=65&amp;height=75');">
+				<span class="obscure">link to building homepage</span>
+			</span>
+		</a>
+	</div>
+</div>
+				
+
+<div class="col-xs-12 col-sm-6">
+	<div class="buildingLinkBackground" style="background-image:url('/docs/building/2/des pics/des building.jpg?id=817');">
+		<a href="/2/home">
+			<span class="buildingText" style="background-image:url('/userfiles/-18/My%20Files/DoNotDelete/Dorchester-Title.png?id=62&amp;height=75');">
+				<span class="obscure">link to building homepage</span>
+			</span>
+		</a>
+	</div>
+</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function fixHeight() {
+			var height = 0;
+
+			$('.heightCheck').each(function () {
+				var divH = $(this).outerHeight(true);
+				height = ((divH > height) ? divH : height);
+			});
+
+			$('.bg-leftGrey').css("height", "");
+
+			if ($('.bg-leftGrey').outerHeight(false) < height) {
+				$('.bg-leftGrey').css("height", height);
+			}
+		}
+
+		$(document).ready(function () {
+			if (window.innerWidth > 767) {
+				fixHeight();
+			}
+		});
+
+		$(window).load(function () {
+			if (window.innerWidth > 767) {
+				fixHeight();
+			}
+		});
+
+		$(window).resize(function () {
+			if (window.innerWidth > 767) {
+				fixHeight();
+			}
+		});
+	</script></section><footer id="site-foot"><div class="bg-footer1">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-4">
+				<div class="wrap-findUs">
+					<h2>Find Us</h2>
+					<span id="ctl00_ctl00_ctl06_buildingName" class="buildingName">Woodcliff Lake Schools</span>
+					<span id="ctl00_ctl00_ctl06_buildingAddress" class="buildingAddress">134 Woodcliff Avenue<br>Woodcliff Lake, NJ 07677</span>
+					<span id="ctl00_ctl00_ctl06_buildingPhones" class="buildingPhones"><strong>Phone:</strong> (201) 930-5600 <br><strong>Fax:</strong> (201) 930-0488</span>
+				</div>
+
+				<div class="wrap-stayConnected">
+					<h2>Stay Connected</h2>
+					
+        <a href="/login" title="Content Management Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/Intranet/Content/322" title="Intranet Staff Login" target="_self">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/WoodcliffLakeSchools/" title="Woodcliff Schools Facebook Page" target="_blank">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook-square"></i>
+        </a>
+    
+        <a href="https://mail.google.com" title="Gmail" target="_blank">
+            <span class="obscure">Google</span>
+            <i class="fa fa-google"></i>
+        </a>
+    
+        <a href="https://instagram.com/wclschooldistrict" title="Instagram" target="_self">
+            <span class="obscure">Instagram</span>
+            <i class="fa fa-instagram"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-4">
+				<h2>Important Links</h2>
+				<ul class="footerNav">
+<li class="without-image"><a href="https://visitor.r20.constantcontact.com/manage/optin?v=001fCAWzVK3QXCGYMI1lIKWj2DvMF2vp7FBoO_dN_sr_wKedLGxjzm6Ww%3D%3D" target="_blank" title="Constant Contact">Constant Contact</a></li>
+<li class="without-image"><a href="/userfiles/89/my%20files/p5512%20.pdf?id=941" target="_blank" title="HIB Policy">HIB Policy</a></li>
+<li class="without-image"><a href="http://www.woodcliff-lake.com/userfiles/89/My%20Files/FY19_ABR_SELF_ASSESSMENT_5880.pdf?id=2534" target="_blank" title="HIB Grades Report">HIB Grades Report</a></li>
+</ul>
+</div>
+
+			<div class="col-xs-12 col-sm-4">
+				
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Learn more
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+			</div>
+		</div>
+
+		<div class="row" style="padding-top:20px; padding-bottom:10px;">
+			<div class="col-xs-12 col-sm-6">
+				© Copyright  2020 SchoolPointe
+			</div>
+
+			<div class="col-xs-12 col-sm-6">
+				<a href="http://www.schoolpointe.com" target="_blank" alt="schoolpointe" class="pull-right">
+					<img src="https://cdn.schoolpointe.com/images/new/SPwhite.png" alt="SchoolPointe logo black"></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-100716415-49', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987">
+</div>
+</form>
+</body>
+</html>

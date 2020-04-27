@@ -1,0 +1,1829 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><!--[if IE 7]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Glasgow Public Schools</title>
+<link href="https://fonts.googleapis.com/css?family=Hammersmith+One%7CStoke" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1043073721">
+<meta name="google-play-app" content="app-id=com.schoolpointe.stayconnected">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="https://cdn.schoolpointe.com/images/apple-touch-icon.jpg">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Stay Connected", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "https://cdn.schoolpointe.com/images/apple-touch-icon.jpg", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><link rel="alternate" type="application/rss+xml" title="Glasgow Public Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Glasgow High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Glasgow Middle School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Irle Elementary School - News" href="/rssNews.ashx?schoolId=3">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "MT_GlasgowPS",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=-62135596800000">
+<script>
+        $(document).ready(function () {
+            var gridItems = $('.feature-content-grid-content');
+
+            gridItems.each(function (idx, itm) {
+                var a = $(itm).find('a').not('.fb-page a');
+                /* THIS METHOD LINKS TO A PROVIDED LINK IN FC, OTHERWISE LINKS TO FC PAGE.
+                if (a.length == 1) {
+                    $(itm).addClass('hover-pointer');
+                    var link = $(a).attr('href');
+                    $(itm).on('click', function () {
+                        window.location = link;
+                    });
+                }
+                else if ($(itm).find('a').length == 0) {
+                    var rank = $(itm).data('rank');
+                    var schoolid = $(itm).data('schoolid');
+
+                    $(itm).addClass('hover-pointer');
+                    var link = "/featureContent.aspx?rank=" + rank + "&schoolid=" + schoolid;
+                    $(itm).on('click', function () {
+                        window.location = link;
+                    });
+                }
+                */
+                var rank = $(itm).data('rank');
+                var schoolid = $(itm).data('schoolid');
+                $(itm).addClass('hover-pointer');
+                var link = "/featureContent.aspx?rank=" + rank + "&schoolid=" + schoolid;
+
+                $(itm).on('click', function () {
+                    window.location = link;
+                });
+            });
+
+            // grid nav sizing.
+            var navContainer = $('.grid-nav .grid-item');
+            var height = navContainer.height();
+            var navItems = $('.grid-nav .grid-item > ul > li');
+            var itemCount = navItems.length;
+            var itemHeight = height / itemCount - 18;
+            navItems.find('a').height(itemHeight);
+            navItems.find('a').css('line-height', itemHeight + 'px');
+
+            $('.feature-content-grid-content-title').each(function () {
+                var text = $(this).text().trim();
+                text = text.replace(/\ /, '<br />');
+                $(this).html(text);
+            });
+        });
+    </script><link rel="shortcut icon" href="/userfiles/-12/My%20Files/Logo.png?id=2" type="image/png">
+<link rel="icon" href="/userfiles/-12/My%20Files/Logo.png?id=2" type="image/png">
+<script>
+        $(document).ready(function () {
+
+            if ($('.school-links>li').length > 0) {
+
+                function getMaxHeight() {
+                    $('.school-links>li').height("auto");
+                    var max = Math.max.apply(null, $('.school-links>li').toArray().map(function (li) { return $(li).height(); }));
+                    return max;
+                }
+
+                var setHeightsTimeoutHandle = null;
+                $(window).on('resize', function () {
+                    if (setHeightsTimeoutHandle != null) clearTimeout(setHeightsTimeoutHandle);
+                    setHeightsTimeoutHandle = setTimeout(function () {
+                        var height = getMaxHeight();
+                        console.log(height);
+                        $('.school-links>li').height(height);
+                    }, 20);
+                });
+
+                $('.school-links>li img').on('load', function () { $(window).trigger('resize'); });
+                $(window).trigger('resize');
+            }
+        });
+
+    </script>
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""><input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value=""><input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTE3MDU1NzA5NjYPZBYCZg9kFgJmD2QWBGYPZBYGZg9kFgJmD2QWAgIBDxYCHgRUZXh0BRZHbGFzZ293IFB1YmxpYyBTY2hvb2xzZAIDD2QWAgIBDxYCHgtfIUl0ZW1Db3VudAIDFgZmD2QWAmYPFQITR2xhc2dvdyBIaWdoIFNjaG9vbAExZAIBD2QWAmYPFQIVR2xhc2dvdyBNaWRkbGUgU2Nob29sATJkAgIPZBYCZg8VAhZJcmxlIEVsZW1lbnRhcnkgU2Nob29sATNkAgQPFgIeBGhyZWYFMi9zaXRlY3NzLmFzaHg/JmludHJhbmV0PTAmY2hlY2tzdW09LTYyMTM1NTk2ODAwMDAwZAIBDxYCHgZhY3Rpb24FAS8WCGYPZBYEAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwQFATBkAgMPD2QWAh8EBQEwZAIEDw9kFgIfBAUBMGQCBQ8PZBYCHwQFATBkAgMPZBYCAgIPDxYCHgdWaXNpYmxlZ2QWAmYPFgIfAAWuMjx1bCBjbGFzcz0nYWxlcnRMaXN0Jz48bGk+PHNwYW4gY2xhc3M9J2FsZXJ0RGFuZ2VyQ29sb3InIHN0eWxlPSdiYWNrZ3JvdW5kLWNvbG9yOiNhYTExMTE7IGNvbG9yOiNmZmZmZmYnPk1IU0EgfiBBdGhsZXRpY3MgaW4gdGhlIEdsYXNnb3cgU2Nob29sIERpc3RyaWN0Ojwvc3Bhbj4gPHNwYW4gY2xhc3M9J2FsZXJ0VGV4dEluZm8nPjxwPjxpbWcgZGF0YS1pbWFnZS13aGl0ZWxpc3RlZD0iIiBoZWlnaHQ9IjE1OSIgaWQ9Im1fLTE4NDY1NTk3OTc0MzM4ODAwMTBfeDAwMDBfaTEwMjUiIHNyYz0iaHR0cHM6Ly9tYWlsLmdvb2dsZS5jb20vbWFpbC91LzI/dWk9MiZhbXA7aWs9ZDEyNTFkZmE2MiZhbXA7YXR0aWQ9MC4xJmFtcDtwZXJtbXNnaWQ9bXNnLWY6MTY2NDcwMTUxNDQyMjgwNzE3MCZhbXA7dGg9MTcxYTM1MzUxODM5ZWE4MiZhbXA7dmlldz1maW1nJmFtcDtzej1zMC1sNzUtZnQmYW1wO2F0dGJpZD1BTkdqZEo4bEtyc1lOeTktaDhCZ0JTV2RvUmJkcE93aEZETGpoSzhKa2dCeXNoeW9hZjE1TU9YVW9pY0RqdmwzYXV4WjdHazd6MnlILVpkc2l6ei1wWGhvTld1RW9fdDU5c3dZTDlNblNDOUFaV2NCelJ1QWZEeWoyOW5aM0dFJmFtcDtkaXNwPWVtYiIgc3R5bGU9IndpZHRoOjcuMzk1OGluO2hlaWdodDoxLjY1NjJpbjsiIHRhYmluZGV4PSIwIiB3aWR0aD0iNzEwIiAvPjwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD4mbmJzcDs8L3A+DQoNCjxwPjxhIG5hbWU9Im1fLTE4NDY1NTk3OTc0MzM4ODAwMTBfX0hsazM4NDQ2NDE5Ij48L2E+PGEgbmFtZT0ibV8tMTg0NjU1OTc5NzQzMzg4MDAxMF9fSGxrMzcwNzg5NTciPjwvYT48YSBuYW1lPSJtXy0xODQ2NTU5Nzk3NDMzODgwMDEwX19IbGszNjQ2ODUzNCI+QXByaWwgMjIsIDIwMjA8L2E+PC9wPg0KDQo8cD4mbmJzcDs8L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+PHN0cm9uZz5UTzombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgTUhTQSBTQ0hPT0wgQURNSU5JU1RSQVRPUlM8L3N0cm9uZz48L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+PHN0cm9uZz5GUk9NOiZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyZuYnNwOyAmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgTUFSSyBCRUNLTUFOLCBFWEVDVVRJVkUgRElSRUNUT1I8L3N0cm9uZz48L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+PHN0cm9uZz5SRTombmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsmbmJzcDsgVVBEQVRFICZuZGFzaDsgTUhTQSBDT1ZJRC0xOSBJU1NVRVM8L3N0cm9uZz48L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD5Hb29kIGFmdGVybm9vbiw8L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+QXMgeW91IGFyZSBhd2FyZSwgdGhlIEdvdmVybm9yIGhhcyBpc3N1ZWQgYSByZW9wZW5pbmcgcGxhbiBmb3IgdGhlIHN0YXRlIHdoaWNoIGluY2x1ZGVkIGxvY2FsIHNjaG9vbCBkaXN0cmljdHMgdG8gZGV0ZXJtaW5lIGFsbG93aW5nIGluLXBlcnNvbiBpbnN0cnVjdGlvbiBvbiBNYXkgNzxzdXA+dGg8L3N1cD4uPC9wPg0KDQo8cD4mbmJzcDs8L3A+DQoNCjxwPkJlY2F1c2Ugb2YgdGhlIHByZXZpb3VzIE1IU0EgQm9hcmQgYWN0aW9uLCByZXN1bXB0aW9uIG9mIHNwcmluZyBhY3Rpdml0aWVzIGRlcGVuZGVkIG9uIG91ciBzdHVkZW50JnJzcXVvO3MgYWJpbGl0eSB0byByZXR1cm4gdG8gaW4tcGVyc29uIGluc3RydWN0aW9uIHdpdGhvdXQgcmVzdHJpY3Rpb25zIGJ5IE1heSA0PHN1cD50aDwvc3VwPiZuYnNwO2FuZCBpZiBpbi1wZXJzb24gaW5zdHJ1Y3Rpb24gZGlkbiZyc3F1bzt0IHJlc3VtZSBieSB0aGF0IHRpbWUgd2l0aG91dCByZXN0cmljdGlvbnMsIHNwcmluZyBhY3Rpdml0aWVzIHdvdWxkIGJlIGNhbmNlbGxlZC4mbmJzcDsmbmJzcDsgVGhlIHNwcmluZyAyMDIwIGlzIGNhbmNlbGxlZCBkdWUgdG8gdGhlIG9uZ29pbmcgQ09WSUQtMTkgcGFuZGVtaWMgd2hpY2ggaXMgYWZmZWN0aW5nIGNvbW11bml0aWVzIGFjcm9zcyBvdXIgY291bnRyeS48L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+VGhlIE1IU0EgRXhlY3V0aXZlIEJvYXJkIHByb2NlZWRlZCB3aXRoIGNhdXRpb3VzIG9wdGltaXNtIGhvbGRpbmcgb24gdG8gaG9wZSB0byByZWFsaXN0aWNhbGx5IHJlc3VtZSBzcHJpbmcgYWN0aXZpdGllcy4mbmJzcDsgSXQgd291bGQgYmUgZGlmZmljdWx0IHRvIGNvbmR1Y3QgbWVhbmluZ2Z1bCBzcHJpbmcgYWN0aXZpdGllcyBmcm9tIHRoaXMgbGF0ZSBkYXRlLCB3aXRoIG1hbnkgc2Nob29scyBkZWNpZGluZyBub3QgdG8gcmV0dXJuIHRvIGluLXBlcnNvbiBpbnN0cnVjdGlvbiwgd2l0aCB0aGUgc29jaWFsIGRpc3RhbmNpbmcgcmVjb21tZW5kYXRpb25zIHN0aWxsIGluIHBsYWNlLCBhbmQgYWxvbmcgd2l0aCBtYW55IG90aGVyIGZhY3RvcnMuICZuYnNwOyZuYnNwOzwvcD4NCg0KPHA+V2UgZW1wYXRoaXplIHdpdGggYWxsIHRoZSBzdHVkZW50cywgc2Nob29scyBhbmQgY29tbXVuaXRpZXMgdGhhdCB0aGlzIGRlY2lzaW9uIGltcGFjdHMsIGFuZCBlc3BlY2lhbGx5IHdpdGggdGhlIG1hbnkgc2VuaW9ycyB0aGF0IGhhdmUgc2hvd24gbWF0dXJpdHkgYW5kIHJlc29sdmUgYXMgdGhlaXIgY3VsbWluYXRpbmcgeWVhciBvZiBoaWdoIHNjaG9vbCBoYXMgYmVlbiBpbXBhY3RlZCBiZXlvbmQgYWN0aXZpdGllcyBhbmQgYXRobGV0aWNzIGR1ZSB0byB0aGlzIENPVklELTE5IHBhbmRlbWljLiAmbmJzcDtUaGUgQ2xhc3Mgb2YgMjAyMCB3aWxsIG5vdCBiZSBmb3Jnb3R0ZW4uPC9wPg0KDQo8cD5XZSBsb29rIGZvcndhcmQgdG8gdGhlIHJlc3VtcHRpb24gb2YgaGlnaCBzY2hvb2wgYWN0aXZpdGllcyBkdXJpbmcgdGhlIDIwMjAtMjAyMSBzY2hvb2wgeWVhciB3aXRoIHNvbWUgbGV2ZWwgb2Ygbm9ybWFsY3kuIE91ciBvZmZpY2Ugd2lsbCBiZSBlbnRpcmVseSBmb2N1c2VkIG9uIGNvbnRpbmdlbmN5IHBsYW5zIGZvciB0aGUgMjAyMCBmYWxsIHNlYXNvbiBhbmQgYmV5b25kLCBzaG91bGQgdGhleSBiZSBuZWVkZWQuPC9wPg0KDQo8cD5XZSB3aWxsIGNvbnRpbnVlIHRvIGNvbW11bmljYXRlIGFzIHN0YXRlLCBsb2NhbCBhbmQgaGVhbHRoIGFnZW5jaWVzIGtlZXAgdXMgaW5mb3JtZWQgb2YgbmV3IHB1YmxpYyBoZWFsdGggZ3VpZGVsaW5lcy48L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+PHN0cm9uZz48ZW0+VGhlcmUgYXJlIG1vbWVudHMgd2hlbiB0cm91YmxlcyBlbnRlciBvdXIgbGl2ZXMgYW5kIHdlIGNhbiBkbyBub3RoaW5nIHRvIGF2b2lkIHRoZW0uIEJ1dCB0aGV5IGFyZSB0aGVyZSBmb3IgYSByZWFzb24uIE9ubHkgd2hlbiB3ZSBoYXZlIG92ZXJjb21lIHRoZW0gd2lsbCB3ZSB1bmRlcnN0YW5kIHdoeSB0aGV5IHdlcmUgdGhlcmUuJnJkcXVvOzwvZW0+PC9zdHJvbmc+Jm5ic3A7Jm5kYXNoOyZuYnNwOzxhIGRhdGEtc2FmZXJlZGlyZWN0dXJsPSJodHRwczovL3d3dy5nb29nbGUuY29tL3VybD9xPWh0dHBzOi8vZXZlcnlkYXlwb3dlci5jb20vcGF1bG8tY29lbGhvLXF1b3Rlcy8mYW1wO3NvdXJjZT1nbWFpbCZhbXA7dXN0PTE1ODc2Njk0ODIzMjYwMDAmYW1wO3VzZz1BRlFqQ05INTNmcjA0YXVIYXhULUFPLVhPVHYteURuSTN3IiBocmVmPSJodHRwczovL2V2ZXJ5ZGF5cG93ZXIuY29tL3BhdWxvLWNvZWxoby1xdW90ZXMvIiB0YXJnZXQ9Il9ibGFuayI+PHN0cm9uZz5QYXVsbyBDb2VsaG88L3N0cm9uZz48L2E+LCAmbHNxdW87PGVtPlRoZSBGaWZ0aCBNb3VudGFpbjwvZW0+PGVtPiZyZHF1bzs8L2VtPjwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD48c3Ryb25nPk1hcmsgQmVja21hbjwvc3Ryb25nPjwvcD4NCg0KPHA+RVhFQ1VUSVZFIERJUkVDVE9SPC9wPjwvc3Bhbj48L2xpPjxsaT48c3BhbiBjbGFzcz0nYWxlcnREYW5nZXJDb2xvcicgc3R5bGU9J2JhY2tncm91bmQtY29sb3I6I2FhMTExMTsgY29sb3I6I2ZmZmZmZjsnPlNjaG9vbCBDbG9zaW5ncy9EZWxheXM6PC9zcGFuPiA8c3BhbiBjbGFzcz0nYWxlcnRUZXh0SW5mbyc+PHA+VGhlIEdsYXNnb3cgU2Nob29sIERpc3RyaWN0IGNvbnRpbnVlcyB0byBiZSZuYnNwO2Nsb3NlZCBmcm9tIEFwcmlsIDI0LCAyMDIwIHVudGlsIE1heSA3LCAyMDIwLiZuYnNwOyBUaGlzIGRlY2lzaW9uIGNhbWUgZnJvbSB0aGUgR292ZXJub3Igb2YgTW9udGFuYS4mbmJzcDsgUmVtb3RlIGxlYXJuaW5nIHdpbGwgY29udGludWUgYXMgcGxhbm5lZC48L3A+IDwvc3Bhbj48L2xpPjxsaT48c3BhbiBjbGFzcz0nYWxlcnREYW5nZXJDb2xvcicgc3R5bGU9J2JhY2tncm91bmQtY29sb3I6I2FhMTExMTsgY29sb3I6I2ZmZmZmZic+fkdsYXNnb3cgQ29tbXVuaXR5fjo8L3NwYW4+IDxzcGFuIGNsYXNzPSdhbGVydFRleHRJbmZvJz48cD5QbGVhc2UgZ28gdG8gdGhlIEdsYXNnb3cgQ29tbXVuaXR5IG9yZ2FuaXphdGlvbiYjMzk7cyB3ZWJwYWdlIHRvIGZpbmQgb3VyIGluZm9ybWF0aW9uIGFib3V0IHRoZSBsZXZ5LjwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD48YSBocmVmPSJodHRwczovL3llc3Rvc2NvdHRpZXN0dWRlbnRzLmNvbS8iPkdsYXNnb3cgTGV2eSBpbmZvcm1hdGlvbjwvYT48L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+PGEgaHJlZj0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3llc3Rvc2NvdHRpZXN0dWRlbnRzIj5GYWNlYm9vazwvYT48L3A+DQoNCjxwPiZuYnNwOzwvcD48L3NwYW4+PC9saT48bGk+PHNwYW4gY2xhc3M9J2FsZXJ0RGFuZ2VyQ29sb3InIHN0eWxlPSdiYWNrZ3JvdW5kLWNvbG9yOiNhYTExMTE7IGNvbG9yOiNmZmZmZmYnPkFsZXJ0Ojwvc3Bhbj4gPHNwYW4gY2xhc3M9J2FsZXJ0VGV4dEluZm8nPjxwIGRpcj0ibHRyIj48YiBpZD0iZG9jcy1pbnRlcm5hbC1ndWlkLWY5YWQ5N2EzLTdmZmYtZTQ4NC02YmI2LWRiMDVjOWIxYTZkMCI+PGltZyBoZWlnaHQ9IjQxNyIgc3JjPSJodHRwczovL2xoNS5nb29nbGV1c2VyY29udGVudC5jb20vNWdaUXZpaF9CakZPemN3RVRuTlhpTmNoVWJXZGVpVzFuVExsQUxqNV9La3ZGbkxjVVRRUWlIMW5oNmhMaEE0U0FEaTNnQXpLZmI1NjRleHc2UXdkVXdJdVZQM2M2cl9vQ3NlMTlXQ25jS3ctMGhuMktPaG5SME9Gd2J3MjMyeXVtTUZDWk8tSiIgd2lkdGg9IjYyNCIgLz5XZSZyc3F1bztyZSBHb2luJnJzcXVvOyBvbiBhIEJlYXIgSHVudCE8L2I+PC9wPg0KDQo8cD4mbmJzcDs8L3A+DQoNCjxwIGRpcj0ibHRyIj48YiBpZD0iZG9jcy1pbnRlcm5hbC1ndWlkLWY5YWQ5N2EzLTdmZmYtZTQ4NC02YmI2LWRiMDVjOWIxYTZkMCI+SXJsZSBTY2hvb2wgc3RhZmYgYXJlIGNhbGxpbmcgYWxsIGNvbW11bml0eSBtZW1iZXJzISBXaXRoIFNwcmluZyBmaW5hbGx5IGFycml2aW5nIGhlcmUgaW4gR2xhc2dvdywgaGVyZSZyc3F1bztzIGFuIGlkZWEgdG8gcHJvdmlkZSBhbiBvdXRkb29yIGFjdGl2aXR5IGZvciBhbGwga2lkcyB5b3VuZyBhbmQgb2xkLiZuYnNwOyBUbyBwYXJ0aWNpcGF0ZSB5b3Ugb25seSBuZWVkIHRvIHBsYWNlIGEgdGVkZHkgYmVhciBvciBhbnkgc3R1ZmZlZCBhbmltYWwgaW4gdGhlIHdpbmRvdyhzKSBvZiB5b3VyIGhvbWUgb3IgYnVzaW5lc3MuICoqQm9udXMgcG9pbnRzIGZvciBTY290dGllIERvZ3MhKiogSWYgeW91IGRvIG5vdCBoYXZlIGEgc3R1ZmZlZCBhbmltYWwsIG5vIHByb2JsZW0sIHlvdSBjYW4gYWxzbyBwcmludCBhIHBpY3R1cmUgb2YgeW91ciBmYXZvcml0ZSBzdHVmZmVkIGFuaW1hbCBmb3IgeW91ciB3aW5kb3cuIEJlIGNyZWF0aXZlISBZb3UgY2FuIHB1dCBzb21lIG91dHNpZGUgaW4geW91ciBmcm9udCB5YXJkIHRoYXQgbWF5IGJlIGVhc3kgb3IgYSBsaXR0bGUgbW9yZSBkaWZmaWN1bHQgdG8gZmluZC4gQ2hpbGRyZW4gYW5kIHRoZWlyIGZhbWlsaWVzIHdpbGwgdGhlbiBiZSBhYmxlIHRvIHRha2UgYSB3YWxrIG9yIGNhciByaWRlIGFyb3VuZCB0b3duIHRvIGNvdW50IG9yICZsZHF1bztodW50JnJkcXVvOyBmb3IgYmVhcnMgd2hpbGUgbWFpbnRhaW5pbmcgc29jaWFsIGRpc3RhbmNpbmcuIERyLiBNaWxsYXJkIGhhcyBhcHByb3ZlZCBvdXIgaHVudCB3aGljaCB3aWxsIGJlZ2luIG9uIE1vbmRheSwgQXByaWwgMjd0aCB0aHJvdWdoIEZyaWRheSwgTWF5IDh0aC4gQXR0YWNoZWQgaXMgYSBwcmludGFibGUgc2NvcmVjYXJkIHRvIHRhbGx5IHlvdXIgZmluZHMgYW5kIGhlbHAgd2l0aCB5b3VyIGNvdW50aW5nLiBIYXBweSBIdW50aW5nISA8L2I+PC9wPjwvc3Bhbj48L2xpPjwvdWw+ZAIDD2QWAgIBD2QWAgIFDxYCHwIFAS9kAgUPZBYCAgEPZBYaZg9kFgJmDxYCHwECARYCZg9kFgRmDxUCFlBlbmNpbCB3aXRoIERpY3Rpb25hcnkXUGVuY2lsIGFuZCBCb29rIFBpY3R1cmVkAgEPFQE7L3VzZXJmaWxlcy8yMDE3LTA1LzM5NDQ4MTRhLTE5NjktNGNjZS04MTQ1LTFlYTUzOTM5M2VmMy5qcGdkAgEPZBYCZg8WAh8ABbYIPHAgYWxpZ249ImNlbnRlciI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxOHB4OyI+PHNwYW4gc3R5bGU9ImZvbnQtZmFtaWx5Omdlb3JnaWEsc2VyaWY7Ij48c3Ryb25nPkcgTCBBIFMgRyBPIFcgJm5ic3A7Jm5ic3A7UyBDIEggTyBPIEwgJm5ic3A7Jm5ic3A7RCBJIFMgVCBSIEkgQyBUICZuYnNwOzEgQTwvc3Ryb25nPjwvc3Bhbj48L3NwYW4+PC9wPg0KDQo8cCBhbGlnbj0iY2VudGVyIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE0cHg7Ij48c3BhbiBzdHlsZT0iZm9udC1mYW1pbHk6Z2VvcmdpYSxzZXJpZjsiPjxpbWcgYWx0PSJTY290dGllIERvZyIgc3JjPSIvdXNlcmZpbGVzLzIvbXklMjBmaWxlcy9zY290dGllJTIwZG9nJTIwbG9nbyUyMHNtLnBuZz9pZD01OCZhbXA7d2lkdGg9ODUiIHN0eWxlPSJ3aWR0aDogODVweDsgaGVpZ2h0OiA4NXB4OyIgLz48L3NwYW4+PC9zcGFuPjwvcD4NCg0KPHAgYWxpZ249ImNlbnRlciI+Jm5ic3A7PC9wPg0KDQo8ZGl2IGNsYXNzPSJ0YWJsZS1yZXNwb25zaXZlIj4NCjx0YWJsZSBjbGFzcz0idGFibGUiIHN0eWxlPSJ3aWR0aDogMTAwJTsiPg0KCTx0Ym9keT4NCgkJPHRyPg0KCQkJPHRkPg0KCQkJPHA+Jm5ic3A7PC9wPg0KDQoJCQk8cD5QYXJlbnRzL1N0dWRlbnRzLSBQbGVhc2UgY2xpY2sgb24gdGhlIGxpbmsgYmVsb3cgdG8gYWNjZXNzIHRoZSBGYW1pbHkgTGluayBQb3J0YWwgdG8mbmJzcDsgZ3JhZGVzIGFuZCBhdHRlbmRhbmNlLjwvcD4NCg0KCQkJPHA+PGEgaHJlZj0iaHR0cHM6Ly9zY2hvb2xtYXN0ZXIyYXNwLnR5bGVydGVjaC5jb20vR1NEL0ZhbWlseUxpbmsvTG9naW4uYXNweCI+aHR0cHM6Ly9zY2hvb2xtYXN0ZXIyYXNwLnR5bGVydGVjaC5jb20vR1NEL0ZhbWlseUxpbmsvTG9naW4uYXNweDwvYT48L3A+DQoNCgkJCTxwPiZuYnNwOzwvcD4NCgkJCTwvdGQ+DQoJCQk8dGQ+Jm5ic3A7PC90ZD4NCgkJPC90cj4NCgkJPHRyPg0KCQkJPHRkPiZuYnNwOzwvdGQ+DQoJCQk8dGQgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPiZuYnNwOzwvdGQ+DQoJCTwvdHI+DQoJPC90Ym9keT4NCjwvdGFibGU+DQo8L2Rpdj4NCg0KPHA+Jm5ic3A7PC9wPmQCAg9kFgICAQ8WAh8ABQhGYWNlYm9va2QCAw9kFgICAQ8WAh8ABQdUd2l0dGVyZAIFD2QWBGYPDxYCHwVoZGQCAg9kFgQCAw8WAh8FaGQCBQ8WAh8BAgFkAgYPZBYGZg8WAh8ABQhGYWNlYm9va2QCAQ8WAh8ABcYFPGRpdiBpZD0iZmItcm9vdCI+Jm5ic3A7PC9kaXY+DQo8ZGl2IHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij4mbmJzcDs8L2Rpdj4NCjxzY3JpcHQgYXN5bmMgZGVmZXIgY3Jvc3NvcmlnaW49ImFub255bW91cyIgc3JjPSJodHRwczovL2Nvbm5lY3QuZmFjZWJvb2submV0L2VuX1VTL3Nkay5qcyN4ZmJtbD0xJnZlcnNpb249djQuMCIgPjwvc2NyaXB0ID4NCjxkaXYgY2xhc3M9ImZiLXBhZ2UiIGRhdGEtaHJlZj0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL0dsYXNnb3ctUHVibGljLVNjaG9vbHMtMTA1ODU0MTg3NDQwOTQ0LyIgZGF0YS10YWJzPSJ0aW1lbGluZSIgZGF0YS13aWR0aD0iMzUwIiBkYXRhLWhlaWdodD0iMzEwIiBkYXRhLXNtYWxsLWhlYWRlcj0iZmFsc2UiIGRhdGEtYWRhcHQtY29udGFpbmVyLXdpZHRoPSJ0cnVlIiBkYXRhLWhpZGUtY292ZXI9ImZhbHNlIiBkYXRhLXNob3ctZmFjZXBpbGU9ImZhbHNlIiA+PGJsb2NrcXVvdGUgY2l0ZT0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL0dsYXNnb3ctUHVibGljLVNjaG9vbHMtMTA1ODU0MTg3NDQwOTQ0LyIgY2xhc3M9ImZiLXhmYm1sLXBhcnNlLWlnbm9yZSIgPjxhIGhyZWY9Imh0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9HbGFzZ293LVB1YmxpYy1TY2hvb2xzLTEwNTg1NDE4NzQ0MDk0NC8iID5HbGFzZ293IFB1YmxpYyBTY2hvb2xzPC9hID48L2Jsb2NrcXVvdGUgPjwvZGl2ID5kAgMPDxYCHgtOYXZpZ2F0ZVVybAUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0zZGQCBw9kFgZmDxYCHwAFB1R3aXR0ZXJkAgEPFgIfAAXzAjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij4mbmJzcDs8L3A+DQoNCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48YSBjbGFzcz0idHdpdHRlci10aW1lbGluZSIgZGF0YS1oZWlnaHQ9IjMxMCIgZGF0YS13aWR0aD0iMzQwIiBocmVmPSJodHRwczovL3R3aXR0ZXIuY29tL0dTRF8xQT9yZWZfc3JjPXR3c3JjJTVFdGZ3Ij5Ud2VldHMgYnkgR1NEXzFBPC9hPiA8c2NyaXB0IGFzeW5jIHNyYz0iaHR0cHM6Ly9wbGF0Zm9ybS50d2l0dGVyLmNvbS93aWRnZXRzLmpzIiBjaGFyc2V0PSJ1dGYtOCIgPjwvc2NyaXB0ID48L3AgPjwvcCA+PC9wID4NCjwvcCA+PC9wID48L3AgPg0KPC9wID4NCjwvcCA+PC9wID48L3AgPjwvcCA+PC9wID48L3A+ZAIDDw8WAh8GBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTlkZAIJD2QWBGYPPCsACgEADxYIHg1EYXlOYW1lRm9ybWF0CyonU3lzdGVtLldlYi5VSS5XZWJDb250cm9scy5EYXlOYW1lRm9ybWF0AR4NTmV4dE1vbnRoVGV4dAUvPj48c3BhbiBjbGFzcz0nb2JzY3VyZSc+R28gdG8gbmV4dCBtb250aDwvc3Bhbj4eDVByZXZNb250aFRleHQFMzw8PHNwYW4gY2xhc3M9J29ic2N1cmUnPkdvIHRvIHByZXZpb3VzIG1vbnRoPC9zcGFuPh4CU0QWAQYAAGfDdOnXCGRkAgEPDxYGHgZUYXJnZXQFBl9ibGFuax8ABRJWaWV3IEZ1bGwgQ2FsZW5kYXIfBgUlL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00JnQ9MGRkAgoPZBYCZg8WAh8ABa8HPHA+UGF5IGZvciBtZWFscyBpbiBhZHZhbmNlJm5ic3A7PGEgaHJlZj0iaHR0cHM6Ly93d3cubXltZWFsdGltZS5jb20vc2lnbmluLmFzcHgiPmhlcmU8L2E+LjwvcD4NCg0KPHA+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxOHB4OyI+PHN0cm9uZz48c3BhbiBzdHlsZT0iYmFja2dyb3VuZC1jb2xvcjojMzNjY2ZmOyI+RlJBWkVSIElTIFRIRSBDTE9TRVNUIExPQ0FUSU9OIFRIQVQgT0ZGRVJTIFNVTU1FUiBGT09EIFNFUlZJQ0VTLiZuYnNwOzwvc3Bhbj48L3N0cm9uZz48L3NwYW4+PC9wPg0KDQo8cD4mbmJzcDs8L3A+DQoNCjxwPjxhIGhyZWY9Imh0dHBzOi8vZG9jcy5nb29nbGUuY29tL3NwcmVhZHNoZWV0cy9kLzE4ZmVlcXdGNDRON19iS2NuSHVFd1Vma0V6dVlNWndNNUVDay1GeFZxLS1BL2VkaXQ/dXNwPXNoYXJpbmciPjxzdHJvbmc+THVuY2ggbWVudTwvc3Ryb25nPjwvYT48L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+PGEgaHJlZj0iaHR0cDovL29waS5tdC5nb3YvUG9ydGFscy8xODIvUGFnZSUyMEZpbGVzL1NjaG9vbCUyME51dHJpdGlvbi9NZWFsJTIwRWxpZ2liaWxpdHkvRm9ybXMlMjBhbmQlMjBQb2xpY3kvRnJlZVJlZHVjZWQlMjBBcHAlMjAyMDE5LTIwMjAucGRmP3Zlcj0yMDE5LTA3LTEwLTE0MzIyMS02MzciPjxzdHJvbmc+RnJlZSBhbmQgUmVkdWNlZCBQcmljZSBNZWFsIEFwcGxpY2F0aW9uPC9zdHJvbmc+PC9hPjwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD48YSBocmVmPSJodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9kb2N1bWVudC9kLzFibjlaMDBKMy04WXhuQUdwM3hFSElXbUx2cG5DbGhxZTN5dXhTN1dXUVpZL2VkaXQiPk1vbnRhbmEgU2Nob29sIERpc3RyaWN0IFdlbGxuZXNzIFBvbGljeSBSZXBvcnQgU1kgMjAxOC0xOTwvYT48L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+PG1ldGEgY2hhcnNldD0idXRmLTgiIC8+PC9wPmQCCw9kFgJmDxYCHwAFvQw8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjIwcHg7Ij48dT48c3Ryb25nPkdsYXNnb3cgSGlnaCBTY2hvb2wgQXRobGV0aWMgU2NoZWR1bGVzIDIwMTktMjAmbmJzcDs8L3N0cm9uZz48L3U+PC9zcGFuPjwvcD4NCg0KPHA+PGEgaHJlZj0iaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vc3ByZWFkc2hlZXRzL2QvMWhIcWFpVXZobUVRbnRFdHFIbjRMek1mdW1oMnY5bXdHWF9rMDlnb19uc0kvZWRpdD91c3A9c2hhcmluZyI+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToyMHB4OyI+PHNwYW4gc3R5bGU9ImNvbG9yOiNGRjAwMDA7Ij5DbGljayBIRVJFPC9zcGFuPjwvc3Bhbj48L2E+PC9wPg0KDQo8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjIwcHg7Ij48dT48c3Ryb25nPkdsYXNnb3cgTWlkZGxlJm5ic3A7U2Nob29sIEF0aGxldGljIFNjaGVkdWxlcyAyMDE5LTIwJm5ic3A7PC9zdHJvbmc+PC91Pjwvc3Bhbj48L3A+DQoNCjxwPjxhIGhyZWY9Imh0dHBzOi8vZG9jcy5nb29nbGUuY29tL3NwcmVhZHNoZWV0cy9kLzFmU0dFTXpIVFVacHozaFJtalFMb21YOU03R3NBNUN1UVVRT0tGSV91S2I4L2VkaXQ/dXNwPXNoYXJpbmciPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MjBweDsiPjxzcGFuIHN0eWxlPSJjb2xvcjojRkYwMDAwOyI+Q2xpY2sgSEVSRTwvc3Bhbj48L3NwYW4+PC9hPjwvcD4NCg0KPHA+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToyMHB4OyI+PHU+PHN0cm9uZz5HbGFzZ293IFNjaG9vbCBEaXN0cmljdCBBY3Rpdml0aWVzIEJ1cyBEZXBhcnR1cmUgVGltZXMgKFNwcmluZyAyMDIwKTwvc3Ryb25nPjwvdT48L3NwYW4+PC9wPg0KDQo8cD48YSBocmVmPSJodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9zcHJlYWRzaGVldHMvZC8xNXBPQW5xam1xUmw5RUhveEcwRlZyNWNUVDFhVS03OUN3alIyTjJGMVBNUS9lZGl0P3VzcD1zaGFyaW5nIj48c3BhbiBzdHlsZT0iY29sb3I6I0ZGMDAwMDsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MjBweDsiPkNsaWNrIEhFUkU8L3NwYW4+PC9zcGFuPjwvYT48L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPGgxPjxhIGhyZWY9Imh0dHA6Ly9zY290dGllcHJpZGUuY29tLyI+PHNwYW4gc3R5bGU9ImNvbG9yOiNGRjAwMDA7Ij48c3Ryb25nPjxzcGFuIGNsYXNzPSJVbmRlcmxpbmUiIHN0eWxlPSJ0ZXh0LWRlY29yYXRpb246dW5kZXJsaW5lOyI+Q0xJQ0sgSEVSRSBUTyBWSVNJVCBUSEUgR0xBU0dPVyBTQ09UVElFJm5ic3A7QVRITEVUSUMgV0VCU0lURSAoV1dXLlNDT1RUSUVQUklERS5DT00pPC9zcGFuPiZuYnNwOzwvc3Ryb25nPjwvc3Bhbj48L2E+PC9oMT4NCg0KPGg0PiZuYnNwOzwvaDQ+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPGg0PjxiciAvPg0KPGltZyBhbHQ9IlNjb3R0aWUgSGlnaCBSZXMuICIgc3JjPSIvdXNlcmZpbGVzLzEyMi9teSUyMGZpbGVzL3Njb3R0aWUlMjBoaWdoJTIwcmVzb2x1dGlvbi5qcGc/aWQ9MjA2JmFtcDt3aWR0aD01MDAiIHN0eWxlPSJ3aWR0aDogNTAwcHg7IGhlaWdodDogNTAwcHg7IiAvPjwvaDQ+DQoNCjxwPjxhIGFyaWEtaGlkZGVuPSJ0cnVlIiBocmVmPSIvYXRobGV0aWNzIiBzdHlsZT0iZGlzcGxheTpub25lIj5BdGhsZXRpY3MgTGluazwvYT48L3A+ZAIMD2QWAmYPFgIfAAWTBTxwPiZuYnNwOzwvcD4NCg0KPHA+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToyMnB4OyI+PGEgaHJlZj0iaHR0cDovL2RvY3MuZ29vZ2xlLmNvbS9kb2N1bWVudC9kLzFOWElsQ0R4UnRBNV9fWDBvTU8tWjFGaGxabTVTbFc4by1BLVNyYkozaEJrL2VkaXQ/dXNwPXNoYXJpbmciPjxzcGFuIHN0eWxlPSJjb2xvcjojRkYwMDAwOyI+R1NEIFRyYW5zcG9ydGF0aW9uIEhhbmRib29rPC9zcGFuPjwvYT48L3NwYW4+PC9wPg0KDQo8cD48YSBocmVmPSJodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9zcHJlYWRzaGVldHMvZC8xbjJCOEVpLTA1T2ZjVzRjUnlKSjAzNkwzNGkycjM0ajNTampDTHIxVU9vSS9lZGl0I2dpZD0wIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjIycHg7Ij48c3BhbiBzdHlsZT0iY29sb3I6I0ZGMDAwMDsiPkdTRCBBY3Rpdml0aWVzIEJ1cyBEZXBhcnR1cmUgU2NoZWR1bGUgKEZhbGwgMjAxOSk8L3NwYW4+PC9zcGFuPjwvYT48L3A+DQoNCjxwPjxhIGhyZWY9Imh0dHBzOi8vZHJpdmUuZ29vZ2xlLmNvbS9maWxlL2QvMU1CS0NVaGtWRFc2WWE0bVJuWExhRThDdWpKckFCWlJuL3ZpZXc/dHM9NWQ1YWM1MTUiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6IDIycHg7Ij5CdXMgUm91dGVzIDIwMTktMjAyMDwvc3Bhbj48L2E+PC9wPg0KDQo8cD4mbmJzcDs8L3A+ZAIND2QWAmYPFgIfAAWbEjxwPjxtZXRhIGNoYXJzZXQ9InV0Zi04IiAvPjwvcD4NCg0KPGgxIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij5SZW1pbmRlcjogR0hTIEFsbCBDbGFzcyBSZXVuaW9uIHdpbGwgYmUgaGVsZCBvbiBKdW5lIDI0LTI3LCAyMDIxLjwvaDE+DQoNCjxoMSBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+VGhlIG9mZmljaWFsIEZhY2Vib29rIHBhZ2UgZGVkaWNhdGVkIHRvIHRoZSByZXVuaW9uIGlzOiZuYnNwOzxhIGRhdGEtaG92ZXJjYXJkPSIvYWpheC9ob3ZlcmNhcmQvcGFnZS5waHA/aWQ9MTIyNDg4MTMyMTAyMzE3MiZhbXA7ZXh0cmFnZXRwYXJhbXM9JTdCJTIyX190bl9fJTIyJTNBJTIyJTJDZEstUi1SJTIyJTJDJTIyZWlkJTIyJTNBJTIyQVJCQ01fT0llTjFtMTBMZFMwNjVjZVNRMW5MZmhRTHRGRS1GVmJxenZrTFNjRk9VQnp1OS04T3BTSThLakpGV2RGbmpRc0otUEdiaE9YLWYlMjIlMkMlMjJmcmVmJTIyJTNBJTIybWVudGlvbnMlMjIlN0QiIGRhdGEtaG92ZXJjYXJkLXByZWZlci1tb3JlLWNvbnRlbnQtc2hvdz0iMSIgaHJlZj0iaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL2doc2FsbGNsYXNzcmV1bmlvbi8/X190bl9fPUstUiZhbXA7ZWlkPUFSQkNNX09JZU4xbTEwTGRTMDY1Y2VTUTFuTGZoUUx0RkUtRlZicXp2a0xTY0ZPVUJ6dTktOE9wU0k4S2pKRldkRm5qUXNKLVBHYmhPWC1mJmFtcDtmcmVmPW1lbnRpb25zJmFtcDtfX3h0c19fJTVCMCU1RD02OC5BUkFCN2JVaktzRl9tT002WTFBdVJBRkNsRmNLa3YyWk1keU5ldjByenFLLTNLNVpXRUpwbFJWWGxzYmg0OGQ3SVMyc29qd1c1Q0dRZklVellybmZWaXU3ZG1OM2ljVFU5NXh3c0thOUVtQ1RCbkxCUEFkVjRVTmw0d1BSc0ltaHh3Q2J3TGZRWXVkanBScVFGMkFBQ2JRN0VRcTdpay1YaEtkZGFPcmVRVHFPc3JCWGRmOFo5NWZoUzhoT1k4WmFsc0laekdwY3BNN250VVV4Z1lISG41VmdsanhMY19hTHI0RFFYUmxqTXhWYnlnWFQ0cjJRbVBxVEZKVEpldldIQ1FFNGxoZDlhMzJneXFRMkI5Y2pSRy1JSVcyeFliTGJBU2hMRFM4dzJmQmQzQ0tZWTh4WThFSTVqdUpOVUNjVmVQcDRmaEtibkxfZ0REMi04UTUzMmciPkdsYXNnb3cgTW9udGFuYSBBbGwgQ2xhc3MgUmV1bmlvbjwvYT48L2gxPg0KDQo8aDEgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPkxpbmsgdG8gdGhlIG9mZmljaWFsIHdlYnNpdGUgZm9yIHRoZSBldmVudDombmJzcDs8YSBkYXRhLWZ0PSJ7JnF1b3Q7dG4mcXVvdDs6JnF1b3Q7LVUmcXVvdDt9IiBkYXRhLWx5bngtbW9kZT0iYXN5bmMiIGRhdGEtbHlueC11cmk9Imh0dHBzOi8vbC5mYWNlYm9vay5jb20vbC5waHA/dT1odHRwJTNBJTJGJTJGZ2hzYWxsY2xhc3NyZXVuaW9uLndpeHNpdGUuY29tJTJGcmV1bmlvbiUzRmZiY2xpZCUzREl3QVIxYkRESWVOT19VcU10RjhQSmcySndqM2FXTGhsV2pTYXEwcWR5RldhRjUweWxEX3hjazZ5OS03b2cmYW1wO2g9QVQzeHFBWTlPN0ExS1NYd1A1UlBHbHVNdlFaaGZQTTlGQ2U2LVc0bUZkYjBSMGotaGxucXZYUndMTGxFVW9GSnJ1U0ZIaFdrX3QtNDR3dEt0LWhuWGhCemRNNF9waTI0eTBXdkFndFlQancyYjhNNEswd2Y4QmY1VTRrRHFkS3h1ckFYTlBpclRpcktndXRnNlNpMTA3TGtMZVpUUGpKTFo5N1pFMm1YQWY3Vmpid2VnVnBJdHh0NTN1YmVxUUIwci1rQ3JXMm1meEhyYmljMXFjNklWUEVKb1luZDJDV1VfdVRPREpvNVFfdExjLTVUZlRqVGlTQXpLTU1lLVBpSmVlb2FBWW5sREc2Qlk0NmlfaENoU25HenBkRlRUbmY5OGZPMjM1R0ZOM2FaQVdIenVuaEEteUVsbFlyUzRuMWVWUjM3X1h1Q2luU2trTG5na3pNaDREVm8xTmxiTVZEZmlnb2prb2lIMldJenIxTjh6d2pmWjFualpUZHR5eVlPU1lEUlJRaTBaaU1UUVA2alRzWVBRWnZSUGQwUVp5LWt3Q3d4OFBYNFNYaHZKeEM0RDRSaXBOOE5fbDBXMW4wN1otZUlORkQ4MEJDNkdzanRjdm9pU1BLNVdUQjdrNHhxR1N4NUJZanlwTkdMdVFKaGw4TERZVF9wTEZlRVV5ZDNJQTZZaGJhX2J0WXVfVGw2Uy1aLTIwQVlfYmZWaTNjemZvRVM0WTZvOWhYcG5RYjZ1a2h4QWh1UlJwSGFMRU0tQmdySUhiZ0hJTlhEQ2FkMTlXaXZwNDh1S19kNDZnaWEzVUZDeld6ME9DUmFDS09zaEozVGVvQ2s1RWptIiBocmVmPSJodHRwOi8vZ2hzYWxsY2xhc3NyZXVuaW9uLndpeHNpdGUuY29tL3JldW5pb24/ZmJjbGlkPUl3QVIxYkRESWVOT19VcU10RjhQSmcySndqM2FXTGhsV2pTYXEwcWR5RldhRjUweWxEX3hjazZ5OS03b2ciIHJlbD0ibm9vcGVuZXIgbm9mb2xsb3ciIHRhcmdldD0iX2JsYW5rIj5naHNhbGxjbGFzc3JldW5pb24ud2l4c2l0ZS5jb20vcmV1bmlvbjwvYT48L2gxPg0KDQo8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+Jm5ic3A7PC9wPmQCDg9kFgJmDxYCHwAF5Qo8cD5UaGUgR2xhc2dvdyBTY2hvb2wgRGlzdHJpY3QgdXRpbGl6ZXMgUmVjcnVpdCBhbmQgSGlyZSBhcyBvdXIgRW1wbG95bWVudCBQb3J0YWwuICZuYnNwOzxiciAvPg0KUGxlYXNlIGNsaWNrIG9uIHRoZSBSZWNydWl0IGFuZCBIaXJlIGxpbmsgYmVsb3cgdG8gYmVnaW4gdGhlIGFwcGxpY2F0aW9uIHByb2Nlc3MuPC9wPg0KDQo8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjIycHg7Ij48YSBocmVmPSJodHRwczovL2dsYXNnb3dzZC50ZWRrMTIuY29tL2hpcmUvaW5kZXguYXNweCI+PHNwYW4gc3R5bGU9ImNvbG9yOiNGRjAwMDA7Ij5SZWNydWl0ICZhbXA7IEhpcmU8L3NwYW4+PC9hPjwvc3Bhbj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE4cHg7Ij48c3BhbiBzdHlsZT0iY29sb3I6I0ZGMDAwMDsiPiZuYnNwOzwvc3Bhbj48L3NwYW4+PC9wPg0KDQo8aHIgLz4NCjxkaXYgY2xhc3M9InRhYmxlLXJlc3BvbnNpdmUiPg0KPHRhYmxlIGNsYXNzPSJ0YWJsZSIgc3R5bGU9IndpZHRoOiAxMDAlOyI+DQoJPHRib2R5Pg0KCQk8dHI+DQoJCQk8dGQ+DQoJCQk8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE4cHg7Ij48c3Ryb25nPjx1PkN1cnJlbnQgQ2VydGlmaWVkIFBvc2l0aW9uczwvdT48L3N0cm9uZz48L3NwYW4+PGJyIC8+DQoJCQkmbmJzcDs8L3A+DQoJCQk8L3RkPg0KCQkJPHRkPg0KCQkJPHA+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxOHB4OyI+PHU+PHN0cm9uZz5DdXJyZW50IENvYWNoaW5nIFBvc2l0aW9uczwvc3Ryb25nPjwvdT48L3NwYW4+PGJyIC8+DQoJCQkmbmJzcDs8L3A+DQoJCQk8L3RkPg0KCQk8L3RyPg0KCQk8dHI+DQoJCQk8dGQ+DQoJCQk8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE4cHg7Ij48c3Ryb25nPjx1PkN1cnJlbnQgQ2xhc3NpZmllZDwvdT48L3N0cm9uZz48L3NwYW4+PGJyIC8+DQoJCQlQYXJhcHJvZmVzc2lvbmFsIEhpZ2ggU2Nob29sPC9wPg0KCQkJPC90ZD4NCgkJCTx0ZD4NCgkJCTxwPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MThweDsiPjxzdHJvbmc+PHU+Q3VycmVudCBPbi1Hb2luZyBQb3NpdGlvbnM8L3U+PC9zdHJvbmc+PC9zcGFuPjxiciAvPg0KCQkJPHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxNHB4OyI+U3Vic3RpdHV0ZSBhbmQgQWN0aXZpdHkgQnVzIERyaXZlcnMgLS0gV2Ugd2lsbCB0cmFpbjxiciAvPg0KCQkJU3Vic3RpdHV0ZSBUZWFjaGVyL0FpZGU8L3NwYW4+PC9wPg0KDQoJCQk8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE0cHg7Ij5TdWJzdGl0dXRlIEN1c3RvZGlhbiZuYnNwOzwvc3Bhbj48L3A+DQoJCQk8L3RkPg0KCQk8L3RyPg0KCTwvdGJvZHk+DQo8L3RhYmxlPg0KPC9kaXY+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD4mbmJzcDs8L3A+ZAILD2QWAmYPZBYCZg8WAh8BAgQWCGYPZBYCZg8VBRdodHRwOi8vd3d3LnR3aXR0ZXIuY29tLwdUd2l0dGVyBV9zZWxmJDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5Ud2l0dGVyPC9zcGFuPg1mYSBmYS10d2l0dGVyZAIBD2QWAmYPFQVKaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL3BnL0lybGUtRWxlbWVudGFyeS1TY2hvb2wtMTEyMDk1NDI0Nzk1MTU2My9wb3N0cy8IRmFjZWJvb2sFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkZhY2Vib29rPC9zcGFuPg5mYSBmYS1mYWNlYm9va2QCAg9kFgJmDxUFGmh0dHBzOi8vdHdpdHRlci5jb20vR1NEXzFBGkdsYXNnb3cgU2Nob29sIERpc3RyaWN0IDFBBl9ibGFuayQ8c3BhbiBjbGFzcz0nb2JzY3VyZSc+VHdpdHRlcjwvc3Bhbj4NZmEgZmEtdHdpdHRlcmQCAw9kFgJmDxUFBi9sb2dpbhhDb250ZW50IE1hbmFnZW1lbnQgTG9naW4FX3NlbGYmPHNwYW4gY2xhc3M9J29ic2N1cmUnPkNNUyBMb2dpbjwvc3Bhbj4NZmEgZmEtc2lnbi1pbmRk6wM63hn+2k2lv4XYxyJqlakvXZI=">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script><script src="/WebResource.axd?d=ciQs-AUcGllikzvJxOn4IY9qdpn5WXYfT_PMnTK91Xt8dksb258BJxYsmn4olEPTocq6JTsZH-_-9MV4tnJ7755rEvo1&amp;t=636160844560000000" type="text/javascript"></script><!--[if IE]> 
+		<style type="text/css">	
+			@media only screen and (min-width: 768px) {
+				 .nivo-caption {
+					bottom: 16px;
+				}
+			}			
+
+			@media only screen and (min-width: 992px) {
+				 .nivo-caption {
+					bottom: 16px;
+				}
+			}
+
+			@media only screen and (min-width: 1200px) {
+				 .nivo-caption {
+					bottom: 34px;
+				}
+			}			
+		</style>
+		<![endif]--><a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+<style type="text/css">
+    .alertdiv,
+    .alertReShow,
+    .alertList {
+        display: none;
+    }
+
+    .alertTab {
+        margin-left: 20px;
+    }
+
+    .alertTitle {
+        display: inline-block;
+        padding: 2px 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    .nextAlert {
+        background: #676767;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .alertCount {
+        position: absolute;
+        left: -115px;
+    }
+
+    .textalert {
+        color: #313131;
+        position: relative;
+    }
+
+    .alertBar {
+        z-index: 10;
+        font-weight: normal;
+        background: #373737;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#e0e0e0)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#ffffff, #e0e0e0); /* Chrome 10+, Saf5.1+ */
+        background-image: -moz-linear-gradient(#ffffff, #e0e0e0); /* FF3.6 */
+        background-image: -ms-linear-gradient(#ffffff, #e0e0e0); /* IE10 */
+        background-image: -o-linear-gradient(#ffffff, #e0e0e0); /* Opera 11.10+ */
+        background-image: linear-gradient(#ffffff, #e0e0e0);
+    }
+
+    a.closeAlert {
+        color: #fff;
+        font-size: 20px;
+    }
+
+    a.openAlert {
+        color: #fff;
+        font-size: 20px;
+        padding-right: 18px;
+        padding-top: 3px;
+    }
+
+    .alertDangerColor {
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .alertPrefix {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+        margin: 0;
+        border-radius: 3px;
+        font-size: 18px;
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+    .alertText {
+        display: inline-block;
+        width: 100%;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    #alertTicker > .alertTextInfo,
+    #alertTicker > .alertTextInfo > p:first-child, .alertTextInfo > span:first-child{display:inline;}
+    .popExclam {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .dark.alertBar{color:#fff;}
+     .dark.alertBar a{color:#fff; text-decoration:underline;}
+         .light.alertBar a{ text-decoration:underline;}
+        .popExclam i {
+            color: #aa1111 !important;
+            font-size: 55px;
+        }
+        .exclamText{padding-top:15px;}
+        .bottomRightEcxlam{position:fixed;z-index:1001;bottom:55px; right:25px;display:none;}
+</style>
+<!--[if lte IE 9]>
+	<style type="text/css">
+	    .alertBar {
+            background: #e0e0e0;
+        }
+	</style>
+<![endif]--><div id="ctl00_ctl00_ctl06_ctl01_BarAlert">
+	
+    <script>
+        $(document).ready(function () {
+            var startColor = "ffffff";
+            if (startColor == "ffffff") {
+                $(".alertBar").addClass("light");
+            }
+            else {
+                $(".alertBar").addClass("dark");
+            }
+        });
+
+    </script><div class="alert-margin">
+        <div style="position: relative; padding: 10px 45px 10px 10px;" class="alertdiv alertBar">
+            <div style="max-width: 980px; margin: 0 auto; font-size: 18px" class="textalert">
+                
+                <div class="alertCount">
+<span class="indexCount">1</span> of 4 <span class="nextAlert">Next</span>
+</div>
+                
+
+                <div id="alertTicker" tabindex="0"></div>
+            </div>
+
+            <ul class="alertList">
+<li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff">MHSA ~ Athletics in the Glasgow School District:</span> <span class="alertTextInfo"><p><img data-image-whitelisted="" height="159" id="m_-1846559797433880010_x0000_i1025" src="https://mail.google.com/mail/u/2?ui=2&amp;ik=d1251dfa62&amp;attid=0.1&amp;permmsgid=msg-f:1664701514422807170&amp;th=171a35351839ea82&amp;view=fimg&amp;sz=s0-l75-ft&amp;attbid=ANGjdJ8lKrsYNy9-h8BgBSWdoRbdpOwhFDLjhK8JkgByshyoaf15MOXUoicDjvl3auxZ7Gk7z2yH-Zdsizz-pXhoNWuEo_t59swYL9MnSC9AZWcBzRuAfDyj29nZ3GE&amp;disp=emb" style="width:7.3958in;height:1.6562in;" tabindex="0" width="710"></p>
+
+<p> </p>
+
+<p> </p>
+
+<p><a name="m_-1846559797433880010__Hlk38446419"></a><a name="m_-1846559797433880010__Hlk37078957"></a><a name="m_-1846559797433880010__Hlk36468534">April 22, 2020</a></p>
+
+<p> </p>
+
+<p> </p>
+
+<p><strong>TO:                         MHSA SCHOOL ADMINISTRATORS</strong></p>
+
+<p> </p>
+
+<p><strong>FROM:                 MARK BECKMAN, EXECUTIVE DIRECTOR</strong></p>
+
+<p> </p>
+
+<p><strong>RE:                          UPDATE – MHSA COVID-19 ISSUES</strong></p>
+
+<p> </p>
+
+<p> </p>
+
+<p>Good afternoon,</p>
+
+<p> </p>
+
+<p>As you are aware, the Governor has issued a reopening plan for the state which included local school districts to determine allowing in-person instruction on May 7<sup>th</sup>.</p>
+
+<p> </p>
+
+<p>Because of the previous MHSA Board action, resumption of spring activities depended on our student’s ability to return to in-person instruction without restrictions by May 4<sup>th</sup> and if in-person instruction didn’t resume by that time without restrictions, spring activities would be cancelled.   The spring 2020 is cancelled due to the ongoing COVID-19 pandemic which is affecting communities across our country.</p>
+
+<p> </p>
+
+<p>The MHSA Executive Board proceeded with cautious optimism holding on to hope to realistically resume spring activities.  It would be difficult to conduct meaningful spring activities from this late date, with many schools deciding not to return to in-person instruction, with the social distancing recommendations still in place, and along with many other factors.   </p>
+
+<p>We empathize with all the students, schools and communities that this decision impacts, and especially with the many seniors that have shown maturity and resolve as their culminating year of high school has been impacted beyond activities and athletics due to this COVID-19 pandemic.  The Class of 2020 will not be forgotten.</p>
+
+<p>We look forward to the resumption of high school activities during the 2020-2021 school year with some level of normalcy. Our office will be entirely focused on contingency plans for the 2020 fall season and beyond, should they be needed.</p>
+
+<p>We will continue to communicate as state, local and health agencies keep us informed of new public health guidelines.</p>
+
+<p> </p>
+
+<p><strong><em>There are moments when troubles enter our lives and we can do nothing to avoid them. But they are there for a reason. Only when we have overcome them will we understand why they were there.”</em></strong> – <a data-saferedirecturl="https://www.google.com/url?q=https://everydaypower.com/paulo-coelho-quotes/&amp;source=gmail&amp;ust=1587669482326000&amp;usg=AFQjCNH53fr04auHaxT-AO-XOTv-yDnI3w" href="https://everydaypower.com/paulo-coelho-quotes/" target="_blank"><strong>Paulo Coelho</strong></a>, ‘<em>The Fifth Mountain</em><em>”</em></p>
+
+<p> </p>
+
+<p><strong>Mark Beckman</strong></p>
+
+<p>EXECUTIVE DIRECTOR</p></span>
+</li>
+<li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff;">School Closings/Delays:</span> <span class="alertTextInfo"><p>The Glasgow School District continues to be closed from April 24, 2020 until May 7, 2020.  This decision came from the Governor of Montana.  Remote learning will continue as planned.</p> </span>
+</li>
+<li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff">~Glasgow Community~:</span> <span class="alertTextInfo"><p>Please go to the Glasgow Community organization's webpage to find our information about the levy.</p>
+
+<p> </p>
+
+<p><a href="https://yestoscottiestudents.com/">Glasgow Levy information</a></p>
+
+<p> </p>
+
+<p><a href="https://www.facebook.com/yestoscottiestudents">Facebook</a></p>
+
+<p> </p></span>
+</li>
+<li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff">Alert:</span> <span class="alertTextInfo"><p dir="ltr"><b id="docs-internal-guid-f9ad97a3-7fff-e484-6bb6-db05c9b1a6d0"><img height="417" src="https://lh5.googleusercontent.com/5gZQvih_BjFOzcwETnNXiNchUbWdeiW1nTLlALj5_KkvFnLcUTQQiH1nh6hLhA4SADi3gAzKfb564exw6QwdUwIuVP3c6r_oCse19WCncKw-0hn2KOhnR0OFwbw232yumMFCZO-J" width="624">We’re Goin’ on a Bear Hunt!</b></p>
+
+<p> </p>
+
+<p dir="ltr"><b id="docs-internal-guid-f9ad97a3-7fff-e484-6bb6-db05c9b1a6d0">Irle School staff are calling all community members! With Spring finally arriving here in Glasgow, here’s an idea to provide an outdoor activity for all kids young and old.  To participate you only need to place a teddy bear or any stuffed animal in the window(s) of your home or business. **Bonus points for Scottie Dogs!** If you do not have a stuffed animal, no problem, you can also print a picture of your favorite stuffed animal for your window. Be creative! You can put some outside in your front yard that may be easy or a little more difficult to find. Children and their families will then be able to take a walk or car ride around town to count or “hunt” for bears while maintaining social distancing. Dr. Millard has approved our hunt which will begin on Monday, April 27th through Friday, May 8th. Attached is a printable scorecard to tally your finds and help with your counting. Happy Hunting! </b></p></span>
+</li>
+</ul>
+<div style="position: absolute; right: 20px; top: 5px; z-index: 20;">
+                <a href="javascript:hideAlert()" class="closeAlert">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <span class="obscure">Close alert</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="alertReShow alertBar" style="position: relative; width: 100%; padding: 2px;">
+            <a style="float: right;" href="javascript:loadAlert()" class="openAlert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <span class="obscure">Open alert</span>
+            </a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>
+<div>
+      <a id="exclamationAlert" class="popExclam bottomRightEcxlam"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+</div>
+<script type="text/javascript" src="/admin/js/alert/alertDown.js?version=4"></script><script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'ILxAaM2Kec' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><nav class="navbar navbar-inverse navbar-static-top hidden-sm hidden-md hidden-lg" role="navigation"><div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Glasgow Public Schools</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-navbar">
+                    <ul class="nav navbar-nav">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/content/dcl2019" title="District Contact List">District Contact List</a></li>
+<li class="without-image"><a href="https://classroom.google.com/h" title="Google Classroom">Google Classroom</a></li>
+<li class="without-image"><a href="/glasgow-high-school/home" title="High School">High School</a></li>
+<li class="without-image"><a href="/glasgow-middle-school/home" title="Middle School">Middle School</a></li>
+<li class="without-image"><a href="/irle-elementary-school/home" title="Irle">Irle</a></li>
+<li class="without-image"><a href="https://www.mymealtime.com/signin.aspx" title="MealTime Online">MealTime Online</a></li>
+<li class="without-image"><a href="/0/featured/5" title="Athletics/Activities">Athletics/Activities</a></li>
+<li class="without-image"><a href="https://glasgowsd.tedk12.com/hire/index.aspx" target="_blank" title="Employment">Employment</a></li>
+<li class="without-image"><a href="http://www.glasgow.k12.mt.us/Board" title="School Board">School Board</a></li>
+<li class="without-image"><a href="/District/Links" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/Communication" target="_blank" title="Sign up for Superintendent Newsletter">Sign up for Superintendent Newsletter</a></li>
+</ul>
+</div>
+            </div>
+        </nav><div class="headerback hidden-xs">
+            <header id="site-head"><div class="header">
+    <div class="NavBack hidden-xs">
+        <div id="ctl00_ctl00_header_ctl00_ctl00_pnlTicker" class="content-ticker-container">
+	
+    <style type="text/css">
+        #newsTicker,
+        #newsTickerInner {
+            position: relative;
+            height: 30px;
+            overflow: hidden;
+        }
+
+        #newsTicker .tickerItemWrapper {
+            position: absolute;
+            width: 100%;
+            line-height: 30px;
+            overflow: hidden;
+        }
+
+        #newsTicker .tickerItem {
+            text-align: center;
+        }
+
+        #expandTicker {
+            display: block;
+            position: absolute;
+            right: 3px;
+            top: 3px;
+            width: 24px;
+            height: 24px;
+            color: inherit;
+            background-color: inherit;
+            font-size: 21px;
+            text-align: center;
+            line-height: 24px;
+        }
+
+        #newsTickerContent,
+        .tickerImpHide {
+            display: none;
+        }
+
+        #newsTickerContent.tickerImpShow {
+            display: block;
+            min-height: 30px;
+        }
+    </style>
+<div style="position: relative;">
+        <div id="newsTicker">
+            <div id="newsTickerInner">
+            </div>
+        </div>
+
+        <a href="javascript:void(0)" id="expandTicker"><span class="obscure">expand the news ticker</span><i class="fa fa-bars"></i></a>
+
+        <div id="newsTickerContent">
+		<div style="color:#ffffff;">Welcome to Glasgow Public Schools</div>
+<div style="color:#faf7f7;">No Drivers' Ed classes until further notice. At this time, March 16-27 is the minimum.</div>
+<div style="color:#fbf5f5;">Click on GHS news to see how to order a 19-20 yearbook</div>
+<div style="color:#f6f0f0;">Seniors graduation Salute is due to Mr. Huntsman by April 15</div>
+	</div>
+    </div>
+
+    <script type="text/javascript">
+        var expanded = false;
+
+        $('#expandTicker').click(function () {
+            if (expanded) {
+                $('#newsTicker').addClass('tickerImpShow').removeClass('tickerImpHide');
+                $('#newsTickerContent').addClass('tickerImpHide').removeClass('tickerImpShow');
+                expanded = false;
+            }
+            else {
+                $('#newsTicker').addClass('tickerImpHide').removeClass('tickerImpShow');
+                $('#newsTickerContent').addClass('tickerImpShow').removeClass('tickerImpHide');
+                expanded = true;
+            }
+        });
+
+        $(function () {
+            var items = $('#newsTickerContent > div');
+            var index = 0;
+            var tickerTimeout = null;
+            var paused = false;
+
+            tickerCycle();
+
+            $('#newsTicker').hover(function () {
+                paused = true;
+                if (tickerTimeout) {
+                    window.clearTimeout(tickerTimeout);
+                    tickerTimeout = null;
+                }
+            }, function () {
+                if (paused && !tickerTimeout) {
+                    tickerTimeout = window.setTimeout(function () {
+                        paused = false;
+                        tickerCycle();
+                    }, 3000);
+                }
+            });
+
+            function tickerCycle() {
+                var target = $('#newsTickerInner');
+                var startOffset = 1024;
+                var item = items[index];
+                if (++index >= items.length) index = 0;
+
+                removeCurrentTickerItem(function () {
+                    var tickerItemWrapper = $("<div>")
+                        .addClass("tickerItemWrapper")
+                        .css('left', startOffset + 'px');
+                    $("<div>")
+                        .addClass("tickerItem")
+                        .html($(item).clone())
+                        .appendTo(tickerItemWrapper);
+                    $(tickerItemWrapper).appendTo(target);
+
+                    var targetOffset = '0px';
+                    $(tickerItemWrapper).animate({ left: targetOffset }, 1500, 'easeOutCirc', function () {
+                        if (!paused) {
+                            tickerTimeout = window.setTimeout(function () {
+                                tickerCycle();
+                                tickerTimeout = null;
+                            }, 3000);
+                        }
+                    });
+                });
+            }
+
+            function removeCurrentTickerItem(callback) {
+                if ($('#newsTickerInner .tickerItemWrapper').length > 0) {
+                    var targetOffset = '-1024px';
+                    $('#newsTickerInner .tickerItemWrapper').animate({ left: targetOffset }, 1500, 'easeOutCirc', function () {
+                        $(this).remove();
+                    });
+                    callback();
+                } else {
+                    callback();
+                }
+            }
+        });
+    </script>
+</div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div class="navigation">
+                        <nav class="navbar navbar-default" role="navigation"><div class="collapse navbar-collapse" id="nav">
+                                <ul class="nav navbar-nav district-top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Our Schools">Our Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/glasgow-high-school/home" title="High School">High School</a></li>
+<li class="without-image"><a href="/glasgow-middle-school/home" title="Middle School">Middle School</a></li>
+<li class="without-image"><a href="/irle-elementary-school/home" title="Irle Elementary">Irle Elementary</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Our District">Our District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://drive.google.com/file/d/1t5huJPvVzSxp-nQQhPsDcDeJSOd3Agdt/view?usp=sharing" title="Mission/Vision Statement">Mission/Vision Statement</a></li>
+<li class="without-image"><a href="#" title="Central Office">Central Office</a></li>
+<li class="without-image"><a href="/board" title="School Board">School Board</a></li>
+<li class="without-image"><a href="/Content2/dcl" title="District Contact List">District Contact List</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="https://docs.google.com/spreadsheets/d/1pQxhefNGY4ewSDHHtJwQypIvP3_yuDsQoLONzQ1O0xU/edit?usp=sharing" title="2019-2020 Calendar">2019-2020 Calendar</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/2020-21%20school%20calendar.pdf?id=626" title="2020-2021 Calendar">2020-2021 Calendar</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/District/Links" title="Online Resources">Online Resources</a></li>
+<li class="without-image"><a href="https://glasgowsd.tedk12.com/hire/" target="_blank" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/ada-report" target="_blank" title="ADA Complaint">ADA Complaint</a></li>
+</ul>
+</div>
+                        </nav>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <a href="/" id="ctl00_ctl00_header_ctl00_headerImageAnchor" class="header-image">
+                    Glasgow Public Schools
+                    <div class="header-image-address">
+                        406.228.2406 | F: 406.228.2407 | PO Box 28 | 229 7th St. N. | Glasgow, MT 59230 | 
+                    </div>
+                </a> 
+            </div>
+        </div>
+    </div>
+</div>
+
+                
+                <div style="clear: both;"></div>
+            </header><div style="clear: both;"></div>
+        </div>
+
+        
+        
+
+        <div class="masterC alignment-stretch">
+            
+    <div class="maincontentsection">
+        
+    <div class="slideshow-container hidden-xs">
+        <script>
+            $(document).ready(function () {
+                $(window).on('resize', function () {
+                    var windowWidth = $(window).width();
+                    var height = Math.min(270, (270.0 / 1920) * windowWidth);
+                    $('.diamond').height(height);
+                });
+
+                $(window).trigger('resize');
+            });
+        </script><style type="text/css">
+            .diamond {
+                font-size: 1.3vw;
+            }
+        </style>
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({ effect: 'fade', pauseTime: 3000, prevText: 'Prev', nextText: 'Next', animSpeed: 500   });
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+	});
+</script><div id="slideshow" tabindex="-1">
+	<div class="slides">
+		
+				<img title="Pencil with Dictionary" alt="Pencil and Book Picture" src="/images/full//userfiles/2017-05/3944814a-1969-4cce-8145-1ea539393ef3.jpg">
+</div>
+
+	
+</div>
+
+
+        <div class="diamonds-container container">
+            <div class="row">
+                <div class="diamond col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                    <a href="/irle-elementary-school/home">Irle<br>
+                        Elementary</a>
+                </div>
+
+                <div class="diamond col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                    <a href="/glasgow-middle-school/home">Middle<br>
+                        School</a>
+                </div>
+
+                <div class="diamond col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                    <a href="/glasgow-high-school/home">High<br>
+                        School</a>
+                </div>
+
+                <div class="diamond col-xs-6 col-sm-3 col-md-3 col-lg-3">
+                    <a href="/board">School<br>
+                        Board</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+
+    <div class="grid container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 grid-item-container grid-height-1">
+                <div class="grid-item">
+                    <a href="/Superintendent" style="color: #fff;">
+                        <div class="feature-content-grid-item-background-image" style="background-image: url('/userfiles/-12/my files/grid-backgrounds/1.jpg?id=6'">
+                            <div style="padding: 10px;">
+                                <div class="feature-content-grid-content-title">
+                                    Superintendent<br>
+                                    Message
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 grid-item-container grid-height-1 text-red">
+                <div class="grid-item">
+                    
+<div class=" feature-content-grid-item">
+    <div style='background-image: url("/userfiles/4/my files/logo-tyler-technologies-color-120.png?id=636")' class="feature-content-grid-item-background-image" aria-hidden="true"></div>
+    <div class="feature-content-grid-body">
+        <div class="feature-content-grid-content" data-rank="2" data-schoolid="0">
+            <div class="content-wrapper">
+                
+                <div class="feature-content-grid-content-title">
+                    FamilyLink Parent/Student Portal
+                </div>
+                
+                <div class="feature-content-grid-content-content">
+                    <p align="center"><span style="font-size:18px;"><span style="font-family:georgia,serif;"><strong>G L A S G O W   S C H O O L   D I S T R I C T  1 A</strong></span></span></p>
+
+<p align="center"><span style="font-size:14px;"><span style="font-family:georgia,serif;"><img alt="Scottie Dog" src="/userfiles/2/my%20files/scottie%20dog%20logo%20sm.png?id=58&amp;width=85" style="width: 85px; height: 85px;"></span></span></p>
+
+<p align="center"> </p>
+
+<div class="table-responsive">
+<table class="table" style="width: 100%;"><tbody>
+<tr>
+<td>
+			<p> </p>
+
+			<p>Parents/Students- Please click on the link below to access the Family Link Portal to  grades and attendance.</p>
+
+			<p><a href="https://schoolmaster2asp.tylertech.com/GSD/FamilyLink/Login.aspx">https://schoolmaster2asp.tylertech.com/GSD/FamilyLink/Login.aspx</a></p>
+
+			<p> </p>
+			</td>
+			<td> </td>
+		</tr>
+<tr>
+<td> </td>
+			<td style="text-align: center;"> </td>
+		</tr>
+</tbody></table>
+</div>
+
+<p> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 grid-item-container grid-height-2 pull-right news-container">
+                <div class="grid-item">
+                    <div id="social-tabs">
+                        <ul class="nav nav-tabs" role="tablist">
+<li role="presentation" class="active">
+                                <a href="#feed-tab" aria-controls="feed" role="tab" data-toggle="tab">Live Feed</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#news-tab" aria-controls="news" role="tab" data-toggle="tab">News</a>
+                            </li>
+
+                            <li id="ctl00_ctl00_MasterContentHome_ContentColumn_tab2Li" role="presentation">
+                                <a href="#tab2" role="tab" data-toggle="tab">
+                                    Facebook</a>
+                            </li>
+
+                            <li id="ctl00_ctl00_MasterContentHome_ContentColumn_tab3Li" role="presentation">
+                                <a href="#tab3" role="tab" data-toggle="tab">
+                                    Twitter</a>
+                            </li>
+                        </ul>
+<div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="feed-tab">
+                                
+
+<script src="/js/live-feed/feed.js?v=8"></script><script>
+    $(document).ready(function () {
+        $('.live-feed-container').liveFeed({
+            posts: parseInt('15', 10),
+            postId: parseInt('0', 10),
+            userId: parseInt('0', 10),
+            schoolId: parseInt('0', 10)
+        });
+    });
+</script><div class="live-feed-container">
+    <img title="loading..." alt="loading..." style="display: block; margin: auto;" src="https://cdn.schoolpointe.com/images/ripple-loader.gif">
+</div>
+
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="news-tab">
+                                
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContentHome_ContentColumn_ucNews_rep_news_ctl01_lnkTitle" class="news-title" href="/News/1273">How to order your 19/20 yearbook</a>
+
+				<span class="news-post-date">Posted On: Monday, March 30, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContentHome_ContentColumn_ucNews_rep_news_ctl01_lblSummary" class="news-summary"></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContentHome_ContentColumn_ucNews_rep_news_ctl01_lnkViewAll" title="Click to read more about: How to order your 19/20 yearbook" class="view-all" href="/News/1273">Read More <span class="sr-only">about How to order your 19/20 yearbook</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section><a href="/news" class="view-all-news pull-right">View All News</a>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="tab2">
+                                
+<div class="feature-content full-size">
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <div id="fb-root"> </div>
+<div style="text-align: center;"> </div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&amp;version=v4.0"></script><div class="fb-page" data-href="https://www.facebook.com/Glasgow-Public-Schools-105854187440944/" data-tabs="timeline" data-width="350" data-height="310" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="false"><blockquote cite="https://www.facebook.com/Glasgow-Public-Schools-105854187440944/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/Glasgow-Public-Schools-105854187440944/">Glasgow Public Schools</a></blockquote></div>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane" id="tab3">
+                                
+<div class="feature-content full-size">
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p style="text-align: center;"> </p>
+
+<p style="text-align: center;"><a class="twitter-timeline" data-height="310" data-width="340" href="https://twitter.com/GSD_1A?ref_src=twsrc%5Etfw">Tweets by GSD_1A</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></p>
+
+
+
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 grid-item-container grid-height-2 grid-nav">
+                <div class="grid-item">
+                    <ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/content/dcl2019" title="District Contact List">District Contact List</a></li>
+<li class="without-image"><a href="https://classroom.google.com/h" title="Google Classroom">Google Classroom</a></li>
+<li class="without-image"><a href="/glasgow-high-school/home" title="High School">High School</a></li>
+<li class="without-image"><a href="/glasgow-middle-school/home" title="Middle School">Middle School</a></li>
+<li class="without-image"><a href="/irle-elementary-school/home" title="Irle">Irle</a></li>
+<li class="without-image"><a href="https://www.mymealtime.com/signin.aspx" title="MealTime Online">MealTime Online</a></li>
+<li class="without-image"><a href="/0/featured/5" title="Athletics/Activities">Athletics/Activities</a></li>
+<li class="without-image"><a href="https://glasgowsd.tedk12.com/hire/index.aspx" target="_blank" title="Employment">Employment</a></li>
+<li class="without-image"><a href="http://www.glasgow.k12.mt.us/Board" title="School Board">School Board</a></li>
+<li class="without-image"><a href="/District/Links" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/Communication" target="_blank" title="Sign up for Superintendent Newsletter">Sign up for Superintendent Newsletter</a></li>
+</ul>
+</div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 grid-item-container grid-height-1">
+                <div class="grid-item calendar-grid-item">
+                    <div>
+                        <div class="col-xs-6 text-left calendar-year">
+                            2020
+                        </div>
+                        <div class="col-xs-6 text-right calendar-month">
+                            April
+                        </div>
+                    </div>
+                    <hr>
+<div class="row">
+                        <div class="col-xs-12">
+                            
+
+<style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContentHome_ContentColumn_ctl06_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContentHome%24ContentColumn%24ctl06%24cal_events','V7365')" style="color:Black" title="Go to the previous month">&lt;&lt;<span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April 2020</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContentHome%24ContentColumn%24ctl06%24cal_events','V7426')" style="color:Black" title="Go to the next month">&gt;&gt;<span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">Sun</th>
+<th align="center" abbr="Monday" scope="col">Mon</th>
+<th align="center" abbr="Tuesday" scope="col">Tue</th>
+<th align="center" abbr="Wednesday" scope="col">Wed</th>
+<th align="center" abbr="Thursday" scope="col">Thu</th>
+<th align="center" abbr="Friday" scope="col">Fri</th>
+<th align="center" abbr="Saturday" scope="col">Sat</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=3/29/2020">29</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=3/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=3/31/2020">31</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/1/2020">1</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/2/2020">2</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/3/2020">3</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/5/2020">5</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/6/2020">6</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/7/2020">7</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/8/2020">8</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/9/2020">9</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/10/2020">10</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/12/2020">12</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/13/2020">13</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/14/2020">14</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/15/2020">15</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/16/2020">16</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/19/2020">19</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/20/2020">20</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/21/2020">21</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/23/2020">23</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/26/2020">26</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/27/2020">27</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/28/2020">28</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/29/2020">29</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,26,32,51,52&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContentHome_ContentColumn_ctl06_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 grid-item-container grid-height-1">
+                <div class="grid-item">
+                    
+<div class=" feature-content-grid-item">
+    <div style='background-image: url("/userfiles/6/my files/school food tray.png?id=631")' class="feature-content-grid-item-background-image" aria-hidden="true"></div>
+    <div class="feature-content-grid-body">
+        <div class="feature-content-grid-content" data-rank="4" data-schoolid="0">
+            <div class="content-wrapper">
+                
+                <div class="feature-content-grid-content-title">
+                    School Food
+                </div>
+                
+                <div class="feature-content-grid-content-content">
+                    <p>Pay for meals in advance <a href="https://www.mymealtime.com/signin.aspx">here</a>.</p>
+
+<p><span style="font-size:18px;"><strong><span style="background-color:#33ccff;">FRAZER IS THE CLOSEST LOCATION THAT OFFERS SUMMER FOOD SERVICES. </span></strong></span></p>
+
+<p> </p>
+
+<p><a href="https://docs.google.com/spreadsheets/d/18feeqwF44N7_bKcnHuEwUfkEzuYMZwM5ECk-FxVq--A/edit?usp=sharing"><strong>Lunch menu</strong></a></p>
+
+<p> </p>
+
+<p><a href="http://opi.mt.gov/Portals/182/Page%20Files/School%20Nutrition/Meal%20Eligibility/Forms%20and%20Policy/FreeReduced%20App%202019-2020.pdf?ver=2019-07-10-143221-637"><strong>Free and Reduced Price Meal Application</strong></a></p>
+
+<p> </p>
+
+<p><a href="https://docs.google.com/document/d/1bn9Z00J3-8YxnAGp3xEHIWmLvpnClhqe3yuxS7WWQZY/edit">Montana School District Wellness Policy Report SY 2018-19</a></p>
+
+<p> </p>
+
+<p><meta charset="utf-8"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 grid-item-container grid-height-1 text-red">
+                <div class="grid-item">
+                    
+<div class=" feature-content-grid-item">
+    <div style='background-image: url("/userfiles/122/my files/scottie high resolution.jpg?id=206&amp;width=200")' class="feature-content-grid-item-background-image" aria-hidden="true"></div>
+    <div class="feature-content-grid-body">
+        <div class="feature-content-grid-content" data-rank="5" data-schoolid="0">
+            <div class="content-wrapper">
+                
+                <div class="feature-content-grid-content-title">
+                    Athletics &amp; Activities
+                </div>
+                
+                <div class="feature-content-grid-content-content">
+                    <p><span style="font-size:20px;"><u><strong>Glasgow High School Athletic Schedules 2019-20 </strong></u></span></p>
+
+<p><a href="https://docs.google.com/spreadsheets/d/1hHqaiUvhmEQntEtqHn4LzMfumh2v9mwGX_k09go_nsI/edit?usp=sharing"><span style="font-size:20px;"><span style="color:#FF0000;">Click HERE</span></span></a></p>
+
+<p><span style="font-size:20px;"><u><strong>Glasgow Middle School Athletic Schedules 2019-20 </strong></u></span></p>
+
+<p><a href="https://docs.google.com/spreadsheets/d/1fSGEMzHTUZpz3hRmjQLomX9M7GsA5CuQUQOKFI_uKb8/edit?usp=sharing"><span style="font-size:20px;"><span style="color:#FF0000;">Click HERE</span></span></a></p>
+
+<p><span style="font-size:20px;"><u><strong>Glasgow School District Activities Bus Departure Times (Spring 2020)</strong></u></span></p>
+
+<p><a href="https://docs.google.com/spreadsheets/d/15pOAnqjmqRl9EHoxG0FVr5cTT1aU-79CwjR2N2F1PMQ/edit?usp=sharing"><span style="color:#FF0000;"><span style="font-size:20px;">Click HERE</span></span></a></p>
+
+<p> </p>
+
+<h1><a href="http://scottiepride.com/"><span style="color:#FF0000;"><strong><span class="Underline" style="text-decoration:underline;">CLICK HERE TO VISIT THE GLASGOW SCOTTIE ATHLETIC WEBSITE (WWW.SCOTTIEPRIDE.COM)</span> </strong></span></a></h1>
+
+<h4> </h4>
+
+<p> </p>
+
+<h4>
+<br><img alt="Scottie High Res. " src="/userfiles/122/my%20files/scottie%20high%20resolution.jpg?id=206&amp;width=500" style="width: 500px; height: 500px;">
+</h4>
+
+<p><a aria-hidden="true" href="/athletics" style="display:none">Athletics Link</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 grid-item-container grid-height-1">
+                <div class="grid-item">
+                    
+<div class=" feature-content-grid-item">
+    <div style='background-image: url("/userfiles/-12/my files/grid-backgrounds/6.jpg?id=3&amp;width=200")' class="feature-content-grid-item-background-image" aria-hidden="true"></div>
+    <div class="feature-content-grid-body">
+        <div class="feature-content-grid-content" data-rank="6" data-schoolid="0">
+            <div class="content-wrapper">
+                
+                <div class="feature-content-grid-content-title">
+                    Transportation
+                </div>
+                
+                <div class="feature-content-grid-content-content">
+                    <p> </p>
+
+<p><span style="font-size:22px;"><a href="http://docs.google.com/document/d/1NXIlCDxRtA5__X0oMO-Z1FhlZm5SlW8o-A-SrbJ3hBk/edit?usp=sharing"><span style="color:#FF0000;">GSD Transportation Handbook</span></a></span></p>
+
+<p><a href="https://docs.google.com/spreadsheets/d/1n2B8Ei-05OfcW4cRyJJ036L34i2r34j3SjjCLr1UOoI/edit#gid=0"><span style="font-size:22px;"><span style="color:#FF0000;">GSD Activities Bus Departure Schedule (Fall 2019)</span></span></a></p>
+
+<p><a href="https://drive.google.com/file/d/1MBKCUhkVDW6Ya4mRnXLaE8CujJrABZRn/view?ts=5d5ac515"><span style="font-size: 22px;">Bus Routes 2019-2020</span></a></p>
+
+<p> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 grid-item-container grid-height-1 text-red">
+                <div class="grid-item">
+                    
+<div class=" feature-content-grid-item">
+    <div style='background-image: url("/userfiles/-12/my files/grid-backgrounds/7.jpg?id=4&amp;width=200")' class="feature-content-grid-item-background-image" aria-hidden="true"></div>
+    <div class="feature-content-grid-body">
+        <div class="feature-content-grid-content" data-rank="7" data-schoolid="0">
+            <div class="content-wrapper">
+                
+                <div class="feature-content-grid-content-title">
+                    Alumni
+                </div>
+                
+                <div class="feature-content-grid-content-content">
+                    <p><meta charset="utf-8"></p>
+
+<h1 style="text-align: center;">Reminder: GHS All Class Reunion will be held on June 24-27, 2021.</h1>
+
+<h1 style="text-align: center;">The official Facebook page dedicated to the reunion is: <a data-hovercard="/ajax/hovercard/page.php?id=1224881321023172&amp;extragetparams=%7B%22__tn__%22%3A%22%2CdK-R-R%22%2C%22eid%22%3A%22ARBCM_OIeN1m10LdS065ceSQ1nLfhQLtFE-FVbqzvkLScFOUBzu9-8OpSI8KjJFWdFnjQsJ-PGbhOX-f%22%2C%22fref%22%3A%22mentions%22%7D" data-hovercard-prefer-more-content-show="1" href="https://www.facebook.com/ghsallclassreunion/?__tn__=K-R&amp;eid=ARBCM_OIeN1m10LdS065ceSQ1nLfhQLtFE-FVbqzvkLScFOUBzu9-8OpSI8KjJFWdFnjQsJ-PGbhOX-f&amp;fref=mentions&amp;__xts__%5B0%5D=68.ARAB7bUjKsF_mOM6Y1AuRAFClFcKkv2ZMdyNev0rzqK-3K5ZWEJplRVXlsbh48d7IS2sojwW5CGQfIUzYrnfViu7dmN3icTU95xwsKa9EmCTBnLBPAdV4UNl4wPRsImhxwCbwLfQYudjpRqQF2AACbQ7EQq7ik-XhKddaOreQTqOsrBXdf8Z95fhS8hOY8ZalsIZzGpcpM7ntUUxgYHHn5VgljxLc_aLr4DQXRljMxVbygXT4r2QmPqTFJTJevWHCQE4lhd9a32gyqQ2B9cjRG-IIW2xYbLbAShLDS8w2fBd3CKYY8xY8EI5juJNUCcVePp4fhKbnL_gDD2-8Q532g">Glasgow Montana All Class Reunion</a>
+</h1>
+
+<h1 style="text-align: center;">Link to the official website for the event: <a data-ft='{"tn":"-U"}' data-lynx-mode="async" data-lynx-uri="https://l.facebook.com/l.php?u=http%3A%2F%2Fghsallclassreunion.wixsite.com%2Freunion%3Ffbclid%3DIwAR1bDDIeNO_UqMtF8PJg2Jwj3aWLhlWjSaq0qdyFWaF50ylD_xck6y9-7og&amp;h=AT3xqAY9O7A1KSXwP5RPGluMvQZhfPM9FCe6-W4mFdb0R0j-hlnqvXRwLLlEUoFJruSFHhWk_t-44wtKt-hnXhBzdM4_pi24y0WvAgtYPjw2b8M4K0wf8Bf5U4kDqdKxurAXNPirTirKgutg6Si107LkLeZTPjJLZ97ZE2mXAf7VjbwegVpItxt53ubeqQB0r-kCrW2mfxHrbic1qc6IVPEJoYnd2CWU_uTODJo5Q_tLc-5TfTjTiSAzKMMe-PiJeeoaAYnlDG6BY46i_hChSnGzpdFTTnf98fO235GFN3aZAWHzunhA-yEllYrS4n1eVR37_XuCinSkkLngkzMh4DVo1NlbMVDfigojkoiH2WIzr1N8zwjfZ1njZTdtyyYOSYDRRQi0ZiMTQP6jTsYPQZvRPd0QZy-kwCwx8PX4SXhvJxC4D4RipN8N_l0W1n07Z-eINFD80BC6GsjtcvoiSPK5WTB7k4xqGSx5BYjypNGLuQJhl8LDYT_pLFeEUyd3IA6Yhba_btYu_Tl6S-Z-20AY_bfVi3czfoES4Y6o9hXpnQb6ukhxAhuRRpHaLEM-BgrIHbgHINXDCad19Wivp48uK_d46gia3UFCzWz0OCRaCKOshJ3TeoCk5Ejm" href="http://ghsallclassreunion.wixsite.com/reunion?fbclid=IwAR1bDDIeNO_UqMtF8PJg2Jwj3aWLhlWjSaq0qdyFWaF50ylD_xck6y9-7og" rel="noopener nofollow" target="_blank">ghsallclassreunion.wixsite.com/reunion</a>
+</h1>
+
+<p style="text-align: center;"> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 grid-item-container grid-height-1">
+                <div class="grid-item">
+                    
+<div class=" feature-content-grid-item">
+    <div style='background-image: url("/userfiles/-12/my files/grid-backgrounds/8.jpg?id=5&amp;width=200")' class="feature-content-grid-item-background-image" aria-hidden="true"></div>
+    <div class="feature-content-grid-body">
+        <div class="feature-content-grid-content" data-rank="8" data-schoolid="0">
+            <div class="content-wrapper">
+                
+                <div class="feature-content-grid-content-title">
+                    Employment Opportunities
+                </div>
+                
+                <div class="feature-content-grid-content-content">
+                    <p>The Glasgow School District utilizes Recruit and Hire as our Employment Portal.  <br>
+Please click on the Recruit and Hire link below to begin the application process.</p>
+
+<p><span style="font-size:22px;"><a href="https://glasgowsd.tedk12.com/hire/index.aspx"><span style="color:#FF0000;">Recruit &amp; Hire</span></a></span><span style="font-size:18px;"><span style="color:#FF0000;"> </span></span></p>
+
+<hr>
+<div class="table-responsive">
+<table class="table" style="width: 100%;"><tbody>
+<tr>
+<td>
+			<p><span style="font-size:18px;"><strong><u>Current Certified Positions</u></strong></span><br>
+			 </p>
+			</td>
+			<td>
+			<p><span style="font-size:18px;"><u><strong>Current Coaching Positions</strong></u></span><br>
+			 </p>
+			</td>
+		</tr>
+<tr>
+<td>
+			<p><span style="font-size:18px;"><strong><u>Current Classified</u></strong></span><br>
+			Paraprofessional High School</p>
+			</td>
+			<td>
+			<p><span style="font-size:18px;"><strong><u>Current On-Going Positions</u></strong></span><br><span style="font-size:14px;">Substitute and Activity Bus Drivers -- We will train<br>
+			Substitute Teacher/Aide</span></p>
+
+			<p><span style="font-size:14px;">Substitute Custodian </span></p>
+			</td>
+		</tr>
+</tbody></table>
+</div>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+
+            <div class="container-fluid middle">
+                <div class="row">
+                    
+    <ul id="quick-links" style="display: none;">
+<li class="dropdown hidden-xs" id="quick-links-dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown">Quick Links <b class="caret"></b></a>
+            <ul class="dropdown-menu quick-links-dropdown-menu">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/content/dcl2019" title="District Contact List">District Contact List</a></li>
+<li class="without-image"><a href="https://classroom.google.com/h" title="Google Classroom">Google Classroom</a></li>
+<li class="without-image"><a href="/glasgow-high-school/home" title="High School">High School</a></li>
+<li class="without-image"><a href="/glasgow-middle-school/home" title="Middle School">Middle School</a></li>
+<li class="without-image"><a href="/irle-elementary-school/home" title="Irle">Irle</a></li>
+<li class="without-image"><a href="https://www.mymealtime.com/signin.aspx" title="MealTime Online">MealTime Online</a></li>
+<li class="without-image"><a href="/0/featured/5" title="Athletics/Activities">Athletics/Activities</a></li>
+<li class="without-image"><a href="https://glasgowsd.tedk12.com/hire/index.aspx" target="_blank" title="Employment">Employment</a></li>
+<li class="without-image"><a href="http://www.glasgow.k12.mt.us/Board" title="School Board">School Board</a></li>
+<li class="without-image"><a href="/District/Links" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/Communication" target="_blank" title="Sign up for Superintendent Newsletter">Sign up for Superintendent Newsletter</a></li>
+</ul>
+</li>
+    </ul>
+</div>
+            </div>
+        </div>
+
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot"><div class="container">
+    <div class="row footer-row">
+        <div class="col-xs-12 col-md-4 col-lg-4">
+            <div>Glasgow Public Schools</div>
+            <div>
+                406.228.2406 | F: 406.228.2407,
+                PO Box 28 | 229 7th St. N., 
+                Glasgow, MT 59230
+            </div>
+
+            <div class="footer-phone-container">
+                
+            </div>
+
+            <div class="social-links">
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-4 col-lg-4">
+            <div class="footer-logo" aria-hidden="true"></div>
+        </div>
+
+        <div class="col-xs-12 col-md-4 col-lg-4">
+            <div class="social-links">
+                
+        <a href="http://www.twitter.com/" title="Twitter" target="_self">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/pg/Irle-Elementary-School-1120954247951563/posts/" title="Facebook" target="_self">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="https://twitter.com/GSD_1A" title="Glasgow School District 1A" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter"></i>
+        </a>
+    
+        <a href="/login" title="Content Management Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 schoolpointe-copyright-container">
+                © Copyright 2020 <a href="http://www.schoolpointe.com/" style="color: black; text-decoration: none;">SchoolPointe, Inc</a>
+                <a href="http://www.schoolpointe.com/" class="schoolpointe-footer-logo">
+                    <img title="SchoolPointe, Inc" alt="SchoolPointe logo" src="https://cdn.schoolpointe.com/images/new/SPBlack.png"></a>
+            </div>
+        </div>
+    </div>
+</div>
+            </footer>
+</div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0"><input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC2zjKpgyNe4FC9W8uyeMaSY9fTKK+rk6QPANG7v8F2swYwApOuo12gzUF3WiMOteedScP9ujxeL4Wr84JgMbSGZzMnKDhF4GFfhEOxohN5e8Ughq3X+q77gwyfFeeYipsQwSu3m5ROPb6ApJntrQ7kAMPL2rDWcoyHR21ANHFBpScHDNjqlvTYtP/mN7zADR+UiSBkUk07aEFuQZS6vVNEBbEwWRYaZOR5AjrpVYEHw6V2D+7YQ6GEBENTHtd64k816VMGOP25B9NLBcHulkG9Q8+z2r2f/UWdBqSTWiphA40BUz9sIBiaHGldEgT7WODrEHeWpFrSTH8qD95itIrUCzU6vJ+vOxV2KLNxovIJDiKiJSQO2j9PFUbHIpAD8s6ZTgIDo+y/by2y/bzfdafxjQ/Peeuh8Jnmtxq0mEZ9cB5OGM+ktvdF2BIz9cILHp3yib3y9fArbkqnxcYRCYg8uy+gv1G6FKCncdcegfPcuY6rJwvdHSIt2RARgFmgBChPuo+KLfpuVy7SLjx9mjG4OWCSnoXoE6vZkUg/RWhWoYxRPIaFawJDqn/ql8XtpXcWxAyDkiFw39/Vd92xpOWlnTjlyofl/CxB3cwfp5BCGKfNrEqeAildz/iCzzVUb1pgeMBwpaEl/CW+J7YjtNGKD6M7KOe+4fLux+J9Pzkr2V7LHI8ClotzFNT0jgA9XoK/7cQ4ls9a7MvmmarjRhpm/sxx7xhf9/dYRU9m9aw2J4Fv1GAC9RIXSk6p5JUe8rP94XZpVcNB5PYKoK5G9hDjxDb8Z8glq3KPDlNFh4oBXwpQOodkabHP0y0agnsjNdAi+K9plzjd6NnpQ/zbPd5batmKumZwHBrTu1uS4rOEq+JmIK6wpQfHtd3Tv6HFoxVr68CuhgPEB17ctQAFfGwUw/gPLeCvtu61NPDVR7EHgqp1waqKK45mILlgx2R/+jEzoj5Muf8UUIsznJXcJO2kZAl1x6g==">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+</body>
+</html>
