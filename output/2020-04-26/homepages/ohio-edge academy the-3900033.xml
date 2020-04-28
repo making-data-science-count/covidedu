@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-gb" lang="en-gb" dir="ltr">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="http://new.edge4kids.org/joomla/index.php">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="generator" content="Joomla! - Open Source Content Management">
+<title>Home</title>
+<link href="/joomla/index.php?format=feed&amp;type=rss" rel="alternate" type="application/rss+xml" title="RSS 2.0">
+<link href="/joomla/index.php?format=feed&amp;type=atom" rel="alternate" type="application/atom+xml" title="Atom 1.0">
+<link href="/joomla/templates/protostar/favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon">
+<link rel="stylesheet" href="/joomla/plugins/content/jw_sig/jw_sig/includes/js/jquery_fancybox/fancybox/jquery.fancybox.css?v=2.1.5" type="text/css">
+<link rel="stylesheet" href="/joomla/plugins/content/jw_sig/jw_sig/includes/js/jquery_fancybox/fancybox/helpers/jquery.fancybox-buttons.css?v=2.1.5" type="text/css">
+<link rel="stylesheet" href="/joomla/plugins/content/jw_sig/jw_sig/includes/js/jquery_fancybox/fancybox/helpers/jquery.fancybox-thumbs.css?v=2.1.5" type="text/css">
+<link rel="stylesheet" href="/joomla/plugins/content/jw_sig/jw_sig/tmpl/Classic/css/template.css" type="text/css" media="screen">
+<link rel="stylesheet" href="/joomla/plugins/content/jw_sig/jw_sig/includes/css/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="/joomla/plugins/content/simplepopup/simplepopup/spustyle.css" type="text/css">
+<link rel="stylesheet" href="/joomla/plugins/content/simplepopup/simplepopup/fancybox/jquery.fancybox-1.3.4.css" type="text/css">
+<link rel="stylesheet" href="/joomla/templates/protostar/css/template.css" type="text/css">
+<link rel="stylesheet" href="/joomla/components/com_jevents/views/geraint/assets/css/modstyle.css?3.4.25" type="text/css">
+<link rel="stylesheet" href="/joomla/media/com_jevents/css/bootstrap.css" type="text/css">
+<link rel="stylesheet" href="/joomla/media/com_jevents/css/bootstrap-responsive.css" type="text/css">
+<script src="/joomla/media/system/js/mootools-core.js" type="text/javascript"></script><script src="/joomla/media/system/js/core.js" type="text/javascript"></script><script src="/joomla/media/jui/js/jquery.min.js" type="text/javascript"></script><script src="/joomla/media/jui/js/jquery-noconflict.js" type="text/javascript"></script><script src="/joomla/media/jui/js/jquery-migrate.min.js" type="text/javascript"></script><script src="/joomla/plugins/content/jw_sig/jw_sig/includes/js/jquery_fancybox/fancybox/lib/jquery.mousewheel-3.0.6.pack.js" type="text/javascript"></script><script src="/joomla/plugins/content/jw_sig/jw_sig/includes/js/jquery_fancybox/fancybox/jquery.fancybox.pack.js?v=2.1.5" type="text/javascript"></script><script src="/joomla/plugins/content/jw_sig/jw_sig/includes/js/jquery_fancybox/fancybox/helpers/jquery.fancybox-buttons.js?v=2.1.5" type="text/javascript"></script><script src="/joomla/plugins/content/jw_sig/jw_sig/includes/js/jquery_fancybox/fancybox/helpers/jquery.fancybox-thumbs.js?v=2.1.5" type="text/javascript"></script><script src="/joomla/plugins/content/jw_sig/jw_sig/includes/js/behaviour.js" type="text/javascript"></script><script src="/joomla/plugins/content/simplepopup/simplepopup/fancybox/jquery.mousewheel-3.0.4.pack.js" type="text/javascript"></script><script src="/joomla/plugins/content/simplepopup/simplepopup/fancybox/jquery.fancybox-1.3.4.pack.js" type="text/javascript"></script><script src="/joomla/media/system/js/caption.js" type="text/javascript"></script><script src="/joomla/media/jui/js/bootstrap.min.js" type="text/javascript"></script><script src="/joomla/templates/protostar/js/template.js" type="text/javascript"></script><script type="text/javascript">
+
+		jQuery.noConflict();
+		jQuery(function($) {
+			$("a.fancybox-button").fancybox({
+				//padding: 0,
+				//fitToView	: false,
+				helpers		: {
+					title	: { type : 'inside' }, // options: over, inside, outside, float
+					buttons	: {}
+				},
+				afterLoad : function() {
+					this.title = '<b class="fancyboxCounter">Image ' + (this.index + 1) + ' of ' + this.group.length + '</b>' + (this.title ? ' | ' + this.title : '');
+				}
+			});
+		});
+	jQuery(window).on('load',  function() {
+				new JCaption('img.caption');
+			});function fetchMoreLatestEvents(modid, direction)
+{        
+        jQuery.ajax({
+                    type : 'POST',
+                    dataType : 'json',
+                    url : "http://new.edge4kids.org/joomla/index.php?option=com_jevents&ttoption=com_jevents&typeaheadtask=gwejson&file=fetchlatestevents&path=module&folder=mod_jevents_latest&token=3e4b719570ec7a9c83cdc1b2570a4aa0",
+                    data : {'json':JSON.stringify({'modid':modid, 'direction':direction})},
+                    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+                    scriptCharset: "utf-8"
+            })                        
+                .done(function( data ){                    
+                    jQuery("#mod_events_latest_"+modid+"_data").replaceWith(data.html);
+                    try {
+                        document.getElementById("mod_events_latest_"+modid+"_data").parentNode.scrollIntoView({block: "start", behavior: "smooth"});
+                    }
+                    catch (e) {
+                    }
+                })
+                .fail(function(x) {
+        alert('fail '+x);
+                });
+}jQuery(document).ready(function(){
+	jQuery('.hasTooltip').tooltip({"html": true,"container": "body"});
+});
+  </script><link href="//fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+<style type="text/css">
+			h1,h2,h3,h4,h5,h6,.site-title{
+				font-family: 'Open Sans', sans-serif;
+			}
+		</style>
+<style type="text/css">
+		body.site
+		{
+			border-top: 3px solid #8f0b0b;
+			background-color: #ebecf0		}
+		a
+		{
+			color: #8f0b0b;
+		}
+		.navbar-inner, .nav-list > .active > a, .nav-list > .active > a:hover, .dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover, .nav-pills > .active > a, .nav-pills > .active > a:hover,
+		.btn-primary
+		{
+			background: #8f0b0b;
+		}
+		.navbar-inner
+		{
+			-moz-box-shadow: 0 1px 3px rgba(0, 0, 0, .25), inset 0 -1px 0 rgba(0, 0, 0, .1), inset 0 30px 10px rgba(0, 0, 0, .2);
+			-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .25), inset 0 -1px 0 rgba(0, 0, 0, .1), inset 0 30px 10px rgba(0, 0, 0, .2);
+			box-shadow: 0 1px 3px rgba(0, 0, 0, .25), inset 0 -1px 0 rgba(0, 0, 0, .1), inset 0 30px 10px rgba(0, 0, 0, .2);
+		}
+	</style>
+<!--[if lt IE 9]>
+		<script src="/joomla/media/jui/js/html5.js"></script>
+	<![endif]-->
+</head>
+<body class="site com_content view-category layout-blog no-task itemid-435 fluid">
+
+	<!-- Body -->
+	<div class="body">
+		<div class="container-fluid">
+			<!-- Header -->
+			<header class="header" role="banner"><div class="header-inner clearfix">
+					<a class="brand pull-left" href="/joomla">
+						<span class="site-title" title="The Edge Academy"> </span>											</a>
+					<div class="header-search pull-right">
+						
+					</div>
+				</div>
+			</header><nav class="navigation" role="navigation"><ul class="nav menu nav-pills">
+<li class="item-435 current active deeper parent">
+<a href="/joomla/index.php">Home</a><ul class="nav-child unstyled small">
+<li class="item-466"><a href="/joomla/index.php/homepage/about-akros-middle-school">About the Edge Academy</a></li>
+<li class="item-467"><a href="/joomla/index.php/homepage/what-is-a-charter-school">What is a charter school</a></li>
+<li class="item-521"><a href="/joomla/index.php/homepage/old-news">Old News</a></li>
+<li class="item-501"><a href="/joomla/index.php/homepage/downloads">Downloads</a></li>
+<li class="item-517"><a href="/joomla/index.php/homepage/calandar/month.calendar/2020/04/26/-">Calendar</a></li>
+<li class="item-472"><a href="/joomla/index.php/homepage/admissions">Admissions</a></li>
+<li class="item-589 deeper parent">
+<a href="/joomla/index.php/homepage/nurse-s-corner">Nurse's Station</a><ul class="nav-child unstyled small">
+<li class="item-594"><a href="/joomla/index.php/homepage/nurse-s-corner/medication-policy">Medication Policy</a></li>
+<li class="item-593"><a href="/joomla/index.php/homepage/nurse-s-corner/should-i-keep-my-child-home-or-send-him-or-her-to-school">Should I keep my child home or send him or her to school?</a></li>
+<li class="item-590"><a href="/joomla/index.php/homepage/nurse-s-corner/preventing-flu">Preventing Flu</a></li>
+<li class="item-591"><a href="/joomla/index.php/homepage/nurse-s-corner/where-to-turn-for-help">Where to turn for help</a></li>
+<li class="item-592"><a href="/joomla/index.php/homepage/nurse-s-corner/forms">Forms</a></li>
+<li class="item-607"><a href="/joomla/index.php/homepage/nurse-s-corner/covid-19">Covid-19</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="item-608 deeper parent">
+<a href="/joomla/index.php/covid19-update">Covid19 Update</a><ul class="nav-child unstyled small">
+<li class="item-609"><a href="/joomla/index.php/covid19-update/extended-closure-letter-to-parents">4/2/2020 - Extended closure letter to parents</a></li>
+<li class="item-610"><a href="/joomla/index.php/covid19-update/technology-pickup-directions">4/6/2020 - Technology Pickup Directions</a></li>
+<li class="item-611"><a href="/joomla/index.php/covid19-update/online-learning-update">4/8/2020 - Online learning Update</a></li>
+<li class="item-612"><a href="/joomla/index.php/covid19-update/4-22-2020-building-closure-for-school-year">4/22/2020 - Building closure for remainder of school year</a></li>
+</ul>
+</li>
+<li class="item-527"><a href="/joomla/index.php/employment">Employment</a></li>
+<li class="item-468 deeper parent">
+<a href="/joomla/index.php/student-and-parent-guidelines">Student and Parent Guidelines</a><ul class="nav-child unstyled small">
+<li class="item-545"><a href="/joomla/index.php/student-and-parent-guidelines/attendance-tardiness-and-dismissal">Attendance, Tardiness and Dismissal</a></li>
+<li class="item-469"><a href="/joomla/index.php/student-and-parent-guidelines/boys-dress-code">Boys Dress Code</a></li>
+<li class="item-470"><a href="/joomla/index.php/student-and-parent-guidelines/girls-dress-code">Girls Dress Code</a></li>
+<li class="item-471"><a href="/joomla/index.php/student-and-parent-guidelines/behavior-plan">Behavior Plan</a></li>
+</ul>
+</li>
+<li class="item-601 deeper parent">
+<a href="/joomla/index.php/lunch-breakfast-program">Lunch/Breakfast program</a><ul class="nav-child unstyled small">
+<li class="item-602"><a href="/joomla/index.php/lunch-breakfast-program/overview">Overview</a></li>
+<li class="item-604"><a href="/joomla/index.php/lunch-breakfast-program/what-makes-a-meal">What Makes A Meal</a></li>
+<li class="item-605"><a href="/joomla/index.php/lunch-breakfast-program/breakfast-flyer">Breakfast Flyer</a></li>
+<li class="item-606"><a href="/joomla/index.php/lunch-breakfast-program/community-eligibility-provision">Community Eligibility Provision</a></li>
+<li class="item-603"><a href="http://new.edge4kids.org/joomla/index.php/homepage/downloads/category/1-misc-documents?download=43:wellness-policy">Wellness Policy</a></li>
+</ul>
+</li>
+<li class="item-473"><a href="/joomla/index.php/staff">Staff</a></li>
+<li class="item-595 deeper parent">
+<a href="/joomla/index.php/title-1-information">Title 1 Information</a><ul class="nav-child unstyled small">
+<li class="item-596"><a href="/joomla/index.php/title-1-information/parents-right-to-know-board-policy">Parents Right to Know Board Policy</a></li>
+<li class="item-597"><a href="/joomla/index.php/title-1-information/parents-right-to-know-letter">Parents Right to Know Letter</a></li>
+<li class="item-598"><a href="/joomla/index.php/title-1-information/school-parent-compact">School Parent Compact</a></li>
+<li class="item-599"><a href="/joomla/index.php/title-1-information/ohio-improvement-goals">Ohio Improvement Goals</a></li>
+<li class="item-600"><a href="/joomla/index.php/title-1-information/title-1-newsletter">Title 1 Newsletter</a></li>
+</ul>
+</li>
+</ul></nav><div class="row-fluid">
+								<main id="content" role="main" class="span9"><!-- Begin Content --><div class="moduletable">
+					
+
+<div class="custom">
+	<p><img src="/joomla/images/EDGELOG21.jpg" alt="EDGELOG21"></p>
+</div>
+		</div>
+	
+					<div id="system-message-container">
+	</div>
+
+					<div class="blog" itemscope itemtype="http://schema.org/Blog">
+	
+	
+	
+	
+	
+				<div class="items-leading clearfix">
+							<div class="leading-0" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/113-distance-learning" itemprop="url">
+						Distance Learning</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p><a href="https://drive.google.com/drive/folders/1hs8m6ah1mCjdHptwYuNS2dIaV0iIHnux?usp=sharing"><img src="/joomla/images/image.png" alt="image" onmouseover="this.src='/joomla/images/image3.png';" onmouseout="this.src='/joomla/images/image.png';"></a><a href="https://drive.google.com/drive/folders/1hs8m6ah1mCjdHptwYuNS2dIaV0iIHnux?usp=sharing"><br></a></p>
+
+
+
+				</div>
+											<div class="leading-1" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/92-19-20-open-enrollment" itemprop="url">
+						20-21 Open Enrollment</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p style="text-align: center;"><span style="font-size: 24pt;">Its that time of year again!!! Open enrollment is NOW!!</span></p>
+<p style="text-align: center;"><img src="https://www.csuchico.edu/hr/_assets/images/open-enrollment.png" alt="Image result for open enrollment"></p>
+<p style="text-align: center;"><a href="/joomla/index.php/homepage/downloads?download=47:20-21-enrollment-package"><span style="font-size: 14pt;">Click here to download the enrollment package for student</span></a></p>
+<p style="text-align: center;"><a href="/joomla/index.php/downloads?download=37:19-20-enrollment-for-returning-students"><span style="font-size: 14pt;"></span></a></p>
+<p style="text-align: center;"><span style="font-size: 18pt;"><span style="background-color: #ffff00;">Remember, All students must have proof of residence for enrollment!!</span> </span><img src="http://buncombefes.ss11.sharpschool.com/UserFiles/Servers/Server_92294/Image/Our%20School/Registration/Residence%20Requirements/house_with_trees.jpg" alt="Image result for proof of residence" width="135" height="120" style="margin: 8px;"></p>
+
+
+
+				</div>
+											<div class="leading-2" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/106-donations" itemprop="url">
+						Donations</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p><img src="/joomla/images/donation.jpg" alt="donation" width="500" height="273" style="margin: 8px; float: right;"></p>
+<p><span style="color: #222222; font-family: Arial, Helvetica, sans-serif; font-size: 12pt;">Every year the staff at The Edge Academy and Akros MIddle School donates $20 to be able to wear jeans on Fridays during the school year. The staff picks a charity to donate the money to that is making  a difference in the community of Akron. This year the staff decided to donate the funds collected, to Christ Child Charities of Akron. Each year Christ Child Charities of Akron help our families by donating uniforms to students in need. Christ child provides uniform pants, shirts, and often winter coats to over 15 families each year. The staff collected a total of $700 and the funds raised were matched by Dave Dudas the co-founder of The Edge Academy and Akros Middle School for a total donation of $1,400.</span></p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+
+
+
+				</div>
+									</div>
+<!-- end items-leading -->
+	
+	
+																	<div class="items-row cols-2 row-0 row-fluid clearfix">
+						<div class="span6">
+				<div class="item column-1" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/100-growing-the-love-of-reading" itemprop="url">
+						Growing the love of reading</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p style="text-indent: 0.5in;"><span style="font-size: 14pt; line-height: 115%; font-family: 'KG Miss Kindergarten';">Edge Academy is helping readers to grow and experience the love of reading through new books! Many teachers have found generous sponsors so every child in their rooms has a new book to keep every month. This makes such a difference in so many children’s lives and education. They have the joy of receiving a book every month that they can take home, read, and reread. New books are always fun and they help build the students love of reading. Every student looks forward to it and the teachers are filled with excitement and joy as they watch their students receive this treasure from September to May. Last year there were a few classes and this year several more teachers are participating.</span></p>
+<p> </p>
+<p style="text-align: center;"> </p>
+<table><tbody>
+<tr>
+<td><img src="/joomla/images/Readers2.jpg" alt="Readers2" width="270" height="360"></td>
+<td><img src="/joomla/images/readers1.jpg" alt="readers1" width="480" height="360" style="display: block; margin-left: auto; margin-right: auto;"></td>
+<td><img src="/joomla/images/readers4.jpg" alt="readers4" width="269" height="360" style="display: block; margin-left: auto; margin-right: auto;"></td>
+</tr>
+<tr>
+<td> </td>
+<td><img src="/joomla/images/readers3.jpg" alt="readers3" width="480" height="360"></td>
+<td> </td>
+</tr>
+</tbody></table>
+</div>
+				<!-- end item -->
+							</div>
+<!-- end span -->
+														<div class="span6">
+				<div class="item column-2" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/83-3rd-grade-books" itemprop="url">
+						3rd Grade Books</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p><span style="color: #222222; font-family: Arial, Helvetica, sans-serif; font-size: small;">This year, all third grade students will be receiving a book each month. These books have been given by a sponsor of "Mrs. Baddeley's Books in the Hands of Kids program". All books are 3rd grade level and will help with fluency, comprehension, and building a love for reading! Thank you to all the sponsors who have given support to this program. It is greatly appreciated by our students and teachers. </span></p>
+<p> </p>
+<p><em style="color: #222222; text-align: center; line-height: 15.6px; font-family: Helvetica, Arial, sans-serif; font-size: 12px;">
+
+<!-- JoomlaWorks "Simple Image Gallery" Plugin (v3.0.1) starts here -->
+
+<ul id="sigFreeIdf503b3429d" class="sigFreeContainer sigFreeClassic">
+<li class="sigFreeThumb">
+		<a href="/joomla/images/DBBooks/DBbooks1.jpg" class="sigFreeLink fancybox-button" style="width:150px;height:120px;" rel="fancybox-button[galleryf503b3429d]" title="You are viewing the image with filename DBbooks1.jpg" target="_blank">
+			<img class="sigFreeImg" src="/joomla/plugins/content/jw_sig/jw_sig/includes/images/transparent.gif" alt="Click to enlarge image DBbooks1.jpg" title="Click to enlarge image DBbooks1.jpg" style="width:150px;height:120px;background-image:url(/joomla/cache/jw_sig/jw_sig_cache_f503b3429d_dbbooks1.jpg);"></a>
+	</li>
+		<li class="sigFreeThumb">
+		<a href="/joomla/images/DBBooks/DBbooks2.jpg" class="sigFreeLink fancybox-button" style="width:150px;height:120px;" rel="fancybox-button[galleryf503b3429d]" title="You are viewing the image with filename DBbooks2.jpg" target="_blank">
+			<img class="sigFreeImg" src="/joomla/plugins/content/jw_sig/jw_sig/includes/images/transparent.gif" alt="Click to enlarge image DBbooks2.jpg" title="Click to enlarge image DBbooks2.jpg" style="width:150px;height:120px;background-image:url(/joomla/cache/jw_sig/jw_sig_cache_f503b3429d_dbbooks2.jpg);"></a>
+	</li>
+		<li class="sigFreeThumb">
+		<a href="/joomla/images/DBBooks/DBbooks3.jpg" class="sigFreeLink fancybox-button" style="width:150px;height:120px;" rel="fancybox-button[galleryf503b3429d]" title="You are viewing the image with filename DBbooks3.jpg" target="_blank">
+			<img class="sigFreeImg" src="/joomla/plugins/content/jw_sig/jw_sig/includes/images/transparent.gif" alt="Click to enlarge image DBbooks3.jpg" title="Click to enlarge image DBbooks3.jpg" style="width:150px;height:120px;background-image:url(/joomla/cache/jw_sig/jw_sig_cache_f503b3429d_dbbooks3.jpg);"></a>
+	</li>
+		<li class="sigFreeThumb">
+		<a href="/joomla/images/DBBooks/DBbooks4.jpg" class="sigFreeLink fancybox-button" style="width:150px;height:120px;" rel="fancybox-button[galleryf503b3429d]" title="You are viewing the image with filename DBbooks4.jpg" target="_blank">
+			<img class="sigFreeImg" src="/joomla/plugins/content/jw_sig/jw_sig/includes/images/transparent.gif" alt="Click to enlarge image DBbooks4.jpg" title="Click to enlarge image DBbooks4.jpg" style="width:150px;height:120px;background-image:url(/joomla/cache/jw_sig/jw_sig_cache_f503b3429d_dbbooks4.jpg);"></a>
+	</li>
+		<li class="sigFreeClear"> </li>
+</ul>
+<div class="sigFreePrintMessage">
+	View the embedded image gallery online at:
+	<br><a title="3rd Grade Books" href="http://new.edge4kids.org/joomla/index.php#sigFreeIdf503b3429d">http://new.edge4kids.org/joomla/index.php#sigFreeIdf503b3429d</a>
+</div>
+
+<!-- JoomlaWorks "Simple Image Gallery" Plugin (v3.0.1) ends here -->
+
+</em></p>
+
+
+
+				</div>
+				<!-- end item -->
+							</div>
+<!-- end span -->
+							</div>
+<!-- end row -->
+																			<div class="items-row cols-2 row-1 row-fluid clearfix">
+						<div class="span6">
+				<div class="item column-1" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/98-let-us-know" itemprop="url">
+						Let us Know</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p style="text-align: center;"><span style="font-size: 18pt;"><strong>    </strong></span><img src="/joomla/images/Let_us_Know.jpg" alt="Let us Know" width="431" height="420" style="color: #222222; font-family: Arial, Helvetica, sans-serif; font-size: small;"></p>
+<p> </p>
+<p style="text-align: center;"><strong style="color: #222222; font-family: Arial, Helvetica, sans-serif; font-size: 24px; text-align: center;">Please let the office know as soon as possible, if you have had a change of address or custody change.</strong></p>
+
+
+
+				</div>
+				<!-- end item -->
+							</div>
+<!-- end span -->
+														<div class="span6">
+				<div class="item column-2" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/67-fy-2017-sponsor-annual-report" itemprop="url">
+						FY 2017 Sponsor Annual Report</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p style="text-align: center;"><a href="/joomla/index.php/downloads?download=15:fy-2017-sponsor-annual-report"><span style="font-size: 18pt;">Click here for our sponsor's annual report</span></a></p>
+
+
+
+				</div>
+				<!-- end item -->
+							</div>
+<!-- end span -->
+							</div>
+<!-- end row -->
+																			<div class="items-row cols-2 row-2 row-fluid clearfix">
+						<div class="span6">
+				<div class="item column-1" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/91-super-dads-everywhere" itemprop="url">
+						Super Dads everywhere!!!</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p><img src="/joomla/images/Superdads2.jpg" alt="Superdads2" width="933" height="309"></p>
+<p> </p>
+<p style="margin-top: 0in; margin-right: 0in; margin-bottom: 10pt;"><span style="line-height: 115%; font-size: 12pt;"><span style="font-family: Calibri;"><span style="color: #000000;">The Edge Academy and Akros Middle School held there annual breakfast with the boys on March 15<sup><span style="font-size: x-small;">th</span></sup></span><span style="color: #000000;">. This year’s theme was superhero. Students and their father or father figure , got to come to school and have breakfast together and spend some quality time before school started. The event was a huge success and the students were so excited to show off the school and their dads to the staff members. </span></span></span></p>
+<p> </p>
+<p><img src="/joomla/images/Superdads3.jpg" alt="Superdads3"></p>
+<p> </p>
+
+
+
+				</div>
+				<!-- end item -->
+							</div>
+<!-- end span -->
+														<div class="span6">
+				<div class="item column-2" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/61-stay-up-to-date" itemprop="url">
+						Stay up to date!</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p> </p>
+<p><a href="http://www.classdojo.com"><img src="/joomla/images/Links/ClassDojo.jpg" alt="ClassDojo" style="margin: 5px; float: left;"></a><a href="https://www.facebook.com/TheEdgeAcademyAkron/"><img src="/joomla/images/Facebook.jpg" alt="Facebook" style="margin: 5px; float: right;"></a></p>
+<p>For more information and daily updates with what is going on at the school, please like our Facebook page!  If your student is enrolled at The Edge, join our Class Dojo community to stay current with what is going on in the classrooms!</p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+
+
+
+				</div>
+				<!-- end item -->
+							</div>
+<!-- end span -->
+							</div>
+<!-- end row -->
+																			<div class="items-row cols-2 row-3 row-fluid clearfix">
+						<div class="span6">
+				<div class="item column-1" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/86-2019-state-testing-schedule" itemprop="url">
+						2019 State Testing Schedule</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p style="text-align: center;"><span style="font-size: 14pt;"><a href="/joomla/index.php/downloads?download=35:2019-state-testing-schedule">The 2019 Ohio State Assessment Testing Schedule can viewed on the school calendar or downloaded here</a></span></p>
+<p> </p>
+<p> </p>
+
+
+
+				</div>
+				<!-- end item -->
+							</div>
+<!-- end span -->
+														<div class="span6">
+				<div class="item column-2" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/52-important-announcement" itemprop="url">
+						Important Announcement</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p style="text-align: center;"><span style="color: #000080;"><a id="spu5ea612dcd8644" style="display: none;" href="#spucontentspu5ea612dcd8644">SPUPOPUPNO1</a>
+<!-- SPU HTML GOES BELOW -->
+
+<script language="javascript" type="text/javascript">
+<!--
+	var fshowMsg = true;
+
+
+jQuery(document).ready(function() {
+	
+		
+		
+	
+	jQuery('.spu5ea612dcd8644').fancybox({
+		'titleShow'			: true,
+		'scrolling'			: 'auto',
+		'transitionIn'		: 'elastic',
+		'transitionOut'		: 'elastic',
+		'speedIn'			: '300',
+		'speedOut'			: '300',
+		'hideOnOverlayClick': false,
+		'hideOnContentClick': false,
+				'showCloseButton'	: true,
+		'titlePosition'		: 'inside',
+				'title'				: '',
+				'autoDimensions'	: false,
+		'width'				: 400,
+		'height'			: 'auto',
+						'resizeOnWindowResize'	: true,
+		'centerOnScroll'	: true,
+		'overlayShow'		: true,
+		'overlayOpacity'	: 0.3,
+		'overlayColor'		: '#666'
+		}
+	);
+	
+	jQuery(document).on('click', '#spu5ea612dcd8644', function(event){	//jQuery(document).on('click', '#spu5ea612dcd8644', function(event){
+		jQuery('.spu5ea612dcd8644').trigger('click');
+	});
+		
+});
+
+function formatTitle(title, currentArray, currentIndex, currentOpts) {
+	var lbl = 'Image # of #';
+
+	var lblsplit = lbl.split(' ');
+	if (lblsplit.length != 4) {
+		lblsplit[0] = 'Image';
+		lblsplit[2] = 'of';
+	}
+		
+	var sh = '<div style="text-align: left;"><span style="float: right;height: 22px;background: url(/plugins/content/simplepopup/simplepopup/fancybox/closelabel.gif) no-repeat right center;padding-right: 20px; cursor: pointer;"  onclick="jQuery.fancybox.close();">';
+	sh += '<a href="javascript:;" onclick="jQuery.fancybox.close();">';
+	//sh += '<img src="/joomla/plugins/content/simplepopup/simplepopup/fancybox/closelabel.gif" />';
+	sh += '<div style="position: relative; top: 4px; font-size: 14px; font-family: Helvetica,Arial,sans-serif; font-weight: bold; color: #888;">CLOSE</div>';
+	sh += '</a></span>' + (title && title.length ? '<b style="display: block; margin-right: 80px;">' + title + '</b>' : '' ) + (lbl && lbl.length ? lblsplit[0] + ' ' + (currentIndex + 1) + ' ' + lblsplit[2] + ' ' + currentArray.length : '');
+	sh += '</div>';
+	
+    return sh; 
+}
+	
+-->
+</script><a class="spu5ea612dcd8644" style="display:none;" href="#spucontentspu5ea612dcd8644">SPUPOPUPNO1</a>
+
+<!-- FancyBox -->
+<div id="spuSimplePoPup" style="display: none;">
+	<div id="spucontentspu5ea612dcd8644" class="spu_content" style="text-align: center;">
+		
+<div style="text-align: center;">
+<div style="text-align: center;"><span style="text-decoration: underline; color: #000080;"><strong>4/22/2020 Update - T</strong><strong>he Edge Academy and Akros Middle School online learning</strong></span></div>
+<div style="text-align: center;"><span style="color: #000080;"><span style="text-decoration: underline;"></span><span style="color: #222222; font-family: Arial, Helvetica, sans-serif; font-size: small;">Due to Governor DeWines official closing of all school buildings for the remainder of the school year. This means that we will continue online learning until the last day of school May 21st, 2020. Computers can be returned to the school Thursday May 21st and Friday May 22nd from 9am-2pm.</span></span></div>
+<div style="text-align: center;">
+<div><span style="color: #000080;"></span></div>
+<div>
+<div><span style="color: #000080;"></span></div>
+<div><span style="text-decoration: underline; color: #000080;"><strong>Grab and go meals - Weekdays, now through 5/21, 9am-11am</strong>.</span></div>
+<div>
+<div><span style="color: #000080;">Parents are welcome to pick up meals for Students and their siblings under 18 years old </span></div>
+</div>
+</div>
+</div>
+<p style="text-align: center;"><span style="color: #000080; font-family: Arial, Helvetica, sans-serif; font-size: small;"></span></p>
+</div>
+<div>
+<div>
+<div>
+<div><span style="color: #000080;"></span></div>
+</div>
+</div>
+</div>
+<p style="text-align: center;"><span style="color: #000080;">	</span></p>
+</div>
+	</div>
+
+<script language="javascript" type="text/javascript">
+<!--
+jQuery(document).ready(function() {
+	// If pop on load then trigger click on link
+	if (fshowMsg) jQuery('#spu5ea612dcd8644').trigger('click');
+});
+-->
+</script><!-- END SPU HTML --></span></p>
+<div style="text-align: center;">
+<div style="text-align: center;">
+<div style="text-align: center;">
+<div style="text-align: center;">
+<div style="text-align: center;">
+<div style="text-align: center;">
+<div style="text-align: center;">
+<div style="text-align: center;">
+<div style="text-align: center;">
+<div style="text-align: center;"><span style="color: #000080;"><strong>4/22/2020 Update - T</strong><strong>he Edge Academy and Akros Middle School online learning</strong></span></div>
+<div style="text-align: center;"><span style="color: #000080;"> <span style="font-family: Arial, Helvetica, sans-serif; font-size: small;">Due to Governor DeWines official closing of all school buildings for the remainder of the school year. This means that we will continue online learning until the last day of school May 21st, 2020. Computers can be returned to the school Thursday May 21st and Friday May 22nd from 9am-2pm.</span></span></div>
+<div style="text-align: center;">
+<div><span style="color: #000080;"></span></div>
+<div>
+<div><span style="color: #000080;"></span></div>
+<div><span style="color: #000080;"><strong>Grab and go meals - Weekdays, now through 5/21, 9am-11am</strong>.</span></div>
+<div><span style="color: #000080;">Parents are welcome to pick up meals for Students and their siblings under 18 years old </span></div>
+</div>
+</div>
+<p style="text-align: center;"><span style="color: #000080; font-family: Arial, Helvetica, sans-serif; font-size: small;"></span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+				</div>
+				<!-- end item -->
+							</div>
+<!-- end span -->
+							</div>
+<!-- end row -->
+																			<div class="items-row cols-2 row-4 row-fluid clearfix">
+						<div class="span6">
+				<div class="item column-1" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/84-edge-annual-report-17-18" itemprop="url">
+						Sponsor Annual Report</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p style="text-align: center;"><a href="/joomla/index.php/downloads?download=33:edge-annual-report-17-18"><span style="font-size: 14pt;"></span></a></p>
+<p style="text-align: center;"><a href="/joomla/index.php/homepage/downloads?download=42:st-aloysius-18-19-annual-report"><span style="font-size: 14pt;">Our sponsor, St. Aloysius annual report for 2018-2019 can be downloaded here</span></a></p>
+<p> </p>
+<p> </p>
+
+
+
+				</div>
+				<!-- end item -->
+							</div>
+<!-- end span -->
+														<div class="span6">
+				<div class="item column-2" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+					
+
+			<div class="page-header">
+
+							<h2 itemprop="name">
+											<a href="/joomla/index.php/12-public-notice-board-meetings" itemprop="url">
+						Public Notice - Board meetings</a>
+									</h2>
+			
+											</div>
+	
+
+
+
+
+
+
+ <p style="margin-top: 0px; margin-bottom: 5px; font-family: Helvetica, Arial, sans-serif; line-height: 15.600000381469727px; text-align: center;">PUBLIC NOTICE</p>
+<p style="margin-top: 0px; margin-bottom: 5px; font-family: Helvetica, Arial, sans-serif; line-height: 15.600000381469727px; text-align: center;"><br>The Edge Academy will hold its Board meetings for school year 2019 at 4:00 p.m. on the following dates at The Edge Academy Library at 92 N. Union St. Akron, 44304:</p>
+<p style="text-align: center;"> </p>
+<p style="text-align: center;">Monday July 22nd, 2019</p>
+<p style="text-align: center;">Monday September 16th, 2019</p>
+<p style="text-align: center;">Monday November 18th, 2019</p>
+<p style="text-align: center;">Monday January 13th, 2020</p>
+<p style="text-align: center;">Monday March 16th, 2020</p>
+<p style="text-align: center;">Monday May 11th, 2020</p>
+<p style="text-align: center;"><br>Board meeting dates, changes and special meetings may also be accessed via this website, www.edge4kids.org. Board meeting dates are also posted in the school office.</p>
+<p style="text-align: center;"><a href="/joomla/index.php/staff">Board members can be emailed through the staff page or by clicking here.</a></p>
+
+
+
+				</div>
+				<!-- end item -->
+							</div>
+<!-- end span -->
+							</div>
+<!-- end row -->
+						
+	
+		</div>
+
+					
+<ul class="breadcrumb">
+<li class="active">You are here:  </li>
+<li class="active"><span>Home</span></li>
+</ul>
+<!-- End Content --></main><div id="aside" class="span3">
+						<!-- Begin Right Sidebar -->
+						<div class="well ">
+<h3 class="page-header">Events</h3>
+<table class="mod_events_latest_table jevbootstrap" width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr><td class="mod_events_latest_first" style="border-color:#33FF33">
+<span class="mod_events_latest_date">Monday May  4</span><br><span class="mod_events_latest_content"><a href="/joomla/index.php/homepage/calandar/icalrepeat.detail/2020/05/04/187/-/children-s-book-week?filter_reset=1" target="_top">Children's Book Week</a></span><br>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#33FF33">
+<span class="mod_events_latest_date">Monday May  4</span><br><span class="mod_events_latest_content"><a href="/joomla/index.php/homepage/calandar/icalrepeat.detail/2020/05/04/188/-/teachers-appreciation-week?filter_reset=1" target="_top">Teachers Appreciation Week</a></span><br>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#33FF33">
+<span class="mod_events_latest_date">Thursday May 14</span><br><span class="mod_events_latest_content"><a href="/joomla/index.php/homepage/calandar/icalrepeat.detail/2020/05/14/194/-/talent-show?filter_reset=1" target="_top">Talent Show</a></span><br>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#33FF33">
+<span class="mod_events_latest_date">Friday May 15</span><br><span class="mod_events_latest_content"><a href="/joomla/index.php/homepage/calandar/icalrepeat.detail/2020/05/15/196/-/leader-lalapolozza-luncheon?filter_reset=1" target="_top">Leader Lalapolozza Luncheon</a></span><br>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#33FF33">
+<span class="mod_events_latest_date">Friday May 15</span><br><span class="mod_events_latest_content"><a href="/joomla/index.php/homepage/calandar/icalrepeat.detail/2020/05/15/195/-/leadership-day?filter_reset=1" target="_top">Leadership Day</a></span><br>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#33FF33">
+<span class="mod_events_latest_date">Monday May 18</span><br><span class="mod_events_latest_content"><a href="/joomla/index.php/homepage/calandar/icalrepeat.detail/2020/05/18/189/-/4th-quarter-leadership-celebration?filter_reset=1" target="_top">4th Quarter Leadership Celebration</a></span><br>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#33FF33">
+<span class="mod_events_latest_date">Tuesday May 19</span><br><span class="mod_events_latest_content"><a href="/joomla/index.php/homepage/calandar/icalrepeat.detail/2020/05/19/190/-/field-day?filter_reset=1" target="_top">Field Day</a></span><br>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#33FF33">
+<span class="mod_events_latest_date">Wednesday May 20</span>, <span class="mod_events_latest_date"> 9:00 AM</span> - <span class="mod_events_latest_date">10:00 AM</span><br><span class="mod_events_latest_content"><a href="/joomla/index.php/homepage/calandar/icalrepeat.detail/2020/05/20/191/-/kindergarten-graduation?filter_reset=1" target="_top">Kindergarten Graduation</a></span><br>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#33FF33">
+<span class="mod_events_latest_date">Thursday May 21</span><br><span class="mod_events_latest_content"><a href="/joomla/index.php/homepage/calandar/icalrepeat.detail/2020/05/21/192/-/all-school-picnic?filter_reset=1" target="_top">All School Picnic</a></span><br>
+</td></tr>
+<tr><td class="mod_events_latest" style="border-color:#FFFF00">
+<span class="mod_events_latest_date">Thursday May 21</span><br><span class="mod_events_latest_content"><a href="/joomla/index.php/homepage/calandar/icalrepeat.detail/2020/05/21/150/-/last-day-for-students?filter_reset=1" target="_top">Last Day for Students</a></span><br>
+</td></tr>
+</table>
+</div>
+<div class="well ">
+<h3 class="page-header">Resources</h3>
+<ul class="nav menu">
+<li class="item-559"><a href="https://www.facebook.com/TheEdgeAcademyAkron/"><img src="/joomla/images/Facebook.jpg" alt="Facebook"></a></li>
+<li class="item-560"><a href="https:%5C%5Cwww.classdojo.com"><img src="/joomla/images/Links/ClassDojo.jpg" alt="Class Dojo"></a></li>
+<li class="item-475"><a href="https://pa.neonet.org"><img src="/joomla/images/Links/ProgBookweb.png" alt="Progressbook - Parent"></a></li>
+<li class="item-479"><a href="https://si.neonet.org"><img src="/joomla/images/Character/A2.jpg" alt="ProgressBook"></a></li>
+<li class="item-476"><a href="http://www.theleaderinme.org/"><img src="/joomla/images/Links/Leader.jpg" alt="The Leader in Me"></a></li>
+<li class="item-477"><a href="http://www.ocqe.org/"><img src="/joomla/images/Links/ocqe.jpg" alt="Ohio Coalition for Quality Education"></a></li>
+<li class="item-478"><a href="http://www.ed.gov/"><img src="/joomla/images/Links/edseal_big.gif" alt="U.S. Department of Education"></a></li>
+<li class="item-480"><a href="http://www2.ed.gov/nclb/landing.jhtml"><img src="/joomla/images/Links/nochild_logo.jpg" alt="No Child Left Behind"></a></li>
+<li class="item-481"><a href="http://www.studyisland.com/"><img src="/joomla/images/Links/image_studyisland_edit.gif" alt="Study Island"></a></li>
+<li class="item-482"><a href="http://mail.google.com/a/edge4kids.org"><img src="/joomla/images/Links/GMail-Logo.png" alt="Web Mail"></a></li>
+</ul>
+</div>
+						<!-- End Right Sidebar -->
+					</div>
+							</div>
+		</div>
+	</div>
+	<!-- Footer -->
+	<footer class="footer" role="contentinfo"><div class="container-fluid">
+			<hr>
+<p class="pull-right">
+				<a href="#top" id="back-top">
+					Back to Top				</a>
+			</p>
+			<p>
+				© 2020 The Edge Academy			</p>
+		</div>
+	</footer>
+</body>
+</html>

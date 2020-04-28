@@ -1,0 +1,2276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="//www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+<script type="text/javascript">
+      var moduleList = {
+        userLogin: { name: 'User Login', wait: false, func: 'userLogin', reported: false, loaded: false },
+        userLoginIES: { name: 'IES Special Login', wait: false, func: 'userLoginAs', reported: false, loaded: false },
+        userLoginAs: { name: 'Login As...', wait: false, func: 'userLoginAs', reported: false, loaded: false },
+        userSwitch: { name: 'Switch Users', wait: false, func: 'userSwitch', reported: false, loaded: false },
+        userLogout: { name: 'User Logout', wait: false, func: 'userLogout', reported: false, loaded: false },
+        manageGalleries: { name: 'Gallery Manager', wait: false, func: 'manageGalleries', reported: false, loaded: false, needsLoader: true },
+        userGroups: { name: 'Groups & Users', wait: false, func: 'windowUserGroups', reported: false, loaded: false, needsLoader: true },
+        userGCDMembers: { name: 'Members', wait: false, func: 'windowUserGroups', reported: false, loaded: false, needsLoader: true },
+        siteConfig: { name: 'Site Config', wait: false, func: 'windowSiteConfig', reported: false, loaded: false, needsLoader: true, requires: ['generalTab', 'navTab', 'schoolTab', 'gcdTab', 'gcdUserAssignDlg', 'forumTab', 'catTab'] }
+      };
+      
+      function checkModuleLoaded(moduleName){
+        if (!moduleList[moduleName])
+          return false;
+        if (moduleList[moduleName].requires && moduleList[moduleName].requires.length > 0){
+          var mods = moduleList[moduleName].requires;
+          var modLen = mods.length;
+          loaded = moduleList[moduleName].reported;
+          var nn=0;
+          for(var n=0; n<modLen; n++){
+            if (!moduleList[mods[n]] || !moduleList[mods[n]].loaded){
+              loaded = false;
+            }else{
+              nn++;
+            }
+          }
+          moduleList[moduleName].loadedCt = nn;
+          moduleList[moduleName].loaded = loaded;
+        }else{
+          if (moduleList[moduleName].reported)
+            moduleList[moduleName].loaded = true;
+        }
+      }
+      function launchModule(moduleName, aargs){
+        if (!moduleList[moduleName] || !moduleList[moduleName].func)
+          return false;
+                
+        //alert(moduleName);
+        //alert(moduleList[moduleName].toSource());
+                
+        if (moduleList[moduleName].loaded){
+          if (moduleList[moduleName].wait && !moduleList[moduleName].needsLoader){
+            Ext.onReady(function(){ 
+              Ext.Msg.updateText('Launching '+moduleList[moduleName].name+'...');
+            });
+          }
+          if (moduleList[moduleName].needsLoader){
+            Ext.onReady(function(){ 
+              if (moduleList[moduleName].wait)
+                Ext.Msg.hide();
+              moduleList[moduleName].wait=false;
+              Ext.Msg.wait('Launching '+moduleList[moduleName].name+'...', moduleList[moduleName].name);
+            });
+          }
+          clearTimeout(moduleList[moduleName].timer);
+            
+          setTimeout(function(){ 
+            var myModule = moduleList[moduleName];
+            Ext.onReady(function(){ 
+              if (myModule.wait)
+                Ext.Msg.hide();
+            });
+            myModule.wait=false;
+            if (myModule.func && window[myModule.func])
+              window[myModule.func].createDelegate(this, aargs)();
+              //window[myModule.func].apply(this, aargs);
+          }, 500);
+        }else{
+          clearTimeout(moduleList[moduleName].timer);
+          if (maxLoadTimePassed){
+            Ext.onReady(function(){ 
+              Ext.Msg.hide();
+            });
+            moduleList[moduleName].wait=false;
+            if (moduleList[moduleName].requires && moduleList[moduleName].requires.length > 0){
+              var curLoad = moduleList[moduleName].loadedCt || 0;
+              var modLen = moduleList[moduleName].requires.length;
+              Ext.onReady(function(){ 
+                Ext.Msg.alert('Error Loading '+moduleList[moduleName].name+' ['+curLoad+'/'+modLen+']', moduleList[moduleName].name+' failed to load due to a connection problem. Please try again in a few seconds.');
+              });
+            }else{
+              Ext.onReady(function(){ 
+                Ext.Msg.alert('Error Loading '+moduleList[moduleName].name, moduleList[moduleName].name+' failed to load due to a connection problem. Please try again in a few seconds.');
+              });
+            }
+            return false;
+          }
+          if (!moduleList[moduleName].wait){
+            Ext.onReady(function(){ 
+              Ext.Msg.wait('Please wait...', 'Loading '+moduleList[moduleName].name);
+            });
+            moduleList[moduleName].wait=true;
+          }
+          if (moduleList[moduleName].requires && moduleList[moduleName].requires.length > 0){
+            var curLoad = moduleList[moduleName].loadedCt || 0;
+            var modLen = moduleList[moduleName].requires.length;
+            Ext.onReady(function(){ 
+              Ext.Msg.updateText('Loaded ['+curLoad+' of '+modLen+'] helpers. Please wait...');
+            });
+          }
+          moduleList[moduleName].timer = setTimeout(function(){ launchModule(moduleName, aargs); }, 100);
+        }
+      }
+      var normalLoadTimePassed = false;
+      var maxLoadTimePassed = false;
+      setTimeout(function(){ normalLoadTimePassed=true }, 10000);
+      setTimeout(function(){ maxLoadTimePassed=true }, 30000);
+      function reportingIn(moduleName){
+
+        if(!moduleList[moduleName])
+          moduleList[moduleName] = {slave: true};
+          
+        var thisModule = moduleList[moduleName];
+        
+        thisModule.reported = true;
+        
+          var found = false;
+          var foundReq = "";
+          for(var mod in moduleList){
+            checkModuleLoaded(mod);
+            var eMod = moduleList[mod];
+            if (eMod.requires && eMod.requires.length > 0){
+              var mods = eMod.requires;
+              var modLen = mods.length;
+              for(var n=0; n<modLen; n++){
+                if (mods[n] == moduleName){
+                  foundReq = mods[n];
+                  found = true;
+                  break;
+                }
+              }
+            }
+          }
+        
+        Ext.onReady(function(){
+          if (found && foundReq && moduleList[foundReq] && moduleList[foundReq].loaded){
+            var nodes = Ext.query('.loadingIcon_'+foundReq);
+            for (var c=0;c<nodes.length;c++)
+              Ext.fly(nodes[c]).removeClass('loadingIcon');
+          }
+          for(var mod in moduleList){
+            if (moduleList[mod].loaded == true){
+              var nodes = Ext.query('.loadingIcon_'+mod);
+              for (var c=0;c<nodes.length;c++)
+                Ext.fly(nodes[c]).removeClass('loadingIcon');
+            }
+          }
+          if (thisModule.loaded){
+            var nodes = Ext.query('.loadingIcon_'+moduleName);
+            for (var c=0;c<nodes.length;c++)
+              Ext.fly(nodes[c]).removeClass('loadingIcon');
+          }
+        });
+
+      }
+</script><noscript></noscript>
+<script type="text/javascript">
+     if ((typeof Range !== "undefined") && !Range.prototype.createContextualFragment)
+    {
+        Range.prototype.createContextualFragment = function(html)
+        {
+            var frag = document.createDocumentFragment(),
+            div = document.createElement("div");
+            frag.appendChild(div);
+            div.outerHTML = html;
+            return frag;
+        };
+    }
+      var refreshTool = {
+                          id:'refresh',
+                          qtip: 'Refresh',
+                          handler: function(e, target, panel){
+                              panel.storeFN(panel);
+                          }
+                        },
+      pinTool = {
+                        id:'pin',
+                        qtip: 'Widget Style',
+                        handler: function(e, target, panel){
+                            windowModuleLayout(panel);
+                        }
+                      },
+                      
+      gearTool = {
+                        id:'gear',
+                        qtip: 'Configure Widget',
+                        handler: function(e, target, panel){
+                          if(panel.storeParams.keyword=='page'){
+                            var dID = panel.storeParams.dataID
+                            callEditor({winName : 'page_win_'+dID, editorType: 'page', editorGCDID: '0', editorDataID: dID, titleMaxLen: 40, myPortlet: panel});
+                          }else{
+                            windowModuleConfig(panel);
+                          }
+                        }
+                      },
+      closeTool = {
+                        id:'close',
+                        qtip: 'Close',
+                        handler: function(e, target, panel){
+                            Ext.Msg.show({
+                               title:'Delete Widget?',
+                               msg: 'You are about to delete a portal widget. Are you sure you want to do this?',
+                               buttons: Ext.Msg.YESNO,
+                               fn: function(r){
+                                 if (r=='yes'){
+                                  Ext.Msg.wait('Please Wait...', 'Deleting Portal');                          
+                                  Ext.Ajax.request({
+                                     url: '/ajax/portals/deletePortal.cfm',
+                                     method: 'GET',
+                                     'params': { pID: panel.storeParams.portletID},
+                                     reader : new Ext.data.JsonReader({
+                                      success : '@success'
+                                     }),
+                                     success: function(response, opts) {
+                                        var obj = Ext.decode(response.responseText);
+                                        if (obj.success){
+                                          Ext.Msg.hide();
+                                          panel.ownerCt.remove(panel, true);
+                                        }else{
+                                          Ext.Msg.alert('Error Creating Portal', 'There was an error creating the specified portal. Please try again.');
+                                        }
+                                     },
+                                     failure: function(response, opts) {
+                                      Ext.Msg.alert('Error Creating Portal', 'There was a problem communicating with the server. Please check your internet connection and try again.');
+                                     }
+                                  });   
+                                 }else{
+                                 }
+                               
+                               },
+                               animEl: 'elId',
+                               icon: Ext.MessageBox.QUESTION
+                            });
+                        }
+                      },
+      permsTool = {
+                        id:'perms',
+                        qtip: 'User Permissions',
+                        handler: function(e, target, panel){
+                            new windowPermissionUsers(panel);
+                        }
+                      },
+      maximizeTool = {
+                            id:'maximize',
+                            qtip: 'Maximize',
+                            handler: function(e, target, panel){
+                                var win = new Ext.Window({
+                                    height: 500,
+                                    minHeight: 500,
+                                    width: 600,
+                                    minWidth: 600,
+                                    modal: true,
+                                    ownerPanel: panel,
+                                    layout: 'fit',
+                                    maximizable: true,
+                                    maximized: false,
+                                    title: panel.title,
+                                    items: new Ext.Panel({
+                                        border: false,
+                                        autoScroll: true,
+                                        padding: 10,
+                                        html: panel.body.dom.innerHTML
+                                      }),
+                                    buttons: [{text: 'Close', handler: function(p, e){win.close();}}]
+                                  });
+                                win.show();
+                                
+                              }
+                          };
+      
+      var tools = [refreshTool,gearTool,pinTool,closeTool];
+      var toolsError = [gearTool,closeTool];
+      var toolsMaxAdmin = [refreshTool,gearTool,pinTool,maximizeTool,closeTool];
+      var toolsMax = [refreshTool,maximizeTool];
+
+      var currentUser = {};
+      var currentSchool = {};
+      var currentPage = {};
+      var portalLoader = function(){};
+      var isMobileBrowser = false;
+      var isEbusiness = function(){return currentSchool.Type == "eBusiness 2.0"};
+      var isCyberSchool = function(){return currentSchool.Type == "CyberSchool 2.0"};
+      var isCyberDesk = function(){return currentSchool.Type == "CyberDesk"};
+      
+      
+      currentSchool.id = 1;
+      currentSchool.Name = 'Blackfoot Charter Community Learning Center';
+      currentSchool.Type = 'CyberSchool 2.0';
+      currentSchool.isEbusiness = false;
+      currentSchool.ShortName = 'BCCLC';
+      currentSchool.Alias = 'District';
+      currentSchool.WebMailURL = '';
+      currentSchool.SwearFilter = true;
+      currentSchool.Local={};
+      
+      currentSchool.GoogleEnabled = false;
+      currentSchool.GoogleLogin = false;
+      currentSchool.LoginMode = 'cyberschool';
+      currentSchool.LDAPChangeDomain = false;
+      currentSchool.LDAPDefaultDomain = '';
+      currentSchool.EnableClassThemes = true;
+      currentSchool.TimeBlocks = false;
+      currentSchool.ExtraFeatures = [];
+      currentSchool.TemplateID = 42;
+      
+    
+      currentUser.canUseLoginAs = false;      
+    
+      currentUser.canUseSlideShow = false;      
+    
+      currentUser.isAdminGroup = false;      
+    
+      currentUser.canUseManageUsers = false;      
+    
+        currentPage.gcdID = 0;
+      
+      currentUser.maxTimeoutTime = 0;
+    
+      var showNewUpdates = false;
+    
+      currentUser.schoolID = 0;
+    
+      currentUser.id = 0;
+      currentUser.lastHit = 0;
+      var canEdit = false;
+      var loggedIn = false;
+    
+      var RefreshID;
+      var printView = false;
+      var isSpecial = false;
+      var autoShowTipOnce = true;
+      var autoShowTip = false;
+      
+
+      var sFCKeditorToolbar = 'Default';
+      var sFCKeditorBasePath = '/fckeditor/';
+      var sFCKeditorBaseHref = '/fckeditor/';
+      var sFCKeditorSkinPath = '/fckeditor/editor/skins/office2003/';
+
+      var podVideoShowing;
+      var editMode;
+      var ddElements = [];
+      var ddElementSections = [];
+      var currentSchoolAlias;
+    
+      var navigationVersion=2.0;
+      var lastUpper=6000;
+      var navHasChanged = false;
+      var openMenus=[];
+      var openHovers=[];
+      var openHoversJS=[];
+      var allDDElements = [];
+      var allDDElementIDS = [];
+      var allQueuedActions = [];
+      var allQueuedActionsUndo = [];
+      var allMenuItems = [];
+      var allMenuHolders = [];
+      var allMenuHolderLists = [];
+      var allMenuContainers = [];
+      var currentHoverMenuItem = {};
+      var menuStack = [];
+      var editMode = false;
+
+      
+      
+      var currentPageURL      = "";
+      var currentPageAction   = 'portal';
+      var currentPageKeyword  = "portal";
+      var currentPageMode     = '';
+      var currentPageNumber   = '0';
+      var currentPageDataID   = '0';
+      var currentPageModuleID = '3';
+      var currentPageGCDID    = '0';
+      var currentPageCCID     = '';
+      var currentPageDate     = '';
+      var currentPageTitle    = '';
+      var currentGCDTheme   = "";
+      var currentsectionID    = '';
+      var currentZipCode    = '83221';
+      var currentURLBase    = 'http://bcclc.com/';
+      var currentURLBaseSchool    = currentURLBase + currentSchool.Alias + '/';
+      var currentURLBaseGCD    = '';
+      var currentURLBaseGCD_NS    = '';
+      var currentURLBaseModule    = currentURLBaseSchool + (currentPageKeyword == 'page' ? '' : currentPageAction + '/');
+      var currentURLBaseModule2    = (currentPageKeyword == 'page' ? '' : currentPageAction + '/');
+        //console.info(currentPageAction);
+        //console.info(currentURLBaseModule2);
+      if (currentURLBaseModule2 == "profile" && currentPageTitle != ''){
+				var run = 1;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseModule2 + currentPageTitle;
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseModule2 + currentPageTitle;
+      }else if(currentURLBaseGCD !== '' && currentPageTitle){
+				var run = 2;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+      }else if(currentURLBaseModule2 !== false && currentPageTitle){
+				var run = 3;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+      }else if(currentURLBaseGCD !== '' && !currentPageTitle){
+				var run = 4;
+				if (currentURLBaseModule2 == 'classes/' || currentURLBaseModule2 == 'departments/') {
+					var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseGCD_NS;
+					var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseGCD_NS;
+				} else {
+					var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2;
+					var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2;
+				}
+      }else if(currentURLBaseModule2 !== false  && !currentPageTitle){
+				var run = 5;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseModule2;
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseModule2;
+      }else{
+				var run = 6;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/';
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/';
+      }
+      if (!lastLoadedURLRel)
+        var lastLoadedURLRel = currentURLCGIURLRel;
+
+
+      var podVideoShowing     = false;
+      var profileTabsOn       = false;
+      
+      function init(){
+        window.name = "cs_main";
+      }
+      function showSiteMap(){
+        my_window= window.open ("/sitemap.cfm?s="+currentSchool.Alias, "sitemap", "status=0,scrollbars=1,width=300,height=450");
+      }
+      function showChatWindow(){
+        my_window= window.open ("/ajax/chat/index.cfm", "sitemap", "status=0,scrollbars=1,width=600,height=450");
+      }
+      function sendEmail(addy){
+        my_window = window.open ("/action/mail/sendMail.cfm?e="+addy, "sendmail", "status=0,scrollbars=1,width=450,height=420");
+        return false;
+      }
+      function checkSearchForm(){
+        var tmpSearch = $('lilQ').value.trim();
+        if (tmpSearch == 'Search Site')
+          $('lilQ').value = '';
+      }
+      function textPrompter(el, focused){
+        if (focused && el.value == 'Search Site'){
+          el.value = '';
+          el.removeClassName('dimSearch');
+        }else{
+          if (!focused && el.value == ''){
+            el.value = 'Search Site';
+            el.addClassName('dimSearch');
+          }
+        }
+      }
+    </script><noscript></noscript>
+<style type="text/css">
+  .attendance{
+display:none;
+}
+</style>
+<style>
+    .btn_instagram_small{
+      background-image: url(/common/images/social/instagram.png)!important;
+    }
+    </style>
+<link href="/common/js/ext-3.4.0/resources/css/ext-all.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/swiper/css/swiper.min.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css/dyn/catColors.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css-min/1.0.3/quickCSS-min.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css/ionicons/css/ionicons.min.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css/global_screenv1.1.css?v=1.0" rel="stylesheet" type="text/css" media="screen">
+<link href="/common/css/calendar_v2.css?v=1.0" rel="stylesheet" type="text/css" media="screen">
+<link href="/common/css/global_print.css?v=1.0" rel="stylesheet" type="text/css" media="print">
+<script type="text/javascript" src="/common/js/ext-3.4.0/adapter/ext/ext-base.js?v=1.0"></script><script type="text/javascript" src="/common/js-min/classList.min.js?v=1.0"></script><script type="text/javascript" src="/common/js/ext-3.4.0/ext-all.js?v=1.0"></script><script type="text/javascript" src="/swiper/swiper.min.js?v=1.0"></script><script type="text/javascript" src="/common/js/cyberschool/compact/jsLoadBaseForAll1.1.js?v=1.0"></script><script type="text/javascript" src="/common/js/ext/ext_mini_calendar.js?v=1.0"></script><script type="text/javascript" src="/common/js/ext/portal.js?v=1.0"></script><script type="text/javascript" src="/common/js/cyberschool/q/quickLogin.js?v=1.0"></script><script type="text/javascript">
+      
+        var finishOpenID = false;
+      
+      
+    Ext.onReady(function(){
+
+       if(finishOpenID) userLogin(); else portalLoader();
+        
+        //enable toggle-menus for mobile users
+        if (isMobileBrowser){
+          var menus = Ext.select('.pagerBarTools li.pagerBarTools_tool', true);
+          menus.on('click', function(){
+            this.toggleClass('hover');
+            this.toggleClass('pagerBarTools_tool_hover');
+          });
+          var menus2 = Ext.select('li.horizontalChild a', true);
+          menus2.on('click', function(e){
+              this.parent().toggleClass('hover');
+              this.parent().toggleClass('hoverToggle');
+            }, null, {stopPropagation: true}); 
+           
+        }
+      });
+    </script><noscript></noscript>
+<link href="/t/017/layout_main.css" rel="stylesheet" type="text/css">
+<link href="/t/017/layout_header.css" rel="stylesheet" type="text/css">
+<link href="/t/017//gry-333_gry-333_ylw-FFC108_bge-E9E7DC/css/layout_school.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+      .x-tree-root-ct,
+      .x-tree-node-ct {margin-left: 0 !important; padding-left: 0 !important}
+      .x-tab-strip {margin-left: 0 !important; padding-left: 0 !important}
+      a.selectLink {color: black; font-weight: bold;}
+      .dragDropHolder {min-height: 10px;}
+      li .dragger {display: block; position: absolute; top: 0; z-index: 1000; right: 0; width: 16px; height: 16px; margin: 3px 3px 0;}
+      li .dragger {background: #f90 url(/common/images/nav/move.png) center center no-repeat; -moz-border-radius: 3px}
+      .leftModuleHolder li .dragger {right: 14px;}
+    </style>
+<style>
+         #content .x-portlet-titleless:hover .x-panel-header, #content .x-portlet-edgeless:hover .x-panel-header {
+          display:none;
+        }
+      </style>
+<!-- Overrides defined by SiteConfig --><style type="text/css">
+      #menuContainer ul li a:link, #menuContainer ul li a:visited {
+padding: 8px 22px;
+}
+      .iconAdd {background: url(/common/images/famfam/add.gif) no-repeat 0 0 !important;}
+      .iconRemove {background: url(/common/images/famfam/delete.gif) no-repeat 0 0 !important;}
+
+    </style>
+<script type="text/javascript">
+      journeyHelper = [];
+      journeyHelper.isRunning = false;
+      currentZip = '93309';
+    </script><!-- End of SiteConfig overrides--><!-- Verify: IES Site --><link rel="icon" href="/images/IESfavicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/images/IESfavicon.ico">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<meta name="viewport" content="initial-scale=0.25">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="generator" content="IESAres404 v2.1">
+<title>Blackfoot Charter Community Learning Center</title>
+<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7;chrome=1">
+</head>
+<body onload="init(); " id="top" class="isNotMobile bg_school_1 customBg_school_1  pagerBarTop">
+      <div id="mainBg">
+        <img src="/custom/images/design/header/1/bg.jpg" alt="">
+</div>
+      
+  
+  
+  
+  
+    <script type="text/javascript">
+    
+    function toggleCat(el, cID){
+      //var name = el.identify();
+      var catItem = Ext.get(el);
+      var curVal = true;
+      if (catItem.checked != undefined)
+        curVal = catItem.checked;
+        
+      setTimeout(function(){
+        catItem.checked = !curVal;
+        catItem.dom.checked = !curVal;
+      }, 5);
+      if (curVal){
+        Ext.select('.cat_'+cID).addClass('hidden');
+      }else{
+        Ext.select('.cat_'+cID).removeClass('hidden');
+      }
+    }
+    //Ext.onReady(fixLinks);
+    var loadLastPage = function(){
+      return true;
+    };
+  </script><noscript></noscript>
+
+
+  <style type="text/css">
+    .isNotMobile #pagerBar{
+      -webkit-transition: opacity 0.5s ease-in;
+      -moz-transition: opacity 0.5s ease-in;
+      -o-transition: opacity 0.5s ease-in;
+      transition: opacity 0.5s ease-in;
+      -webkit-transition: margin 0.5s ease-in;
+      -moz-transition: margin 0.5s ease-in;
+      -o-transition: margin 0.5s ease-in;
+      transition: margin 0.5s ease-in;
+    
+      opacity: 0.85;
+      -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.85); 
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.85);
+    
+     }
+    .isNotMobile #pagerBar:hover{	
+      opacity:1.0;
+     }
+
+
+    
+    
+    .bigPrint1 .x-btn-text {font-weight: bold; font-size: 14px; height: 26px !important;}
+    .bigPrint2 .x-btn-text {font-size: 13px; height: 20px !important;}
+  </style>
+<script type="text/javascript">
+    var lastLoggedInUserID = 0;
+    var lastLoggedInUserName = '';
+    var lastLoggedInDisplayName = '';
+    var lastLoggedInUserCN = '';
+    var lastLoggedInUserDomain = '';
+    
+      currentUser.username = '';
+      currentUser.displayname = '';
+      currentUser.email = '';
+    
+    var currentPageTitle = 'Blackfoot Charter Community Learning Center';
+    var currentSchoolAlias = 'District';
+    
+      /*Ext.onReady(function(){
+        //setTimeout(checkMenus, 500);
+        var c = {};
+        var hideLoad = true;
+        var modData = Ext.data.Record.create([
+              {name: 'id', mapping: 'id'},
+              {name: 'title', mapping: 'title'},
+              {name: 'browser_title', mapping: 'browser_title'},
+              {name: 'data', mapping: 'data'}
+            ]);
+        var modReader = new Ext.data.XmlReader({
+              record: "content",
+              success: "success",
+              id: "id"
+            }, modData);
+
+        var myStore = new Ext.data.Store({
+              autoLoad: true,
+              reader: modReader,
+              url: '/ajax/proxy/module.cfm',
+              baseParams: {}, //c.storeParams
+              listeners: {
+                loadexception: function(m){
+                  //var errorButton = new Element('input', { 'type': 'button', style: 'float: right;', value: 'Send Error' });
+                  //errorButton.observe('click', function(){ sendError(c); });
+                  var errorText = new Element('span').update('Well, this is embarrassing.. this module is misbehaving!');
+                  var errorDiv = new Element('div', { });
+                  //errorDiv.appendChild(errorButton);
+                  errorDiv.appendChild(errorText);
+                  c.setTitle('Widget Error');
+                  c.body.dom.innerHTML = '';
+                  c.body.dom.appendChild(errorDiv);
+                },
+                load: function(s,r,o){
+                  if (c){
+                    if (hideLoad && r.length > 0){
+                      c.setTitle(r[0].data.title);
+                      c.body.dom.innerHTML = r[0].data.data;
+                    }else{
+                      if (c.body){
+                        c.setTitle("Loading...");
+                        c.body.dom.innerHTML = c.loadingText;
+                      }
+                      if (r.length > 0){
+                        setTimeout(function(){
+                          c.setTitle(r[0].data.title);
+                          c.body.dom.innerHTML = r[0].data.data;
+                        }, 500);
+                      }
+                    }
+                  }
+                }
+              }            
+            });
+      });
+    */
+      
+    var printBox;
+    var doPrint;
+    Ext.onReady(function(){
+      doPrint = function(link){
+        printBox = new Ext.Window({
+          title: 'Print',
+          modal: true,
+          resizable: false,
+          buttonAlign: 'center',
+          layout: 'border',
+          height: 170,
+          width: 400,
+          items: [
+                    {
+                      bodyStyle: 'padding: 10px; text-align: center; font-weight: bold',
+                      region: 'north',
+                      border: false,
+                      height: 30,
+                      html: 'What portion of the page would you like to print?'
+                    },{
+                      region: 'center',                    
+                      border: false,
+                      layout: {
+                                type:'vbox',
+                                padding:'5',
+                                align:'stretch'
+                              },
+                      items:[{
+                                  xtype:'button',
+                                  cls: 'bigPrint1',
+                                  text: 'Print Entire Page',
+                                  handler: function(){
+                                    printBox.close();
+                                    Ext.Msg.hide();
+                                    window.print();
+                                  }
+                              },{
+                                  xtype:'spacer',
+                                  flex: 1
+                              },{
+                                  xtype:'button',
+                                  cls: 'bigPrint2',
+                                  text: 'Print Content Only',
+                                  handler: function(){
+                                    printBox.close();
+                                    Ext.Msg.hide();
+                                    Ext.Msg.wait('Getting ready to print..','Please Wait...');
+                                    newLocation = link.href.replace('#','') + '?printview=1';
+                                    //newLocation = '/print'+lastLoadedURLRel;
+                                    console.info(newLocation);
+                                    setTimeout(function(){
+                                      var newWindow = window.open(newLocation, '_blank');
+                                      newWindow.focus();
+                                      Ext.Msg.hide();
+                                    }, 300);
+                                    
+                                  }
+                              }]
+                    }
+                ],
+
+          buttons: [
+                  {
+                    text: 'Cancel',
+                    handler: function(){ 
+                      printBox.close();
+                    }
+                  }
+                ]
+        
+        });
+        printBox.show(this);
+      }
+    });
+    
+
+    currentPage.storeParams = {
+      dataID: currentPageDataID, 
+      alias: currentPageAction, 
+      keyword: currentPageKeyword, 
+      curPage: currentPageNumber, 
+      id: currentPageModuleID, 
+      portletID: 0, 
+      portalID: 0
+    }; 
+    
+    currentPage.values = {};
+  </script><noscript></noscript>
+  
+  
+  
+  <div class="pagerBarHolder pagerBarTop">
+    
+<script type="text/javascript">
+if(typeof cs2=='undefined')cs2={};
+cs2.page={};
+cs2.page.homepage=true;
+  var siteNotice = false;
+  function dropSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=false');
+    Effect.BlindDown('siteNoticeBoxHolder', { duration: 0.5 })
+    $('pagerBarToolAlertButton').addClassName('buttonOn');
+  }
+  function liftSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=true');
+    Effect.BlindUp('siteNoticeBoxHolder', { duration: 0.25 })
+    $('pagerBarToolAlertButton').removeClassName('buttonOn');
+  }
+  function toggleSiteNotice(){ 
+    
+    if ($('pagerBarToolAlertButton').hasClassName('buttonOn')){
+      liftSiteNotice();
+    }else{
+      dropSiteNotice();
+    }
+  
+  }
+  
+</script><noscript></noscript>
+
+    <div id="pagerBar" class="pagerBar">
+      <div id="pagerBarToolLogo" class="pagerBarToolLogo">
+        
+        <a href="//bcclc.com"><img src="/custom/images/design/header/1/logo.gif" title="Back To District" alt="Back To District"></a>
+        
+          <ul class="hidden">
+<li class="hidden"><a href="#header">Jump to Page Navigation</a></li>
+            <li class="hidden"><a href="#pageHeader">Jump to Page Content</a></li>
+            <li class="hidden"><a href="#footer">Jump to Page Footer</a></li>
+          </ul>
+</div>
+      <div id="searchHolder" class="x-hidden">
+        <form id="searchForm" method="get" action="/action/doSearch.cfm" onclick="checkSearchForm()">
+          <input name="redirTo" type="hidden" value="/District/Search"><div class="pagerBarToolBox">
+            <ul class="pagerBarTools">
+<li class="pagerBarTools_tool attachToRight">
+                <label for="lilQ" style="display: none;">Search</label>
+                <input id="lilQ" name="q" type="text"><input type="submit" style="display: none" value="Search">
+</li>
+              
+      <li class="pagerBarTools_tool noLeftRound attachToRight" id="searchButtonMain">
+        <a class="toolbarButton skipWarning initSiteSearch hasIcon" href="#" target="" title="Search the site" onclick="submitSearch(); return false;">
+          <span class="iconHolder searchIcon"></span>
+          <span class="iconText"><span class="iconTextString">Search</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool noLeftRound" id="searchButtonCancel">
+        <a class="toolbarButton toolbarButtonDark skipWarning initCancelSiteSearch noText hasIcon" href="#" target="" title="Cancel Searching" onclick="hideSearchBar(); return false;">
+          <span class="iconHolder searchCancelIcon"></span>
+          <span class="iconText"><span class="iconTextString">Cancel</span></span>
+          <br class="clear"></a>
+      </li>
+      
+            </ul>
+</div>
+        </form>
+      </div>
+      <div id="toolsHolder">
+        <div class="pagerBarToolBox">
+          <ul class="pagerBarTools">
+<li class="pagerBarTools_tool attachToRight">
+        <a class="toolbarButton skipWarning noText hasIcon" href="javascript:decreaseFontSize();" target="" title="Decrease Font Size" onclick="">
+          <span class="iconHolder fontSmaller"></span>
+          <span class="iconText"><span class="iconTextString">A-</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool noLeftRound">
+        <a class="toolbarButton skipWarning noText hasIcon" href="javascript:increaseFontSize();" target="" title="Increase Font Size" onclick="">
+          <span class="iconHolder fontBigger"></span>
+          <span class="iconText"><span class="iconTextString">A+</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool pagerBarTools_menu">
+        <a class="toolbarMenuButton hasIcon" target="" title="" href="#" onclick="">
+          <span class="iconHolder iconShareMenu"></span>
+          <span class="iconText"><span class="iconTextString">Sharing</span>
+            <br class="clear"></span>
+        </a>
+        <div class="pagerBarTools_menuContainer hasIcon">
+          
+          <div class="pagerBarTools_menuPadder" style="position: relative; z-index: 5000">
+            <ul class="pagerBarTools_menuHolder" style="width: 200px;">
+<li class="pagerBarTools_menuItem">
+        <a class="toolbarMenuItem hasIcon" href="#" target="" title="Need a hard copy? Click here to print!" onclick="doPrint(this); return false;">
+          <span class="iconHolder iconPrint"></span>
+          <span class="iconText"><span class="iconTextString">Print Page</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_menuItem">
+        <a class="toolbarMenuItem hasIcon" href="http://www.facebook.com/sharer.php?u=http%3A%2F%2Fbcclc%2Ecom%2Findex%2Ecfm%3F&amp;t=" target="_blank" title="Want to share this on your wall? Click here!" onclick="">
+          <span class="iconHolder iconShareFacebook"></span>
+          <span class="iconText"><span class="iconTextString">Share on Facebook</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_menuItem">
+        <a class="toolbarMenuItem hasIcon" href="https://twitter.com/intent/tweet?url=http%3A%2F%2Fbcclc%2Ecom%2Findex%2Ecfm%3F" target="_blank" title="Want to share this on your wall? Click here!" onclick="">
+          <span class="iconHolder iconShareTwitter"></span>
+          <span class="iconText"><span class="iconTextString">Share on Twitter</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_menuItem">
+        <a class="toolbarMenuItem hasIcon" href="https://plus.google.com/share?url=http%3A%2F%2Fbcclc%2Ecom%2Findex%2Ecfm%3F" target="_blank" title="Want to share this on your wall? Click here!" onclick="">
+          <span class="iconHolder iconShareGoogle"></span>
+          <span class="iconText"><span class="iconTextString">Share on Google +</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_menuItem">
+        <a class="toolbarMenuItem hasIcon" href="http://www.linkedin.com/shareArticle?mini=true&amp;url=http%3A%2F%2Fbcclc%2Ecom%2Findex%2Ecfm%3F" target="_blank" title="Want to share this on your wall? Click here!" onclick="">
+          <span class="iconHolder iconShareLinkedIn"></span>
+          <span class="iconText"><span class="iconTextString">Share on Linked In</span></span>
+          <br class="clear"></a>
+      </li>
+      
+            </ul>
+</div>
+        </div>
+      </li>
+      
+      <li class="pagerBarTools_tool " id="searchButtonMain">
+        <a class="toolbarButton skipWarning initSiteSearch hasIcon" href="#" target="" title="Search the site" onclick="showSearchBar(); return false;">
+          <span class="iconHolder searchIcon"></span>
+          <span class="iconText"><span class="iconTextString">Search</span></span>
+          <br class="clear"></a>
+      </li>
+      
+          </ul>
+</div>
+        
+        <div class="pagerBarToolBox pagerBarTooluserLinks">
+          <ul class="pagerBarTools">
+<li class="pagerBarTools_tool " id="SystemAlertBtn">
+        <a class="toolbarButton hasIcon" href="javascript:SystemAlert();" target="" title="Click to access School Alert" onclick="">
+          <span class="iconHolder alertIcon"></span>
+          <span class="iconText"><span class="iconTextString">Alert</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool ">
+        <a class="toolbarButton hasIcon" href="/District/Login" target="" title="Login to access your account!" onclick="launchModule('userLogin'); return false;">
+          <span class="iconHolder iconLogin loadingIcon loadingIcon_userLogin"></span>
+          <span class="iconText"><span class="iconTextString">Login</span></span>
+          <br class="clear"></a>
+      </li>
+      
+          </ul>
+</div>
+        
+      </div>
+      <br class="clear">
+</div>
+  </div>
+      
+  <script type="text/javascript">
+    
+    var searchBar;
+    function submitSearch(){
+      document.forms["searchForm"].submit();
+    }
+    function showSearchBar(){
+      Ext.get('searchHolder').removeClass('x-hidden');
+      Ext.get('toolsHolder').addClass('x-hidden');
+      resizePagerBar();
+      if (searchBar)
+        searchBar.focus();
+    }
+    function hideSearchBar(){
+      Ext.get('searchHolder').addClass('x-hidden');
+      Ext.get('toolsHolder').removeClass('x-hidden');
+      resizePagerBar();
+    }
+    function resizePagerBar(){
+      var srchBtn = Ext.get('searchButtonMain');
+      var srchCnclBtn = Ext.get('searchButtonCancel');
+      var logo = Ext.get('pagerBarToolLogo');
+      var item = Ext.get('pagerBar');
+      Ext.get('lilQ').setWidth(item.getWidth() - logo.getWidth() - srchBtn.getWidth() - srchCnclBtn.getWidth() - 20);
+      if (searchBar)
+        searchBar.setWidth(item.getWidth() - logo.getWidth() - srchBtn.getWidth() - srchCnclBtn.getWidth() - 20);
+    }
+    Ext.onReady(function(){
+      window.onresize = resizePagerBar;
+      resizePagerBar();
+      /*
+      var el = Ext.get('lilQ');
+      el.on('keydown', function(e){
+        window.location.href = "#!/"+ currentSchool.Alias + "/Search/" + this.dom.value;
+      }, el, {buffer: 300});
+      
+        
+      var ds = new Ext.data.Store({
+          url: '/ajax/search/searchSuggestion.cfm',
+          reader: new Ext.data.JsonReader({
+              root: 'results'
+          }, [
+              {name: 'title', mapping: 'title'}
+          ])
+      });
+
+      // Custom rendering Template
+      var resultTpl = new Ext.XTemplate(
+          '<tpl for="."><div class="search-item">',
+              '{title}',
+          '</div></tpl>'
+      );
+
+      searchBar = new Ext.form.ComboBox({
+        applyTo: 'lilQ',
+        autoShow: false,
+        //store: ds,
+        //mode: 'remote',
+        displayField:'title',
+        typeAhead: false,
+        loadingText: 'Getting Suggestions...',
+        hideTrigger:true,
+        tpl: resultTpl,
+        itemSelector: 'div.search-item',
+        onSelect: function(record){
+            window.location.href = "#!/"+ currentSchool.Alias + "/Search/" + record.get('title');
+        },
+        listeners: {
+          show: function(){
+            resizePagerBar();
+          }
+        }
+      });
+      searchBar.show();
+      var el = Ext.get('lilQ');
+      el.on('keydown', function(e){
+        window.location.href = "#!/"+ currentSchool.Alias + "/Search/" + this.dom.value;
+      }, el, {buffer: 300});*/
+    });
+  </script><noscript></noscript>
+
+      <div id="mainContainer">
+    	<div id="header">
+        	<div class="headerFixed header_school_1">
+            	<h1 class="hidden">Blackfoot Charter Community Learning Center</h1>
+            	<div id="logoBox"><a href="/District/"><span>Blackfoot Charter Community Learning Center Home Page</span></a></div>
+                <div class="headerContact">
+                		
+<span class="vcard">
+  <span class="adr">
+    
+      <span class="street-address">2801 Hunters Loop</span>
+         
+      <span class="locality">Blackfoot</span>, 
+      <span class="region">ID</span> 
+      <span class="postal-code">83221</span>
+    
+  </span>
+  
+  	<br><span class="tel">
+   
+    Phone: <span class="work">208-782-0744</span>
+       
+    Fax: <span class="fax">208-782-1330</span>
+    
+  </span>
+</span>
+
+            	</div>
+             
+              
+                <div class="quickIconNavBox"> 
+                     <ul class="quickIconNav"></ul>
+</div>
+            </div>
+        </div>
+        <div class="outerMenuContainer">
+        	<div id="menuContainer" class="navContainer">	
+          <ul class="horiznav horizontalMenu " id="navBar_809">
+<li class="horizontalChild " style="z-index:4999; position: relative;">
+                    
+                    <a href="/" target="" id="itemA_810" class="main title ">Home </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4998; position: relative;">
+                    
+                    <a href="/District/Events/" target="" id="itemA_1486" class="main title ">Calendar </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild hasSubChild" style="z-index:4997; position: relative;">
+                    
+                    <a href="/District/1117-Enrollment.html" target="" id="itemA_839" class="main title hasSubChild">Enrollment </a>
+                    
+                      <div class="horizMenu smallLeft">
+                        <ul class="horiznav horizontalMenu ">
+<li id="item_1501" class="horizontalChild " style="z-index:5995; position: relative;">
+                  
+                  <a id="itemA_1501" href="/District/Portal/letter-of-intent" target="" class="main title ">2020-2021 Letter of Intent</a>
+                  
+                </li>
+              
+                <li id="item_1504" class="horizontalChild " style="z-index:5994; position: relative;">
+                  
+                  <a id="itemA_1504" href="/District/Portal/lottery-and-registration-form" target="" class="main title ">Lottery and Registration Form</a>
+                  
+                </li>
+              
+                        </ul>
+</div>
+                    
+                  </li>
+                
+                  <li class="horizontalChild hasSubChild" style="z-index:4993; position: relative;">
+                    
+                    <a href="/District/1114-About-BCCLC.html" target="" id="itemA_830" class="main title hasSubChild">About BCCLC </a>
+                    
+                      <div class="horizMenu smallLeft">
+                        <ul class="horiznav horizontalMenu ">
+<li id="item_1470" class="horizontalChild " style="z-index:5991; position: relative;">
+                  
+                  <a id="itemA_1470" href="/files/user/26/file/Page0001.pdf" target="_blank" class="main title ">2019-2020 Elementary Calendar</a>
+                  
+                </li>
+              
+                <li id="item_1471" class="horizontalChild " style="z-index:5990; position: relative;">
+                  
+                  <a id="itemA_1471" href="/files/user/26/file/Updated_2019_20_Middle_School_Calendar.pdf" target="_blank" class="main title ">2019-2020 Middle School Calendar</a>
+                  
+                </li>
+              
+                <li id="item_1416" class="horizontalChild " style="z-index:5989; position: relative;">
+                  
+                  <a id="itemA_1416" href="/files/user/26/file/Parent_Student_Handbook.pdf" target="" class="main title ">Parent Student Handbook</a>
+                  
+                </li>
+              
+                <li id="item_1467" class="horizontalChild " style="z-index:5988; position: relative;">
+                  
+                  <a id="itemA_1467" href="https://idahoschools.org/schools/1294" target="_blank" class="main title ">School Report Card</a>
+                  
+                </li>
+              
+                <li id="item_1391" class="horizontalChild " style="z-index:5987; position: relative;">
+                  
+                  <a id="itemA_1391" href="/files/user/26/file/Blackfoot%20Charter%20CIP%201-18-18%20redacted.pdf" target="_blank" class="main title ">Continuous Improvement Plan</a>
+                  
+                </li>
+              
+                <li id="item_1405" class="horizontalChild " style="z-index:5986; position: relative;">
+                  
+                  <a id="itemA_1405" href="/files/user/26/file/LiteracyInterventionPlan2017-18.pdf" target="_blank" class="main title ">Literacy Improvement Plan</a>
+                  
+                </li>
+              
+                <li id="item_838" class="horizontalChild " style="z-index:5985; position: relative;">
+                  
+                  <a id="itemA_838" href="/District/1116-FAQ.html" target="" class="main title ">FAQ</a>
+                  
+                </li>
+              
+                        </ul>
+</div>
+                    
+                  </li>
+                
+                  <li class="horizontalChild hasSubChild submenu_left" style="z-index:4984; position: relative;">
+                    
+                    <a href="/District/1970-Untitled.html" target="" id="itemA_1232" class="main title hasSubChild">Elementary News </a>
+                    
+                      <div class="horizMenu smallLeft">
+                        <ul class="horiznav horizontalMenu ">
+<li id="item_836" class="horizontalChild " style="z-index:5982; position: relative;">
+                  
+                  <a id="itemA_836" href="/District/1115-Currents-Eventss.html" target="" class="main title ">Parent Activity Committee</a>
+                  
+                </li>
+              
+                        </ul>
+</div>
+                    
+                  </li>
+                
+                  <li class="horizontalChild hasSubChild submenu_left" style="z-index:4981; position: relative;">
+                    
+                    <a href="/District/Portal/Board-of-Directors" target="" id="itemA_843" class="main title hasSubChild">Board of Directors </a>
+                    
+                      <div class="horizMenu smallLeft">
+                        <ul class="horiznav horizontalMenu ">
+<li id="item_1097" class="horizontalChild hasSubChild" style="z-index:5979; position: relative;">
+                  
+                  <a id="itemA_1097" href="/District/Portal/45-BCCLC-2012" target="" class="main title hasSubChild">BCCLC 2012</a>
+                  
+                    <div class="horizMenu smallLeft">
+                      <ul class="horizontalChildMenu dragDropMenu">
+<li id="item_1104" class="horizontalChild " style="z-index:6977; position: relative;">
+                  
+                  <a id="itemA_1104" href="/District/1652-Untitled.html" target="" class="main title ">2012 Annual Budget</a>
+                  
+                </li>
+              
+                <li id="item_853" class="horizontalChild " style="z-index:6976; position: relative;">
+                  
+                  <a id="itemA_853" href="/District/1132-Agendas-2012.html" target="" class="main title ">2012 Agendas</a>
+                  
+                </li>
+              
+                <li id="item_852" class="horizontalChild " style="z-index:6975; position: relative;">
+                  
+                  <a id="itemA_852" href="/District/1131-Board-Minutes-2012.html" target="" class="main title ">2012 Board Minutes</a>
+                  
+                </li>
+              
+                <li id="item_854" class="horizontalChild " style="z-index:6974; position: relative;">
+                  
+                  <a id="itemA_854" href="/District/1133-Monthly-Expenses-2012.html" target="" class="main title ">2012 Expenses Report</a>
+                  
+                </li>
+              
+                      </ul>
+</div>
+                  
+                </li>
+              
+                <li id="item_1111" class="horizontalChild hasSubChild" style="z-index:5973; position: relative;">
+                  
+                  <a id="itemA_1111" href="/District/Portal/BCCLC-2013" target="" class="main title hasSubChild">BCCLC 2013</a>
+                  
+                    <div class="horizMenu smallLeft">
+                      <ul class="horizontalChildMenu dragDropMenu">
+<li id="item_1114" class="horizontalChild " style="z-index:6971; position: relative;">
+                  
+                  <a id="itemA_1114" href="/District/1787-Untitled.html" target="" class="main title ">2013 Annual Budget</a>
+                  
+                </li>
+              
+                <li id="item_1115" class="horizontalChild " style="z-index:6970; position: relative;">
+                  
+                  <a id="itemA_1115" href="/District/1788-Untitled.html" target="" class="main title ">2013 Agendas</a>
+                  
+                </li>
+              
+                <li id="item_1116" class="horizontalChild " style="z-index:6969; position: relative;">
+                  
+                  <a id="itemA_1116" href="/District/1789-Untitled.html" target="" class="main title ">2013 Board Minutes</a>
+                  
+                </li>
+              
+                <li id="item_1113" class="horizontalChild " style="z-index:6968; position: relative;">
+                  
+                  <a id="itemA_1113" href="/District/1786-Untitled.html" target="" class="main title ">2013 Expense Report</a>
+                  
+                </li>
+              
+                      </ul>
+</div>
+                  
+                </li>
+              
+                <li id="item_1098" class="horizontalChild hasSubChild" style="z-index:5967; position: relative;">
+                  
+                  <a id="itemA_1098" href="/District/Portal/46-BCCLC2014" target="" class="main title hasSubChild">BCCLC 2014</a>
+                  
+                    <div class="horizMenu smallLeft">
+                      <ul class="horizontalChildMenu dragDropMenu">
+<li id="item_1107" class="horizontalChild " style="z-index:6965; position: relative;">
+                  
+                  <a id="itemA_1107" href="/District/1653-Untitled.html" target="" class="main title ">2014 Annual Budget</a>
+                  
+                </li>
+              
+                <li id="item_1099" class="horizontalChild " style="z-index:6964; position: relative;">
+                  
+                  <a id="itemA_1099" href="/District/1647-Untitled.html" target="" class="main title ">2014 Agendas</a>
+                  
+                </li>
+              
+                <li id="item_1100" class="horizontalChild " style="z-index:6963; position: relative;">
+                  
+                  <a id="itemA_1100" href="/District/1648-Untitled.html" target="" class="main title ">2014 Board Minutes</a>
+                  
+                </li>
+              
+                <li id="item_1101" class="horizontalChild " style="z-index:6962; position: relative;">
+                  
+                  <a id="itemA_1101" href="/District/1649-Untitled.html" target="" class="main title ">2014 Expense Reports</a>
+                  
+                </li>
+              
+                      </ul>
+</div>
+                  
+                </li>
+              
+                <li id="item_1165" class="horizontalChild hasSubChild" style="z-index:5961; position: relative;">
+                  
+                  <a id="itemA_1165" href="/District/1872-Untitled.html" target="" class="main title hasSubChild">BCCLC 2015</a>
+                  
+                    <div class="horizMenu smallLeft">
+                      <ul class="horizontalChildMenu dragDropMenu">
+<li id="item_1166" class="horizontalChild " style="z-index:6959; position: relative;">
+                  
+                  <a id="itemA_1166" href="/District/1873-Untitled.html" target="" class="main title ">2015 Annual Budget</a>
+                  
+                </li>
+              
+                <li id="item_1167" class="horizontalChild " style="z-index:6958; position: relative;">
+                  
+                  <a id="itemA_1167" href="/District/1874-Untitled.html" target="" class="main title ">2015 Agendas</a>
+                  
+                </li>
+              
+                <li id="item_1168" class="horizontalChild " style="z-index:6957; position: relative;">
+                  
+                  <a id="itemA_1168" href="/District/1875-Untitled.html" target="" class="main title ">2015 Board Minutes</a>
+                  
+                </li>
+              
+                <li id="item_1169" class="horizontalChild " style="z-index:6956; position: relative;">
+                  
+                  <a id="itemA_1169" href="/District/1876-Untitled.html" target="" class="main title ">2015 Expense Reports</a>
+                  
+                </li>
+              
+                      </ul>
+</div>
+                  
+                </li>
+              
+                <li id="item_1235" class="horizontalChild hasSubChild" style="z-index:5955; position: relative;">
+                  
+                  <a id="itemA_1235" href="/District/1973-Untitled.html" target="" class="main title hasSubChild">BCCLC 2016</a>
+                  
+                    <div class="horizMenu smallLeft">
+                      <ul class="horizontalChildMenu dragDropMenu">
+<li id="item_1241" class="horizontalChild " style="z-index:6953; position: relative;">
+                  
+                  <a id="itemA_1241" href="/District/1976-Untitled.html" target="" class="main title ">2016 Annual Budget</a>
+                  
+                </li>
+              
+                <li id="item_1242" class="horizontalChild " style="z-index:6952; position: relative;">
+                  
+                  <a id="itemA_1242" href="/District/1977-Untitled.html" target="" class="main title ">2016 Agendas</a>
+                  
+                </li>
+              
+                <li id="item_1243" class="horizontalChild " style="z-index:6951; position: relative;">
+                  
+                  <a id="itemA_1243" href="/District/1978-Untitled.html" target="" class="main title ">2016 Board Minutes</a>
+                  
+                </li>
+              
+                <li id="item_1244" class="horizontalChild " style="z-index:6950; position: relative;">
+                  
+                  <a id="itemA_1244" href="/District/1979-Untitled.html" target="" class="main title ">2016 Expense Reports</a>
+                  
+                </li>
+              
+                      </ul>
+</div>
+                  
+                </li>
+              
+                <li id="item_1394" class="horizontalChild hasSubChild" style="z-index:5949; position: relative;">
+                  
+                  <a id="itemA_1394" href="http://bcclc2017.com" target="" class="main title hasSubChild">BCCLC 2017</a>
+                  
+                    <div class="horizMenu smallLeft">
+                      <ul class="horizontalChildMenu dragDropMenu">
+<li id="item_1396" class="horizontalChild " style="z-index:6947; position: relative;">
+                  
+                  <a id="itemA_1396" href="/District/2092-Untitled.html" target="" class="main title ">2017 Agendas</a>
+                  
+                </li>
+              
+                <li id="item_1397" class="horizontalChild " style="z-index:6946; position: relative;">
+                  
+                  <a id="itemA_1397" href="/District/2093-Untitled.html" target="" class="main title ">2017 Board Minutes</a>
+                  
+                </li>
+              
+                <li id="item_1398" class="horizontalChild " style="z-index:6945; position: relative;">
+                  
+                  <a id="itemA_1398" href="/District/2094-Untitled.html" target="" class="main title ">2017 Expense Reports</a>
+                  
+                </li>
+              
+                <li id="item_1417" class="horizontalChild " style="z-index:6944; position: relative;">
+                  
+                  <a id="itemA_1417" href="/District/2232-Untitled.html" target="" class="main title ">2017 Annual Budget</a>
+                  
+                </li>
+              
+                      </ul>
+</div>
+                  
+                </li>
+              
+                <li id="item_1411" class="horizontalChild hasSubChild" style="z-index:5943; position: relative;">
+                  
+                  <a id="itemA_1411" href="/District/2183-Untitled.html" target="" class="main title hasSubChild">BCCLC 2018</a>
+                  
+                    <div class="horizMenu smallLeft">
+                      <ul class="horizontalChildMenu dragDropMenu">
+<li id="item_1412" class="horizontalChild " style="z-index:6941; position: relative;">
+                  
+                  <a id="itemA_1412" href="/District/2184-Untitled.html" target="" class="main title ">2018 Annual Budget</a>
+                  
+                </li>
+              
+                <li id="item_1413" class="horizontalChild " style="z-index:6940; position: relative;">
+                  
+                  <a id="itemA_1413" href="/District/2185-Untitled.html" target="" class="main title ">2018 Agendas</a>
+                  
+                </li>
+              
+                <li id="item_1414" class="horizontalChild " style="z-index:6939; position: relative;">
+                  
+                  <a id="itemA_1414" href="/District/2186-Untitled.html" target="" class="main title ">2018 Board Minutes</a>
+                  
+                </li>
+              
+                <li id="item_1415" class="horizontalChild " style="z-index:6938; position: relative;">
+                  
+                  <a id="itemA_1415" href="/District/2187-Untitled.html" target="" class="main title ">2018 Expense Reports</a>
+                  
+                </li>
+              
+                      </ul>
+</div>
+                  
+                </li>
+              
+                <li id="item_1419" class="horizontalChild hasSubChild" style="z-index:5937; position: relative;">
+                  
+                  <a id="itemA_1419" href="http://" target="" class="main title hasSubChild">BCCLC 2019</a>
+                  
+                    <div class="horizMenu smallLeft">
+                      <ul class="horizontalChildMenu dragDropMenu">
+<li id="item_1466" class="horizontalChild " style="z-index:6935; position: relative;">
+                  
+                  <a id="itemA_1466" href="/District/2251-Untitled.html" target="" class="main title ">2019-2020 School Budget </a>
+                  
+                </li>
+              
+                <li id="item_1420" class="horizontalChild " style="z-index:6934; position: relative;">
+                  
+                  <a id="itemA_1420" href="/District/2236-2019Agendas.html" target="" class="main title ">2019 Agendas</a>
+                  
+                </li>
+              
+                <li id="item_1425" class="horizontalChild " style="z-index:6933; position: relative;">
+                  
+                  <a id="itemA_1425" href="/District/2242-2019-Expense-Reports.html" target="" class="main title ">2019 Expense Reports</a>
+                  
+                </li>
+              
+                <li id="item_1464" class="horizontalChild " style="z-index:6932; position: relative;">
+                  
+                  <a id="itemA_1464" href="/District/2245-Untitled.html" target="" class="main title ">2019 Board Minutes</a>
+                  
+                </li>
+              
+                      </ul>
+</div>
+                  
+                </li>
+              
+                <li id="item_1491" class="horizontalChild hasSubChild" style="z-index:5931; position: relative;">
+                  
+                  <a id="itemA_1491" href="/District/2283-Untitled.html" target="" class="main title hasSubChild">BCCLC 2020</a>
+                  
+                    <div class="horizMenu smallLeft">
+                      <ul class="horizontalChildMenu dragDropMenu">
+<li id="item_1492" class="horizontalChild " style="z-index:6929; position: relative;">
+                  
+                  <a id="itemA_1492" href="/District/2284-2020-Agendas.html" target="" class="main title ">2020 Agendas</a>
+                  
+                </li>
+              
+                <li id="item_1506" class="horizontalChild " style="z-index:6928; position: relative;">
+                  
+                  <a id="itemA_1506" href="/District/2294-2020-Expense-Reports.html" target="" class="main title ">2020 Expense Reports</a>
+                  
+                </li>
+              
+                <li id="item_1507" class="horizontalChild " style="z-index:6927; position: relative;">
+                  
+                  <a id="itemA_1507" href="/District/2295-2020-Board-Minutes.html" target="" class="main title ">2020 Board Minutes</a>
+                  
+                </li>
+              
+                      </ul>
+</div>
+                  
+                </li>
+              
+                        </ul>
+</div>
+                    
+                  </li>
+                
+                  <li class="horizontalChild hasSubChild" style="z-index:4926; position: relative;">
+                    
+                    <a href="/District/page&amp;mode=view&amp;ID=" target="" id="itemA_1474" class="main title hasSubChild">Our Staff </a>
+                    
+                      <div class="horizMenu smallLeft">
+                        <ul class="horiznav horizontalMenu ">
+<li id="item_1475" class="horizontalChild " style="z-index:5924; position: relative;">
+                  
+                  <a id="itemA_1475" href="/District/2267-Untitled.html" target="" class="main title ">Elementary School K-4</a>
+                  
+                </li>
+              
+                <li id="item_1476" class="horizontalChild " style="z-index:5923; position: relative;">
+                  
+                  <a id="itemA_1476" href="/District/2268-Untitled.html" target="" class="main title ">Middle School 5-8</a>
+                  
+                </li>
+              
+                        </ul>
+</div>
+                    
+                  </li>
+                
+            
+          </ul>
+<br clear="all">
+</div>
+      </div>
+      <div class="extraDiv01"></div>
+      <div id="mainData">
+      	<div id="leftCol" class="navContainer">
+        	
+      <div id="navSectionHolder" class="navHolders">
+        
+                <div class="leftModuleHolder " id="navSection_808" style="position: relative;">
+                  <div class="leftModuleHolderInside ">
+                    <h2 class="leftModuleHeader" id="itemNav_808">Information</h2>
+                    
+          <ul class="leftNav horizontalMenu " id="navBar_808">
+<li class="horizontalChild hasSubChild" style="z-index:4922; position: relative;">
+                    
+                    <a href="/District/Portal/Quicklinks" target="" id="itemA_825" class="main title hasSubChild">Lunch Information </a>
+                    
+                      <div class="horizMenu smallLeft">
+                        <ul class="leftNav horizontalMenu ">
+<li id="item_1148" class="horizontalChild " style="z-index:5920; position: relative;">
+                  
+                  <a id="itemA_1148" href="/District/Portal/http-blackfoot-rocketscanapps-com-default-aspx" target="" class="main title ">Free &amp; Reduced Lunch Information</a>
+                  
+                </li>
+              
+                <li id="item_1191" class="horizontalChild " style="z-index:5919; position: relative;">
+                  
+                  <a id="itemA_1191" href="https://www.myschoolbucks.com/ver2/login/getmain?requestAction=home" target="_blank" class="main title ">MySchoolBucks-Online Lunch Payments</a>
+                  
+                </li>
+              
+                        </ul>
+</div>
+                    
+                  </li>
+                
+                  <li class="horizontalChild hasSubChild" style="z-index:4918; position: relative;">
+                    
+                    <a href="/District/News/" target="" id="itemA_814" class="main title hasSubChild">Job Openings </a>
+                    
+                      <div class="horizMenu smallLeft">
+                        <ul class="leftNav horizontalMenu ">
+<li id="item_827" class="horizontalChild " style="z-index:5916; position: relative;">
+                  
+                  <a id="itemA_827" href="/District/Jobs/" target="" class="main title ">Employment</a>
+                  
+                </li>
+              
+                <li id="item_1404" class="horizontalChild " style="z-index:5915; position: relative;">
+                  
+                  <a id="itemA_1404" href="https://realbenefitsolutions.org/blackfootcharter" target="_blank" class="main title ">Healthcare Enrollment</a>
+                  
+                </li>
+              
+                        </ul>
+</div>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4914; position: relative;">
+                    
+                    <a href="https://sites.google.com/a/bingham.academy/student-transportation/" target="_blank" id="itemA_1399" class="main title ">Transportation </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4913; position: relative;">
+                    
+                    <a href="/District/1972-Untitled.html" target="" id="itemA_1234" class="main title ">Contact Us </a>
+                    
+                  </li>
+                
+            
+          </ul>
+</div>
+                </div>
+              
+      </div>
+    
+                      <div class="leftModuleHolder LBBox">
+												
+                        <div class="miniModuleHolder">
+                          <div class="leftBottomBox">
+	                          <p>
+	<a href="https://www.facebook.com/Blackfoot-Charter-Community-Learning-Center-155787991212155/?fref=ts" target="_blank"><img alt="" src="/files/user/1/image/fb-icon2.png" style="width: 38px; height: 38px;"></a></p>
+<p>
+	Blackfoot Charter Elementary</p>
+<p>
+	 </p>
+<p>
+	<a href="https://www.facebook.com/bcclcknights/?fref=ts" target="_blank"><img alt="" src="/files/user/1/image/fb-icon2.png" style="width: 38px; height: 38px;"></a></p>
+<p>
+	Blackfoot Charter Middle School</p>
+<p>
+	 </p>
+<p>
+	<a href="https://www.facebook.com/Bingham-Academy-Blackfoot-Charter-Student-Transportation-970253489691344/" target="_blank"><img alt="" src="/files/user/1/image/fb-icon2.png" style="width: 38px; height: 38px;"></a></p>
+<p>
+	Transportation</p>
+<p>
+	 </p>
+
+                          </div>
+                           
+                        </div>
+                      </div>
+                    
+                        <div id="leftColTranslator" class="leftModuleHolder">
+                            
+        <h2>Site Translator</h2>
+         <div class="miniModuleHolder">
+            <div class="actualWidgetContainer">
+                <div id="MicrosoftTranslatorWidget" class="Dark" style="color:white;background-color:#555555"></div>
+<script type="text/javascript">setTimeout(function(){{var s=document.createElement('script');s.type='text/javascript';s.charset='UTF-8';s.src=((location && location.href && location.href.indexOf('https') == 0)?'https://ssl.microsofttranslator.com':'http://www.microsofttranslator.com')+'/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**&ctf=False&ui=true&settings=Manual&from=';var p=document.getElementsByTagName('head')[0]||document.documentElement;p.insertBefore(s,p.firstChild); }},0);</script><noscript></noscript>
+            </div>
+        </div>
+        
+                        </div>
+                    
+        </div>
+       	<div class="rightCol">
+            <div id="col2">
+                
+<script type="text/javascript">
+if(typeof cs2=='undefined')cs2={};
+cs2.page={};
+cs2.page.homepage=true;
+  var siteNotice = false;
+  function dropSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=false');
+    Effect.BlindDown('siteNoticeBoxHolder', { duration: 0.5 })
+    $('pagerBarToolAlertButton').addClassName('buttonOn');
+  }
+  function liftSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=true');
+    Effect.BlindUp('siteNoticeBoxHolder', { duration: 0.25 })
+    $('pagerBarToolAlertButton').removeClassName('buttonOn');
+  }
+  function toggleSiteNotice(){ 
+    
+    if ($('pagerBarToolAlertButton').hasClassName('buttonOn')){
+      liftSiteNotice();
+    }else{
+      dropSiteNotice();
+    }
+  
+  }
+  
+</script><noscript></noscript>
+
+                <div id="pageHeader">
+                    
+                </div>
+                <div id="content">
+                    <script type="text/javascript">
+    
+    
+
+    changePage = function(widget, page){
+      var el = Ext.getCmp(widget);
+      el.storeParams.curPage = page;
+      el.storeFN(el, true);
+    }
+    
+    var currentPortalID = 1;
+    portalLoader = function(){
+    if(Ext.get('loaderPortal'))
+      Ext.get('loaderPortal').remove();
+      
+      var columns = [];
+      columns[0] = [];
+      columns[1] = [];
+      columns[2] = [];
+      columns[3] = [];
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_35_351_1',
+                        moduleValues: {
+                          layout: '', set_height: 1000, url: 'https://bcclc.com/files/user/26/file/Elementary Communication 3_20_2020.pdf', __alias: '*Elementary K-4 Update* March 20. 2020'
+                        },
+                        storeParams: {
+                            myLayout: 'custom1', 
+                            myOpacity: '75', 
+                            dataID: '', 
+                            alias: 'IFrame', 
+                            keyword: 'iframe', 
+                            curPage: 1, 
+                            id: '35', 
+                            portletID: '351', 
+                            systemID: '31', 
+                            portalID: '1'
+                          
+                        }
+                      };
+        columns[0].push({
+            title: 'Loading IFrame...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-custom1 x-portlet-custom1-75',
+            titleEl : 'widgetPrerenderTitle_35_351_1',
+            contentEl : 'widgetPrerender_35_351_1',
+            id: 'widget_35_351_1',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'custom1', 
+              myOpacity: '75', 
+              dataID: '', 
+              alias: 'IFrame', 
+              keyword: 'iframe', 
+              curPage: 1, 
+              id: '35', 
+              portletID: '351', 
+              systemID: '31', 
+              portalID: '1'
+            
+            },
+
+            values: {layout: '', set_height: 1000, url: 'https://bcclc.com/files/user/26/file/Elementary Communication 3_20_2020.pdf', __alias: '*Elementary K-4 Update* March 20. 2020'}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_353_1',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'custom1', 
+                            myOpacity: '75', 
+                            dataID: '2297', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '353', 
+                            systemID: '5', 
+                            portalID: '1'
+                          
+                        }
+                      };
+        columns[0].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-custom1 x-portlet-custom1-75',
+            titleEl : 'widgetPrerenderTitle_4_353_1',
+            contentEl : 'widgetPrerender_4_353_1',
+            id: 'widget_4_353_1',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'custom1', 
+              myOpacity: '75', 
+              dataID: '2297', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '353', 
+              systemID: '5', 
+              portalID: '1'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_97_1',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'custom2', 
+                            myOpacity: '0', 
+                            dataID: '1111', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '97', 
+                            systemID: '5', 
+                            portalID: '1'
+                          
+                        }
+                      };
+        columns[0].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-custom2 x-portlet-custom2-0',
+            titleEl : 'widgetPrerenderTitle_4_97_1',
+            contentEl : 'widgetPrerender_4_97_1',
+            id: 'widget_4_97_1',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'custom2', 
+              myOpacity: '0', 
+              dataID: '1111', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '97', 
+              systemID: '5', 
+              portalID: '1'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_300_1',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'edgeless', 
+                            myOpacity: '100', 
+                            dataID: '1903', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '300', 
+                            systemID: '5', 
+                            portalID: '1'
+                          
+                        }
+                      };
+        columns[1].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-edgeless x-portlet-edgeless-100',
+            titleEl : 'widgetPrerenderTitle_4_300_1',
+            contentEl : 'widgetPrerender_4_300_1',
+            id: 'widget_4_300_1',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'edgeless', 
+              myOpacity: '100', 
+              dataID: '1903', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '300', 
+              systemID: '5', 
+              portalID: '1'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_334_1',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'edgeless', 
+                            myOpacity: '100', 
+                            dataID: '2059', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '334', 
+                            systemID: '5', 
+                            portalID: '1'
+                          
+                        }
+                      };
+        columns[2].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-edgeless x-portlet-edgeless-100',
+            titleEl : 'widgetPrerenderTitle_4_334_1',
+            contentEl : 'widgetPrerender_4_334_1',
+            id: 'widget_4_334_1',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'edgeless', 
+              myOpacity: '100', 
+              dataID: '2059', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '334', 
+              systemID: '5', 
+              portalID: '1'
+            
+            },
+
+            values: {}
+          });
+      
+
+
+      //console.info(columns);
+      var portals = [];
+      
+      function serializePortals(){
+        var columns = [];
+        var columnOrders = [];
+        var columnOrderQry = [];
+        Ext.each(portals,function(portal){
+          Ext.each(portal.items.items,function(column,index){
+            columns.push(column);
+            columnOrders.push([])
+          });        
+        });
+        //alert(columns.toSource());
+        
+        Ext.each(columns,function(col, index){
+          Ext.each(col.items.items,function(colItem){
+            columnOrders[index].push(colItem.storeParams.portletID);
+            columnOrderQry.push(index+"_"+colItem.storeParams.portletID);
+          });
+        });
+        //columnOrders.each(function(colOrd, index){
+        //  columnOrderQry.push(columnOrders[index].toString());
+        //});
+                
+        Ext.Msg.wait('Please wait...', 'Saving Portal Position');
+        Ext.Ajax.request({
+           url: '/ajax/portals/setOrder.cfm',
+           method: 'GET',
+           params: {id: currentPortalID, s: currentSchool.id, portlets: columnOrderQry.join(',')},
+           reader : new Ext.data.JsonReader({
+            success : '@success'
+           }),
+           success: function(response, opts) {
+              var obj = Ext.decode(response.responseText);
+              if (obj.success){
+                Ext.Msg.hide();
+              }else{
+                Ext.Msg.alert('Error Saving Portal Position', 'This portal could not be moved. You may need to refresh and please try again.');
+              }
+           },
+           failure: function(response, opts) {
+            Ext.Msg.alert('Error Saving Portal Position', 'There was a problem communicating with the server. Please check your internet connection and try again.');
+           }
+        });
+      }
+      
+      portalCount = 0;
+      colCount = 0;    
+    
+      portals[portalCount] = new Ext.ux.Portal({
+          xtype:'portal_widgets',
+          border: false,
+          layout: 'column',
+          renderTo: 'portalTop',              
+          items: makeSingleColumn(columns[colCount], .99, 'margin:0 0 0 10px'),
+          listeners: {
+            drop: function(e){
+              serializePortals();
+            }
+          }
+      });
+      portalCount++;
+      colCount++;
+    
+        colWidth1 = .66;
+        colWidth2 = .33;
+        midCols = makeTwoColumns(columns[colCount], colWidth1, columns[colCount+1], colWidth2, 'margin:0 0 0 10px');
+        colCount += 2;
+      
+      portals[portalCount] = new Ext.ux.Portal({
+          xtype:'portal_widgets',
+          border: false,
+          layout: 'column',
+          renderTo: 'portalMid',
+          items: midCols,
+          listeners: {
+            drop: function(e){
+              serializePortals();
+            }
+          }
+      });
+      portalCount++;
+    
+    }  
+  
+  
+    var currentPortalID = "1";
+    var currentPortalLayout = "143";
+  
+
+</script><div class="pageData pageDataPortal">
+  
+  <div id="loaderPortal"><span>Loading Content...</span></div>
+  <div id="portalContent">
+    <div id="portalTop" class="portalHolderTop"></div> <div id="portalMid" class="portalHolderMid"></div>
+  </div>
+</div>
+
+<!-- prerender -->
+<div style="display: block">
+
+
+  <div id="widgetPrerenderTitle_35_351_1" class="x-hide-display">
+    
+      Loading...
+    
+  </div>  
+  
+  <div id="widgetPrerender_35_351_1" class="x-hide-display">
+    
+        <span class="portalLoader"><span class="portalLoaderText">Loading Data</span></span>
+      
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_353_1" class="x-hide-display">
+    *Middle School 5-8th* Update 4/3/2020 
+  </div>  
+  
+  <div id="widgetPrerender_4_353_1" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p>
+	<img alt="updateapril5" src="/files/user/26/file/IMG_4067.jpg" style="width: 742px; height: 960px;"><img alt="updateapril5" src="/files/user/26/file/IMG_4068.jpg" style="width: 742px; height: 960px;"></p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_97_1" class="x-hide-display">
+    Our Mission 
+  </div>  
+  
+  <div id="widgetPrerender_4_97_1" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p>
+	<span style="font-family:trebuchet ms,helvetica,sans-serif;"><span style="font-size:16px;"><span style="color:#2f4f4f;"><a href="/files/user/26/image/bcclc.jpg"><img alt="STEAM" src="/files/user/82/image/STEAM.png" style="float: right; width: 300px; height: 280px;"></a></span></span><span style="font-size:14px;">The mission of the Blackfoot Charter Community Learning Center is to know each student well enough to challenge and meet their individual academic and developmental needs. This is accomplished through a goal-driven environment that utilizes small groups, interactive technology, and brain based learning. These are supported by a high level of teacher collaboration and professional development.</span></span></p>
+<p>
+	 </p>
+<p>
+	<span style="font-family:arial,helvetica,sans-serif;"><span style="font-size:16px;"><strong>       </strong></span></span><u><span style="font-family:arial,helvetica,sans-serif;"><span style="font-size:16px;"><strong>  BCCLC Quick Facts </strong></span></span></u></p>
+<ul>
+<li>
+		<font face="arial, helvetica, sans-serif"><span style="font-size: 16px;">We are a free public school.</span></font>
+</li>
+	<li>
+		<font face="arial, helvetica, sans-serif"><span style="font-size: 16px;">We are a STEAM school (science, technology, engineering, art, and math). </span></font>
+</li>
+	<li>
+		<span style="font-family:arial,helvetica,sans-serif;"><span style="font-size:16px;">We have small class sizes to ensure more individualized and focused attention.</span></span>
+</li>
+	<li>
+		<span style="font-family:arial,helvetica,sans-serif;"><span style="font-size:16px;">Each classroom uses cutting edge SmartBoard Technology.</span></span>
+</li>
+	<li>
+		<span style="font-family:arial,helvetica,sans-serif;"><span style="font-size:16px;">We incorporate a 4 day school week so teachers can use Fridays to collaborate and plan lessons, as well as participate in professional development. </span></span>
+</li>
+	<li>
+		<span style="font-family:arial,helvetica,sans-serif;"><span style="font-size:16px;">We have a dedicated transportation department that offers students free bussing. </span></span>
+</li>
+</ul>
+<h2 style="text-align: center;">
+	<span style="font-size:12px;"><span style="font-family: arial,helvetica,sans-serif;">School Hours: Monday thru Thursday 8:30 a.m. to 3:15 p.m.</span></span>
+</h2>
+<p>
+	 </p>
+<p style="text-align: center;">
+	<img alt="3rdGrade" src="/files/user/26/file/website12.jpg" style="width: 500px; height: 375px;"></p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_300_1" class="x-hide-display">
+    BCCLC 
+  </div>  
+  
+  <div id="widgetPrerender_4_300_1" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p style="text-align: center;">
+	<img alt="" height="160" src="/files/user/26/image/bcclc2.jpg" width="269"></p>
+<p style="text-align: center;">
+	<span style="font-size:12px;"><strong><span style="font-family: arial,helvetica,sans-serif;"><span style="color: rgb(47, 79, 79);">It is the policy of BCCLC not to discriminate on the basis of sex, race, color, national origin, religion, disabilities, or any other legally protected class(es) as defined by applicable state and federal law, in its education programs, activities, admissions, access, treatment, or employment practices.</span></span></strong></span></p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_334_1" class="x-hide-display">
+    See, Tell, Now! 
+  </div>  
+  
+  <div id="widgetPrerender_4_334_1" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p style="text-align: center;">
+	<a href="https://www.youtube.com/watch?v=m_bkkYbNjt0" target="_blank"><img alt="" height="46" src="/files/user/26/image/SeeTellNowLogo.jpg" width="143"></a></p>
+<p style="text-align: center;">
+	<strong><span style="font-family:arial,helvetica,sans-serif;">Learn more at the site below.</span></strong></p>
+<p style="text-align: center;">
+	<strong><span style="font-family:arial,helvetica,sans-serif;"><a href="https://schoolsafety.dbs.idaho.gov/see-tell-now/" target="_blank"><img alt="" height="92" src="/files/user/26/image/Safety%20Logo(1).jpg" width="114"></a></span></strong></p>
+<p style="text-align: center;">
+	<strong><span style="font-family:arial,helvetica,sans-serif;"><a href="https://schoolsafety.dbs.idaho.gov/see-tell-now/" target="_blank"><span style="color: rgb(0, 0, 255);">Idaho Office of School Safety &amp; Security</span></a></span></strong></p>
+<p>
+	 </p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+</div>
+
+                </div>
+                <br clear="all"><a href="#top" class="backToTopMain">Back to Top</a>
+             </div>
+        </div>
+        
+      <p class="webmaster">For technical questions and comments regarding this website, please contact the <a title="Send Email" style="" target="_blank" href="/action/mail/sendMail.cfm?e=amxpbHlhQGJjY2xjLmNvbQ==" class="" onclick="return sendEmail('amxpbHlhQGJjY2xjLmNvbQ==')">Webmaster</a>.</p>
+
+      </div>
+      <div class="footerOuter">
+      	
+    <div id="copyright">
+      <div class="copyrightCustomText">
+          
+       </div>
+       <div class="copyrightCustomTextBot"></div>
+      <div class="copyrightNav">
+      	<a href="/District/legal&amp;mode=terms">Legal Information</a> | 
+      	<a href="/District/legal&amp;mode=privacy">Privacy Policy</a> | 
+      	<a href="sitemap.cfm" onclick="showSiteMap(); return false">Site Map</a><br><br>
+</div>
+      
+      
+      <div class="copyrightHolder">
+      	ies-web-v2-1 Copyright © 2001-2020. All Rights Reserved. <a href="/new.cfm" style="display:none;">new</a>
+      <br><a href="//www.cyberschool.com" target="_blank">Web Development by Cyberschool &amp;</a> 
+      	<a href="//www.iescentral.com" target="_blank">IES, Inc.</a> 
+    	</div>
+<br clear="all"><div class="copyrightExtra copyrightExtra01"></div>
+        <div class="copyrightExtra copyrightExtra02"></div>
+    </div>
+
+    <!-- Current IP Address: #cgi.REMOTE_ADDR# -->
+      
+<div id="timeoutCountdown" style="display: none; position: fixed; bottom: 0; right: 0; padding: 5px 10px; background: #000; color: white;">Please wait...</div>
+<div id="loadingBar" style="display: none; position: fixed; bottom: 0; right: 0; padding: 5px 10px; background: #060; color: white;">Loading...</div>
+<div id="loadingFail" style="display: none; position: fixed; bottom: 0; right: 0; padding: 5px 10px; background: #600; color: white;">Loading Failed</div>
+  
+
+<script type="text/javascript">  
+  if (printView)
+    window.print();
+</script><noscript></noscript>
+<script src="https://ssl.google-analytics.com/ga.js?#application.cache.version#" type="text/javascript"></script><noscript></noscript>
+
+<script type="text/javascript">
+  try {
+    var pageTracker = _gat._getTracker("");
+    pageTracker._trackPageview();
+  } catch(err) {}
+</script><noscript></noscript>
+	
+      </div>
+    </div>
+    
+  </body>
+</html><!-- Core Version: 2.1. Served from ies-web-v2-1 in 0.06 secs. -->

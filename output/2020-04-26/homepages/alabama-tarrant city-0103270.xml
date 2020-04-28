@@ -1,0 +1,1765 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><!--[if IE 7]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Tarrant City Schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900" rel="stylesheet">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Tarrant City Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Tarrant High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Tarrant Intermediate School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Tarrant Elementary School - News" href="/rssNews.ashx?schoolId=3">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "AL_TarrantCitySchs",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1507908140987">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTMzNzc2NTYwMg9kFgJmD2QWAmYPZBYEZg9kFgZmD2QWAmYPZBYCAgEPFgIeBFRleHQFFFRhcnJhbnQgQ2l0eSBTY2hvb2xzZAIED2QWAgIBDxYCHgtfIUl0ZW1Db3VudAIDFgZmD2QWAmYPFQITVGFycmFudCBIaWdoIFNjaG9vbAExZAIBD2QWAmYPFQIbVGFycmFudCBJbnRlcm1lZGlhdGUgU2Nob29sATJkAgIPZBYCZg8VAhlUYXJyYW50IEVsZW1lbnRhcnkgU2Nob29sATNkAgYPFgIeBGhyZWYFMC9zaXRlY3NzLmFzaHg/JmludHJhbmV0PTAmY2hlY2tzdW09MTUwNzkwODE0MDk4N2QCAQ8WAh4GYWN0aW9uBQEvFg4CAQ9kFgQCAQ9kFgpmDw9kFgIeCHRhYmluZGV4BQEwZAICDw9kFgIfBAUBMGQCAw8PZBYCHwQFATBkAgQPD2QWAh8EBQEwZAIFDw9kFgIfBAUBMGQCAw9kFgICAg9kFgJmDxYCHwAFGzx1bCBjbGFzcz0nYWxlcnRMaXN0Jz48L3VsPmQCAw9kFgICAQ9kFgICAQ9kFgYCBQ8PFgQeC05hdmlnYXRlVXJsBQEvHwAFFFRhcnJhbnQgQ2l0eSBTY2hvb2xzZGQCDQ8PFgQfBQUBLx8ABRRUYXJyYW50IENpdHkgU2Nob29sc2RkAg8PDxYCHwUFAS9kZAIFD2QWAgIBD2QWBAIBD2QWAmYPFgIfAQIFFgpmD2QWBGYPFQI7VENTIGhvc3RzIG9mZmljaWFsIGdyb3VuZGJyZWFraW5nICBmb3IgVEhTIGZvb3RiYWxsIHN0YWRpdW07VENTIGhvc3RzIG9mZmljaWFsIGdyb3VuZGJyZWFraW5nICBmb3IgVEhTIGZvb3RiYWxsIHN0YWRpdW1kAgEPFQE7L3VzZXJmaWxlcy8yMDE4LTExL2E4OTU2MzI4LWI0ZmQtNGY5My1iMzZjLTM3MzM5NDgxOTRhMi5qcGdkAgEPZBYEZg8VAi5USFMgc3R1ZGVudHMgcGFydGljaXBhdGluZyBpbiBFbmQgSGVyb2luIFdhbGsuLlRIUyBzdHVkZW50cyBwYXJ0aWNpcGF0aW5nIGluIEVuZCBIZXJvaW4gV2Fsay5kAgEPFQE8L3VzZXJmaWxlcy8yMDE4LTAzLzc0OGUxZTk2LWM1ODYtNGE5MS04ZDZkLTRiZGYyZTA5YWI5MC5qcGVnZAICD2QWBGYPFQIqQXR0ZW5kYW5jZSBNYXR0ZXJzIGF0IFRhcnJhbnQgQ2l0eSBTY2hvb2xzFUF0dGVuZGFuY2UgbW9udGggbG9nb2QCAQ8VATsvdXNlcmZpbGVzLzIwMTctMDkvNWVjZWY0OWYtZjQ2My00YWFjLWIwMGMtYzE5YmY1NzI5YmY4LnBuZ2QCAw9kFgRmDxUCMEVtcG93ZXJpbmcgTGVhcm5lcnMgVG9kYXkgdG8gQmUgTGVhZGVycyBUb21vcnJvdyxQdXp6bGUgcGllY2VzIGxlYWRpbmcgdG8gYSBzdWNjZXNzZnVsIGZ1dHVyZWQCAQ8VATsvdXNlcmZpbGVzLzIwMTctMDcvY2ZjNjU0NzAtNDIzMi00MWZkLWExZjEtYzI1MGUyZmE1MWMyLmpwZ2QCBA9kFgRmDxUCHExlYXJuaW5nICsgU2VydmljZSA9IFN1Y2Nlc3MMQW4gb3BlbiBib29rZAIBDxUBOy91c2VyZmlsZXMvMjAxNy0wNS84MjQ4YjU5Yy00MzU5LTQ4NzUtYmMwYi04MDM4MTgyN2ZlZTAuanBnZAIFD2QWAmYPFgIfAQIEFghmD2QWAmYPFQUGL2xvZ2luCUNNUyBMb2dpbgVfc2VsZiY8c3BhbiBjbGFzcz0nb2JzY3VyZSc+Q01TIExvZ2luPC9zcGFuPg1mYSBmYS1zaWduLWluZAIBD2QWAmYPFQUnaHR0cHM6Ly90d2l0dGVyLmNvbS9UYXJyYW50Q2l0eT9sYW5nPWVuDEBUYXJyYW50Q2l0eQZfYmxhbmskPHNwYW4gY2xhc3M9J29ic2N1cmUnPlR3aXR0ZXI8L3NwYW4+FGZhIGZhLXR3aXR0ZXItc3F1YXJlZAICD2QWAmYPFQU8aHR0cHM6Ly9tLmZhY2Vib29rLmNvbS9UYXJyYW50LUNpdHktU2Nob29scy0xODM2MTAzMzE2NjA5NjQvCUZhY2Vib29rIAZfYmxhbmslPHNwYW4gY2xhc3M9J29ic2N1cmUnPkZhY2Vib29rPC9zcGFuPhVmYSBmYS1mYWNlYm9vay1zcXVhcmVkAgMPZBYCZg8VBQsvYWRhLXJlcG9ydA1BREEgUmVwb3J0aW5nBV9zZWxmJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5BREEgTGluazwvc3Bhbj4WZmEgZmEtdW5pdmVyc2FsLWFjY2Vzc2QCBw9kFgICAQ9kFgICAQ9kFgRmDw8WAh4HVmlzaWJsZWhkZAIBD2QWBgIBDw8WBB8FBS4vUlNTbmV3cy5hc2h4PyZhcmNoaXZlPWZhbHNlJmFydGljbGVzVG9TaG93PTIwHwZnZGQCAg8WAh8GZ2QCAw8WAh8BAgoWFAIBD2QWAgIFDw8WCB4IQ3NzQ2xhc3MFEnZpZXctYWxsIHdpdGhpbWFnZR8ABQlSZWFkIE1vcmUfBQUKL05ld3MvMTE3Nh4EXyFTQgICZGQCAg9kFgICBQ8PFggfBwUSdmlldy1hbGwgd2l0aGltYWdlHwAFCVJlYWQgTW9yZR8FBQovTmV3cy8xMTczHwgCAmRkAgMPZBYCAgUPDxYIHwcFEnZpZXctYWxsIHdpdGhpbWFnZR8ABQlSZWFkIE1vcmUfBQUKL05ld3MvMTE2Nx8IAgJkZAIED2QWAgIFDw8WCB8HBRJ2aWV3LWFsbCB3aXRoaW1hZ2UfAAUJUmVhZCBNb3JlHwUFCi9OZXdzLzExNjIfCAICZGQCBQ9kFgICBQ8PFggfBwUSdmlldy1hbGwgd2l0aGltYWdlHwAFCVJlYWQgTW9yZR8FBQovTmV3cy8xMTU5HwgCAmRkAgYPZBYCAgUPDxYIHwcFEnZpZXctYWxsIHdpdGhpbWFnZR8ABQlSZWFkIE1vcmUfBQUKL05ld3MvMTE1OB8IAgJkZAIHD2QWAgIFDw8WCB8HBRJ2aWV3LWFsbCB3aXRoaW1hZ2UfAAUJUmVhZCBNb3JlHwUFCi9OZXdzLzExMTMfCAICZGQCCA9kFgICBQ8PFggfBwUSdmlldy1hbGwgd2l0aGltYWdlHwAFCVJlYWQgTW9yZR8FBQovTmV3cy8xMTQ5HwgCAmRkAgkPZBYCAgUPDxYIHwcFEnZpZXctYWxsIHdpdGhpbWFnZR8ABQlSZWFkIE1vcmUfBQUKL05ld3MvMTA3MR8IAgJkZAIKD2QWAgIFDw8WCB8HBRJ2aWV3LWFsbCB3aXRoaW1hZ2UfAAUJUmVhZCBNb3JlHwUFCC9OZXdzLzEyHwgCAmRkAgkPZBYCAgEPZBYCAgEPZBYGZg8WAh8BAgMWBgIBD2QWAmYPFQkFMTEyMjREL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MTEyMjQgT3BlbiBSZWd1bGFyIEJvYXJkIE1lZXRpbmcgQCBUSFNBL2RvY3MvZGlzdHJpY3QvYm9hcmQgbWVldGluZ3MvYm9hcmQgbWVldGluZy5qcGc/aWQ9Mjc2MyZ3aWR0aD0zMTAgT3BlbiBSZWd1bGFyIEJvYXJkIE1lZXRpbmcgQCBUSFMgT3BlbiBSZWd1bGFyIEJvYXJkIE1lZXRpbmcgQCBUSFMGQXByIDI4FEBUYXJyYW50IEhpZ2ggU2Nob29sEEJlZ2lucyBAIDY6MDAgUE1kAgIPZBYCZg8VCQUxMTIyNUQvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0xMTIyNRVSZWd1bGFyIEJvYXJkIE1lZXRpbmdBL2RvY3MvZGlzdHJpY3QvYm9hcmQgbWVldGluZ3MvYm9hcmQgbWVldGluZy5qcGc/aWQ9Mjc2MyZ3aWR0aD0zMTAVUmVndWxhciBCb2FyZCBNZWV0aW5nFVJlZ3VsYXIgQm9hcmQgTWVldGluZwZNYXkgMTIbQFRhcnJhbnQgQm9hcmQgb2YgRWR1Y2F0aW9uEEJlZ2lucyBAIDY6MDAgUE1kAgMPZBYCZg8VCQUxMTI1NEQvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0xMTI1NB1NZW1vcmlhbCBEYXkgLSBPZmZpY2VzIENsb3NlZEEvZG9jcy9kaXN0cmljdC9jYWxlbmRhciBpbWFnZXMvbWVtb3JpYWwgZGF5LmpwZz9pZD0xNjM5JndpZHRoPTMxMB1NZW1vcmlhbCBEYXkgLSBPZmZpY2VzIENsb3NlZB1NZW1vcmlhbCBEYXkgLSBPZmZpY2VzIENsb3NlZAZNYXkgMjUAAGQCAg8PFgIfBQVFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAmc2Nob29saWQ9MCZ0eXBlcz0mdmlld0RhdGU9NC8yNi8yMDIwZGQCAw8PFgQfBQUhL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00HwAFD1ZpZXcgQWxsIEV2ZW50c2RkAg0PZBYCAgEPZBYEAgEPFgIfAQIDFgYCAQ9kFgoCAQ8PFgIfBQUHLzEvaG9tZWQWAmYPDxYCHwAFE1RhcnJhbnQgSGlnaCBTY2hvb2xkZAIDDw8WAh4ISW1hZ2VVcmwFLi9kb2NzL2J1aWxkaW5nLzEvdGhzIHBob3RvLmpwZz9pZD03MiZ3aWR0aD0yMDBkZAIFDw8WAh8ABRFGb29kIERpc3RyaWJ1dGlvbmRkAgcPDxYCHwBlZGQCCQ8PFgQfBQUMLzEvTmV3cy8xMTc2HwAFDC4uLlJlYWQgTW9yZWRkAgIPZBYKAgEPDxYCHwUFBy8yL2hvbWVkFgJmDw8WAh8ABRtUYXJyYW50IEludGVybWVkaWF0ZSBTY2hvb2xkZAIDDw8WAh8JBSwvZG9jcy9idWlsZGluZy8yL3RpcyBwaWMuanBnP2lkPTcxJndpZHRoPTIwMGRkAgUPDxYCHwAFEUZvb2QgRGlzdHJpYnV0aW9uZGQCBw8PFgIfAGVkZAIJDw8WBB8FBQwvMi9OZXdzLzExNzYfAAUMLi4uUmVhZCBNb3JlZGQCAw9kFgoCAQ8PFgIfBQUHLzMvaG9tZWQWAmYPDxYCHwAFGVRhcnJhbnQgRWxlbWVudGFyeSBTY2hvb2xkZAIDDw8WAh8JBS8vZG9jcy9idWlsZGluZy8zL3RlcyBwaG90by5qcGVnP2lkPTczJndpZHRoPTIwMGRkAgUPDxYCHwAFEUZvb2QgRGlzdHJpYnV0aW9uZGQCBw8PFgIfAGVkZAIJDw8WBB8FBQwvMy9OZXdzLzExNzYfAAUMLi4uUmVhZCBNb3JlZGQCAw9kFgZmDxYCHwAFCkRJU0NMQUlNRVJkAgEPFgIfAAXVCTxwPlRoaXMgaXMgYW4gb2ZmaWNpYWwgd2ViIHNpdGUgb2YgdGhlIFRhcnJhbnQgQ2l0eSBCb2FyZCBvZiBFZHVjYXRpb24uJm5ic3A7IEFueSBvdGhlciBzaXRlJm5ic3A7dGhhdCBjbGFpbXMgdG8gYmUgYWZmaWxpYXRlZCB3aXRoLCByZXByZXNlbnQgb3IgY29udGFpbiBpbmZvcm1hdGlvbiBhYm91dCBhbnkgVGFycmFudCBDaXR5IFNjaG9vbCBpcyBub3QgZW5kb3JzZWQgYnkgdGhlIFRhcnJhbnQgQm9hcmQgb2YgRWR1Y2F0aW9uLiZuYnNwOyBJZiB5b3UmbmJzcDtsZWF2ZSB0aGUgb2ZmaWNpYWwgVGFycmFudCBCb2FyZCBvZiBFZHVjYXRpb24gd2ViIHNpdGUsIHRoZSBUYXJyYW50IEJvYXJkIG9mJm5ic3A7RWR1Y2F0aW9uIFNjaG9vbCBEaXN0cmljdCBjbGFpbXMgbm8gcmVzcG9uc2liaWxpdHkgZm9yIHRoZSBjb250ZW50IGJleW9uZCB0aGlzJm5ic3A7cG9pbnQuPC9wPg0KDQo8cD48dT5XZWJzaXRlIEFjY2Vzc2liaWxpdHk8L3U+PC9wPg0KDQo8cD5UYXJyYW50IEJvYXJkIG9mIEVkdWNhdGlvbiBpcyBjb21taXR0ZWQgdG8gZW5zdXJpbmcgdGhhdCBhbGwgaW5mb3JtYXRpb24gcGxhY2VkIG9uIGl0cyBwdWJsaWMgd2Vic2l0ZSBpcyBhY2Nlc3NpYmxlIHRvIGluZGl2aWR1YWxzIHdpdGggZGlzYWJpbGl0aWVzLiBJZiB5b3UgaGF2ZSBhIGRpc2FiaWxpdHkgYW5kIHRoZSBmb3JtYXQgb2YgYW55IG1hdGVyaWFscyBvbiBvdXIgd2Vic2l0ZSBpbnRlcmZlcmVzIHdpdGggeW91ciBhYmlsaXR5IHRvIGFjY2VzcyB0aGUgaW5mb3JtYXRpb24sIHBsZWFzZSByZXBvcnQgaXQmbmJzcDs8dT48YSBocmVmPSJodHRwOi8vd3d3LnRhcnJhbnQuazEyLmFsLnVzL2FkYS1yZXBvcnQiPjxzcGFuIHN0eWxlPSJjb2xvcjojRkYwMDAwOyI+aGVyZTwvc3Bhbj48L2E+PC91PjxzcGFuIHN0eWxlPSJjb2xvcjojRkYwMDAwOyI+Jm5ic3A7PC9zcGFuPm9yJm5ic3A7Y29udGFjdCBUYXJyYW50IEJvYXJkIG9mIEVkdWNhdGlvbi4mbmJzcDs8L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxzcGFuIHN0eWxlPSJmb250LXNpemU6MTNweDsiPjxzdHJvbmc+PGVtPjxzcGFuIHN0eWxlPSJmb250LWZhbWlseTpnZW9yZ2lhLHNlcmlmOyI+VGFycmFudCBDaXR5IFNjaG9vbHMgaXMgY29tbWl0dGVkIHRvOiBFbXBvd2VyaW5nIExlYXJuZXJzIFRvZGF5IHRvIEJlIExlYWRlcnMgVG9tb3Jyb3cuPC9zcGFuPjwvZW0+PC9zdHJvbmc+PC9zcGFuPjwvcD5kAgMPDxYCHwUFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9MWRkAg8PZBYMAgEPZBYCZg8WAh8BAgQWCGYPZBYCZg8VBQYvbG9naW4JQ01TIExvZ2luBV9zZWxmJjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5DTVMgTG9naW48L3NwYW4+DWZhIGZhLXNpZ24taW5kAgEPZBYCZg8VBSdodHRwczovL3R3aXR0ZXIuY29tL1RhcnJhbnRDaXR5P2xhbmc9ZW4MQFRhcnJhbnRDaXR5Bl9ibGFuayQ8c3BhbiBjbGFzcz0nb2JzY3VyZSc+VHdpdHRlcjwvc3Bhbj4UZmEgZmEtdHdpdHRlci1zcXVhcmVkAgIPZBYCZg8VBTxodHRwczovL20uZmFjZWJvb2suY29tL1RhcnJhbnQtQ2l0eS1TY2hvb2xzLTE4MzYxMDMzMTY2MDk2NC8JRmFjZWJvb2sgBl9ibGFuayU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+RmFjZWJvb2s8L3NwYW4+FWZhIGZhLWZhY2Vib29rLXNxdWFyZWQCAw9kFgJmDxUFCy9hZGEtcmVwb3J0DUFEQSBSZXBvcnRpbmcFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBMaW5rPC9zcGFuPhZmYSBmYS11bml2ZXJzYWwtYWNjZXNzZAIDDxYCHglpbm5lcmh0bWwFajxzcGFuIGNsYXNzPSdzY2hvb2xOYW1lRm9vdGVyJz5UYXJyYW50IENpdHkgU2Nob29sczwvc3Bhbj48YnIvPjEzMTggQWxhYmFtYSBTdHJlZXQgPGJyLz4gVGFycmFudCwgQUwgMzUyMTdkAgUPFgIfAgVCaHR0cDovL21hcHMuZ29vZ2xlLmNvbS9tYXBzP3E9MTMxOCBBbGFiYW1hIFN0cmVldCtUYXJyYW50K0FMKzM1MjE3ZAIHD2QWAgIBDxYCHwoFE1Bob25lOiAyMDUtODQ5LTM3MDBkAgkPZBYCAgEPFgIfCgURRmF4OiAyMDUtODQ5LTM3MjhkAgsPFgIfAAUUVGFycmFudCBDaXR5IFNjaG9vbHNkZFqa72dwxD2TakDJ0sfyrVTP2KoC">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: '2ywk7sLCO2' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="headerback">
+            <header id="site-head"><div class="top-nav-bar hidden-sm hidden-xs">
+    <div class="container">
+        <div class="row">
+            <div class="very-top-nav-wrapper col-lg-4 col-md-4 col-sm-4 hidden-sm hidden-xs">
+                <div class="search">
+                    <div valign="top" style="" class="searchPad">
+                        <label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+                    <div style="display: inline; float: right;" class="searchgo">
+                        <a title="Search" class="bSearch glyphicon glyphicon-search"><span class="obscure">Search Site button</span></a>
+                    </div>
+                </div>
+                
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+</div>
+
+
+        </div>
+    </div>
+</div>
+
+<div class="NavBack2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-10 col-sm-9 col-lg-offset-2 col-md-offset-2 col-sm-offset-3">
+                <div class="navigation">
+                    <nav class="navbar navbar-default" role="navigation"><ul class="nav navbar-nav district-top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Our District">Our District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Superintendent's Office">Superintendent's Office  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/24" title="Superintendent">Superintendent</a></li>
+<li class="without-image"><a href="/superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/news" title="District News">District News</a></li>
+<li class="without-image"><a href="/content/182" title="District Info">District Info</a></li>
+<li class="without-image"><a href="/administration" title="Departments">Departments</a></li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/Content/100" title="Mission &amp; Vision">Mission &amp; Vision</a></li>
+<li class="without-image"><a href="/content/186" title="School Closings">School Closings</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/tarrant%20strategic%20plan%20final.docx?id=1483" title="Strategic Plan">Strategic Plan</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Tarrant High School">Tarrant High School</a></li>
+<li class="without-image"><a href="/2/home" title="Tarrant Intermediate School">Tarrant Intermediate School</a></li>
+<li class="without-image"><a href="/3/home" title="Tarrant Elementary School">Tarrant Elementary School</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/18" title="After School Program">After School Program</a></li>
+<li class="without-image"><a href="/administration/16" title="Child Nutrition Program">Child Nutrition Program</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Curriculum &amp; Instruction">Curriculum &amp; Instruction  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/4" title="Federal Programs">Federal Programs</a></li>
+<li class="without-image"><a href="/administration/8" title="Assessment &amp; Accountability">Assessment &amp; Accountability</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Employment">Employment  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/22" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="/Employment" title="Employment Opportunities">Employment Opportunities</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/administration/14" title="Facilities &amp; Maintenance">Facilities &amp; Maintenance</a></li>
+<li class="without-image"><a href="/administration/10" title="Finance">Finance</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Student Services">Student Services  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Student Services">Student Services  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/6" title="Welcome to Student Services!">Welcome to Student Services!</a></li>
+<li class="without-image"><a href="/Content/32" title="Exceptional Education">Exceptional Education</a></li>
+<li class="without-image"><a href="/content/16" title="Gifted Education">Gifted Education</a></li>
+<li class="without-image"><a href="/content/26" title="Section 504 ">Section 504 </a></li>
+<li class="without-image"><a href="/content/30" title="Tarrant Alternative Program (TAP)">Tarrant Alternative Program (TAP)</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/health-services" title="Health Services">Health Services</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other Services">Other Services  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/14" title="Attendance">Attendance</a></li>
+<li class="without-image"><a href="/content/20" title="Homeless Services">Homeless Services</a></li>
+<li class="without-image"><a href="/content/18" title="Homebound Services">Homebound Services</a></li>
+<li class="without-image"><a href="/content/22" title="Migrant Services">Migrant Services</a></li>
+<li class="without-image"><a href="/content/24" title="OSR/Preschool Program">OSR/Preschool Program</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Technology">Technology  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/250" title="FY 19-20 Requests for Proposals">FY 19-20 Requests for Proposals</a></li>
+<li class="without-image"><a href="https://login.schooldude.com" title="Submit a Technology Support Ticket">Submit a Technology Support Ticket</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/administration/20" title="Transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/Content/216" title="Contact Us">Contact Us</a></li>
+</ul></nav>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="NavBack">
+    <div class="container">
+        <div class="navigation">
+            <nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> <span>Menu </span>
+                    </button>
+                    <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome3" class="navbar-brand hidden-lg hidden-md hidden-sm" href="/">Tarrant City Schools</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav district-top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Our District">Our District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Superintendent's Office">Superintendent's Office  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/24" title="Superintendent">Superintendent</a></li>
+<li class="without-image"><a href="/superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/news" title="District News">District News</a></li>
+<li class="without-image"><a href="/content/182" title="District Info">District Info</a></li>
+<li class="without-image"><a href="/administration" title="Departments">Departments</a></li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/Content/100" title="Mission &amp; Vision">Mission &amp; Vision</a></li>
+<li class="without-image"><a href="/content/186" title="School Closings">School Closings</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/tarrant%20strategic%20plan%20final.docx?id=1483" title="Strategic Plan">Strategic Plan</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Tarrant High School">Tarrant High School</a></li>
+<li class="without-image"><a href="/2/home" title="Tarrant Intermediate School">Tarrant Intermediate School</a></li>
+<li class="without-image"><a href="/3/home" title="Tarrant Elementary School">Tarrant Elementary School</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/18" title="After School Program">After School Program</a></li>
+<li class="without-image"><a href="/administration/16" title="Child Nutrition Program">Child Nutrition Program</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Curriculum &amp; Instruction">Curriculum &amp; Instruction  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/4" title="Federal Programs">Federal Programs</a></li>
+<li class="without-image"><a href="/administration/8" title="Assessment &amp; Accountability">Assessment &amp; Accountability</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Employment">Employment  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/22" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="/Employment" title="Employment Opportunities">Employment Opportunities</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/administration/14" title="Facilities &amp; Maintenance">Facilities &amp; Maintenance</a></li>
+<li class="without-image"><a href="/administration/10" title="Finance">Finance</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Student Services">Student Services  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Student Services">Student Services  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/6" title="Welcome to Student Services!">Welcome to Student Services!</a></li>
+<li class="without-image"><a href="/Content/32" title="Exceptional Education">Exceptional Education</a></li>
+<li class="without-image"><a href="/content/16" title="Gifted Education">Gifted Education</a></li>
+<li class="without-image"><a href="/content/26" title="Section 504 ">Section 504 </a></li>
+<li class="without-image"><a href="/content/30" title="Tarrant Alternative Program (TAP)">Tarrant Alternative Program (TAP)</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/health-services" title="Health Services">Health Services</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Other Services">Other Services  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/14" title="Attendance">Attendance</a></li>
+<li class="without-image"><a href="/content/20" title="Homeless Services">Homeless Services</a></li>
+<li class="without-image"><a href="/content/18" title="Homebound Services">Homebound Services</a></li>
+<li class="without-image"><a href="/content/22" title="Migrant Services">Migrant Services</a></li>
+<li class="without-image"><a href="/content/24" title="OSR/Preschool Program">OSR/Preschool Program</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Technology">Technology  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/250" title="FY 19-20 Requests for Proposals">FY 19-20 Requests for Proposals</a></li>
+<li class="without-image"><a href="https://login.schooldude.com" title="Submit a Technology Support Ticket">Submit a Technology Support Ticket</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/administration/20" title="Transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/Content/216" title="Contact Us">Contact Us</a></li>
+</ul>
+<div class="hidden-lg hidden-md hidden-sm">
+                        <ul class="quicklinks">
+<li class="qlTitle">Quick Links
+                            </li>
+                        </ul>
+<ul class="nav navbar-nav quicklinks">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District News">District News  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li></ul>
+</li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/administration" title="Departments">Departments</a></li>
+<li class="without-image"><a href="/Athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+</ul>
+<ul class="quicklinks">
+<li class="qlTitle">Middle Links
+                            </li>
+                        </ul>
+<ul class="nav navbar-nav very-top-nav">
+<li class="without-image"><a href="/" title="District Home">District Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents">Parents  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/18" title="After School Program">After School Program</a></li>
+<li class="without-image"><a href="/administration/20" title="Bus Information">Bus Information</a></li>
+<li class="without-image"><a href="/3/home" title="TES Parent Calendar">TES Parent Calendar</a></li>
+<li class="without-image"><a href="/calendar" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/content/188" title="Enrollment Forms">Enrollment Forms</a></li>
+<li class="without-image"><a href="/administration/16" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/content/14" title="Attendance/Excused Absences">Attendance/Excused Absences</a></li>
+<li class="without-image"><a href="/content/health-services" title="Request to Administer Medicine">Request to Administer Medicine</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Parent/Student Handbook">Parent/Student Handbook</a></li>
+<li class="without-image"><a href="/Content/90" title="Guidance &amp; Counseling ">Guidance &amp; Counseling </a></li>
+<li class="without-image"><a href="/content/186" title="School Closings">School Closings</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="https://sis-tarrantcity.chalkableinformationnow.com/InformationNow/Login.aspx?ReturnUrl=%2finformationnow%2flogin" target="_blank" title="iNow Parent Portal">iNow Parent Portal</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Students">Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/16" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/internet%20acceptable%20use%20policy%20changes%202017.docx?id=2866" title="Internet Agreement">Internet Agreement</a></li>
+<li class="without-image"><a href="/content/guidance-counseling" title="Guidance &amp; Counseling">Guidance &amp; Counseling</a></li>
+<li class="without-image"><a href="/harassment-bullying-report" title="Bully Report">Bully Report</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/schools" title="Student Resources">Student Resources</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community">Community  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/content/188" title="Enrollment Forms">Enrollment Forms</a></li>
+<li class="without-image"><a href="/Content/94" title="Mobile Food Bank">Mobile Food Bank</a></li>
+<li class="without-image"><a href="/Content/96" title="Ways to Support">Ways to Support</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff ">Staff   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/intranet_links.aspx" title="Maintenance/Technology Requests">Maintenance/Technology Requests</a></li>
+<li class="without-image"><a href="/Content/98" title="Staff Resources">Staff Resources</a></li>
+<li class="without-image"><a href="/intranet_home.aspx" title="Intranet (Staff Only)">Intranet (Staff Only)</a></li>
+<li class="without-image"><a href="https://sis-tarrantcity.chalkableinformationnow.com/InformationNow/Login.aspx?ReturnUrl=%2finformationnow%2flogin" target="_blank" title="I-Now">I-Now</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Gallery" title="Photo Gallery">Photo Gallery</a></li>
+<li class="without-image"><a href="/District/Links" title="Quick Links">Quick Links</a></li>
+</ul>
+</div>
+                </div>
+            </nav>
+</div>
+    </div>
+</div>
+<div class="head-logo-container">
+    <div class="container">
+        <div class="col-lg-12">
+            <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome2" class="schoolName" href="/">Tarrant City Schools</a>
+            <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="logo" href="/"><span class="obscure">Logo link to home page</span></a>
+        </div>
+    </div>
+</div>
+
+    
+
+            </header>
+</div>
+
+        <div class="slideshowback">
+            
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#slideshow .slides').nivoSlider({ effect: 'fade', prevText: '', nextText: '' });
+            $(".nivo-caption").appendTo("#blue-box.row");
+            $(".nivo-directionNav").appendTo("#blue-box.row");
+            $(".nivo-controlNav").appendTo("#blue-box.row");
+            $(".slides-blue-box").appendTo(".slides.nivoSlider");
+
+        });
+    </script><style type="text/css">
+        .panel{margin-bottom:0px;}
+        .school-nav-wrapper {
+            margin-top: 0 !important;
+        }
+        .NavBack3{margin-top:-30px;}
+        .slideshowback {
+            min-height: 20px;
+        }
+
+        #news-list .article a.news-image {
+            width: 30%;
+        }
+        .quicklinksDropDown {display:block;}
+        @media (min-width:992px) {
+            .school-nav-wrapper {
+                margin-top: 0 !important;
+            }
+
+            body .headerback {
+                position: absolute;
+                width: 100%;
+            }
+            body .slideshowback {
+                min-height: 200px;
+            }
+        }
+
+		h1, h2
+		{
+			margin-left: 10px;
+			margin-right: 10px;
+			border-bottom: none !important;
+		}
+
+		.masterC.alignment-stretch
+		{
+			padding-top: 0;
+		}
+
+		.article.Newsarticle.rows.active, li.upcoming-events-event.active
+		{
+			display: block;
+			width: 25%;
+			float: left;
+			padding-bottom: 10px;
+			position: relative;
+		}
+        .panel{padding:0px;background:none;}
+		.article.Newsarticle.rows.active a.view-all, .rssNewsLink
+		{
+			display: none;
+		}
+
+		.article.Newsarticle.rows.active .news-summary
+		{
+			color: #fff;
+			font-size: 12px;
+			max-width: 90%;
+			display: block;
+			margin: auto;
+		}
+
+		a.newsimage img, .eventimage img
+		{
+			display: block;
+			position: relative;
+			margin: auto;
+			max-width: 90%;
+			max-height: 175px;
+            box-shadow:0px 0px 5px #000
+		}
+        .article-image-container > a,  .upcoming-events-event .eventimage{padding:5px;}
+		a.news-title
+		{
+			display: block;
+			text-align: center;
+			color: #fff;
+			font-size: 16px;
+			position: relative;
+			top: 5px;
+			left: 0;
+			right: 0;
+		}
+
+		a.news-title:hover, li.upcoming-events-event.active a:hover, a.news-title:focus, li.upcoming-events-event.active a:focus
+		{
+			text-decoration: none;
+			text-shadow: -1px 1px 14px #ffc, 1px -1px 14px #fff;
+		}
+
+		.feature-content-body.content
+		{
+			color: #fff;
+			font-size: 16px !important;
+		}
+        #site-foot .feature-content-body.content{
+            color:#000;
+        }
+		.event-time, .event-location
+		{
+			display: none;
+		}
+
+		#backtotop
+		{
+			background: url(/customers/KY/LarueCntyPS/sysimages/custom/backtotop.png) no-repeat center center;
+			bottom: 20px;
+			cursor: pointer;
+			display: none;
+			height: 70px;
+			position: fixed;
+			right: 20px;
+			text-indent: -9999px;
+			width: 70px;
+			z-index: 999;
+		}
+
+		#backtotop:hover
+		{
+			opacity: 0.8;
+		}
+
+		@media only screen and (min-width: 768px) and (max-width: 991px)
+		{
+			.feature-content-body.content
+			{
+				font-size: 12px !important;
+			}
+		}
+
+		@media only screen and (min-width: 992px) and (max-width: 1200px)
+		{
+			.feature-content-body.content
+			{
+				font-size: 14px !important;
+			}
+		}
+
+		@media only screen and (min-width: 768px)
+		{
+			.slideshowback
+			{
+				min-height: 250px;
+			}
+
+			.headerback
+			{
+				position: absolute !important;
+			}
+		}
+
+		@media only screen and (max-width: 767px)
+		{
+			.article.Newsarticle.rows.active, li.upcoming-events-event.active
+			{
+				width: 100%;
+			}
+
+            .article.Newsarticle.rows.active:nth-child(odd), li.upcoming-events-event.active:nth-child(odd) {
+                clear:left;
+            }
+
+			#backtotop
+			{
+				display: none !important;
+			}
+		}
+	</style>
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({
+			effect: 'fade',
+			pauseTime: 3000,
+			prevText: 'Prev',
+			nextText: 'Next',
+			animSpeed: 500,
+			afterLoad: function () {
+				if (typeof nivoAfterLoad === 'function' && nivoAfterLoad !== 'undefined') {
+					nivoAfterLoad();
+				}
+			},
+			beforeChange: function () {
+				if (typeof nivoBeforeChange === 'function' && nivoBeforeChange !== 'undefined') {
+					nivoBeforeChange();
+				}
+			},
+			afterChange: function () {
+				if (typeof nivoAfterChange === 'function' && nivoAfterChange !== 'undefined') {
+					nivoAfterChange();
+				}
+			}
+		});
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+		var slider = jQuery('.slides');
+
+		var nivoStartStopControl = jQuery('<div class="nivo-startstopNav"></div>');
+		$('#slideshow').append(nivoStartStopControl);
+        nivoStartStopControl.append('<span tabindex="0" href="#" id="nivoStart" title="Play Slideshow"><span><i class="fa fa-play" aria-hidden="true"></i></span><span class="obscure">play slideshow</span></span> <span tabindex="0" href="#" id="nivoStop" title="Pause Slideshow"><span><i class="fa fa-pause" aria-hidden="true"></i><span class="obscure">stop slideshow</span></span></span>');
+
+		jQuery('#nivoStop').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').stop();
+		});
+
+		jQuery('#nivoStart').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').start();
+		});
+	});
+</script><style type="text/css">
+	.nivo-startstopNav {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		z-index: 3;
+	}
+
+	.nivo-startstopNav .fa {
+		width: 25px;
+		height: 25px;
+		color: #000;
+		background-color: #fff;
+		border-radius: 50%;
+		font-size: 15px;
+		text-align: center;
+		line-height: 25px;
+	}
+
+	.nivo-startstopNav .fa:hover {
+		cursor: pointer;
+	}
+</style>
+<div id="slideshow" class="">
+	<div class="slides">
+		
+				<img title="TCS hosts official groundbreaking  for THS football stadium" alt="TCS hosts official groundbreaking  for THS football stadium" src="/images/full//userfiles/2018-11/a8956328-b4fd-4f93-b36c-3733948194a2.jpg"><img title="THS students participating in End Heroin Walk." alt="THS students participating in End Heroin Walk." src="/images/full//userfiles/2018-03/748e1e96-c586-4a91-8d6d-4bdf2e09ab90.jpeg"><img title="Attendance Matters at Tarrant City Schools" alt="Attendance month logo" src="/images/full//userfiles/2017-09/5ecef49f-f463-4aac-b00c-c19bf5729bf8.png"><img title="Empowering Learners Today to Be Leaders Tomorrow" alt="Puzzle pieces leading to a successful future" src="/images/full//userfiles/2017-07/cfc65470-4232-41fd-a1f1-c250e2fa51c2.jpg"><img title="Learning + Service = Success" alt="An open book" src="/images/full//userfiles/2017-05/8248b59c-4359-4875-bc0b-80381827fee0.jpg">
+</div>
+	
+</div>
+
+
+    <div class="slides-blue-box">
+        <div class="container">
+            <div class="row" id="blue-box">
+            </div>
+        </div>
+    </div>
+
+    <div class="backMiddleNav hidden-xs">
+        <div class="container ">
+            <div class="row">
+                <div class="col-lg-10">
+                    <ul class="nav navbar-nav very-top-nav">
+<li class="without-image"><a href="/" title="District Home">District Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents">Parents  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/18" title="After School Program">After School Program</a></li>
+<li class="without-image"><a href="/administration/20" title="Bus Information">Bus Information</a></li>
+<li class="without-image"><a href="/3/home" title="TES Parent Calendar">TES Parent Calendar</a></li>
+<li class="without-image"><a href="/calendar" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/content/188" title="Enrollment Forms">Enrollment Forms</a></li>
+<li class="without-image"><a href="/administration/16" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/content/14" title="Attendance/Excused Absences">Attendance/Excused Absences</a></li>
+<li class="without-image"><a href="/content/health-services" title="Request to Administer Medicine">Request to Administer Medicine</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Parent/Student Handbook">Parent/Student Handbook</a></li>
+<li class="without-image"><a href="/Content/90" title="Guidance &amp; Counseling ">Guidance &amp; Counseling </a></li>
+<li class="without-image"><a href="/content/186" title="School Closings">School Closings</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="https://sis-tarrantcity.chalkableinformationnow.com/InformationNow/Login.aspx?ReturnUrl=%2finformationnow%2flogin" target="_blank" title="iNow Parent Portal">iNow Parent Portal</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Students">Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/16" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/internet%20acceptable%20use%20policy%20changes%202017.docx?id=2866" title="Internet Agreement">Internet Agreement</a></li>
+<li class="without-image"><a href="/content/guidance-counseling" title="Guidance &amp; Counseling">Guidance &amp; Counseling</a></li>
+<li class="without-image"><a href="/harassment-bullying-report" title="Bully Report">Bully Report</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/schools" title="Student Resources">Student Resources</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community">Community  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/content/188" title="Enrollment Forms">Enrollment Forms</a></li>
+<li class="without-image"><a href="/Content/94" title="Mobile Food Bank">Mobile Food Bank</a></li>
+<li class="without-image"><a href="/Content/96" title="Ways to Support">Ways to Support</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff ">Staff   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/intranet_links.aspx" title="Maintenance/Technology Requests">Maintenance/Technology Requests</a></li>
+<li class="without-image"><a href="/Content/98" title="Staff Resources">Staff Resources</a></li>
+<li class="without-image"><a href="/intranet_home.aspx" title="Intranet (Staff Only)">Intranet (Staff Only)</a></li>
+<li class="without-image"><a href="https://sis-tarrantcity.chalkableinformationnow.com/InformationNow/Login.aspx?ReturnUrl=%2finformationnow%2flogin" target="_blank" title="I-Now">I-Now</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Gallery" title="Photo Gallery">Photo Gallery</a></li>
+<li class="without-image"><a href="/District/Links" title="Quick Links">Quick Links</a></li>
+</ul>
+</div>
+
+                <div class="col-lg-2">
+                    <div id="social-links-bottom" class="social-links">
+                        
+        <a href="/login" title="CMS Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="https://twitter.com/TarrantCity?lang=en" title="@TarrantCity" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter-square"></i>
+        </a>
+    
+        <a href="https://m.facebook.com/Tarrant-City-Schools-183610331660964/" title="Facebook " target="_blank">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook-square"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        </div>
+        
+    
+    <div class="homepage-event-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-12">
+                    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+                    
+
+                    <h1 class="news-header">News &amp; Announcements</h1>
+
+                    <div class="news">
+                        
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        
+        function fixArticleImageSizes()
+        {
+            var div = $('.article-image-container').eq(0);
+            var width = $(div).width();
+            var height = width*0.66;
+            console.log(width + "x" + height);
+            $('.article-image-container').height(height);
+        }
+
+        var to  = null;
+        $(window).resize(function(){
+            if(to!=null){clearTimeout(to); to=null;}
+            to = setTimeout(fixArticleImageSizes, 50);
+        });
+
+
+        var $newsSectionNumber = 1;
+        for (var $i = 1; $i <= 10; $i++) {
+            if (($i <= ($newsSectionNumber * 4)) & ($i > (($newsSectionNumber - 1) * 4))) {
+                var $active = ($('.article.Newsarticle.rows:nth-child(' + $i + ')'));
+                $active.removeClass('inactive');
+                $active.addClass('active');
+            } else {
+                var $inactive = ($('.article.Newsarticle.rows:nth-child(' + $i + ')'));
+                $inactive.removeClass('active');
+                $inactive.addClass('inactive');
+
+            }
+        }
+
+
+        $('.nextNews').click(function () {
+            if ($newsSectionNumber < Math.ceil((10 / 4))) {
+	            $newsSectionNumber ++;								
+	            swapNewsRight($newsSectionNumber);
+	        }
+	    });
+        $('.prevNews').click(function () {
+            if ($newsSectionNumber > 1) {
+                $newsSectionNumber --;
+                swapNewsLeft($newsSectionNumber);
+            }
+        });
+
+
+        fixArticleImageSizes(); 
+    });
+
+    function swapNewsRight(sectionNumber) {
+        for (var $i = 1; $i <= 10; $i++) {
+            if (($i <= (sectionNumber * 4)) & ($i > ((sectionNumber - 1) * 4))) {
+                var $active = ($('.article.Newsarticle.rows:nth-child(' + $i + ')'));
+                $active.removeClass('inactive');
+                $active.addClass('active');
+            } else {
+                var $inactive = ($('.article.Newsarticle.rows:nth-child(' + $i + ')'));
+                $inactive.removeClass('active');
+                $inactive.addClass('inactive');
+            }
+        }
+    }
+
+    function swapNewsLeft(sectionNumber) {
+        for (var $i = 1; $i <= 10; $i++) {
+            if (($i <= (sectionNumber * 4)) & ($i > ((sectionNumber - 1) * 4))) {
+                var $active = ($('.article.Newsarticle.rows:nth-child(' + $i + ')'));
+                $active.removeClass('inactive');
+                $active.addClass('active');
+            } else {
+                var $inactive = ($('.article.Newsarticle.rows:nth-child(' + $i + ')'));
+                $inactive.removeClass('active');
+                $inactive.addClass('inactive');
+            }
+        }
+    }
+</script><style type="text/css">
+        .rssNewsLink {
+            float: right;
+            margin-top: -22px;
+            font-size: 16px;
+        }
+
+            .rssNewsLink.fa.fa-rss-square:before {
+                font-size: 22px;
+                padding: 3px;
+            }
+
+        .article.Newsarticle.rows.inactive {
+            display: none;
+        }
+
+        .article-image-container {
+            overflow: hidden;
+            height: 190px;
+        }
+
+            .article-image-container > a {
+                display: inline-block;
+                width: 100%;
+                overflow: hidden;
+            }
+
+                .article-image-container > a > img {
+                    width: 100%;
+                    overflow: hidden;
+                    max-height: none;
+                }
+    </style>
+<a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rssNewsLink" class="rssNewsLink fa fa-rss-square" href="/RSSnews.ashx?&amp;archive=false&amp;articlesToShow=20">Subscribe</a><div id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rssnewslinkclear" style="clear: both;"></div>
+            <section id="news-list"><div class="article Newsarticle rows">
+                <div class="article-image-container">
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl01_lnkImage" class="newsimage withimage" href="/News/1176"><img id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl01_articleImage" class=" withimage" src="/docs/_Full_/district/94192371_3027237083964927_5801517007392210944_o.png?id=4086&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="Distribution dates" style="border-width:0px;"></a>
+                         </div>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl01_lnkTitle" class="news-title withimage" href="/News/1176">Food Distribution</a>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl01_lnkViewAll" class="view-all withimage" href="/News/1176">Read More</a>
+           
+            </div>
+        
+            <div class="article Newsarticle rows">
+                <div class="article-image-container">
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl02_lnkImage" class="newsimage withimage" href="/News/1173"><img id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl02_articleImage" class=" withimage" src="/docs/_Full_/district/working%20mother.jpg?id=4082&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="Working mother" style="border-width:0px;"></a>
+                         </div>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl02_lnkTitle" class="news-title withimage" href="/News/1173">Families First Coronavirus Response Act</a>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl02_lnkViewAll" class="view-all withimage" href="/News/1173">Read More</a>
+           
+            </div>
+        
+            <div class="article Newsarticle rows">
+                <div class="article-image-container">
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl03_lnkImage" class="newsimage withimage" href="/News/1167"><img id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl03_articleImage" class=" withimage" src="/docs/_Full_/district/images.jpg?id=4074&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="child in bed" style="border-width:0px;"></a>
+                         </div>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl03_lnkTitle" class="news-title withimage" href="/News/1167">Bedtime Stories with Dr. Mize</a>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl03_lnkViewAll" class="view-all withimage" href="/News/1167">Read More</a>
+           
+            </div>
+        
+            <div class="article Newsarticle rows">
+                <div class="article-image-container">
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl04_lnkImage" class="newsimage withimage" href="/News/1162"><img id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl04_articleImage" class=" withimage" src="/docs/_Full_/district/element5-digital-oycl7y4y0bk-unsplash.jpg?id=4063&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="textbooks with an apple" style="border-width:0px;"></a>
+                         </div>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl04_lnkTitle" class="news-title withimage" href="/News/1162">Parent Resources for Extended School Closure</a>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl04_lnkViewAll" class="view-all withimage" href="/News/1162">Read More</a>
+           
+            </div>
+        
+            <div class="article Newsarticle rows">
+                <div class="article-image-container">
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl05_lnkImage" class="newsimage withimage" href="/News/1159"><img id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl05_articleImage" class=" withimage" src="/docs/_Full_/district/kid%20washing%20hands.jpg?id=4055&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="Student Washing Hands" style="border-width:0px;"></a>
+                         </div>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl05_lnkTitle" class="news-title withimage" href="/News/1159">At Home Resources</a>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl05_lnkViewAll" class="view-all withimage" href="/News/1159">Read More</a>
+           
+            </div>
+        
+            <div class="article Newsarticle rows">
+                <div class="article-image-container">
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl06_lnkImage" class="newsimage withimage" href="/News/1158"><img id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl06_articleImage" class=" withimage" src="/docs/_Full_/district/2020census.jpg?id=4051&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="2020census" style="border-width:0px;"></a>
+                         </div>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl06_lnkTitle" class="news-title withimage" href="/News/1158">CENSUS 2020</a>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl06_lnkViewAll" class="view-all withimage" href="/News/1158">Read More</a>
+           
+            </div>
+        
+            <div class="article Newsarticle rows">
+                <div class="article-image-container">
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl07_lnkImage" class="newsimage withimage" href="/News/1113"><img id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl07_articleImage" class=" withimage" src="/docs/_Full_/district/school%20calendar.jpg?id=3637&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="School Calendar" style="border-width:0px;"></a>
+                         </div>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl07_lnkTitle" class="news-title withimage" href="/News/1113">2019-2020 School Year Calendar</a>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl07_lnkViewAll" class="view-all withimage" href="/News/1113">Read More</a>
+           
+            </div>
+        
+            <div class="article Newsarticle rows">
+                <div class="article-image-container">
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl08_lnkImage" class="newsimage withimage" href="/News/1149"><img id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl08_articleImage" class=" withimage" src="/docs/_Full_/district/2020-2021%20calendar%20image.jpg?id=3963&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="2020-2021 Calendar" style="border-width:0px;"></a>
+                         </div>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl08_lnkTitle" class="news-title withimage" href="/News/1149">2020-2021 School Calendar</a>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl08_lnkViewAll" class="view-all withimage" href="/News/1149">Read More</a>
+           
+            </div>
+        
+            <div class="article Newsarticle rows">
+                <div class="article-image-container">
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl09_lnkImage" class="newsimage withimage" href="/News/1071"><img id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl09_articleImage" class=" withimage" src="/docs/_Full_/district/cnp%20food%20math.png?id=3755&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="CNP Food Math" style="border-width:0px;"></a>
+                         </div>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl09_lnkTitle" class="news-title withimage" href="/News/1071">CNP "Nutrition Nuggets"</a>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl09_lnkViewAll" class="view-all withimage" href="/News/1071">Read More</a>
+           
+            </div>
+        
+            <div class="article Newsarticle rows">
+                <div class="article-image-container">
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl10_lnkImage" class="newsimage withimage" href="/News/12"><img id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl10_articleImage" class=" withimage" src="/docs/_Full_/district/community%20food%20bank.jpg?id=1652&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="Community Food Bank of Central Alabama" style="border-width:0px;"></a>
+                         </div>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl10_lnkTitle" class="news-title withimage" href="/News/12">Community Food Bank - May 16th</a>
+                    <a id="ctl00_ctl00_MasterMiddleTop_ContentMasterTop_ctl00_rep_news_ctl10_lnkViewAll" class="view-all withimage" href="/News/12">Read More</a>
+           
+            </div>
+        
+            <div class="clr"></div>
+            </section>
+</div>
+                    <div class="clr"></div>
+                    <i class="next-prev-icons">
+                        <a id="prevNews" href="javascript:void(0)" class="nextNews"><i class="fa fa-circle" aria-hidden="true"></i><span class="obscure">Arrow for next news</span></a>
+                        <a id="nextNews" href="javascript:void(0)" class="prevNews"><i class="fa fa-circle" aria-hidden="true"></i><span class="obscure">Arrow for previous news</span></a>
+                    </i>
+
+                    <div class="view-more-block">
+                        <a class="view-all-news" href="/districtNewsArticles.aspx">View All News</a>
+                    </div>
+
+                    <div class="clr"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="body-content-container">
+            <div class="container">
+                <div class="masterC alignment-stretch">
+                    <div class="row">
+                        
+    <div class="content-section content-section-1">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 backgroundcolor">
+            <div class="clearfix panel content">
+                
+    <h1 class="events-header">Upcoming Event</h1>
+    
+
+<script type="text/javascript">
+	$(document).ready(function () {
+
+		function fixEventImageSizes()
+		{
+			var li = $('.upcoming-events-event .eventimage').eq(0);
+			var width = $(li).width();
+			var height = width*0.66;
+			console.log(width + "x" + height);
+			$('.upcoming-events-event .eventimage').height(height);
+		}
+
+		var to  = null;
+		$(window).resize(function(){
+			if(to!=null){clearTimeout(to); to=null;}
+			to = setTimeout(fixEventImageSizes, 50);
+		});
+
+		var $eventsSectionNumber = 1;
+		for (var $i = 1; $i <= 3; $i++) {
+			if (($i <= ($eventsSectionNumber * 4)) & ($i > (($eventsSectionNumber - 1) * 4))) {
+				var $active = ($('li.upcoming-events-event:nth-child(' + $i + ')'));
+				$active.removeClass('inactive');
+				$active.addClass('active');
+			} else {
+				var $inactive = ($('li.upcoming-events-event:nth-child(' + $i + ')'));
+				$inactive.removeClass('active');
+				$inactive.addClass('inactive');
+			}
+		}
+
+		$('.nextEvents').click(function () {
+			if ($eventsSectionNumber < Math.ceil((3 / 4))) {
+				$eventsSectionNumber ++;								
+				swapeventsRight($eventsSectionNumber);
+			}
+		});
+		$('.prevEvents').click(function () {
+			if ($eventsSectionNumber > 1) {
+				$eventsSectionNumber --;
+				swapeventsLeft($eventsSectionNumber);
+			}
+		});
+
+		
+		fixEventImageSizes(); 
+
+	});
+
+	function swapeventsRight(sectionNumber) {
+		for (var $i = 1; $i <= 3; $i++) {
+			if (($i <= (sectionNumber * 4)) & ($i > ((sectionNumber - 1) * 4))) {
+				var $active = ($('li.upcoming-events-event:nth-child(' + $i + ')'));
+				$active.removeClass('inactive');
+				$active.addClass('active');
+			} else {
+				var $inactive = ($('li.upcoming-events-event:nth-child(' + $i + ')'));
+				$inactive.removeClass('active');
+				$inactive.addClass('inactive');
+			}
+		}
+	}
+
+	function swapeventsLeft(sectionNumber) {
+		for (var $i = 1; $i <= 3; $i++) {
+			if (($i <= (sectionNumber * 4)) & ($i > ((sectionNumber - 1) * 4))) {
+				var $active = ($('li.upcoming-events-event:nth-child(' + $i + ')'));
+				$active.removeClass('inactive');
+				$active.addClass('active');
+			} else {
+				var $inactive = ($('li.upcoming-events-event:nth-child(' + $i + ')'));
+				$inactive.removeClass('active');
+				$inactive.addClass('inactive');
+			}
+		}
+	}
+</script><style type="text/css">
+	li.upcoming-events-event.inactive
+	{
+		display: none;
+	}
+
+	.upcoming-events-event .eventimage
+	{
+		width: 100%;
+		overflow: hidden;
+	}
+
+	.upcoming-events-event .eventimage img
+	{
+		width: 100%;
+		height: auto;
+		max-height: none;
+	}
+</style>
+<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-11224">
+			<a href="/calendarWeekView.aspx?schools=1,2,3&amp;schoolid=0&amp;types=&amp;eventID=11224" title="Open Regular Board Meeting @ THS">
+				<div class="eventimage">
+					<img src="/docs/district/board%20meetings/board%20meeting.jpg?id=2763&amp;width=310" alt="Open Regular Board Meeting @ THS linked image">
+</div>
+				<div class="event-info">
+					Open Regular Board Meeting @ THS
+						</div>
+                	<div class="event-info2">
+					Apr 28
+                        				</div>
+
+				<div class="event-location">
+					@Tarrant High School
+				</div>
+				<div class="event-time">
+					Begins @ 6:00 PM
+				</div>
+				<div id="eventDivider"></div>
+                    
+			</a>
+		</li>
+	
+		<li class="upcoming-events-event event-11225">
+			<a href="/calendarWeekView.aspx?schools=1,2,3&amp;schoolid=0&amp;types=&amp;eventID=11225" title="Regular Board Meeting">
+				<div class="eventimage">
+					<img src="/docs/district/board%20meetings/board%20meeting.jpg?id=2763&amp;width=310" alt="Regular Board Meeting linked image">
+</div>
+				<div class="event-info">
+					Regular Board Meeting
+						</div>
+                	<div class="event-info2">
+					May 12
+                        				</div>
+
+				<div class="event-location">
+					@Tarrant Board of Education
+				</div>
+				<div class="event-time">
+					Begins @ 6:00 PM
+				</div>
+				<div id="eventDivider"></div>
+                    
+			</a>
+		</li>
+	
+		<li class="upcoming-events-event event-11254">
+			<a href="/calendarWeekView.aspx?schools=1,2,3&amp;schoolid=0&amp;types=&amp;eventID=11254" title="Memorial Day - Offices Closed">
+				<div class="eventimage">
+					<img src="/docs/district/calendar%20images/memorial%20day.jpg?id=1639&amp;width=310" alt="Memorial Day - Offices Closed linked image">
+</div>
+				<div class="event-info">
+					Memorial Day - Offices Closed
+						</div>
+                	<div class="event-info2">
+					May 25
+                        				</div>
+
+				<div class="event-location">
+					
+				</div>
+				<div class="event-time">
+					
+				</div>
+				<div id="eventDivider"></div>
+                    
+			</a>
+		</li>
+	
+		</ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_hl_viewAllEvents" class="view-all-events" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4">View All Events</a>
+</footer><div class="clr"></div>
+    <i class="next-prev-icons">
+        <a id="prevEvents" href="javascript:void(0)" class="nextEvents"><i class="fa fa-circle" aria-hidden="true"></i><span class="obscure">Arrow for next events</span></a>
+        <a id="nextEvents" href="javascript:void(0)" class="prevEvents"><i class="fa fa-circle" aria-hidden="true"></i><span class="obscure">Arrow for previous events</span></a>
+    </i>
+
+            </div>
+        </div>
+    </div>
+
+                    </div>
+                    <div class="clr">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+    
+    <div class="homepage-aboutus-container bottomsection">
+        <div class="container">
+            <div class="masterC alignment-stretch">
+                <div class="row">
+                    <div class=" col-sm-12 col-md-12 col-lg-12 backgroundcolor leftPanel middleFeaturedContent">
+                        <div class="schoolssection">
+                            <div class="row">
+                                
+                                        <div class="">
+                                    
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                            <div class="schNameImage">
+                                                <a id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl01_schLink" class="schLink" href="/1/home"><span id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl01_schTitle" class="schTitle" navigateurl="/">Tarrant High School</span></a>
+                                                <img id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl01_schImage" class="schImage" src="/docs/building/1/ths%20photo.jpg?id=72&amp;width=200" alt="School building image" style="border-width:0px;">
+</div>
+
+                                            <div class="schNews">
+                                                <div class="newsTitle">
+                                                    <span id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl01_lnkTitle">Food Distribution</span>
+                                                </div>
+                                                <div class="newsText">
+                                                    <span id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl01_lblSummary"></span>
+                                                </div>
+                                                <a id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl01_lnkViewAll" class="view-all" href="/1/News/1176">...Read More</a>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                            <div class="schNameImage">
+                                                <a id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl02_schLink" class="schLink" href="/2/home"><span id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl02_schTitle" class="schTitle" navigateurl="/">Tarrant Intermediate School</span></a>
+                                                <img id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl02_schImage" class="schImage" src="/docs/building/2/tis%20pic.jpg?id=71&amp;width=200" alt="School building image" style="border-width:0px;">
+</div>
+
+                                            <div class="schNews">
+                                                <div class="newsTitle">
+                                                    <span id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl02_lnkTitle">Food Distribution</span>
+                                                </div>
+                                                <div class="newsText">
+                                                    <span id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl02_lblSummary"></span>
+                                                </div>
+                                                <a id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl02_lnkViewAll" class="view-all" href="/2/News/1176">...Read More</a>
+                                            </div>
+                                        </div>
+                                    
+                                        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                            <div class="schNameImage">
+                                                <a id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl03_schLink" class="schLink" href="/3/home"><span id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl03_schTitle" class="schTitle" navigateurl="/">Tarrant Elementary School</span></a>
+                                                <img id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl03_schImage" class="schImage" src="/docs/building/3/tes%20photo.jpeg?id=73&amp;width=200" alt="School building image" style="border-width:0px;">
+</div>
+
+                                            <div class="schNews">
+                                                <div class="newsTitle">
+                                                    <span id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl03_lnkTitle">Food Distribution</span>
+                                                </div>
+                                                <div class="newsText">
+                                                    <span id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl03_lblSummary"></span>
+                                                </div>
+                                                <a id="ctl00_ctl00_BottomContent_ContentMasterMiddleBottom_school_rpt_ctl03_lnkViewAll" class="view-all" href="/3/News/1176">...Read More</a>
+                                            </div>
+                                        </div>
+                                    
+                                        </div>
+                               
+                                    
+                            </div>
+                        </div>
+                        
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        DISCLAIMER
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>This is an official web site of the Tarrant City Board of Education.  Any other site that claims to be affiliated with, represent or contain information about any Tarrant City School is not endorsed by the Tarrant Board of Education.  If you leave the official Tarrant Board of Education web site, the Tarrant Board of Education School District claims no responsibility for the content beyond this point.</p>
+
+<p><u>Website Accessibility</u></p>
+
+<p>Tarrant Board of Education is committed to ensuring that all information placed on its public website is accessible to individuals with disabilities. If you have a disability and the format of any materials on our website interferes with your ability to access the information, please report it <u><a href="http://www.tarrant.k12.al.us/ada-report"><span style="color:#FF0000;">here</span></a></u><span style="color:#FF0000;"> </span>or contact Tarrant Board of Education. </p>
+
+<p> </p>
+
+<p style="text-align: center;"><span style="font-size:13px;"><strong><em><span style="font-family:georgia,serif;">Tarrant City Schools is committed to: Empowering Learners Today to Be Leaders Tomorrow.</span></em></strong></span></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+        <div class="footerwrapper">
+            <footer id="site-foot"><div class="footer-top-bar">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 footer-right">
+                <h3>Stay Connected</h3>
+                <div id="social-links-bottom" class="social-links">
+                    
+        <a href="/login" title="CMS Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="https://twitter.com/TarrantCity?lang=en" title="@TarrantCity" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter-square"></i>
+        </a>
+    
+        <a href="https://m.facebook.com/Tarrant-City-Schools-183610331660964/" title="Facebook " target="_blank">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook-square"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+                </div>
+
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 footer-left">
+                <div id="school-map">
+                    <div class="school-map-col">
+                        <span id="ctl00_ctl00_ctl06_hAddress"><span class="schoolNameFooter">Tarrant City Schools</span><br>1318 Alabama Street <br> Tarrant, AL 35217</span>
+                        <br><br><a href="http://maps.google.com/maps?q=1318%20Alabama%20Street+Tarrant+AL+35217" id="ctl00_ctl00_ctl06_mapLink" class="maplink" style="display: none;">View Map &amp; Directions</a>
+                        <span id="AddInfo">
+                            <div id="ctl00_ctl00_ctl06_dphone">
+                                <span id="ctl00_ctl00_ctl06_hPhone" style="display: inline;">Phone: 205-849-3700</span>
+                            </div>
+                        </span>
+                        <span id="AddInfo">
+                            <div id="ctl00_ctl00_ctl06_dfax">
+                                <span id="ctl00_ctl00_ctl06_hfax" style="display: inline;">Fax: 205-849-3728</span>
+                            </div>
+                        </span>
+                        <br>
+</div>
+
+                </div>
+            </div>
+               <div class="clr"></div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 footer-right">
+                <a href="http://www.schoolpointe.com" target="_blank" alt="schoolpointe" class="schoolpointe">
+                    <img src="https://cdn.schoolpointe.com/images/new/SPwhite.png" alt="SchoolPointe logo black"></a>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 footer-left">
+                © Tarrant City Schools
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-84033228-41', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer>
+</div>
+                        		<script type="text/javascript">
+			$(document).ready(function () {
+                var menuAnchors = $('.backMiddleNav .very-top-nav > li > a');
+				var cnt = menuAnchors.length;
+
+                                    $('.backMiddleNav .very-top-nav > li ').css({
+					"width": ((100 / cnt)) + "%"
+				});
+				
+			});
+		</script><div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987">
+</div>
+</form>
+</body>
+</html>

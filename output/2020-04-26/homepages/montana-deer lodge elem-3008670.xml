@@ -1,0 +1,2580 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "//www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="//www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+<head>
+<script type="text/javascript">
+      var moduleList = {
+        userLogin: { name: 'User Login', wait: false, func: 'userLogin', reported: false, loaded: false },
+        userLoginIES: { name: 'IES Special Login', wait: false, func: 'userLoginAs', reported: false, loaded: false },
+        userLoginAs: { name: 'Login As...', wait: false, func: 'userLoginAs', reported: false, loaded: false },
+        userSwitch: { name: 'Switch Users', wait: false, func: 'userSwitch', reported: false, loaded: false },
+        userLogout: { name: 'User Logout', wait: false, func: 'userLogout', reported: false, loaded: false },
+        manageGalleries: { name: 'Gallery Manager', wait: false, func: 'manageGalleries', reported: false, loaded: false, needsLoader: true },
+        userGroups: { name: 'Groups & Users', wait: false, func: 'windowUserGroups', reported: false, loaded: false, needsLoader: true },
+        userGCDMembers: { name: 'Members', wait: false, func: 'windowUserGroups', reported: false, loaded: false, needsLoader: true },
+        siteConfig: { name: 'Site Config', wait: false, func: 'windowSiteConfig', reported: false, loaded: false, needsLoader: true, requires: ['generalTab', 'navTab', 'schoolTab', 'gcdTab', 'gcdUserAssignDlg', 'forumTab', 'catTab'] }
+      };
+      
+      function checkModuleLoaded(moduleName){
+        if (!moduleList[moduleName])
+          return false;
+        if (moduleList[moduleName].requires && moduleList[moduleName].requires.length > 0){
+          var mods = moduleList[moduleName].requires;
+          var modLen = mods.length;
+          loaded = moduleList[moduleName].reported;
+          var nn=0;
+          for(var n=0; n<modLen; n++){
+            if (!moduleList[mods[n]] || !moduleList[mods[n]].loaded){
+              loaded = false;
+            }else{
+              nn++;
+            }
+          }
+          moduleList[moduleName].loadedCt = nn;
+          moduleList[moduleName].loaded = loaded;
+        }else{
+          if (moduleList[moduleName].reported)
+            moduleList[moduleName].loaded = true;
+        }
+      }
+      function launchModule(moduleName, aargs){
+        if (!moduleList[moduleName] || !moduleList[moduleName].func)
+          return false;
+                
+        //alert(moduleName);
+        //alert(moduleList[moduleName].toSource());
+                
+        if (moduleList[moduleName].loaded){
+          if (moduleList[moduleName].wait && !moduleList[moduleName].needsLoader){
+            Ext.onReady(function(){ 
+              Ext.Msg.updateText('Launching '+moduleList[moduleName].name+'...');
+            });
+          }
+          if (moduleList[moduleName].needsLoader){
+            Ext.onReady(function(){ 
+              if (moduleList[moduleName].wait)
+                Ext.Msg.hide();
+              moduleList[moduleName].wait=false;
+              Ext.Msg.wait('Launching '+moduleList[moduleName].name+'...', moduleList[moduleName].name);
+            });
+          }
+          clearTimeout(moduleList[moduleName].timer);
+            
+          setTimeout(function(){ 
+            var myModule = moduleList[moduleName];
+            Ext.onReady(function(){ 
+              if (myModule.wait)
+                Ext.Msg.hide();
+            });
+            myModule.wait=false;
+            if (myModule.func && window[myModule.func])
+              window[myModule.func].createDelegate(this, aargs)();
+              //window[myModule.func].apply(this, aargs);
+          }, 500);
+        }else{
+          clearTimeout(moduleList[moduleName].timer);
+          if (maxLoadTimePassed){
+            Ext.onReady(function(){ 
+              Ext.Msg.hide();
+            });
+            moduleList[moduleName].wait=false;
+            if (moduleList[moduleName].requires && moduleList[moduleName].requires.length > 0){
+              var curLoad = moduleList[moduleName].loadedCt || 0;
+              var modLen = moduleList[moduleName].requires.length;
+              Ext.onReady(function(){ 
+                Ext.Msg.alert('Error Loading '+moduleList[moduleName].name+' ['+curLoad+'/'+modLen+']', moduleList[moduleName].name+' failed to load due to a connection problem. Please try again in a few seconds.');
+              });
+            }else{
+              Ext.onReady(function(){ 
+                Ext.Msg.alert('Error Loading '+moduleList[moduleName].name, moduleList[moduleName].name+' failed to load due to a connection problem. Please try again in a few seconds.');
+              });
+            }
+            return false;
+          }
+          if (!moduleList[moduleName].wait){
+            Ext.onReady(function(){ 
+              Ext.Msg.wait('Please wait...', 'Loading '+moduleList[moduleName].name);
+            });
+            moduleList[moduleName].wait=true;
+          }
+          if (moduleList[moduleName].requires && moduleList[moduleName].requires.length > 0){
+            var curLoad = moduleList[moduleName].loadedCt || 0;
+            var modLen = moduleList[moduleName].requires.length;
+            Ext.onReady(function(){ 
+              Ext.Msg.updateText('Loaded ['+curLoad+' of '+modLen+'] helpers. Please wait...');
+            });
+          }
+          moduleList[moduleName].timer = setTimeout(function(){ launchModule(moduleName, aargs); }, 100);
+        }
+      }
+      var normalLoadTimePassed = false;
+      var maxLoadTimePassed = false;
+      setTimeout(function(){ normalLoadTimePassed=true }, 10000);
+      setTimeout(function(){ maxLoadTimePassed=true }, 30000);
+      function reportingIn(moduleName){
+
+        if(!moduleList[moduleName])
+          moduleList[moduleName] = {slave: true};
+          
+        var thisModule = moduleList[moduleName];
+        
+        thisModule.reported = true;
+        
+          var found = false;
+          var foundReq = "";
+          for(var mod in moduleList){
+            checkModuleLoaded(mod);
+            var eMod = moduleList[mod];
+            if (eMod.requires && eMod.requires.length > 0){
+              var mods = eMod.requires;
+              var modLen = mods.length;
+              for(var n=0; n<modLen; n++){
+                if (mods[n] == moduleName){
+                  foundReq = mods[n];
+                  found = true;
+                  break;
+                }
+              }
+            }
+          }
+        
+        Ext.onReady(function(){
+          if (found && foundReq && moduleList[foundReq] && moduleList[foundReq].loaded){
+            var nodes = Ext.query('.loadingIcon_'+foundReq);
+            for (var c=0;c<nodes.length;c++)
+              Ext.fly(nodes[c]).removeClass('loadingIcon');
+          }
+          for(var mod in moduleList){
+            if (moduleList[mod].loaded == true){
+              var nodes = Ext.query('.loadingIcon_'+mod);
+              for (var c=0;c<nodes.length;c++)
+                Ext.fly(nodes[c]).removeClass('loadingIcon');
+            }
+          }
+          if (thisModule.loaded){
+            var nodes = Ext.query('.loadingIcon_'+moduleName);
+            for (var c=0;c<nodes.length;c++)
+              Ext.fly(nodes[c]).removeClass('loadingIcon');
+          }
+        });
+
+      }
+</script><noscript></noscript>
+<script type="text/javascript">
+     if ((typeof Range !== "undefined") && !Range.prototype.createContextualFragment)
+    {
+        Range.prototype.createContextualFragment = function(html)
+        {
+            var frag = document.createDocumentFragment(),
+            div = document.createElement("div");
+            frag.appendChild(div);
+            div.outerHTML = html;
+            return frag;
+        };
+    }
+      var refreshTool = {
+                          id:'refresh',
+                          qtip: 'Refresh',
+                          handler: function(e, target, panel){
+                              panel.storeFN(panel);
+                          }
+                        },
+      pinTool = {
+                        id:'pin',
+                        qtip: 'Widget Style',
+                        handler: function(e, target, panel){
+                            windowModuleLayout(panel);
+                        }
+                      },
+                      
+      gearTool = {
+                        id:'gear',
+                        qtip: 'Configure Widget',
+                        handler: function(e, target, panel){
+                          if(panel.storeParams.keyword=='page'){
+                            var dID = panel.storeParams.dataID
+                            callEditor({winName : 'page_win_'+dID, editorType: 'page', editorGCDID: '0', editorDataID: dID, titleMaxLen: 40, myPortlet: panel});
+                          }else{
+                            windowModuleConfig(panel);
+                          }
+                        }
+                      },
+      closeTool = {
+                        id:'close',
+                        qtip: 'Close',
+                        handler: function(e, target, panel){
+                            Ext.Msg.show({
+                               title:'Delete Widget?',
+                               msg: 'You are about to delete a portal widget. Are you sure you want to do this?',
+                               buttons: Ext.Msg.YESNO,
+                               fn: function(r){
+                                 if (r=='yes'){
+                                  Ext.Msg.wait('Please Wait...', 'Deleting Portal');                          
+                                  Ext.Ajax.request({
+                                     url: '/ajax/portals/deletePortal.cfm',
+                                     method: 'GET',
+                                     'params': { pID: panel.storeParams.portletID},
+                                     reader : new Ext.data.JsonReader({
+                                      success : '@success'
+                                     }),
+                                     success: function(response, opts) {
+                                        var obj = Ext.decode(response.responseText);
+                                        if (obj.success){
+                                          Ext.Msg.hide();
+                                          panel.ownerCt.remove(panel, true);
+                                        }else{
+                                          Ext.Msg.alert('Error Creating Portal', 'There was an error creating the specified portal. Please try again.');
+                                        }
+                                     },
+                                     failure: function(response, opts) {
+                                      Ext.Msg.alert('Error Creating Portal', 'There was a problem communicating with the server. Please check your internet connection and try again.');
+                                     }
+                                  });   
+                                 }else{
+                                 }
+                               
+                               },
+                               animEl: 'elId',
+                               icon: Ext.MessageBox.QUESTION
+                            });
+                        }
+                      },
+      permsTool = {
+                        id:'perms',
+                        qtip: 'User Permissions',
+                        handler: function(e, target, panel){
+                            new windowPermissionUsers(panel);
+                        }
+                      },
+      maximizeTool = {
+                            id:'maximize',
+                            qtip: 'Maximize',
+                            handler: function(e, target, panel){
+                                var win = new Ext.Window({
+                                    height: 500,
+                                    minHeight: 500,
+                                    width: 600,
+                                    minWidth: 600,
+                                    modal: true,
+                                    ownerPanel: panel,
+                                    layout: 'fit',
+                                    maximizable: true,
+                                    maximized: false,
+                                    title: panel.title,
+                                    items: new Ext.Panel({
+                                        border: false,
+                                        autoScroll: true,
+                                        padding: 10,
+                                        html: panel.body.dom.innerHTML
+                                      }),
+                                    buttons: [{text: 'Close', handler: function(p, e){win.close();}}]
+                                  });
+                                win.show();
+                                
+                              }
+                          };
+      
+      var tools = [refreshTool,gearTool,pinTool,closeTool];
+      var toolsError = [gearTool,closeTool];
+      var toolsMaxAdmin = [refreshTool,gearTool,pinTool,maximizeTool,closeTool];
+      var toolsMax = [refreshTool,maximizeTool];
+
+      var currentUser = {};
+      var currentSchool = {};
+      var currentPage = {};
+      var portalLoader = function(){};
+      var isMobileBrowser = false;
+      var isEbusiness = function(){return currentSchool.Type == "eBusiness 2.0"};
+      var isCyberSchool = function(){return currentSchool.Type == "CyberSchool 2.0"};
+      var isCyberDesk = function(){return currentSchool.Type == "CyberDesk"};
+      
+      
+      currentSchool.id = 1;
+      currentSchool.Name = 'DEER LODGE SCHOOLS';
+      currentSchool.Type = 'CyberSchool 2.0';
+      currentSchool.isEbusiness = false;
+      currentSchool.ShortName = 'Deer Lodge Schools';
+      currentSchool.Alias = 'District';
+      currentSchool.WebMailURL = '';
+      currentSchool.SwearFilter = true;
+      currentSchool.Local={};
+      
+      currentSchool.GoogleEnabled = false;
+      currentSchool.GoogleLogin = false;
+      currentSchool.LoginMode = 'cyberschool';
+      currentSchool.LDAPChangeDomain = false;
+      currentSchool.LDAPDefaultDomain = '';
+      currentSchool.EnableClassThemes = true;
+      currentSchool.TimeBlocks = false;
+      currentSchool.ExtraFeatures = [];
+      currentSchool.TemplateID = 51;
+      
+    
+      currentUser.canUseLoginAs = false;      
+    
+      currentUser.canUseSlideShow = false;      
+    
+      currentUser.isAdminGroup = false;      
+    
+      currentUser.canUseManageUsers = false;      
+    
+        currentPage.gcdID = 0;
+      
+      currentUser.maxTimeoutTime = 0;
+    
+      var showNewUpdates = false;
+    
+      currentUser.schoolID = 0;
+    
+      currentUser.id = 0;
+      currentUser.lastHit = 0;
+      var canEdit = false;
+      var loggedIn = false;
+    
+      var RefreshID;
+      var printView = false;
+      var isSpecial = false;
+      var autoShowTipOnce = true;
+      var autoShowTip = false;
+      
+
+      var sFCKeditorToolbar = 'Default';
+      var sFCKeditorBasePath = '/fckeditor/';
+      var sFCKeditorBaseHref = '/fckeditor/';
+      var sFCKeditorSkinPath = '/fckeditor/editor/skins/office2003/';
+
+      var podVideoShowing;
+      var editMode;
+      var ddElements = [];
+      var ddElementSections = [];
+      var currentSchoolAlias;
+    
+      var navigationVersion=2.0;
+      var lastUpper=6000;
+      var navHasChanged = false;
+      var openMenus=[];
+      var openHovers=[];
+      var openHoversJS=[];
+      var allDDElements = [];
+      var allDDElementIDS = [];
+      var allQueuedActions = [];
+      var allQueuedActionsUndo = [];
+      var allMenuItems = [];
+      var allMenuHolders = [];
+      var allMenuHolderLists = [];
+      var allMenuContainers = [];
+      var currentHoverMenuItem = {};
+      var menuStack = [];
+      var editMode = false;
+
+      
+      
+      var currentPageURL      = "";
+      var currentPageAction   = 'portal';
+      var currentPageKeyword  = "portal";
+      var currentPageMode     = '';
+      var currentPageNumber   = '0';
+      var currentPageDataID   = '0';
+      var currentPageModuleID = '3';
+      var currentPageGCDID    = '0';
+      var currentPageCCID     = '';
+      var currentPageDate     = '04-26-2020';
+      var currentPageTitle    = '';
+      var currentGCDTheme   = "";
+      var currentsectionID    = '';
+      var currentZipCode    = '59722';
+      var currentURLBase    = 'http://deerlodgeschools.org/';
+      var currentURLBaseSchool    = currentURLBase + currentSchool.Alias + '/';
+      var currentURLBaseGCD    = '';
+      var currentURLBaseGCD_NS    = '';
+      var currentURLBaseModule    = currentURLBaseSchool + (currentPageKeyword == 'page' ? '' : currentPageAction + '/');
+      var currentURLBaseModule2    = (currentPageKeyword == 'page' ? '' : currentPageAction + '/');
+        //console.info(currentPageAction);
+        //console.info(currentURLBaseModule2);
+      if (currentURLBaseModule2 == "profile" && currentPageTitle != ''){
+				var run = 1;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseModule2 + currentPageTitle;
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseModule2 + currentPageTitle;
+      }else if(currentURLBaseGCD !== '' && currentPageTitle){
+				var run = 2;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+      }else if(currentURLBaseModule2 !== false && currentPageTitle){
+				var run = 3;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseModule2 + '0-'+currentPageTitle+'.html';
+      }else if(currentURLBaseGCD !== '' && !currentPageTitle){
+				var run = 4;
+				if (currentURLBaseModule2 == 'classes/' || currentURLBaseModule2 == 'departments/') {
+					var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseGCD_NS;
+					var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseGCD_NS;
+				} else {
+					var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2;
+					var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseGCD + currentURLBaseModule2;
+				}
+      }else if(currentURLBaseModule2 !== false  && !currentPageTitle){
+				var run = 5;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/' + currentURLBaseModule2;
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/' + currentURLBaseModule2;
+      }else{
+				var run = 6;
+        var currentURLCGIURL    = currentURLBase + currentSchool.Alias + '/';
+        var currentURLCGIURLRel = '/' + currentSchool.Alias + '/';
+      }
+      if (!lastLoadedURLRel)
+        var lastLoadedURLRel = currentURLCGIURLRel;
+
+
+      var podVideoShowing     = false;
+      var profileTabsOn       = false;
+      
+      function init(){
+        window.name = "cs_main";
+      }
+      function showSiteMap(){
+        my_window= window.open ("/sitemap.cfm?s="+currentSchool.Alias, "sitemap", "status=0,scrollbars=1,width=300,height=450");
+      }
+      function showChatWindow(){
+        my_window= window.open ("/ajax/chat/index.cfm", "sitemap", "status=0,scrollbars=1,width=600,height=450");
+      }
+      function sendEmail(addy){
+        my_window = window.open ("/action/mail/sendMail.cfm?e="+addy, "sendmail", "status=0,scrollbars=1,width=450,height=420");
+        return false;
+      }
+      function checkSearchForm(){
+        var tmpSearch = $('lilQ').value.trim();
+        if (tmpSearch == 'Search Site')
+          $('lilQ').value = '';
+      }
+      function textPrompter(el, focused){
+        if (focused && el.value == 'Search Site'){
+          el.value = '';
+          el.removeClassName('dimSearch');
+        }else{
+          if (!focused && el.value == ''){
+            el.value = 'Search Site';
+            el.addClassName('dimSearch');
+          }
+        }
+      }
+    </script><noscript></noscript>
+<style type="text/css">
+  .attendance{
+display:none;
+}
+</style>
+<style>
+    .btn_instagram_small{
+      background-image: url(/common/images/social/instagram.png)!important;
+    }
+    </style>
+<link href="/common/js/ext-3.4.0/resources/css/ext-all.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/swiper/css/swiper.min.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css/dyn/catColors.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css-min/1.0.3/quickCSS-min.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css/ionicons/css/ionicons.min.css?v=1.0" rel="stylesheet" type="text/css">
+<link href="/common/css/global_screenv1.1.css?v=1.0" rel="stylesheet" type="text/css" media="screen">
+<link href="/common/css/calendar_v2.css?v=1.0" rel="stylesheet" type="text/css" media="screen">
+<link href="/common/css/global_print.css?v=1.0" rel="stylesheet" type="text/css" media="print">
+<script type="text/javascript" src="/common/js/ext-3.4.0/adapter/ext/ext-base.js?v=1.0"></script><script type="text/javascript" src="/common/js-min/classList.min.js?v=1.0"></script><script type="text/javascript" src="/common/js/ext-3.4.0/ext-all.js?v=1.0"></script><script type="text/javascript" src="/swiper/swiper.min.js?v=1.0"></script><script type="text/javascript" src="/common/js/cyberschool/compact/jsLoadBaseForAll1.1.js?v=1.0"></script><script type="text/javascript" src="/common/js/ext/ext_mini_calendar.js?v=1.0"></script><script type="text/javascript" src="/common/js/ext/portal.js?v=1.0"></script><script type="text/javascript" src="/common/js/cyberschool/q/quickLogin.js?v=1.0"></script><script type="text/javascript">
+      
+        var finishOpenID = false;
+      
+      
+    Ext.onReady(function(){
+
+       if(finishOpenID) userLogin(); else portalLoader();
+        
+        //enable toggle-menus for mobile users
+        if (isMobileBrowser){
+          var menus = Ext.select('.pagerBarTools li.pagerBarTools_tool', true);
+          menus.on('click', function(){
+            this.toggleClass('hover');
+            this.toggleClass('pagerBarTools_tool_hover');
+          });
+          var menus2 = Ext.select('li.horizontalChild a', true);
+          menus2.on('click', function(e){
+              this.parent().toggleClass('hover');
+              this.parent().toggleClass('hoverToggle');
+            }, null, {stopPropagation: true}); 
+           
+        }
+      });
+    </script><noscript></noscript>
+<link href="/t/025/layout_main.css" rel="stylesheet" type="text/css">
+<link href="/t/025/layout_header.css" rel="stylesheet" type="text/css">
+<link href="/t/025//blk-000_blu-036_blu-036_brn-D3CEAD/css/layout_school.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+      .x-tree-root-ct,
+      .x-tree-node-ct {margin-left: 0 !important; padding-left: 0 !important}
+      .x-tab-strip {margin-left: 0 !important; padding-left: 0 !important}
+      a.selectLink {color: black; font-weight: bold;}
+      .dragDropHolder {min-height: 10px;}
+      li .dragger {display: block; position: absolute; top: 0; z-index: 1000; right: 0; width: 16px; height: 16px; margin: 3px 3px 0;}
+      li .dragger {background: #f90 url(/common/images/nav/move.png) center center no-repeat; -moz-border-radius: 3px}
+      .leftModuleHolder li .dragger {right: 14px;}
+    </style>
+<style>
+         #content .x-portlet-titleless:hover .x-panel-header, #content .x-portlet-edgeless:hover .x-panel-header {
+          display:none;
+        }
+      </style>
+<!-- Overrides defined by SiteConfig --><style type="text/css">
+      
+      .iconAdd {background: url(/common/images/famfam/add.gif) no-repeat 0 0 !important;}
+      .iconRemove {background: url(/common/images/famfam/delete.gif) no-repeat 0 0 !important;}
+
+    </style>
+<script type="text/javascript">
+      journeyHelper = [];
+      journeyHelper.isRunning = false;
+      currentZip = '93309';
+    </script><!-- End of SiteConfig overrides--><!-- Verify: IES Site --><link rel="icon" href="/images/IESfavicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="/images/IESfavicon.ico">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+<meta name="viewport" content="initial-scale=0.25">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta name="generator" content="IESAres404 v2.1">
+<title>DEER LODGE SCHOOLS</title>
+<meta name="SKYPE_TOOLBAR" content="SKYPE_TOOLBAR_PARSER_COMPATIBLE">
+<meta http-equiv="X-UA-Compatible" content="IE=10; IE=9; IE=8; IE=7;chrome=1">
+<meta name="keywords" content="Deer Lodge Schools Eementary .org Montana">
+<meta name="description" content="Deer Lodge Schools">
+</head>
+<body onload="init(); " id="top" class="isNotMobile bg_school_1 customBg_school_1  pagerBarTop">
+  	
+  
+  
+  
+  
+    <script type="text/javascript">
+    
+    function toggleCat(el, cID){
+      //var name = el.identify();
+      var catItem = Ext.get(el);
+      var curVal = true;
+      if (catItem.checked != undefined)
+        curVal = catItem.checked;
+        
+      setTimeout(function(){
+        catItem.checked = !curVal;
+        catItem.dom.checked = !curVal;
+      }, 5);
+      if (curVal){
+        Ext.select('.cat_'+cID).addClass('hidden');
+      }else{
+        Ext.select('.cat_'+cID).removeClass('hidden');
+      }
+    }
+    //Ext.onReady(fixLinks);
+    var loadLastPage = function(){
+      return true;
+    };
+  </script><noscript></noscript>
+
+
+  <style type="text/css">
+    .isNotMobile #pagerBar{
+      -webkit-transition: opacity 0.5s ease-in;
+      -moz-transition: opacity 0.5s ease-in;
+      -o-transition: opacity 0.5s ease-in;
+      transition: opacity 0.5s ease-in;
+      -webkit-transition: margin 0.5s ease-in;
+      -moz-transition: margin 0.5s ease-in;
+      -o-transition: margin 0.5s ease-in;
+      transition: margin 0.5s ease-in;
+    
+      opacity: 0.2;
+      -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+      -webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    
+     }
+    .isNotMobile #pagerBar:hover{	
+      opacity:1.0;
+     }
+
+
+    
+      body.pagerBarTop #pagerBar {margin-top: -20px;}
+      body.pagerBarBottom #pagerBar {margin-bottom: -20px;}
+      body.pagerBarTop #pagerBar:hover {margin-top: 0}
+      body.pagerBarBottom #pagerBar:hover {margin-bottom: 0}
+    
+    
+    .bigPrint1 .x-btn-text {font-weight: bold; font-size: 14px; height: 26px !important;}
+    .bigPrint2 .x-btn-text {font-size: 13px; height: 20px !important;}
+  </style>
+<script type="text/javascript">
+    var lastLoggedInUserID = 0;
+    var lastLoggedInUserName = '';
+    var lastLoggedInDisplayName = '';
+    var lastLoggedInUserCN = '';
+    var lastLoggedInUserDomain = '';
+    
+      currentUser.username = '';
+      currentUser.displayname = '';
+      currentUser.email = '';
+    
+    var currentPageTitle = 'DEER LODGE SCHOOLS';
+    var currentSchoolAlias = 'District';
+    
+      /*Ext.onReady(function(){
+        //setTimeout(checkMenus, 500);
+        var c = {};
+        var hideLoad = true;
+        var modData = Ext.data.Record.create([
+              {name: 'id', mapping: 'id'},
+              {name: 'title', mapping: 'title'},
+              {name: 'browser_title', mapping: 'browser_title'},
+              {name: 'data', mapping: 'data'}
+            ]);
+        var modReader = new Ext.data.XmlReader({
+              record: "content",
+              success: "success",
+              id: "id"
+            }, modData);
+
+        var myStore = new Ext.data.Store({
+              autoLoad: true,
+              reader: modReader,
+              url: '/ajax/proxy/module.cfm',
+              baseParams: {}, //c.storeParams
+              listeners: {
+                loadexception: function(m){
+                  //var errorButton = new Element('input', { 'type': 'button', style: 'float: right;', value: 'Send Error' });
+                  //errorButton.observe('click', function(){ sendError(c); });
+                  var errorText = new Element('span').update('Well, this is embarrassing.. this module is misbehaving!');
+                  var errorDiv = new Element('div', { });
+                  //errorDiv.appendChild(errorButton);
+                  errorDiv.appendChild(errorText);
+                  c.setTitle('Widget Error');
+                  c.body.dom.innerHTML = '';
+                  c.body.dom.appendChild(errorDiv);
+                },
+                load: function(s,r,o){
+                  if (c){
+                    if (hideLoad && r.length > 0){
+                      c.setTitle(r[0].data.title);
+                      c.body.dom.innerHTML = r[0].data.data;
+                    }else{
+                      if (c.body){
+                        c.setTitle("Loading...");
+                        c.body.dom.innerHTML = c.loadingText;
+                      }
+                      if (r.length > 0){
+                        setTimeout(function(){
+                          c.setTitle(r[0].data.title);
+                          c.body.dom.innerHTML = r[0].data.data;
+                        }, 500);
+                      }
+                    }
+                  }
+                }
+              }            
+            });
+      });
+    */
+      
+    var printBox;
+    var doPrint;
+    Ext.onReady(function(){
+      doPrint = function(link){
+        printBox = new Ext.Window({
+          title: 'Print',
+          modal: true,
+          resizable: false,
+          buttonAlign: 'center',
+          layout: 'border',
+          height: 170,
+          width: 400,
+          items: [
+                    {
+                      bodyStyle: 'padding: 10px; text-align: center; font-weight: bold',
+                      region: 'north',
+                      border: false,
+                      height: 30,
+                      html: 'What portion of the page would you like to print?'
+                    },{
+                      region: 'center',                    
+                      border: false,
+                      layout: {
+                                type:'vbox',
+                                padding:'5',
+                                align:'stretch'
+                              },
+                      items:[{
+                                  xtype:'button',
+                                  cls: 'bigPrint1',
+                                  text: 'Print Entire Page',
+                                  handler: function(){
+                                    printBox.close();
+                                    Ext.Msg.hide();
+                                    window.print();
+                                  }
+                              },{
+                                  xtype:'spacer',
+                                  flex: 1
+                              },{
+                                  xtype:'button',
+                                  cls: 'bigPrint2',
+                                  text: 'Print Content Only',
+                                  handler: function(){
+                                    printBox.close();
+                                    Ext.Msg.hide();
+                                    Ext.Msg.wait('Getting ready to print..','Please Wait...');
+                                    newLocation = link.href.replace('#','') + '?printview=1';
+                                    //newLocation = '/print'+lastLoadedURLRel;
+                                    console.info(newLocation);
+                                    setTimeout(function(){
+                                      var newWindow = window.open(newLocation, '_blank');
+                                      newWindow.focus();
+                                      Ext.Msg.hide();
+                                    }, 300);
+                                    
+                                  }
+                              }]
+                    }
+                ],
+
+          buttons: [
+                  {
+                    text: 'Cancel',
+                    handler: function(){ 
+                      printBox.close();
+                    }
+                  }
+                ]
+        
+        });
+        printBox.show(this);
+      }
+    });
+    
+
+    currentPage.storeParams = {
+      dataID: currentPageDataID, 
+      alias: currentPageAction, 
+      keyword: currentPageKeyword, 
+      curPage: currentPageNumber, 
+      id: currentPageModuleID, 
+      portletID: 0, 
+      portalID: 0
+    }; 
+    
+    currentPage.values = {};
+  </script><noscript></noscript>
+  
+  
+  
+  <div class="pagerBarHolder pagerBarTop">
+    
+<script type="text/javascript">
+if(typeof cs2=='undefined')cs2={};
+cs2.page={};
+cs2.page.homepage=true;
+  var siteNotice = false;
+  function dropSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=false');
+    Effect.BlindDown('siteNoticeBoxHolder', { duration: 0.5 })
+    $('pagerBarToolAlertButton').addClassName('buttonOn');
+  }
+  function liftSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=true');
+    Effect.BlindUp('siteNoticeBoxHolder', { duration: 0.25 })
+    $('pagerBarToolAlertButton').removeClassName('buttonOn');
+  }
+  function toggleSiteNotice(){ 
+    
+    if ($('pagerBarToolAlertButton').hasClassName('buttonOn')){
+      liftSiteNotice();
+    }else{
+      dropSiteNotice();
+    }
+  
+  }
+  
+</script><noscript></noscript>
+
+    <div id="pagerBar" class="pagerBar">
+      <div id="pagerBarToolLogo" class="pagerBarToolLogo">
+        
+        <a href="//www.deerlodgeschools.org"><img src="/custom/images/design/header/1/logo.gif" title="Back To District" alt="Back To District"></a>
+        
+          <ul class="hidden">
+<li class="hidden"><a href="#header">Jump to Page Navigation</a></li>
+            <li class="hidden"><a href="#pageHeader">Jump to Page Content</a></li>
+            <li class="hidden"><a href="#footer">Jump to Page Footer</a></li>
+          </ul>
+</div>
+      <div id="searchHolder" class="x-hidden">
+        <form id="searchForm" method="get" action="/action/doSearch.cfm" onclick="checkSearchForm()">
+          <input name="redirTo" type="hidden" value="/District/Search"><div class="pagerBarToolBox">
+            <ul class="pagerBarTools">
+<li class="pagerBarTools_tool attachToRight">
+                <label for="lilQ" style="display: none;">Search</label>
+                <input id="lilQ" name="q" type="text"><input type="submit" style="display: none" value="Search">
+</li>
+              
+      <li class="pagerBarTools_tool noLeftRound attachToRight" id="searchButtonMain">
+        <a class="toolbarButton skipWarning initSiteSearch hasIcon" href="#" target="" title="Search the site" onclick="submitSearch(); return false;">
+          <span class="iconHolder searchIcon"></span>
+          <span class="iconText"><span class="iconTextString">Search</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool noLeftRound" id="searchButtonCancel">
+        <a class="toolbarButton toolbarButtonDark skipWarning initCancelSiteSearch noText hasIcon" href="#" target="" title="Cancel Searching" onclick="hideSearchBar(); return false;">
+          <span class="iconHolder searchCancelIcon"></span>
+          <span class="iconText"><span class="iconTextString">Cancel</span></span>
+          <br class="clear"></a>
+      </li>
+      
+            </ul>
+</div>
+        </form>
+      </div>
+      <div id="toolsHolder">
+        <div class="pagerBarToolBox">
+          <ul class="pagerBarTools">
+<li class="pagerBarTools_tool attachToRight">
+        <a class="toolbarButton skipWarning noText hasIcon" href="javascript:decreaseFontSize();" target="" title="Decrease Font Size" onclick="">
+          <span class="iconHolder fontSmaller"></span>
+          <span class="iconText"><span class="iconTextString">A-</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool noLeftRound">
+        <a class="toolbarButton skipWarning noText hasIcon" href="javascript:increaseFontSize();" target="" title="Increase Font Size" onclick="">
+          <span class="iconHolder fontBigger"></span>
+          <span class="iconText"><span class="iconTextString">A+</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool pagerBarTools_menu">
+        <a class="toolbarMenuButton hasIcon" target="" title="" href="#" onclick="">
+          <span class="iconHolder iconShareMenu"></span>
+          <span class="iconText"><span class="iconTextString">Sharing</span>
+            <br class="clear"></span>
+        </a>
+        <div class="pagerBarTools_menuContainer hasIcon">
+          
+          <div class="pagerBarTools_menuPadder" style="position: relative; z-index: 5000">
+            <ul class="pagerBarTools_menuHolder" style="width: 200px;">
+<li class="pagerBarTools_menuItem">
+        <a class="toolbarMenuItem hasIcon" href="#" target="" title="Need a hard copy? Click here to print!" onclick="doPrint(this); return false;">
+          <span class="iconHolder iconPrint"></span>
+          <span class="iconText"><span class="iconTextString">Print Page</span></span>
+          <br class="clear"></a>
+      </li>
+      
+            </ul>
+</div>
+        </div>
+      </li>
+      
+      <li class="pagerBarTools_tool " id="searchButtonMain">
+        <a class="toolbarButton skipWarning initSiteSearch hasIcon" href="#" target="" title="Search the site" onclick="showSearchBar(); return false;">
+          <span class="iconHolder searchIcon"></span>
+          <span class="iconText"><span class="iconTextString">Search</span></span>
+          <br class="clear"></a>
+      </li>
+      
+          </ul>
+</div>
+        
+        <div class="pagerBarToolBox pagerBarTooluserLinks">
+          <ul class="pagerBarTools">
+<li class="pagerBarTools_tool " id="SystemAlertBtn">
+        <a class="toolbarButton hasIcon" href="javascript:SystemAlert();" target="" title="Click to access School Alert" onclick="">
+          <span class="iconHolder alertIcon"></span>
+          <span class="iconText"><span class="iconTextString">Alert</span></span>
+          <br class="clear"></a>
+      </li>
+      
+      <li class="pagerBarTools_tool ">
+        <a class="toolbarButton hasIcon" href="/District/Login" target="" title="Login to access your account!" onclick="launchModule('userLogin'); return false;">
+          <span class="iconHolder iconLogin loadingIcon loadingIcon_userLogin"></span>
+          <span class="iconText"><span class="iconTextString">Login</span></span>
+          <br class="clear"></a>
+      </li>
+      
+          </ul>
+</div>
+        
+      </div>
+      <br class="clear">
+</div>
+  </div>
+      
+  <script type="text/javascript">
+    
+    var searchBar;
+    function submitSearch(){
+      document.forms["searchForm"].submit();
+    }
+    function showSearchBar(){
+      Ext.get('searchHolder').removeClass('x-hidden');
+      Ext.get('toolsHolder').addClass('x-hidden');
+      resizePagerBar();
+      if (searchBar)
+        searchBar.focus();
+    }
+    function hideSearchBar(){
+      Ext.get('searchHolder').addClass('x-hidden');
+      Ext.get('toolsHolder').removeClass('x-hidden');
+      resizePagerBar();
+    }
+    function resizePagerBar(){
+      var srchBtn = Ext.get('searchButtonMain');
+      var srchCnclBtn = Ext.get('searchButtonCancel');
+      var logo = Ext.get('pagerBarToolLogo');
+      var item = Ext.get('pagerBar');
+      Ext.get('lilQ').setWidth(item.getWidth() - logo.getWidth() - srchBtn.getWidth() - srchCnclBtn.getWidth() - 20);
+      if (searchBar)
+        searchBar.setWidth(item.getWidth() - logo.getWidth() - srchBtn.getWidth() - srchCnclBtn.getWidth() - 20);
+    }
+    Ext.onReady(function(){
+      window.onresize = resizePagerBar;
+      resizePagerBar();
+      /*
+      var el = Ext.get('lilQ');
+      el.on('keydown', function(e){
+        window.location.href = "#!/"+ currentSchool.Alias + "/Search/" + this.dom.value;
+      }, el, {buffer: 300});
+      
+        
+      var ds = new Ext.data.Store({
+          url: '/ajax/search/searchSuggestion.cfm',
+          reader: new Ext.data.JsonReader({
+              root: 'results'
+          }, [
+              {name: 'title', mapping: 'title'}
+          ])
+      });
+
+      // Custom rendering Template
+      var resultTpl = new Ext.XTemplate(
+          '<tpl for="."><div class="search-item">',
+              '{title}',
+          '</div></tpl>'
+      );
+
+      searchBar = new Ext.form.ComboBox({
+        applyTo: 'lilQ',
+        autoShow: false,
+        //store: ds,
+        //mode: 'remote',
+        displayField:'title',
+        typeAhead: false,
+        loadingText: 'Getting Suggestions...',
+        hideTrigger:true,
+        tpl: resultTpl,
+        itemSelector: 'div.search-item',
+        onSelect: function(record){
+            window.location.href = "#!/"+ currentSchool.Alias + "/Search/" + record.get('title');
+        },
+        listeners: {
+          show: function(){
+            resizePagerBar();
+          }
+        }
+      });
+      searchBar.show();
+      var el = Ext.get('lilQ');
+      el.on('keydown', function(e){
+        window.location.href = "#!/"+ currentSchool.Alias + "/Search/" + this.dom.value;
+      }, el, {buffer: 300});*/
+    });
+  </script><noscript></noscript>
+
+<div id="mainContainer">
+    	<div class="header header_school_1">
+        	<div class="headerFixed headerFixed_school_1">
+            	<span class="sr-only">DEER LODGE SCHOOLS</span>
+                <p class="date">Sunday, April 26, 2020</p>
+                <div id="logoBox">
+                   <a href="/District/"><span>DEER LODGE SCHOOLS Home Page</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="outerMenuContainer">
+        	<div id="menuContainer" class="navContainer">	
+          <ul class="horiznav horizontalMenu " id="navBar_809">
+<li class="horizontalChild " style="z-index:4999; position: relative;">
+                    
+                    <a href="/District" target="" id="itemA_810" class="main title ">Home </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4998; position: relative;">
+                    
+                    <a href="/District/1157-DEER-LODGE-SCHOOLS-CALENDAR-2013-14.html" target="" id="itemA_887" class="main title ">District Calendar </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4997; position: relative;">
+                    
+                    <a href="/District/Portal/Lunch-Menu" target="" id="itemA_842" class="main title ">School Meal Program </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild hasSubChild" style="z-index:4996; position: relative;">
+                    
+                    <a href="/District/1214-Untitled.html" target="" id="itemA_905" class="main title hasSubChild">Staff Directory </a>
+                    
+                      <div class="horizMenu smallLeft">
+                        <ul class="horiznav horizontalMenu ">
+<li id="item_955" class="horizontalChild " style="z-index:5994; position: relative;">
+                  
+                  <a id="itemA_955" href="/District/1263-Untitled.html" target="" class="main title ">COVIT-19</a>
+                  
+                </li>
+              
+                        </ul>
+</div>
+                    
+                  </li>
+                
+                  <li class="horizontalChild  submenu_left" style="z-index:4993; position: relative;">
+                    
+                    <a href="/District/Portal/Pool-and-Gym" target="" id="itemA_843" class="main title ">Pool and Gym </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild  submenu_left" style="z-index:4992; position: relative;">
+                    
+                    <a href="/District/Portal/Sports" target="" id="itemA_844" class="main title ">COVID-19 Information </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4991; position: relative;">
+                    
+                    <a href="/District/Jobs/" target="" id="itemA_885" class="main title ">Employment </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4990; position: relative;">
+                    
+                    <a href="/District/1225-Untitled.html" target="" id="itemA_909" class="main title "> Student Handbooks  </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild  submenu_left" style="z-index:4989; position: relative;">
+                    
+                    <a href="/District/1243-Untitled.html" target="" id="itemA_921" class="main title ">The Warden Way </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild  submenu_left" style="z-index:4988; position: relative;">
+                    
+                    <a href="/District/1221-Untitled.html" target="" id="itemA_907" class="main title ">School Board Agendas &amp; Minutes </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4987; position: relative;">
+                    
+                    <a href="/District/1272-Untitled.html" target="" id="itemA_968" class="main title ">Deer Lodge Schools --Video Messages </a>
+                    
+                  </li>
+                
+            
+          </ul>
+<br clear="all">
+</div>
+        </div>
+    
+      <div id="mainData">
+      	<div id="leftCol" class="navContainer">
+         <div class="quickIconNavBox"> 
+           <ul class="quickIconNav">
+<li class="quickIconContact"> 
+                    <a href="/District/Contact"><span>Contact</span></a>
+                  </li>
+               
+                  <li class="quickIconNews"> 
+                    <a href="/District/News"><span>News</span></a>
+                  </li>
+               
+                  <li class="quickIconCalendar"> 
+                    <a href="/District/Events"><span>Calendar</span></a>
+                  </li>
+               
+           </ul>
+</div>
+         <div class="leftColBox1">
+        	
+      <div id="navSectionHolder" class="navHolders">
+        
+                <div class="leftModuleHolder " id="navSection_876" style="position: relative;">
+                  <div class="leftModuleHolderInside ">
+                    <h2 class="leftModuleHeader" id="itemNav_876">DEER LODGE SCHOOLS</h2>
+                    
+          <ul class="leftNav horizontalMenu " id="navBar_876">
+<li class="horizontalChild " style="z-index:4986; position: relative;">
+                    
+                    <a href="/District/Department/1-O-D-Speer-Elementary-Pre-2nd-Grade" target="" id="itemA_833" class="main title ">O.D. Speer Elementary (pre-2nd) </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4985; position: relative;">
+                    
+                    <a href="/District/Department/2-Granville-Stuart-Elementary-3rd-6th-Grade" target="" id="itemA_834" class="main title ">Granville Stuart Elementary (3rd-6th) </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4984; position: relative;">
+                    
+                    <a href="/District/Department/3-E-F-Duvall-Jr-High" target="" id="itemA_835" class="main title ">E.F. Duvall Jr. High (7th-8th) </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4983; position: relative;">
+                    
+                    <a href="/District/Department/4-Powell-County-High-School" target="" id="itemA_836" class="main title ">Powell County High School </a>
+                    
+                  </li>
+                
+            
+          </ul>
+</div>
+                </div>
+              
+                <div class="leftModuleHolder " id="navSection_808" style="position: relative;">
+                  <div class="leftModuleHolderInside ">
+                    <h2 class="leftModuleHeader" id="itemNav_808">District Administration</h2>
+                    
+          <ul class="leftNav horizontalMenu " id="navBar_808">
+<li class="horizontalChild " style="z-index:4982; position: relative;">
+                    
+                    <a href="/District/Department/5-Superintendent-s-Office" target="" id="itemA_865" class="main title ">Superintendent's Office </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4981; position: relative;">
+                    
+                    <a href="/District/1130-Central-Park-Center.html" target="" id="itemA_866" class="main title ">Central Park Center </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4980; position: relative;">
+                    
+                    <a href="/District/1131-Board-of-Trustees.html" target="" id="itemA_867" class="main title ">Board of Trustees </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4979; position: relative;">
+                    
+                    <a href="/District/1133-Board-Policies-Manual.html" target="" id="itemA_869" class="main title "> School Board Policy Manual </a>
+                    
+                  </li>
+                
+                  <li class="horizontalChild " style="z-index:4978; position: relative;">
+                    
+                    <a href="/District/1227-Untitled.html" target="" id="itemA_910" class="main title ">Policy Updates </a>
+                    
+                  </li>
+                
+            
+          </ul>
+</div>
+                </div>
+              
+                <div class="leftModuleHolder " id="navSection_852" style="position: relative;">
+                  <div class="leftModuleHolderInside ">
+                    <h2 class="leftModuleHeader" id="itemNav_852">Staff View Only</h2>
+                    
+                  </div>
+                </div>
+              
+      </div>
+    
+                      <div class="leftModuleHolder LBBox">
+												
+                        <div class="miniModuleHolder">
+                          <div class="leftBottomBox">
+	                          
+                          </div>
+                           
+                        </div>
+                      </div>
+                    
+                      <div id="leftColReader" class="leftModuleHolder">
+                        <div class="miniModuleHolder">
+                          <div class="leftBottomBox">
+	                          Some files on this web site may require Adobe Acrobat Reader - download free<br><a href="//www.adobe.com/products/acrobat/readstep2.html" target="_blank">
+	                          <img src="/common/images/get_adobe_reader.png" alt="Get Adobe Reader" width="111" height="32" border="0"></a>
+                          </div>
+                        </div>
+                      </div>
+                    
+         </div>
+        </div>
+       	<div class="rightCol">
+			
+                        <div id="picBox">
+                          
+      <script type="text/javascript" src="/common/js/cyberschool/slideshow/jssor22.js?v=1.0"></script><script>
+     var _SlideshowTransitions = [];
+          
+  <!-- these transitions will be controlled form the site config. --->
+  var _SlideshowTransitions = [{$Duration:1000,$Opacity:2}];
+        jssor_slider1_starter = function (containerId) {
+            var jssor_slider1 = new $JssorSlider$(containerId, {
+                $AutoPlay: true,                                    //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+                $Idle: 4500,                            //[Optional] Interval (in milliseconds) to go for next slide since the previous stopped if the slider is auto playing, default value is 3000
+                $DragOrientation: 3,                                //[Optional] Orientation to drag slide, 0 no drag, 1 horizental, 2 vertical, 3 either, default value is 1 (Note that the $DragOrientation should be the same as $PlayOrientation when $Cols is greater than 1, or parking position is not 0)
+                $PauseOnHover: 1,                             //[Optional] Whether to pause when mouse over if a slider is auto playing, 0 no pause, 1 pause for desktop, 2 pause for touch device, 3 pause for desktop and touch device, 4 freeze for desktop, 8 freeze for touch device, 12 freeze for desktop and touch device, default value is 1
+                $SlideDuration:1500,
+                $FillMode: 2,
+                $BulletNavigatorOptions: {
+                $Class: $JssorBulletNavigator$,
+                $ChanceToShow: 2
+            },
+                $SlideshowOptions: {                                //[Optional] Options to specify and enable slideshow or not
+                    $Class: $JssorSlideshowRunner$,                 //[Required] Class to create instance of slideshow
+                    $Transitions: _SlideshowTransitions,            //[Required] An array of slideshow transitions to play slideshow
+                    $TransitionsOrder: 1,                           //[Optional] The way to choose transition to play slide, 1 Sequence, 0 Random
+                    $ShowLink: true                                 //[Optional] Whether to bring slide link on top of the slider when slideshow is running, default value is false
+                }
+            });
+
+        // function ScaleSlider() {
+        //     var parentWidth = $('#slider1_container').parent().width();
+        //     if (parentWidth) {
+        //         jssor_slider1.$SetScaleWidth(parentWidth);
+        //     }
+        //     else
+        //         window.setTimeout(ScaleSlider, 30);
+        // }
+        // ScaleSlider();                           
+        // $(window).bind("load", ScaleSlider);
+        // $(window).bind("resize", ScaleSlider);
+        // $(window).bind("orientationchange", ScaleSlider);
+        };
+    
+     </script><div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 660px; height: 255px;">
+          <!-- Slides Container -->
+         <div u="slides" style="cursor: move; position: absolute; overflow: hidden; left: 0px; top: 0px; width: 660px; height: 255px;">
+            
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=72">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=71">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=66">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=75">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=69">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=62">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=70">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=76">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=68">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=67">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=64">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=74">
+</div>
+                  
+                      <div>
+
+                        
+                           <img u="image" src="/images/getPhoto.cfm?id=63">
+</div>
+                  
+          </div>
+          
+        <!-- navigator container -->
+        
+        <div u="navigator" class="jssorn21" style="position: absolute; bottom: 5%; right: 1%;">
+            <!-- navigator item prototype -->
+            <div u="prototype" style="POSITION: absolute; WIDTH: 18px; HEIGHT: 18px; text-align:center; line-height:19px; color:White; font-size:12px;"></div>
+        </div>
+        
+        <!-- Navigator Skin End -->
+
+  
+          <!-- Slide show Trigger -->
+          <script>jssor_slider1_starter('slider1_container');</script>
+</div>
+
+      <script type="text/javascript">
+        
+        if (currentUser.canUseSlideShow){
+          Ext.onReady(function(){
+            Ext.get('slider1_container').on('dblclick', function(e){
+              e.stopEvent();
+              e.cancelBubble = true;
+              e.stopPropagation();
+              Ext.Msg.wait('Loading Slideshow Settings', 'Loading');
+              AlbumPickShared({gcdID:0, slideID: 'header', schoolID: 1}, true);
+            });
+          });
+        }
+      </script><div class="picBanner_school_1"></div>
+                        </div> 
+                    <div class="extraDiv02"></div>
+            
+            <div id="col2">
+                
+<script type="text/javascript">
+if(typeof cs2=='undefined')cs2={};
+cs2.page={};
+cs2.page.homepage=true;
+  var siteNotice = false;
+  function dropSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=false');
+    Effect.BlindDown('siteNoticeBoxHolder', { duration: 0.5 })
+    $('pagerBarToolAlertButton').addClassName('buttonOn');
+  }
+  function liftSiteNotice(){
+    new Ajax.Request('/supressMessages.cfm?supress=true');
+    Effect.BlindUp('siteNoticeBoxHolder', { duration: 0.25 })
+    $('pagerBarToolAlertButton').removeClassName('buttonOn');
+  }
+  function toggleSiteNotice(){ 
+    
+    if ($('pagerBarToolAlertButton').hasClassName('buttonOn')){
+      liftSiteNotice();
+    }else{
+      dropSiteNotice();
+    }
+  
+  }
+  
+</script><noscript></noscript>
+
+                <div id="pageHeader">
+                    
+                </div>
+                <div id="content">
+                    <script type="text/javascript">
+    
+    
+
+    changePage = function(widget, page){
+      var el = Ext.getCmp(widget);
+      el.storeParams.curPage = page;
+      el.storeFN(el, true);
+    }
+    
+    var currentPortalID = 1;
+    portalLoader = function(){
+    if(Ext.get('loaderPortal'))
+      Ext.get('loaderPortal').remove();
+      
+      var columns = [];
+      columns[0] = [];
+      columns[1] = [];
+      columns[2] = [];
+      columns[3] = [];
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_158_1',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'edgeless', 
+                            myOpacity: '100', 
+                            dataID: '1202', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '158', 
+                            systemID: '5', 
+                            portalID: '1'
+                          
+                        }
+                      };
+        columns[0].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-edgeless x-portlet-edgeless-100',
+            titleEl : 'widgetPrerenderTitle_4_158_1',
+            contentEl : 'widgetPrerender_4_158_1',
+            id: 'widget_4_158_1',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'edgeless', 
+              myOpacity: '100', 
+              dataID: '1202', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '158', 
+              systemID: '5', 
+              portalID: '1'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_160_1',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'custom1', 
+                            myOpacity: '90', 
+                            dataID: '1211', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '160', 
+                            systemID: '5', 
+                            portalID: '1'
+                          
+                        }
+                      };
+        columns[0].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-custom1 x-portlet-custom1-90',
+            titleEl : 'widgetPrerenderTitle_4_160_1',
+            contentEl : 'widgetPrerender_4_160_1',
+            id: 'widget_4_160_1',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'custom1', 
+              myOpacity: '90', 
+              dataID: '1211', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '160', 
+              systemID: '5', 
+              portalID: '1'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_4_157_1',
+                        moduleValues: {
+                          
+                        },
+                        storeParams: {
+                            myLayout: 'edgeless', 
+                            myOpacity: '95', 
+                            dataID: '1182', 
+                            alias: 'Page', 
+                            keyword: 'page', 
+                            curPage: 1, 
+                            id: '4', 
+                            portletID: '157', 
+                            systemID: '5', 
+                            portalID: '1'
+                          
+                        }
+                      };
+        columns[0].push({
+            title: 'Loading Page...',
+            
+              xtype: 'cfcportlet',
+              JSMode: false,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-edgeless x-portlet-edgeless-95',
+            titleEl : 'widgetPrerenderTitle_4_157_1',
+            contentEl : 'widgetPrerender_4_157_1',
+            id: 'widget_4_157_1',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'edgeless', 
+              myOpacity: '95', 
+              dataID: '1182', 
+              alias: 'Page', 
+              keyword: 'page', 
+              curPage: 1, 
+              id: '4', 
+              portletID: '157', 
+              systemID: '5', 
+              portalID: '1'
+            
+            },
+
+            values: {}
+          });
+      
+        
+        
+        var myParams = {
+                        cmpID: 'widget_27_154_1',
+                        moduleValues: {
+                          dateoffset: '', layout: 'default', listdayheight: '', maxcalendarlistdays: '', maxcalendarlistitems: '', show_comments: true, __alias: 'Month View'
+                        },
+                        storeParams: {
+                            myLayout: 'edgeless', 
+                            myOpacity: '75', 
+                            dataID: '', 
+                            alias: 'Events', 
+                            keyword: 'event', 
+                            curPage: 1, 
+                            id: '27', 
+                            portletID: '154', 
+                            systemID: '25', 
+                            portalID: '1'
+                          
+                        }
+                      };
+        columns[0].push({
+            title: 'Loading Events...',
+            
+              items: new calendarPortlet(myParams),
+              xtype: 'portlet',
+              JSMode: true,
+            
+              tools: [],
+              draggable:false,
+              collapsible:false,
+            
+            cls:'x-portlet x-portlet-edgeless x-portlet-edgeless-75',
+            titleEl : 'widgetPrerenderTitle_27_154_1',
+            contentEl : 'widgetPrerender_27_154_1',
+            id: 'widget_27_154_1',
+            //moduleParams: {}, REMOVE
+            storeParams: {
+              myLayout: 'edgeless', 
+              myOpacity: '75', 
+              dataID: '', 
+              alias: 'Events', 
+              keyword: 'event', 
+              curPage: 1, 
+              id: '27', 
+              portletID: '154', 
+              systemID: '25', 
+              portalID: '1'
+            
+            },
+
+            values: {dateoffset: '', layout: 'default', listdayheight: '', maxcalendarlistdays: '', maxcalendarlistitems: '', show_comments: true, __alias: 'Month View'}
+          });
+      
+
+
+      //console.info(columns);
+      var portals = [];
+      
+      function serializePortals(){
+        var columns = [];
+        var columnOrders = [];
+        var columnOrderQry = [];
+        Ext.each(portals,function(portal){
+          Ext.each(portal.items.items,function(column,index){
+            columns.push(column);
+            columnOrders.push([])
+          });        
+        });
+        //alert(columns.toSource());
+        
+        Ext.each(columns,function(col, index){
+          Ext.each(col.items.items,function(colItem){
+            columnOrders[index].push(colItem.storeParams.portletID);
+            columnOrderQry.push(index+"_"+colItem.storeParams.portletID);
+          });
+        });
+        //columnOrders.each(function(colOrd, index){
+        //  columnOrderQry.push(columnOrders[index].toString());
+        //});
+                
+        Ext.Msg.wait('Please wait...', 'Saving Portal Position');
+        Ext.Ajax.request({
+           url: '/ajax/portals/setOrder.cfm',
+           method: 'GET',
+           params: {id: currentPortalID, s: currentSchool.id, portlets: columnOrderQry.join(',')},
+           reader : new Ext.data.JsonReader({
+            success : '@success'
+           }),
+           success: function(response, opts) {
+              var obj = Ext.decode(response.responseText);
+              if (obj.success){
+                Ext.Msg.hide();
+              }else{
+                Ext.Msg.alert('Error Saving Portal Position', 'This portal could not be moved. You may need to refresh and please try again.');
+              }
+           },
+           failure: function(response, opts) {
+            Ext.Msg.alert('Error Saving Portal Position', 'There was a problem communicating with the server. Please check your internet connection and try again.');
+           }
+        });
+      }
+      
+      portalCount = 0;
+      colCount = 0;    
+    
+      portals[portalCount] = new Ext.ux.Portal({
+          xtype:'portal_widgets',
+          border: false,
+          layout: 'column',
+          renderTo: 'portalTop',              
+          items: makeSingleColumn(columns[colCount], .99, 'margin:0 0 0 10px'),
+          listeners: {
+            drop: function(e){
+              serializePortals();
+            }
+          }
+      });
+      portalCount++;
+      colCount++;
+    
+    }  
+  
+  
+    var currentPortalID = "1";
+    var currentPortalLayout = "1";
+  
+
+</script><div class="pageData pageDataPortal">
+  
+  <div id="loaderPortal"><span>Loading Content...</span></div>
+  <div id="portalContent">
+    <div id="portalTop" class="portalHolderTop"></div> 
+  </div>
+</div>
+
+<!-- prerender -->
+<div style="display: block">
+
+
+  <div id="widgetPrerenderTitle_4_158_1" class="x-hide-display">
+     
+  </div>  
+  
+  <div id="widgetPrerender_4_158_1" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p>
+	 </p>
+<p style="text-align: center;">
+	<span style="color:#ffa500;"><span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;"><strong>D E E R   L O D G E   S C H O O L S</strong></span></span></span></p>
+<p style="text-align: center;">
+	<span style="font-size:28px;"><span style="font-family:arial,helvetica,sans-serif;"><strong>N E W S</strong></span></span></p>
+<hr>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); background-color: rgb(211, 206, 173); text-align: center;">
+	<u><span style="font-weight: bolder;"><span style='padding: 0px; margin: 0px; font-family: "comic sans ms", cursive;'><span style="padding: 0px; margin: 0px; font-size: 26px;"><span style="padding: 0px; margin: 0px; color: rgb(238, 130, 238);">Mrs. Foster's Story Time.</span></span></span></span></u></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); background-color: rgb(211, 206, 173); text-align: center;">
+	<u><span style="font-weight: bolder;"><span style='padding: 0px; margin: 0px; font-family: "comic sans ms", cursive;'><span style="padding: 0px; margin: 0px; font-size: 26px;"><span style="padding: 0px; margin: 0px; color: rgb(238, 130, 238);">Mr. Noland's Class</span></span></span></span></u></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); background-color: rgb(211, 206, 173); text-align: center;">
+	<span style="font-family:arial,helvetica,sans-serif;"><span style="padding: 0px; margin: 0px; color: rgb(0, 0, 0);"><u><span style="font-weight: bolder;"><span style="padding: 0px; margin: 0px;"><span style="padding: 0px; margin: 0px; font-size: 26px;"><span style="padding: 0px; margin: 0px; font-size: 16px;">Please click the link for video in the blue box above.</span></span></span></span></u></span></span></p>
+<hr>
+<hr>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	<u style="color: rgb(255, 0, 0); font-size: 36px; font-weight: 700;">ATTENTION</u></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102);">
+	<span style="color:#000000;"><span style="font-size:14px;"><span style="font-size:16px;"><span style="font-size:22px;">Re:</span></span></span></span><strong><span style="color:#000000;"><span style="font-size:14px;"><span style="font-size:16px;"><span style="font-size:22px;">  <span style="background-color:#ffff00;">Second Packet Exchange is Friday, May 1, 2020</span></span></span></span></span></strong></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102);">
+	<span style="font-size:18px;"><span style="color:#000000;">Eighth Graders: The May 1 packet will have registration instructions from Powell County High School. Please complete the packet and return to PCHS per the instructions.</span></span></p>
+<table border="1" cellpadding="1" cellspacing="1" style="width:500px;" summary="Lists times and last names">
+<caption>
+		<strong><span style="font-size:16px;">Packet Exchange Times</span></strong>
+</caption>
+	<tbody>
+<tr>
+<td style="text-align: center;">
+				<strong>Time</strong>
+</td>
+			<td style="text-align: center;">
+				<strong>Last Name</strong>
+</td>
+		</tr>
+<tr>
+<td>
+				9:00-9:15</td>
+			<td>
+				<span style="font-size:12px;"><span id="docs-internal-guid-6951464f-7fff-5bfe-f42f-f2e805068b46"><span style="font-family: Arial; font-variant-numeric: normal; font-variant-east-asian: normal; vertical-align: baseline; white-space: pre-wrap;">A-Boh</span></span></span>
+</td>
+		</tr>
+<tr>
+<td>
+				9:15-9:30</td>
+			<td>
+				Bow-Cam</td>
+		</tr>
+<tr>
+<td>
+				9:30-9:45</td>
+			<td>
+				Cea-Dav</td>
+		</tr>
+<tr>
+<td>
+				9:45-10:00</td>
+			<td>
+				Daw-Ehl</td>
+		</tr>
+<tr>
+<td>
+				10:00-10:15</td>
+			<td>
+				Eld-Fran</td>
+		</tr>
+<tr>
+<td>
+				10:15-10:30</td>
+			<td>
+				Fraz-Ham</td>
+		</tr>
+<tr>
+<td>
+				10:30-10:45</td>
+			<td>
+				Han-Hea</td>
+		</tr>
+<tr>
+<td>
+				10:45-11:00</td>
+			<td>
+				Hen-Hil</td>
+		</tr>
+<tr>
+<td>
+				11:00-11:15</td>
+			<td>
+				Hog-Jae</td>
+		</tr>
+<tr>
+<td>
+				11:15-11:30</td>
+			<td>
+				Jew-Key</td>
+		</tr>
+<tr>
+<td>
+				11:30-11:45</td>
+			<td>
+				Kil-Mac</td>
+		</tr>
+<tr>
+<td>
+				11:45-12:00</td>
+			<td>
+				Mad-Mea</td>
+		</tr>
+<tr>
+<td>
+				12:00-12:15</td>
+			<td>
+				Mee-O'Con</td>
+		</tr>
+<tr>
+<td>
+				12:15-12:30</td>
+			<td>
+				Oli-Pen</td>
+		</tr>
+<tr>
+<td>
+				12:30-12:45</td>
+			<td>
+				Per-Rei</td>
+		</tr>
+<tr>
+<td>
+				12:45-1:00</td>
+			<td>
+				Ric-Rus</td>
+		</tr>
+<tr>
+<td>
+				1:00-1:15</td>
+			<td>
+				Rya-Shi</td>
+		</tr>
+<tr>
+<td>
+				1:15-1:30</td>
+			<td>
+				Sim-Stec</td>
+		</tr>
+<tr>
+<td>
+				1:30-1:45</td>
+			<td>
+				Stei-Wai</td>
+		</tr>
+<tr>
+<td>
+				1:45-2:00</td>
+			<td>
+				Wal-Z</td>
+		</tr>
+</tbody>
+</table>
+<hr>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	<span style="font-weight: bolder; color: rgb(255, 0, 0); font-size: 36px;"><u>ATTENTION</u></span></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	<u style="color: rgb(0, 0, 0);">Please click on link below.</u></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	<a href="https://youtu.be/PSnT6NqKF5o"><span style="font-size: 16px; background-color: rgb(255, 255, 0);">Quick Message about 2nd packet pickup and extened closure.</span></a></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102);">
+	<span style="color:#000000;"><span style="font-size: 20px;">Re: </span></span><span style="color:#ff0000;"><span style="font-size: 20px;"><b>2nd Packet Pickup Information if needed.</b></span></span></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102);">
+	<span style="color:#ff0000;"><span style="font-size: 20px;"><b>4-7-2020</b></span></span></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102);">
+	 </p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	<span style="color: rgb(0, 0, 0);"><u>Please click on link below.</u></span></p>
+<p style="text-align: center;">
+	<a href="/files/user/4/file/Packet%20exchange%20letter%20-%20Google%20Docs%20(002)(1).pdf"><span style="color:#000000;"><b style="color: rgb(102, 102, 102); font-family: arial; font-size: 20px;"><span style="background-color:#ffff00;">2nd Packet Pickup Information if needed.</span></b></span></a></p>
+<hr>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	 </p>
+<p align="center">
+	<strong style="color: rgb(255, 0, 0); font-size: 36px;"><u>ATTENTION</u></strong></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102);">
+	<span style="font-size: 20px;">Re:<strong> <span style="color: rgb(255, 0, 0);">FREE LUNCH and BREAKFAST order form for April 14</span></strong></span><strong style="font-size: 20px;"><span style="color: rgb(255, 0, 0);">-May 1</span></strong></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102);">
+	<span style="font-size: 20px;"><strong><span style="color: rgb(255, 0, 0);">4-7-2020</span></strong></span></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	<span style="font-size:24px;"><span style="color:#000000;"><strong>Please click on link below.</strong></span></span></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	<a href="/files/user/4/file/Shelli%20Boggess%20vid%204-7-2020(1).mov"><span style="font-size:24px;"><span style="color:#000000;"><strong><span style="background-color:#ffff00;">Message from our Kitchen Staff to our Students</span></strong></span></span></a></p>
+<p style="text-align: center;">
+	 </p>
+<p align="center">
+	<span style="font-size:28px;"><span style="color:#ff0000;"><strong><u>Free Lunch and Breakfast</u></strong></span></span></p>
+<p align="center">
+	<span style="color:#000000;"><span style="font-size:16px;">for</span></span></p>
+<p align="center">
+	<span style="color:#000000;"><u><strong><span style="font-size:22px;">Everyone 18 and younger.</span></strong></u></span></p>
+<p align="center">
+	<span style="font-size: 16px; color: rgb(0, 0, 0);">PROVIDED</span></p>
+<p align="center">
+	<span style="color:#000000;"><span style="font-size:16px;">By</span></span></p>
+<p align="center">
+	<span style="color:#000000;"><span style="font-size:16px;">Deer Lodge Schools</span></span></p>
+<p align="center">
+	<span style="color:#000000;"><span style="font-size:16px;">3 Sites at School</span></span></p>
+<p align="center">
+	<span style="font-size:18px;"><span style="color:#000000;">Pull up to Buses parked outside of Speer, Granville and, DuVall</span></span></p>
+<p>
+	<span style="font-size:18px;">Deer Lodge Elementary has available free breakfasts and lunches for the duration of the school closure. The current closure order is through April 10. However, due to the number of calls the school is receiving about meals should the closure be extended, we are publishing this order form. If we are ordered back to school, meals will resume at school as usual.</span></p>
+<p>
+	<span style="font-size:18px;">Any youth 18 years old and younger is invited to participate. Make your order based on the number of children eating that day. Each child's order will include a breakfast and a lunch. Please complete one form per family.</span></p>
+<p>
+	<span style="font-size:18px;">All meals will meet state and federal nutrition guidelines, but due to the grab-and-go model, there will not be a set menu.</span></p>
+<p>
+	<span style="font-size:18px;">If you need to make a change to a submitted form or do not have access to the internet, please call Theresa at 846-1553 ext. *301 to place your order.</span></p>
+<p>
+	<span style="font-size:18px;">If you select to pick up meals at the school, please note that they will be available from 12:00 PM-12:30 PM.</span></p>
+<p>
+	<span style="font-size:18px;">School campus pick up for meals will be as follows using the first letter of the last name of the person completing the survey:</span></p>
+<p>
+	<span style="font-size:18px;">A-G:  OD Speer</span></p>
+<p>
+	<span style="font-size:18px;">H-M:  Granville Stuart</span></p>
+<p>
+	<span style="font-size:18px;">N-Z:  DuVall</span></p>
+<p>
+	<span style="font-size: 18px;">Bus Delivery is as follows:</span></p>
+<ul>
+<li>
+		<span style="font-size:18px;">West Side bus stops starting at noon</span>
+</li>
+	<li>
+		<span style="font-size:18px;">Racetrack Community Hall at 11:30</span>
+</li>
+	<li>
+		<span style="font-size:18px;">Old school on Quinlan triangle at noon</span>
+</li>
+	<li>
+		<span style="font-size:18px;">Garrison bus leaves Deer Lodge at 11:30</span>
+</li>
+</ul>
+<p style="text-align: center;">
+	<span style="font-size: 16px;"><span style="color: rgb(178, 34, 34);">Please click on link below for sign up and ordering.</span></span></p>
+<p style="text-align: center;">
+	<a href="https://forms.gle/uo33PGr3TpM4ZgHVA"><span style="color: rgb(255, 0, 0);"><u><strong style='font-family: "comic sans ms", cursive; font-size: 18px;'>Breakfast and Lunch Order Form</strong></u></span></a></p>
+<p style="text-align: center;">
+	<a href="https://forms.gle/uo33PGr3TpM4ZgHVA"><span style="color: rgb(255, 0, 0);"><u><span style="font-size: 22px;">  for APRIL 14th through May1st</span></u></span></a></p>
+<p style="text-align: center;">
+	 </p>
+<hr>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	<span style="font-weight: bolder; color: rgb(255, 0, 0); font-size: 36px;"><u>ATTENTION</u></span></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	 </p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102);">
+	<span style="font-size: 20px;">Re:<strong> <span style="color: rgb(255, 0, 0);">NOTICE OF TRUSTEE ELECTION CANCELLATION</span></strong></span></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102);">
+	<span style="font-size: 20px;"><strong><span style="color: rgb(255, 0, 0);">4-3-2020</span></strong></span></p>
+<p style="margin: 5px 0px; padding: 0px; font-family: arial; line-height: 1.5; color: rgb(102, 102, 102); text-align: center;">
+	<span style="color: rgb(0, 0, 0);"><u>Please click on link below.</u></span></p>
+<p style="text-align: center;">
+	<span style="font-size: 16px;"><span style="color: rgb(0, 0, 0);"><em><strong><u><span style="background-color: rgb(255, 255, 0);"><a href="/files/user/4/file/Notice%20of%20Trustee%20Election%20Cancelation(2).pdf">NOTICE OF TRUSTEE ELECTION CANCELLATION</a></span></u></strong></em></span></span></p>
+<p align="center">
+	 </p>
+<div>
+	 </div>
+<p align="center">
+	 </p>
+<hr>
+<p align="center">
+	<strong style="color: rgb(255, 0, 0); font-size: 36px;"><u>ATTENTION</u></strong></p>
+<p>
+	<span style="font-size: 16px;">RE:</span><span style="font-size: 16px; color: rgb(255, 0, 0);"> Change of Packet Pickup</span></p>
+<p>
+	<span style="font-size: 16px; color: rgb(255, 0, 0);">3-26-2020   5:30pm</span></p>
+<p>
+	<span style="color:#000000;"><span style="font-size:16px;">At 4:30 pm today (March 26<sup>th</sup>, 2020) Governor Bullock ordered ALL of Montana to <strong><u>shelter in place starting at 12:01am Saturday, March 28<sup>th</sup>, 2020.  </u></strong></span><span style="font-size: 16px;">This will force us to push up our pickup of your students’ schoolwork packets before the set date of Monday, March 30</span><sup>th</sup><span style="font-size: 16px;">.  We will need parents to pick up packets on </span><strong style="font-size: 16px;">Friday, March 27<sup>th</sup> utilizing the same times and schedule as set before</strong><span style="font-size: 16px;">.  Please see the packet pickup link below.  We realize this is an inconvenience and short notice, but we must follow the shelter in place order.</span></span></p>
+<p style="text-align: center;">
+	<a href="/files/user/4/file/Materials%20and%20Needs%20Survey%20Letter%20for%20packets%203-24-2020.pdf"><span style="color: rgb(0, 0, 255);"><strong><span style="font-size: 20px;"><span style="background-color: rgb(255, 255, 0);">Letter for Packet Pickup, Lunches and Needs, Survey 3-24-2020</span></span></strong></span></a></p>
+<hr>
+<p style="text-align: center;">
+	<strong style="color: rgb(255, 0, 0); font-size: 36px;"><u>ATTENTION</u></strong></p>
+<p>
+	<span style="font-size: 16px;">RE:</span><span style="font-size: 16px; color: rgb(255, 0, 0);"> </span><span style="font-size: 16px; color: rgb(255, 0, 0);">Schools Closed by Governor through April 10<sup>th</sup></span></p>
+<p>
+	<span style="font-size:16px;">Dear Parents and Community Members,</span></p>
+<p>
+	<span style="font-size:16px;">Governor Bullock has ordered Montana Schools to remain closed through April 10<sup>th</sup>.  Deer Lodge Schools will implement our Off Site Instruction Plan beginning March 30<sup>th</sup>. </span></p>
+<p>
+	<span style="font-size:16px;">Below is a letter that outlines when and how to pick up your child’s schoolwork packet, as well as outlining how we will continue to provide lunch and breakfasts for our students. </span></p>
+<p>
+	<span style="font-size:16px;">I have included a link to our Off Site Plan that will be submitted for approval by the Deer Lodge School Board on Thursday at 7:30 PM.</span></p>
+<p>
+	<span style="font-size:16px;">Please see Special Board meeting for details and agenda.  If you have any questions or feedback on the offsite instruction plan please contact me at <a title="Send Email" style="" target="_blank" href="/action/mail/sendMail.cfm?e=cnNpbXBzb25AZGVlcmxvZGdlc2Nob29scy5vcmc=" class="" onclick="return sendEmail('cnNpbXBzb25AZGVlcmxvZGdlc2Nob29scy5vcmc=')">rsimpson@deerlodgeschools.org</a> or by phone 846-1553  ext. *401.</span></p>
+<p>
+	 </p>
+<p>
+	<span style="font-size: 16px;">Rodney B. Simpson</span></p>
+<p>
+	<span style="font-size: 16px;">Superintendent</span></p>
+<p>
+	<span style="color:#ffa500;"><span style="font-size:16px;">March 25, 2020</span></span></p>
+<p style="text-align: center;">
+	Please click on link below.</p>
+<p style="text-align: center;">
+	<a href="/files/user/4/file/Deer%20Lodge%20Schools%20Action%20Plan%20for%20off%20Site%20Instruction%20Final%202-26-2020.pdf"><em><strong><span style="font-size: 22px;"><span style="background-color: rgb(255, 255, 0);"> Off Site Instruction Plan</span></span></strong></em></a></p>
+<hr>
+<p style="text-align: center;">
+	<strong style="color: rgb(255, 0, 0); font-size: 36px;"><u>ATTENTION</u></strong></p>
+<p>
+	<span style="font-size: 16px;">RE:<span style="color: rgb(255, 0, 0);"> Students School Work Packet pick up and other details.</span></span></p>
+<p style="text-align: center;">
+	<span style="text-align: center;">Please click on link below.</span></p>
+<p style="text-align: center;">
+	<a href="/files/user/4/file/Materials%20and%20Needs%20Survey%20Letter%20for%20packets%203-24-2020.pdf"><span style="color:#0000ff;"><strong><span style="font-size:20px;"><span style="background-color:#ffff00;">Letter for Packet Pickup, Lunches and Needs, Survey 3-24-2020</span></span></strong></span></a></p>
+<p>
+	<span style="text-align: center;"> </span><span style="color: rgb(255, 165, 0); font-size: 16px;">March 25, 2020</span></p>
+<hr>
+<p style="text-align: center;">
+	<strong style="color: rgb(255, 0, 0); font-size: 36px;"><u>ATTENTION</u></strong></p>
+<p>
+	 </p>
+<p>
+	<span style="font-size: 16px;">RE: </span><span style="color:#ff0000;"><span style="font-size:16px;">Special Board Meeting at 7:30 pm by teleconference</span></span></p>
+<p>
+	<span style="font-size:16px;">Hello Parents and Community Members,</span></p>
+<p>
+	<span style="font-size:16px;">         We still have not heard if the school closure is going pats March 27, but we have been directed to devise a plan of action to meet four areas if we continue closure past the 27<sup>th</sup>.  These four areas are listed below. </span></p>
+<ol>
+<li>
+		<span style="font-size:16px;">Off-site learning instruction and structure.</span>
+</li>
+	<li>
+		<span style="font-size:16px;">School meals during off site learning instruction.</span>
+</li>
+	<li>
+		<span style="font-size:16px;">Services for students with disabilities.</span>
+</li>
+	<li>
+		<span style="font-size:16px;">Other services provided to students.</span>
+</li>
+</ol>
+<p>
+	<span style="font-size:16px;">The plan has to be approved by our local school boards and submitted to the Governor by Friday for his approval.  We will be having a Special Board Meeting at 7:30 pm by teleconference on March 26<sup>th</sup>.  The phone number and Meeting Id are on the agenda posted below as well as at the bottom of the page under School Board Meetings.  We have change our teleconference program, that caused some difficulties last time.  Please join us.</span></p>
+<p>
+	 </p>
+<p>
+	<span style="font-size:16px;">Rodney B. Simpson</span></p>
+<p>
+	<span style="font-size:16px;">Superintendent</span></p>
+<p style="text-align: center;">
+	Please click on link below for agenda.<br><a href="/files/user/4/file/March%202020%20Special%20meeting%20agenda.pdf"><span style="color:#000000;"><span style="font-size:26px;"><span style="background-color:#ffff00;">AGENDA </span></span></span></a></p>
+<p style="text-align: center;">
+	<a href="/files/user/4/file/Deer%20Lodge%20Schools%20Action%20Plan%20for%20off%20Site%20Instruction%20Final%202-26-2020(1).pdf"><span style="color: rgb(0, 0, 238); font-size: 22px; font-style: italic; font-weight: 700; background-color: rgb(255, 255, 0); text-decoration-line: underline;"> Off Site Instruction Plan</span></a></p>
+<hr>
+<p style="text-align: center;">
+	<strong style="color: rgb(255, 0, 0); font-size: 36px;"><u>ATTENTION</u></strong></p>
+<p>
+	RE:<span style="font-size: 18px;"><span style="color: rgb(255, 0, 0);"> COVID-19 Fact Sheet</span></span></p>
+<p>
+	3-24-2020</p>
+<p style="text-align: center;">
+	<span style="font-size: 14px;"><span style="color: rgb(0, 0, 0);">Click on link below.</span></span></p>
+<p style="text-align: center;">
+	<span style="font-size:22px;"><em><strong><a href="/files/user/4/file/share-facts-for%20web%20page%20Covid%2019.pdf"><span style="color:#000000;"><u><span style="background-color:#ffff00;">COVID-19 Fact Sheet</span></u></span></a></strong></em></span></p>
+<hr>
+<p style="text-align: center;">
+	<strong style="color: rgb(255, 0, 0); font-size: 36px;"><u>ATTENTION</u></strong></p>
+<p>
+	RE:<span style="font-size: 18px;"><span style="color: rgb(255, 0, 0);"> Parent &amp; Community Letter 3-20-2020</span></span></p>
+<p>
+	<span style="font-size:14px;"><span style="color:#000000;">March 20, 2020</span></span></p>
+<p>
+	<span style="font-size:12px;"><span style="color: rgb(255, 0, 0); font-family: arial, helvetica, sans-serif; text-align: center;">Please click on link below  for PDF printable copy of the letter.</span></span></p>
+<p align="center" style="text-align: center;">
+	<a href="/files/user/4/file/Letter%20to%20Parents%20and%20Community%203-20-2020%20Printable(2).pdf"><span style="font-size:12px;"><span style="font-family: Arial, sans-serif; background: yellow;"><span style="color:#000000;">PDF</span></span></span></a></p>
+<p align="center" style="text-align: center;">
+	<span style="font-size:12px;"><span style="font-family: Arial, sans-serif; background: yellow;"><a href="/files/user/4/file/Letter%20to%20Parents%20and%20Community%203-20-2020%20Printable(2).pdf"><span style="color:#000000;"> </span><span style="color:#000000;">PRINTABLE</span></a></span></span></p>
+<p align="center" style="text-align: center;">
+	<a href="/files/user/4/file/Letter%20to%20Parents%20and%20Community%203-20-2020%20Printable(2).pdf"><span style="color:#000000;"><span style="font-size: 9pt; font-family: Arial, sans-serif;"><p></p></span></span></a></p>
+<p align="center" style="text-align: center;">
+	<a href="/files/user/4/file/Letter%20to%20Parents%20and%20Community%203-20-2020%20Printable(2).pdf"><span style="color:#000000;"><span style="font-size:12px;"><span style="font-family: Arial, sans-serif; background: yellow;">Parent &amp; Community Letter 3-20-2020</span></span></span></a></p>
+<p align="center" style="text-align: center;">
+	 </p>
+<hr>
+<p style="text-align: center;">
+	<strong style="color: rgb(255, 0, 0); font-size: 36px;"><u>ATTENTION</u></strong></p>
+<p>
+	RE:<span style="font-size:18px;"><span style="color:#ff0000;"> EMERGENCY BOARD METTING-<strong><span style="background-color:#d3d3d3;">DRAFT </span><u><span style="background-color:#d3d3d3;">MNUTES 20-18-2020</span></u></strong></span></span></p>
+<p>
+	<span style="font-size: 14px;">March 19, 2020   </span></p>
+<p style="text-align: center;">
+	<span style="font-size:14px;">Please click on link below.</span></p>
+<p style="text-align: center;">
+	<span style="font-size:16px;"><a href="/files/user/4/file/March%202020%20Emergency%20meeting%20minutes(1).pdf"><span style="color:#000000;"><span style="background-color:#ffff00;">EMERGENCY BOARD METTING- <strong> DRAFT</strong> </span><strong><u><span style="background-color:#ffff00;">MNUTES 20-18-2020</span></u></strong></span></a></span></p>
+<p>
+	 </p>
+<hr>
+<p style="text-align: center;">
+	<strong style="color: rgb(255, 0, 0); font-size: 36px; text-align: center;"><u>ATTENTION</u></strong></p>
+<p>
+	RE: <span style="color: rgb(255, 0, 0);"><span style="font-size: 22px;"><u>School Provided Breakfast and Lunch </u></span></span><u style="font-size: 22px; color: rgb(255, 0, 0);">during closure.</u></p>
+<p>
+	<span style="font-size: 14px;">March 16, 2020    1:00 pm</span></p>
+<p>
+	 </p>
+<p>
+	<span style="font-size: 14px;">Dear Parents,</span></p>
+<p>
+	<span style="font-size: 14px;">Deer Lodge Elementary is making available free breakfasts and lunches for the duration of the school closure. Students from Deer Lodge Elementary and Powell County High School are invited to participate. Signing up for each date indicates that you will pick up a lunch for that day and a breakfast for the next day. Please complete one form per family. The sign up deadline for each day's pick up will be 10 AM unless you sign up for both weeks at once. Meals will be available for pick up from 12:00-12:30 PM.</span></p>
+<p>
+	<br><span style="font-size: 14px;">All meals will meet state and federal nutrition guidelines, but due to the grab-and-go model, there will not be a set menu.</span></p>
+<p>
+	<br><span style="font-size: 14px;">If you need to make a change to a submitted form or do not have access to the internet, please call Theresa at 846-1553 ext. *301 to place your order.<br>
+	Pick up for meals will be as follows using the first letter of the last name of the person completing the order form at the bottom of this page:</span></p>
+<p>
+	<br><span style="font-size: 14px;">A-G: OD Speer<br>
+	H-M: Granville Stuart<br>
+	N-Z: DuVall</span></p>
+<p>
+	<span style="font-size: 18px;"><strong><u><span style="color: rgb(0, 0, 0);">Starting with Lunch being served on March 17th, the next day's Breakfast will also be included with Lunch Pick up</span></u></strong></span></p>
+<p style="text-align: center;">
+	<span style="color: rgb(255, 0, 0);"><span style="font-size: 18px;"><strong><u>Please Click On Link Below For Order Form</u></strong></span></span></p>
+<p style="text-align: center;">
+	<span style='font-family: "comic sans ms", cursive;'><span style="color: rgb(255, 0, 0);"><span style="font-size: 18px;"><strong><u><a href="https://forms.gle/WSqjJvxpgX576bv1A">Breakfast and Lunch Order Form</a></u></strong></span></span></span></p>
+<p>
+	Rodney B. Simpson</p>
+<p>
+	Superintendent</p>
+<p>
+	Deer Lodge Schools</p>
+<p>
+	444 Montana Ave.</p>
+<p>
+	Deer Lodge Mt. 59722</p>
+<p>
+	Phone- (406)-846-1553  Ext.*401</p>
+<p style="text-align: center;">
+	 </p>
+<p>
+	<a title="Send Email" style="" target="_blank" href="/action/mail/sendMail.cfm?e=ZS1tYWlsLXJzaW1wc29uQGRlZXJsb2RnZXNjaG9vbHMub3Jn" class="" onclick="return sendEmail('ZS1tYWlsLXJzaW1wc29uQGRlZXJsb2RnZXNjaG9vbHMub3Jn')">e-mail-rsimpson@deerlodgeschools.org</a></p>
+<hr>
+<hr>
+<p style="text-align: center;">
+	<span style="color: rgb(255, 0, 0);"><span style="font-size: 36px;"><strong><u>ATTENTION</u></strong></span></span></p>
+<p style="text-align: center;">
+	 </p>
+<p>
+	<span style="font-size: 20px;">RE: </span><u style="text-align: center;"><strong><span style="color: rgb(255, 0, 0); font-size: 22px;">EMERGENCY SCHOOL BOARD MEETING</span></strong></u></p>
+<p style="text-align: center;">
+	<b style="color: rgb(0, 0, 0); font-size: 22px;"><u>3</u></b><b style="color: rgb(0, 0, 0); font-size: 22px;"><u>-18</u></b><b style="color: rgb(0, 0, 0); font-size: 22px;"><u>-2020</u></b></p>
+<p style="text-align: center;">
+	<u><strong><span style="color:#000000;"><span style="font-size: 22px;">8:00 pm</span></span></strong></u></p>
+<p style="text-align: center;">
+	<span style="color:#000000;"><u><strong><span style="font-size: 26px;"><span style="background-color: rgb(255, 255, 0);">Phone Conference</span></span></strong></u></span></p>
+<p style="text-align: center;">
+	<span style="font-size:16px;"><span style="color:#000000;"><u><span style="font-weight: bolder;">Action Item</span></u><span style="font-family: arial;">:  Board consideration of current circumstances related to COVID-19 for possible declaration of unforeseen emergency pursuant to 20-19-801 through 20-9-806, MCA.</span></span></span></p>
+<div>
+	 </div>
+<p style="text-align: center;">
+	<span style="font-size:18px;"><span style="background-color:#ffff00;">Please see details below in the School Board Meeting portion of our page.</span></span><br>
+	 </p>
+<hr>
+<p style="text-align: center;">
+	<span style="color:#ff0000;"><span style="font-size:36px;"><strong><u>ATTENTION</u></strong></span></span></p>
+<p style="text-align: center;">
+	 </p>
+<p>
+	<span style="font-size:20px;">RE: <span style="color:#ff0000;"><u>SCHOOL CLOSURE</u></span></span></p>
+<p>
+	<span style="font-size:14px;"><span style="background-color:#ffff00;">March 16, 2020     7:00 am</span></span></p>
+<p>
+	 </p>
+<p>
+	<span style="font-size:14px;"><span style="color:#000000;">Dear Parents, Staff and Community Members:</span></span></p>
+<p>
+	<span style="font-size:14px;"><span style="color:#000000;">Deer Lodge Elementary will be closed from March 16<sup>th</sup> to March 27<sup>th</sup> by order of Governor Steve Bullock due to the Coronavirus (Covid 19).  Please use this link to see the full order:</span><span style="background-color:#ffff00;"> </span><a href="https://www.krtv.com/news/montana-and-regional-news/bullock-directs-two-week-closure-of-public-k-12-schools-in-montana"><span style="background-color:#ffff00;">https://www.krtv.com/news/montana-and-regional-news/bullock-directs-two-week-closure-of-public-k-12-schools-in-montana</span></a>. <span style="color:#000000;">This closure also includes the </span></span><stockticker w:st="on"><span style="font-size:14px;"><span style="color:#000000;">CPC</span></span></stockticker><span style="font-size:14px;"><span style="color:#000000;"> pool and gym.</span></span></p>
+<p>
+	<span style="font-size:14px;"><span style="color:#000000;">We are working on a method to continue to provide Breakfast and Lunch to all students during this time.  This will be a pick up method at the schools.  More information will be available in the near future regarding school work.  Please do not contact your child’s teacher, we will provide that information on our website and Deer Lodge Schools Facebook page. </span></span></p>
+<p>
+	<span style="font-size:14px;"><span style="color:#000000;">I realize that this situation causes issues for all involved, but I believe strongly that it is absolutely necessary to keep our students, staff and community safe, and limit the spread of Covid 19.  Your help and understanding is greatly appreciated during this time.  </span></span></p>
+<p>
+	Rodney B. Simpson</p>
+<p>
+	Superintendent</p>
+<p>
+	Deer Lodge Schools</p>
+<p>
+	444 Montana Ave.</p>
+<p>
+	Deer Lodge Mt. 59722</p>
+<p>
+	Phone- (406)-846-1553  Ext.*401</p>
+<p>
+	<a title="Send Email" style="" target="_blank" href="/action/mail/sendMail.cfm?e=ZS1tYWlsLXJzaW1wc29uQGRlZXJsb2RnZXNjaG9vbHMub3Jn" class="" onclick="return sendEmail('ZS1tYWlsLXJzaW1wc29uQGRlZXJsb2RnZXNjaG9vbHMub3Jn')">e-mail-rsimpson@deerlodgeschools.org</a></p>
+<p style="text-align: center;">
+	 </p>
+<p style="text-align: center;">
+	<span style="color:#000000;"><span style="font-size:20px;"><span style="background-color:#ffff00;">Click below for a <u><strong>printable copy </strong></u>of the above letter.</span></span></span></p>
+<p style="text-align: center;">
+	<a href="/files/user/4/file/School%20Closure%20Letter%203-16-2020.pdf"><span style="font-size:26px;"><span style="background-color:#ffff00;">School Closure Update 3-16-2020</span></span></a></p>
+<p>
+	 </p>
+<hr>
+<hr>
+<hr>
+<p style="text-align: center;">
+	<span style="color: rgb(255, 0, 0);"><span style="font-size: 36px;"><strong><u>ATTENTION</u></strong></span></span></p>
+<p>
+	RE: <span style="color:#ff0000;"><span style="font-size:22px;"><u>CPC Closed</u></span></span></p>
+<p>
+	March 16, 2020     7:00 am</p>
+<p>
+	 </p>
+<p>
+	<span style="font-size:20px;"><span style="background-color:#ffff00;">The CPC Gym and Pool will be closed from March 16th to March 27th.</span></span></p>
+<p>
+	<span style="font-size:16px;">Please see the above mesage for more information.</span></p>
+<p>
+	<span style="font-size:12px;">Rodney B. Simpson</span></p>
+<p>
+	<span style="font-size:12px;">Superintendent</span></p>
+<p>
+	<span style="font-size:12px;">Deer Lodge Schools</span></p>
+<p>
+	<span style="font-size:12px;">Deer Lodge. Montana</span></p>
+<p>
+	<span style="font-size:12px;">Ph. # 406-846-1553 Ext. *401</span></p>
+<p>
+	<span style="font-size:12px;">E-mail-<a title="Send Email" style="" target="_blank" href="/action/mail/sendMail.cfm?e=cnNpbXBzb25AZGVlcmxvZGdlc2Nob2xzLm9yZw==" class="" onclick="return sendEmail('cnNpbXBzb25AZGVlcmxvZGdlc2Nob2xzLm9yZw==')">mailto:rsimpson@deerlodgeschols.org</a></span></p>
+<hr>
+<p style="text-align: center;">
+	<span style="color: rgb(255, 0, 0);"><span style="font-size: 36px;"><strong><u>ATTENTION</u></strong></span></span></p>
+<p>
+	RE: <span style="color: rgb(255, 0, 0);"><span style="font-size: 22px;"><u>School Assignments and Instruction</u></span></span></p>
+<p>
+	 </p>
+<p>
+	<span style="font-size:16px;">March 16, 2020    1:00 pm</span></p>
+<p>
+	 </p>
+<p>
+	<span style="font-size:14px;">Dear Parents,</span></p>
+<p>
+	<span style="font-size:14px;">In light of the COVID 19 school closure, Deer Lodge Schools is providing meals as explained earlier. As far as instruction and trying to make up instruction, we have decided to suspend any out of classroom work for these two weeks. We cannot guarantee that all students will have access to the resources needed to do work online or at home.</span></p>
+<p>
+	 </p>
+<p>
+	<span style="font-size:14px;">Thank you for your understanding and patience. Our main goal is to keep everyone safe and practice social distancing. </span></p>
+<p>
+	 </p>
+<p>
+	<span style="font-size:12px;">Rodney B. Simpson</span></p>
+<p>
+	<span style="font-size:12px;">Superintendent</span></p>
+<p>
+	<span style="font-size:12px;">Deer Lodge Schools</span></p>
+<p>
+	<span style="font-size:12px;">444 Montana Ave.</span></p>
+<p>
+	<span style="font-size:12px;">Deer Lodge Mt. 59722</span></p>
+<p>
+	<span style="font-size:12px;">Phone- (406)-846-1553  Ext.*401</span></p>
+<p>
+	<span style="font-size:12px;"><a title="Send Email" style="" target="_blank" href="/action/mail/sendMail.cfm?e=ZS1tYWlsLXJzaW1wc29uQGRlZXJsb2RnZXNjaG9vbHMub3Jn" class="" onclick="return sendEmail('ZS1tYWlsLXJzaW1wc29uQGRlZXJsb2RnZXNjaG9vbHMub3Jn')">e-mail-rsimpson@deerlodgeschools.org</a></span></p>
+<hr>
+<p align="center">
+	<span style="font-size:22px;"><a href="/District/Jobs/"><span style="color:#333333;"><strong>Current Job Openings</strong></span></a></span></p>
+<p align="center">
+	<em><span style="font-size:18px;"><strong>School Psychologist</strong></span></em></p>
+<hr>
+<p style="text-align: center;">
+	 </p>
+<p style="text-align: center;">
+	<span style="font-size:24px;"><strong><a href="http://opi.mt.gov/Leadership/Academic-Success/Every-Student-Succeeds-Act-ESSA/Report-Card"><span style="color:#333333;">State Report Card </span></a></strong></span></p>
+<p align="center">
+	 </p>
+<hr>
+<p style="text-align: center;">
+	 </p>
+<p style="text-align: center;">
+	<span style="font-size:22px;"><a href="/files/user/4/file/Pool%20Hours%20September%20October%202019.pdf"><span style="color:#333333;"><strong>CPC Pool and Gym Hours</strong></span></a></span></p>
+<p align="center">
+	 </p>
+<hr>
+<p style="text-align: center;">
+	 </p>
+<p style="text-align: center;">
+	<span style="font-size:22px;"><a href="http://www.wunderground.com/personal-weather-station/dashboard?ID=KMTDEERL1"><b><span style="color:#333333;">Current Weather Conditions</span></b></a></span></p>
+<p style="text-align: center;">
+	 </p>
+<hr>
+<p style="text-align: center;">
+	 </p>
+<p style="text-align: center;">
+	<span style="font-size:22px;"><strong style="text-align: center;"><a href="/files/user/4/file/GER_0417-SA-0549(MT%20VOL)%20SA%20Brochure%20(3).pdf"><span style="color: rgb(51, 51, 51);">Voluntary Student Accident Medical Insurance Program</span></a></strong></span></p>
+<p style="text-align: center;">
+	 </p>
+<hr>
+<p>
+	 </p>
+<ul>
+<li>
+		<font color="#000000"><span style="font-size: 16px;"><b><u>Board Meeting Information Below</u></b></span></font>
+</li>
+	<li>
+		<a href="/files/user/4/file/GER_0417-SA-0549(MT%20VOL)%20SA%20Brochure%20(3).pdf" style="text-align: -webkit-center;"><span style="text-align: -webkit-center; font-size: 22px;">Voluntary Student Accident </span><span style="text-align: -webkit-center; font-size: 22px;">Medical Insurance Program</span></a>
+</li>
+	<li>
+		<span style="color:#000000;"><span style="font-size:16px;"><u><strong>SCHOOL MEAL PROGRAM</strong></u>-  Menus and Online Payment</span></span> <span style="color:#000000;"><span style="font-size:16px;"><span style='font-family:"Comic Sans MS"'><p>​</p></span></span></span><span style="font-size: 16px; text-align: center; color: rgb(0, 0, 0);">Click on </span><span style="font-size: 16px; text-align: center; color: rgb(255, 255, 255);"><span style="background-color: rgb(0, 0, 205);">School Meal Program Link</span></span><span style="font-size: 16px; text-align: center;"> <span style="color: rgb(0, 0, 0);">at the Top in Blue </span></span>
+</li>
+</ul>
+<hr>
+<h1 style="text-align: center;">
+	 </h1>
+<p style="text-align: center;">
+	 </p>
+<div>
+	 </div>
+<p style="text-align: center;">
+	<span style="font-size: 14px;">Click below for a printable copy of the above letter.</span></p>
+<p style="text-align: center;">
+	<span style="font-size: 14px;">School Closure Update 3-26-2020</span></p>
+<div>
+	 </div>
+<div>
+	 </div>
+<p>
+	<u style="color: rgb(0, 0, 0); font-family: arial; text-align: center;">Please click on link below.</u></p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_160_1" class="x-hide-display">
+    School Board Meetings 
+  </div>  
+  
+  <div id="widgetPrerender_4_160_1" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p style="text-align: center;">
+	<u style="color: rgb(0, 0, 255);"><span style="font-size: 22px;"><strong>DEER LODGE ELEMENTARY</strong></span></u></p>
+<p style="text-align: center;">
+	<span style="color:#000000;"><font face="arial"><span style="font-size: 18px;">Regular Monthly Board Meeting</span></font></span></p>
+<p style="text-align: center;">
+	<b style="color: rgb(0, 0, 0); font-size: 22px;"><u>4</u></b><b style="color: rgb(0, 0, 0); font-size: 22px;"><u>-14</u></b><b style="color: rgb(0, 0, 0); font-size: 22px;"><u>-2020</u></b></p>
+<p style="text-align: center;">
+	<u><strong><span style="color:#ff0000;"><span style="font-size: 22px;">7:00 pm</span></span></strong></u></p>
+<p style="text-align: center;">
+	<span style="color:#000000;"><u><strong><span style="font-size: 26px;"><span style="background-color:#ffff00;">Phone Conference</span></span></strong></u></span></p>
+<p style="text-align: center;">
+	<font color="#ff0000"><span style="font-size: 26px;">Details of how to join are on the agenda link below.</span></font></p>
+<p style="text-align: center;">
+	<a href="/files/user/4/file/April%202020%20meeting%20agenda(1).pdf" style="font-family: arial;"><span style="padding: 0px; margin: 0px; outline: 0px; color: rgb(0, 0, 0); text-decoration-line: none; font-size: 26px; background-color: rgb(255, 255, 0);">AGENDA </span></a></p>
+<p style="text-align: center;">
+	 </p>
+<hr>
+<p style="text-align: center;">
+	<a href="/common/images/clipart/Themes/literature.png" style="font-size: 22px;"><img alt="" src="/common/images/clipart/Themes/literature.png" style="width: 100px; height: 61px;"></a></p>
+<p style="text-align: center;">
+	<u><strong><span style="font-size: 22px;"><a href="/files/user/4/file/Policies%205-15-19%20updates(2).pdf">POLICY UPDATES </a></span></strong></u></p>
+<p style="text-align: center;">
+	 </p>
+<p style="text-align: center;">
+	<a href="/files/user/4/file/December%202018%20meeting%20agenda.pdf">DEER LODGE SCH</a>OOLS BOARD POLICY MANUAL</p>
+<div>
+	 </div>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_4_157_1" class="x-hide-display">
+    WELCOME 
+  </div>  
+  
+  <div id="widgetPrerender_4_157_1" class="x-hide-display">
+    <div class="pageData">
+<div class="listItem_detail">
+  
+    <div class="listItem_body">
+      <div class="listItem_bodyContent">
+        <p>
+	<span style="font-family:arial,helvetica,sans-serif;"><u><span style="font-size:24px;"><span style="color:#0000ff;">WELCOME</span></span></u></span></p>
+<p>
+	<span style="font-family:arial,helvetica,sans-serif;"><span style="color: rgb(0,0,0)"><span style="font-size: 16px"><span style="color: #000000"><span style="font-size: 18px"><span style="font-size: 16px">Thank you for visiting our website.  I am very proud to be the superintendent of Deer Lodge Schools.  Our district sits in the pristine mountain valley of Powell County in the great community of Deer Lodge.  Deer Lodge Schools is a K-8 school district consisting of three different schools:  OD Speer, K-2; Granville Stuart, 3-6; and E F Duvall, 7-8.  We currently have 420 students, and 35 teachers. I am in my 10th year as superintendent of schools.  When I applied for this position, it was about more than just employment; it was about bringing my children to a district that could challenge and facilitate them as learners.  I truly believe that is what we do at Deer Lodge Schools.  We have great teachers that truly care about student success in academics as well as emotional and social development, and our staff goes above and beyond to support all aspects of our school day.  We also enjoy strong commitment and support for education from the Deer Lodge community; from parents to business owners and community members, we continue to work together to do what’s best for kids.  </span></span></span></span></span></span></p>
+<p>
+	 </p>
+<p>
+	<span style="font-family:arial,helvetica,sans-serif;"><span style="color:#000000;"><span style="font-size: 16px;">Rodney B.Simpson</span></span></span></p>
+<p>
+	<strong><span style="font-family:arial,helvetica,sans-serif;"><a title="Send Email" style="padding: 0px; margin: 0px; outline: 0px; color: rgb(0, 51, 102); text-decoration: none; font-family: Arial, Helvetica, sans-serif; background-color: rgb(211, 206, 173);" target="_blank" href="/action/mail/sendMail.cfm?e=cnNpbXBzb25AZGVlcmxvZGdlc2Nob29scy5vcmc=" class="" onclick="return sendEmail('cnNpbXBzb25AZGVlcmxvZGdlc2Nob29scy5vcmc=')">rsimpson@deerlodgeschools.org</a></span></strong></p>
+<p>
+	<span style="font-family:arial,helvetica,sans-serif;"><a href="http://issuu.com/montanaschoolboardsassociation/docs/deer_lodge_elementary_policy_manual?e=16838009/12505785">District Policy Manual</a></span></p>
+
+      </div>
+    </div>
+    <br clear="all"><div class="listItem_resourceBox">
+      
+        <style>
+          a.btn.btn-lrg.btn-primary {
+            text-decoration: none;
+          }
+        </style>
+</div>
+  
+  </div>
+</div> 
+  </div>
+
+
+  <div id="widgetPrerenderTitle_27_154_1" class="x-hide-display">
+    Month View 
+  </div>  
+  
+  <div id="widgetPrerender_27_154_1" class="x-hide-display">
+    
+  </div>
+
+</div>
+
+                </div>
+                <br clear="all"><a href="#top" class="backToTopMain">Back to Top</a>
+             </div> 
+        </div>
+         
+      <p class="webmaster">For technical questions and comments regarding this website, please contact the <a title="Send Email" style="" target="_blank" href="/action/mail/sendMail.cfm?e=cnNpbXBzb25AZGVlcmxvZGdlc2Nob29scy5vcmc=" class="" onclick="return sendEmail('cnNpbXBzb25AZGVlcmxvZGdlc2Nob29scy5vcmc=')">Webmaster</a>.</p>
+   
+        <br clear="all">
+</div>	
+</div>
+    
+    <div id="footer">
+      
+<script>
+
+currentZip = '59722';
+</script><noscript></noscript>
+<div class="vcardBox">
+<span class="vcard">
+  <span class="adr">
+    
+    <a href="//maps.google.com/maps?hl=en&amp;q=444%20Montana%20Avenue%2C%20Deer%20Lodge%20Montana%2C%2059722&amp;um=1&amp;ie=UTF-8" target="_blank" class="skipWarning">
+      <span class="street-address">444 Montana Avenue</span>
+    </a>
+      • 
+    <a href="//maps.google.com/maps?hl=en&amp;q=444%20Montana%20Avenue%2C%20Deer%20Lodge%20Montana%2C%2059722&amp;um=1&amp;ie=UTF-8" target="_blank" class="skipWarning">
+      <span class="locality">Deer Lodge</span>, 
+      <span class="region">Montana</span> 
+      <span class="postal-code">59722</span>
+    </a>
+    
+  </span>
+  • 
+  <span class="tel">
+    Phone: <span class="work">(406) 846-1553</span>
+    • 
+    Fax: <span class="fax">(406) 846-1599</span>
+  </span>
+</span>
+</div>
+
+    </div>
+  
+    <div id="copyright">
+      <div class="copyrightCustomText">
+          
+       </div>
+       <div class="copyrightCustomTextBot"></div>
+      <div class="copyrightNav">
+      	<a href="/District/legal&amp;mode=terms">Legal Information</a> | 
+      	<a href="/District/legal&amp;mode=privacy">Privacy Policy</a> | 
+      	<a href="sitemap.cfm" onclick="showSiteMap(); return false">Site Map</a><br><br>
+</div>
+      
+      
+      <div class="copyrightHolder">
+      	ies-web-v2-1 Copyright © 2001-2020. All Rights Reserved. <a href="/new.cfm" style="display:none;">new</a>
+      <br><a href="//www.cyberschool.com" target="_blank">Web Development by Cyberschool &amp;</a> 
+      	<a href="//www.iescentral.com" target="_blank">IES, Inc.</a> 
+    	</div>
+<br clear="all"><div class="copyrightExtra copyrightExtra01"></div>
+        <div class="copyrightExtra copyrightExtra02"></div>
+    </div>
+
+    <!-- Current IP Address: #cgi.REMOTE_ADDR# -->
+      
+<div id="timeoutCountdown" style="display: none; position: fixed; bottom: 0; right: 0; padding: 5px 10px; background: #000; color: white;">Please wait...</div>
+<div id="loadingBar" style="display: none; position: fixed; bottom: 0; right: 0; padding: 5px 10px; background: #060; color: white;">Loading...</div>
+<div id="loadingFail" style="display: none; position: fixed; bottom: 0; right: 0; padding: 5px 10px; background: #600; color: white;">Loading Failed</div>
+  
+
+<script type="text/javascript">  
+  if (printView)
+    window.print();
+</script><noscript></noscript>
+<script src="https://ssl.google-analytics.com/ga.js?#application.cache.version#" type="text/javascript"></script><noscript></noscript>
+
+<script type="text/javascript">
+  try {
+    var pageTracker = _gat._getTracker("");
+    pageTracker._trackPageview();
+  } catch(err) {}
+</script><noscript></noscript>
+
+</body>
+</html><!-- Core Version: 2.1. Served from ies-web-v2-1 in 0.05 secs. --><html>
+<style type="text/css">
+        .bully-btn{
+          background-position: left top;
+          left: 0px;
+          top:82px;
+        }
+        .tip-btn{
+          background-position: left top;
+          left: 0px;
+          top:282px;
+        }
+      </style>
+<a href="/form/bully.cfm?id=District"><div class="bully-btn"></div></a><a href="/form/tip.cfm?id=District"><div class="tip-btn"></div></a>
+</html>

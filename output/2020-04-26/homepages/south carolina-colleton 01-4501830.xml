@@ -1,0 +1,1397 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Colleton County School District</title>
+<meta name="Keywords" content="Colleton County School District">
+<meta name="Description" content="Colleton County School District">
+<meta name="Author" content="Colleton County School District">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta property="og:image" content="http://images.schoolinsites.com/images/education.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="200">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/css.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/demo4/style.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src="JavaScripts/jquery-1.8.3.min.js"></script><link href="/CommonTemplates/SiteElements/Styles/Include-Styles.asp" type="text/css" rel="stylesheet">
+<link href="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/Styles.css" rel="stylesheet" type="text/css">
+<!--script src="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/JavaScripts.js" type="text/javascript"></script--><script type="text/javascript">
+	//-----------------------------------------------------------------------------------------------
+	//Edit CSS, currently set up for Pirobox fix
+	//-----------------------------------------------------------------------------------------------
+		function getCSSRule(ruleName, deleteFlag) {               // Return requested style obejct
+		   ruleName=ruleName.toLowerCase();    
+		   
+			if (document.styleSheets) {                            
+				for (var i=0; i<document.styleSheets.length; i++) { 
+					var styleSheet=document.styleSheets[i];
+					var styleSheetHref = styleSheet.href;
+					if ((styleSheetHref != null) && (styleSheetHref.indexOf("pirobox") != -1))
+						piroStyle = i;
+				}
+
+				var styleSheet=document.styleSheets[piroStyle];
+				 var ii=0;                                        // Initialize subCounter.
+				 var cssRule=false;                               // Initialize cssRule. 
+
+				 do {                                             // For each rule in stylesheet
+					if (styleSheet.cssRules) {                    // Browser uses cssRules?
+					   cssRule = styleSheet.cssRules[ii];         // Yes --Mozilla Style
+					} else {                                      // Browser usses rules?
+					   cssRule = styleSheet.rules[ii];            // Yes IE style. 
+					}                                             // End IE check.
+
+					if (cssRule)  {                               // If we found a rule...
+					   if ((typeof(cssRule.selectorText) != 'undefined') && (cssRule.selectorText.toLowerCase()==ruleName)) { //  match ruleName?
+						  if (deleteFlag=='delete') {             // Yes.  Are we deleteing?
+							 if (styleSheet.cssRules) {           // Yes, deleting...
+								styleSheet.deleteRule(ii);        // Delete rule, Moz Style
+							 } else {                             // Still deleting.
+								styleSheet.removeRule(ii);        // Delete rule IE style.
+							 }                                    // End IE check.
+							 return true;                         // return true, class deleted.
+						  } else {                                // found and not deleting.
+							 return cssRule;                      // return the style object.
+						  }                                       // End delete Check
+					   }                                          // End found rule name
+					}                                             // end found cssRule
+					ii++;                                         // Increment sub-counter
+				 } while (cssRule)  
+			}
+			return false;
+		}
+
+
+		function killCSSRule(ruleName) {                          // Delete a CSS rule   
+		   return getCSSRule(ruleName,'delete');                  // just call getCSSRule w/delete flag.
+		}                                                         // end killCSSRule
+
+		function addCSSRule(ruleName) {                           // Create a new css rule
+		   if (document.styleSheets) {                            // Can browser do styleSheets?
+			  if (!getCSSRule(ruleName)) {                        // if rule doesn't exist...
+				 if (document.styleSheets[0].addRule) {           // Browser is IE?
+					document.styleSheets[0].addRule(ruleName, null,0);      // Yes, add IE style
+				 } else {                                         // Browser is IE?
+					document.styleSheets[0].insertRule(ruleName+' { }', 0); // Yes, add Moz style.
+				 }                                                // End browser check
+			  }                                                   // End already exist check.
+		   }                                                      // End browser ability check.
+		   return getCSSRule(ruleName);                           // return rule we just created.
+		} 
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//Get/Set cookies for mobile site
+	//-----------------------------------------------------------------------------------------------
+		function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			createCookie(name,"",-1);
+		}
+		
+		
+		
+		var fullSite = readCookie('FullSite');
+		var mobileDev = readCookie('MobileDevice');
+		var mobileNoRedirect = readCookie('MobileNoRedirect');
+		
+		if(fullSite && mobileDev) {
+			if((fullSite != 'True') && (mobileNoRedirect != '1') && (mobileDev == 'True'))
+				window.location = 'http://www.colletonsd.org/mobile/default.asp';
+		}
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//photo album / lightbox init
+	//-----------------------------------------------------------------------------------------------
+		$(document).ready(function() {
+			if ($("a[class^='pirobox']").length > 0) {
+				$().piroBox({
+						my_speed: 400, //animation speed
+						bg_alpha: 0.7, //background opacity
+						slideShow : true, // true == slideshow on, false == slideshow off
+						slideSpeed : 4, //slideshow duration in seconds(3 to 6 Recommended)
+						close_all : '.piro_close,.piro_overlay'// add class .piro_overlay(with comma)if you want overlay click close piroBox
+				});
+			}
+		});
+
+		var UserAgent = navigator.userAgent;
+		//alert(UserAgent);
+		if (UserAgent.indexOf("MSIE 10") != -1)
+			TheAgent = "IE10"
+		else{
+			if (UserAgent.indexOf("MSIE") != -1)
+				TheAgent = "IE"
+			else
+				TheAgent = ""
+		}
+		
+		//Pirobox + Google Translate workaround for non-IE browsers. Dynamically changes CSS for pirobox after the translate widget has loaded.
+		if (TheAgent == ""){
+			theTimeout = setTimeout('GoogleCountdown()', 2000);	
+		}
+		
+		function GoogleCountdown() {
+			var element =  document.getElementById('google_translate_element');
+			if ((typeof(element) != 'undefined') && (element != null))
+			{
+				var PiroContent = getCSSRule('.pirobox_content');
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					//x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+					
+				
+				if(y < 700)
+					PiroContent.style.top = "16%";
+				else{
+					if(y > 900)
+						PiroContent.style.top = "23%";
+					else
+						PiroContent.style.top = "20%";
+				}
+				
+			}
+		}
+	//-----------------------------------------------------------------------------------------------
+		
+		
+		//Use onClick=SlideLink() in the slide show overlay for slide links work
+		function SlideLink() {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			//figure out which div is showing and set Link var
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			//if an anchor exists store values to "h" (for HREF) and "t" (for Target)
+			if (Link.firstChild.nodeName == "A") {
+				h = Link.firstChild.href;
+				t = Link.firstChild.target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				h = Link.getElementsByTagName('A')[0].href;
+				t = Link.getElementsByTagName('A')[0].target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+		}
+		//Make sure the cursor is a link pointer when a link exists (called by function SlideCursor())
+		function SlideCursorCheck(me) {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			if (Link.firstChild.nodeName == "A") {
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.firstChild.href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.etElementsByTagName('A')[0].href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+		}
+		//Function to change cursor on slide show overlay
+		var CursorCheck = false;
+		function SlideCursor(me) {
+			Elem = me;			
+			if (CursorCheck == false) {
+				var Start_SlideCursor = setInterval("SlideCursorCheck(Elem)", 500);
+				CursorCheck = true;
+			}
+		}
+		
+		function Login()
+		{
+			var loginPage = 'https://securesite.schoolinsites.com/loginv2/common/?p=1';
+			var loginDomain = 'http://www.colletonsd.org';
+			loginPage = loginPage + '&login_for=' + loginDomain;
+			
+			window.location.href = loginPage;
+		}
+		
+		var imgAltTagsFix = function() {
+			$('img.gsc-branding-img').attr("alt", "Google Custom Search Branding");
+			$('input.gsc-search-button').attr('alt', "Google Custom Search Button");
+		};
+		
+		window.__gcse = {
+			callback: imgAltTagsFix
+		};
+		
+		function a11yClick(event){
+			if(event.type === 'click'){
+				return true;
+			}
+			else if(event.type === 'keypress'){
+				var code = event.charCode || event.keyCode;
+				if((code === 32)|| (code === 13)){
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	</script><style type="text/css" media="screen">
+		body{
+	margin: 0;
+	padding: 25px 0 0 0;}
+div#ToggleNav{
+	position:absolute; /* only effects browsers that cannot accept Fixed positioning */
+	top: 0; /* only effects browsers that cannot accept Fixed positioning */
+	left: 0; /* only effects browsers that cannot accept Fixed positioning */
+	background: #000 url(/images/Admin/Skins/HardCandyBlack/images/ToggleLoginBg.gif) repeat-x top left;
+	border-bottom: 0px solid #333;
+	border-top: 0px solid #FFFFFF;
+	width:100%;
+	height:25px;
+	z-index: 1000;
+	overflow:hidden;}
+div#ToggleNav td{
+	font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #9EA8C3;}
+div#ToggleNav input {
+	margin: 0;
+	padding: 0;
+	font: normal 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #303040;
+	vertical-align:middle;}
+div#ToggleNav .loginWrapper {
+	float: right;
+	height: 100%;
+}
+div#ToggleNav .formWrapper {
+	padding-right: 3px;
+	padding-left: 3px;
+	display: inline-block; 
+	*display: inline;}
+div#ToggleNav .formUsername {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/UsernameBg.gif) no-repeat top left;}
+div#ToggleNav .formPassword {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/PasswordBg.gif) no-repeat top left;}
+div#ToggleNav .formSelected {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/LoginFieldBlank.gif) repeat-x top left;}
+div#ToggleNav .formButton {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat 0 0;}
+div#ToggleNav .formButtonHover {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat -46px 0;}
+div#ToggleNav a.help:link, div#ToggleNav a.help:visited {
+	display:block;
+	height: 16px;
+	color: #D9D8E6;
+	border: 0;
+	margin: 4px 5px 0 1px;}
+div#ToggleNav a.help:hover, div#ToggleNav a.help:active {
+	display: block;
+	height: 16px;
+	border: 0;}
+body > div#ToggleNav .formUsername {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formPassword {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formSelected {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formButton {margin-bottom: 3px;}/* non-IE browsers only */
+body > div#ToggleNav .formButtonHover {margin-bottom: 3px;}/* non-IE browsers only */
+@media screen {
+	body > div#ToggleNav{
+		position:fixed;}
+}
+
+* html div#AdminDefaultIncludes{
+	position: fixed;
+	top: 25px;
+	bottom:0;
+ 	width: 100%;
+	_position: absolute;
+	_top: expression( ( 25 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+	_height: expression( ( -25 + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );}
+				* html body {
+					overflow:hidden;}
+				* html div#AdminDefaultIncludes{
+					overflow: auto;	}
+			
+	</style>
+<!--[if lte IE 9]>
+	<style type="text/css" media="screen">
+		* html body {
+			overflow:auto;}
+	</style>
+	<![endif]--><script type="text/javascript" src="/JavaScripts/JavaScripts.js"></script><script type="text/javascript">
+			TopBar = '<div class="loginWrapper">' +
+						'<div class="formWrapper"><a href="/admin1/securelogin.asp" aria-label="Log In" title="Go to Secure Login Page" alt="Log In" class="formButton" border="0" onFocus="this.className=\'formButtonHover\'"  onMouseOver="this.className=\'formButtonHover\'" onblur="this.className=\'formButton\'" onMouseOut="this.className=\'formButton\'">Login button</a></div>' +
+					 '</div>';
+		</script><script type="text/javascript">
+		if(typeof(BottomBar) == 'undefined')
+			var BottomBar = ' ';
+		$(document).ready(function() {
+			$("body").prepend('<div id="ToggleNav">' + TopBar + '</div>' + BottomBar);	
+		});
+	
+	</script><!--[if lte IE 9]>
+	<div id="AdminDefaultIncludes">
+	<![endif]--><link href="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/Styles2018-2.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+		//Show hide search drop down
+		function ShowSearch() {
+			var SearchDropDown = document.getElementById("SearchDropDown");
+			if (SearchDropDown.style.display != "block") {
+				SearchDropDown.style.display = "block";
+			}else {
+				SearchDropDown.style.display = "none";
+			}
+		}
+	</script><script type="text/javascript"><!--//--><![CDATA[//><!--
+	startList = function() {
+		if (document.all&&document.getElementById) {
+			navRoot = document.getElementById("nav");
+			for (i=0; i<navRoot.childNodes.length; i++) {
+				node = navRoot.childNodes[i];
+				if (node.nodeName=="LI") {
+					node.onmouseover=function() {
+						this.className+=" over";
+					}
+					node.onmouseout=function() {
+						this.className=this.className.replace(" over", "");
+					}
+				}
+			}
+		}
+	}
+	window.onload=startList;
+	//--><!]]></script><!-- Skip Nav--><script type="text/javascript" src="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/js/skipnav.js"></script><link rel="Shortcut Icon" type="image/ico" href="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/images/favicon.ico">
+<link rel="icon" href="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+	<div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+<center>
+<div align="center">
+<table role="presentation" width="1150" border="0" cellpadding="0" cellspacing="0"><tr>
+<td id="maintablebdrleft"> </td>
+  
+	<td>
+	<div align="center" style="background: url(http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/images/BodyRepeat.jpg) repeat-y top center; width: 990px;">
+	<table role="presentation" width="990" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" id="SiteWrapper">
+<tr>
+<td style="padding: 0; height: 97px;" valign="top">
+                <!-- Begin Search-->
+                <div style="float:right; ">
+                <div id="searchstyle">
+                <form action="Default.asp?PN=AdvancedSearch&amp;Act=SearchNow" method="post" name="frmSearch" target="_top" style="margin:0; padding:0;">
+                <div id="SearchDefaultWrapper">
+                <div id="SearchDefault">
+                <input name="SearchModule" type="hidden" value="0"><input name="Keyword" type="text" id="SearchDefaultInput" style="vertical-align:middle;" title="Keyword" onblur="if(this.value.length == 0) this.value='Search';" onclick="if(this.value == 'Search') this.value='';" value="Search"><input type="image" src="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/images/spacer.gif" alt="Search" width="60" height="25" style="vertical-align:middle;" name="Search" onclick="if(Keyword.length&lt;3){alert('Your Keyword has to be atleast 3 characters long.\n\nPlease enter a valid Keyword.');};" value="Go">
+</div>
+                </div>
+                </form>
+                </div>
+                </div>
+                <!-- End Search-->
+		</td>
+		</tr>
+<tr>
+<td style="padding: 0; height: 38px; " valign="top">
+			<div><div id="topnavcontainer">
+<div role="navigation" aria-label="Main menu">
+<ul class="nav">
+<li><a href="/">Home</a></li>
+	<li><a href="/?PN=AboutUs">About Us</a></li>
+	<li><a href="?PN=Calendar">Calendar</a></li>	
+	<li><a href="/?PN=Contact">Contact</a></li>
+	<li>
+<a href="/?PN=Directory">Directory</a>
+	</li>
+<li>
+<a href="/?PN=News2">News</a>
+         
+	</li>
+<li class="TopNav">
+<a href="/?PN=Schools2">Schools</a>
+		<ul>
+<li><a href="http://bes.colletonsd.org" target="_blank">Bells Elementary School</a></li>
+				
+				<li><a href="http://bsecc.colletonsd.org" target="_blank">Black Street Early Childhood Center</a></li>
+				
+				<li><a href="http://ae.colletonsd.org" target="_blank">Colleton County Adult Education</a></li>
+				
+				<li><a href="http://colletoncountyalt.sc.cca.schoolinsites.com" target="_blank">Colleton County Alternative School</a></li>
+				
+				<li><a href="http://ces.colletonsd.org" target="_blank">Cottageville Elementary School</a></li>
+				
+				<li><a href="http://fhe.colletonsd.org" target="_blank">Forest Hills Elementary School</a></li>
+				
+				<li><a href="http://hes.colletonsd.org" target="_blank">Hendersonville Elementary School</a></li>
+				
+				<li><a href="http://nes.colletonsd.org" target="_blank">Northside Elementary School</a></li>
+				
+				<li><a href="http://ccms.colletonsd.org" target="_blank">Colleton County Middle School</a></li>
+				
+				<li><a href="http://cchs.colletonsd.org" target="_blank">Colleton County High School</a></li>
+				
+				<li><a href="http://tctc.colletonsd.org" target="_blank">Thunderbolt Career &amp; Technology Center</a></li>
+				
+		</ul>
+</li>	
+               
+    <!--Division Main Link Include -->
+	
+			<li class="TopNav">
+				<a href="?DivisionID=13830" target="" style="cursor: default;">Parents</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=13830&amp;LMID=596387">
+											Documents for Parents 								
+										</a>
+									</li>
+								
+										<li>
+											<a href="?PN=Pages&amp;SubP=Level1Page&amp;L=0&amp;DivisionID=13830&amp;PageID=21581">
+												Attendance Information and Zoning
+											</a>
+										</li>
+										
+										<li>
+											<a href="?PN=Pages&amp;SubP=Level1Page&amp;L=0&amp;DivisionID=13830&amp;PageID=20376">
+												Testing Information
+											</a>
+										</li>
+										
+									<li>
+										<a href="Default.asp?PN=Links&amp;L=1&amp;DivisionID=13830&amp;LMID=596392">
+											Links for Parent 								
+										</a>
+									</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=13840" target="" style="cursor: default;">Staff Info</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=Forms&amp;L=1&amp;DivisionID=13840&amp;LMID=596692">
+											District Forms 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=13840&amp;LMID=596689">
+											Documents for Staff 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=Links&amp;L=1&amp;DivisionID=13840&amp;LMID=596694">
+											Links for Staff 								
+										</a>
+									</li>
+								
+										<li>
+											<a href="?PN=Pages&amp;SubP=Level1Page&amp;L=0&amp;DivisionID=13840&amp;PageID=20399">
+												CCSD TV - VBrick
+											</a>
+										</li>
+										
+										<li>
+											<a href="?PN=Pages&amp;SubP=Level1Page&amp;L=0&amp;DivisionID=13840&amp;PageID=20377">
+												Testing Information
+											</a>
+										</li>
+										
+										<li>
+											<a href="?PN=Pages&amp;SubP=Level1Page&amp;L=0&amp;DivisionID=13840&amp;PageID=20398">
+												Training Videos
+											</a>
+										</li>
+										
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=14096" target="" style="cursor: default;">Students</a>
+				<ul>
+<li>
+										<a href="Default.asp?PN=Links&amp;L=1&amp;DivisionID=14096&amp;LMID=606135">
+											Links for Students 								
+										</a>
+									</li>
+								
+									<li>
+										<a href="Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=14096&amp;LMID=606130">
+											Documents for Students 								
+										</a>
+									</li>
+								
+				</ul>
+</li>
+</ul>
+</div>
+</div></div>
+		</td>
+		</tr>
+<tr>
+<td>
+			<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+<tr>
+<td width="100%" height="238" colspan="3" valign="top" style="padding: 0;">
+			<div id="SlideShow">
+				
+			<div>
+			<script src="/JavaScripts/fotorama-4.6.4/fotorama.js"></script><style>
+.fotorama__html div,
+.fotorama__html a {
+  display: block;
+  height: 100%;
+  /* Transparent links are not clickable in IE,
+     but non-existent background fixes this.
+    (Put an empty 1×1 image here to avoid
+     errors in console.)
+  background: url(_.gif); */
+}
+
+</style>
+<div class="fotorama" data-width="100%" data-fit="cover" data-maxheight="174" data-transition="crossfade" data-autoplay="5000" data-loop="true" data-transitionduration="500" data-stopautoplayontouch="false" data-arrows="true" data-click="false" data-swipe="true" data-nav="false">
+	 
+	 
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/55af48b856e642c2227df747e10c0c91.jpg" data-caption="" alt="Slideshow Image 0">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/e246979df4d982af95026ed103748b01.jpg" data-caption="" alt="Slideshow Image 1">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/cabdac8880efc52a9918d633c96f448d.jpg" data-caption="" alt="Slideshow Image 2">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/f1b9be6f1e09060c94a15b4f298a2171.jpg" data-caption="" alt="Slideshow Image 3">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/c0409b2c29288d61e6b6c333c7ff69e2.jpg" data-caption="" alt="Slideshow Image 4">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/6f1e468c17b3bfd43abc4b3a7a93aeaa.jpg" data-caption="" alt="Slideshow Image 5">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/fd3d59340fd54303108346a6570ddf02.jpg" data-caption="" alt="Slideshow Image 6">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/d22320863cbf8abbc36b347ab81c94d6.jpg" data-caption="" alt="Slideshow Image 7">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/fd23696d906ebf0264a6ea5224584fdd.jpg" data-caption="" alt="Slideshow Image 8">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/7dff58f723cc2338611ce976ce825bb7.jpg" data-caption="" alt="Slideshow Image 9">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/dd1103a56816e0b159de158a01ac2050.jpg" data-caption="" alt="Slideshow Image 10">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/9bc1d7cf682953f69e7f1d8417171b5b.jpg" data-caption="" alt="Slideshow Image 11">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/78b005479720ceed087d90425c099c3b.jpg" data-caption="" alt="Slideshow Image 12">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/13d1c09e8b5f9eaab0a470ea626eac14.jpg" data-caption="" alt="Slideshow Image 13">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/0cc4b0bc9a750105d26c55f3900d7e26.jpg" data-caption="" alt="Slideshow Image 14">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/2e637bcdc75e9b8b9e6008aa78eb77ae.jpg" data-caption="" alt="Slideshow Image 15">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/9151244f908c4d2948fa2bf2804726e8.jpg" data-caption="" alt="Slideshow Image 16">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/cdfb1fd052377d62813d542131fd306c.jpg" data-caption="" alt="Slideshow Image 17">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/f8434e43e0071030826a47245a89a9e8.jpg" data-caption="" alt="Slideshow Image 18">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/937476d8ae8e554ef2a68acfb8555803.jpg" data-caption="" alt="Slideshow Image 19">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/1de053ead3fcc694f9c42a48326bb65b.jpg" data-caption="" alt="Slideshow Image 20">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/29588ad554887dcf71d33fffe2a3a132.jpg" data-caption="" alt="Slideshow Image 21">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/a0a34610adb14cdf2dc6bda6a3ff71f1.jpg" data-caption="" alt="Slideshow Image 22">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/d2d68ec52e953f39a57bb5fb27dd759a.jpg" data-caption="" alt="Slideshow Image 23">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/468c0ff6d635a3877297e1c69eed3e9b.jpg" data-caption="" alt="Slideshow Image 24">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/f5bd28aa63621e9142451510f63d6fb6.jpg" data-caption="" alt="Slideshow Image 25">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/8d78fc15218c67fb0badaef84a5fab0c.jpg" data-caption="" alt="Slideshow Image 26">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/84d8b4d566b2e90300e0d78add8c95a2.jpg" data-caption="" alt="Slideshow Image 27">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/fe848b426f4e04b091275eb6bb1505b6.jpg" data-caption="" alt="Slideshow Image 28">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/d41acf4d1401d728c133993a9a24cc41.jpg" data-caption="" alt="Slideshow Image 29">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/6e15bd4b654cfa904956e96b052203e1.jpg" data-caption="" alt="Slideshow Image 30">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/f3004a67586c72e5085cff7de9769bbc.jpg" data-caption="" alt="Slideshow Image 31">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_964/61cf5345a8f7190c6c9aa9e898d3a2e7.jpg" data-caption="" alt="Slideshow Image 32">
+		
+		</div>
+			
+</div>
+
+
+
+			</div>
+		
+			</div>
+		</td>
+	</tr>
+<tr>
+<td width="100%" height="75" colspan="3" valign="top">
+			<img src="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/Images/spacer.gif" width="764" height="1" alt="">
+</td>
+	</tr>
+<tr>
+<td valign="top" width="200" style="margin-top: 20px" class="sidenavback">
+			<div class="AccentColor3 SideNavigation">
+				<div id="SideNavigation">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+
+	<div id="NavDivisions">
+	
+		<a href="/?DivisionID=14124" class="IncNavDivision">
+			School Board
+		</a>
+			
+		<a href="/?DivisionID=15083" class="IncNavDivision">
+			Attendance Information and Zoning
+		</a>
+			
+		<a href="/?DivisionID=14126" class="IncNavDivision">
+			Bullying Awareness
+		</a>
+			
+		<a href="/?DivisionID=14218" class="IncNavDivision">
+			Calendars
+		</a>
+			
+		<a href="/?DivisionID=14125" class="IncNavDivision">
+			Departments
+		</a>
+			
+		<a href="/?DivisionID=21455" class="IncNavDivision">
+			Employment Opportunities
+		</a>
+			
+		<a href="/?DivisionID=15694" class="IncNavDivision">
+			Public Information
+		</a>
+			
+		<a href="/?DivisionID=13883" class="IncNavDivision">
+			Sports Events
+		</a>
+			
+		<a href="/?DivisionID=21192" class="IncNavDivision">
+			Strategic Plan
+		</a>
+			
+		<a href="/?DivisionID=14241" class="IncNavDivision">
+			Teacher Recognition
+		</a>
+			
+		<a href="/?DivisionID=24255" class="IncNavDivision">
+			Tipline
+		</a>
+			
+		<a href="/?DivisionID=14266" class="IncNavDivision">
+			Weather Information
+		</a>
+			
+	</div> <!-- End: id="NavDivisions" -->
+	
+	<span id="UserLinksMenu">
+		
+	</span>
+	 
+		<div id="UniversalQuickLinks"> 
+			 
+					<div class="UniversalQuickLinksTitle"><span>CCSD Quick Links</span></div>
+				 
+					<a href="http://www.colletonsd.org/?L=1&amp;PN=MainPage&amp;DivisionID=%2714126%27&amp;DepartmentID=%27%27&amp;SubDepartmentID=%27%27&amp;TabNo=2" target="_blank" class="UniversalQuickLinks">
+						Tipline 
+					</a> 
+					 
+					<a href="http://destiny.colleton.k12.sc.us/" target="_blank" class="UniversalQuickLinks">
+						Destiny 
+					</a> 
+					 
+					<a href="http://www.colletonsd.org/?PN=Pages&amp;SubP=Level1Page&amp;L=2&amp;DivisionID=14125&amp;DepartmentID=14650&amp;PageID=38271" target="_blank" class="UniversalQuickLinks">
+						IT Direct 
+					</a> 
+					 
+					<a href="https://kelly.aesoponline.com/login.asp" target="_blank" class="UniversalQuickLinks">
+						Kelly Services 
+					</a> 
+					 
+					<a href="https://colletonsd.kronos.net/wfc/navigator/logon" target="_blank" class="UniversalQuickLinks">
+						Kronos 
+					</a> 
+					 
+					<a href="http://www.colletonsd.org/?PN=Pages&amp;SubP=Level1Page&amp;L=2&amp;DivisionID=14125&amp;DepartmentID=14650&amp;PageID=38271" target="_blank" class="UniversalQuickLinks">
+						Maintenance Direct 
+					</a> 
+					 
+					<a href="http://www.myschoolbucks.com/" target="_blank" class="UniversalQuickLinks">
+						My School Bucks 
+					</a> 
+					 
+					<a href="https://powerschool.colleton.k12.sc.us/public/" target="_blank" class="UniversalQuickLinks">
+						PowerSchool for Parents 
+					</a> 
+					 
+					<a href="https://powerschool.colleton.k12.sc.us/admin/pw.html" target="_blank" class="UniversalQuickLinks">
+						PowerSchool 
+					</a> 
+					 
+					<a href="https://powerschool.colleton.k12.sc.us/public/" target="_blank" class="UniversalQuickLinks">
+						Powerschool for Students 
+					</a> 
+					 
+					<a href="https://powerschool.colleton.k12.sc.us/teachers/pw.html" target="_blank" class="UniversalQuickLinks">
+						PowerTeacher 
+					</a> 
+					 
+					<a href="https://global-zone08.renaissance-go.com/welcomeportal/46032" target="_blank" class="UniversalQuickLinks">
+						Renaissance Learning 
+					</a> 
+					 
+					<a href="https://colleton-sc.safeschools.com/%20%20" target="_blank" class="UniversalQuickLinks">
+						SafeSchools 
+					</a> 
+					 
+					<a href="http://gmail.com" target="_blank" class="UniversalQuickLinks">
+						Staff Email 
+					</a> 
+					 
+					<a href="https://colletonsc.scriborder.com/" target="_blank" class="UniversalQuickLinks">
+						Student Transcript Request 
+					</a> 
+					 
+					<a href="http://www.colletonsd.org/?PN=Pages&amp;SubP=Level1Page&amp;L=2&amp;DivisionID=14125&amp;DepartmentID=14650&amp;PageID=38271" target="_blank" class="UniversalQuickLinks">
+						Trip Direct 
+					</a> 
+					 
+		</div> 
+	
+	    <br><div id="RSSFeedsLink">
+	        <a href="/RSS/Default.asp" target="_blank"><img src="/images/rss.gif" border="0" width="44" height="16" alt="Get feeds from this site" align="absmiddle"></a>
+	    </div>
+		</td></tr></table>
+</div>
+                <br><img src="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/images/AdvancED.png" alt="AdvanceEd">
+</div>
+		</td>
+
+		<td align="left" valign="top" width="425" style=" border-right:#999 solid 1px;"> 
+			<div style="padding: 0 10px 0 10px;">
+            <img src="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/Images/newshead.jpg" alt="News Head"><div id="maincontent"></div>
+                <span class="header" style="display:block; padding: 10px; margin:0; font-weight:bold; "></span>
+				<div style="padding: 0 10px 10px 10px;"><table style="border: 0px solid #40b7be; width: 415px; height: 3177px; background-color: #ffffff;" border="0"><tbody>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p><strong><span style="font-size: 18px;">Coronavirus Update and Information Center</span></strong></p>
+<p><strong><span style="font-size: 18px;">UPDATE APRIL 23:</span></strong></p>
+<p><span style="font-size: 18px;">On Wednesday, April 22, Governor Henry McMaster announced his plan to close all public schools in South Carolina for the remainder of the school year due to the COVID-19 virus. All Colleton County schools will be closed to students until the start of the next school year, currently scheduled for August 17.</span></p>
+<p><span style="font-size: 18px;">CCSD will continue to provide meal deliveries services, and we will update our communities on any changes to our meal schedules through multiple information channels. Governor McMaster has encouraged school districts to host some form of graduation ceremony, and we are currently considering multiple options for a graduation event.</span></p>
+<p><span style="font-size: 18px;">More information will be released through our district and school websites, phone dialers, statements and local media as soon as possible.</span></p>
+<p><span style="font-size: 18px;">***</span></p>
+<p><span style="font-size: 18px;">Starting on April 21, Colleton County School District will partner with Colleton County government to continue meal deliveries for our students.</span></p>
+<p><span style="font-size: 18px;">Colleton County government workers will travel along our 13 regular routes in the Bells and Hendersonville areas Tuesday, April 21, delivering 1580 breakfasts and 1580 lunches daily. The routes covered by the Colleton County government are as follows:</span></p>
+<p> <span style="font-size: 18px;"><strong>Bells Area Routes</strong></span></p>
+<p><span style="font-size: 18px;">Route 34 – Driver Lynn in a Large White Cargo van</span></p>
+<p><span style="font-size: 18px;">Route 35 – Driver Jackie in a Large Grey Infinity</span></p>
+<p><span style="font-size: 18px;">Route 36—Driver Betty in a large White Cargo Van</span></p>
+<p><span style="font-size: 18px;">Route 37—Driver Brandon W. in a Grey Ford Expedition</span></p>
+<p><span style="font-size: 18px;">Route 38—Driver Ricky in a Large White Cargo Van</span></p>
+<p><span style="font-size: 18px;">Route 39—Driver Owen in a Red Suburban</span></p>
+<p><span style="font-size: 18px;">Route 40—Driver Hazel in a Black Caravan</span> </p>
+<p><span style="font-size: 18px;"> </span><span style="font-size: 18px;"><strong>Hendersonville Area Routes</strong></span></p>
+<p><span style="font-size: 18px;">Route 47—Driver Gale in a Black Caravan</span></p>
+<p><span style="font-size: 18px;">Route 48—Driver Lisa in a Black Caravan</span></p>
+<p><span style="font-size: 18px;">Route 49—Driver Danyelle in a Grey Ford SUV</span></p>
+<p><span style="font-size: 18px;">Route 50—Driver Brandon P. in a White County Truck</span></p>
+<p><span style="font-size: 18px;">Route 51—Driver Terreak in a Black Tahoe</span></p>
+<p><span style="font-size: 18px;">Route 52—Driver Parker in a White County Truck</span></p>
+<p><span style="font-size: 18px;"><strong>Anyone with questions or concerns about these Colleton County government operated routes can call (843) 908-1897 or (843) 908-0063. <a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/CC%20GOV%20MEAL%20ROUTES%20APRIL%2020_%7BSIS137842F255DC%7D.pdf">For meal delivery schedule information, please visit our website, colletonsd.org</a>.</strong></span></p>
+<p><span style="font-size: 18px;">Colleton County School District will continue to operate the 15 remaining bus delivery routes, delivering 3000 Breakfasts and 3000 lunches daily. <strong><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/COVID-19%20BUS%20ROUTES_UPDATED_04_20_2020_%7BSIS08CD6C37D9CA%7D.pdf">Meal delivery schedules can be found on our website, colletonsd.org</a></strong>.</span></p>
+<p><span style="font-size: 18px;">Meals will also be available for pick-up at the following schools from 9 a.m. to 11 a.m., Monday through Friday:</span></p>
+<p><span style="font-size: 18px;"><strong>Bells Elementary School (12088 Bells Highway, Ruffin SC)</strong></span></p>
+<p><span style="font-size: 18px;"><strong>Black Street Early Childhood Center (256 Smith Street, Walterboro SC)</strong></span></p>
+<p><span style="font-size: 18px;"><strong>Colleton County Middle School (1379 Tuskegee Airman Drive, Walterboro SC)</strong></span></p>
+<p><span style="font-size: 18px;"><strong>Cottageville Elementary School (648 Peirce Road, Cottageville SC)</strong></span></p>
+<p><span style="font-size: 18px;"><strong>Hendersonville Elementary School (6089 Hendersonville Highway, Walterboro SC)</strong></span></p>
+<p><span style="font-size: 18px;">***</span></p>
+<p><span style="font-size: 18px;">Due to ongoing connectivity problems, the following three Wi-Fi buses have been temporarily decommissioned:</span></p>
+<p><span style="font-size: 18px;"><strong>Springtown United Methodist Church (8807 Augusta Hwy, Smoaks, SC)</strong></span></p>
+<p><span style="font-size: 18px;"><strong>Jacksonboro Community Center (1718 Hope Plantation Road, Jacksonboro, SC)</strong></span></p>
+<p><span style="font-size: 18px;"><strong>Jonesville Community Center (813 Jonesville Ave,Yemassee, SC)</strong></span></p>
+<p><span style="font-size: 18px;">The South Carolina Department of Education is working to correct these issues, and we hope to have these locations operating again as soon as possible.</span></p>
+<p><span style="font-size: 18px;"><strong>The buses located at Buckhead United Methodist Church (346 Smyly Rd, Ruffin, SC) and Neyles Community Center (946 Featherbed Road, Round O, SC) are operating as normal and will remain open</strong>. </span><span style="font-size: 18px;">These W-Fi capable buses will be available for use Monday through Friday, from 9 a.m. to 12 p.m.</span></p>
+<p><span style="font-size: 18px;">Users must park their vehicles within 250 feet of the bus to use the Wi-Fi hotspot, and the internet connection provided is content-filtered to prevent access to unapproved websites. The password to access the Wi-Fi connection will be clearly placed on multiple sides of the bus for maximum visibility. <strong>These</strong> <strong>facilities and their restrooms will not be available for visitor use, and all those using the bus Wi-Fi must remain in their cars to comply with Centers for Disease Control social distancing guidelines</strong>.</span></p>
+<p><span style="font-size: 18px;">***</span></p>
+<p><span style="font-size: 18px;">The deadlines for Pre-K/Kindergarten registration and hardship student transfer requests have been extended to May 7, 2020 due to our extended school closure in response to the spread of COVID-19.</span></p>
+<p><span style="font-size: 18px;">Parents wishing to register for Pre-K/Kindergarten or apply for a hardship student transfer can complete the forms linked below and email them to <a href="mailto:lhyman@colleton.k12.sc.us">lhyman@colleton.k12.sc.us</a>.</span></p>
+<p><strong><span style="font-size: 18px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Hardship%20Transfer%20Application%202020-21%20-%20fillable%20form_%7BSIS5AC6EC7FDFEA%7D.pdf">Hardship Transfer Application 2020-21</a></span></strong></p>
+<p><strong><span style="font-size: 18px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/20-21%20Early%20Childhood%20CERDEP%20Registration%20Packet%20FILLABLE_%7BSISE632BC852BCE%7D.pdf">20-21 Early Childhood CERDEP Registration Packet</a> </span></strong></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Distrito%20Escolar%20del%20Condado%20de%20Colleton%20-%20fillable_%7BSIS06EDB0FCE104%7D.pdf"><strong><span style="font-size: 18px;">Distrito Escolar del Condado de Colleton</span></strong></a></p>
+<p><strong><span style="font-size: 18px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/20-21%20Spanish%20Early%20Childhood%20CERDEP%20Registration%20Packet_%7BSIS62795F87B4DD%7D.pdf">20-21 Spanish Early Childhood CERDEP Registration Packet</a></span></strong></p>
+<p><span style="font-size: 18px;">***</span></p>
+<p><span style="font-size: 18px;">CCSD has set deadlines for the delivery of completed distance learning packets to our schools, based on guidance from the South Carolina Department of Education. Those dates are:</span></p>
+<p><span style="font-size: 18px;">Packet 1 (distributed on March 16) – <strong>Deadline April 9, 2020</strong></span></p>
+<p><span style="font-size: 18px;">Packet 2 (distributed on April 1 and April 2) – <strong>Deadline May 8, 2020</strong></span></p>
+<p><span style="font-size: 18px;">Final Date to Turn in All Packets – <strong>Deadline May 15, 2020</strong></span></p>
+<p><span style="font-size: 18px;">All schools will have bins/tubs available in a covered location for parents to drop off distance learning packets, in compliance with Centers for Disease Control guidelines.</span></p>
+<p><span style="font-size: 18px;">***</span></p>
+<p><span style="font-size: 18px;">Due to the closure of school by Governor Henry McMaster, changes in the grading periods have been made. The South Carolina Department of Education announced that the Third and Fourth Quarters will be combined as one semester, with a start date of January 6, 2020 and an interim date of March 13, 2020. </span></p>
+<p><span style="font-size: 18px;">Starting April 1 parents will be able to log into the <a href="https://powerschool.colleton.k12.sc.us/public/">Parent Portal through PowerSchool</a> to access their child's grades. Parents who do not have the Parent Portal set up can email Claudia Boensch at <a href="mailto:cboensch@colleton.k12.sc.us">cboensch@colleton.k12.sc.us</a> for support.</span></p>
+<p><span style="font-size: 18px;"> ***</span></p>
+<p><span style="font-size: 18px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Q&amp;A%20for%20Parents_%7BSISFF6155D5D1D5%7D.pdf"><span style="font-size: 18px;">Essential Information for Students and Parents</span></a></span></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Colleton%20County%20Learning%20Platforms%20Parent%20Information%20-%20March%2016_%7BSISD0668BA9F28F%7D.pdf"><span style="font-size: 18px;">Learning Platforms Parent Information</span></a></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Colleton%20County%20Community%20Resources%20March%2016%2C%202020_%7BSIS2C11893BE610%7D.pdf"><span style="font-size: 18px;">Colleton County Community Resources</span></a></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/SPS%20Parent%20Communication%203.30.3020_%7BSIS7B0F18009B41%7D.pdf"><span style="font-size: 18px;">Supporting Students with Disabilities: Access and Compliance During COVID-19</span></a></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Talking%20to%20Children%20About%20COVID-19%20%28Coronavirus%29_%20A%20Parent%20Resource_%7BSIS99B6108EC7A7%7D.pdf"><span style="font-size: 18px;">Talking to Children About COVID-</span></a><br><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Talking%20to%20Children%20About%20COVID-19%20%28Coronavirus%29_%20A%20Parent%20Resource_%7BSIS99B6108EC7A7%7D.pdf"><span style="font-size: 18px;">19 (Coronavirus): A Parent</span></a><br><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Talking%20to%20Children%20About%20COVID-19%20%28Coronavirus%29_%20A%20Parent%20Resource_%7BSIS99B6108EC7A7%7D.pdf"><span style="font-size: 18px;">Resource</span></a></p>
+<p><strong><span style="font-size: 18px;"> </span></strong></p>
+<p dir="ltr"> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p dir="ltr"><strong><span style="font-size: 18px;">We're Under Construction!</span></strong></p>
+<p><span style="font-size: 18px;">The Colleton County School District is in the process of developing new district and school webpages. Keep checking this space as we transition to our new websites!</span></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p dir="ltr"><span style="font-size: 24px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/High%20School%20Graduation%202020%20Release%20-%20March%206_%7BSIS239D6D7AFB1E%7D.pdf">Colleton County High School Announces Plans for the 2020 Graduation Ceremony</a></span></p>
+<p dir="ltr"> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p dir="ltr"><span style="font-size: 24px;"><a href="http://www.colletonsd.org/Default.asp?PN=DocumentUploads&amp;L=1&amp;DivisionID=13830&amp;LMID=596387">Student Transfer Documents and Information</a></span></p>
+<p dir="ltr"> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p dir="ltr"><strong><span style="font-size: 18px;">Please Join Us for the Dedication of the Floyd Buckner Family Engagement Room!</span></strong></p>
+<p dir="ltr"> </p>
+<p><span style="font-size: 18px;">Sunday, March 22, 2020</span><br><span style="font-size: 18px;">3:00 - 5:00 PM</span><br><span style="font-size: 18px;">500 Forest Circle,</span><br><span style="font-size: 18px;">Walterboro, SC</span><br><span style="font-size: 18px;">Light Refreshments Will Be Served</span></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p><strong><span style="font-size: 18px;">KINDERGARTEN &amp; PRE-KINDERGARTEN REGISTRATION</span></strong></p>
+<p><span style="font-size: 18px;">Registration for Colleton County parents who seek to have their child attend public school kindergarten or pre-kindergarten next school year (2020-21) will begin on <strong>February 3, 2020 through April 10, 2020</strong>.</span></p>
+<p><span style="font-size: 18px;">Interested parents with children who will be 5 years-old by September 1, 2020 should complete kindergarten enrollment packets at the school serving their neighborhood’s attendance zone. <a href="http://www.colletonsd.org/?DivisionID=15083">Attendance zone information can be found on the Colleton County School District’s website.</a></span></p>
+<p><span style="font-size: 18px;">Parents with children who will be 4 years-old by September 1, 2020 should register for pre-kindergarten at their zoned schools during the school day. Because space is limited for pre-kindergarten, 4 year-olds will be assessed for possible enrollment. You will need to register in advance and each school will contact you for screening. Screening appointments will be given at each school upon registration.</span></p>
+<p><span style="font-size: 18px;">Decisions on placement for pre-kindergarten will be made at each school after screenings are complete. Children are ranked in order of greatest need for participation based on the Child Early Reading and Development Education Program (CERDEP) guidelines. <strong>Placement is not based on a first come first served basis</strong>. All participants are expected to attend regularly and for the full instructional day.</span></p>
+<p><span style="font-size: 18px;">For all student enrollments, parents should bring their child’s long form birth certificate, state certificate of immunizations (shot record) and two proofs of residency such as a utility bill showing a home address.</span></p>
+<p><span style="font-size: 18px;">For more information about registering a child in Colleton County, call your zoned school or the Office of Curriculum and Instruction at 843-782-4526 or <a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/2020-2021%20PreK%20and%20K5%20Registration%20Flyer%20%281%29_%7BSIS58751E1DDB2C%7D.pdf">view this flyer</a>.</span> </p>
+<p><span style="font-size: 18px;"> </span></p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p><span style="font-size: 24px; font-family: arial, helvetica, sans-serif;"><strong>Want to work for Colleton County School District?</strong></span></p>
+<p><span style="font-size: 18px;"><a href="http://www.applitrack.com/colletonsd/onlineapp">View our current openings through our Job Portal</a>!</span></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p><span style="font-size: 24px;"> <a href="https://today.citadel.edu/the-citadel-and-colleton-county-schools-collaborate-masters-of-education-in-literacy-education/">The Citadel Helps Colleton County Teachers Earn Master of Education Degrees</a></span></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p><span style="font-size: 16px;">On Tuesday, October 1, 2019, the South Carolina Department of Education released school report cards for elementary, middle, and high schools throughout the state. The Every Student Succeeds Act of 2015 overhauled the state’s school accountability system by using seven metrics to measure school performance: standardized test scores, improvement of student performance on standardized test scores from prior years, the progress of English Learners measured by a standardized test, and student responses on a survey. Previous accountability systems only measured student achievement to calculate the overall school rating.  </span></p>
+<p><span style="font-size: 16px;">Please visit the links below for additional information regarding School Report Cards for both South Carolina and Colleton County School District.</span></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Schools%20Show%20Gains%20on%202019%20School%20Report%20Cards%20%20-%20October%201_%7BSIS51E02284C455%7D.pdf"><span style="font-size: 16px;">Colleton County School District Press Release</span></a></p>
+<p><a href="https://ed.sc.gov/newsroom/news-releases/2019-school-report-cards-released/"><span style="font-size: 16px;">South Carolina Department of Education Press Release</span></a></p>
+<p><a href="https://ed.sc.gov/newsroom/news-releases/2019-school-report-cards-released/"><span style="font-size: 16px;">A Parent Guide to State and Local Report Cards</span></a></p>
+<p><span style="font-size: 16px;"><a href="https://screportcards.ed.sc.gov/">SC School Report Card</a></span></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p><span style="font-size: 24px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Calendar1920%20Revised_%7BSISD6E39EFC21A1%7D.pdf">CCSD Board Approves Make-Up Days Due to Hurricane Dorian</a></span></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p><span style="font-size: 24px;">School Starts August 19! Here's What You Need to Know:</span></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/2019-2020%20Game%20Day%20Procedure%20%281%29_%7BSIS6A50DC6095BC%7D.pdf"><span style="font-size: 18px;">Game Day Guidelines</span></a></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/19-20%20Dress%20Code%20Flyer%20Revised%20Version%202_%7BSIS9AD16A039B49%7D.pdf"><span style="font-size: 18px;">Student Dress Guidelines</span></a></p>
+<p><span style="font-size: 24px;"><span style="font-size: 18px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Elementary%20School%20Supply%20List%202019-2020%20Updated_%7BSIS89CD87A3D498%7D.pdf">Elementary School Supply List </a><br></span></span></p>
+<p><span style="font-size: 24px;"><span style="font-size: 18px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/BES%20Supply%20List%202019-2020_%7BSISF6A7FBEB0EE8%7D.pdf">Bells Elementary School Supply List</a><span><br></span></span></span></p>
+<p><span style="font-size: 24px;"><span style="font-size: 18px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/After%20Care%20Registration%20Form%202019-2020%20-%20Fillable_%7BSIS4ACCBE824AE2%7D.pdf">After Care Student Registration Form</a></span></span></p>
+<p><span style="font-size: 18px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/2019-2020%20Instructional%20Day%20Schedule_%7BSISE8AAC96D7456%7D.pdf">Instructional Day Schedule</a></span></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p><span style="font-size: 18px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/18_0081A_KES_Pizza_Box_Fliers_letter-8.5x11-1565365118-5d4d937f32231177136760_%7BSIS7AC553C9CF41%7D.pdf">Kelly Services is hiring substitute teachers, teacher assistants, food workers and custodians</a>!<a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/18_0081A_KES_Pizza_Box_Fliers_letter-8.5x11-1565365118-5d4d937f32231177136760_%7BSIS7AC553C9CF41%7D.pdf"></a></span></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p><span style="font-size: 24px;"> FY 2019-2020 Budget Update</span></p>
+<p> </p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Budget%20Update%20August%2028_%7BSIS4620B149C257%7D.pdf"><span style="font-size: 16px;">Budget Update - August 28</span></a></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/FY20%20Final%20Budget_%7BSISBB3BAA5D875A%7D.pdf"><span style="font-size: 16px;">Final Budget</span></a></p>
+<p><span style="font-size: 16px;"><span>***</span></span><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/FY20%20Final%20Budget_%7BSISBB3BAA5D875A%7D.pdf"></a></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Budget%20Update%20August%2012_%7BSISC07650064532%7D.pdf"><span style="font-size: 16px;"><span>Budget Update - August 13</span></span></a></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/8.8.19%20Board%20Meeting%20Budget%20Presentation_%7BSIS164CBE3F0467%7D.pdf"><span style="font-size: 16px;"><span>August 8 Board Meeting Presentation</span></span></a></p>
+<p><span style="font-size: 16px;"><span><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/PUBLIC%20NOTICE_%7BSIS66F22A3D3A4B%7D.pdf">Public Notice</a></span></span></p>
+<p><span style="font-size: 16px;">***</span></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Budget%20Update%20June%2014_%7BSISDE8AD4A8AC94%7D.pdf"><span style="font-size: 16px;">Message from the Office of the Superintendent - June 14</span></a></p>
+<p><span style="font-size: 16px;">***</span></p>
+<p><span style="font-size: 16px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/budget%20message%20May%2031%20revised_%7BSIS213E83DE6E7F%7D.pdf">Message from the Office of the Superintendent - May 31</a></span></p>
+<p><span style="font-size: 16px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/5.30.19%20Board%20Meeting%20Budget%20Presentation%20%281%29_%7BSISBA361FEED334%7D.pdf">May 30 Board Meeting Presentation</a></span></p>
+<p><span style="font-size: 16px;">***</span></p>
+<p><span style="font-size: 24px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/budget%20message%20May%2029%20revised%202_%7BSIS75785EA0DD27%7D.pdf"><span style="font-size: 16px;">Message from the Office of the Superintendent - May 29</span></a><br></span></p>
+<p><a href="http://www.colletonsd.org/Download.asp?L=0&amp;LMID=596355&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=Documents&amp;Act=Download&amp;T=1&amp;I=730487"><span style="font-size: 24px;"><span style="font-size: 16px;">Board Presentation - May 28</span></span></a></p>
+<p><span style="font-size: 16px;">***</span></p>
+<p><span style="font-size: 16px;"><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/budget%20message%20final%20pdf_%7BSISF845E03A8237%7D.pdf">Message from the Office of the Superintendent</a></span></p>
+<p><a href="http://www.colletonsd.org/Download.asp?L=0&amp;LMID=596355&amp;PN=DocumentUploads&amp;DivisionID=&amp;DepartmentID=&amp;SubDepartmentID=&amp;SubP=Documents&amp;Act=Download&amp;T=1&amp;I=730346"><span style="font-size: 16px;">May 21 B</span><span style="font-size: 16px;">oard Meeting Presentation</span></a></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><span style="color: #ff6600; font-size: 24px;"><strong><span style="font-family: 'Times New Roman', serif;">Congratulations to our <strong>2019-2020 </strong>Colleton County School District <br>Teachers of the Year and Support Employees of The Year</span><span style="font-family: Verdana, sans-serif;"> !</span></strong></span></p>
+<p><span style="color: #ff6600; font-size: 24px;"><strong><span style="font-family: Verdana, sans-serif;"><img src="http://images.pcmac.org//images/Users/sgruber@colleton.k12.sc.us/Teach_Year_Cropped_(1).jpg" border="0" alt="A group photo of the 2019 CCSD Teachers of the Year" width="424" height="273"></span></strong></span></p>
+<p> </p>
+<p><img src="http://images.pcmac.org//images/Users/sgruber@colleton.k12.sc.us/Support_Year_crop.jpg" border="0" alt="A group photo of the 2019 CCSD Support Staff of the Year" width="423" height="244"> </p>
+<table style="border: 1pt dashed #bbbbbb; width: 0px;" border="1" cellspacing="0" cellpadding="0"><tbody>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 364.1pt; height: 24pt;" colspan="3" width="569">
+<p><span style="color: black; font-family: 'Verdana',sans-serif; font-size: 7.5pt;"> </span></p>
+</td>
+</tr>
+<tr style="height: 46.5pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 46.5pt; text-align: center;" width="126">
+<p><strong><span style="color: black; font-family: 'Verdana',sans-serif;">School</span></strong><span style="color: black; font-family: 'Verdana',sans-serif;"></span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 46.5pt; text-align: center;" width="302">
+<p> </p>
+<p><strong><span style="color: black; font-family: 'Verdana',sans-serif;">Teacher of <strong><span style="color: black; font-family: 'Verdana',sans-serif;">the Year</span></strong></span></strong></p>
+<p><strong><span style="color: black; font-family: 'Verdana',sans-serif;"><strong><span style="color: black; font-family: 'Verdana',sans-serif;">                                          </span></strong><span style="color: black; font-family: 'Verdana',sans-serif;"></span></span></strong></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 117pt; height: 46.5pt; text-align: center;" width="141">
+<p><strong><span style="color: black; font-family: 'Verdana',sans-serif;">Support Employee of <strong><span style="color: black; font-family: 'Verdana',sans-serif;">the Year   </span></strong></span></strong></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Bells Elementary School</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Amy Cook</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #ff7f50; width: 141px; height: 24pt; text-align: center;">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Edna Green</span></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Black Street Early   Childhood Center</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Melissa Warren</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #ff6633; width: 141px; height: 24pt; text-align: center;">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Joe Evans</span></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Colleton County High   School</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Emily Towey</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 117pt; height: 24pt; text-align: center;" width="141">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Shakerra Green</span></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Colleton County Middle   School</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Melissa O'Quinn</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 117pt; height: 24pt; text-align: center;" width="141">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Amy Kilpatrick</span></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Cottageville Elementary   School</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Sarah Fielder</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 117pt; height: 24pt; text-align: center;" width="141">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Donna Waddell</span></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">District Office</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">N/A</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 117pt; height: 24pt; text-align: center;" width="141">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;"> Kelsey Bishop</span></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Forest Hills Elementary   School</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Shanon Bowden</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 117pt; height: 24pt; text-align: center;" width="141">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Debbie Fryar</span></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Hendersonville Elementary   School</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Shelby Daniels</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 117pt; height: 24pt; text-align: center;" width="141">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Rosa Singleton</span></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Northside Elementary   School</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Michelle Phillips</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 117pt; height: 24pt; text-align: center;" width="141">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Nathan Simpson</span></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Thunderbolt Career and   Technology Center</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Matthew Lutton</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 117pt; height: 24pt; text-align: center;" width="141">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Josheen Jenkins</span></p>
+</td>
+</tr>
+<tr style="height: 24pt;">
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 139.8pt; height: 24pt; text-align: center;" width="126">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Transportation Department</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 107.3pt; height: 24pt; text-align: center;" width="302">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">N/A</span></p>
+</td>
+<td style="padding: 0in; border: 1pt dashed #bbbbbb; width: 117pt; height: 24pt; text-align: center;" width="141">
+<p><span style="color: #ff6600; font-family: 'Verdana',sans-serif;">Susan Fryar</span></p>
+</td>
+</tr>
+</tbody></table>
+<p> </p>
+<p style="text-align: left;"> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #696969; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><img src="http://images.pcmac.org//images/Clients/711/964/CCSD_New_Logo.JPG" border="0" alt="Colleton County" width="100" height="66" style="width: 330px; height: 123px;"></p>
+<p> On Thursday, November 29, 2018, the South Carolina Department of Education and Education Oversight Committee released school and district report cards as part of the state’s new accountability system. The 2018 report cards reflect school and district performance during the 2017-2018 school year and contain overall school ratings for the first time since 2014.</p>
+<p>Please visit the links below for additional information regarding School Report Cards for both South Carolina and Colleton County School District.</p>
+<p><a href="https://ed.sc.gov/newsroom/news-releases/south-carolina-department-of-education-and-education-oversight-committee-release-new-school-report-cards/" target="_blank">Link to the SC Department of Education Press Release</a></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Press%20Release%20-State%20School%20Report%20Cards_%7BSISF1AE2900E843%7D.pdf" target="_blank">Colleton County School District Press Release</a></p>
+<p><a href="https://www2.ed.gov/policy/elsec/leg/essa/parent-guide-state-local-report-cards.pdf" target="_blank">A Parent Guide to State and Local Report Cards</a></p>
+<p><a href="https://www.screportcards.com/" target="_blank">SC School Report Card</a></p>
+<p><a href="https://www.screportcards.com/overview/?q=eT0yMDE4JnQ9RCZzaWQ9MTUwMTAwMA" target="_blank">Colleton County School District Report Card</a></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #00cc66; width: 1px; background-color: #ffffff;" scope="row" colspan="2" align="center" valign="middle">
+<p><span style="color: #ff6600; font-size: 18px;"><span style="color: #ff6600; font-size: 18px;"><strong><img src="http://images.pcmac.org//images/Clients/711/964/FluBug2.jpg" border="0" alt="Flu Bug" title="Flu Guide" width="151" height="212" style="border: 0px currentColor; width: 79px; height: 80px;"></strong></span></span></p>
+<p><span style="color: #339966; font-size: 18px;"><span style="color: #339966;"><strong><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/The%20Flu%20-%20A%20Guide%20for%20Parents_%7BSISE3A79F5F508A%7D.pdf" target="_blank" title="Flu Guide">Flu Guide for Parents</a></strong></span></span></p>
+<p><a href="http://images.pcmac.org/Uploads/ColletonCountySD/ColletonCountySD/Sites/DocumentsCategories/Documents/Fight%20Flu_%7BSISE21B30F01A36%7D.pdf"><span style="color: #339966; font-size: 18px;"><span style="color: #339966;"><strong><span><strong>Fight Flu</strong></span></strong></span></span></a></p>
+</td>
+</tr>
+<tr>
+<td style="border: 8px solid #000000; width: 1px; background-color: #ffff00;" scope="row" colspan="2" align="center" valign="middle">
+<p><span style="font-family: comic sans ms, sans-serif; font-size: 16px;"><img src="http://images.pcmac.org///images/SiS/Academics//Schoolbus3.jpg" border="0" alt="School Bus" width="104" height="79" style="float: left; border: 3px solid black;"></span></p>
+<p><span style="font-family: comic sans ms,sans-serif; font-size: 16px;">Bus Drivers Needed! <br>Good pay and benefits!</span></p>
+<p><span style="font-family: comic sans ms,sans-serif; font-size: 13px;">Persons interested in learning more about becoming a bus driver or aide can contact the Transportation Office at 843-782-0036.</span></p>
+<p><span style="font-family: comic sans ms,sans-serif; font-size: 13px;"> The Transportation Office is located at 1379 Tuskegee Airmen Drive (behind Colleton Middle School).</span></p>
+</td>
+</tr>
+<tr>
+<td style="background-color: #006600; border: 4px solid #000000;" scope="row" colspan="2" align="center" valign="middle">
+<p><span style="font-family: verdana, geneva; color: #ffffff;"><span style="font-size: 16px;">Kelly Educational Services is looking<br></span><span style="font-size: 16px;">for talented individuals to fill substitute <br>positions in Colleton County. </span></span></p>
+<p><span style="font-family: verdana, geneva; color: #ffffff;"><span style="font-size: 16px;"><span style="text-decoration: underline;">Substitute Positions available</span>:</span></span></p>
+<blockquote>
+<ul>
+<li style="text-align: left;"><span style="font-family: verdana,geneva; color: #ffffff; font-size: 16px;">Teacher</span></li>
+<li style="text-align: left;"><span style="font-family: verdana,geneva; color: #ffffff; font-size: 16px;">Teacher Assistant</span></li>
+<li style="text-align: left;"><span style="font-family: verdana,geneva; color: #ffffff; font-size: 16px;">Food Service Worker</span></li>
+<li style="text-align: left;"><span style="font-family: arial,helvetica,sans-serif; font-size: 16px;"><span style="font-family: verdana,geneva;"><span style="color: #ffffff;">Custodial Worker</span></span>   </span></li>
+</ul>
+</blockquote>
+<p><span style="font-family: arial,helvetica,sans-serif; color: #ffffff; font-size: 13px;"><a href="http://www.colletonsd.org/Default.asp?PN=%27News2%27&amp;SubP=%27DNewsStory%27&amp;gn=0&amp;DivisionID=0&amp;DepartmentID=0&amp;SubDepartmentID=0&amp;NewsID=80383&amp;ShowNav=&amp;StoryGroup=Current" target="_blank"><span style="color: #ffffff;">Click HERE for <span style="color: #ffffff;"><span style="color: #ffffff;">additional information</span></span></span></a></span></p>
+<p> </p>
+<p><span style="color: #888888; font-size: 16px; background-color: #999999;"><span style="font-family: arial,helvetica,sans-serif;"><a href="http://survey.pcmac.org/publicsitesurveydefault.aspx?surveyid=4897" target="_blank"><span style="font-family: arial,helvetica,sans-serif; color: #888888; background-color: #999999;"><span style="color: #ffffff;">  Click HERE if you would like to have   <br>Kelly Educational Services contact you</span></span></a></span></span></p>
+<p><span style="color: #ffffff; font-size: 16px;"><span style="font-family: arial,helvetica,sans-serif;">or</span></span></p>
+<p><span style="color: #ffffff; font-size: 16px;"><span style="font-family: arial,helvetica,sans-serif;">Contact Kelly Service at 843-782-4530</span></span></p>
+<p> </p>
+</td>
+</tr>
+<tr>
+<td style="text-align: center; border: #1e90ff 4px solid;" scope="row" colspan="2" align="center" valign="middle">
+<p><span style="font-size: 16px; font-family: times new roman, times; color: #3366ff;"><img src="http://images.pcmac.org//images/SiS/Miscellaneous//Binoculars.JPG" border="0" alt="Binoculars" width="110" height="67" style="float: left;"></span><span style="font-size: 16px; font-family: times new roman, times; color: #3366ff;">New Chaperone/Volunteer Application <br>Process Information<br></span><a href="https://bib.com/SecureVolunteer/Colleton-County-School-District/"><span style="font-size: 16px; font-family: Times New Roman; color: #3366ff;"><span style="font-family: Times New Roman;">Click Here to Learn More</span></span></a></p>
+<p><span style="color: #ff0000;">      The online application fee is </span><span style="color: #ff0000;">$17.50.</span><a href="https://bib.com/SecureVolunteer/Colleton-County-School-District/"></a></p>
+</td>
+</tr>
+</tbody></table></div>
+                </div>
+			
+            
+		</td>
+        <td align="left" valign="top" width="325">
+            <a href="/?DivisionID=13882&amp;ToggleSideNav="><img src="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/Images/TodaysMenusBG.png" alt="Today's Menus" width="325" height="77" border="0"></a><br><div style="padding: 10px 0 0 20px; width:280px; overflow:hidden;">
+				<p><span style="font-size: 16px;">Menus</span></p>
+<table id="table1" class="DocumentsTable" style="width: 100%;" cellspacing="0" align="center"><tbody>
+<tr class="File">
+<td style="padding-left: 20px;" colspan="2"><a href="https://schools.mealviewer.com/results/colleton%20county"><span style="font-size: 18px;">School Menus</span></a></td>
+</tr>
+<tr class="File">
+<td style="padding-left: 20px;" colspan="2"><a href="https://schools.mealviewer.com/results/colleton%20county"> </a></td>
+</tr>
+<tr class="File">
+<td style="padding-left: 20px;" colspan="2"> </td>
+</tr>
+</tbody></table>
+</div>
+			<div class="IndexEventsContainer">
+				<div id="IndexNewsPortalEvents">
+				
+	<div class="IndexNewsPortalEvents">
+	<a href="Default.asp?PN=Calendar&amp;ShowNav=Yes">District Events</a>
+	
+	</div>
+	
+				<br>
+</div>
+			</div>
+<a href="/?DivisionID=13883&amp;ToggleSideNav="><img src="http://images.pcmac.org/Websites/ColletonCountySD/ColletonCountySD/Images/SportsEventsBG.png" alt="Sports Events" width="325" height="77" border="0"></a><br><div style="margin-left:25px; width:300px;">
+					
+                    </div>
+        </td>
+	</tr>
+</table>
+</td>
+		</tr>
+<tr>
+<td style="padding: 2px 10px 10px 10px" class="LegalText">
+			<div class="footeraddress">500 Forest Circle | Walterboro, SC 29488 | 843-782-4510 </div>
+			<div id="Legal">
+	<a href="http://www.schoolinsites.com/"><img src="/images/SisPoweredSmall.png" id="PoweredBy" height="30" width="120" alt="Powered and Designed by SCHOOLinSITES"></a>
+	
+	<p class="right">
+		Copyright © 2020  Colleton County School District
+	</p>
+</div>
+
+		</td>
+		</tr>
+</table>
+</div>
+	</td>
+  
+  <td id="maintablebdrright"> </td>
+  
+  </tr></table>
+</div>
+</center>
+</body>
+</html>
