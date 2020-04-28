@@ -8,7 +8,7 @@ search_term = c("covid*", "coron*", "closure")
 processed_data = read_data('district-data-to-scrape.csv')
 
 # just for testing
-# processed_data <- processed_data[1:25, ]
+processed_data <- processed_data[1:25, ]
 
 my_date_proc = proc_my_date(my_date)
 
@@ -21,7 +21,7 @@ table_of_output = scrape_and_process_sites(
   search_term = search_term)
 
 table_of_links_proc = proc_table_of_output(table_of_output)
-
+ 
 summary_of_table_of_links = create_summary_table(table_of_links_proc)
 
 write_csv(summary_of_table_of_links, str_c("output/", my_date, "summary_of_table_of_links.csv"))
