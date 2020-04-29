@@ -1,7 +1,8 @@
 source("R/packages.R")
 source("R/functions.R")
 
-my_date = "2020-04-26"
+# if scraping takes more than one day, it may be helpful to manually specify a date
+my_date = "2020-04-29"
 
 search_term = c("covid*", "coron*", "closure")
 
