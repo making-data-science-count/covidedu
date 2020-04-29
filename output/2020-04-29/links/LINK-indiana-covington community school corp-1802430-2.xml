@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en-US" class="no-js">
+<head>
+<!-- Google Tag Manager --><script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-5HRQWT');</script><!-- End Google Tag Manager --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script type="text/javascript">(window.NREUM||(NREUM={})).loader_config={xpid:"UgYAUVdACQoFU1Nb",licenseKey:"d50b44a2fd",applicationID:"195729"};window.NREUM||(NREUM={}),__nr_require=function(t,e,n){function r(n){if(!e[n]){var o=e[n]={exports:{}};t[n][0].call(o.exports,function(e){var o=t[n][1][e];return r(o||e)},o,o.exports)}return e[n].exports}if("function"==typeof __nr_require)return __nr_require;for(var o=0;o<n.length;o++)r(n[o]);return r}({1:[function(t,e,n){function r(t){try{s.console&&console.log(t)}catch(e){}}var o,i=t("ee"),a=t(18),s={};try{o=localStorage.getItem("__nr_flags").split(","),console&&"function"==typeof console.log&&(s.console=!0,o.indexOf("dev")!==-1&&(s.dev=!0),o.indexOf("nr_dev")!==-1&&(s.nrDev=!0))}catch(c){}s.nrDev&&i.on("internal-error",function(t){r(t.stack)}),s.dev&&i.on("fn-err",function(t,e,n){r(n.stack)}),s.dev&&(r("NR AGENT IN DEVELOPMENT MODE"),r("flags: "+a(s,function(t,e){return t}).join(", ")))},{}],2:[function(t,e,n){function r(t,e,n,r,s){try{p?p-=1:o(s||new UncaughtException(t,e,n),!0)}catch(f){try{i("ierr",[f,c.now(),!0])}catch(d){}}return"function"==typeof u&&u.apply(this,a(arguments))}function UncaughtException(t,e,n){this.message=t||"Uncaught error with no additional information",this.sourceURL=e,this.line=n}function o(t,e){var n=e?null:c.now();i("err",[t,n])}var i=t("handle"),a=t(19),s=t("ee"),c=t("loader"),f=t("gos"),u=window.onerror,d=!1,l="nr@seenError",p=0;c.features.err=!0,t(1),window.onerror=r;try{throw new Error}catch(h){"stack"in h&&(t(6),t(5),"addEventListener"in window&&t(3),c.xhrWrappable&&t(7),d=!0)}s.on("fn-start",function(t,e,n){d&&(p+=1)}),s.on("fn-err",function(t,e,n){d&&!n[l]&&(f(n,l,function(){return!0}),this.thrown=!0,o(n))}),s.on("fn-end",function(){d&&!this.thrown&&p>0&&(p-=1)}),s.on("internal-error",function(t){i("ierr",[t,c.now(),!0])})},{}],3:[function(t,e,n){function r(t){for(var e=t;e&&!e.hasOwnProperty(u);)e=Object.getPrototypeOf(e);e&&o(e)}function o(t){s.inPlace(t,[u,d],"-",i)}function i(t,e){return t[1]}var a=t("ee").get("events"),s=t("wrap-function")(a,!0),c=t("gos"),f=XMLHttpRequest,u="addEventListener",d="removeEventListener";e.exports=a,"getPrototypeOf"in Object?(r(document),r(window),r(f.prototype)):f.prototype.hasOwnProperty(u)&&(o(window),o(f.prototype)),a.on(u+"-start",function(t,e){var n=t[1],r=c(n,"nr@wrapped",function(){function t(){if("function"==typeof n.handleEvent)return n.handleEvent.apply(n,arguments)}var e={object:t,"function":n}[typeof n];return e?s(e,"fn-",null,e.name||"anonymous"):n});this.wrapped=t[1]=r}),a.on(d+"-start",function(t){t[1]=this.wrapped||t[1]})},{}],4:[function(t,e,n){function r(t,e,n){var r=t[e];"function"==typeof r&&(t[e]=function(){var t=i(arguments),e={};o.emit(n+"before-start",[t],e);var a;e[m]&&e[m].dt&&(a=e[m].dt);var s=r.apply(this,t);return o.emit(n+"start",[t,a],s),s.then(function(t){return o.emit(n+"end",[null,t],s),t},function(t){throw o.emit(n+"end",[t],s),t})})}var o=t("ee").get("fetch"),i=t(19),a=t(18);e.exports=o;var s=window,c="fetch-",f=c+"body-",u=["arrayBuffer","blob","json","text","formData"],d=s.Request,l=s.Response,p=s.fetch,h="prototype",m="nr@context";d&&l&&p&&(a(u,function(t,e){r(d[h],e,f),r(l[h],e,f)}),r(s,"fetch",c),o.on(c+"end",function(t,e){var n=this;if(e){var r=e.headers.get("content-length");null!==r&&(n.rxSize=r),o.emit(c+"done",[null,e],n)}else o.emit(c+"done",[t],n)}))},{}],5:[function(t,e,n){var r=t("ee").get("raf"),o=t("wrap-function")(r),i="equestAnimationFrame";e.exports=r,o.inPlace(window,["r"+i,"mozR"+i,"webkitR"+i,"msR"+i],"raf-"),r.on("raf-start",function(t){t[0]=o(t[0],"fn-")})},{}],6:[function(t,e,n){function r(t,e,n){t[0]=a(t[0],"fn-",null,n)}function o(t,e,n){this.method=n,this.timerDuration=isNaN(t[1])?0:+t[1],t[0]=a(t[0],"fn-",this,n)}var i=t("ee").get("timer"),a=t("wrap-function")(i),s="setTimeout",c="setInterval",f="clearTimeout",u="-start",d="-";e.exports=i,a.inPlace(window,[s,"setImmediate"],s+d),a.inPlace(window,[c],c+d),a.inPlace(window,[f,"clearImmediate"],f+d),i.on(c+u,r),i.on(s+u,o)},{}],7:[function(t,e,n){function r(t,e){d.inPlace(e,["onreadystatechange"],"fn-",s)}function o(){var t=this,e=u.context(t);t.readyState>3&&!e.resolved&&(e.resolved=!0,u.emit("xhr-resolved",[],t)),d.inPlace(t,w,"fn-",s)}function i(t){y.push(t),h&&(b?b.then(a):v?v(a):(E=-E,O.data=E))}function a(){for(var t=0;t<y.length;t++)r([],y[t]);y.length&&(y=[])}function s(t,e){return e}function c(t,e){for(var n in t)e[n]=t[n];return e}t(3);var f=t("ee"),u=f.get("xhr"),d=t("wrap-function")(u),l=NREUM.o,p=l.XHR,h=l.MO,m=l.PR,v=l.SI,g="readystatechange",w=["onload","onerror","onabort","onloadstart","onloadend","onprogress","ontimeout"],y=[];e.exports=u;var x=window.XMLHttpRequest=function(t){var e=new p(t);try{u.emit("new-xhr",[e],e),e.addEventListener(g,o,!1)}catch(n){try{u.emit("internal-error",[n])}catch(r){}}return e};if(c(p,x),x.prototype=p.prototype,d.inPlace(x.prototype,["open","send"],"-xhr-",s),u.on("send-xhr-start",function(t,e){r(t,e),i(e)}),u.on("open-xhr-start",r),h){var b=m&&m.resolve();if(!v&&!m){var E=1,O=document.createTextNode(E);new h(a).observe(O,{characterData:!0})}}else f.on("fn-end",function(t){t[0]&&t[0].type===g||a()})},{}],8:[function(t,e,n){function r(t){if(!i(t))return null;var e=window.NREUM;if(!e.loader_config)return null;var n=(e.loader_config.accountID||"").toString()||null,r=(e.loader_config.agentID||"").toString()||null,s=(e.loader_config.trustKey||"").toString()||null;if(!n||!r)return null;var c=a.generateCatId(),f=a.generateCatId(),u=Date.now(),d=o(c,f,u,n,r,s);return{header:d,guid:c,traceId:f,timestamp:u}}function o(t,e,n,r,o,i){var a="btoa"in window&&"function"==typeof window.btoa;if(!a)return null;var s={v:[0,1],d:{ty:"Browser",ac:r,ap:o,id:t,tr:e,ti:n}};return i&&r!==i&&(s.d.tk=i),btoa(JSON.stringify(s))}function i(t){var e=!1,n=!1,r={};if("init"in NREUM&&"distributed_tracing"in NREUM.init&&(r=NREUM.init.distributed_tracing,n=!!r.enabled),n)if(t.sameOrigin)e=!0;else if(r.allowed_origins instanceof Array)for(var o=0;o<r.allowed_origins.length;o++){var i=s(r.allowed_origins[o]);if(t.hostname===i.hostname&&t.protocol===i.protocol&&t.port===i.port){e=!0;break}}return n&&e}var a=t(16),s=t(10);e.exports={generateTracePayload:r,shouldGenerateTrace:i}},{}],9:[function(t,e,n){function r(t){var e=this.params,n=this.metrics;if(!this.ended){this.ended=!0;for(var r=0;r<l;r++)t.removeEventListener(d[r],this.listener,!1);e.aborted||(n.duration=a.now()-this.startTime,this.loadCaptureCalled||4!==t.readyState?null==e.status&&(e.status=0):i(this,t),n.cbTime=this.cbTime,u.emit("xhr-done",[t],t),s("xhr",[e,n,this.startTime]))}}function o(t,e){var n=c(e),r=t.params;r.host=n.hostname+":"+n.port,r.pathname=n.pathname,t.parsedOrigin=c(e),t.sameOrigin=t.parsedOrigin.sameOrigin}function i(t,e){t.params.status=e.status;var n=v(e,t.lastSize);if(n&&(t.metrics.rxSize=n),t.sameOrigin){var r=e.getResponseHeader("X-NewRelic-App-Data");r&&(t.params.cat=r.split(", ").pop())}t.loadCaptureCalled=!0}var a=t("loader");if(a.xhrWrappable){var s=t("handle"),c=t(10),f=t(8).generateTracePayload,u=t("ee"),d=["load","error","abort","timeout"],l=d.length,p=t("id"),h=t(14),m=t(13),v=t(11),g=window.XMLHttpRequest;a.features.xhr=!0,t(7),t(4),u.on("new-xhr",function(t){var e=this;e.totalCbs=0,e.called=0,e.cbTime=0,e.end=r,e.ended=!1,e.xhrGuids={},e.lastSize=null,e.loadCaptureCalled=!1,t.addEventListener("load",function(n){i(e,t)},!1),h&&(h>34||h<10)||window.opera||t.addEventListener("progress",function(t){e.lastSize=t.loaded},!1)}),u.on("open-xhr-start",function(t){this.params={method:t[0]},o(this,t[1]),this.metrics={}}),u.on("open-xhr-end",function(t,e){"loader_config"in NREUM&&"xpid"in NREUM.loader_config&&this.sameOrigin&&e.setRequestHeader("X-NewRelic-ID",NREUM.loader_config.xpid);var n=f(this.parsedOrigin);n&&n.header&&(e.setRequestHeader("newrelic",n.header),this.dt=n)}),u.on("send-xhr-start",function(t,e){var n=this.metrics,r=t[0],o=this;if(n&&r){var i=m(r);i&&(n.txSize=i)}this.startTime=a.now(),this.listener=function(t){try{"abort"!==t.type||o.loadCaptureCalled||(o.params.aborted=!0),("load"!==t.type||o.called===o.totalCbs&&(o.onloadCalled||"function"!=typeof e.onload))&&o.end(e)}catch(n){try{u.emit("internal-error",[n])}catch(r){}}};for(var s=0;s<l;s++)e.addEventListener(d[s],this.listener,!1)}),u.on("xhr-cb-time",function(t,e,n){this.cbTime+=t,e?this.onloadCalled=!0:this.called+=1,this.called!==this.totalCbs||!this.onloadCalled&&"function"==typeof n.onload||this.end(n)}),u.on("xhr-load-added",function(t,e){var n=""+p(t)+!!e;this.xhrGuids&&!this.xhrGuids[n]&&(this.xhrGuids[n]=!0,this.totalCbs+=1)}),u.on("xhr-load-removed",function(t,e){var n=""+p(t)+!!e;this.xhrGuids&&this.xhrGuids[n]&&(delete this.xhrGuids[n],this.totalCbs-=1)}),u.on("addEventListener-end",function(t,e){e instanceof g&&"load"===t[0]&&u.emit("xhr-load-added",[t[1],t[2]],e)}),u.on("removeEventListener-end",function(t,e){e instanceof g&&"load"===t[0]&&u.emit("xhr-load-removed",[t[1],t[2]],e)}),u.on("fn-start",function(t,e,n){e instanceof g&&("onload"===n&&(this.onload=!0),("load"===(t[0]&&t[0].type)||this.onload)&&(this.xhrCbStart=a.now()))}),u.on("fn-end",function(t,e){this.xhrCbStart&&u.emit("xhr-cb-time",[a.now()-this.xhrCbStart,this.onload,e],e)}),u.on("fetch-before-start",function(t){var e,n=t[1]||{};"string"==typeof t[0]?e=t[0]:t[0]&&t[0].url&&(e=t[0].url),e&&(this.parsedOrigin=c(e),this.sameOrigin=this.parsedOrigin.sameOrigin);var r=f(this.parsedOrigin);if(r&&r.header){var o=r.header;if("string"==typeof t[0]){var i={};for(var a in n)i[a]=n[a];i.headers=new Headers(n.headers||{}),i.headers.set("newrelic",o),this.dt=r,t.length>1?t[1]=i:t.push(i)}else t[0]&&t[0].headers&&(t[0].headers.append("newrelic",o),this.dt=r)}})}},{}],10:[function(t,e,n){var r={};e.exports=function(t){if(t in r)return r[t];var e=document.createElement("a"),n=window.location,o={};e.href=t,o.port=e.port;var i=e.href.split("://");!o.port&&i[1]&&(o.port=i[1].split("/")[0].split("@").pop().split(":")[1]),o.port&&"0"!==o.port||(o.port="https"===i[0]?"443":"80"),o.hostname=e.hostname||n.hostname,o.pathname=e.pathname,o.protocol=i[0],"/"!==o.pathname.charAt(0)&&(o.pathname="/"+o.pathname);var a=!e.protocol||":"===e.protocol||e.protocol===n.protocol,s=e.hostname===document.domain&&e.port===n.port;return o.sameOrigin=a&&(!e.hostname||s),"/"===o.pathname&&(r[t]=o),o}},{}],11:[function(t,e,n){function r(t,e){var n=t.responseType;return"json"===n&&null!==e?e:"arraybuffer"===n||"blob"===n||"json"===n?o(t.response):"text"===n||"document"===n||""===n||void 0===n?o(t.responseText):void 0}var o=t(13);e.exports=r},{}],12:[function(t,e,n){function r(){}function o(t,e,n){return function(){return i(t,[f.now()].concat(s(arguments)),e?null:this,n),e?void 0:this}}var i=t("handle"),a=t(18),s=t(19),c=t("ee").get("tracer"),f=t("loader"),u=NREUM;"undefined"==typeof window.newrelic&&(newrelic=u);var d=["setPageViewName","setCustomAttribute","setErrorHandler","finished","addToTrace","inlineHit","addRelease"],l="api-",p=l+"ixn-";a(d,function(t,e){u[e]=o(l+e,!0,"api")}),u.addPageAction=o(l+"addPageAction",!0),u.setCurrentRouteName=o(l+"routeName",!0),e.exports=newrelic,u.interaction=function(){return(new r).get()};var h=r.prototype={createTracer:function(t,e){var n={},r=this,o="function"==typeof e;return i(p+"tracer",[f.now(),t,n],r),function(){if(c.emit((o?"":"no-")+"fn-start",[f.now(),r,o],n),o)try{return e.apply(this,arguments)}catch(t){throw c.emit("fn-err",[arguments,this,t],n),t}finally{c.emit("fn-end",[f.now()],n)}}}};a("actionText,setName,setAttribute,save,ignore,onEnd,getContext,end,get".split(","),function(t,e){h[e]=o(p+e)}),newrelic.noticeError=function(t,e){"string"==typeof t&&(t=new Error(t)),i("err",[t,f.now(),!1,e])}},{}],13:[function(t,e,n){e.exports=function(t){if("string"==typeof t&&t.length)return t.length;if("object"==typeof t){if("undefined"!=typeof ArrayBuffer&&t instanceof ArrayBuffer&&t.byteLength)return t.byteLength;if("undefined"!=typeof Blob&&t instanceof Blob&&t.size)return t.size;if(!("undefined"!=typeof FormData&&t instanceof FormData))try{return JSON.stringify(t).length}catch(e){return}}}},{}],14:[function(t,e,n){var r=0,o=navigator.userAgent.match(/Firefox[\/\s](\d+\.\d+)/);o&&(r=+o[1]),e.exports=r},{}],15:[function(t,e,n){function r(t,e){var n=t.getEntries();n.forEach(function(t){"first-paint"===t.name?c("timing",["fp",Math.floor(t.startTime)]):"first-contentful-paint"===t.name&&c("timing",["fcp",Math.floor(t.startTime)])})}function o(t,e){var n=t.getEntries();n.length>0&&c("lcp",[n[n.length-1]])}function i(t){if(t instanceof u&&!l){var e,n=Math.round(t.timeStamp);e=n>1e12?Date.now()-n:f.now()-n,l=!0,c("timing",["fi",n,{type:t.type,fid:e}])}}if(!("init"in NREUM&&"page_view_timing"in NREUM.init&&"enabled"in NREUM.init.page_view_timing&&NREUM.init.page_view_timing.enabled===!1)){var a,s,c=t("handle"),f=t("loader"),u=NREUM.o.EV;if("PerformanceObserver"in window&&"function"==typeof window.PerformanceObserver){a=new PerformanceObserver(r),s=new PerformanceObserver(o);try{a.observe({entryTypes:["paint"]}),s.observe({entryTypes:["largest-contentful-paint"]})}catch(d){}}if("addEventListener"in document){var l=!1,p=["click","keydown","mousedown","pointerdown","touchstart"];p.forEach(function(t){document.addEventListener(t,i,!1)})}}},{}],16:[function(t,e,n){function r(){function t(){return e?15&e[n++]:16*Math.random()|0}var e=null,n=0,r=window.crypto||window.msCrypto;r&&r.getRandomValues&&(e=r.getRandomValues(new Uint8Array(31)));for(var o,i="xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx",a="",s=0;s<i.length;s++)o=i[s],"x"===o?a+=t().toString(16):"y"===o?(o=3&t()|8,a+=o.toString(16)):a+=o;return a}function o(){function t(){return e?15&e[n++]:16*Math.random()|0}var e=null,n=0,r=window.crypto||window.msCrypto;r&&r.getRandomValues&&Uint8Array&&(e=r.getRandomValues(new Uint8Array(31)));for(var o=[],i=0;i<16;i++)o.push(t().toString(16));return o.join("")}e.exports={generateUuid:r,generateCatId:o}},{}],17:[function(t,e,n){function r(t,e){if(!o)return!1;if(t!==o)return!1;if(!e)return!0;if(!i)return!1;for(var n=i.split("."),r=e.split("."),a=0;a<r.length;a++)if(r[a]!==n[a])return!1;return!0}var o=null,i=null,a=/Version\/(\S+)\s+Safari/;if(navigator.userAgent){var s=navigator.userAgent,c=s.match(a);c&&s.indexOf("Chrome")===-1&&s.indexOf("Chromium")===-1&&(o="Safari",i=c[1])}e.exports={agent:o,version:i,match:r}},{}],18:[function(t,e,n){function r(t,e){var n=[],r="",i=0;for(r in t)o.call(t,r)&&(n[i]=e(r,t[r]),i+=1);return n}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],19:[function(t,e,n){function r(t,e,n){e||(e=0),"undefined"==typeof n&&(n=t?t.length:0);for(var r=-1,o=n-e||0,i=Array(o<0?0:o);++r<o;)i[r]=t[e+r];return i}e.exports=r},{}],20:[function(t,e,n){e.exports={exists:"undefined"!=typeof window.performance&&window.performance.timing&&"undefined"!=typeof window.performance.timing.navigationStart}},{}],ee:[function(t,e,n){function r(){}function o(t){function e(t){return t&&t instanceof r?t:t?c(t,s,i):i()}function n(n,r,o,i){if(!l.aborted||i){t&&t(n,r,o);for(var a=e(o),s=m(n),c=s.length,f=0;f<c;f++)s[f].apply(a,r);var d=u[y[n]];return d&&d.push([x,n,r,a]),a}}function p(t,e){w[t]=m(t).concat(e)}function h(t,e){var n=w[t];if(n)for(var r=0;r<n.length;r++)n[r]===e&&n.splice(r,1)}function m(t){return w[t]||[]}function v(t){return d[t]=d[t]||o(n)}function g(t,e){f(t,function(t,n){e=e||"feature",y[n]=e,e in u||(u[e]=[])})}var w={},y={},x={on:p,addEventListener:p,removeEventListener:h,emit:n,get:v,listeners:m,context:e,buffer:g,abort:a,aborted:!1};return x}function i(){return new r}function a(){(u.api||u.feature)&&(l.aborted=!0,u=l.backlog={})}var s="nr@context",c=t("gos"),f=t(18),u={},d={},l=e.exports=o();l.backlog=u},{}],gos:[function(t,e,n){function r(t,e,n){if(o.call(t,e))return t[e];var r=n();if(Object.defineProperty&&Object.keys)try{return Object.defineProperty(t,e,{value:r,writable:!0,enumerable:!1}),r}catch(i){}return t[e]=r,r}var o=Object.prototype.hasOwnProperty;e.exports=r},{}],handle:[function(t,e,n){function r(t,e,n,r){o.buffer([t],r),o.emit(t,e,n)}var o=t("ee").get("handle");e.exports=r,r.ee=o},{}],id:[function(t,e,n){function r(t){var e=typeof t;return!t||"object"!==e&&"function"!==e?-1:t===window?0:a(t,i,function(){return o++})}var o=1,i="nr@id",a=t("gos");e.exports=r},{}],loader:[function(t,e,n){function r(){if(!E++){var t=b.info=NREUM.info,e=p.getElementsByTagName("script")[0];if(setTimeout(u.abort,3e4),!(t&&t.licenseKey&&t.applicationID&&e))return u.abort();f(y,function(e,n){t[e]||(t[e]=n)}),c("mark",["onload",a()+b.offset],null,"api");var n=p.createElement("script");n.src="https://"+t.agent,e.parentNode.insertBefore(n,e)}}function o(){"complete"===p.readyState&&i()}function i(){c("mark",["domContent",a()+b.offset],null,"api")}function a(){return O.exists&&performance.now?Math.round(performance.now()):(s=Math.max((new Date).getTime(),s))-b.offset}var s=(new Date).getTime(),c=t("handle"),f=t(18),u=t("ee"),d=t(17),l=window,p=l.document,h="addEventListener",m="attachEvent",v=l.XMLHttpRequest,g=v&&v.prototype;NREUM.o={ST:setTimeout,SI:l.setImmediate,CT:clearTimeout,XHR:v,REQ:l.Request,EV:l.Event,PR:l.Promise,MO:l.MutationObserver};var w=""+location,y={beacon:"bam.nr-data.net",errorBeacon:"bam.nr-data.net",agent:"js-agent.newrelic.com/nr-1167.min.js"},x=v&&g&&g[h]&&!/CriOS/.test(navigator.userAgent),b=e.exports={offset:s,now:a,origin:w,features:{},xhrWrappable:x,userAgent:d};t(12),t(15),p[h]?(p[h]("DOMContentLoaded",i,!1),l[h]("load",r,!1)):(p[m]("onreadystatechange",o),l[m]("onload",r)),c("mark",["firstbyte",s],null,"api");var E=0,O=t(20)},{}],"wrap-function":[function(t,e,n){function r(t){return!(t&&t instanceof Function&&t.apply&&!t[a])}var o=t("ee"),i=t(19),a="nr@original",s=Object.prototype.hasOwnProperty,c=!1;e.exports=function(t,e){function n(t,e,n,o){function nrWrapper(){var r,a,s,c;try{a=this,r=i(arguments),s="function"==typeof n?n(r,a):n||{}}catch(f){l([f,"",[r,a,o],s])}u(e+"start",[r,a,o],s);try{return c=t.apply(a,r)}catch(d){throw u(e+"err",[r,a,d],s),d}finally{u(e+"end",[r,a,c],s)}}return r(t)?t:(e||(e=""),nrWrapper[a]=t,d(t,nrWrapper),nrWrapper)}function f(t,e,o,i){o||(o="");var a,s,c,f="-"===o.charAt(0);for(c=0;c<e.length;c++)s=e[c],a=t[s],r(a)||(t[s]=n(a,f?s+o:o,i,s))}function u(n,r,o){if(!c||e){var i=c;c=!0;try{t.emit(n,r,o,e)}catch(a){l([a,n,r,o])}c=i}}function d(t,e){if(Object.defineProperty&&Object.keys)try{var n=Object.keys(t);return n.forEach(function(n){Object.defineProperty(e,n,{get:function(){return t[n]},set:function(e){return t[n]=e,e}})}),e}catch(r){l([r])}for(var o in t)s.call(t,o)&&(e[o]=t[o]);return e}function l(e){try{t.emit("internal-error",e)}catch(n){}}return t||(t=o),n.inPlace=f,n.flag=a,n}},{}]},{},["loader",2,9]);</script><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="apple-itunes-app" content="app-id=538407602">
+<meta http-equiv="PICS-Label" content='(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.spellingcity.com" r (SS~~000 1))'>
+<script>
+      window.VSC = window.VSC || {};
+      window.VSC.meta = {"is_pm":false,"is_premium_member":false,"user_type":"Visitor","is_australian_user":false};
+    </script><meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="robots" content="index, follow">
+<meta name="keywords" content="Covington Elementary School, Covington Community School Corporation, Covington, Covington Elementary School Covington">
+<meta name="description" content="Covington Elementary School, Covington Community School Corporation, Covington has a homepage to make vocabulary and spelling lists available to students to study at school or home. Students can take vocabulary and spelling tests online and play many learning games with their word lists for reinforcement.">
+<title>Covington Elementary School Covington IN USA Covington Community School Corporation</title>
+<title></title>
+<script>
+      window.VSC = window.VSC || {};
+      window.VSC.meta = {"is_pm":false,"is_premium_member":false,"user_type":"Visitor","is_australian_user":false};
+    </script><link rel="stylesheet" href="/assets_v2/e6zhe4govbmg/css/legacyCombined.css" type="text/css">
+<link rel="stylesheet" href="/assets_v2/e6zhe4govbmg/css/layout/cms-layout.css" type="text/css">
+<link rel="stylesheet" href="/assets_v2/e6zhe4govbmg/css/layout/cms-layout-bootstrap-pages.css" type="text/css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/1.4.1/jquery-migrate.min.js" integrity="sha256-SOuLUArmo4YXtXONKz+uxIGSKneCJG4x0nVcA0pFzV0=" crossorigin="anonymous"></script><script>
+  if (window.jQuery) {
+    jQuery.migrateMute = false;
+  } else {
+    document.write(unescape("%3Cscript src=\"/dist/js/vendor/jquery/dist/jquery.js\"%3E%3C/script%3E"));
+    document.write(unescape("%3Cscript src=\"/dist/js/vendor/jquery-migrate/index.js\"%3E%3C/script%3E"));
+    document.write(unescape("%3Cscript%3EjQuery.migrateMute = false%3C/script%3E"));
+  }
+</script><script type="text/javascript">
+  piAId = '312041';
+  piCId = '1435';
+
+  (function() {
+    function async_load(){
+      var s = document.createElement('script'); s.type = 'text/javascript';
+      s.src = ('https:' == document.location.protocol ? 'https://pi' : 'http://cdn') + '.pardot.com/pd.js';
+      var c = document.getElementsByTagName('script')[0]; c.parentNode.insertBefore(s, c);
+    }
+    if(window.attachEvent) { window.attachEvent('onload', async_load); }
+    else { window.addEventListener('load', async_load, false); }
+  })();
+</script><script type="text/javascript" src="/assets_v2/e6zhe4govbmg/js/combined.js"></script><script type="text/javascript">//for placement only - taken from articles.spellingcity.com/wp-content/themes/sc/js/
+    $(document).ready(function(){
+      var isTouchScreen = 'ontouchstart' in window,
+        $hoverLink = $('#navigation .new-hover a'),
+        $contentContainer = $('.red-menu-tab-content');
+
+      var mainNavToggle = function (e) {
+        e.preventDefault();
+        $hoverLink.toggleClass('collapsed');
+        $contentContainer.toggle();
+      };
+
+      if (!isTouchScreen) {
+        $('#navigation .new-hover, .red-menu-tab-content').on('mouseenter mouseleave', mainNavToggle);
+      } else {
+        $('#navigation .new-hover').on('click', mainNavToggle);
+      }
+
+      $(document).on('touchstart click', function (e){
+        if (
+          !$contentContainer.is(e.target) &&
+          $contentContainer.has(e.target).length === 0 &&
+          !$hoverLink.is(e.target) &&
+          $hoverLink.has(e.target).length === 0
+        ){
+          $contentContainer.hide();
+          $hoverLink.removeClass('collapsed');
+        }
+      });
+
+      // hamburger mobile menu for non-cms pages
+      $("#topnav .navbar-toggle").click(function(){
+        $(".navbar-collapse").slideToggle();
+      });
+    });
+  </script><script type="text/javascript">
+      var googletag = googletag || {};
+      googletag.cmd = googletag.cmd || [];
+
+      (function() {
+        var gads = document.createElement('script'),
+            useSSL = document.location.protocol === 'https:',
+            node;
+
+        gads.async = true;
+        gads.type = 'text/javascript';
+        gads.src = (useSSL ? 'https:' : 'http:') + '//www.googletagservices.com/tag/js/gpt.js';
+        node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+      }());
+    
+      googletag.cmd.push(function() {
+    
+            googletag
+              .defineSlot('/1905615/VSC160_sky', [[300,250],[250,250]], 'div-gpt-ad-1506452381067-0')
+              
+            .setTargeting('is_pm', '')
+            .setTargeting('user_type', 'Visitor')
+          .setCollapseEmptyDiv(true, true)
+            .addService(googletag.pubads());
+          googletag.pubads().enableSingleRequest();
+          googletag.enableServices();
+      });
+    </script><!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]--><link rel="stylesheet" href="/assets_v2/e6zhe4govbmg/js/vendor/bootstrap/dist/css/bootstrap.css" type="text/css">
+<link rel="stylesheet" id="font-awesome-css" href="/wp-content/themes/sc/css/font-awesome-4.7.0.min.css" type="text/css" media="all">
+<link rel="stylesheet" href="/assets_v2/e6zhe4govbmg/css/print.css" type="text/css" media="print">
+<link rel="stylesheet" href="/assets_v2/e6zhe4govbmg/css/layout/main.css" type="text/css">
+<link rel="stylesheet" href="/assets_v2/e6zhe4govbmg/css/schoolHomepageV2.css" type="text/css">
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5HRQWT" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<div id="wp-header-wrapper">
+  <header id="wp-header"><div class="container header-height mobile-header-height">
+      <div class="row header-row">
+        <div class="col-xs-9 col-sm-6 col-md-8 col-lg-7 p-l-0 p-r-0">
+                  <div class="logo-container">
+          <div class="site-logo"><a href="/" title="VocabularySpellingCity" rel="home"><img class="img-responsive visible-xs-inline visible-sm-inline visible-md-inline visible-lg-inline" src="/images/header/logotype.png" alt="VocabularySpellingCity"></a></div>
+        </div>
+        </div>
+
+        
+          <ul class="top-link-menu hidden-xs text-right">
+<li class="register"><a href="https://www.spellingcity.com/Create-an-account.html">Register</a></li>
+            <li class="login"><a href="/Log-yourself-in.html">Login</a></li>
+          </ul>
+<div id="topnav" class="hidden-lg hidden-sm">
+          <div class="navbar-header">
+            <button type="button" class="col-xs-2 p-l-0 p-r-0 navbar-toggle collapsed" data-toggle="collapse" data-target="#topnavbar" aria-expanded="false" aria-controls="navbar" aria-label="mobile menu button">
+              <i class="fa fa-bars fa-2x" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="hidden-sm hidden-md hidden-lg">
+        <div id="topnavbar" class="navbar-collapse collapse" aria-expanded="false">
+          <div class="menu-mobile-navigation-container">
+            
+              <ul id="menu-mobile-navigation" class="nav navbar-nav">
+<li class="navbar-break"><a title="Home" href="/">Home</a></li>
+                <li><a title="Log In" href="/Log-yourself-in.html">Log In</a></li>
+                <li><a title="Register" href="https://www.spellingcity.com/Create-an-account.html">Register</a></li>
+                <li class="navbar-break"><a title="Word Lists Search" href="/spelling-list-search.html">Search Word Lists</a></li>
+                <li><a title="Teachers/Parents Search" href="/teacher-search.html">Search Teachers/Parents</a></li>
+                <li><a title="Schools Search" href="/school-search.html">Search Schools</a></li>
+                <li class="navbar-break"><a title="Training Videos" href="/teacher-resources.html">Teaching Resources</a></li>
+                <li><a title="Training Videos" href="/faqs.html">Videos/FAQs</a></li>
+                <li><a title="Premium Membership" href="/pm-overview.html">Premium Membership</a></li>
+                <li><a title="Help" target="_blank" href="https://learningcity.force.com/help/s/">Help</a></li>
+                <li><a title="App" href="/app.html">App</a></li>
+                <li class="navbar-break"><a title="Districts" href="/schools-and-districts.html">Schools/Districts</a></li>
+                <li><a title="Teachers" href="/teachers-overview.html">Teachers</a></li>
+                <li><a title="Parents" href="https://parents.spellingcity.com/">Parents</a></li>
+                <li><a title="Homeschool" href="/homeschool-vocabulary.html">Homeschool</a></li>
+                <li class="navbar-break"><a title="Privacy Policy" href="/privacy-policy.html">Privacy Policy</a></li>
+                <li><a title="Blog" href="/blog/">Blog</a></li>
+                <li><a title="Careers" href="/careers.html">Careers</a></li>
+                <li><a title="About Us" href="/about-us.html">About Us</a></li>
+                <li><a title="Terms of Service" href="/terms-of-service.html">Terms of Service</a></li>
+                <li><a title="Copyright" href="/copyright.html">Copyright</a></li>
+                <li><a title="Advertising on VocabularySpellingCity.com" href="/advertising.html">Advertising</a></li>
+                <li><a title="Link to Us" href="/link-to-us.html">Link to Us</a></li>
+              </ul>
+</div>
+        </div>
+      </div>
+    </div>
+  </header><nav id="navigation" class="navbar hidden-xs"><div class="container">
+      <div class="main-navbar-container ">
+        <div class="menu-main-navigation-container">
+          <ul id="menu-main-navigation" class="nav navbar-nav">
+<li class="new-hover"><a href="#">New to SpellingCity?</a></li>
+            <li><a href="/teacher-resources.html">Teaching Resources</a></li>
+            <li><a href="/faqs.html">Videos / FAQs</a></li>
+            <li><a href="/pm-overview.html">Premium Membership</a></li>
+            <li class="search-icon dropdown menu-item menu-item-has-children search-dropdown-list">
+              Search
+              <ul class="sub-menu list-group-submenu-2 search-dropdown dropdown-menu">
+<li><a href="/spelling-list-search.html">Word Lists</a></li>
+                <li><a href="/teacher-search.html">Teachers/Parents</a></li>
+                <li><a href="/school-search.html">Schools</a></li>
+              </ul>
+</li>
+            <li><a href="/app.html">Mobile App</a></li>
+            <li><a target="_blank" href="https://learningcity.force.com/help/s/">Help</a></li>
+          </ul>
+<div id="text-3" class="red-menu-tab-content widget widget_text" style="display: none;">
+            <div class="textwidget">
+<h2 class="red-tab-content-title red-tab-content-bg">Build Literacy Skills with
+                Vocabulary &amp; Spelling:</h2>
+              <div class="choose-category-label">Choose Your Category</div>
+              <div class="row nav-tab">
+                <div class="col-sm-3 col-lg-3">
+                  <a href="/schools-and-districts.html" id="admins-ntsc-gtm-cta">
+                    <img data-src="/cms/content/nav-tab-schools-img.png" alt="Teaching Vocabulary in School District" class="js-lazy-img"><span>Schools/Districts</span>
+                  </a>
+                </div>
+                <div class="col-sm-3 col-lg-3">
+                  <a href="/teachers-overview.html" id="teachers-ntsc-gtm-cta">
+                    <img data-src="/cms/content/nav-tab-teachers-img.png" alt="Teacher with Student doing Vocabulary Schoolwork on a Tablet" class="js-lazy-img"><span>Teachers</span>
+                  </a>
+                </div>
+                <div class="col-sm-3 col-lg-3">
+                  <a href="https://parents.spellingcity.com/" id="parents-ntsc-gtm-cta">
+                    <img data-src="/cms/content/2016/01/nav-tab-parents.png" alt="Parent with child doing Vocabulary Homework on a Tablet" class="js-lazy-img"><span>Parents</span>
+                  </a>
+                </div>
+                <div class="col-sm-3 col-lg-3 last">
+                  <a href="/homeschool-vocabulary.html" id="homeschool-ntsc-gtm-cta">
+                    <img data-src="/images/homepage/nav-tab-homeschool-img2.png" alt="Homeschool Learning Vocabulary on a Tablet" class="js-lazy-img"><span>Homeschool</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav><!-- Response page style edits --><style>
+
+  .component-content .mod_lastteacher {
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  @media (max-width: 768px) {
+    .component-content, .component-content .mod_lastteacher {
+      width: 100%;
+    }
+  }
+
+  body #googleAds {
+    display: none;
+  }
+
+</style>
+<link rel="stylesheet" href="/assets_v2/e6zhe4govbmg/css/lastTeacherModule.css" type="text/css">
+<div class="mod_lastteacher">
+  <div class="wrapper">
+
+    
+    
+    
+    <div class="clear"></div>
+  </div>
+</div>
+
+</div>
+<script>
+  window.VSC = window.VSC || {};
+
+  (function(VSC, $) {
+    $(document).ready(function() {
+
+      var $rootElement = $('#menu-mobile-navigation'),
+        activeMenuLinkAssigner = new window.VSC.ResponsiveNavigationMenuActiveLinkAssigner($rootElement),
+        currentUri = window.location.pathname;
+
+      activeMenuLinkAssigner.assignActiveLink(currentUri);
+
+      //show or hide user menu on hover
+      $('.account-menu-container').hover(function() {
+        $('.account-menu').show();
+      }, function() {
+        $('.account-menu').hide();
+      });
+
+      //show or hide admin menu on hover
+      $('.user-menu-dropdown').hover(function() {
+        $('.user-sub-menu').show();
+      }, function() {
+        $('.user-sub-menu').hide();
+      });
+
+      // show or hide admin menu on mobile if tapped outside
+      $('.account-menu-container').on("click", function(){
+        if( $('.account-menu').css('display') == 'block'){
+          $('.account-menu').hide();
+        }
+        else {
+          $('.account-menu').show();
+        }
+      });
+
+      // show or hide user menu on mobile if tapped outside
+      $('.user-menu-dropdown').on("click", function(){
+        if( $('.user-sub-menu').css('display') == 'block'){
+          $('.user-sub-menu').hide();
+        }
+        else {
+          $('.user-sub-menu').show();
+        }
+      });
+
+      //this is to deal with SPA routes for admin UI - the menu needs to close when those routes are clicked
+      $('#topnavbar').on('click', '.close-on-click', function() {
+        $('#topnav').find('.navbar-toggle').click();
+      });
+
+      VSC.GlobalModuleFactory.makeHeaderDisappearer().bindEvents();
+
+    });
+  }(window.VSC, window.jQuery));
+</script><!-- cms uses #wp-main --><div id="main" class="">
+
+  <noscript>
+  <div id="javascript-disabled" class="alert">
+    <h3 style="margin:0;">Your browser does not support or allow JavaScript. </h3>
+    <p style="margin:0;">As a result this site will not work correctly.</p>
+  </div>
+</noscript>
+  
+  
+  
+<div class="container" itemscope itemtype="http://schema.org/EducationalOrganization">
+  <div class="row">
+    <section class="school-page-ui"><div class="col-xs-12 col-sm-6 col-md-6 container-top-space">
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="card card-navy card-border">
+              <div class="card-body">
+                  <div class="school-info">
+                    <h1 class="heading" itemprop="name">Covington Elementary School</h1>
+                      <p><strong>Type:</strong> Public School</p>
+
+                      <p><strong>Grade Level:</strong> Elementary School</p>
+
+                      <p itemprop="parentOrganization" itemscope itemtype="http://schema.org/EducationalOrganization">
+                        <strong>School District:</strong> <span itemprop="name">Covington Community School Corporation</span></p>
+
+                      <label class="descriptor"></label>
+                      <div class="school-homepage-address" itemprop="location" itemscope itemtype="http://schema.org/PostalAddress">
+                          <p><strong>Street Address:</strong> <span itemprop="streetAddress">1110 7th St</span></p>
+
+                            <p><strong>City:</strong> <a itemprop="addressLocality" href="index.php?option=com_spellcity&amp;controller=find_school&amp;task=schoolFinderCity&amp;country=usa&amp;state=in&amp;city=covington">Covington</a>
+                            </p>
+
+                            <p><strong>State:</strong> <a href="indiana-schools.html"><span itemprop="addressRegion">IN</span></a></p>
+
+                          <p><strong>Postal Code:</strong> <span itemprop="postalCode">47932</span></p>
+
+                          <p itemprop="addressCountry" itemscope itemtype="http://schema.org/Country">
+                            <strong>Country:</strong> <a itemprop="url" href="schools-in-usa.html"><span itemprop="name">USA</span></a></p>
+                      </div>
+
+                      <p><strong>Phone Number:</strong> <span itemprop="telephone">(765) 793-2254</span></p>
+
+                  </div>
+              </div>
+            </div>
+          </div>
+
+
+            <div class="col-xs-12">
+              <div class="card card-navy card-border">
+                <div class="card-title">
+                  Registered Teachers*
+                </div>
+                <div class="card-body">
+                  <ul class="inline-list">
+<li>
+                        <a href="/users/andersonl2018">
+                          <span>Lenae Anderson</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/Shadepool">
+                          <span>Jessica 3 Baack</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/beckmi">
+                          <span>Michelle Beck</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/beckm1">
+                          <span>Michelle Beck</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/terrace1">
+                          <span>Moira Beck</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/boris2310">
+                          <span>Boris Bektchiev</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/mynameisbethbowles">
+                          <span>Beth Bowles</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/brazask">
+                          <span>Kenzie Brazas</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/brazasp">
+                          <span>Paula Brazas</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/carolr2">
+                          <span>Romine Carol</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/crowderj">
+                          <span>Janet Crowder</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/jd95es">
+                          <span>Jennifer Doggett</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/everettc">
+                          <span>Carla Everett</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/goodmana1">
+                          <span>Ashley Goodman</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/hardyk">
+                          <span>Katie Hardy</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/kharris3">
+                          <span>Kay Harris</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/covington">
+                          <span>Kay Harris</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/huntb4271">
+                          <span>Barbi Hunt</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/mrskiger1">
+                          <span>Holly Kiger</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/macyb">
+                          <span>Barbara Macy</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/lmichals">
+                          <span>Lindsay Michals</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/pearmant">
+                          <span>Tammy Pearman</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/sup7er">
+                          <span>Jeremy Pettit</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/per2ky">
+                          <span>Rylie Pruitt</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/ragsdalea">
+                          <span>Andrea Ragsdale</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/hreed3">
+                          <span>Hartlie Reed</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/rominec">
+                          <span>Carol Romine</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/sowersc">
+                          <span>Cari Sowers</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/sowers202">
+                          <span>Cari Sowers</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/ctaylor2020">
+                          <span>Chelsea Taylor</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/amberwhitehead">
+                          <span>Amber Whitehead</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/users/Ewillis2">
+                          <span>Evan Willis</span>
+                        </a>
+                      </li>
+                  </ul>
+</div>
+              </div>
+            </div>
+
+          <div class="col-xs-12">
+            <div class="card card-navy card-border">
+              <div class="card-title">
+                School Administrator(s)
+              </div>
+              <div class="card-body">
+
+                  <p>This school does not have an administrator. <a href="javascript:void(0)" id="school-admin-modal">Learn
+                    more</a></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 push-bottom">
+            <p>To register for this school, click <a href="/Create-an-account.html?schoolId=31227&amp;usertype=Teacher">here</a>.</p>
+            <p>To search again, click <a href="/school-search.html">here</a>.</p>
+            <p class="sm-font"><span>*</span> Teachers from this school that have signed up with SpellingCity.com</p>
+          </div>
+
+          <div class="col-xs-12 container-top-space push-bottom text-center">
+            
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><!-- VSC Bottom Responsive --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9517435789129692" data-ad-slot="6824166258" data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+            <div class="col-xs-12 push-top">
+              <div class="card card-navy card-border">
+                <div class="card-title text-center">
+                  Schools Local to Covington, IN
+                </div>
+                <div class="card-body">
+                  <ul class="inline-list">
+<li><a href="/covington-christian-school-covington-in.html">Covington Christian School</a></li>
+                      <li><a href="/covington-community-high-school-covington-in.html">Covington Community High School</a></li>
+                      <li><a href="/covington-middle-school-covington-in.html">Covington Middle School</a></li>
+                      <li><a href="/maple-tree-academy-covington-in.html">Maple Tree Academy</a></li>
+                  </ul>
+</div>
+              </div>
+            </div>
+
+          <div class="col-xs-12 push-bottom">
+            <p>
+              VocabularySpellingCity's mission is to facilitate vocabulary development, phonics, and writing skills
+              through a word
+              study tool that allows for differentiated instruction while working with vocabulary and spelling word
+              lists. The site
+              has been particularly useful in engaging struggling students, facilitating English language vocabulary
+              skills with ESL
+              students, building a school-home link, and simplifying teachers' and parents' administrative work.
+            </p>
+
+            <p>
+              The most popular learning activities are <a title="Word Unscramble" href="/unscramble.html">word
+              unscramble</a>, <a title="Word Search" href="/word-search.html">wordsearch</a>, <a title="HangMouse" href="/hangmouse.html">hangman</a>,
+              <a title="Word Search" href="/word-search.html">crossword puzzle</a>, <a title="Alphabetical Order Practice" href="/Games/alphabetize.html">alphabetical order practice</a>, <a title="Grammar" href="/Games/whichword-parts-of-speech.html">grammar</a>,
+              <a title="Handwriting Practice Worksheets" href="/handwriting.html">handwriting practice worksheets</a>,
+              and <a title="Writing Activities" href="/student-writing-practice.html">writing activities</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-sm-4 col-md-4 container-top-space">
+        <div class="row">
+          <div class="text-center push-bottom">
+            
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><!-- VSC Top Responsive --><ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-9517435789129692" data-ad-slot="1549101927" data-ad-format="auto"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+          <div class="text-center push-top">
+            <div id="div-gpt-ad-1506452381067-0"><script type="text/javascript"> googletag.cmd.push(function() { googletag.display("div-gpt-ad-1506452381067-0"); }); </script></div>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>
+</div>
+
+
+
+<div id="vue-app-outlet"></div>
+
+<script>
+  $(document).ready(function() {
+    VSC.TeacherUiFactory.makeSchoolHomepage();
+  });
+</script><div class="clear"></div>
+</div>
+
+<footer id="wp-footer"><div class="container">
+    <div class="footer-top col-lg-8">
+      <div class="row">
+        <div class=" col-xs-12 col-sm-3 col-lg-3">
+          <div>
+            <h4>Tools</h4>
+            <div>
+              <ul>
+<li><a href="/teacher-resources.html">Teaching Resources</a></li>
+                <li><a href="/faqs.html">Videos / FAQs</a></li>
+                <li><a href="/spelling-games-vocabulary-games.html">Games</a></li>
+                <li>
+<strong>Search</strong>
+                  <ul>
+<li class="pad=left">
+                      •  <a href="/spelling-list-search.html">Word Lists</a>
+                    </li>
+                    <li class="pad=left">
+                      •  <a href="/teacher-search.html">Teachers/Parents</a>
+                    </li>
+                    <li class="pad=left">
+                      •  <a href="/school-search.html">Schools</a>
+                    </li>
+                  </ul>
+</li>
+              </ul>
+</div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-lg-3">
+          <div>
+            <h4>Info</h4>
+            <div>
+              <ul>
+<li><a href="https://parents.spellingcity.com/">Parents</a></li>
+                <li><a href="/homeschool-vocabulary.html">Homeschool</a></li>
+                <li><a href="/teachers-overview.html">Teachers</a></li>
+                <li><a href="/schools-and-districts.html">Schools / Principals</a></li>
+              </ul>
+</div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-lg-3">
+          <div>
+            <h4>Company</h4>
+            <div>
+              <ul>
+<li><a href="/about-us.html">About Us</a></li>
+                <li><a href="/careers.html">VocabularySpellingCity Careers</a></li>
+                <li><a href="/advertising.html">Advertising</a></li>
+                <li><a href="/link-to-us.html">Link to Us</a></li>
+                <li><a href="/blog/">Blog</a></li>
+              </ul>
+</div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-3 col-lg-3">
+          <div>
+            <h4> </h4>
+            <div>
+              <ul>
+<li><a href="/privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="/terms-of-service.html">Terms of Service</a></li>
+                <li><a href="/copyright.html">Copyright</a></li>
+                <li><a target="_blank" href="https://learningcity.force.com/help/s/">Contact Us</a></li>
+              </ul>
+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom text-center">
+      <ul>
+<li>
+          <a href="//facebook.com/spellingcity" target="_blank" aria-label="Follow VocabularySpellingCity on Facebook" title="VocabularySpellingCity on Facebook" rel="noopener" style="font-size: 18px; color: #395997;">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="//www.instagram.com/vocabularyspellingcity/" target="_blank" aria-label="Follow VocabularySpellingCity on Instagram" title="VocabularySpellingCity on Instagram" rel="noopener" style="font-size: 18px; color: #CA208B;">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-instagram  fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="//twitter.com/spellingcity" target="_blank" aria-label="Follow VocabularySpellingCity on Twitter" title="VocabularySpellingCity on Twitter" rel="noopener" style="font-size: 18px; color: #46a7e0;">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+        </li>
+        <li>
+          <a href="//www.pinterest.com/spellingcity/" target="_blank" aria-label="Follow VocabularySpellingCity on Pinterest" title="VocabularySpellingCity on Pinterest" rel="noopener" style="font-size: 18px; color: #c92029;">
+            <span class="fa-stack fa-lg">
+              <i class="fa fa-circle fa-stack-2x"></i>
+              <i class="fa fa-pinterest fa-stack-1x fa-inverse"></i>
+            </span>
+          </a>
+        </li>
+      </ul>
+<div id="trademark" align="center">VocabularySpellingCity<span class="registered-mark">®</span> is a registered trademark.<br>Part of the <a href="https://learningcity.com/" target="_blank" rel="noopener" class="brand-text-blue">LearningCity</a><span class="registered-mark">®</span> Family of Education Technology Products</div>
+    </div>
+  </div>
+</footer><style>
+
+  #mouseImg {
+    background-image:url('/images/mouse.gif') ;
+    background-repeat:no-repeat;
+    position:absolute;
+    bottom: 10px;
+    right: 20px;
+    width: 84px;
+    height: 108px;
+  }
+
+
+  #catImg {
+    background-image:url('/images/cat.gif');
+    position:absolute;
+    top:0;
+    left:12px;
+    width: 195px;
+    height: 108px;
+  }
+  #penquinImg {
+    background-image:url('/images/penquinUpSell.png');
+    position:absolute;
+    top:0;
+    left:212px;
+    width: 119px;
+    height: 181px;
+  }
+</style>
+<div style="display:none;">
+  <div id="pm-upsell"></div>
+
+  <div id="pm-upsell-src">
+    <table>
+<tr>
+<td valign="middle" style="text-align: center; background:url(/images/games/bg_gradient_red.gif);">
+          <img src="/images/games/premium-activity-header-text.png" width="144" height="27" alt="Premium Activities" style="margin-top: 2px">
+</td>
+      </tr>
+<tr>
+<td><h1 style="text-align: center; margin: 9px 0px 0 0; font-size: 16px;">Sorry, this activity is available to Premium Members only.</h1></td>
+      </tr>
+<tr>
+<td>
+          <div style="position:relative;height:180px;">
+            <p style="padding:10px 170px 10px 15px; font-size:13px;">If you are a Premium Member, click <a href="/index.php?option=com_comprofiler&amp;lang=en&amp;task=login">here</a> to log in to your account.
+            </p>
+            <div class="clear"></div>
+            <div id="penquinImg"></div>
+            <p style="padding-right:80px; padding-left:15px; width:190px; font-size:13px;">Want to know about Premium
+              Membership? Just $34.95/yr for a family or $69.95/yr for a classroom. <a href="/pm-overview.html">Learn more</a></p>
+
+          </div>
+        </td>
+      </tr>
+</table>
+</div>
+
+  <a class="fancybox" id="show-pm-upsell" href="#pm-upsell"></a>
+</div>
+
+<div id="generic-modal-slot"></div>
+          <script type="text/javascript" src="/assets_v2/e6zhe4govbmg/js/libs/ResponsiveNavigationMenuActiveLinkAssigner.js"></script><script type="text/javascript" src="/assets_v2/e6zhe4govbmg/js/img-lazy-loader.js"></script><script type="text/javascript" src="/assets_v2/e6zhe4govbmg/js/bundles/commons.js"></script><script type="text/javascript" src="/assets_v2/e6zhe4govbmg/js/bundles/GlobalModuleFactory.js"></script><script type="text/javascript" src="/assets_v2/e6zhe4govbmg/js/bundles/TeacherUiFactory.js"></script><script>
+    VSC.Global.ModuleFactory.initGlobalDocumentEvents();
+  </script><script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"d50b44a2fd","applicationID":"195729","transactionName":"NFJQZUVTWUoEU0JcVw0YcURERlhUSmZldmQnWF9QXlxragZYWVpUP2BXU3JcU0kKWVhBZDBUWl5YXn9WCFVGVF8GYFdTclxTSQpZWEE=","queueTime":0,"applicationTime":133,"atts":"GBVTEw1JSkQ=","errorBeacon":"bam.nr-data.net","agent":""}</script>
+</body>
+</html>

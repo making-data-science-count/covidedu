@@ -1,0 +1,925 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><!--[if IE 7]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Galleries - Gateway Regional School District</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Oswald:400,700%7COpen+Sans:400,700" rel="stylesheet" type="text/css">
+<link rel="icon" href="/userfiles/-13/My%20Files/favicon.ico" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/gallery.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1150625262">
+<meta name="google-play-app" content="app-id=com.schoolpointe.ma_gatewayregionalsd">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="http://www.grsd.org/userfiles/-12/My%20Files/AppIcon-512.png?id=4146">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Gateway Regional", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "http://www.grsd.org/userfiles/-12/My%20Files/AppIcon-512.png?id=4146", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><link rel="alternate" type="application/rss+xml" title="Gateway Regional School District - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Gateway Regional High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Gateway Regional Middle School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Littleville Elementary School - News" href="/rssNews.ashx?schoolId=4">
+<link rel="alternate" type="application/rss+xml" title="Chester Elementary School - News" href="/rssNews.ashx?schoolId=5">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "MA_GatewayRegionalSD",
+                                url: "/districtgallery.aspx?categoryid=20198&schoolid=0",
+                                errorCount: count,
+                                value: parseInt("20198", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1579808871897">
+</head>
+<body class="school-0 districtgallery">
+    <form name="aspnetForm" method="post" action="/DistrictGallery.aspx?CategoryID=20198&amp;schoolID=0" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMjEzMTkxNzQ1OA9kFgJmD2QWAmYPZBYEZg9kFgZmD2QWAmYPZBYCAgEPFgIeBFRleHQFIEdhdGV3YXkgUmVnaW9uYWwgU2Nob29sIERpc3RyaWN0ZAIED2QWAgIBDxYCHgtfIUl0ZW1Db3VudAIEFghmD2QWAmYPFQIcR2F0ZXdheSBSZWdpb25hbCBIaWdoIFNjaG9vbAExZAIBD2QWAmYPFQIeR2F0ZXdheSBSZWdpb25hbCBNaWRkbGUgU2Nob29sATJkAgIPZBYCZg8VAh1MaXR0bGV2aWxsZSBFbGVtZW50YXJ5IFNjaG9vbAE0ZAIDD2QWAmYPFQIZQ2hlc3RlciBFbGVtZW50YXJ5IFNjaG9vbAE1ZAIFDxYCHgRocmVmBTAvc2l0ZWNzcy5hc2h4PyZpbnRyYW5ldD0wJmNoZWNrc3VtPTE1Nzk4MDg4NzE4OTdkAgEPFgIeBmFjdGlvbgUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SUQ9MjAxOTgmc2Nob29sSUQ9MBYIAgEPZBYEAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwQFATBkAgMPD2QWAh8EBQEwZAIEDw9kFgIfBAUBMGQCBQ8PZBYCHwQFATBkAgMPZBYCAgIPZBYCZg8WAh8ABRs8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PC91bD5kAgMPZBYCAgEPZBYEZg8PFgIeC05hdmlnYXRlVXJsBQEvZGQCAg8PFgIfAAUgR2F0ZXdheSBSZWdpb25hbCBTY2hvb2wgRGlzdHJpY3RkZAIRD2QWAgIDD2QWBAIBDxYCHgdWaXNpYmxlaBYCAgMPZBYEAgEPZBYCZg8WAh8BAh8WPgIBD2QWBAIBDw8WBh4ISW1hZ2VVcmwFjwEvaW1hZ2VzL2dhbGxlcnkvX2Z1bGxfL2RvY3MvZGlzdHJpY3QvY292aWQtY2xvc3VyZTIwMjAvN2QzZTQ0Y2QtMGZiNy00ZGZmLWE4NjgtNDcyMDE5MTFiNjk0XzRfNTAwNV9jLmpwZWc/aWQ9MTAyODMmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDE5OCZzY2hvb2xpZD0wHwAFBmxhcHRvcGRkAgMPDxYEHwAFF0dhdGV3YXkgV29ya3MgZnJvbSBIb21lHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTIwMTk4JnNjaG9vbElEPTBkZAICD2QWBAIBDw8WBh8HBVcvaW1hZ2VzL2dhbGxlcnkvX2Z1bGxfL2RvY3MvZGlzdHJpY3QvaW1nXzU1ODguanBnP2lkPTEwMDg3JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxOTQmc2Nob29saWQ9MB8ABRJEci4gU2V1c3MgRGF5IDIwMjBkZAIDDw8WBB8ABQ1Eci4gU2V1c3MgRGF5HwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTIwMTk0JnNjaG9vbElEPTBkZAIDD2QWBAIBDw8WBh8HBWIvaW1hZ2VzL2dhbGxlcnkvX2Z1bGxfL2RvY3MvZGlzdHJpY3QvZ3R3LTM3OTAxMS02ODg0ODU5OC5qcGc/aWQ9MTAwNDAmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDE5MiZzY2hvb2xpZD0wHwAFBWRhbmNlZGQCAw8PFgQfAAUdSGlnaCBTY2hvb2wgU2VtaS1Gb3JtYWwgRGFuY2UfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SUQ9MjAxOTImc2Nob29sSUQ9MGRkAgQPZBYEAgEPDxYGHwcFVi9pbWFnZXMvZ2FsbGVyeS9fZnVsbF8vZG9jcy9kaXN0cmljdC9pbWdfMDI3Ni5qcGc/aWQ9OTk5MSZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlkPTIwMTkwJnNjaG9vbGlkPTAfAAUJMTAwdGgtZGF5ZGQCAw8PFgQfAAUTMTAwdGggRGF5IG9mIFNjaG9vbB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE5MCZzY2hvb2xJRD0wZGQCBQ9kFgQCAQ8PFgYfBwWFAS9pbWFnZXMvZ2FsbGVyeS9fZnVsbF8vZG9jcy9kaXN0cmljdC8yMDE5IHBob3RvIGdhbGxlcmllcy9iaWcgZSAyMDE5L3NuYXBjaGF0LTE3ODgwODMyMDggKDEpLmpwZz9pZD05MjY1JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxODQmc2Nob29saWQ9MB8ABQliaWdFLWp1bXBkZAIDDw8WBB8ABRRHYXRld2F5IGF0IHRoZSBCaWcgRR8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE4NCZzY2hvb2xJRD0wZGQCBg9kFgQCAQ8PFgYfBwVgL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0L3NlcHQgMjAxOS9pbWdfNjMzNS5qcGc/aWQ9OTIxNiZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlkPTIwMTgyJnNjaG9vbGlkPTAfAAUPY2xhc3MtcHJlc2lkZW50ZGQCAw8PFgQfAAUTU2VwdGVtYmVyIEZsaWVzIEJ5IR8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE4MiZzY2hvb2xJRD0wZGQCBw9kFgQCAQ8PFgYfBwVsL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0L29wZW5pbmcgZGF5IDIwMTkvZ2lybHMtc29jY2VyMS5qcGc/aWQ9OTEwOCZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlkPTIwMTc2JnNjaG9vbGlkPTAfAAUMR2lybHMgU29jY2VyZGQCAw8PFgQfAAUPRmlyc3QgV2VlayAyMDE5HwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTIwMTc2JnNjaG9vbElEPTBkZAIID2QWBAIBDw8WBh8HBYMBL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTkgcGhvdG8gZ2FsbGVyaWVzLzIwMTkgZ3JhZC9wcmluY2lwYWwgamFzb24gZmlubmllLmpwZz9pZD04OTg1JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxNzImc2Nob29saWQ9MB8ABRZQaG90byBieSBDaGxvZSBNY0NsZW9kZGQCAw8PFgQfAAURMjAxOSBDb21tZW5jZW1lbnQfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SUQ9MjAxNzImc2Nob29sSUQ9MGRkAgkPZBYEAgEPDxYGHwcFeC9pbWFnZXMvZ2FsbGVyeS9fZnVsbF8vZG9jcy9kaXN0cmljdC8yMDE5IHBob3RvIGdhbGxlcmllcy9zcHJpbmcgZmxpbmcvaW1nXzQ5OTIuanBnP2lkPTg5MzQmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDE3MCZzY2hvb2xpZD0wHwAFFVBob3RvIGJ5IENobG9lIE1jTGVvZGRkAgMPDxYEHwAFFDIwMTkgSFMgU3ByaW5nIEZsaW5nHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTIwMTcwJnNjaG9vbElEPTBkZAIKD2QWBAIBDw8WBh8HBYkBL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTkgcGhvdG8gZ2FsbGVyaWVzL2JvZyBmaXNoLy00NjkzNTAyOTgzMjYwMDYwNDE3X2ltZ18wMzgyLmpwZz9pZD04ODgwJnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxNjgmc2Nob29saWQ9MB8ABRZQaG90byBieSBNaWNoYWVsIE5vbGFuZGQCAw8PFgQfAAUVQmlnIEZpc2ggVGhlIE11c2ljYWwgHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTIwMTY4JnNjaG9vbElEPTBkZAILD2QWBAIBDw8WBh8HBZ4BL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTkgcGhvdG8gZ2FsbGVyaWVzL2Nvc3RhcSByaWNhLzU3NDIwNzA5XzI0NzQxODc3NTU5MzgzOTJfMTEzMjY1NDQ2MDE3NTEyMjQzMl9uLmpwZz9pZD04ODQ2JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxNjYmc2Nob29saWQ9MB8ABSFXaGl0ZSBXYXRlciBSYWZ0aW5nIGluIENvc3RhIFJpY2FkZAIDDw8WBB8ABRRDb3N0YSBSaWNhIFRyaXAgMjAxOR8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE2NiZzY2hvb2xJRD0wZGQCDA9kFgQCAQ8PFgYfBwWBAS9pbWFnZXMvZ2FsbGVyeS9fZnVsbF8vdXNlcmZpbGVzLzQvbXkgZmlsZXMvMjAxOSBwaG90byBnYWxsZXJpZXMvYmFuZCBhbmQgY2hvaXIvaW1nXzkyMDMuanBnP2lkPTg4MDUmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDE2NCZzY2hvb2xpZD0wHwAFFVBob3RvIGJ5IENobG9lIE1jTGVvZGRkAgMPDxYEHwAFJUJhbmQgJiBDaG9pciBDb21wZXRpdGlvbiBhbmQgTllDIFRyaXAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SUQ9MjAxNjQmc2Nob29sSUQ9MGRkAg0PZBYEAgEPDxYGHwcFlQEvaW1hZ2VzL2dhbGxlcnkvX2Z1bGxfL2RvY3MvZGlzdHJpY3QvMjAxOSBwaG90byBnYWxsZXJpZXMvbmhzIGlub2cvLTMwMTI3ODI0NTk5MzYzMzYwMzhfaW1nXzM2MDQgMi5qcGc/aWQ9ODc2MiZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwJnJvdGF0ZT05MB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDE2MiZzY2hvb2xpZD0wHwAFFVBob3RvIGJ5IENobG9lIE1jTGVvZGRkAgMPDxYEHwAFFU5IUyBJbmF1Z3VyYXRpb24gMjAxOR8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE2MiZzY2hvb2xJRD0wZGQCDg9kFgQCAQ8PFgYfBwWEAS9pbWFnZXMvZ2FsbGVyeS9fZnVsbF8vZG9jcy9kaXN0cmljdC8yMDE5IHBob3RvIGdhbGxlcmllcy9iZXN0IGJ1ZGRpZXMgcHJvbS8yMDE5MDQwNV8xOTQxNTQuanBnP2lkPTg3MzQmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDE2MCZzY2hvb2xpZD0wHwAFE1Bob3RvIGJ5IE1hcnkgTHlvbnNkZAIDDw8WBB8ABRFCZXN0IEJ1ZGRpZXMgUHJvbR8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE2MCZzY2hvb2xJRD0wZGQCDw9kFgQCAQ8PFgYfBwVzL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTkgcGhvdG8gZ2FsbGVyaWVzL2NhYmFyZXQvaW1nXzMyNzMuanBnP2lkPTg2OTYmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDE1OCZzY2hvb2xpZD0wHwAFFlBob3RvIGJ5IE1pY2hhZWwgTm9sYW5kZAIDDw8WBB8ABQdDYWJhcmV0HwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTIwMTU4JnNjaG9vbElEPTBkZAIQD2QWBAIBDw8WBh8HBXovaW1hZ2VzL2dhbGxlcnkvX2Z1bGxfL2RvY3MvZGlzdHJpY3QvMjAxOSBwaG90byBnYWxsZXJpZXMvaHMgdGFsZW50IHNob3cvaW1nXzIzMzUuanBnP2lkPTg2NzMmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDE1NiZzY2hvb2xpZD0wHwAFFVBob3RvIGJ5IENobG9lIE1jbGVvZGRkAgMPDxYEHwAFGEhpZ2ggU2Nob29sIFRhbGVudCBTaG93IR8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE1NiZzY2hvb2xJRD0wZGQCEQ9kFgQCAQ8PFgYfBwV6L2ltYWdlcy9nYWxsZXJ5L19mdWxsXy91c2VyZmlsZXMvNC9teSBmaWxlcy8yMDE5IHBob3RvIGdhbGxlcmllcy9zbGVkIGRvZ3MvMjkyNTYuanBlZz9pZD04NjM5JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxNTImc2Nob29saWQ9MB8ABSJQaG90b3MgYnkgdGVhY2hlciBNYXJnYXJldCBQZXR6b2xkZGQCAw8PFgQfAAUbU2xlZCBEb2dzIFZpc2l0IExpdHRsZXZpbGxlHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTIwMTUyJnNjaG9vbElEPTBkZAISD2QWBAIBDw8WBh8HBY0BL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTkgcGhvdG8gZ2FsbGVyaWVzL3RoaXMgd2VlayBpbiB0aGUgZ3BhYy9mdWxsc2l6ZW91dHB1dF81NjMwLmpwZWc/aWQ9ODU5NSZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlkPTIwMTUwJnNjaG9vbGlkPTAfAAUZKFBob3RvIHRha2VuIGJ5IEpvaG4gR2FqKWRkAgMPDxYEHwAFFVRoaXMgV2VlayBpbiB0aGUgR1BBQx8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE1MCZzY2hvb2xJRD0wZGQCEw9kFgQCAQ8PFgYfBwV5L2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTkgcGhvdG8gZ2FsbGVyaWVzL2RyLiBzZXVzcyBkYXkvaW1nXzE0NjMuanBnP2lkPTg1NjQmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDE0OCZzY2hvb2xpZD0wHwAFFyhQaG90byBieSBDaGxvZSBNY0xlb2QpZGQCAw8PFgQfAAUXUmVhZCBBY3Jvc3MgQW1lcmljYSBEYXkfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SUQ9MjAxNDgmc2Nob29sSUQ9MGRkAhQPZBYEAgEPDxYGHwcFfC9pbWFnZXMvZ2FsbGVyeS9fZnVsbF8vZG9jcy9kaXN0cmljdC8yMDE5IHBob3RvIGdhbGxlcmllcy93aW50ZXIgYnJlYWsgZXZlL2ltZ18xMzQxLmpwZz9pZD04NTQyJnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxNDYmc2Nob29saWQ9MB8ABRVQaG90byBieSBDaGxvZSBNY0xlb2RkZAIDDw8WBB8ABRBXaW50ZXIgQnJlYWsgRXZlHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTIwMTQ2JnNjaG9vbElEPTBkZAIVD2QWBAIBDw8WBh8HBX4vaW1hZ2VzL2dhbGxlcnkvX2Z1bGxfL2RvY3MvZGlzdHJpY3QvMjAxOSBwaG90byBnYWxsZXJpZXMvdmFyc2l0eSAyIDEyIGJiYWxsL2ltZ18xMTk0LmpwZz9pZD04NTA2JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxNDQmc2Nob29saWQ9MB8ABRVQaG90byBieSBDaGxvZSBNY0xlb2RkZAIDDw8WBB8ABRdWYXJzaXR5IEJhc2tldGJhbGwgMi8xMh8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE0NCZzY2hvb2xJRD0wZGQCFg9kFgQCAQ8PFgYfBwV9L2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTkgcGhvdG8gZ2FsbGVyaWVzL2NoZWFwZXIgYnkgdGhlIGRvemVuL2NiZCAxLmpwZz9pZD04NDgxJnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxNDImc2Nob29saWQ9MB8ABRVQaG90byBieSBDaGxvZSBNY0xlb2RkZAIDDw8WBB8ABRRDaGVhcGVyIGJ5IHRoZSBEb3plbh8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE0MiZzY2hvb2xJRD0wZGQCFw9kFgQCAQ8PFgYfBwWFAS9pbWFnZXMvZ2FsbGVyeS9fZnVsbF8vZG9jcy9kaXN0cmljdC8yMDE5IHBob3RvIGdhbGxlcmllcy93aW50ZXIgc3IuIG5pZ2h0cy9ocyBib3lzIGJiYWxsIHNyLmpwZz9pZD04NDY2JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxNDAmc2Nob29saWQ9MB8ABRhXaW50ZXIgU3BvcnRzIFNyLiBOaWdodHNkZAIDDw8WBB8ABRpXaW50ZXIgU3BvcnRzIFNyLiBBdGhsZXRlcx8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDE0MCZzY2hvb2xJRD0wZGQCGA9kFgQCAQ8PFgYfBwVsL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTkgcGhvdG8gZ2FsbGVyaWVzL211bi9tdW4gMS5qcGc/aWQ9ODQ1MSZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlkPTIwMTM4JnNjaG9vbGlkPTAfAAUeQWxsLUFtZXJpY2FuIE1vZGVsIFVOIFByb2dyYW1zZGQCAw8PFgQfAAUfTW9kZWwgVW5pdGVkIE5hdGlvbnMgY29uZmVyZW5jZR8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDEzOCZzY2hvb2xJRD0wZGQCGQ9kFgQCAQ8PFgYfBwV6L2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTkgcGhvdG8gZ2FsbGVyaWVzL3JlaW5kZWVyIGdhbWVzL2ltZ185ODY3LmpwZz9pZD04MzgxJnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxMzYmc2Nob29saWQ9MB8ABRVQaG90byBieSBDaGxvZSBNY0xlb2RkZAIDDw8WBB8ABQ9SRUlOREVFUiBHQU1FUyEfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SUQ9MjAxMzYmc2Nob29sSUQ9MGRkAhoPZBYEAgEPDxYGHwcFhgEvaW1hZ2VzL2dhbGxlcnkvX2Z1bGxfL2RvY3MvZGlzdHJpY3QvMjAxOSBwaG90byBnYWxsZXJpZXMvdy4gY29uY2VydCAxOCcvZnVsbHNpemVvdXRwdXRfNGFhZi5qcGVnP2lkPTgzNTQmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDEzNCZzY2hvb2xpZD0wHwAFFlBob3RvIGJ5IE1pY2hhZWwgTm9sYW5kZAIDDw8WBB8ABSZHcmFkZSA1LTgsIEhpZ2ggU2Nob29sIFdpbnRlciBDb25jZXJ0cx8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDEzNCZzY2hvb2xJRD0wZGQCGw9kFgQCAQ8PFgYfBwV3L2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTkgcGhvdG8gZ2FsbGVyaWVzL3NyLiBjaXRpemVuL2ltZ184OTkxLmpwZz9pZD04Mjk3JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjAxMzImc2Nob29saWQ9MB8ABRVQaG90byBieSBDaGxvZSBNY2xlb2RkZAIDDw8WBB8ABQtTci4gQ2l0aXplbh8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDEzMiZzY2hvb2xJRD0wZGQCHA9kFgQCAQ8PFgYfBwV8L2ltYWdlcy9nYWxsZXJ5L19mdWxsXy91c2VyZmlsZXMvNC9teSBmaWxlcy8yMDE5IHBob3RvIGdhbGxlcmllcy9ncmFuZGZyaWVuZHMvY2VzIDEuanBnP2lkPTgyNjYmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDEzMCZzY2hvb2xpZD0wHwAFGChwaG90byBieSBEYXJsZW5lIFJlaG9yKWRkAgMPDxYEHwAFEUdyYW5kZnJpZW5kcyBEYXkhHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTIwMTMwJnNjaG9vbElEPTBkZAIdD2QWBAIBDw8WBh8HBXovaW1hZ2VzL2dhbGxlcnkvX2Z1bGxfL2RvY3MvZGlzdHJpY3QvMjAxOSBwaG90byBnYWxsZXJpZXMvZmFsbCBzcG9ydHMgc3IveGMgZ3JvdXAuanBnP2lkPTgxOTAmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDEyNiZzY2hvb2xpZD0wHwAFGFBob3RvIGJ5IE1pY2hlbGUgQ3JhbmUNCmRkAgMPDxYEHwAFFkZhbGwgU3BvcnRzIFNyLiBOaWdodHMfBQUxL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SUQ9MjAxMjYmc2Nob29sSUQ9MGRkAh4PZBYEAgEPDxYGHwcFaC9pbWFnZXMvZ2FsbGVyeS9fZnVsbF8vZG9jcy9kaXN0cmljdC9uZXcgZm9sZGVyL2hvbWVjb21pbmcvZm0gMS5qcGc/aWQ9ODEzMCZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwHwUFMS9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlkPTIwMTI0JnNjaG9vbGlkPTAfAAUOKENobG9lIE1jTGVvZClkZAIDDw8WBB8ABRcyMDE4IEhvbWVjb21pbmcgV2Vla2VuZB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDEyNCZzY2hvb2xJRD0wZGQCHw9kFgQCAQ8PFgYfBwVYL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2J1aWxkaW5nLzUvaW1nXzcwNTMuanBnP2lkPTE2NzgmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yMDEyMCZzY2hvb2xpZD0wHwAFHUNoZXN0ZXIgRWxlbWVudGFyeSBPcGVuIEhvdXNlZGQCAw8PFgQfAAUTR2F0ZXdheSBPcGVuIEhvdXNlcx8FBTEvRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJRD0yMDEyMCZzY2hvb2xJRD0wZGQCAw8WAh8GaBYCZg8WAh8GaGQCAw9kFgQCAQ9kFgICAQ9kFgYCAQ8PFgIfBQUVL0Rpc3RyaWN0R2FsbGVyeS5hc3B4ZGQCAw8PFgIfAAUXR2F0ZXdheSBXb3JrcyBmcm9tIEhvbWVkZAIFDxYCHwECGRYyZg9kFgJmDxUFBTIzMjg0eS9kb2NzL2Rpc3RyaWN0L2NvdmlkLWNsb3N1cmUyMDIwLzdkM2U0NGNkLTBmYjctNGRmZi1hODY4LTQ3MjAxOTExYjY5NF80XzUwMDVfYy5qcGVnP2lkPTEwMjgzJnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAoRGlnaXRhbCByZXNvdXJjZXMgYWxsb3cgbGVhcm5pbmcgYXQgaG9tZQZsYXB0b3AGbGFwdG9wZAIBD2QWAmYPFQUFMjMyODB5L2RvY3MvZGlzdHJpY3QvY292aWQtY2xvc3VyZTIwMjAvNWEwMTljZGQtZTdkNy00NjMwLWI2ODYtZGFkN2Q5OTBlMGIzXzRfNTAwNV9jLmpwZWc/aWQ9MTAyODEmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMAAUd29ya2luZy1hdC10aGUtdGFibGUUd29ya2luZy1hdC10aGUtdGFibGVkAgIPZBYCZg8VBQUyMzI4MnkvZG9jcy9kaXN0cmljdC9jb3ZpZC1jbG9zdXJlMjAyMC81ZDQ4NTc0Yy0zZmVhLTQwZjQtODIxMy00ODI5ZWJmYzMzYzNfNF81MDA1X2MuanBlZz9pZD0xMDI4MiZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwAAVjcmFmdAVjcmFmdGQCAw9kFgJmDxUFBTIzMjg2eS9kb2NzL2Rpc3RyaWN0L2NvdmlkLWNsb3N1cmUyMDIwLzUzY2U5NDc1LWViNWMtNGI1My04N2Q3LTNmYWUwNjIwNzgxZF80XzUwMDVfYy5qcGVnP2lkPTEwMjg0JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAcS2VlcGluZyB1cCB3aXRoIHdvcmsgYXQgaG9tZQ9wZW5jaWwtaG9tZXdvcmsPcGVuY2lsLWhvbWV3b3JrZAIED2QWAmYPFQUFMjMyODh5L2RvY3MvZGlzdHJpY3QvY292aWQtY2xvc3VyZTIwMjAvNTNmYzM1ZGQtMWUyOS00M2NkLWExMmYtOWZiYzZhYmQ1MjA5XzRfNTAwNV9jLmpwZWc/aWQ9MTAyODUmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMAAQd29ya2luZy10b2dldGhlchB3b3JraW5nLXRvZ2V0aGVyZAIFD2QWAmYPFQUFMjMyOTBZL2RvY3MvZGlzdHJpY3QvY292aWQtY2xvc3VyZTIwMjAvYWxleGlzLXdvcmtpbmcuanBnP2lkPTEwMjg3JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDArVGVhY2hlcnMga2VlcCB1cCB3aXRoIHRoZWlyIHN0dWRlbnRzIG9ubGluZQZhbGV4aXMGYWxleGlzZAIGD2QWAmYPFQUFMjMyOTZTL2RvY3MvZGlzdHJpY3QvY292aWQtY2xvc3VyZTIwMjAvaW1nXzQ4ODguanBnP2lkPTEwMjkxJnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAmVGVhY2hlcnMgd2VhcmluZyBHYXRld2F5IGJsdWUgYXQgaG9tZSEMdGVhY2hlci1ibHVlDHRlYWNoZXItYmx1ZWQCBw9kFgJmDxUFBTIzMjk4YS9kb2NzL2Rpc3RyaWN0L2NvdmlkLWNsb3N1cmUyMDIwL2tpdGNoZW50YWJsZXNjaG9vbHdvcmsuanBnP2lkPTEwMjkyJnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDBBVGhlIGtpdGNoZW4gdGFibGUgaXMgYXMgZ29vZCBhIHBsYWNlIGFzIGFueSB0byBnZXQgc29tZSB3b3JrIGRvbmUMa2l0Y2hlbi13b3JrDGtpdGNoZW4td29ya2QCCA9kFgJmDxUFBTIzMzAwWi9kb2NzL2Rpc3RyaWN0L2NvdmlkLWNsb3N1cmUyMDIwL21hcmtlcnMtbGV0dGVycy5qcGc/aWQ9MTAyOTgmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMDlUcmFjaW5nIG91dCBsZXR0ZXJzIGZvciBwcmFjdGljZSBvbiBhIGNvenkgY2FycGV0IGF0IGhvbWUObWFya2VyLWxldHRlcnMObWFya2VyLWxldHRlcnNkAgkPZBYCZg8VBQUyMzMwNFEvZG9jcy9kaXN0cmljdC9jb3ZpZC1jbG9zdXJlMjAyMC9wcmVrMS5qcGVnP2lkPTEwMzAwJnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAYRnVuIGhhbmRzLW9uIGFjdGl2aXRpZXMhCmhvbWUtYm93bHMKaG9tZS1ib3dsc2QCCg9kFgJmDxUFBTIzMzE0US9kb2NzL2Rpc3RyaWN0L2NvdmlkLWNsb3N1cmUyMDIwL3ByZWs4LmpwZWc/aWQ9MTAzMDcmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMA5Qb3JjaCBidWRkaWVzIQ1zbm93bWFuLXBvcmNoDXNub3dtYW4tcG9yY2hkAgsPZBYCZg8VBQUyMzMxNlAvZG9jcy9kaXN0cmljdC9jb3ZpZC1jbG9zdXJlMjAyMC9wcmVrOS5qcGc/aWQ9MTAzMDgmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMDNUaGVyZSB3YXMgZW5vdWdoIHNub3cgdG8gbWFrZSBhIHNub3cgbWFuIHRoaXMgd2VlayEHc25vd21hbgdzbm93bWFuZAIMD2QWAmYPFQUFMjMzMDJiL2RvY3MvZGlzdHJpY3QvY292aWQtY2xvc3VyZTIwMjAvbXJiYXRyYS13b3JraW5nZnJvbWhvbWUuanBnP2lkPTEwMjk5JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfTXIuIEJhdHJhIHdvcmtpbmcgaGFyZCBhdCBob21lIQVCYXRyYQVCYXRyYWQCDQ9kFgJmDxUFBTIzMzA4UC9kb2NzL2Rpc3RyaWN0L2NvdmlkLWNsb3N1cmUyMDIwL3ByZWszLmpwZz9pZD0xMDMwMiZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwZEhvbWUgaXMgYSBnb29kIHBsYWNlIHRvIGdldCB5b3VyIGhhbmRzIGRpcnR5IHdpdGggc29tZSBjcmFmdCBwcm9qZWN0cywgYXMgbG9uZyBhcyB5b3UgY2xlYW4gdXAgYWZ0ZXIMbWVzc3ktY3JhZnRzDG1lc3N5LWNyYWZ0c2QCDg9kFgJmDxUFBTIzMzEyUC9kb2NzL2Rpc3RyaWN0L2NvdmlkLWNsb3N1cmUyMDIwL3ByZWs3LmpwZz9pZD0xMDMwNiZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwNElzIHRoYXQgYSBzY2llbmNlIGV4cGVyaW1lbnQ/IExvb2tzIGxpa2UgZnVuIGFueXdheSEOY29sb3JmdWwtd2F0ZXIOY29sb3JmdWwtd2F0ZXJkAg8PZBYCZg8VBQUyMzI3OHkvZG9jcy9kaXN0cmljdC9jb3ZpZC1jbG9zdXJlMjAyMC80YTE3ZjZkNS01ZDhkLTQ5OWMtOWQzOC0xN2ZmYTljZmIzMTVfNF81MDA1X2MuanBlZz9pZD0xMDI4MCZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwN0RvaW5nIGhlciBzY2hvb2x3b3JrIGF0IGhvbWUsIGZyb20gYSBkZXNrIGF0IHRoZSB3aW5kb3cLd2luZG93LWRlc2sLd2luZG93LWRlc2tkAhAPZBYCZg8VBQUyMzMwNlEvZG9jcy9kaXN0cmljdC9jb3ZpZC1jbG9zdXJlMjAyMC9wcmVrMi5qcGVnP2lkPTEwMzAxJnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAaSGFuZHMtb24gbGVhcm5pbmcgYXQgaG9tZSEQY3JhZnRzLXBsYXktc2luaxBjcmFmdHMtcGxheS1zaW5rZAIRD2QWAmYPFQUFMjMzMjBUL2RvY3MvZGlzdHJpY3QvY292aWQtY2xvc3VyZTIwMjAvcmFpbnN0aWNrLmpwZz9pZD0xMDMxMiZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwMEEgc3R1ZGVudCBzaG93cyBvZmYgYSByYWluc3RpY2sgc2hlIG1hZGUgYXQgaG9tZQlyYWluc3RpY2sJcmFpbnN0aWNrZAISD2QWAmYPFQUFMjMyOTJ5L2RvY3MvZGlzdHJpY3QvY292aWQtY2xvc3VyZTIwMjAvYjYwNjI0NGEtMjc5Ni00YzQ0LTg5ZGMtMWQxZGQ1MTI1ODFmXzRfNTAwNV9jLmpwZWc/aWQ9MTAyODgmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMCNMZWFybmluZyB3aXRoIHRlY2hub2xvZ3kgY2FuIGJlIGZ1bg9oZWFkcGhvbmVzLWlwYWQPaGVhZHBob25lcy1pcGFkZAITD2QWAmYPFQUFMjMzMjJdL2RvY3MvZGlzdHJpY3QvY292aWQtY2xvc3VyZTIwMjAvdGVhY2hlci1nb29nbGVtZWV0LnBuZz9pZD0xMDMxNCZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwLVRlYWNoZXJzIGFuZCBzdGFmZiBjaGVjayBpbiBvdmVyIEdvb2dsZSBNZWV0IQtnb29nbGUtbWVldAtnb29nbGUtbWVldGQCFA9kFgJmDxUFBTIzMzEwWS9kb2NzL2Rpc3RyaWN0L2NvdmlkLWNsb3N1cmUyMDIwL3ByZWs1LXJlYWRpbmcuanBlZz9pZD0xMDMwNCZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwOEEgc3R1ZGVudCB3YXRjaGVzIGhpcyB0ZWFjaGVyIE1zLiBTdWUgcmVhZCBhIGJvb2sgb25saW5lDm9ubGluZS1yZWFkaW5nDm9ubGluZS1yZWFkaW5nZAIVD2QWAmYPFQUFMjMzMThSL2RvY3MvZGlzdHJpY3QvY292aWQtY2xvc3VyZTIwMjAvcHJlazEwLmpwZWc/aWQ9MTAzMTAmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMCZBIG1ha2VzaGlmdCBkZXNrIGluIGEgY296eSBsaXZpbmcgcm9vbQhib3gtZGVzawhib3gtZGVza2QCFg9kFgJmDxUFBTIzMzI2Zi91c2VyZmlsZXMvMjI5L215IGZpbGVzL3NjcmVlbiBzaG90IDIwMjAtMDQtMDYgYXQgMS4zNC4xOSBwbS5wbmc/aWQ9MTAzODYmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMDhPbmUgc3R1ZGVudCYjMzk7cyBzY2hlZHVsZSBmb3IgR29vZ2xlIE1lZXRzIGZvciB0aGUgd2VlawxHb29nbGUgTWVldHMMR29vZ2xlIE1lZXRzZAIXD2QWAmYPFQUFMjMzMjRVL3VzZXJmaWxlcy8yMjkvbXkgZmlsZXMvY29sdG9uIHMgbWFyIDE4ICgxKS5qcGc/aWQ9MTAzNjAmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMDNDYXRjaGluZyBzb21lIHN1biB3aGlsZSBjYXRjaGluZyB1cCBvbiBzb21lIHJlYWRpbmcPcmVhZGluZy1vdXRzaWRlD3JlYWRpbmctb3V0c2lkZWQCGA9kFgJmDxUFBTIzMjk0Uy9kb2NzL2Rpc3RyaWN0L2NvdmlkLWNsb3N1cmUyMDIwL2ltZ18yNzU3LmpwZz9pZD0xMDI5MCZ0aHVtYndpZHRoPTEwMCZmdWxsd2lkdGg9NjAwPFNjaG9vbHdvcmsgYXQgaG9tZSBpcyBuaWNlIHdpdGggZnVycnkgZnJpZW5kcyBhcm91bmQgdG8gaGVscAxjYXQtaG9tZXdvcmsMY2F0LWhvbWV3b3JrZAIDD2QWAmYPFgIfBmhkAhkPZBYEZg9kFgRmDxYCHwAFEUZvb3RlciBEaXNjbGFpbWVyZAIBDxYCHwAFoAJHYXRld2F5IFJlZ2lvbmFsIFNjaG9vbCBEaXN0cmljdCBkb2VzIG5vdCBkaXNjcmltaW5hdGUgb24gdGhlIGJhc2lzIG9mIHJhY2UsIGNvbG9yLCBuYXRpb25hbCBvcmlnaW4sIHNleCwgZ2VuZGVyLCBzZXh1YWwgb3JpZW50YXRpb24sIHJlbGlnaW9uLCBob21lbGVzc25lc3MsIGdlbmRlciBpZGVudGl0eSBvciBkaXNhYmlsaXR5LiBLdXJ0IEdhcml2YWx0aXMgRGlyZWN0b3Igb2YgUHVwaWwgU2VydmljZXMsIDEyIExpdHRsZXZpbGxlIFJvYWQsIEh1bnRpbmd0b24sIE1BIDAxMDUwLCA0MTMuNjg1LjEwMTdkAgEPZBYCZg8WAh8BAgUWCmYPZBYCZg8VBQsvbG9naW4uYXNweCpHYXRld2F5IFJlZ2lvbmFsIFNjaG9vbCBEaXN0cmljdCBDTVMgTG9naW4FX3NlbGYmPHNwYW4gY2xhc3M9J29ic2N1cmUnPkNNUyBMb2dpbjwvc3Bhbj4NZmEgZmEtc2lnbi1pbmQCAQ9kFgJmDxUFFC9pbnRyYW5ldF9sb2dpbi5hc3B4KUdhdGV3YXkgUmVnaW9uYWwgU2Nob29sIERpc3RyaWN0IEludHJhbmV0BV9zZWxmJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5JbnRyYW5ldDwvc3Bhbj4NZmEgZmEtc2l0ZW1hcGQCAg9kFgJmDxUFDS9yc3NuZXdzLmFzaHgkR2F0ZXdheSBSZWdpb25hbCBTY2hvb2wgRGlzdHJpY3QgUlNTBV9zZWxmIDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5SU1M8L3NwYW4+CWZhIGZhLXJzc2QCAw9kFgJmDxUFS2h0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9HYXRld2F5LVJlZ2lvbmFsLVNjaG9vbC1EaXN0cmljdC0xNjg0MDQ4MzE4NDgyMjE3LylHYXRld2F5IFJlZ2lvbmFsIFNjaG9vbCBEaXN0cmljdCBGYWNlYm9vawVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+RmFjZWJvb2s8L3NwYW4+DmZhIGZhLWZhY2Vib29rZAIED2QWAmYPFQULL2FkYS1yZXBvcnQLQURBIFJlcG9ydCAFX3NlbGYqPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBSZXBvcnRpbmc8L3NwYW4+D2ZhIGFkYVJlcG9ydGluZ2RkyaXZbk0hKYNRXdndujbDR0UNLis=">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 2, /*color: '#053e67', language: 'en', */ account: 'xbb2mhcPtu' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="headerback">
+            <header id="site-head" class="container"><a id="ctl00_ctl00_header_ctl00_lnkSchoolHome" class="logo" href="/"><span class="obscure">Logo link to home page</span></a>
+<a id="ctl00_ctl00_header_ctl00_lnkSchoolHome2" class="schoolName" href="/">Gateway Regional School District</a>
+
+<div class="watermark"></div>
+
+                
+            </header><div class="NavBack">
+                <div class="container navback">
+                    <div class="header-elements">
+                        
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+<div class="search ">
+                            <div>
+                                <div valign="top" style="" class="searchPad">
+                                    <label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+                                <div style="display: inline; float: right;" class="searchgo">
+                                    <a title="Search" class="bSearch glyphicon glyphicon-search"><span class="obscure">Search Site</span></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="navigation">
+                        <nav class="navbar navbar-default" role="navigation"><!-- Brand and toggle get grouped for better mobile display --><div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span> <span class="fa fa-reorder"></span>
+                                </button>
+                                <div class="school-text"></div>
+
+                            </div>
+
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav nav-bar district-top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/" title="District Home">District Home</a></li>
+<li class="without-image"><a href="/1/home" title="Gateway Regional High School">Gateway Regional High School</a></li>
+<li class="without-image"><a href="/2/home" title="Gateway Regional Middle School">Gateway Regional Middle School</a></li>
+<li class="without-image"><a href="/4/home" title="Littleville Elementary School">Littleville Elementary School</a></li>
+<li class="without-image"><a href="/5/home" title="Chester Elementary School">Chester Elementary School</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Information">Information  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/staff" title="District Directory">District Directory</a></li>
+<li class="without-image"><a href="/content/pio" title="Public Information Officer">Public Information Officer</a></li>
+<li class="without-image"><a href="/Content/2" title="Budget">Budget</a></li>
+<li class="without-image"><a href="/Content/4" title="District History">District History</a></li>
+<li class="without-image"><a href="/Content/8" title="Emergency and Safety Information">Emergency and Safety Information</a></li>
+<li class="without-image"><a href="/Content/24" title="School Choice Information">School Choice Information</a></li>
+<li class="without-image"><a href="/Content/26" title="Driving Directions">Driving Directions</a></li>
+<li class="without-image"><a href="/Content/32" title="Listing of Schools">Listing of Schools</a></li>
+<li class="without-image"><a href="/Content/34" title="School Calendar ">School Calendar </a></li>
+<li class="without-image"><a href="/Content/36" title="Performing Arts Center">Performing Arts Center</a></li>
+<li class="without-image"><a href="/Content/38" title="Alumni">Alumni</a></li>
+<li class="without-image"><a href="http://www.grsd.org/Content2/204" target="_blank" title="Volunteers">Volunteers</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="News">News  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/42" title="Breaking News">Breaking News</a></li>
+<li class="without-image"><a href="http://www.grsd.org/Content/20610" title="Superintendent's Corner 2019-2020">Superintendent's Corner 2019-2020</a></li>
+<li class="without-image"><a href="/Content/46" title="Elementary Transition Communications">Elementary Transition Communications</a></li>
+<li class="without-image"><a href="http://worthingtonwithdrawal.blogspot.com/" title="Worthington withdrawal blog">Worthington withdrawal blog</a></li>
+<li class="without-image"><a href="/Content/422" title="Gateway 2025 Visioning Process">Gateway 2025 Visioning Process</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="School Committee">School Committee  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/158" title="School Committee Home Page">School Committee Home Page</a></li>
+<li class="without-image"><a href="/Content/84" title="Meeting Dates and Locations">Meeting Dates and Locations</a></li>
+<li class="without-image"><a href="/Content/86" title="Agenda and Current Meeting Minutes">Agenda and Current Meeting Minutes</a></li>
+<li class="without-image"><a href="/Content/88" title="School Committee Minutes">School Committee Minutes</a></li>
+<li class="without-image"><a href="/Content/90" title="Policies">Policies</a></li>
+<li class="without-image"><a href="/Content/92" title="Presentations to School Committee">Presentations to School Committee</a></li>
+<li class="without-image"><a href="/Content/94" title="Subcommittee Membership">Subcommittee Membership</a></li>
+<li class="without-image"><a href="/Content/96" title="Regional Amendments">Regional Amendments</a></li>
+<li class="without-image"><a href="http://www.grsd.org/Content/census%20%20" target="_blank" title="March 1 Census Information">March 1 Census Information</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Administrative Services">Administrative Services  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/160" title="Administrative Services Home">Administrative Services Home</a></li>
+<li class="without-image"><a href="/Content/162" title="Business and Financial Services">Business and Financial Services</a></li>
+<li class="without-image"><a href="/Content/180" title="Employment Opportunities">Employment Opportunities</a></li>
+<li class="without-image"><a href="/Content/182" title="District Improvement Plans">District Improvement Plans</a></li>
+<li class="without-image"><a href="http://www.grsd.org/Content2/192" title="Bus Schedules and Information">Bus Schedules and Information</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Academics">Academics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/154" title="Academics Home">Academics Home</a></li>
+<li class="without-image"><a href="/Content/100" title="Professional Development">Professional Development</a></li>
+<li class="without-image"><a href="/Content/102" title="Assessment">Assessment</a></li>
+<li class="without-image"><a href="/Content/108" title="Mentoring Program">Mentoring Program</a></li>
+<li class="without-image"><a href="/Content/110" title="Curriculum ">Curriculum </a></li>
+<li class="without-image"><a href="/Content/116" title="Student Support Services">Student Support Services</a></li>
+<li class="without-image"><a href="/Content/132" title="GRSD Libraries ">GRSD Libraries </a></li>
+<li class="without-image"><a href="/Content/134" title="Instructional Technology">Instructional Technology</a></li>
+<li class="without-image"><a href="/Content/136" title="Literacy">Literacy</a></li>
+<li class="without-image"><a href="/Content/146" title="Title I">Title I</a></li>
+<li class="with-image"><a href="/Content/152" target="_blank" title="Homeschool"><img src="/userfiles/110/my%20files/home%20school%20application%2015-16.pdf?id=1551&amp;height=32" alt="Homeschool" title="Homeschool" border="0"></a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/athletics" title="Athletics">Athletics</a></li>
+</ul>
+<div class="collapsedLinks">
+                                    <ul class="quicklinks">
+<li class="qlTitle">Resources</li>
+                                    </ul>
+<ul class="nav navbar-nav nav-bar left-nav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="  Parents"><i class="fa fa-user"></i>  Parents  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/parent-resources" title="Resources">Resources</a></li>
+<li class="without-image"><a href="/Content/20618" title="Preschool">Preschool</a></li>
+<li class="without-image"><a href="/Content/20506" title="Elementary Parents">Elementary Parents</a></li>
+<li class="without-image"><a href="/content/ms-resources" title="MS Parents">MS Parents</a></li>
+<li class="without-image"><a href="/content/resources" title="HS Parents">HS Parents</a></li>
+<li class="without-image"><a href="https://www.grsd.org/olc/sepac" title="Special Education Parents Advisory Council (SEPAC)">Special Education Parents Advisory Council (SEPAC)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title=" Students"><i class="fa fa-users"></i> Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/handbooks" title="Resources">Resources</a></li>
+<li class="without-image"><a href="#" title="Elementary Students">Elementary Students</a></li>
+<li class="without-image"><a href="/content/ms-resources" title="MS Students">MS Students</a></li>
+<li class="without-image"><a href="/content/resources" title="HS Students">HS Students</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title=" Staff "><i class="fa fa-university"></i> Staff   <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="/content/staffresources" title="Resources">Resources</a></li></ul>
+</li>
+</ul>
+<ul class="quicklinks">
+<li class="qlTitle">Quick Links</li>
+                                    </ul>
+<ul class="nav navbar-nav nav-bar left-nav">
+<li class="without-image"><a href="https://www.cleargov.com/massachusetts/school/gateway/2020/native/expenditures" title="FY'21 Budget">FY'21 Budget</a></li>
+<li class="without-image"><a href="https://www.formality.io/v/yQQVxLF6" title="Spring Sports Registration">Spring Sports Registration</a></li>
+<li class="without-image"><a href="http://www.grsd.org/Content2/194" title="Food Services">Food Services</a></li>
+<li class="without-image"><a href="/content/210" title="Pay Fees online">Pay Fees online</a></li>
+<li class="without-image"><a href="http://www.grsd.org/Content/blizzardbags%20parent%20%20" title="Blizzard Bags Info">Blizzard Bags Info</a></li>
+<li class="without-image"><a href="http://cfweb3.smartedu.net/dev/rev2.1/smartfacility/clients.cfm?name=gateway" title="Facilities Request">Facilities Request</a></li>
+<li class="without-image"><a href="/content/180" title="Employment">Employment</a></li>
+<li class="without-image"><a href="http://www.gatewayeducationfoundation.org/" title="Ed Foundation">Ed Foundation</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="HC Health Center">HC Health Center  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://www.hchcweb.org/connect-to-services/service-we-offer/school-based-health-center-gator-grins-outreach/" target="_blank" title="Gator Grins">Gator Grins</a></li>
+<li class="without-image"><a href="https://www.hchcweb.org/connect-to-services/service-we-offer/school-based-health-center/" target="_blank" title="School Based Health Center">School Based Health Center</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/district-plans" title="Improvement and Capital Plans">Improvement and Capital Plans</a></li>
+<li class="without-image"><a href="/Content/20632" aria-label="" title="School Closing Information - COVID-19">School Closing Information - COVID-19</a></li>
+</ul>
+</div>
+                            </div>
+                        </nav>
+</div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        <div class="masterC alignment-stretch">
+            <div class="container middle">
+                <div class="row">
+                    <div class="row">
+                        
+	
+
+
+                        
+	<div class="navwrapper hidden-xs col-sm-3 col-md-3 col-lg-3 backgroundcolor">
+		<div class="clearfix panel2 content">
+			
+				<div class="ResourceNavBlock">
+					<div class="header">
+						<h1 class="headerNav">Resources</h1>
+					</div>
+					<ul class="nav nav-bar left-nav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="  Parents"><i class="fa fa-user"></i>  Parents  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/parent-resources" title="Resources">Resources</a></li>
+<li class="without-image"><a href="/Content/20618" title="Preschool">Preschool</a></li>
+<li class="without-image"><a href="/Content/20506" title="Elementary Parents">Elementary Parents</a></li>
+<li class="without-image"><a href="/content/ms-resources" title="MS Parents">MS Parents</a></li>
+<li class="without-image"><a href="/content/resources" title="HS Parents">HS Parents</a></li>
+<li class="without-image"><a href="https://www.grsd.org/olc/sepac" title="Special Education Parents Advisory Council (SEPAC)">Special Education Parents Advisory Council (SEPAC)</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title=" Students"><i class="fa fa-users"></i> Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/handbooks" title="Resources">Resources</a></li>
+<li class="without-image"><a href="#" title="Elementary Students">Elementary Students</a></li>
+<li class="without-image"><a href="/content/ms-resources" title="MS Students">MS Students</a></li>
+<li class="without-image"><a href="/content/resources" title="HS Students">HS Students</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title=" Staff "><i class="fa fa-university"></i> Staff   <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="/content/staffresources" title="Resources">Resources</a></li></ul>
+</li>
+</ul>
+</div>
+				<div class="header">
+					<h1 class="headerNav">Quick Links</h1>
+				</div>
+				<ul class="nav nav-bar left-nav">
+<li class="without-image"><a href="https://www.cleargov.com/massachusetts/school/gateway/2020/native/expenditures" title="FY'21 Budget">FY'21 Budget</a></li>
+<li class="without-image"><a href="https://www.formality.io/v/yQQVxLF6" title="Spring Sports Registration">Spring Sports Registration</a></li>
+<li class="without-image"><a href="http://www.grsd.org/Content2/194" title="Food Services">Food Services</a></li>
+<li class="without-image"><a href="/content/210" title="Pay Fees online">Pay Fees online</a></li>
+<li class="without-image"><a href="http://www.grsd.org/Content/blizzardbags%20parent%20%20" title="Blizzard Bags Info">Blizzard Bags Info</a></li>
+<li class="without-image"><a href="http://cfweb3.smartedu.net/dev/rev2.1/smartfacility/clients.cfm?name=gateway" title="Facilities Request">Facilities Request</a></li>
+<li class="without-image"><a href="/content/180" title="Employment">Employment</a></li>
+<li class="without-image"><a href="http://www.gatewayeducationfoundation.org/" title="Ed Foundation">Ed Foundation</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="HC Health Center">HC Health Center  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://www.hchcweb.org/connect-to-services/service-we-offer/school-based-health-center-gator-grins-outreach/" target="_blank" title="Gator Grins">Gator Grins</a></li>
+<li class="without-image"><a href="https://www.hchcweb.org/connect-to-services/service-we-offer/school-based-health-center/" target="_blank" title="School Based Health Center">School Based Health Center</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/district-plans" title="Improvement and Capital Plans">Improvement and Capital Plans</a></li>
+<li class="without-image"><a href="/Content/20632" aria-label="" title="School Closing Information - COVID-19">School Closing Information - COVID-19</a></li>
+</ul>
+</div>
+	</div>
+	<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 backgroundcolor">
+		<div class="clearfix panel content">
+			
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+
+    
+
+    
+        <div class="maincontentsection">
+            
+
+<!-- fotorama.css & fotorama.js. -->
+<link href="https://cdn.schoolpointe.com/fotorama/fotorama.css" rel="stylesheet">
+<!-- 3 KB --><script src="https://cdn.schoolpointe.com/fotorama/out/fotorama.js"></script><!-- 16 KB --><script type="text/javascript">
+</script><style type="text/css">
+    .fotorama__wrap {
+        margin: auto;
+    }
+</style>
+<div style="text-align: left;" class="content">
+        <a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_hlGallerySelect" href="/Gallery">Back to Galleries</a>
+    </div>
+
+    <div style="text-align: center;">
+        <span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_lblCategoryName" class="content categoryName" style="font-size:14px;font-weight:bold;">Gateway Works from Home</span>
+    </div>
+
+    <div class="fotorama" data-max-width="100%" data-nav="thumbs" data-hash="true" data-autoplay="false" data-keyboard="true">
+        
+                <img id="23284" src="/images/gallery/_full_/docs/district/covid-closure2020/7d3e44cd-0fb7-4dff-a868-47201911b694_4_5005_c.jpeg?id=10283&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Digital resources allow learning at home" alt="laptop" title="laptop"><img id="23280" src="/images/gallery/_full_/docs/district/covid-closure2020/5a019cdd-e7d7-4630-b686-dad7d990e0b3_4_5005_c.jpeg?id=10281&amp;thumbwidth=100&amp;fullwidth=600" data-caption="" alt="working-at-the-table" title="working-at-the-table"><img id="23282" src="/images/gallery/_full_/docs/district/covid-closure2020/5d48574c-3fea-40f4-8213-4829ebfc33c3_4_5005_c.jpeg?id=10282&amp;thumbwidth=100&amp;fullwidth=600" data-caption="" alt="craft" title="craft"><img id="23286" src="/images/gallery/_full_/docs/district/covid-closure2020/53ce9475-eb5c-4b53-87d7-3fae0620781d_4_5005_c.jpeg?id=10284&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Keeping up with work at home" alt="pencil-homework" title="pencil-homework"><img id="23288" src="/images/gallery/_full_/docs/district/covid-closure2020/53fc35dd-1e29-43cd-a12f-9fbc6abd5209_4_5005_c.jpeg?id=10285&amp;thumbwidth=100&amp;fullwidth=600" data-caption="" alt="working-together" title="working-together"><img id="23290" src="/images/gallery/_full_/docs/district/covid-closure2020/alexis-working.jpg?id=10287&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Teachers keep up with their students online" alt="alexis" title="alexis"><img id="23296" src="/images/gallery/_full_/docs/district/covid-closure2020/img_4888.jpg?id=10291&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Teachers wearing Gateway blue at home!" alt="teacher-blue" title="teacher-blue"><img id="23298" src="/images/gallery/_full_/docs/district/covid-closure2020/kitchentableschoolwork.jpg?id=10292&amp;thumbwidth=100&amp;fullwidth=600" data-caption="The kitchen table is as good a place as any to get some work done" alt="kitchen-work" title="kitchen-work"><img id="23300" src="/images/gallery/_full_/docs/district/covid-closure2020/markers-letters.jpg?id=10298&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Tracing out letters for practice on a cozy carpet at home" alt="marker-letters" title="marker-letters"><img id="23304" src="/images/gallery/_full_/docs/district/covid-closure2020/prek1.jpeg?id=10300&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Fun hands-on activities!" alt="home-bowls" title="home-bowls"><img id="23314" src="/images/gallery/_full_/docs/district/covid-closure2020/prek8.jpeg?id=10307&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Porch buddies!" alt="snowman-porch" title="snowman-porch"><img id="23316" src="/images/gallery/_full_/docs/district/covid-closure2020/prek9.jpg?id=10308&amp;thumbwidth=100&amp;fullwidth=600" data-caption="There was enough snow to make a snow man this week!" alt="snowman" title="snowman"><img id="23302" src="/images/gallery/_full_/docs/district/covid-closure2020/mrbatra-workingfromhome.jpg?id=10299&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Mr. Batra working hard at home!" alt="Batra" title="Batra"><img id="23308" src="/images/gallery/_full_/docs/district/covid-closure2020/prek3.jpg?id=10302&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Home is a good place to get your hands dirty with some craft projects, as long as you clean up after" alt="messy-crafts" title="messy-crafts"><img id="23312" src="/images/gallery/_full_/docs/district/covid-closure2020/prek7.jpg?id=10306&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Is that a science experiment? Looks like fun anyway!" alt="colorful-water" title="colorful-water"><img id="23278" src="/images/gallery/_full_/docs/district/covid-closure2020/4a17f6d5-5d8d-499c-9d38-17ffa9cfb315_4_5005_c.jpeg?id=10280&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Doing her schoolwork at home, from a desk at the window" alt="window-desk" title="window-desk"><img id="23306" src="/images/gallery/_full_/docs/district/covid-closure2020/prek2.jpeg?id=10301&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Hands-on learning at home!" alt="crafts-play-sink" title="crafts-play-sink"><img id="23320" src="/images/gallery/_full_/docs/district/covid-closure2020/rainstick.jpg?id=10312&amp;thumbwidth=100&amp;fullwidth=600" data-caption="A student shows off a rainstick she made at home" alt="rainstick" title="rainstick"><img id="23292" src="/images/gallery/_full_/docs/district/covid-closure2020/b606244a-2796-4c44-89dc-1d1dd512581f_4_5005_c.jpeg?id=10288&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Learning with technology can be fun" alt="headphones-ipad" title="headphones-ipad"><img id="23322" src="/images/gallery/_full_/docs/district/covid-closure2020/teacher-googlemeet.png?id=10314&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Teachers and staff check in over Google Meet!" alt="google-meet" title="google-meet"><img id="23310" src="/images/gallery/_full_/docs/district/covid-closure2020/prek5-reading.jpeg?id=10304&amp;thumbwidth=100&amp;fullwidth=600" data-caption="A student watches his teacher Ms. Sue read a book online" alt="online-reading" title="online-reading"><img id="23318" src="/images/gallery/_full_/docs/district/covid-closure2020/prek10.jpeg?id=10310&amp;thumbwidth=100&amp;fullwidth=600" data-caption="A makeshift desk in a cozy living room" alt="box-desk" title="box-desk"><img id="23326" src="/images/gallery/_full_/userfiles/229/my%20files/screen%20shot%202020-04-06%20at%201.34.19%20pm.png?id=10386&amp;thumbwidth=100&amp;fullwidth=600" data-caption="One student's schedule for Google Meets for the week" alt="Google Meets" title="Google Meets"><img id="23324" src="/images/gallery/_full_/userfiles/229/my%20files/colton%20s%20mar%2018%20(1).jpg?id=10360&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Catching some sun while catching up on some reading" alt="reading-outside" title="reading-outside"><img id="23294" src="/images/gallery/_full_/docs/district/covid-closure2020/img_2757.jpg?id=10290&amp;thumbwidth=100&amp;fullwidth=600" data-caption="Schoolwork at home is nice with furry friends around to help" alt="cat-homework" title="cat-homework">
+</div>
+
+
+
+        </div>
+        
+
+
+		</div>
+	</div>
+	
+	
+
+
+                        
+                        
+
+                        
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot"><div class="footer-top-container">
+    <div class="container">
+        <div class="footertext col-xs-12">
+            
+
+<div class="feature-content-body content">
+    
+    <div class="feature-content-content">
+        Gateway Regional School District does not discriminate on the basis of race, color, national origin, sex, gender, sexual orientation, religion, homelessness, gender identity or disability. Kurt Garivaltis Director of Pupil Services, 12 Littleville Road, Huntington, MA 01050, 413.685.1017
+    </div>
+    
+</div>
+
+
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 contact-us">
+            <h6>Contact Us</h6>
+            
+            <div class="footer-address col-lg-6 col-md-6">
+                <div>
+                    12 Littleville Rd
+                </div>
+                <div>
+                    Huntington,
+					MA
+                    01050
+                </div>
+                <div>
+                    <a href="http://maps.google.com/maps?q=12%20Littleville%20Rd+Huntington+MA+01050">View Map &amp; Directions
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-address col-lg-6 col-md-6">
+
+                
+            </div>
+            
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 stay-connected">
+            <h6>Stay Connected</h6>
+            <div id="social-links" class="fa">
+                
+        <a href="/login.aspx" title="Gateway Regional School District CMS Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/Login/Intranet" title="Gateway Regional School District Intranet" target="_self">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="/rssnews.ashx" title="Gateway Regional School District RSS" target="_self">
+            <span class="obscure">RSS</span>
+            <i class="fa fa-rss"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/Gateway-Regional-School-District-1684048318482217/" title="Gateway Regional School District Facebook" target="_self">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Report " target="_self">
+            <span class="obscure">ADA Reporting</span>
+            <i class="fa adaReporting"></i>
+        </a>
+    
+
+                <div class="clr">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-branding-container">
+    <div class="container">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <a href="http://www.schoolpointe.com" target="_blank" alt="SchoolPointe">
+                <img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPBlack.png" id="sp-logo"></a>
+        </div>
+    </div>
+</div>
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-61700231-21', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer>
+</div>
+
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="068E01D0">
+</div>
+</form>
+</body>
+</html>

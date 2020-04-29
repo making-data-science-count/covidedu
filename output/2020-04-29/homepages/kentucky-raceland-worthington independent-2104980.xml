@@ -1,0 +1,1443 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Raceland-Worthington Independent Schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" type="text/css">
+<link rel="icon" href="/userfiles/-13/My%20Files/favicon.ico" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1043073721">
+<meta name="google-play-app" content="app-id=com.schoolpointe.stayconnected">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="https://cdn.schoolpointe.com/images/apple-touch-icon.jpg">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Stay Connected", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "https://cdn.schoolpointe.com/images/apple-touch-icon.jpg", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><meta name="google-site-verification" content="b-hpsgNGswuVEg9aDHVFA09hUYiVFvsspX0dGM4sHmA">
+<link rel="alternate" type="application/rss+xml" title="Raceland-Worthington Independent Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Raceland-Worthington High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Raceland-Worthington Schools Campus B - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Raceland-Worthington Schools Campus A - News" href="/rssNews.ashx?schoolId=3">
+<link rel="alternate" type="application/rss+xml" title="Campbell Elementary - News" href="/rssNews.ashx?schoolId=4">
+<link rel="alternate" type="application/rss+xml" title="Worthington Elementary - News" href="/rssNews.ashx?schoolId=5">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "KY_RacelandWorthingtonIndSchs",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=-62135596800000">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""><input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value=""><input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTI5MjQ2ODQwMQ9kFgJmD2QWAmYPZBYEZg9kFgQCBA9kFgICAQ8WAh4LXyFJdGVtQ291bnQCBRYKZg9kFgJmDxUCIFJhY2VsYW5kLVdvcnRoaW5ndG9uIEhpZ2ggU2Nob29sATFkAgEPZBYCZg8VAiVSYWNlbGFuZC1Xb3J0aGluZ3RvbiBTY2hvb2xzIENhbXB1cyBCATJkAgIPZBYCZg8VAiVSYWNlbGFuZC1Xb3J0aGluZ3RvbiBTY2hvb2xzIENhbXB1cyBBATNkAgMPZBYCZg8VAhNDYW1wYmVsbCBFbGVtZW50YXJ5ATRkAgQPZBYCZg8VAhZXb3J0aGluZ3RvbiBFbGVtZW50YXJ5ATVkAgYPFgIeBGhyZWYFMi9zaXRlY3NzLmFzaHg/JmludHJhbmV0PTAmY2hlY2tzdW09LTYyMTM1NTk2ODAwMDAwZAIBDxYCHgZhY3Rpb24FAS8WCgIBD2QWBgIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8DBQEwZAIDDw9kFgIfAwUBMGQCBA8PZBYCHwMFATBkAgUPD2QWAh8DBQEwZAIDD2QWAgICD2QWAmYPFgIeBFRleHQFGzx1bCBjbGFzcz0nYWxlcnRMaXN0Jz48L3VsPmQCBw8PFgIeB1Zpc2libGVoZGQCAw9kFgICAQ9kFgYCAw8PFgIeC05hdmlnYXRlVXJsBQEvZGQCBQ8PFgQfBgUBLx8EBXQ8ZGl2IGNsYXNzPSJzY2hvb2xOYW1lVG9wIj5SYWNlbGFuZC1Xb3J0aGluZ3RvbjwvZGl2PjxkaXYgY2xhc3M9InNjaG9vbE5hbWVCb3R0b20iPkluZGVwZW5kZW50IFNjaG9vbCBEaXN0cmljdDwvZGl2PmRkAgkPZBYGZg8WAh8EBQdXZWxjb21lZAIBDxYCHwQFuQE8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOiAxNnB4OyI+PHN0cm9uZz5XZWxjb21lIHRvIFJhY2VsYW5kLVdvcnRoaW5ndG9uIEluZGVwZW5kZW50IFNjaG9vbHM8L3N0cm9uZz48L3NwYW4+PC9wPg0KDQo8cD48c3Ryb25nPiZxdW90O0xlYXJuZXJzIFRvZGF5LCBMZWFkZXJzIFRvbW9ycm93JnF1b3Q7PC9zdHJvbmc+PC9wPmQCAw8PFgIfBgUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0xZGQCCw9kFgICAQ9kFgICAQ9kFgJmDxYCHwACCRYSZg9kFgRmDxUCIFdvcnRoaW5ndG9uIEVsZW1lbnRhcnkgQmV0YSBDbHViDVdFUyBCZXRhIENsdWJkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA0L2E1Mzc0ZWFlLTc3ZGMtNDA2ZC05MzNiLWYzMzFhNGVjNTM2Ni5wbmdkAgEPZBYEZg8VAjoyMDE4IEdvdmVybm9yJmFtcDsjODIxNztzIEN1cCBRdWljayBSZWNhbGwgU3RhdGUgQ2hhbXBpb25zLTIwMTggR292ZXJub3ImYW1wOyM4MjE3O3MgQ3VwIFN0YXRlIENoYW1waW9uc2QCAQ8VATsvdXNlcmZpbGVzLzIwMTgtMDQvMTQ3NWExNzgtN2U5Yi00MjM2LTk5ZjQtYTY2MGNmZGRhYzE3LmpwZ2QCAg9kFgRmDxUCDFRoaXMgaXMgSG9tZQRSV0hTZAIBDxUBOy91c2VyZmlsZXMvMjAxOC0wOC84YmUwYTk1Zi04MjMyLTQyYmQtYjI3Mi05NWJmZWM1OGNkZTkuanBnZAIDD2QWBGYPFQIWUmFjZWxhbmQgRm9vdGJhbGwgMjAxOBZSYWNlbGFuZCBGb290YmFsbCAyMDE4ZAIBDxUBOy91c2VyZmlsZXMvMjAxOC0wOC9hZTJhYzEyZC02NmE0LTQzYTgtYWM2Yi0xYmIwOGIyYTUzYzIuanBnZAIED2QWBGYPFQIaQ2FtcGJlbGwgRWxlbWVudGFyeSBTY2hvb2wDQ0VTZAIBDxUBOy91c2VyZmlsZXMvMjAxOC0wMS84MTAzZTM1Ny1lZWViLTRkZTYtOTc5Mi0wMDhlMmZmMWNkY2IuanBnZAIFD2QWBGYPFQIyUmFjZWxhbmQgV29ydGhpbmd0b24gTWlkZGxlIFNjaG9vbCBHcm91bmRicmVha2luZyAyUmFjZWxhbmQgV29ydGhpbmd0b24gTWlkZGxlIFNjaG9vbCBHcm91bmRicmVha2luZyBkAgEPFQE7L3VzZXJmaWxlcy8yMDE3LTEwL2FhOTllMzA4LTI4OGYtNGJiMS04MGEyLTRhNzE5ZGNjMjllOC5wbmdkAgYPZBYEZg8VAgA7UmFjZWxhbmQgV29ydGhpbmd0b24gTWlkZGxlIFNjaG9vbCBncm91bmRicmVha2luZyBjZXJlbW9ueSBkAgEPFQE7L3VzZXJmaWxlcy8yMDE3LTEwLzMxZDgwODBmLTA4OWQtNDdmMC1iZGEzLWJkOGE1MDNiN2IxZC5qcGdkAgcPZBYEZg8VAhpDYW1wYmVsbCBFbGVtZW50YXJ5IFNjaG9vbBNDYW1wYmVsbCBFbGVtZW50YXJ5ZAIBDxUBOy91c2VyZmlsZXMvMjAxNy0wNi80NTA2YzljNC0yNzAwLTQzYjgtYjQ2NS0yM2IyMjU3ZjVkMzguanBnZAIID2QWBGYPFQIdMyBTY2hvb2xzLiAyIFRvd25zLiAxIEZhbWlseS4dMyBTY2hvb2xzLiAyIFRvd25zLiAxIEZhbWlseS5kAgEPFQE1L3VzZXJmaWxlcy82L215IGZpbGVzLzMgc2Nob29scy5qcGc/aWQ9ODg4JndpZHRoPTExMjBkAg8PZBYGAgUPZBYCAgEPZBYEZg8PFgIfBWhkZAICD2QWBAIDDxYCHwVoZAIFDxYCHwBmZAIJD2QWBAIBD2QWBmYPFgIfBAUNUmFjZWxhbmQgUmFtc2QCAQ8WAh8EBYECPHA+PGEgaHJlZj0iaHR0cHM6Ly9zaWRlbGluZS5ic25zcG9ydHMuY29tL3NjaG9vbHMva2VudHVja3kvcmFjZWxhbmQvcmFjZWxhbmQtd29ydGhpbmd0b24taGlnaC1zY2giIHRhcmdldD0iX2JsYW5rIj48aW1nIGFsdD0iT25saW5lIHN0b3JlIHBob3RvIiBzcmM9Ii91c2VyZmlsZXMvLTE2L215JTIwZmlsZXMvYnNuJTIwd2Vic2l0ZSUyMGxpbmsuanBnP2lkPTEyNTcmYW1wO3dpZHRoPTMzNyIgc3R5bGU9IndpZHRoOiAzMzdweDsiIC8+PC9hPjwvcD5kAgMPDxYCHwYFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9M2RkAgMPZBYEZg88KwAKAQAPFggeDURheU5hbWVGb3JtYXQLKidTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLkRheU5hbWVGb3JtYXQCHg1OZXh0TW9udGhUZXh0BS08c3BhbiBjbGFzcz0nb2JzY3VyZSc+R28gdG8gbmV4dCBtb250aDwvc3Bhbj4eDVByZXZNb250aFRleHQFMTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5HbyB0byBwcmV2aW91cyBtb250aDwvc3Bhbj4eAlNEFgEGAECkQtDr1whkZAIBDw8WBh4GVGFyZ2V0BQZfYmxhbmsfBAUSVmlldyBGdWxsIENhbGVuZGFyHwYFJS9jYWxNb250aFZpZXcuYXNweD9zPTAmeT0yMDIwJm09NCZ0PTBkZAILD2QWAgIBD2QWBmYPFgIfBAULT3VyIFNjaG9vbHNkAgEPFgIfBAWoCDxkaXYgY2xhc3M9InRhYmxlLXJlc3BvbnNpdmUiPg0KPHRhYmxlIGNsYXNzPSJ0YWJsZSIgc3R5bGU9IndpZHRoOiAxMDAlOyI+DQoJPHRib2R5Pg0KCQk8dHI+DQoJCQk8dGQ+DQoJCQk8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PGEgaHJlZj0iLzUvaG9tZSI+PGltZyBhbHQ9IldvcnRoaW5ndG9uIEVsZW1lbnRhcnkiIHNyYz0iL3VzZXJmaWxlcy8tNC9teSUyMGZpbGVzL3dvcnRoaW5ndG9uLnBuZz9pZD05NTEmYW1wO3dpZHRoPTIwMCIgc3R5bGU9IndpZHRoOiAyMDBweDsiIC8+PC9hPjwvcD4NCg0KCQkJPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxhIGhyZWY9Ii81L2hvbWUiPldvcnRoaW5ndG9uIEVsZW1lbnRhcnk8L2E+PC9wPg0KCQkJPC90ZD4NCgkJCTx0ZD4NCgkJCTxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48YSBocmVmPSIvNC9ob21lIj48aW1nIGFsdD0iQ2FtcGJlbGwgRWxlbWVudGFyeSIgc3JjPSIvdXNlcmZpbGVzLzQ3L215JTIwZmlsZXMvY2FtcGJlbGwucG5nP2lkPTk0NiZhbXA7d2lkdGg9MjAwIiBzdHlsZT0id2lkdGg6IDIwMHB4OyIgLz48L2E+PC9wPg0KDQoJCQk8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PGEgaHJlZj0iLzQvaG9tZSI+Q2FtcGJlbGwgRWxlbWVudGFyeTwvYT48L3A+DQoJCQk8L3RkPg0KCQkJPHRkPg0KCQkJPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxhIGhyZWY9Ii8xL2hvbWUiPjxpbWcgYWx0PSJSYWNlbGFuZC1Xb3J0aGluZ3RvbiBIaWdoIFNjaG9vbCIgc3JjPSIvdXNlcmZpbGVzLzQ3L215JTIwZmlsZXMvcndocy5wbmc/aWQ9OTQ4JmFtcDt3aWR0aD0yMDAiIHN0eWxlPSJ3aWR0aDogMjAwcHg7IiAvPjwvYT48L3A+DQoNCgkJCTxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48YSBocmVmPSIvMS9ob21lIj5SYWNlbGFuZC1Xb3J0aGluZ3RvbiBIaWdoIFNjaG9vbDwvYT4mbmJzcDs8L3A+DQoJCQk8L3RkPg0KCQk8L3RyPg0KCTwvdGJvZHk+DQo8L3RhYmxlPg0KPC9kaXY+DQoNCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij4mbmJzcDs8L3A+ZAIDDw8WAh8GBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTJkZAITD2QWDAIBDxYCHglpbm5lcmh0bWwFKFJhY2VsYW5kLVdvcnRoaW5ndG9uIEluZGVwZW5kZW50IFNjaG9vbHNkAgIPFgIfDAUoNjAwIFJhbSBCb3VsZXZhcmQ8YnIvPlJhY2VsYW5kLCBLWSA0MTE2OWQCBA8WAh8BBUFodHRwOi8vbWFwcy5nb29nbGUuY29tL21hcHM/cT02MDAgUmFtIEJvdWxldmFyZCtSYWNlbGFuZCtLWSs0MTE2OWQCBg9kFgJmDxYCHwwFE1Bob25lOiA2MDYtODM2LTIxNDRkAggPZBYCAgEPFgIfDAURRmF4OiA2MDYtODMzLTU4MDdkAgoPZBYCZg8WAh8AAgMWBmYPZBYCZg8VBQsvbG9naW4uYXNweDJSYWNlbGFuZC1Xb3J0aGluZ3RvbiBJbmRlcGVuZGVudCBTY2hvb2xzIENNUyBMb2dpbgVfc2VsZiY8c3BhbiBjbGFzcz0nb2JzY3VyZSc+Q01TIExvZ2luPC9zcGFuPg1mYSBmYS1zaWduLWluZAIBD2QWAmYPFQU0aHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL1JhY2VsYW5kV29ydGhpbmd0b25TY2hvb2xzLxtAUmFjZWxhbmRXb3J0aGluZ3RvblNjaG9vbHMGX2JsYW5rJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5GYWNlYm9vazwvc3Bhbj4OZmEgZmEtZmFjZWJvb2tkAgIPZBYCZg8VBSRodHRwczovL3R3aXR0ZXIuY29tL3JhY2VsYW5kc2Nob29scy8wUmFjZWxhbmQtV29ydGhpbmd0b24gSW5kZXBlbmRlbnQgU2Nob29scyBUd2l0dGVyBl9ibGFuayQ8c3BhbiBjbGFzcz0nb2JzY3VyZSc+VHdpdHRlcjwvc3Bhbj4NZmEgZmEtdHdpdHRlcmRksqr09hWDzp0LvNcYm7lOIFD++CI=">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script><script src="/WebResource.axd?d=ciQs-AUcGllikzvJxOn4IY9qdpn5WXYfT_PMnTK91Xt8dksb258BJxYsmn4olEPTocq6JTsZH-_-9MV4tnJ7755rEvo1&amp;t=635875512900000000" type="text/javascript"></script><a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        function createCookie(name, value, days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            }
+
+            else var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+
+            return null;
+        }
+
+        function eraseCookie(name) {
+            createCookie(name, "", -1);
+        }
+
+        function setColorPreference(colorPreference) {
+            if (colorPreference >= 1 && colorPreference <= 4) {
+                var colors = [
+                    { b: "#000000", t: "#ffffff" },
+                    { b: "#ffffff", t: "#000000" },
+                    { b: "#000000", t: "#ffff00" },
+                    { b: "#fe0000", t: "#ffffff" }
+                ];
+            }
+
+            $('body').attr('id', 'colorOverride');
+
+            var css = "<style type='text/css'> body#colorOverride * { background-color:" + colors[colorPreference - 1].b + " !important; color:" + colors[colorPreference - 1].t + " !important;} *:focus {color:" + colors[colorPreference - 1].t + "; border:1px dotted " + colors[colorPreference - 1].t + "}</style>";
+            $('#helperStyle').html(css);
+            createCookie('colorchange', colorPreference, 1);
+        }
+
+        function setTextSize(textSize) {
+            $('#resizingText').html('<style type="text/css"> \
+		        #middle-nav ul li a, nav#top-nav li a {font-size:' + (14 + textSize) + 'pt;} \
+                h1, #content-right header {font-size:' + (24 + textSize) + 'px;} \
+                #news-list .article .news-summary, section#upcoming-events ul a, .foot2 li a, .aside-content li a{font-size:' + (13 + textSize) + 'px;} \
+                .foot2 li ul li a{font-size:' + (13 + textSize) + 'pt;} \
+                #news-list .article a.news-title{font-size:' + (14 + textSize) + 'pt;} \
+                #school-map span{font-size:' + (13 + textSize) + 'pt;} \
+                .foot2 li ul li a, .sf-vertical li a, ul.nav.navbar-nav > li > a{font-size:' + (13 + textSize) + 'px !important;} \
+                html, body, table, tr, td, div, .panel, .panel p, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, img, ins, kbd, q, s, samp, small, strike, sub, sup, var, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, article, aside, canvas, details, embed, figure, figcaption, footer, header, footer,hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{font-size:' + (13 + textSize) + 'pt !important; line-height: ' + (13 + textSize) + 'pt ; } \
+                </style>');
+            createCookie('textsize', textSize, 1);
+        }
+
+        var textSize = readCookie('textsize');
+
+        if (textSize && textSize != 0) {
+            textSize = parseInt(textSize, 10);
+            setTextSize(textSize);
+        }
+
+        var colorPreference = readCookie('colorchange');
+
+        if (colorPreference && colorPreference != 0) {
+            colorPreference = parseInt(colorPreference, 10);
+            setColorPreference(colorPreference);
+        }
+
+        $('.vision-helper-revert').click(function () {
+            eraseCookie('textsize');
+            eraseCookie('colorchange');
+            textSize = 0;
+            $('#resizingText').empty();
+            $('#helperStyle').empty();
+        });
+
+        $('.vision-helper-change-font-size').click(function () {
+            var add = parseInt($(this).data('size-add'), 10);
+            textSize += add;
+            if (textSize < 1) textSize = 1;
+            setTextSize(textSize);
+        });
+
+        $('.color-preference').click(function () {
+            var colorPreference = parseInt($(this).data('color-preference'), 10);
+            setColorPreference(colorPreference);
+        });
+    });
+</script><div style="position: relative;" class="visionBardiv">
+    <div class="vision-helper-wrapper">
+        <div id="helperStyle"></div>
+        <div id="resizingText"></div>
+        <strong class="vision-helper-label">Text Options for the Visually Impaired</strong>
+        <strong class="vision-helper-label">Font Size:</strong>
+        <a href="javascript:void(0)" class="vision-helper-button vision-helper-change-font-size" data-size-add="-1" title="Decrease font size">a-</a>
+        <a href="javascript:void(0)" class="vision-helper-button vision-helper-change-font-size" data-size-add="1" title="Increase font size">A+</a>
+        <strong class="vision-helper-label">Color:</strong>
+        <a href="javascript:void(0);" data-color-preference="1" class="color-preference color-1 vision-helper-button" title="Change the color of the page to white on black">A</a>
+        <a href="javascript:void(0);" data-color-preference="2" class="color-preference color-2 vision-helper-button" title="Change the color of the page to black on white">A</a>
+        <a href="javascript:void(0);" data-color-preference="3" class="color-preference color-3 vision-helper-button" title="Change the color of the page to yellow on black">A</a>
+        <a href="javascript:void(0)" title="Undo Changes" class="vision-helper-button vision-helper-revert">Revert <i class="fa fa-undo" aria-hidden="true"></i></a>
+
+        <div style="position: absolute; right: 2px; top: 0px; z-index: 20;">
+            <a href="javascript:hideVisionBar()" class="closeAlert">
+                <i class="fa fa-times" aria-hidden="true"></i><span class="obscure">Close vision bar</span>
+            </a>
+        </div>
+
+        <div style="clear: both;"></div>
+    </div>
+</div>
+
+<div class="visionBarReShow" style="position: relative; width: 100%; padding: 2px;">
+    <a style="float: right;" href="javascript:loadVisionBar()" class="openAlert">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i><span class="obscure">Open vision bar</span>
+    </a>
+
+    <div style="clear: both;"></div>
+</div>
+
+<style type="text/css">
+    .visionBardiv
+    {
+        display: none;
+    }
+
+    .visonBarReShow
+    {
+        display: none;
+    }
+
+    #helperStyle,
+    #resizingText
+    {
+        display: none;
+    }
+
+    .vision-helper-wrapper
+    {
+        line-height: 25px !important;
+        font-size: 20px !important;
+        z-index: 10;
+        position: relative;
+        font-weight: normal;
+        background: #fff;
+        border-bottom: solid 1px gainsboro;
+        padding: 10px 15px;
+    }
+
+    .vision-helper-button
+    {
+        border: solid 1px gainsboro;
+    }
+
+    .vision-helper-button,
+    .vision-helper-button > i
+    {
+        line-height: 25px !important;
+        font-size: 20px !important;
+        display: inline-block;
+        padding: 0px 10px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .vision-helper-button:hover,
+    .vision-helper-button:active
+    {
+        border: solid 1px #333;
+        cursor: pointer;
+        color: black;
+        text-decoration: none;
+    }
+
+    .vision-helper-label
+    {
+        line-height: 25px !important;
+        font-size: 20px !important;
+        display: inline-block;
+        padding: 0px 10px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .vision-helper-revert
+    {
+        float: right;
+        border: solid 1px transparent;
+        margin-right: 10px;
+    }
+
+    a.color-1
+    {
+        color: #fff !important;
+        background: #000 !important;
+    }
+
+    a.color-2
+    {
+        color: #000 !important;
+        background: #fff !important;
+    }
+
+    a.color-3
+    {
+        color: #FFFF00 !important;
+        background: #000 !important;
+    }
+
+    a.color-4
+    {
+        color: #fff !important;
+        background: #fe0000 !important;
+    }
+</style>
+<script type="text/javascript" src="/admin/js/visionbar/visionBar.js"></script><div class="headerspacer"></div>
+        <div class="headerback">
+            <header id="site-head" class="container"><div class="row">
+                    
+                        
+
+<div class="head-logo-container">
+    <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
+        <div class="search">
+            <div>
+                <div valign="top" style="" class="searchPad">
+                    <label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+                <div style="display: inline; float: right;" class="searchgo">
+                    <a title="Search" class="bSearch glyphicon glyphicon-search"><span class="obscure">Search Site button</span></a>
+                </div>
+            </div>
+        </div>
+        
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+</div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <a id="ctl00_ctl00_header_ctl00_lnkSchoolHome" class="logoImage" href="/"><span class="obscure">Logo link to home page</span></a>
+        <a id="ctl00_ctl00_header_ctl00_lnkSchoolHome2" class="logoName" href="/"><div class="schoolNameTop">Raceland-Worthington</div>
+<div class="schoolNameBottom">Independent School District</div></a>
+    </div>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 header-content-right">
+        <ul class="nav navbar-nav district-top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar">Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/calendar" title="District Calendar">District Calendar</a></li>
+<li class="without-image"><a href="/docs/district/board%20office/schcalendar%2019-20%20(2).pdf?id=1359" target="_blank" aria-label="" title="Calendar 2019-2020">Calendar 2019-2020</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Education">Board of Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/board%20office/board%20meeting%20schedule%20-2020.pdf?id=1354" target="_blank" title="BOE Meeting Schedule (PDF)">BOE Meeting Schedule (PDF)</a></li>
+<li class="without-image"><a href="/content/boardofed" title="Board Members">Board Members</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="http://applications.education.ky.gov/src" title="District Report Card">District Report Card</a></li>
+<li class="without-image"><a href="/content/Finance" title="Finance">Finance</a></li>
+<li class="without-image"><a href="/superintendent" title="Superintendent">Superintendent</a></li>
+<li class="without-image"><a href="/docs/district/policies/volunteer%20training%20handbook%202018-2019.pdf?id=1210" target="_blank" title="Volunteer Training Handbook 2018-2019 (PDF)">Volunteer Training Handbook 2018-2019 (PDF)</a></li>
+<li class="without-image"><a href="/content/docs" target="_blank" title="Forms">Forms</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/schools" title="Our Schools">Our Schools</a></li>
+<li class="without-image"><a href="/4/home" title="Campbell Elementary">Campbell Elementary</a></li>
+<li class="without-image"><a href="/5/home" title="Worthington Elementary">Worthington Elementary</a></li>
+<li class="without-image"><a href="/1/home" title="R-W High School">R-W High School</a></li>
+<li class="without-image"><a href="/3/home" title="R-W Schools Campus A">R-W Schools Campus A</a></li>
+<li class="without-image"><a href="/2/home" title="R-W Schools Campus B">R-W Schools Campus B</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/alumni" title="Alumni">Alumni</a></li>
+</ul>
+<div class="mission-statement hidden-xs">
+            
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Welcome
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p><span style="font-size: 16px;"><strong>Welcome to Raceland-Worthington Independent Schools</strong></span></p>
+
+<p><strong>"Learners Today, Leaders Tomorrow"</strong></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+        </div>
+    </div>
+</div>
+
+
+                    
+                </div>
+            </header>
+</div>
+        <div class="container">
+            <div class="row">
+                <div class="NavBack hidden-sm hidden-md hidden-lg">
+                    <div class="navigation">
+                        <nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                                </button>
+
+                                <a class="navbar-brand hidden-lg hidden-md " href="/">
+                                    <span id="ctl00_ctl00_schoolName"></span>
+                                </a>
+                            </div>
+                            <!-- Collect the nav links, forms, and other content for toggling -->
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <div class="collapsedLinks">
+                                    <ul class="nav navbar-nav district-top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar">Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/calendar" title="District Calendar">District Calendar</a></li>
+<li class="without-image"><a href="/docs/district/board%20office/schcalendar%2019-20%20(2).pdf?id=1359" target="_blank" aria-label="" title="Calendar 2019-2020">Calendar 2019-2020</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Education">Board of Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/board%20office/board%20meeting%20schedule%20-2020.pdf?id=1354" target="_blank" title="BOE Meeting Schedule (PDF)">BOE Meeting Schedule (PDF)</a></li>
+<li class="without-image"><a href="/content/boardofed" title="Board Members">Board Members</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="http://applications.education.ky.gov/src" title="District Report Card">District Report Card</a></li>
+<li class="without-image"><a href="/content/Finance" title="Finance">Finance</a></li>
+<li class="without-image"><a href="/superintendent" title="Superintendent">Superintendent</a></li>
+<li class="without-image"><a href="/docs/district/policies/volunteer%20training%20handbook%202018-2019.pdf?id=1210" target="_blank" title="Volunteer Training Handbook 2018-2019 (PDF)">Volunteer Training Handbook 2018-2019 (PDF)</a></li>
+<li class="without-image"><a href="/content/docs" target="_blank" title="Forms">Forms</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/schools" title="Our Schools">Our Schools</a></li>
+<li class="without-image"><a href="/4/home" title="Campbell Elementary">Campbell Elementary</a></li>
+<li class="without-image"><a href="/5/home" title="Worthington Elementary">Worthington Elementary</a></li>
+<li class="without-image"><a href="/1/home" title="R-W High School">R-W High School</a></li>
+<li class="without-image"><a href="/3/home" title="R-W Schools Campus A">R-W Schools Campus A</a></li>
+<li class="without-image"><a href="/2/home" title="R-W Schools Campus B">R-W Schools Campus B</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/alumni" title="Alumni">Alumni</a></li>
+</ul>
+<ul class="nav navbar-nav left-nav-top">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/content/covid19" aria-label="" title="COVID-19 Information">COVID-19 Information</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/content/20" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/content/finance" title="Finance">Finance</a></li>
+<li class="without-image"><a href="/Athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/content/CAC" title="Cultural Arts Center">Cultural Arts Center</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="FRYSC">FRYSC  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/FRYSC" title="About FRYSC">About FRYSC</a></li>
+<li class="without-image"><a href="/Content/8" title="FRYSC Activities">FRYSC Activities</a></li>
+<li class="without-image"><a href="/Content/10" title="FRYSC Partners">FRYSC Partners</a></li>
+<li class="without-image"><a href="/Content/12" title="FRYSC Services">FRYSC Services</a></li>
+<li class="without-image"><a href="/content/FRYSC-PHOTO-GALLERY" title="Photo Gallery">Photo Gallery</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Transportation">Transportation  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdS8rr7ItEZeTSqhXnbnYmgN3Px8K2kGCueUMITDfDJrI0daA/viewform?usp=sf_link" target="_blank" title="Bus Request - Google Form">Bus Request - Google Form</a></li>
+<li class="without-image"><a href="/Content/96" title="Bus Runs">Bus Runs</a></li>
+<li class="without-image"><a href="/Content/16" title="Driving Directions">Driving Directions</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://raceland.tedk12.com/hire/index.aspx" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/content/PR" title="Public Relations">Public Relations</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdsYmK4HHvHV7GMSwGP4Tsp0crt2Hijf4DXE0pJOg9eLAP8Xw/viewform?usp=sf_link" target="_blank" title="Online Registration - Google Form">Online Registration - Google Form</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parent Resources">Parent Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/parent%20resources/pandemic%20response%20matrix.pdf?id=1360" target="_blank" aria-label="" title="Pandemic Response Matrix">Pandemic Response Matrix</a></li>
+<li class="without-image"><a href="/docs/district/parent%20resources/nti%20letter.pdf?id=1361" target="_blank" aria-label="" title="NTI Letter">NTI Letter</a></li>
+<li class="without-image"><a href="/content/attendance" target="_blank" title="Attendance">Attendance</a></li>
+<li class="without-image"><a href="/content/docs" title="FORMS">FORMS</a></li>
+<li class="without-image"><a href="/docs/district/parent%20resources/media%20release%20(non-cep)%20sy20.pdf?id=1311" target="_blank" title="Free / Reduced Lunch - Media Release 2019-2020">Free / Reduced Lunch - Media Release 2019-2020</a></li>
+<li class="without-image"><a href="/docs/district/parent%20resources/sy20%20free%20lunch%20form.pdf?id=1310" target="_blank" title="Free / Reduced Lunch - Info and Application 2019-2020">Free / Reduced Lunch - Info and Application 2019-2020</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/homeless-parent-poster.pdf?id=30" target="_blank" title="Parent Homeless Information">Parent Homeless Information</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/parent-portal-form.pdf?id=31" target="_blank" title="Parent Portal Form">Parent Portal Form</a></li>
+<li class="without-image"><a href="/docs/district/parent%20resources/ic%20parent%20doc%205-2017.pdf?id=855" target="_blank" title="Parent Portal Information">Parent Portal Information</a></li>
+<li class="without-image"><a href="https://kyede11.infinitecampus.org/campus/portal/raceland.jsp" title="Infinite Campus Parent Portal Login">Infinite Campus Parent Portal Login</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://login.microsoftonline.com/" title="Office 365 Webmail">Office 365 Webmail</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff Quick Links">Staff Quick Links  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://kyede11.infinitecampus.org/campus/raceland.jsp" title="Infinite Campus Teachers">Infinite Campus Teachers</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSc97OkSgZdYIA0UgHVbHF4EUGHZX3_S6aps6cv_doYk9PF_Fw/viewform?usp=sf_link" target="_blank" title="Online Maintenance Form">Online Maintenance Form</a></li>
+<li class="without-image"><a href="https://goo.gl/forms/xEL7Tme0fp9Ej0m62" target="_blank" title="Technology Work Order Form">Technology Work Order Form</a></li>
+<li class="without-image"><a href="/Content/86" target="_blank" title="Forms / Handbooks">Forms / Handbooks</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/docs" title="FORMS">FORMS</a></li>
+<li class="without-image"><a href="/docs/district/public%20record/18-19/raceland%20testing%20transparency%202018-2019.pdf?id=1330" target="_blank" title="Testing Transparency Notice">Testing Transparency Notice</a></li>
+</ul>
+</div>
+                            </div>
+                        </nav>
+</div>
+                </div>
+            </div>
+        </div>
+
+        
+    
+    <div class="container slideshowWrapper">
+        <div class="row">
+            <div class="columns col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({ effect: 'fade', pauseTime: 3500, prevText: 'Prev', nextText: 'Next', animSpeed: 500   });
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+	});
+</script><div id="slideshow" tabindex="-1">
+	<div class="slides">
+		
+				<img title="Worthington Elementary Beta Club" alt="WES Beta Club" src="/images/full//userfiles/2019-04/a5374eae-77dc-406d-933b-f331a4ec5366.png"><img title="2018 Governor&amp;#8217;s Cup Quick Recall State Champions" alt="2018 Governor&amp;#8217;s Cup State Champions" src="/images/full//userfiles/2018-04/1475a178-7e9b-4236-99f4-a660cfddac17.jpg"><img title="This is Home" alt="RWHS" src="/images/full//userfiles/2018-08/8be0a95f-8232-42bd-b272-95bfec58cde9.jpg"><img title="Raceland Football 2018" alt="Raceland Football 2018" src="/images/full//userfiles/2018-08/ae2ac12d-66a4-43a8-ac6b-1bb08b2a53c2.jpg"><img title="Campbell Elementary School" alt="CES" src="/images/full//userfiles/2018-01/8103e357-eeeb-4de6-9792-008e2ff1cdcb.jpg"><img title="Raceland Worthington Middle School Groundbreaking " alt="Raceland Worthington Middle School Groundbreaking " src="/images/full//userfiles/2017-10/aa99e308-288f-4bb1-80a2-4a719dcc29e8.png"><img title="" alt="Raceland Worthington Middle School groundbreaking ceremony " src="/images/full//userfiles/2017-10/31d8080f-089d-47f0-bda3-bd8a503b7b1d.jpg"><img title="Campbell Elementary School" alt="Campbell Elementary" src="/images/full//userfiles/2017-06/4506c9c4-2700-43b8-b465-23b2257f5d38.jpg"><img title="3 Schools. 2 Towns. 1 Family." alt="3 Schools. 2 Towns. 1 Family." src="/images/full//userfiles/6/my%20files/3%20schools.jpg?id=888&amp;width=1120">
+</div>
+
+	
+</div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+        <div class="content-wrapper">
+            
+            
+
+            <div class="body-content-container">
+                <div class="container">
+                    <div class="masterC alignment-stretch">
+                        <div class="row">
+                            
+    <div class="hidden-xs col-sm-4 col-md-3 col-lg-3 backgroundcolor leftColumn">
+        <div class="clearfix panel content">
+            
+                <h1>Quick Links
+                </h1>
+                <ul class="nav navbar-nav left-nav">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/content/covid19" aria-label="" title="COVID-19 Information">COVID-19 Information</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/content/20" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/content/finance" title="Finance">Finance</a></li>
+<li class="without-image"><a href="/Athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/content/CAC" title="Cultural Arts Center">Cultural Arts Center</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="FRYSC">FRYSC  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/FRYSC" title="About FRYSC">About FRYSC</a></li>
+<li class="without-image"><a href="/Content/8" title="FRYSC Activities">FRYSC Activities</a></li>
+<li class="without-image"><a href="/Content/10" title="FRYSC Partners">FRYSC Partners</a></li>
+<li class="without-image"><a href="/Content/12" title="FRYSC Services">FRYSC Services</a></li>
+<li class="without-image"><a href="/content/FRYSC-PHOTO-GALLERY" title="Photo Gallery">Photo Gallery</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Transportation">Transportation  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdS8rr7ItEZeTSqhXnbnYmgN3Px8K2kGCueUMITDfDJrI0daA/viewform?usp=sf_link" target="_blank" title="Bus Request - Google Form">Bus Request - Google Form</a></li>
+<li class="without-image"><a href="/Content/96" title="Bus Runs">Bus Runs</a></li>
+<li class="without-image"><a href="/Content/16" title="Driving Directions">Driving Directions</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://raceland.tedk12.com/hire/index.aspx" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/content/PR" title="Public Relations">Public Relations</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSdsYmK4HHvHV7GMSwGP4Tsp0crt2Hijf4DXE0pJOg9eLAP8Xw/viewform?usp=sf_link" target="_blank" title="Online Registration - Google Form">Online Registration - Google Form</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parent Resources">Parent Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/parent%20resources/pandemic%20response%20matrix.pdf?id=1360" target="_blank" aria-label="" title="Pandemic Response Matrix">Pandemic Response Matrix</a></li>
+<li class="without-image"><a href="/docs/district/parent%20resources/nti%20letter.pdf?id=1361" target="_blank" aria-label="" title="NTI Letter">NTI Letter</a></li>
+<li class="without-image"><a href="/content/attendance" target="_blank" title="Attendance">Attendance</a></li>
+<li class="without-image"><a href="/content/docs" title="FORMS">FORMS</a></li>
+<li class="without-image"><a href="/docs/district/parent%20resources/media%20release%20(non-cep)%20sy20.pdf?id=1311" target="_blank" title="Free / Reduced Lunch - Media Release 2019-2020">Free / Reduced Lunch - Media Release 2019-2020</a></li>
+<li class="without-image"><a href="/docs/district/parent%20resources/sy20%20free%20lunch%20form.pdf?id=1310" target="_blank" title="Free / Reduced Lunch - Info and Application 2019-2020">Free / Reduced Lunch - Info and Application 2019-2020</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/homeless-parent-poster.pdf?id=30" target="_blank" title="Parent Homeless Information">Parent Homeless Information</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/parent-portal-form.pdf?id=31" target="_blank" title="Parent Portal Form">Parent Portal Form</a></li>
+<li class="without-image"><a href="/docs/district/parent%20resources/ic%20parent%20doc%205-2017.pdf?id=855" target="_blank" title="Parent Portal Information">Parent Portal Information</a></li>
+<li class="without-image"><a href="https://kyede11.infinitecampus.org/campus/portal/raceland.jsp" title="Infinite Campus Parent Portal Login">Infinite Campus Parent Portal Login</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://login.microsoftonline.com/" title="Office 365 Webmail">Office 365 Webmail</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff Quick Links">Staff Quick Links  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://kyede11.infinitecampus.org/campus/raceland.jsp" title="Infinite Campus Teachers">Infinite Campus Teachers</a></li>
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSc97OkSgZdYIA0UgHVbHF4EUGHZX3_S6aps6cv_doYk9PF_Fw/viewform?usp=sf_link" target="_blank" title="Online Maintenance Form">Online Maintenance Form</a></li>
+<li class="without-image"><a href="https://goo.gl/forms/xEL7Tme0fp9Ej0m62" target="_blank" title="Technology Work Order Form">Technology Work Order Form</a></li>
+<li class="without-image"><a href="/Content/86" target="_blank" title="Forms / Handbooks">Forms / Handbooks</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/docs" title="FORMS">FORMS</a></li>
+<li class="without-image"><a href="/docs/district/public%20record/18-19/raceland%20testing%20transparency%202018-2019.pdf?id=1330" target="_blank" title="Testing Transparency Notice">Testing Transparency Notice</a></li>
+</ul>
+</div>
+    </div>
+
+    <div class="col-xs-12 col-sm-8 col-md-5 col-lg-5 backgroundcolor">
+        
+        
+
+        <div class="clearfix panel content">
+            
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div> <h1 id="middle3Column">School News</h1>
+    <div>
+        
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="clr"></div>
+			</section>
+</div>
+    <div class="viewmorebuttondiv"><a class="buttonViewMore" href="/districtNewsArticles.aspx">View More</a></div>
+    <div class="clr"></div>
+
+        </div>
+
+        
+        
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 backgroundcolor">
+        <div class="clearfix panel content calendar-panel">
+            
+       
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Raceland Rams
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p><a href="https://sideline.bsnsports.com/schools/kentucky/raceland/raceland-worthington-high-sch" target="_blank"><img alt="Online store photo" src="/userfiles/-16/my%20files/bsn%20website%20link.jpg?id=1257&amp;width=337" style="width: 337px;"></a></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+    <h1>Calendar</h1>
+    <div class="events-text">
+        Click the calendar to view all upcoming events
+    </div>
+
+    <h3 class="events-header"><a class="buttonViewMore buttonViewMoreCal" href="/calendarweekview.aspx">Upcoming Events</a></h3>
+    
+
+<style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7365')" style="color:Black" title="Go to the previous month"><span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April 2020</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7426')" style="color:Black" title="Go to the next month"><span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">S</th>
+<th align="center" abbr="Monday" scope="col">M</th>
+<th align="center" abbr="Tuesday" scope="col">T</th>
+<th align="center" abbr="Wednesday" scope="col">W</th>
+<th align="center" abbr="Thursday" scope="col">T</th>
+<th align="center" abbr="Friday" scope="col">F</th>
+<th align="center" abbr="Saturday" scope="col">S</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/29/2020">29</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/31/2020">31</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/1/2020">1</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/2/2020">2</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/3/2020">3</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/5/2020">5</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/6/2020">6</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/7/2020">7</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/8/2020">8</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/9/2020">9</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/10/2020">10</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/12/2020">12</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/13/2020">13</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/14/2020">14</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/15/2020">15</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/16/2020">16</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/19/2020">19</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/20/2020">20</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/21/2020">21</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/23/2020">23</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/26/2020">26</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/27/2020">27</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/28/2020">28</a></td>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/29/2020">29</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script><div class="clr"></div>
+    <div class="viewmorebuttondiv"><a class="buttonViewMore buttonViewMoreCal" href="/Calendar">View More</a></div>
+    <div class="clr"></div>
+
+        </div>
+    </div>
+
+    
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 backgroundcolor">
+        <div class="clearfix panel content">
+            
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Our Schools
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <div class="table-responsive">
+<table class="table" style="width: 100%;"><tbody><tr>
+<td>
+			<p style="text-align: center;"><a href="/5/home"><img alt="Worthington Elementary" src="/userfiles/-4/my%20files/worthington.png?id=951&amp;width=200" style="width: 200px;"></a></p>
+
+			<p style="text-align: center;"><a href="/5/home">Worthington Elementary</a></p>
+			</td>
+			<td>
+			<p style="text-align: center;"><a href="/4/home"><img alt="Campbell Elementary" src="/userfiles/47/my%20files/campbell.png?id=946&amp;width=200" style="width: 200px;"></a></p>
+
+			<p style="text-align: center;"><a href="/4/home">Campbell Elementary</a></p>
+			</td>
+			<td>
+			<p style="text-align: center;"><a href="/1/home"><img alt="Raceland-Worthington High School" src="/userfiles/47/my%20files/rwhs.png?id=948&amp;width=200" style="width: 200px;"></a></p>
+
+			<p style="text-align: center;"><a href="/1/home">Raceland-Worthington High School</a> </p>
+			</td>
+		</tr></tbody></table>
+</div>
+
+<p style="text-align: center;"> </p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+        </div>
+    </div>
+
+
+    <div class="clr">
+    </div>
+
+                        </div>
+                        <div class="clr">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot"><div class="footer-top">
+    <div class="container">
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 schoolmap">
+            <h4>Contact Us</h4>
+            <div id="school-map" class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <span id="ctl00_ctl00_ctl07_hName">Raceland-Worthington Independent Schools</span><span id="ctl00_ctl00_ctl07_hAddress">600 Ram Boulevard<br>Raceland, KY 41169</span>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <span id="AddInfo"><a href="http://maps.google.com/maps?q=600%20Ram%20Boulevard+Raceland+KY+41169" id="ctl00_ctl00_ctl07_mapLink">
+                        <img src="https://cdn.schoolpointe.com/images/new/locationWhite.png" alt="location icon white">  View Map &amp; Directions</a></span>
+                    <span id="AddInfo">
+                        <div id="ctl00_ctl00_ctl07_dphone">
+                            <a href="tel:606-836-2144">
+                                <img src="https://cdn.schoolpointe.com/images/new/phoneWhite.png" alt="phone icon white">  <span id="ctl00_ctl00_ctl07_hPhone" style="display: inline;">Phone: 606-836-2144</span></a>
+                        </div>
+                    </span><span id="AddInfo">
+                        <div id="ctl00_ctl00_ctl07_dfax">
+                            <img src="https://cdn.schoolpointe.com/images/new/letterWhite.png" alt="fax icon white">  <span id="ctl00_ctl00_ctl07_hfax" style="display: inline;">Fax: 606-833-5807</span>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 stop-logo">
+            <a id="stop-image" href="https://homelandsecurity.ky.gov/SafeSchools/Pages/default.aspx">
+                <img src="https://cdn.schoolpointe.com/images/social/STOP-Image.png" alt="STOP"></a>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 social-links">
+            <h4 id="social-links-header">Stay Connected</h4>
+            <div id="social-links">
+                
+        <a href="/login.aspx" title="Raceland-Worthington Independent Schools CMS Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/RacelandWorthingtonSchools/" title="@RacelandWorthingtonSchools" target="_blank">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="https://twitter.com/racelandschools/" title="Raceland-Worthington Independent Schools Twitter" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter"></i>
+        </a>
+    
+
+                <div class="clr">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-bottom">
+    <div class="container">
+        <div class="col-xs-12 col-sm-12 col-md-12  col-lg-12">
+            <a href="http://www.schoolpointe.com" target="_blank" class="schoolpointe">
+                <img src="https://cdn.schoolpointe.com/images/new/SPwhite.png" alt="SchoolPointe white logo"></a>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-75955204-47', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer>
+</div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0"><input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC3YIx6Giw1KOnZqaIBC6NmgiDHydsK03lx8Xtjj8McOnhM1E/Z+4AtYfBLjoqzHUNzx8re9P49CESeNcN+aUYUYylAVjuf883gda9qxPWJdWzlAW1I7BexV+czOzRObl3d50nMhilDDHAwFxGIx0wbFChwQ4Ex0vxOTS+4GFwX5O7kl0Ub38BaDmMgKQcEKVqNSQD67gQzTXdB4A0BTQX56TjzPdP4KgmIAJFo6XWNsVobKscM9xAMf7wwexMr1VQr6eny5cHvWE8n08cMlPMX4UUsMkilD+ZSI9iMjU0yDuCD8GsnLDl6GsgBmi45cgSxLOQJb0r0B03brVHI2aRHj1HX4bsgg9FALGXgdAnz+3fPXHQkoFYN6AHzJTqhMhgIUZHRyIop27ZqiAc5YtJ2CBmWGVEJRDuOVtSdk96ZySIM7oQRKLNMMfuEaYBPHf7UnvwclkPDJBJa1wKztDi6ksAKSxkS0J9AQoAbRkhRLYupP5UfZtzYMcETdrtRuebqUFNAgBxTdrc7p3lb5cG87gm7gyuj+DfF4g5gBMII5vbFKWePuk/HCjfYquEX2jQfetIrU0FyvbBObo1CEWr8JkkUFRwOfzMDwGZIdDlEZh0FsPpuONYQUyNniCyMIahBgL9N5WPrxm7gqXxJSO3bUUENDE9dXDnHAyMxZUeTfBuKQjtJNZCvgL3hOtBgN53JKgunZuEj8FebONNvrKSLQqlYIB6TKJFENEjsUkBLzAOx9UysQWNNGqUBe0wmZ11N1yVx/jqgB2/mbAHkazISKTMuizNiXiSwyoHGDIcvBxXS9J1pDBfJ5u5J2HPiBBN+Xr4uuDR+WtbHcMYtsYms3xHSKYhMkeSMxWk7MMjQy2jqouDmyradb3nBLSPm24J8mLJQ9K5ToZmSewp0Qk2VvFiQDTVcI9Q9wgwvj0GaEsvuvDOI+IORDvkjx+dyMqFUftfirD8V1bWiBFRSWvnHvzhTddg==">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+</body>
+</html>

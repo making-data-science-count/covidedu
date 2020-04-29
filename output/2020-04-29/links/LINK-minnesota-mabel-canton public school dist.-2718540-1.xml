@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="https://www.mabelcanton.k12.mn.us/misc/error404.css">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script><script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script><script src="https://code.jquery.com/jquery-migrate-1.4.1.min.js" integrity="sha256-SOuLUArmo4YXtXONKz+uxIGSKneCJG4x0nVcA0pFzV0=" crossorigin="anonymous"></script><script src="https://www.mabelcanton.k12.mn.us/misc/jquery.colorbox-min.js"></script><link rel="stylesheet" type="text/css" href="https://www.mabelcanton.k12.mn.us/misc/colorbox.css">
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" media="screen" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" media="screen" rel="stylesheet">
+<script type="text/javascript">
+      $(document).ready(function(){
+        $(".inline").colorbox({inline:true, width:"40%", opacity:0.5, onCleanup:function(){$("#reset-btn").click();}});
+        $(".send-email").on("click", function(){
+          $(".inline").click();
+        });
+        /*script for contact form*/
+        var theReferrer = document.referrer;
+        var referer = "";
+        if (theReferrer != "") {
+          referer = theReferrer;
+        } else {
+          referer = "System cannot get source link.";
+        }
+        $("#send-btn").attr("disabled", "disabled");
+        $("#inline-content").on("mouseover", function(){
+          var message = $.trim($("#message").val());
+          if (message != "") {$("#send-btn").removeAttr("disabled")} else {$("#send-btn").attr("disabled", "disabled")};
+        });
+        $("#send-btn").on("click", function(){
+          $("#loading").show();
+          var dataReport = $("input, textarea").serialize();
+          var theSource = referer;
+          var theUrl = window.location.href;
+          $.post("/ajax/sendemail/error/404", {data: dataReport, source: theSource, url: theUrl}, function(response){
+            $("#loading").hide();
+            alert(response);
+            parent.jQuery.colorbox.close();
+          });
+        });
+        $("#exit-btn").on("click", function(){
+          parent.jQuery.colorbox.close();
+        });
+      });
+    </script>
+</head>
+<body class="background error-page-wrapper background-color background-image">
+    <div style="display:none">
+      <div id="inline-content" class="form-container container-fluid">
+        <h3>Contact Support Form</h3>
+        <strong>Get Help with rSchoolToday</strong>
+        <div class="form-text">
+          <span>Need help with rSchoolToday?</span><br><span>Send the message to our Support Team using the form below.</span><br><br><span>What's in a great support request?</span><br><ul>
+<li>Provide us with as much information as possible.</li>
+            <li>Include any links that are related to your problem.</li>
+          </ul>
+</div>
+        <div id="loading" class="alert alert-info">
+          <i class="fa fa-spinner fa-pulse fa-4x" aria-hidden="true"></i>
+          <p>Sending notification to Support Team. Please wait...</p>
+        </div>
+        <div class="form-holder form-horizontal">
+          <form>
+            <div class="form-group row">
+              <label for="reporter" class="col-xs-4 control-label">Reporter Name</label>
+              <div class="col-xs-8">
+                <input type="text" class="form-control form-control-sm" id="reporter" name="reporter">
+</div>
+            </div>
+            <div class="form-group row">
+              <label for="email" class="col-xs-4 control-label">Email Address</label>
+              <div class="col-xs-8">
+                <input type="email" class="form-control form-control-sm" id="email" name="email">
+</div>
+            </div>
+            <div class="form-group row">
+              <label for="phone" class="col-xs-4 control-label">Phone Number</label>
+              <div class="col-xs-8">
+                <input type="tel" class="form-control form-control-sm" id="phone" name="phone">
+</div>
+            </div>
+            <div class="form-group required row">
+              <label for="message" class="col-xs-4 control-label">Message</label>
+              <div class="col-xs-8">
+                <textarea rows="3" class="form-control form-control-sm" id="message" name="message"></textarea>
+</div>
+            </div>
+            <div class="form-group row">
+              <div class="col-xs-4"> </div>
+              <div class="col-xs-8 text required">Required</div>
+            </div>
+            <div class="form-group row">
+              <div class="col-xs-4"> </div>
+              <div class="form-inline col-xs-8">
+                <button type="button" id="exit-btn" class="btn btn-default btn-xs">&lt;&lt; Exit</button>
+                <button type="reset" id="reset-btn" class="btn btn-default btn-xs">Reset</button>
+                <button type="button" id="send-btn" class="btn btn-primary btn-xs">Send</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <center>
+      <div class="content-container error404-container well well-lg">
+        <div class="head-image-container well">
+          <img class="img-responsive" src="https://www.mabelcanton.k12.mn.us/sites/all/themes/rstadmin/images/rst-v2.png" alt="Logo Rschooltoday">
+</div>
+        <div class="text-container well">
+          <div class="head-line-primary primary-text-color">
+            404
+          </div>
+          <div class="head-line-secondary secondary-text-color">
+            Oops... Page Not Found!
+          </div>
+          <div class="subheader primary-text-color">
+            The page you were looking for, appears to have been removed, deleted or does not exist.
+          </div>
+          <div class="hr"></div>
+          <div class="context secondary-text-color">
+            <p>
+              Please contact our <a class="send-email">Support Team</a> if you are an administrator of this website and need any help.
+            </p>
+          </div>
+          <div class="buttons-container">
+            <a class="button" href="javascript:window.history.back()"><span class="fa fa-chevron-circle-left"></span> Go To Previous Page</a>
+            <a class="button" href="/"><span class="fa fa-home"></span> Go To Homepage</a>
+          </div>
+        </div>
+      </div>
+      <a href="#inline-content" class="inline" style="display:none"></a>
+    </center>
+  </body>
+</html>

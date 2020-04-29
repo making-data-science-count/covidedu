@@ -1,0 +1,1724 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><!--[if IE 7]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Post Falls SD</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Post Falls SD - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="New Vision High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Post Falls High School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Post Falls Middle School - News" href="/rssNews.ashx?schoolId=3">
+<link rel="alternate" type="application/rss+xml" title="River City Middle School - News" href="/rssNews.ashx?schoolId=4">
+<link rel="alternate" type="application/rss+xml" title="Greensferry Elementary - News" href="/rssNews.ashx?schoolId=5">
+<link rel="alternate" type="application/rss+xml" title="Mullan Trail Elementary - News" href="/rssNews.ashx?schoolId=6">
+<link rel="alternate" type="application/rss+xml" title="Ponderosa Elementary - News" href="/rssNews.ashx?schoolId=7">
+<link rel="alternate" type="application/rss+xml" title="Prairie View Elementary - News" href="/rssNews.ashx?schoolId=8">
+<link rel="alternate" type="application/rss+xml" title="Seltice Elementary - News" href="/rssNews.ashx?schoolId=9">
+<link rel="alternate" type="application/rss+xml" title="West Ridge Elementary - News" href="/rssNews.ashx?schoolId=10">
+<link rel="alternate" type="application/rss+xml" title="Frederick Post Kindergarten - News" href="/rssNews.ashx?schoolId=11">
+<link rel="alternate" type="application/rss+xml" title="Human Resources - News" href="/rssNews.ashx?schoolId=14">
+<link rel="alternate" type="application/rss+xml" title="Finance Department - News" href="/rssNews.ashx?schoolId=15">
+<link rel="alternate" type="application/rss+xml" title="Treaty Rock Elementary - News" href="/rssNews.ashx?schoolId=16">
+<link rel="alternate" type="application/rss+xml" title="Nutritional Services - News" href="/rssNews.ashx?schoolId=17">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "ID_PostFallsSD",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1551882183500">
+<script src="https://use.typekit.net/nza1zwy.js"></script><script>try { Typekit.load({ async: true }); } catch (e) { }</script><script>
+        $(document).ready(function () {
+            $('<i class="fa fa-bullhorn"></i>').prependTo('#newsTicker');
+        });
+    </script><style>
+        #site-body {
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTY4MTkwNTA0MA9kFgJmD2QWAmYPZBYEAgEPZBYGAgEPZBYCZg9kFgICAQ8WAh4EVGV4dAUNUG9zdCBGYWxscyBTRGQCAg9kFgICAQ8WAh4LXyFJdGVtQ291bnQCDxYeZg9kFgJmDxUCFk5ldyBWaXNpb24gSGlnaCBTY2hvb2wBMWQCAQ9kFgJmDxUCFlBvc3QgRmFsbHMgSGlnaCBTY2hvb2wBMmQCAg9kFgJmDxUCGFBvc3QgRmFsbHMgTWlkZGxlIFNjaG9vbAEzZAIDD2QWAmYPFQIYUml2ZXIgQ2l0eSBNaWRkbGUgU2Nob29sATRkAgQPZBYCZg8VAhZHcmVlbnNmZXJyeSBFbGVtZW50YXJ5ATVkAgUPZBYCZg8VAhdNdWxsYW4gVHJhaWwgRWxlbWVudGFyeQE2ZAIGD2QWAmYPFQIUUG9uZGVyb3NhIEVsZW1lbnRhcnkBN2QCBw9kFgJmDxUCF1ByYWlyaWUgVmlldyBFbGVtZW50YXJ5AThkAggPZBYCZg8VAhJTZWx0aWNlIEVsZW1lbnRhcnkBOWQCCQ9kFgJmDxUCFVdlc3QgUmlkZ2UgRWxlbWVudGFyeQIxMGQCCg9kFgJmDxUCG0ZyZWRlcmljayBQb3N0IEtpbmRlcmdhcnRlbgIxMWQCCw9kFgJmDxUCD0h1bWFuIFJlc291cmNlcwIxNGQCDA9kFgJmDxUCEkZpbmFuY2UgRGVwYXJ0bWVudAIxNWQCDQ9kFgJmDxUCFlRyZWF0eSBSb2NrIEVsZW1lbnRhcnkCMTZkAg4PZBYCZg8VAhROdXRyaXRpb25hbCBTZXJ2aWNlcwIxN2QCAw8WAh4EaHJlZgUwL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0xNTUxODgyMTgzNTAwZAIDDxYCHgZhY3Rpb24FAS8WDgIBD2QWBAIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8EBQEwZAIDDw9kFgIfBAUBMGQCBA8PZBYCHwQFATBkAgUPD2QWAh8EBQEwZAIDD2QWAgICD2QWAmYPFgIfAAUbPHVsIGNsYXNzPSdhbGVydExpc3QnPjwvdWw+ZAIDD2QWAgIBD2QWAgIBDw8WAh8ABQ1Qb3N0IEZhbGxzIFNEZGQCBQ9kFgQCAQ9kFgJmDxYCHwECBhYMZg9kFgRmDxUCKk11bGxhbiBUcmFpbCBzdGFmZiBjYXIgcGFyYWRlIC0gQXByaWwgMjAyMCpNdWxsYW4gVHJhaWwgc3RhZmYgY2FyIHBhcmFkZSAtIEFwcmlsIDIwMjBkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTA0LzQ3ODhlNDE4LTVhYzctNDY4NC04YTkwLWI5NGIzYjNjM2VkNi5qcGdkAgEPZBYEZg8VAjJHcmVlbnNmZXJyeSBTdGFmZiBncmVldCB0aGUgYnVzIGF0IEdyYWItbi1HbyBtZWFsczJHcmVlbnNmZXJyeSBTdGFmZiBncmVldCB0aGUgYnVzIGF0IEdyYWItbi1HbyBtZWFsc2QCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDQvNjQ1ZjA2YjAtN2M5NS00MTZhLWI1NmUtMGI0NDM2MmMxYjg0LmpwZ2QCAg9kFgRmDxUCKkdyYWIgTiYjMzk7IEdvIE1lYWxzIGR1cmluZyBzY2hvb2wgY2xvc3VyZSpHcmFiIE4mIzM5OyBHbyBNZWFscyBkdXJpbmcgc2Nob29sIGNsb3N1cmVkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTA0L2IzZjNlZjU0LTEyYzktNGI0YS05N2M5LWJlNTM5NzNlYjY1NC5wbmdkAgMPZBYEZg8VAlFCcmVha2Zhc3QgJmFtcDsgbHVuY2ggJnF1b3Q7R3JhYiBhbmQgR28mcXVvdDsgbWVhbHMgc2VydmVkIHdlZWtkYXlzIGZyb20gMTFBTS0xUE1RQnJlYWtmYXN0ICZhbXA7IGx1bmNoICZxdW90O0dyYWIgYW5kIEdvJnF1b3Q7IG1lYWxzIHNlcnZlZCB3ZWVrZGF5cyBmcm9tIDExQU0tMVBNZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMy9hZmE4YjcyNy03OWIxLTQzMjUtODYxZi00NjA3MmVmYzg3MDQuanBnZAIED2QWBGYPFQIpUG9uZGVyb3NhIHN0YWZmIGNhciBwYXJhZGUg4oCTIEFwcmlsIDIwMjAYc3RhZmYgY2FyIHBhcmFkZSBwaWN0dXJlZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wNC83YjI1ZDA0OS01NTU2LTRhN2YtOGM3MC01Yzc2ZDAyZDQ3NzkuanBnZAIFD2QWBGYPFQJuU3VwZXJpbnRlbmRlbnQgS2VhbmUgcmVhZGluZyBmb3IgRHIuIFNldXNzIHdlZWsuIEJvb2tzIGdpdmVuIHRvIGtpZHMgc3BvbnNvcmVkIGJ5IHRoZSBLaXdhbmlzIGNsdWIuIFRoYW5rIHlvdSFuU3VwZXJpbnRlbmRlbnQgS2VhbmUgcmVhZGluZyBmb3IgRHIuIFNldXNzIHdlZWsuIEJvb2tzIGdpdmVuIHRvIGtpZHMgc3BvbnNvcmVkIGJ5IHRoZSBLaXdhbmlzIGNsdWIuIFRoYW5rIHlvdSFkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAzLzFjMjcyNGNiLWYxOWUtNDMwZi1iYWFiLWU0ZjE1NDAxNmQ3My5qcGdkAgMPZBYCAgEPZBYEZg8WAh8ABSpXZWxjb21lIHRvIFBvc3QgRmFsbHMgU2Nob29sIERpc3RyaWN0ICMyNzNkAgIPFgIfAAXsAjxwPjxpbWcgYWx0PSJib2FyZCBvZiB0cnVzdGVlcyIgc3JjPSIvdXNlcmZpbGVzLy0xOC9teSUyMGZpbGVzL2ltZ18xMzg0JTIwKDIpLmpwZz9pZD05NDImYW1wO3dpZHRoPTM1MCIgc3R5bGU9IndpZHRoOiAzNTBweDsiIC8+PC9wPg0KDQo8cD5XZWxjb21lIHRvIFBvc3QgRmFsbHMgU2Nob29sIERpc3RyaWN0ICMyNzMuJm5ic3A7PC9wPg0KDQo8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExcHg7Ij5UaGUgQm9hcmQgb2YgVHJ1c3RlZXMgZnJvbSBsZWZ0IHRvIHJpZ2h0IC0gTWljaGVsbGUgTGlwcGVydCwgRGF2ZSBQYXVsLCBCb25uaWUgQmVhdWxpZXUsIENhcm9sIEdvb2RtYW4sIGFuZCBCcmlkZ2V0IEVpc21hbm4uPC9zcGFuPjwvcD5kAgcPZBYCAgEPZBYCZg9kFgJmDxYCHwAFjwM8dWw+DQoJPGxpPjxzdHJvbmc+PHNwYW4gc3R5bGU9ImZvbnQtc2l6ZToxOHB4OyI+RHVyaW5nIGNsb3N1cmUgR3JhYiBOJiMzOTsgR28mbmJzcDttZWFscyBhcmUmbmJzcDthdmFpbGFibGUgYXQgR3JlZW5zZmVycnksJm5ic3A7V2VzdCBSaWRnZSwgJmFtcDsgUG9uZGVyb3NhIEVsZW1lbnRhcnk7Jm5ic3A7Uml2ZXIgQ2l0eSBNUyAmYW1wOyBQb3N0IEZhbGxzJm5ic3A7SFM8L3NwYW4+PC9zdHJvbmc+PC9saT4NCgk8bGk+PGEgaHJlZj0iL2RvY3MvZGlzdHJpY3QvY292aWQxOS9ncmFiIG4gZ28gZmx5ZXIgMi5wZGY/aWQ9NDAzNiI+PHN0cm9uZz48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE4cHg7Ij5HcmFiIE4mIzM5OyBHbyBtZWFsIGZseWVyPC9zcGFuPjwvc3Ryb25nPjwvYT48L2xpPg0KPC91bD5kAgsPZBYMAgEPZBYEZg8PFgIeB1Zpc2libGVoZGQCAg9kFgQCAw8WAh8FaGQCBQ8WAh8BAgVkAgMPZBYGAgEPFgIfAQIQFiACAQ9kFgoCAQ8PFgIfAAUGTWF5IDExZGQCAg8PFgIfAAUDODAwZGQCBA8PFgIfAAUZQm9hcmQgb2YgVHJ1c3RlZXMgTWVldGluZ2RkAgYPDxYCHwAFGUBSaXZlciBDaXR5IE1pZGRsZSBTY2hvb2xkZAIHDxUBEEJlZ2lucyBAIDY6MDAgUE1kAgIPZBYKAgEPDxYCHwAFBk1heSAyNWRkAgIPDxYCHwAFBDMxMjNkZAIEDw8WAh8ABRtLLTEyIE5vIFNjaG9vbCBNZW1vcmlhbCBEYXlkZAIGDw8WAh8AZWRkAgcPFQEAZAIDD2QWCgIBDw8WAh8ABQZKdW4gMDRkZAICDw8WAh8ABQQzMTI0ZGQCBA8PFgIfAAUWTGFzdCBEYXkgV2l0aCBTdHVkZW50c2RkAgYPDxYCHwBlZGQCBw8VAQBkAgQPZBYKAgEPDxYCHwAFBkp1biAwNWRkAgIPDxYCHwAFBDMxMjVkZAIEDw8WAh8ABRVMYXN0IERheSBmb3IgVGVhY2hlcnNkZAIGDw8WAh8AZWRkAgcPFQEAZAIFD2QWCgIBDw8WAh8ABQZKdW4gMDhkZAICDw8WAh8ABQM4MDBkZAIEDw8WAh8ABRlCb2FyZCBvZiBUcnVzdGVlcyBNZWV0aW5nZGQCBg8PFgIfAAUZQFJpdmVyIENpdHkgTWlkZGxlIFNjaG9vbGRkAgcPFQEQQmVnaW5zIEAgNjowMCBQTWQCBg9kFgoCAQ8PFgIfAAUGSnVuIDE5ZGQCAg8PFgIfAAUEMzEyNmRkAgQPDxYCHwAFJUxhc3QgRGF5IGZvciBTZWNyZXRhcmllcyAmIFByaW5jaXBhbHNkZAIGDw8WAh8AZWRkAgcPFQEAZAIHD2QWCgIBDw8WAh8ABQZKdWwgMTNkZAICDw8WAh8ABQM4MDBkZAIEDw8WAh8ABRlCb2FyZCBvZiBUcnVzdGVlcyBNZWV0aW5nZGQCBg8PFgIfAAUZQFJpdmVyIENpdHkgTWlkZGxlIFNjaG9vbGRkAgcPFQEQQmVnaW5zIEAgNjowMCBQTWQCCA9kFgoCAQ8PFgIfAAUGQXVnIDEwZGQCAg8PFgIfAAUDODAwZGQCBA8PFgIfAAUZQm9hcmQgb2YgVHJ1c3RlZXMgTWVldGluZ2RkAgYPDxYCHwAFGUBSaXZlciBDaXR5IE1pZGRsZSBTY2hvb2xkZAIHDxUBEEJlZ2lucyBAIDY6MDAgUE1kAgkPZBYKAgEPDxYCHwAFBlNlcCAxNGRkAgIPDxYCHwAFAzgwMGRkAgQPDxYCHwAFGUJvYXJkIG9mIFRydXN0ZWVzIE1lZXRpbmdkZAIGDw8WAh8ABRlAUml2ZXIgQ2l0eSBNaWRkbGUgU2Nob29sZGQCBw8VARBCZWdpbnMgQCA2OjAwIFBNZAIKD2QWCgIBDw8WAh8ABQZPY3QgMTJkZAICDw8WAh8ABQM4MDBkZAIEDw8WAh8ABRlCb2FyZCBvZiBUcnVzdGVlcyBNZWV0aW5nZGQCBg8PFgIfAAUZQFJpdmVyIENpdHkgTWlkZGxlIFNjaG9vbGRkAgcPFQEQQmVnaW5zIEAgNjowMCBQTWQCCw9kFgoCAQ8PFgIfAAUGTm92IDA5ZGQCAg8PFgIfAAUDODAwZGQCBA8PFgIfAAUZQm9hcmQgb2YgVHJ1c3RlZXMgTWVldGluZ2RkAgYPDxYCHwAFGUBSaXZlciBDaXR5IE1pZGRsZSBTY2hvb2xkZAIHDxUBEEJlZ2lucyBAIDY6MDAgUE1kAgwPZBYKAgEPDxYCHwAFBkRlYyAxNGRkAgIPDxYCHwAFAzgwMGRkAgQPDxYCHwAFGUJvYXJkIG9mIFRydXN0ZWVzIE1lZXRpbmdkZAIGDw8WAh8ABRlAUml2ZXIgQ2l0eSBNaWRkbGUgU2Nob29sZGQCBw8VARBCZWdpbnMgQCA2OjAwIFBNZAIND2QWCgIBDw8WAh8ABQZKYW4gMTFkZAICDw8WAh8ABQM4MDBkZAIEDw8WAh8ABRlCb2FyZCBvZiBUcnVzdGVlcyBNZWV0aW5nZGQCBg8PFgIfAAUZQFJpdmVyIENpdHkgTWlkZGxlIFNjaG9vbGRkAgcPFQEQQmVnaW5zIEAgNjowMCBQTWQCDg9kFgoCAQ8PFgIfAAUGRmViIDA4ZGQCAg8PFgIfAAUDODAwZGQCBA8PFgIfAAUZQm9hcmQgb2YgVHJ1c3RlZXMgTWVldGluZ2RkAgYPDxYCHwAFGUBSaXZlciBDaXR5IE1pZGRsZSBTY2hvb2xkZAIHDxUBEEJlZ2lucyBAIDY6MDAgUE1kAg8PZBYKAgEPDxYCHwAFBk1hciAwOGRkAgIPDxYCHwAFAzgwMGRkAgQPDxYCHwAFGUJvYXJkIG9mIFRydXN0ZWVzIE1lZXRpbmdkZAIGDw8WAh8ABRlAUml2ZXIgQ2l0eSBNaWRkbGUgU2Nob29sZGQCBw8VARBCZWdpbnMgQCA2OjAwIFBNZAIQD2QWCgIBDw8WAh8ABQZBcHIgMTJkZAICDw8WAh8ABQM4MDBkZAIEDw8WAh8ABRlCb2FyZCBvZiBUcnVzdGVlcyBNZWV0aW5nZGQCBg8PFgIfAAUZQFJpdmVyIENpdHkgTWlkZGxlIFNjaG9vbGRkAgcPFQEQQmVnaW5zIEAgNjowMCBQTWQCBQ8PFgIeC05hdmlnYXRlVXJsBSEvY2FsTW9udGhWaWV3LmFzcHg/cz0wJnk9MjAyMCZtPTRkZAIHDw8WBB8GBUUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCZzY2hvb2xpZD0wJnR5cGVzPSZ2aWV3RGF0ZT00LzI5LzIwMjAfAAUPVmlldyBBbGwgRXZlbnRzZGQCBA8PFgIfBWhkFgRmDxYCHwAFDkZvb3RlciBDb250ZW50ZAICDxYCHwBlZAIFDw8WAh8FaGQWBGYPFgIfAAUORm9vdGVyIENvbnRlbnRkAgIPFgIfAGVkAgYPZBYEZg8WAh8ABSpXZWxjb21lIHRvIFBvc3QgRmFsbHMgU2Nob29sIERpc3RyaWN0ICMyNzNkAgIPFgIfAAXsAjxwPjxpbWcgYWx0PSJib2FyZCBvZiB0cnVzdGVlcyIgc3JjPSIvdXNlcmZpbGVzLy0xOC9teSUyMGZpbGVzL2ltZ18xMzg0JTIwKDIpLmpwZz9pZD05NDImYW1wO3dpZHRoPTM1MCIgc3R5bGU9IndpZHRoOiAzNTBweDsiIC8+PC9wPg0KDQo8cD5XZWxjb21lIHRvIFBvc3QgRmFsbHMgU2Nob29sIERpc3RyaWN0ICMyNzMuJm5ic3A7PC9wPg0KDQo8cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjExcHg7Ij5UaGUgQm9hcmQgb2YgVHJ1c3RlZXMgZnJvbSBsZWZ0IHRvIHJpZ2h0IC0gTWljaGVsbGUgTGlwcGVydCwgRGF2ZSBQYXVsLCBCb25uaWUgQmVhdWxpZXUsIENhcm9sIEdvb2RtYW4sIGFuZCBCcmlkZ2V0IEVpc21hbm4uPC9zcGFuPjwvcD5kAgcPZBYEZg88KwAKAQAPFggeDURheU5hbWVGb3JtYXQLKidTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLkRheU5hbWVGb3JtYXQCHg1OZXh0TW9udGhUZXh0BS8+PjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5HbyB0byBuZXh0IG1vbnRoPC9zcGFuPh4NUHJldk1vbnRoVGV4dAUzPDw8c3BhbiBjbGFzcz0nb2JzY3VyZSc+R28gdG8gcHJldmlvdXMgbW9udGg8L3NwYW4+HgJTRBYBBgBApELQ69cIZGQCAQ8PFgYeBlRhcmdldAUGX2JsYW5rHwAFElZpZXcgRnVsbCBDYWxlbmRhch8GBSUvY2FsTW9udGhWaWV3LmFzcHg/cz0wJnk9MjAyMCZtPTQmdD0wZGQCDQ9kFgICAQ9kFgZmDxYCHwAFEFNDSE9PTCBNRVNTRU5HRVJkAgEPDxYCHwVoZGQCAg8WAh8ABeIEVGhlIFBvc3QgRmFsbHMgU2Nob29sIERpc3RyaWN0IGhhcyBqb2luZWQgdGhlIFNjaG9vbCBNZXNzZW5nZXIgZW1lcmdlbmN5IG5vdGlmaWNhdGlvbiBzeXN0ZW0uVGhlIHN5c3RlbSBhbGxvd3MgdGhlIGRpc3RyaWN0IHRvIGNvbW11bmljYXRlIHZpYSBTTVMgdGV4dCBtZXNzYWdlcyB0byBwYXJlbnRzIHJlZ2FyZGluZyBpbXBvcnRhbnQgbWF0dGVycyBzdWNoIGFzIGEgc2Nob29sIGxvY2tkb3duLCBzY2hvb2wgY2xvc3VyZSAod2VhdGhlciBvciBvdGhlcndpc2UpIG9yIG90aGVyIGlzc3VlcyB0aGF0IGFmZmVjdCB0aGVpciBzdHVkZW50cy4NCg0KVG8gcmVjZWl2ZSBzY2hvb2wgbm90aWZpY2F0aW9ucyB5b3UgbXVzdCBvcHQtaW4gdG8gc2Nob29sIG1lc3Nlbmdlci4gIFBsZWFzZSBmb2xsb3cgdGhlIHN0ZXBzIGJlbG93IHRvIG9wdCBpbjoNCioqU2VuZCBhIHRleHQgbWVzc2FnZSB0byA2NzU4NyB3aXRoIHRoZSB3b3JkICZsZHF1bztzdWJzY3JpYmUmcmRxdW87IGluIHRoZSBib2R5IG9mIHRoZSB0ZXh0Lg0KKipZb3Ugd2lsbCByZWNlaXZlIGEgY29uZmlybWF0aW9uIHRleHQgcmVwbHkgdGhhdCB5b3UgYXJlIFJlZ2lzdGVyZWQgd2l0aCBTY2hvb2wgTWVzc2VuZ2VyLmQCEQ9kFgwCAQ9kFgJmDw8WAh8FaGRkAgMPZBYCZg8WAh8BAgMWBmYPZBYCZg8VBQYvbG9naW4YQ29udGVudCBNYW5hZ2VtZW50IExvZ2luBV9zZWxmJjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5DTVMgTG9naW48L3NwYW4+DWZhIGZhLXNpZ24taW5kAgEPZBYCZg8VBQkvaW50cmFuZXQUSW50cmFuZXQgU3RhZmYgTG9naW4FX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkludHJhbmV0PC9zcGFuPg1mYSBmYS1zaXRlbWFwZAICD2QWAmYPFQULL2FkYS1yZXBvcnQYQURBIENvbXBsaWFuY2UgUmVwb3J0aW5nBV9zZWxmJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5BREEgTGluazwvc3Bhbj4WZmEgZmEtdW5pdmVyc2FsLWFjY2Vzc2QCBQ8PFgIfAAUWMjA2IFdlc3QgTXVsbGFuIEF2ZW51ZWRkAgcPDxYCHwAFFFBvc3QgRmFsbHMsIElEIDgzODU0ZGQCCQ8PFgIfAAUcPGI+UGhvbmU6PC9iPiAoMjA4KSA3NzMtMTY1OGRkAgsPDxYCHwAFGjxiPkZheDo8L2I+ICgyMDgpIDc3My0zMjE4ZGRk6suT70no4fEOXcPIwNoc9OECfYc=">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'ILxAaM2Kec' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div id="site-head">
+            
+                
+
+<div id="header-mobile" class="hidden-sm hidden-md hidden-lg">
+	<nav id="MobileNav"><div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<a id="ctl00_ctl00_header_ctl00_MobileName" class="MobileName" href="/index.aspx">Post Falls SD</a>
+
+					<a id="expandMobileNavs" class="navbar-toggle" data-toggle="collapse" data-target="#NavCollapse" tabindex="0">
+						<span class="sr-only">Toggle navigation</span><i class="fa fa-bars" aria-hidden="true"></i>
+					</a>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12">
+					<div class="collapse navbar-collapse" id="NavCollapse">
+						<h1>Quick Links</h1>
+
+						<ul class=""><li class="without-image"><a href="/" title="District Home">District Home</a></li></ul>
+<ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Our Schools">Our Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/schools" title="Our Schools">Our Schools</a></li>
+<li class="without-image"><a href="/1/Home" title="New Vision High School">New Vision High School</a></li>
+<li class="without-image"><a href="/2/home" title="Post Falls High School">Post Falls High School</a></li>
+<li class="without-image"><a href="/3/home" title="Post Falls Middle School">Post Falls Middle School</a></li>
+<li class="without-image"><a href="/4/home" title="River City Middle School">River City Middle School</a></li>
+<li class="without-image"><a href="/5/home" title="Greensferry Elementary">Greensferry Elementary</a></li>
+<li class="without-image"><a href="/6/home" title="Mullan Trail Elementary">Mullan Trail Elementary</a></li>
+<li class="without-image"><a href="/7/home" title="Ponderosa Elementary">Ponderosa Elementary</a></li>
+<li class="without-image"><a href="/8/home" title="Prairie View Elementary">Prairie View Elementary</a></li>
+<li class="without-image"><a href="/9/home" title="Seltice Elementary">Seltice Elementary</a></li>
+<li class="without-image"><a href="/16/home" title="Treaty Rock Elementary">Treaty Rock Elementary</a></li>
+<li class="without-image"><a href="/10/home" title="West Ridge Elementary">West Ridge Elementary</a></li>
+<li class="without-image"><a href="/11/home" title="Frederick Post Kindergarten">Frederick Post Kindergarten</a></li>
+<li class="without-image"><a href="/content/developmental-preschool" title="Developmental Preschool">Developmental Preschool</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/2" title="Emergency/Closure Information">Emergency/Closure Information</a></li>
+<li class="without-image"><a href="/District/Profile" title="District Info/Administration">District Info/Administration</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/pfsd_district_phone_list_current.pdf?id=4" title="PFSD Phone &amp; Fax Numbers">PFSD Phone &amp; Fax Numbers</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="District Documents &amp; Links">District Documents &amp; Links</a></li>
+<li class="without-image"><a href="/Content/4" title="District Newsletters">District Newsletters</a></li>
+<li class="without-image"><a href="https://sites.google.com/a/sd273.com/pfsdportal/" title="PFSD Collaboration Portal">PFSD Collaboration Portal</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/14/home" title="Human Resource">Human Resource</a></li>
+<li class="without-image"><a href="/17/home" title="Nutritional Services">Nutritional Services</a></li>
+<li class="without-image"><a href="/administration/12" title="Transportation">Transportation</a></li>
+<li class="without-image"><a href="http://www.pfsd.com/Administration/10" title="Technology Department">Technology Department</a></li>
+<li class="without-image"><a href="/administration/2" title="Finance">Finance</a></li>
+<li class="without-image"><a href="http://www.pfsd.com/Administration/4" title="Maintenance Department">Maintenance Department</a></li>
+<li class="without-image"><a href="/administration/6" title="Nursing &amp; Community Services">Nursing &amp; Community Services</a></li>
+<li class="without-image"><a href="http://www.pfsd.com/administration/8" title="Special Education">Special Education</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Programs">Programs  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.pfsd.com/olc/teacher.aspx?s=860" title="Challenge Program (G/T)">Challenge Program (G/T)</a></li>
+<li class="without-image"><a href="/Content/44" title="Curriculum">Curriculum</a></li>
+<li class="without-image"><a href="/content/developmental-preschool" title="Developmental Preschool">Developmental Preschool</a></li>
+<li class="without-image"><a href="/Content/50" title="English Learner (EL) Program">English Learner (EL) Program</a></li>
+<li class="without-image"><a href="/Content/48" title="Homeless">Homeless</a></li>
+<li class="without-image"><a href="https://sites.google.com/sd273.com/pfsdmtss/home" title="MTSS Program">MTSS Program</a></li>
+<li class="without-image"><a href="/Content/56" title="Title 1 Program">Title 1 Program</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Trustees">Board of Trustees  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/board" title="Board of Trustees">Board of Trustees</a></li>
+<li class="without-image"><a href="/Content/82" title="Board of Trustees Meeting Notices">Board of Trustees Meeting Notices</a></li>
+<li class="without-image"><a href="/Content/74" title="Board of trustees Agendas">Board of trustees Agendas</a></li>
+<li class="without-image"><a href="/Content/72" title="Board of Trustees Zone Maps">Board of Trustees Zone Maps</a></li>
+<li class="without-image"><a href="/Content/76" title=" Board of Trustees Policy Manual"> Board of Trustees Policy Manual</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents &amp; Students">Parents &amp; Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/ideal%20529%20plan%20article.pdf?id=2657" title="you are leaving PFSD web site">IDeal 529 College Savings Plan</a></li>
+<li class="without-image"><a href="https://skyward.sd273.com/scripts/wsisa.dll/WService=wsEAplus/fwemnu01.w" title="Skyward Family/Student Access">Skyward Family/Student Access</a></li>
+<li class="without-image"><a href="/Content2/2" title="Emergency/Closure Information">Emergency/Closure Information</a></li>
+<li class="without-image"><a href="/Content/60" title="Calendars">Calendars</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/family_education_and_privacy_act.pdf?id=151" title="Family Educ. and Privacy Act">Family Educ. and Privacy Act</a></li>
+<li class="without-image"><a href="/Content/46" title="GAP">GAP</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/oe_app_policy_current.pdf?id=152" title="Open Enrollment">Open Enrollment</a></li>
+<li class="without-image"><a href="/Content/66" title="Registration Forms">Registration Forms</a></li>
+<li class="without-image"><a href="/content/90" title="School Supply List">School Supply List</a></li>
+<li class="without-image"><a href="/Content/68" title="Idaho State Department of Education Report Card">Idaho State Department of Education Report Card</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/70" aria-label="" title="Contact Us">Contact Us</a></li>
+</ul>
+<ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="https://skyward.sd273.com/scripts/wsisa.dll/WService=wsEAplus/fwemnu01.w" title="Skyward Family/Student Access">Skyward Family/Student Access</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/pfs_phonelist_web.pdf?id=244" title="PFSD Phone and Fax Numbers">PFSD Phone and Fax Numbers</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/17/home" title="Nutritional Services">Nutritional Services</a></li>
+<li class="without-image"><a href="/docs/district/anna/pfsd%202020-21%20calendar%20-%20final.pdf?id=3883" title="2020 2021 District Calendar">2020 2021 District Calendar</a></li>
+<li class="without-image"><a href="/userfiles/4/my%20files/pfsd%202019%202020%20calendar%20approved.pdf?id=2863" title="2019-2020 District Calendar">2019-2020 District Calendar</a></li>
+<li class="without-image"><a href="/content/90" title="School Supply List 2019-2020">School Supply List 2019-2020</a></li>
+<li class="without-image"><a href="/content/58" title="2019-20 Back to School Newsletter">2019-20 Back to School Newsletter</a></li>
+<li class="without-image"><a href="/administration/12" title="Transportation">Transportation</a></li>
+<li class="without-image"><a href="/board" title="Board of Trustees ">Board of Trustees </a></li>
+<li class="without-image"><a href="http://www.postfallspolice.com/services-view/school-resources/" title="School Resource Officer (SRO)">School Resource Officer (SRO)</a></li>
+<li class="without-image"><a href="/Administration/12" title="Boundary Maps">Boundary Maps</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="District Documents">District Documents</a></li>
+<li class="without-image"><a href="https://skyward.sd273.com/scripts/cgiip.exe/WService=wsFin/rwestd01.w" title="Skyward Employee Access">Skyward Employee Access</a></li>
+<li class="without-image"><a href="https://idahoschools.org/" title="Idaho State Department of Education Report Card">Idaho State Department of Education Report Card</a></li>
+<li class="without-image"><a href="https://sso.rumba.pearsoncmg.com/sso/login?profile=eb&amp;service=https://k12integrations.pearsoncmg.com/ca/dashboard.htm&amp;EBTenant=PFSD-ID%20%20" title="Pearson">Pearson</a></li>
+<li class="without-image"><a href="/content/70" title="Contact Office">Contact Office</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Explore Our Schools!">Explore Our Schools!  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/schools" title="Tour Our Schools">Tour Our Schools</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/District/Profile" title="District Info">District Info</a></li>
+<li class="without-image"><a href="/Content/114" title="Academics">Academics</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/Athletics" title="Athletics">Athletics</a></li>
+</ul>
+</li>
+</ul>
+</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
+
+<div id="header-desktop" class="hidden-xs">
+	<div class="bg-header1">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12 talignR olcLoginCont">
+					<a id="ctl00_ctl00_header_ctl00_OlcLogin" class="olcLogin" href="/login.aspx">Sign in to OLC</a>
+				</div>
+			</div>
+
+			<div class="row" id="logoRow">
+				<div class="col-xs-12">
+					<a id="ctl00_ctl00_header_ctl00_LogoImgLink" class="LogoImage" href="/index.aspx"><span class="obscure">link to homepage</span></a>
+
+					<a id="ctl00_ctl00_header_ctl00_LogoNameLink" class="LogoName" href="/index.aspx"><span class="obscure">link to homepage</span></a>
+
+					<nav id="MiniNav"><ul class=""><li class="without-image"><a href="/" title="District Home">District Home</a></li></ul></nav>
+</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-header2">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-12">
+					<nav id="MainNav"><ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Our Schools">Our Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/schools" title="Our Schools">Our Schools</a></li>
+<li class="without-image"><a href="/1/Home" title="New Vision High School">New Vision High School</a></li>
+<li class="without-image"><a href="/2/home" title="Post Falls High School">Post Falls High School</a></li>
+<li class="without-image"><a href="/3/home" title="Post Falls Middle School">Post Falls Middle School</a></li>
+<li class="without-image"><a href="/4/home" title="River City Middle School">River City Middle School</a></li>
+<li class="without-image"><a href="/5/home" title="Greensferry Elementary">Greensferry Elementary</a></li>
+<li class="without-image"><a href="/6/home" title="Mullan Trail Elementary">Mullan Trail Elementary</a></li>
+<li class="without-image"><a href="/7/home" title="Ponderosa Elementary">Ponderosa Elementary</a></li>
+<li class="without-image"><a href="/8/home" title="Prairie View Elementary">Prairie View Elementary</a></li>
+<li class="without-image"><a href="/9/home" title="Seltice Elementary">Seltice Elementary</a></li>
+<li class="without-image"><a href="/16/home" title="Treaty Rock Elementary">Treaty Rock Elementary</a></li>
+<li class="without-image"><a href="/10/home" title="West Ridge Elementary">West Ridge Elementary</a></li>
+<li class="without-image"><a href="/11/home" title="Frederick Post Kindergarten">Frederick Post Kindergarten</a></li>
+<li class="without-image"><a href="/content/developmental-preschool" title="Developmental Preschool">Developmental Preschool</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/2" title="Emergency/Closure Information">Emergency/Closure Information</a></li>
+<li class="without-image"><a href="/District/Profile" title="District Info/Administration">District Info/Administration</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/pfsd_district_phone_list_current.pdf?id=4" title="PFSD Phone &amp; Fax Numbers">PFSD Phone &amp; Fax Numbers</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="District Documents &amp; Links">District Documents &amp; Links</a></li>
+<li class="without-image"><a href="/Content/4" title="District Newsletters">District Newsletters</a></li>
+<li class="without-image"><a href="https://sites.google.com/a/sd273.com/pfsdportal/" title="PFSD Collaboration Portal">PFSD Collaboration Portal</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/14/home" title="Human Resource">Human Resource</a></li>
+<li class="without-image"><a href="/17/home" title="Nutritional Services">Nutritional Services</a></li>
+<li class="without-image"><a href="/administration/12" title="Transportation">Transportation</a></li>
+<li class="without-image"><a href="http://www.pfsd.com/Administration/10" title="Technology Department">Technology Department</a></li>
+<li class="without-image"><a href="/administration/2" title="Finance">Finance</a></li>
+<li class="without-image"><a href="http://www.pfsd.com/Administration/4" title="Maintenance Department">Maintenance Department</a></li>
+<li class="without-image"><a href="/administration/6" title="Nursing &amp; Community Services">Nursing &amp; Community Services</a></li>
+<li class="without-image"><a href="http://www.pfsd.com/administration/8" title="Special Education">Special Education</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Programs">Programs  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.pfsd.com/olc/teacher.aspx?s=860" title="Challenge Program (G/T)">Challenge Program (G/T)</a></li>
+<li class="without-image"><a href="/Content/44" title="Curriculum">Curriculum</a></li>
+<li class="without-image"><a href="/content/developmental-preschool" title="Developmental Preschool">Developmental Preschool</a></li>
+<li class="without-image"><a href="/Content/50" title="English Learner (EL) Program">English Learner (EL) Program</a></li>
+<li class="without-image"><a href="/Content/48" title="Homeless">Homeless</a></li>
+<li class="without-image"><a href="https://sites.google.com/sd273.com/pfsdmtss/home" title="MTSS Program">MTSS Program</a></li>
+<li class="without-image"><a href="/Content/56" title="Title 1 Program">Title 1 Program</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Trustees">Board of Trustees  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/board" title="Board of Trustees">Board of Trustees</a></li>
+<li class="without-image"><a href="/Content/82" title="Board of Trustees Meeting Notices">Board of Trustees Meeting Notices</a></li>
+<li class="without-image"><a href="/Content/74" title="Board of trustees Agendas">Board of trustees Agendas</a></li>
+<li class="without-image"><a href="/Content/72" title="Board of Trustees Zone Maps">Board of Trustees Zone Maps</a></li>
+<li class="without-image"><a href="/Content/76" title=" Board of Trustees Policy Manual"> Board of Trustees Policy Manual</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents &amp; Students">Parents &amp; Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/ideal%20529%20plan%20article.pdf?id=2657" title="you are leaving PFSD web site">IDeal 529 College Savings Plan</a></li>
+<li class="without-image"><a href="https://skyward.sd273.com/scripts/wsisa.dll/WService=wsEAplus/fwemnu01.w" title="Skyward Family/Student Access">Skyward Family/Student Access</a></li>
+<li class="without-image"><a href="/Content2/2" title="Emergency/Closure Information">Emergency/Closure Information</a></li>
+<li class="without-image"><a href="/Content/60" title="Calendars">Calendars</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/family_education_and_privacy_act.pdf?id=151" title="Family Educ. and Privacy Act">Family Educ. and Privacy Act</a></li>
+<li class="without-image"><a href="/Content/46" title="GAP">GAP</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/oe_app_policy_current.pdf?id=152" title="Open Enrollment">Open Enrollment</a></li>
+<li class="without-image"><a href="/Content/66" title="Registration Forms">Registration Forms</a></li>
+<li class="without-image"><a href="/content/90" title="School Supply List">School Supply List</a></li>
+<li class="without-image"><a href="/Content/68" title="Idaho State Department of Education Report Card">Idaho State Department of Education Report Card</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/70" aria-label="" title="Contact Us">Contact Us</a></li>
+</ul></nav>
+</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+            
+        </div>
+
+        
+    <div id="site-slideshow">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                    
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({ effect: 'fade', pauseTime: 3000, prevText: 'Prev', nextText: 'Next', animSpeed: 500   });
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+	});
+</script><div id="slideshow" tabindex="-1">
+	<div class="slides">
+		
+				<img title="Mullan Trail staff car parade - April 2020" alt="Mullan Trail staff car parade - April 2020" src="/images/full//userfiles/2020-04/4788e418-5ac7-4684-8a90-b94b3b3c3ed6.jpg"><img title="Greensferry Staff greet the bus at Grab-n-Go meals" alt="Greensferry Staff greet the bus at Grab-n-Go meals" src="/images/full//userfiles/2020-04/645f06b0-7c95-416a-b56e-0b44362c1b84.jpg"><img title="Grab N' Go Meals during school closure" alt="Grab N' Go Meals during school closure" src="/images/full//userfiles/2020-04/b3f3ef54-12c9-4b4a-97c9-be53973eb654.png"><img title='Breakfast &amp; lunch "Grab and Go" meals served weekdays from 11AM-1PM' alt='Breakfast &amp; lunch "Grab and Go" meals served weekdays from 11AM-1PM' src="/images/full//userfiles/2020-03/afa8b727-79b1-4325-861f-46072efc8704.jpg"><img title="Ponderosa staff car parade – April 2020" alt="staff car parade picture" src="/images/full//userfiles/2020-04/7b25d049-5556-4a7f-8c70-5c76d02d4779.jpg"><img title="Superintendent Keane reading for Dr. Seuss week. Books given to kids sponsored by the Kiwanis club. Thank you!" alt="Superintendent Keane reading for Dr. Seuss week. Books given to kids sponsored by the Kiwanis club. Thank you!" src="/images/full//userfiles/2020-03/1c2724cb-f19e-430f-baab-e4f154016d73.jpg">
+</div>
+
+	
+</div>
+
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    
+	<div class="wrap-super">
+		
+<div class="feature-content ">
+	
+
+	<div class="feature-content-body content">
+		
+		<div class="feature-content-content">
+			<p><img alt="board of trustees" src="/userfiles/-18/my%20files/img_1384%20(2).jpg?id=942&amp;width=350" style="width: 350px;"></p>
+
+<p>Welcome to Post Falls School District #273. </p>
+
+<p><span style="font-size:11px;">The Board of Trustees from left to right - Michelle Lippert, Dave Paul, Bonnie Beaulieu, Carol Goodman, and Bridget Eismann.</span></p>
+		</div>
+		
+	</div>
+	<div style="clear: both;"></div>
+
+</div>
+
+
+		<div class="wrap-viewAll">
+			<a href="/0/featured/4">Read More</a>
+		</div>
+	</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('#slideshow a.nivo-prevNav').html('<i class="fa fa-arrow-left" aria-hidden="true"></i><span class="obscure">previous slide</span>').css({ 'display': 'block' });
+            $('#slideshow a.nivo-nextNav').html('<i class="fa fa-arrow-right" aria-hidden="true"></i><span class="obscure">next slide</span>').css({ 'display': 'block' });
+
+            var slider = jQuery('.slides');
+            var nivoStartStopControl = jQuery('<div class="nivo-startstopNav"></div>');
+
+            slider.after(nivoStartStopControl);
+            nivoStartStopControl.append('<span tabindex="0" href="#" id="nivoStart" title="Play Slideshow"><span><i class="fa fa-play" aria-hidden="true"></i></span><span class="obscure">play slideshow</span></span> <span tabindex="0" href="#" id="nivoStop" title="Pause Slideshow"><span><i class="fa fa-pause" aria-hidden="true"></i><span class="obscure">stop slideshow</span></span></span>');
+
+            jQuery('#nivoStop').click(function (event) {
+                event.preventDefault();
+                slider.data('nivoslider').stop();
+            });
+
+            jQuery('#nivoStart').click(function (event) {
+                event.preventDefault();
+                slider.data('nivoslider').start();
+            });
+
+            $(document).on('keyup', '#nivoStart', function (e) {
+                if (e.which == 13 || e.which == 32)
+                    $(this).click()
+            });
+
+            $(document).on('keyup', '#nivoStop', function (e) {
+                if (e.which == 13 || e.which == 32)
+                    $(this).click()
+            });
+        });
+    </script><div id="site-body">
+            
+    <div id="body-ticker">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div id="ctl00_ctl00_ContentTicker_ticker_pnlTicker" class="content-ticker-container">
+	
+	<style type="text/css">
+		#newsTicker {
+			background-repeat: repeat-x;
+			background-position: top;
+			padding-top: 3px;
+			padding-bottom: 3px;
+			overflow: hidden;
+			max-width: 980px;
+		}
+
+		#newsTickerInner {
+			background-color: #fff;
+			height: 30px;
+			overflow: hidden;
+			max-width: 1960px;
+			position: relative;
+		}
+
+		#newsTicker .tickerItemWrapper {
+			position: absolute;
+			top: 5px;
+			height: 30px;
+			width: 100%;
+			overflow: hidden;
+		}
+
+		#newsTicker .tickerItem {
+			color: #777;
+			font-size: 12px;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		#expandTicker {
+			display: block;
+			position: absolute;
+			right: 5px;
+			top: 5px;
+			width: 24px;
+			height: 24px;
+			font-size: 21px;
+		}
+
+		#tickerPlayPause {
+			display: block;
+			position: absolute;
+			left: 55px;
+			top: 7px;
+			width: 24px;
+			height: 24px;
+			font-size: 21px;
+            line-height: 100%;
+		}
+
+		#tickerPlayPause.pause .fa-play {
+            display: none;
+		}
+
+		#tickerPlayPause.play .fa-pause {
+            display: none;
+		}
+
+		#newsTickerContent {
+			padding: 15px;
+		}
+
+		.tickerImpHide {
+			display: none !important;
+		}
+
+		.tickerImpShow {
+			display: block !important;
+		}
+	</style>
+<div style="position: relative;">
+		<div id="newsTicker">
+			<div id="newsTickerInner">
+			</div>
+		</div>
+
+		<a href="javascript:void(0)" id="tickerPlayPause" class="pause"><span class="obscure">pause the news ticker</span><i aria-hidden="true" class="fa fa-pause"></i><i aria-hidden="true" class="fa fa-play"></i></a>
+		<a href="javascript:void(0)" id="expandTicker"><span class="obscure">expand the news ticker</span><i class="fa fa-bars"></i></a>
+
+		<div id="newsTickerContent" style="display: none;">
+			<ul>
+<li><strong><span style="font-size:18px;">During closure Grab N' Go meals are available at Greensferry, West Ridge, &amp; Ponderosa Elementary; River City MS &amp; Post Falls HS</span></strong></li>
+	<li><a href="/docs/district/covid19/grab%20n%20go%20flyer%202.pdf?id=4036"><strong><span style="font-size:18px;">Grab N' Go meal flyer</span></strong></a></li>
+</ul>
+</div>
+	</div>
+
+	<script type="text/javascript">
+		/* Function for Copying CSS */
+		(function ($) {
+			$.fn.getStyles = function (only, except) {
+				var product = {};
+				var style;
+                var name;
+
+				if (only && only instanceof Array) {
+					for (var i = 0, l = only.length; i < l; i++) {
+						name = only[i];
+						product[name] = this.css(name);
+					}
+				} else {
+					if (this.length) {
+                        var dom = this.get(0);
+
+						if (window.getComputedStyle) {
+                            var pattern = /\-([a-z])/g;
+
+							var uc = function (a, b) {
+								return b.toUpperCase();
+                            };
+
+							var camelize = function (string) {
+								return string.replace(pattern, uc);
+							};
+
+							if (style = window.getComputedStyle(dom, null)) {
+                                var camel, value;
+
+								if (style.length) {
+									for (var i = 0, l = style.length; i < l; i++) {
+										name = style[i];
+										camel = camelize(name);
+										value = style.getPropertyValue(name);
+										product[camel] = value;
+									}
+								} else {
+									for (name in style) {
+										camel = camelize(name);
+										value = style.getPropertyValue(name) || style[name];
+										product[camel] = value;
+									}
+								}
+							}
+                        }
+
+						else if (style = dom.currentStyle) {
+							for (name in style) {
+								product[name] = style[name];
+							}
+						}
+						else if (style = dom.style) {
+							for (name in style) {
+								if (typeof style[name] != 'function') {
+									product[name] = style[name];
+								}
+							}
+						}
+					}
+                }
+
+				if (except && except instanceof Array) {
+					for (var i = 0, l = except.length; i < l; i++) {
+						name = except[i];
+						delete product[name];
+					}
+                }
+
+				return product;
+            };
+
+			$.fn.copyCSS = function (source, only, except) {
+				var styles = $(source).getStyles(only, except);
+				this.css(styles);
+
+				return this;
+			};
+		})(jQuery);
+
+		var expanded = false;
+
+		$(window).load(function () {
+			$('#newsTickerContent').copyCSS('#newsTicker .tickerItem', ['color', 'background-color']);
+			$('#newsTickerContent').copyCSS('#newsTicker', ['background-color']);
+			$('#expandTicker').copyCSS('#newsTicker .tickerItem', ['color']);
+			$('#tickerPlayPause').copyCSS('#newsTicker .tickerItem', ['color']);
+		});
+
+		$('#expandTicker').click(function () {
+			if (expanded) {
+				$('#newsTicker').addClass('tickerImpShow').removeClass('tickerImpHide');
+				$('#newsTickerContent').addClass('tickerImpHide').removeClass('tickerImpShow');
+				expanded = false;
+			}
+			else {
+				$('#newsTicker').addClass('tickerImpHide').removeClass('tickerImpShow');
+				$('#newsTickerContent').addClass('tickerImpShow').removeClass('tickerImpHide');
+				expanded = true;
+			}
+		});
+
+		$(function () {
+			var items = $('#newsTickerContent li');
+			var index = 0;
+			var tickerTimeout = null;
+			var paused = false;
+			var pausedByButton = false;
+
+            tickerCycle();
+
+            $('#tickerPlayPause').on('click', function () {
+                if ($(this).hasClass('pause')) {
+                    $(this).find('.obscure').text('resume the news ticker');
+                    $(this).addClass('play');
+                    $(this).removeClass('pause');
+                    paused = true;
+                    pausedByButton = true;
+                } else {
+                    $(this).find('.obscure').text('pause the news ticker');
+                    $(this).addClass('pause');
+                    $(this).removeClass('play');
+                    paused = false;
+                    pausedByButton = false;
+
+                    tickerCycle();
+                }
+            });
+
+			$('#newsTicker').hover(function () {
+				paused = true;
+				if (tickerTimeout) {
+					window.clearTimeout(tickerTimeout);
+					tickerTimeout = null;
+				}
+			}, function () {
+				if (!pausedByButton && (paused && !tickerTimeout)) {
+					tickerTimeout = window.setTimeout(function () {
+						paused = false;
+						tickerCycle();
+					}, 3000);
+				}
+			});
+
+			function tickerCycle() {
+				var target = $('#newsTickerInner');
+				var startOffset = 1024;
+				var item = items[index];
+				if (++index >= items.length) index = 0;
+
+				removeCurrentTickerItem(function () {
+					var tickerItemWrapper = $("<div>")
+						.addClass("tickerItemWrapper")
+						.css('left', startOffset + 'px');
+					$("<div>")
+						.addClass("tickerItem")
+						.html($(item).html())
+						.appendTo(tickerItemWrapper);
+					$(tickerItemWrapper).appendTo(target);
+
+					var targetOffset = '0px';
+					$(tickerItemWrapper).animate({ left: targetOffset }, 1500, 'easeOutCirc', function () {
+						if (!paused) {
+							tickerTimeout = window.setTimeout(function () {
+								tickerCycle();
+								tickerTimeout = null;
+							}, 3000);
+						}
+					});
+				});
+			}
+
+			function removeCurrentTickerItem(callback) {
+				if ($('#newsTickerInner .tickerItemWrapper').length > 0) {
+					var targetOffset = '-1024px';
+					$('#newsTickerInner .tickerItemWrapper').animate({ left: targetOffset }, 1500, 'easeOutCirc', function () {
+						$(this).remove();
+					});
+					callback();
+				} else {
+					callback();
+				}
+			}
+		});
+	</script>
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+            <div id="body-content">
+                
+
+                <div class="container">
+                    <div class="row">
+                        
+    <div class="col-xs-12">
+        <div class="row">
+            <div class="hidden-xs col-sm-3">
+                <h1 class="titleHeader">Quick Links</h1>
+
+                <nav id="QuickLinks"><ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="https://skyward.sd273.com/scripts/wsisa.dll/WService=wsEAplus/fwemnu01.w" title="Skyward Family/Student Access">Skyward Family/Student Access</a></li>
+<li class="without-image"><a href="/userfiles/-4/my%20files/pfs_phonelist_web.pdf?id=244" title="PFSD Phone and Fax Numbers">PFSD Phone and Fax Numbers</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/17/home" title="Nutritional Services">Nutritional Services</a></li>
+<li class="without-image"><a href="/docs/district/anna/pfsd%202020-21%20calendar%20-%20final.pdf?id=3883" title="2020 2021 District Calendar">2020 2021 District Calendar</a></li>
+<li class="without-image"><a href="/userfiles/4/my%20files/pfsd%202019%202020%20calendar%20approved.pdf?id=2863" title="2019-2020 District Calendar">2019-2020 District Calendar</a></li>
+<li class="without-image"><a href="/content/90" title="School Supply List 2019-2020">School Supply List 2019-2020</a></li>
+<li class="without-image"><a href="/content/58" title="2019-20 Back to School Newsletter">2019-20 Back to School Newsletter</a></li>
+<li class="without-image"><a href="/administration/12" title="Transportation">Transportation</a></li>
+<li class="without-image"><a href="/board" title="Board of Trustees ">Board of Trustees </a></li>
+<li class="without-image"><a href="http://www.postfallspolice.com/services-view/school-resources/" title="School Resource Officer (SRO)">School Resource Officer (SRO)</a></li>
+<li class="without-image"><a href="/Administration/12" title="Boundary Maps">Boundary Maps</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="District Documents">District Documents</a></li>
+<li class="without-image"><a href="https://skyward.sd273.com/scripts/cgiip.exe/WService=wsFin/rwestd01.w" title="Skyward Employee Access">Skyward Employee Access</a></li>
+<li class="without-image"><a href="https://idahoschools.org/" title="Idaho State Department of Education Report Card">Idaho State Department of Education Report Card</a></li>
+<li class="without-image"><a href="https://sso.rumba.pearsoncmg.com/sso/login?profile=eb&amp;service=https://k12integrations.pearsoncmg.com/ca/dashboard.htm&amp;EBTenant=PFSD-ID%20%20" title="Pearson">Pearson</a></li>
+<li class="without-image"><a href="/content/70" title="Contact Office">Contact Office</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Explore Our Schools!">Explore Our Schools!  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/schools" title="Tour Our Schools">Tour Our Schools</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/District/Profile" title="District Info">District Info</a></li>
+<li class="without-image"><a href="/Content/114" title="Academics">Academics</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/Athletics" title="Athletics">Athletics</a></li>
+</ul>
+</li>
+</ul></nav>
+</div>
+
+            <div class="col-xs-12 col-sm-6">
+                <div id="start-content"></div>
+                <div id="uw_skip_to_main_content_anchor"></div>
+                
+                <h1 class="titleHeader">News</h1>
+                
+
+                <div class="wrap-news">
+                    
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/193">Kindergarten Pre-Registration 2020-21 begins April 28th</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 15, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl01_lblSummary" class="news-summary"><p>All kindergarten students will return to their home schools in the fall of 2020. Click<a href="https://www.pfsd.com/Content2/336"> <span style="color:#0000FF;">here</span></a> to view the updated attendance zone maps.</p>
+
+<p>Beginning April 28, 2020, parents will have two options to pre-register their incoming kindergarten student. <span style="color:#FF0000;">It’s important to pre-register your incoming kindergarten student, so students are included in our preliminary enrollment numbers.</span>  These two pre-registration options will be available until June 12.  </p>
+
+<p style="margin-left: 40px;">Option 1:  Complete the <b>online pre-registration form</b>. (<a href="https://docs.google.com/forms/d/e/1FAIpQLSenzKnqTawJDSYOS8qlSKrunfIgUne5TykDkOwWAh3PXUTB4w/viewform"><span style="color:#0000FF;"><span style="background-color:#FFFF00;">LINK</span></span></a>)  </p>
+
+<p style="margin-left: 40px;">Option 2:<b>  Phone pre-registration</b> (Beginning April 28, parents can call the child’s school to pre-register. (Treaty Rock parents should call Frederick Post at 208-777-0479.)   If you reach the answering machine, please leave a message including your phone number, so office staff can return your call and pre-register your student over the phone.)</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl01_lnkViewAll" title="Click to read more about: Kindergarten Pre-Registration 2020-21 begins April 28th" class="view-all" href="/News/193">Read More <span class="sr-only">about Kindergarten Pre-Registration 2020-21 begins April 28th</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/229">School Closure Update 4-16-20</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 16, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl02_lblSummary" class="news-summary"><p>Last week, the Idaho State Board of Education (SBOE) extended the soft closure of all Idaho schools for the remainder of the school year or until local districts are able to meet re-entry criteria. This morning, the SBOE provided guidance for schools to move from soft closure to normal operations. At this time, no schools in Kootenai County are able to meet the minimum requirements set forth by the State Board; therefore, until further notice, the Post Falls School District will remain closed.</p>
+
+<p>The criteria for re-opening schools are as follows:</p>
+
+<ul>
+<li>No statewide or local social distancing restrictions, including stay-home orders or extensive closures of businesses are in place.</li>
+</ul>
+<ul>
+<li>The peak of the state infection curve has passed as determined by the State Department of Health and Welfare, and a minimum of 14 days have passed from the identified peak.  In those areas where local community spread has occurred, the local infection curve will be evaluated for determining the 14 consecutive days.</li>
+</ul>
+<ul>
+<li>Approval by the local public health district.</li>
+</ul>
+<p>We will continue our remote learning plan and maintain essential services, including Grab and Go breakfast and lunch and childcare for first responders and health care workers.  We will monitor the conditions set forth by the SBOE to determine if we are able to re-open our schools later this spring.</p>
+
+<p>Please continue to help us engage our student(s) in the remote learning activities to prepare your child for the next grade level.</p>
+
+<p>The district office will not be open for walk-in appointments. Please call 208-773-1658 and leave a message or email us at <a href="mailto:info@sd273.com">info@sd273.com</a>. </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/227">Remote Learning for K-5 PFSD Students</a>
+
+				<span class="news-post-date">Posted On: Wednesday, March 25, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl03_lblSummary" class="news-summary"><p>Post Falls School District elementary teachers have compiled materials to offer grade level remote learning experiences, and staff have been reaching out to students and families to ensure they have the necessary tools for success in this new remote learning environment. For a smoother transition back into a brick and mortar setting, it is very important students fully engage in remote learning activities. All lessons are tied to district curriculum and Idaho State Standards. During the closure, teachers will be providing students feedback as they progress through the curriculum.  </p>
+
+<ul>
+<li>
+<span style="font-size:20px;">Access K-5 electronic / online learning materials<span class="Underline" style="text-decoration:underline;"> </span></span><span class="Underline" style="text-decoration:underline;"><span style="font-size:36px;"><a href="http://pfsd.com%5Ccontent2%5C376"><span class="Underline"><span style="background-color:#FFFF00;">here</span></span></a><span style="background-color:#FFFF00;">.</span></span></span>
+</li>
+</ul>
+<p> </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/218">School Meals During School Closure</a>
+
+				<span class="news-post-date">Posted On: Monday, March 16, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl04_lblSummary" class="news-summary"><ul>
+<li>
+<a href="/userfiles/862/my%20files/free%20grab%20&amp;%20go%20lunch%20sites.pdf?id=4024">Grab &amp; Go Information</a><br>
+	 </li>
+	<li><span style="font-size:14px;"><a href="/userfiles/862/my%20files/emergency%20closure%20meal%20sites%20informational%20flyer%20%20(2).pdf?id=4023">Flyer with meal service locations and details</a></span></li>
+</ul></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl05_lnkTitle" class="news-title" href="/News/210">PFSD Board of Trustees Selects Next Superintendent</a>
+
+				<span class="news-post-date">Posted On: Wednesday, March 11, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl05_lblSummary" class="news-summary"><p><img alt="Dena Naccarato" src="/docs/district/pictures/5656nacarrato%20(2).jpg?id=4002&amp;width=100" style="width: 100px; float: left; margin-right: 5px; margin-left: 5px;">The Post Falls School District Board of Trustees unanimously voted to hire Dena Naccarato as the next Superintendent starting July 1, 2020. The selection came at the end of a lengthy process that included multiple opportunities for staff, parents and community input as well as a thorough background check.  The board rated the candidates based on their application packet, interviews, references, and input from a candidates’ meet and greet.  Board Chairman Dave Paul expressed, “We had an outstanding group of finalists; however, Ms. Naccarato rose to the top in all areas of the process.  We are excited for her to put her own footprint on the future of Post Falls School District.” </p>
+
+<p>Dena Naccarato has been with Post Falls School District since 2004, first as an Assistant Principal and then Principal at Post Falls High School.  Ms. Naccarato moved to the district office six years ago where she served as the Director of Programs and Instruction and for the past three years as the Assistant Superintendent for Secondary Programs.  “I’m humbled and honored at the board’s decision and look forward to working with students, staff, parents and community of Post Falls,” stated Ms. Naccarato.  “I will schedule time formally and informally in each building to meet with staff and gather input on the future of the district.”</p>
+
+<p> </p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl00_rep_news_ctl05_lnkViewAll" title="Click to read more about: PFSD Board of Trustees Selects Next Superintendent" class="view-all" href="/News/210">Read More <span class="sr-only">about PFSD Board of Trustees Selects Next Superintendent</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+
+                <div class="wrap-viewAll">
+                    <a id="ctl00_ctl00_MasterContent_ViewAllNews" class="ViewAllNews" href="/districtNewsArticles.aspx">View All News</a>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-3">
+                
+                <h1 class="titleHeader">Events &amp; Calendar</h1>
+                <div class="wrap-events">
+                    
+
+<style type="text/css">
+    section#upcoming-events .event-location { display: none;}
+</style>
+<section id="upcoming-events"><ul>
+<li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl01_rep_startDate" class="event-date">May 11</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl01_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl01%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl02_rep_startDate" class="event-date">May 25</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl02_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl02%24lb_eventName','')">K-12 No School Memorial Day</a>
+        <span class="event-location"></span>
+       <br><div class="">
+		    <span></span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl03_rep_startDate" class="event-date">Jun 04</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl03_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl03%24lb_eventName','')">Last Day With Students</a>
+        <span class="event-location"></span>
+       <br><div class="">
+		    <span></span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl04_rep_startDate" class="event-date">Jun 05</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl04_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl04%24lb_eventName','')">Last Day for Teachers</a>
+        <span class="event-location"></span>
+       <br><div class="">
+		    <span></span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl05_rep_startDate" class="event-date">Jun 08</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl05_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl05%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl06_rep_startDate" class="event-date">Jun 19</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl06_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl06%24lb_eventName','')">Last Day for Secretaries &amp; Principals</a>
+        <span class="event-location"></span>
+       <br><div class="">
+		    <span></span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl07_rep_startDate" class="event-date">Jul 13</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl07_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl07%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl08_rep_startDate" class="event-date">Aug 10</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl08_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl08%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl09_rep_startDate" class="event-date">Sep 14</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl09_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl09%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl10_rep_startDate" class="event-date">Oct 12</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl10_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl10%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl11_rep_startDate" class="event-date">Nov 09</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl11_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl11%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl12_rep_startDate" class="event-date">Dec 14</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl12_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl12%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl13_rep_startDate" class="event-date">Jan 11</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl13_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl13%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl14_rep_startDate" class="event-date">Feb 08</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl14_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl14%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl15_rep_startDate" class="event-date">Mar 08</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl15_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl15%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    
+        <li>
+         <span id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl16_rep_startDate" class="event-date">Apr 12</span>
+        <a id="ctl00_ctl00_MasterContent_ctl01_rep_events_ctl16_lb_eventName" href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl01%24rep_events%24ctl16%24lb_eventName','')">Board of Trustees Meeting</a>
+        <span class="event-location">@River City Middle School</span>
+       <br><div class="">
+		    <span>Begins @ 6:00 PM</span>
+	   </div>
+        </li>
+    </ul></section><footer><a id="ctl00_ctl00_MasterContent_ctl01_hl_viewAllEvents" class="view-all" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/29/2020">View All Events</a>
+</footer>
+</div>
+                
+
+<style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ctl05_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl05%24cal_events','V7365')" style="color:Black" title="Go to the previous month">&lt;&lt;<span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April 2020</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ctl05%24cal_events','V7426')" style="color:Black" title="Go to the next month">&gt;&gt;<span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">S</th>
+<th align="center" abbr="Monday" scope="col">M</th>
+<th align="center" abbr="Tuesday" scope="col">T</th>
+<th align="center" abbr="Wednesday" scope="col">W</th>
+<th align="center" abbr="Thursday" scope="col">T</th>
+<th align="center" abbr="Friday" scope="col">F</th>
+<th align="center" abbr="Saturday" scope="col">S</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/29/2020">29</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/30/2020">30</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/31/2020">31</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/1/2020">1</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/2/2020">2</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/3/2020">3</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/5/2020">5</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/6/2020">6</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/7/2020">7</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/8/2020">8</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/9/2020">9</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/10/2020">10</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/12/2020">12</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/13/2020">13</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/14/2020">14</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/15/2020">15</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/16/2020">16</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/19/2020">19</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/20/2020">20</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/21/2020">21</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/23/2020">23</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/26/2020">26</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/27/2020">27</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/28/2020">28</a></td>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/29/2020">29</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ctl05_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+        </div>
+    </div>
+
+                    </div>
+                </div>
+
+                
+    <div id="wrap-bottomContent">
+        <div class="shadow-feature">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        
+<div class="feature-content ">
+	
+	<h1 class="feature-content-title title">
+		SCHOOL MESSENGER
+	</h1>
+	
+
+	<div class="feature-content-body content">
+		
+		
+		<div class="feature-content-content">
+			The Post Falls School District has joined the School Messenger emergency notification system.The system allows the district to communicate via SMS text messages to parents regarding important matters such as a school lockdown, school closure (weather or otherwise) or other issues that affect their students.
+
+To receive school notifications you must opt-in to school messenger.  Please follow the steps below to opt in:
+**Send a text message to 67587 with the word “subscribe” in the body of the text.
+**You will receive a confirmation text reply that you are Registered with School Messenger.
+		</div>
+		
+		<div class="view-all-link-container">
+			<a class="view-all" href="/0/featured/2">Read More
+            </a>
+		</div>
+		
+	</div>
+	<div style="clear: both;"></div>
+
+</div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+            </div>
+        </div>
+
+        
+
+        <footer id="site-foot"><div class="bg-footer1">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+                
+
+<div id="copyrightNotice">
+	©  2020 Post Falls SD. <span id="ctl00_ctl00_ctl04_ctl00_allRights">All Rights Reserved</span>
+</div>
+
+			</div>
+
+			<div class="col-xs-12 col-sm-6">
+				<div class="wrap-social">
+					
+        <a href="/login" title="Content Management Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/intranet" title="Intranet Staff Login" target="_self">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Compliance Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="bg-footer2">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-6">
+				<div class="row">
+					<div class="col-xs-12 col-sm-6 marginBottom">
+						<span id="ctl00_ctl00_ctl04_AddressLine1" class="FooterSpan">206 West Mullan Avenue</span>
+						<span id="ctl00_ctl00_ctl04_AddressLine2" class="FooterSpan">Post Falls, ID 83854</span>
+					</div>
+
+					<div class="col-xs-12 col-sm-6 marginBottom">
+						<span id="ctl00_ctl00_ctl04_Phone" class="FooterSpan"><b>Phone:</b> (208) 773-1658</span>
+						<span id="ctl00_ctl00_ctl04_Fax" class="FooterSpan"><b>Fax:</b> (208) 773-3218</span>
+					</div>
+				</div>
+
+				<div class="row">
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12">
+				<a href="http://www.schoolpointe.com/" style="float:right;"><img src="https://cdn.schoolpointe.com/images/new/SPWhite.png" alt="SchoolPointe Inc Logo"><span class="obscure">logo, link to homepage</span></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+        </footer><div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAD05/vjFV6d/rNJ3SpQ9VnRxlULfYB/gGeEodxp5YdDIZ+Fk7UZKmrtcXY0tZiOg8iDeO52ltbWqcaQZlYMZlBekmwdiR7u/L7Q7gaWKCtfOL29SANBt9jYGKUTrhmPFPl8pmDOJbVmMzvSS3LWPS5Z2P13ceneyxVYjQhdhnAzO40oEx4dZLmvnmEM0ddEpExeeT8FBxp9gyr/My4va/ZlGTZ3qMQowurw7/F35JraSyDXPuDxUqbDB3tAe/Gwe/2ylJtYz8/GIHCNO64P2YpdAinNbStPkJWfl1qs2BkqP2UEdpEbsiVy55Sg1Lsf036XTCQB1DtP+OBxFl8EFUj7yRJy5vnBz1iLcLNsIUQQbqJxMXn6wu87FcejDE5t3qK1acqC8dddcGK8Mxf5N3nrWG1dRFmJU66sFEJMxnMzOsBDTYZIwPdlOMCDeYjpd/4573TRvgFTS6sFABiefG82KGpjDchHPl6BRnZQNinjjhQYkKz8sCE451vOPwOTLfUMIvhGceq7m7/N7lpsAsgGANIsGLdOOxG2rby31WBu3gHxx+5gj5xlLFNL3eJaAjSVMP+9rAc3DffzWYXmeV7JGyEKCI1oaiex5LQR6Hb2llZF5h+lpPvctgFPPfmQYYLx9j7xDfiHi+0BeuH6LNvfbBc4x8/ykhCbZKrawasPyZo/dKI/guGrtoKNofZuPFf0/5ZufPN1MAEFNJ9TtN5zEFn+DyqgYNuesDmJIAFmVv8RGvpA/FiKestqx3OCJ32wNdi19lO/8D+U09cWkSKfC3VE10PkJ0hawxQiKy1kDBYQSF/hS1N3sVajGKpJ+mCIITa7/cGh3if/T7fxE1wmOsA0GiAgiADeOJCRe+hZBsrIAoVhW/sTYcWGphsREjInc+Qh+ZJj9ZgyvT9+/rzYQTezWTyMihkie0RMjioFmJbudKeDL3rC4iDRalvITasSXEK+eaoHjpsAewj63/4wjec037nIPXSQxkgHQ8fok0eNkxO4rLvrp5+nvz4N7lAu9PbhDo1IBhO9jBKfyXy+niZH2x+R/O8c5CkpxEVA3P7qAllEsY+J/dmDAPLw3bClTDnrmMibnnhT3mZGvGTcAe4tHWb3GDp1a61LRlp1i9qBjw9scuwOMK17nHP09Zv4ZEz+2q7XFPaoOJKyPi8DBJ6l3nTwRQ0qrULAX/v0ipZ6YkNVaV7vPR43GMOsw7sxUIzVzYDZcemvgq7zVjEhILSRxT/+Bjw8Oth6RsNUviIs0hlfrUsQ/2MN5aqKYvvJkge8SRwPYltwlOLsdtdLuzZHdQFBKLHhX9L4jl27O8sDi3Bw=">
+</div>
+</form>
+</body>
+</html>

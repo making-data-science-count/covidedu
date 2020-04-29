@@ -1,0 +1,1386 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - School District of Loyal Wisconsin</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/userfiles/-2/My%20Files/Loyal-County-Logo.png?id=3" type="image/x-icon">
+<script src="https://use.typekit.net/slh0gac.js"></script><script>try { Typekit.load({ async: true }); } catch (e) { }</script><meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1043073721">
+<meta name="google-play-app" content="app-id=com.schoolpointe.stayconnected">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="https://cdn.schoolpointe.com/images/apple-touch-icon.jpg">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Stay Connected", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "https://cdn.schoolpointe.com/images/apple-touch-icon.jpg", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><link rel="alternate" type="application/rss+xml" title="School District of Loyal Wisconsin - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Junior/Senior High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Elementary School - News" href="/rssNews.ashx?schoolId=2">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "WI_SDofLoyal",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<style type="text/css">
+        @media (min-width: 768px) {
+            .top-bar-2 {
+                position: absolute !important;
+            }
+
+        }
+           @media (min-width: 768px) {
+            .body-content-container {
+                /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+75,ffffff+76,ffffff+91,eeeeee+100 */
+                background: #eeeeee !important; /* Old browsers */
+                background: -moz-linear-gradient(left, #eeeeee 75%, #ffffff 76%, #ffffff 91%, #eeeeee 100%) !important; /* FF3.6-15 */
+                background: -webkit-linear-gradient(left, #eeeeee 75%,#ffffff 76%,#ffffff 91%,#eeeeee 100%) !important; /* Chrome10-25,Safari5.1-6 */
+                background: linear-gradient(to right, #eeeeee 75%,#ffffff 76%,#ffffff 91%,#eeeeee 100%) !important; /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 ) !important; /* IE6-9 */
+            }
+        }
+    </style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1492631375667">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKLTYzMzM5MzgxMw9kFgJmD2QWAmYPZBYEZg9kFgZmD2QWAmYPZBYCAgEPFgIeBFRleHQFIlNjaG9vbCBEaXN0cmljdCBvZiBMb3lhbCBXaXNjb25zaW5kAgQPZBYCAgEPFgIeC18hSXRlbUNvdW50AgIWBGYPZBYCZg8VAhlKdW5pb3IvU2VuaW9yIEhpZ2ggU2Nob29sATFkAgEPZBYCZg8VAhFFbGVtZW50YXJ5IFNjaG9vbAEyZAIGDxYCHgRocmVmBTAvc2l0ZWNzcy5hc2h4PyZpbnRyYW5ldD0wJmNoZWNrc3VtPTE0OTI2MzEzNzU2NjdkAgEPFgIeBmFjdGlvbgUBLxYKAgEPZBYEAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwQFATBkAgMPD2QWAh8EBQEwZAIEDw9kFgIfBAUBMGQCBQ8PZBYCHwQFATBkAgMPZBYCAgIPZBYCZg8WAh8ABRs8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PC91bD5kAgMPZBYCAgEPZBYCAgEPZBYGZg9kFgJmDxYCHwECBhYMZg9kFgJmDxUFBi9sb2dpbhhDb250ZW50IE1hbmFnZW1lbnQgTG9naW4FX3NlbGYmPHNwYW4gY2xhc3M9J29ic2N1cmUnPkNNUyBMb2dpbjwvc3Bhbj4NZmEgZmEtc2lnbi1pbmQCAQ9kFgJmDxUFCS9pbnRyYW5ldBRTdGFmZiBJbnRyYW5ldCBMb2dpbgVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+SW50cmFuZXQ8L3NwYW4+DWZhIGZhLXNpdGVtYXBkAgIPZBYCZg8VBSBodHRwczovL3R3aXR0ZXIuY29tL0xveWFsU2Nob29scw1Mb3lhbCBUd2l0dGVyBV9zZWxmJDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5Ud2l0dGVyPC9zcGFuPg1mYSBmYS10d2l0dGVyZAIDD2QWAmYPFQUnaHR0cHM6Ly93d3cuaW5zdGFncmFtLmNvbS9sb3lhbHNjaG9vbHMvCUluc3RhZ3JhbQVfc2VsZiY8c3BhbiBjbGFzcz0nb2JzY3VyZSc+SW5zdGFncmFtPC9zcGFuPg9mYSBmYS1pbnN0YWdyYW1kAgQPZBYCZg8VBSZodHRwczovL3d3dy5mYWNlYm9vay5jb20vbG95YWxzY2hvb2xzLwlGYWNlYm9vayAFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkZhY2Vib29rPC9zcGFuPg5mYSBmYS1mYWNlYm9va2QCBQ9kFgJmDxUFCy9hZGEtcmVwb3J0EkFEQSBDb21wbGFpbnQgTGluawVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+QURBIExpbms8L3NwYW4+FmZhIGZhLXVuaXZlcnNhbC1hY2Nlc3NkAgEPDxYCHgtOYXZpZ2F0ZVVybAUBL2RkAgIPDxYEHwUFAS8fAAUiU2Nob29sIERpc3RyaWN0IG9mIExveWFsIFdpc2NvbnNpbmRkAgUPZBYCAgEPZBYCZg8WAh8BAgEWAmYPZBYCZg8VAzQvdXNlcmZpbGVzLzMvbXkgZmlsZXMvaW1nXzkxNDEuanBnP2lkPTEwNCZ3aWR0aD0xOTIwD0dyZXlob3VuZCBQcmlkZQ9HcmV5aG91bmQgUHJpZGVkAgsPZBYEAgMPZBYCAgEPZBYEAgEPDxYCHgdWaXNpYmxlaGRkAgMPZBYGAgEPDxYEHwUFLi9SU1NuZXdzLmFzaHg/JmFyY2hpdmU9ZmFsc2UmYXJ0aWNsZXNUb1Nob3c9MTUfBmdkZAICDxYCHwZnZAIDDxYCHwECBhYMAgEPZBYCAgcPDxYEHwAFCVJlYWQgTW9yZR8FBQovTmV3cy8xMTk5ZGQCAg9kFgICBw8PFgQfAAUJUmVhZCBNb3JlHwUFCi9OZXdzLzExOThkZAIDD2QWAgIHDw8WBB8ABQlSZWFkIE1vcmUfBQUKL05ld3MvMTE5MWRkAgQPZBYCAgcPDxYEHwAFCVJlYWQgTW9yZR8FBQovTmV3cy8xMTczZGQCBQ9kFgICBw8PFgQfAAUJUmVhZCBNb3JlHwUFCi9OZXdzLzExNzJkZAIGD2QWAgIHDw8WBB8ABQlSZWFkIE1vcmUfBQUHL05ld3MvN2RkAgUPZBYGAgEPZBYGZg8WAh8ABRZBd2FyZHMgYW5kIFJlY29nbml0aW9uZAIBDxYCHwAFxwM8dWw+DQoJPGxpPkxveWFsIEVsZW1lbnRhcnkgYW5kIEpyLiBIaWdoIFNjaG9vbHMgbmFtZWQgJmxkcXVvOzxhIGhyZWY9Imh0dHA6Ly9kcGkud2kuZ292L3Jld2FyZHMvc3BvdGxpZ2h0X2luZGV4Lmh0bWwiPjxmb250IGNvbG9yPSIjMDA2NmNjIj5TcG90bGlnaHQgU2Nob29sczwvZm9udD48L2E+JnJkcXVvOyAyMDExPC9saT4NCgk8bGk+V2lzY29uc2luIFByb21pc2UgU2Nob29sIG9mIEV4Y2VsbGVuY2U6IDIwMDMsIDIwMDUtMjAxMCwgMjAxMjwvbGk+DQoJPGxpPk5hdGlvbmFsIEVTRUEgQmx1ZSBSaWJib24gU2Nob29sIEF3YXJkPC9saT4NCgk8bGk+VVMgTmV3cyBhbmQgV29ybGQgUmVwb3J0IEJyb256ZSBNZWRhbCBIaWdoIFNjaG9vbDwvbGk+DQoJPGxpPkRQSSBoaWdobHkgYWNjbGFpbWVkIG1vcm5pbmcgbnV0cml0aW9uL2JyZWFrZmFzdCBhbmQgbHVuY2ggcHJvZ3JhbTwvbGk+DQo8L3VsPmQCAw8PFgIfBQUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0xZGQCAw9kFgZmDxYCHwECBhYMAgEPZBYCZg8VBwQ5MDg2dzxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbW9udGgiPkFwcjwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4zMDwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtZGF5V2VlayI+VGh1PC9kaXY+QS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0xLDImc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD05MDg2PUdvbGY6ICBCb3lzIEpWIE1hdGNoIHZzIEF3YXkgdnMuIE11bHRpcGxlIFNjaG9vbHMgKENhbmNlbGxlZCk9R29sZjogIEJveXMgSlYgTWF0Y2ggdnMgQXdheSB2cy4gTXVsdGlwbGUgU2Nob29scyAoQ2FuY2VsbGVkKR1AV2hpc3BlcmluZyBQaW5lcyBHb2xmIENvdXJzZRc0OjAwIFBNICZtZGFzaDsgNDowMCBQTWQCAg9kFgJmDxUHBDkwODd3PGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1tb250aCI+QXByPC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1udW1iZXIiPjMwPC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1kYXlXZWVrIj5UaHU8L2Rpdj5BL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTkwODc9VHJhY2s6ICBWYXJzaXR5IE1lZXQgdnMgQXdheSB2cy4gTXVsdGlwbGUgU2Nob29scyAoQ2FuY2VsbGVkKT1UcmFjazogIFZhcnNpdHkgTWVldCB2cyBBd2F5IHZzLiBNdWx0aXBsZSBTY2hvb2xzIChDYW5jZWxsZWQpF0BBdWJ1cm5kYWxlIEhpZ2ggU2Nob29sFzQ6MTUgUE0gJm1kYXNoOyA0OjE1IFBNZAIDD2QWAmYPFQcEODk3NXc8ZGl2IGNsYXNzPSJldmVudC1kYXRlLW1vbnRoIj5BcHI8L2Rpdj48ZGl2IGNsYXNzPSJldmVudC1kYXRlLW51bWJlciI+MzA8L2Rpdj48ZGl2IGNsYXNzPSJldmVudC1kYXRlLWRheVdlZWsiPlRodTwvZGl2PkEvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9ODk3NSpTb2Z0YmFsbDogIE1TIEdhbWUgdnMgTmVpbGxzdmlsbGUgKEF3YXkpICAqU29mdGJhbGw6ICBNUyBHYW1lIHZzIE5laWxsc3ZpbGxlIChBd2F5KSAgGEBOZWlsbHN2aWxsZSBIaWdoIFNjaG9vbBc0OjMwIFBNICZtZGFzaDsgNDozMCBQTWQCBA9kFgJmDxUHBDkwODh3PGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1tb250aCI+QXByPC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1udW1iZXIiPjMwPC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1kYXlXZWVrIj5UaHU8L2Rpdj5BL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTkwODgsU29mdGJhbGw6ICBWYXJzaXR5IEdhbWUgdnMgQ29sYnkgKENhbmNlbGxlZCksU29mdGJhbGw6ICBWYXJzaXR5IEdhbWUgdnMgQ29sYnkgKENhbmNlbGxlZCkiQExveWFsIEhpZ2ggU2Nob29sLCBTb2Z0YmFsbCBGaWVsZBc1OjAwIFBNICZtZGFzaDsgNTowMCBQTWQCBQ9kFgJmDxUHBDkwODl2PGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1tb250aCI+TWF5PC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1udW1iZXIiPjE8L2Rpdj48ZGl2IGNsYXNzPSJldmVudC1kYXRlLWRheVdlZWsiPkZyaTwvZGl2PkEvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MSwyJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9OTA4OTlTb2Z0YmFsbDogIFZhcnNpdHkgRG91YmxlLUhlYWRlciB2cyBHcmVlbndvb2QgKENhbmNlbGxlZCk5U29mdGJhbGw6ICBWYXJzaXR5IERvdWJsZS1IZWFkZXIgdnMgR3JlZW53b29kIChDYW5jZWxsZWQpFkBHcmVlbndvb2QgSGlnaCBTY2hvb2wXNDowMCBQTSAmbWRhc2g7IDQ6MDAgUE1kAgYPZBYCZg8VBwQ4OTU2djxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbW9udGgiPk1heTwvZGl2PjxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4xPC9kaXY+PGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1kYXlXZWVrIj5Gcmk8L2Rpdj5BL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTEsMiZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTg5NTYoU29mdGJhbGw6ICBNUyBHYW1lIHZzIEdyZWVud29vZCAoSG9tZSkgIChTb2Z0YmFsbDogIE1TIEdhbWUgdnMgR3JlZW53b29kIChIb21lKSAgIkBMb3lhbCBIaWdoIFNjaG9vbCwgU29mdGJhbGwgRmllbGQXNDozMCBQTSAmbWRhc2g7IDc6MzAgUE1kAgQPDxYCHwUFLC9jYWxNb250aFZpZXcuYXNweD9zY2hvb2xsaXN0aWRzPSZ5PTIwMjAmbT00ZGQCBg8PFgQfBQVFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAmc2Nob29saWQ9MCZ0eXBlcz0mdmlld0RhdGU9NC8yOS8yMDIwHwAFD1ZpZXcgQWxsIEV2ZW50c2RkAgUPZBYGZg8WAh8ABQdUd2l0dGVyZAIBDxYCHwBkZAIDDw8WAh8FBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTJkZAIRD2QWAmYPZBYCZg8WAh8BAgYWDGYPZBYCZg8VBQYvbG9naW4YQ29udGVudCBNYW5hZ2VtZW50IExvZ2luBV9zZWxmJjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5DTVMgTG9naW48L3NwYW4+DWZhIGZhLXNpZ24taW5kAgEPZBYCZg8VBQkvaW50cmFuZXQUU3RhZmYgSW50cmFuZXQgTG9naW4FX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkludHJhbmV0PC9zcGFuPg1mYSBmYS1zaXRlbWFwZAICD2QWAmYPFQUgaHR0cHM6Ly90d2l0dGVyLmNvbS9Mb3lhbFNjaG9vbHMNTG95YWwgVHdpdHRlcgVfc2VsZiQ8c3BhbiBjbGFzcz0nb2JzY3VyZSc+VHdpdHRlcjwvc3Bhbj4NZmEgZmEtdHdpdHRlcmQCAw9kFgJmDxUFJ2h0dHBzOi8vd3d3Lmluc3RhZ3JhbS5jb20vbG95YWxzY2hvb2xzLwlJbnN0YWdyYW0FX3NlbGYmPHNwYW4gY2xhc3M9J29ic2N1cmUnPkluc3RhZ3JhbTwvc3Bhbj4PZmEgZmEtaW5zdGFncmFtZAIED2QWAmYPFQUmaHR0cHM6Ly93d3cuZmFjZWJvb2suY29tL2xveWFsc2Nob29scy8JRmFjZWJvb2sgBV9zZWxmJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5GYWNlYm9vazwvc3Bhbj4OZmEgZmEtZmFjZWJvb2tkAgUPZBYCZg8VBQsvYWRhLXJlcG9ydBJBREEgQ29tcGxhaW50IExpbmsFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBMaW5rPC9zcGFuPhZmYSBmYS11bml2ZXJzYWwtYWNjZXNzZGTpcYVK0M/8gP8kKATCV8Zs0y1ZFg==">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script><script src="/WebResource.axd?d=ciQs-AUcGllikzvJxOn4IY9qdpn5WXYfT_PMnTK91Xt8dksb258BJxYsmn4olEPTocq6JTsZH-_-9MV4tnJ7755rEvo1&amp;t=636160844560000000" type="text/javascript"></script><a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'ILxAaM2Kec' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="headerback">
+            <header id="site-head"><div class="top-bar-1 hidden-xs">
+    <div class="container">
+
+        
+        <div class="headerPhone">
+            <a href="tel:715-255-8552">
+                <i class="fa fa-phone"></i>
+                 715-255-8552
+            </a>
+        </div>
+        
+        <div class="headerMap">
+            <a href="http://maps.google.com/maps?q=514%20W.%20Central%20Street+Loyal+WI+54446">
+                <i class="fa fa-map-pin"></i>
+                 514 W. Central Street
+            </a>
+        </div>
+        
+
+        <div class="search">
+            <div valign="top" style="" class="searchPad">
+                <label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+            <div style="display: inline; float: right;" class="searchgo">
+                <a title="Search" class="bSearch glyphicon glyphicon-search"><span class="obscure">Search Site button</span></a>
+            </div>
+        </div>
+
+        <div class="social-links social-links-top" id="social-links">
+            
+        <a href="/login" title="Content Management Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/intranet" title="Staff Intranet Login" target="_self">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="https://twitter.com/LoyalSchools" title="Loyal Twitter" target="_self">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter"></i>
+        </a>
+    
+        <a href="https://www.instagram.com/loyalschools/" title="Instagram" target="_self">
+            <span class="obscure">Instagram</span>
+            <i class="fa fa-instagram"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/loyalschools/" title="Facebook " target="_self">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Complaint Link" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+        </div>
+    </div>
+</div>
+
+<div class="top-bar-2">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="logo" href="/"><span class="obscure">Logo link to home page</span></a>
+                <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome2" class="schoolName" href="/">School District of Loyal Wisconsin</a>
+
+                <div class=" hidden-xs">
+                    <ul class="nav navbar-nav district-very-top-links">
+<li class="without-image"><a href="https://wicloud2.infinitecampus.org/campus/portal/loyal.jsp?status=login" title="Parents">Parents</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Students">Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://learning.amplify.com" title="Amplify (7th &amp; 8th Grade Science)">Amplify (7th &amp; 8th Grade Science)</a></li>
+<li class="without-image"><a href="https://wicloud2.infinitecampus.org/campus/portal/loyal.jsp?status=login" title="Campus Portal">Campus Portal</a></li>
+<li class="without-image"><a href="https://www.pearsonmylabandmastering.com/northamerica/masteringaandp/" title="Mastering A&amp;P ">Mastering A&amp;P </a></li>
+<li class="without-image"><a href="https://my.mheducation.com/login" title="McGraw Hill Curriculum Log In ">McGraw Hill Curriculum Log In </a></li>
+<li class="without-image"><a href="https://hosted92.renlearn.com/332322/" title="Renaissance">Renaissance</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff">Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://app.educlimber.com/welcome/login.php?district=1142&amp;app_name=educlimber" title="EduClimber ">EduClimber </a></li>
+<li class="without-image"><a href="https://ensemble.cesa10.k12.wi.us/app/default.aspx" title="Ensemble">Ensemble</a></li>
+<li class="without-image"><a href="https://app.frontlineeducation.com" title="Frontline Sign In ">Frontline Sign In </a></li>
+<li class="without-image"><a href="https://wicloud2.infinitecampus.org/campus/loyal.jsp" title="Infinite Campus">Infinite Campus</a></li>
+<li class="without-image"><a href="https://my.mheducation.com/login" title="McGraw Hill Connect Ed ">McGraw Hill Connect Ed </a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="MSDS">MSDS  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://msdsmanagement.msdsonline.com/" title="Online Information">Online Information</a></li>
+<li class="without-image"><a href="http://w2kl-spt/Staff%20Documents/presentation.msdsonline.training.082012.pdf" title="Training">Training</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.mylearningplan.com/" title="My Learning Plan ">My Learning Plan </a></li>
+<li class="without-image"><a href="https://www.palsk8.com/" title="PALS">PALS</a></li>
+<li class="without-image"><a href="http://cloverbeltconference.org/public/genie/159/school/10/" title="Reserving Rooms">Reserving Rooms</a></li>
+<li class="without-image"><a href="https://roost.getsd.org/students" title="ROOST">ROOST</a></li>
+</ul>
+</li>
+</ul>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="NavBack hidden-lg hidden-md hidden-sm">
+    <div class="container">
+        <div class="row">
+            <div class="navigation">
+                <nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            Menu
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <div class="search">
+                            <div valign="top" style="" class="searchPad">
+                                <label for="txtSearch2" class="obscure">Search site using Google</label><input id="txtSearch2" placeholder="Search" class="inputSearch" type="text">
+</div>
+                            <div style="display: inline; float: right;" class="searchgo">
+                                <a title="Search" class="bSearch2 glyphicon glyphicon-search"><span class="obscure">Search Site button</span></a>
+                            </div>
+                        </div>
+
+                        <ul class="nav navbar-nav district-very-top-links">
+<li class="without-image"><a href="https://wicloud2.infinitecampus.org/campus/portal/loyal.jsp?status=login" title="Parents">Parents</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Students">Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://learning.amplify.com" title="Amplify (7th &amp; 8th Grade Science)">Amplify (7th &amp; 8th Grade Science)</a></li>
+<li class="without-image"><a href="https://wicloud2.infinitecampus.org/campus/portal/loyal.jsp?status=login" title="Campus Portal">Campus Portal</a></li>
+<li class="without-image"><a href="https://www.pearsonmylabandmastering.com/northamerica/masteringaandp/" title="Mastering A&amp;P ">Mastering A&amp;P </a></li>
+<li class="without-image"><a href="https://my.mheducation.com/login" title="McGraw Hill Curriculum Log In ">McGraw Hill Curriculum Log In </a></li>
+<li class="without-image"><a href="https://hosted92.renlearn.com/332322/" title="Renaissance">Renaissance</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff">Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://app.educlimber.com/welcome/login.php?district=1142&amp;app_name=educlimber" title="EduClimber ">EduClimber </a></li>
+<li class="without-image"><a href="https://ensemble.cesa10.k12.wi.us/app/default.aspx" title="Ensemble">Ensemble</a></li>
+<li class="without-image"><a href="https://app.frontlineeducation.com" title="Frontline Sign In ">Frontline Sign In </a></li>
+<li class="without-image"><a href="https://wicloud2.infinitecampus.org/campus/loyal.jsp" title="Infinite Campus">Infinite Campus</a></li>
+<li class="without-image"><a href="https://my.mheducation.com/login" title="McGraw Hill Connect Ed ">McGraw Hill Connect Ed </a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="MSDS">MSDS  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://msdsmanagement.msdsonline.com/" title="Online Information">Online Information</a></li>
+<li class="without-image"><a href="http://w2kl-spt/Staff%20Documents/presentation.msdsonline.training.082012.pdf" title="Training">Training</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.mylearningplan.com/" title="My Learning Plan ">My Learning Plan </a></li>
+<li class="without-image"><a href="https://www.palsk8.com/" title="PALS">PALS</a></li>
+<li class="without-image"><a href="http://cloverbeltconference.org/public/genie/159/school/10/" title="Reserving Rooms">Reserving Rooms</a></li>
+<li class="without-image"><a href="https://roost.getsd.org/students" title="ROOST">ROOST</a></li>
+</ul>
+</li>
+</ul>
+<hr>
+<ul class="nav navbar-nav district-top-links">
+<li class="without-image"><a href="/" title=" Home"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+<li class="without-image"><a href="/Content/70" aria-label="" title="COVID 19 Virus "><i class="fa fa-newspaper-o" aria-hidden="true"></i>COVID 19 Virus </a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-label="" title=" District News"><i class="fa fa-newspaper-o" aria-hidden="true"></i> District News  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/18" title="Academic Standards">Academic Standards</a></li>
+<li class="without-image"><a href="/Content/56" title="District Report Card ">District Report Card </a></li>
+<li class="without-image"><a href="/Content/20" title="Educational Options">Educational Options</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/notice%20of%20special%20needs%20scholarship%20program.pdf?id=1347" title="Notice of Special Needs Scholarship Program">Notice of Special Needs Scholarship Program</a></li>
+<li class="without-image"><a href="/Content/16" title="Vision &amp; Mission Statement">Vision &amp; Mission Statement</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/five%20year%20strategic%20plan.pdf?id=136" title="5 Year Strategic Plan ">5 Year Strategic Plan </a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/36" title=" Departments"><i class="fa fa-users" aria-hidden="true"></i> Departments</a></li>
+<li class="without-image"><a href="/Calendar/0" title=" Calendar"><i class="fa fa-calendar" aria-hidden="true"></i> Calendar</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title=" Schools"><i class="fa fa-university"></i> Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/2/home" title="Elementary School">Elementary School</a></li>
+<li class="without-image"><a href="/1/Home" title="Junior/Senior High School">Junior/Senior High School</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.boarddocs.com/wi/loyal/Board.nsf/Public%20" title=" Board of Education"><i class="fa fa-users" aria-hidden="true"></i> Board of Education</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title=" Employment"><i class="fa fa-briefcase" aria-hidden="true"></i> Employment  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/3/my%20files/employee%20handbook.pdf?id=1647" title="Employee Handbook ">Employee Handbook </a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/support%20staff%20application.pdf?id=1658" title="Support Staff Application ">Support Staff Application </a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/teacher%20application.pdf?id=1657" title="Teacher Application ">Teacher Application </a></li>
+</ul>
+</li>
+<li class="without-image"><a href="http://www.sdofloyal.wi.schools.bz/District/Links-Forms" target="_blank" title=" Forms"><i class="fa fa-file-text" aria-hidden="true"></i> Forms</a></li>
+</ul>
+<hr>
+<ul class="nav navbar-nav district-left-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="District Administrator's Message">District Administrator's Message</a></li>
+<li class="without-image"><a href="/0/teacher" title="Teacher Webpages ">Teacher Webpages </a></li>
+<li class="without-image"><a href="http://cloverbeltconference.org/public/genie/159/school/10/" title="Activity Schedule">Activity Schedule</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Athletics">Athletics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://cloverbeltconference.org/public/genie/159/school/10/" title="Activity Schedules">Activity Schedules</a></li>
+<li class="without-image"><a href="http://www.cloverbeltconference.org/g5-bin/client.cgi?G5genie=159" title="Cloverbelt Conference ">Cloverbelt Conference </a></li>
+<li class="without-image"><a href="http://www.sdofloyal.wi.schools.bz/District/Links-Forms" title="Forms">Forms</a></li>
+<li class="without-image"><a href="/Content/40" title="General Information ">General Information </a></li>
+<li class="without-image"><a href="https://loyalhs-ar.rschooltoday.com/" title="RSchool (Athletic Form Submission)">RSchool (Athletic Form Submission)</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/6" title="Academic &amp; Career Planning">Academic &amp; Career Planning</a></li>
+<li class="without-image"><a href="/Content/14" title="District Calendar">District Calendar</a></li>
+<li class="without-image"><a href="http://loyalffa.weebly.com/" title="FFA">FFA</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Food Service">Food Service  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/3/my%20files/march%20breakfast.pdf?id=1304" aria-label="" title="Breakfast Menu">Breakfast Menu</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/march%20lunch.pdf?id=1305" aria-label="" title="Lunch Menu">Lunch Menu</a></li>
+<li class="without-image"><a href="/Content/46" title="Prices">Prices</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://accounts.google.com" title="Google Apps">Google Apps</a></li>
+<li class="without-image"><a href="https://ensemble.cesa10.k12.wi.us/app/Portal/default.aspx?PortalID=307e7bfb-0d50-4177-94e1-d640afa8a9c9&amp;IsLivePreview=False" title="Greyhound TV">Greyhound TV</a></li>
+<li class="without-image"><a href="http://loyal.follettdestiny.com/" aria-label="" title="Library Homepage">Library Homepage</a></li>
+<li class="without-image"><a href="https://loyalschools-my.sharepoint.com/personal/scottjohnson_loyal_k12_wi_us/_layouts/15/onedrive.aspx" title="Office 365 ">Office 365 </a></li>
+<li class="without-image"><a href="https://wicloud2.infinitecampus.org/campus/portal/loyal.jsp?status=login" title="Parent Portal">Parent Portal</a></li>
+<li class="without-image"><a href="http://w2kl-pri/printers/" title="Printers ">Printers </a></li>
+<li class="without-image"><a href="https://remote.loyal.k12.wi.us/rdweb/webclient/index.html" title="Remote Access">Remote Access</a></li>
+<li class="without-image"><a href="https://global-zone50.renaissance-go.com/welcomeportal/332322%20" title="Renaissance Learning ">Renaissance Learning </a></li>
+<li class="without-image"><a href="http://www.sdofloyal.wi.schools.bz/olc/teacher.aspx?s=32" title="School Counseling ">School Counseling </a></li>
+<li class="without-image"><a href="https://loyalschools-my.sharepoint.com/personal/scottjohnson_loyal_k12_wi_us/_layouts/15/onedrive.aspx" title="School Email ">School Email </a></li>
+<li class="without-image"><a href="https://login.xello.world/" title="Xello">Xello</a></li>
+</ul>
+<hr>
+</div>
+                </nav>
+</div>
+        </div>
+    </div>
+</div>
+
+    
+
+            </header>
+</div>
+
+        
+    
+    <div class="slideshow-wrapper">
+        <div class="slideshow-wrapper">
+           
+    
+
+    <div id="slideshow">
+        <div class="slides">
+            
+                    <img src="/images/full//userfiles/3/my%20files/img_9141.jpg?id=104&amp;width=1920" title="Greyhound Pride" alt="Greyhound Pride">
+</div>
+            <div class="headerBar">
+    </div>
+    </div>
+
+    <div class="slides-blue-box">
+        <div class="container">
+            <div class="row" id="blue-box">
+            </div>
+        </div>
+    </div>
+                    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#slideshow .slides').nivoSlider({ effect: 'fade', prevText: '', nextText: '' });
+            $(".nivo-caption").appendTo("#blue-box.row");
+            $(".nivo-directionNav").appendTo("#blue-box.row");
+            $(".nivo-controlNav").appendTo("#blue-box.row");
+            $(".slides-blue-box").appendTo(".slides.nivoSlider");
+            $(".slides-blue-box").appendTo(".slides.nivoSlider");
+        });
+    </script>
+</div>
+    </div>
+
+
+
+        
+    
+    
+
+
+        <div class="topNavContainer hidden-xs">
+            <script>
+                $(document).ready(function () {
+                    var menuAnchors = $('.topNavContainer ul.district-top-links > li > a');
+                    var cnt = menuAnchors.length;
+
+                    $('.topNavContainer ul.district-top-links > li').css({
+                        "width": (100 / cnt) + "%"
+                    });
+
+                    var minH = $('.innerPageLeft ul.nav.navbar-nav').height();
+                    if (minH > 320) {
+                        $('.body-content-container .wrapperRow').css({
+                            "min-height": (minH + 80) + "px"
+                        });
+                    }
+
+                    var minH = $('.home-right .row').height();
+                    if (minH > 320) {
+                        $('.body-content-container .wrapperRow').css({
+                            "min-height": (minH + 80) + "px"
+                        });
+                    }
+                });
+            </script><div class="container">
+                <ul class="nav navbar-nav district-top-links">
+<li class="without-image"><a href="/" title=" Home"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+<li class="without-image"><a href="/Content/70" aria-label="" title="COVID 19 Virus "><i class="fa fa-newspaper-o" aria-hidden="true"></i>COVID 19 Virus </a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-label="" title=" District News"><i class="fa fa-newspaper-o" aria-hidden="true"></i> District News  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/18" title="Academic Standards">Academic Standards</a></li>
+<li class="without-image"><a href="/Content/56" title="District Report Card ">District Report Card </a></li>
+<li class="without-image"><a href="/Content/20" title="Educational Options">Educational Options</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/notice%20of%20special%20needs%20scholarship%20program.pdf?id=1347" title="Notice of Special Needs Scholarship Program">Notice of Special Needs Scholarship Program</a></li>
+<li class="without-image"><a href="/Content/16" title="Vision &amp; Mission Statement">Vision &amp; Mission Statement</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/five%20year%20strategic%20plan.pdf?id=136" title="5 Year Strategic Plan ">5 Year Strategic Plan </a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/36" title=" Departments"><i class="fa fa-users" aria-hidden="true"></i> Departments</a></li>
+<li class="without-image"><a href="/Calendar/0" title=" Calendar"><i class="fa fa-calendar" aria-hidden="true"></i> Calendar</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title=" Schools"><i class="fa fa-university"></i> Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/2/home" title="Elementary School">Elementary School</a></li>
+<li class="without-image"><a href="/1/Home" title="Junior/Senior High School">Junior/Senior High School</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.boarddocs.com/wi/loyal/Board.nsf/Public%20" title=" Board of Education"><i class="fa fa-users" aria-hidden="true"></i> Board of Education</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title=" Employment"><i class="fa fa-briefcase" aria-hidden="true"></i> Employment  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/3/my%20files/employee%20handbook.pdf?id=1647" title="Employee Handbook ">Employee Handbook </a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/support%20staff%20application.pdf?id=1658" title="Support Staff Application ">Support Staff Application </a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/teacher%20application.pdf?id=1657" title="Teacher Application ">Teacher Application </a></li>
+</ul>
+</li>
+<li class="without-image"><a href="http://www.sdofloyal.wi.schools.bz/District/Links-Forms" target="_blank" title=" Forms"><i class="fa fa-file-text" aria-hidden="true"></i> Forms</a></li>
+</ul>
+</div>
+        </div>
+
+
+        <div class="body-content-container">
+            <div class="container">
+                <div class="row wrapperRow">
+                    
+    <div class="content-section content-section-1">
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 ">
+
+            
+    <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs panel">
+        <h1 class="home-title">
+<i class="fa fa-link"></i><span class="obscure">Links</span>
+        </h1>
+         <h1>Quick Links</h1>
+        <ul class="nav navbar-nav district-left-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="District Administrator's Message">District Administrator's Message</a></li>
+<li class="without-image"><a href="/0/teacher" title="Teacher Webpages ">Teacher Webpages </a></li>
+<li class="without-image"><a href="http://cloverbeltconference.org/public/genie/159/school/10/" title="Activity Schedule">Activity Schedule</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Athletics">Athletics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://cloverbeltconference.org/public/genie/159/school/10/" title="Activity Schedules">Activity Schedules</a></li>
+<li class="without-image"><a href="http://www.cloverbeltconference.org/g5-bin/client.cgi?G5genie=159" title="Cloverbelt Conference ">Cloverbelt Conference </a></li>
+<li class="without-image"><a href="http://www.sdofloyal.wi.schools.bz/District/Links-Forms" title="Forms">Forms</a></li>
+<li class="without-image"><a href="/Content/40" title="General Information ">General Information </a></li>
+<li class="without-image"><a href="https://loyalhs-ar.rschooltoday.com/" title="RSchool (Athletic Form Submission)">RSchool (Athletic Form Submission)</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/6" title="Academic &amp; Career Planning">Academic &amp; Career Planning</a></li>
+<li class="without-image"><a href="/Content/14" title="District Calendar">District Calendar</a></li>
+<li class="without-image"><a href="http://loyalffa.weebly.com/" title="FFA">FFA</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Food Service">Food Service  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/3/my%20files/march%20breakfast.pdf?id=1304" aria-label="" title="Breakfast Menu">Breakfast Menu</a></li>
+<li class="without-image"><a href="/userfiles/3/my%20files/march%20lunch.pdf?id=1305" aria-label="" title="Lunch Menu">Lunch Menu</a></li>
+<li class="without-image"><a href="/Content/46" title="Prices">Prices</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://accounts.google.com" title="Google Apps">Google Apps</a></li>
+<li class="without-image"><a href="https://ensemble.cesa10.k12.wi.us/app/Portal/default.aspx?PortalID=307e7bfb-0d50-4177-94e1-d640afa8a9c9&amp;IsLivePreview=False" title="Greyhound TV">Greyhound TV</a></li>
+<li class="without-image"><a href="http://loyal.follettdestiny.com/" aria-label="" title="Library Homepage">Library Homepage</a></li>
+<li class="without-image"><a href="https://loyalschools-my.sharepoint.com/personal/scottjohnson_loyal_k12_wi_us/_layouts/15/onedrive.aspx" title="Office 365 ">Office 365 </a></li>
+<li class="without-image"><a href="https://wicloud2.infinitecampus.org/campus/portal/loyal.jsp?status=login" title="Parent Portal">Parent Portal</a></li>
+<li class="without-image"><a href="http://w2kl-pri/printers/" title="Printers ">Printers </a></li>
+<li class="without-image"><a href="https://remote.loyal.k12.wi.us/rdweb/webclient/index.html" title="Remote Access">Remote Access</a></li>
+<li class="without-image"><a href="https://global-zone50.renaissance-go.com/welcomeportal/332322%20" title="Renaissance Learning ">Renaissance Learning </a></li>
+<li class="without-image"><a href="http://www.sdofloyal.wi.schools.bz/olc/teacher.aspx?s=32" title="School Counseling ">School Counseling </a></li>
+<li class="without-image"><a href="https://loyalschools-my.sharepoint.com/personal/scottjohnson_loyal_k12_wi_us/_layouts/15/onedrive.aspx" title="School Email ">School Email </a></li>
+<li class="without-image"><a href="https://login.xello.world/" title="Xello">Xello</a></li>
+</ul>
+</div>
+
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+            
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+    <h1 class="home-title">
+<i class="fa fa-newspaper-o"></i><span class="obscure">News</span>
+    </h1>
+
+    <div class="home-news" id="home-news">
+        
+
+<script src="/js/jquery.cycle.min.js"></script><style type="text/css">
+		.rssNewsLink {
+			float: right;
+			margin-top: -22px;
+			font-size: 16px;
+			display: none;
+		}
+
+		.rssNewsLink.fa.fa-rss-square:before {
+			font-size: 22px;
+			padding: 3px;
+		}
+
+		.article.Newsarticle.rows.inactive {
+			display: none;
+		}
+
+		.article-image-container {
+			overflow: hidden;
+			max-height: 154px;
+		}
+
+		.article-image-container > a {
+			display: inline;
+			width: 100%;
+			overflow: hidden;
+		}
+
+		.article-image-container > a > img {
+			width: 100%;
+			height: auto;
+			overflow: hidden;
+			max-height: none;
+		}
+
+		.next-prev-icons a {
+			font-size: 30px;
+		}
+
+		.next-prev-icons a#prevNews {
+			float: left;
+		}
+
+		.next-prev-icons a#nextNews {
+			float: right;
+		}
+	</style>
+<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rssNewsLink" class="rssNewsLink fa fa-rss-square" href="/RSSnews.ashx?&amp;archive=false&amp;articlesToShow=15">Subscribe</a><div id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rssnewslinkclear" style="clear: both;"></div>
+			<section id="news-list"><div class="article Newsarticle rows">
+				<div class="newsPadding">
+					<div id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl01_articleImageContainer" class="article-image-container">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl01_lnkImage" class="newsimage" href="/News/1199"><img id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl01_articleImage" src="/docs/_Full_/district/update.jpg?id=1701&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="Updates" style="border-width:0px;"></a>
+					</div>
+					<div class="article-summary">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/1199">School Updates, April 25, 2020</a>
+						<span id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl01_lblSummary" class="news-summary"><p>In response to the recent directive from Gov. Evers and the State of Wisconsin, the Loyal Public School buildings will be closed for the remainder of the school year.  To comply with this decision, virtual classes will continue through the end of the school year.</p></span>
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl01_lnkViewAll" class="view-all" href="/News/1199">Read More</a>
+					</div>
+				</div>
+			</div>
+		
+			<div class="article Newsarticle rows">
+				<div class="newsPadding">
+					<div id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl02_articleImageContainer" class="article-image-container">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl02_lnkImage" class="newsimage" href="/News/1198"><img id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl02_articleImage" src="/docs/_Full_/district/hours.jpg?id=1700&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="Office Hours" style="border-width:0px;"></a>
+					</div>
+					<div class="article-summary">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/1198">Current Office Hours </a>
+						<span id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl02_lblSummary" class="news-summary"><p>The elementary and high school offices are open during the following times.</p></span>
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl02_lnkViewAll" class="view-all" href="/News/1198">Read More</a>
+					</div>
+				</div>
+			</div>
+		
+			<div class="article Newsarticle rows">
+				<div class="newsPadding">
+					<div id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl03_articleImageContainer" class="article-image-container">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl03_lnkImage" class="newsimage" href="/News/1191"><img id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl03_articleImage" src="/docs/_Full_/district/4k%20registration.jpeg?id=1669&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="Registration" style="border-width:0px;"></a>
+					</div>
+					<div class="article-summary">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/1191">4-Year-Old Kindergarten Registration </a>
+						<span id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl03_lblSummary" class="news-summary"><p>Do you have a child who will be 4 years old on, or before, September 1<sup>st</sup>, 2020?  Are they excited to learn new things?  Well then we have just the program for you!</p></span>
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl03_lnkViewAll" class="view-all" href="/News/1191">Read More</a>
+					</div>
+				</div>
+			</div>
+		
+			<div class="article Newsarticle rows">
+				<div class="newsPadding">
+					<div id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl04_articleImageContainer" class="article-image-container">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl04_lnkImage" class="newsimage" href="/News/1173"><img id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl04_articleImage" src="/docs/_Full_/district/ffa.jpg?id=1630&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="FFA" style="border-width:0px;"></a>
+					</div>
+					<div class="article-summary">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/1173">FFA Alumni Table/Chair Rental</a>
+						<span id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl04_lblSummary" class="news-summary"><p>Are you looking for additional seating?  The Loyal FFA Alumni is offering table/chair rental.</p></span>
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl04_lnkViewAll" class="view-all" href="/News/1173">Read More</a>
+					</div>
+				</div>
+			</div>
+		
+			<div class="article Newsarticle rows">
+				<div class="newsPadding">
+					<div id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl05_articleImageContainer" class="article-image-container">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl05_lnkImage" class="newsimage" href="/News/1172"><img id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl05_articleImage" src="/docs/_Full_/district/sale.jpg?id=1483&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="SALE" style="border-width:0px;"></a>
+					</div>
+					<div class="article-summary">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl05_lnkTitle" class="news-title" href="/News/1172">The School Store is Online</a>
+						<span id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl05_lblSummary" class="news-summary"><p>You can do your Loyal apparel shopping online!  #loyalproud</p></span>
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl05_lnkViewAll" class="view-all" href="/News/1172">Read More</a>
+					</div>
+				</div>
+			</div>
+		
+			<div class="article Newsarticle rows">
+				<div class="newsPadding">
+					<div id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl06_articleImageContainer" class="article-image-container">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl06_lnkImage" class="newsimage" href="/News/7"><img id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl06_articleImage" src="/docs/_Full_/district/download%20(9).png?id=1432&amp;thumbwidth=190&amp;fullwidth=310&amp;width=310" alt="Remind 101" style="border-width:0px;"></a>
+					</div>
+					<div class="article-summary">
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl06_lnkTitle" class="news-title" href="/News/7">Remind 101 - Keep in Touch with Us </a>
+						<span id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl06_lblSummary" class="news-summary"></span>
+						<a id="ctl00_ctl00_MasterContent_ContentMiddle_ctl00_rep_news_ctl06_lnkViewAll" class="view-all" href="/News/7">Read More</a>
+					</div>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+
+			</section>
+</div>
+
+    <div class="view-all-news-line">
+        <div class="view-all-news-wrapper">
+            <a href="/news" class="view-all view-all-news">View All News
+            </a>
+        </div>
+    </div>
+
+
+        </div>
+        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 home-right">
+            
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        
+                <h1 class="home-title">
+<i class="fa fa-bullhorn"></i><span class="obscure">Announcements</span>
+                </h1>
+                
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Awards and Recognition
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <ul>
+<li>Loyal Elementary and Jr. High Schools named “<a href="http://dpi.wi.gov/rewards/spotlight_index.html"><font color="#0066cc">Spotlight Schools</font></a>” 2011</li>
+	<li>Wisconsin Promise School of Excellence: 2003, 2005-2010, 2012</li>
+	<li>National ESEA Blue Ribbon School Award</li>
+	<li>US News and World Report Bronze Medal High School</li>
+	<li>DPI highly acclaimed morning nutrition/breakfast and lunch program</li>
+</ul>
+</div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+    
+            <div class="clr" style="padding-bottom: 40px;">
+            <h1 class="home-title">
+<i class="fa fa-calendar"></i><span class="obscure">Events</span>
+            </h1>
+            
+		<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-9086">
+			<div class="event-date">
+				<div class="event-date-month">Apr</div>
+<div class="event-date-number">30</div>
+<div class="event-date-dayWeek">Thu</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2&amp;schoolid=0&amp;types=&amp;eventID=9086" title="Golf:  Boys JV Match vs Away vs. Multiple Schools (Cancelled)">
+					Golf:  Boys JV Match vs Away vs. Multiple Schools (Cancelled)
+				</a>
+			</div>
+			<div class="event-location">
+				@Whispering Pines Golf Course
+			</div>
+			<div class="event-time">
+				4:00 PM — 4:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-9087">
+			<div class="event-date">
+				<div class="event-date-month">Apr</div>
+<div class="event-date-number">30</div>
+<div class="event-date-dayWeek">Thu</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2&amp;schoolid=0&amp;types=&amp;eventID=9087" title="Track:  Varsity Meet vs Away vs. Multiple Schools (Cancelled)">
+					Track:  Varsity Meet vs Away vs. Multiple Schools (Cancelled)
+				</a>
+			</div>
+			<div class="event-location">
+				@Auburndale High School
+			</div>
+			<div class="event-time">
+				4:15 PM — 4:15 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-8975">
+			<div class="event-date">
+				<div class="event-date-month">Apr</div>
+<div class="event-date-number">30</div>
+<div class="event-date-dayWeek">Thu</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2&amp;schoolid=0&amp;types=&amp;eventID=8975" title="Softball:  MS Game vs Neillsville (Away)  ">
+					Softball:  MS Game vs Neillsville (Away)  
+				</a>
+			</div>
+			<div class="event-location">
+				@Neillsville High School
+			</div>
+			<div class="event-time">
+				4:30 PM — 4:30 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-9088">
+			<div class="event-date">
+				<div class="event-date-month">Apr</div>
+<div class="event-date-number">30</div>
+<div class="event-date-dayWeek">Thu</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2&amp;schoolid=0&amp;types=&amp;eventID=9088" title="Softball:  Varsity Game vs Colby (Cancelled)">
+					Softball:  Varsity Game vs Colby (Cancelled)
+				</a>
+			</div>
+			<div class="event-location">
+				@Loyal High School, Softball Field
+			</div>
+			<div class="event-time">
+				5:00 PM — 5:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-9089">
+			<div class="event-date">
+				<div class="event-date-month">May</div>
+<div class="event-date-number">1</div>
+<div class="event-date-dayWeek">Fri</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2&amp;schoolid=0&amp;types=&amp;eventID=9089" title="Softball:  Varsity Double-Header vs Greenwood (Cancelled)">
+					Softball:  Varsity Double-Header vs Greenwood (Cancelled)
+				</a>
+			</div>
+			<div class="event-location">
+				@Greenwood High School
+			</div>
+			<div class="event-time">
+				4:00 PM — 4:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-8956">
+			<div class="event-date">
+				<div class="event-date-month">May</div>
+<div class="event-date-number">1</div>
+<div class="event-date-dayWeek">Fri</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=1,2&amp;schoolid=0&amp;types=&amp;eventID=8956" title="Softball:  MS Game vs Greenwood (Home)  ">
+					Softball:  MS Game vs Greenwood (Home)  
+				</a>
+			</div>
+			<div class="event-location">
+				@Loyal High School, Softball Field
+			</div>
+			<div class="event-time">
+				4:30 PM — 7:30 PM
+			</div>
+		</li>
+	
+		</ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentRight_ctl01_calendarLink" class="view-all view-full-calendar" href="/calMonthView.aspx?schoollistids=&amp;y=2020&amp;m=4">View Full Calendar</a>
+	
+</footer>
+</div>
+             <div class="clr" style="">
+                <h1 class="home-title">
+<i class="fa fa-twitter"></i><span class="obscure">Twitter</span>
+                </h1>
+                
+<div class="feature-content ">
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+            </div>
+        </div>
+
+    </div>
+
+        </div>
+    </div>
+
+    <div style="clear: both;"></div>
+
+                </div>
+                <div class="clr">
+                </div>
+            </div>
+        </div>
+
+        
+        
+    
+    
+
+
+        <div class="footerwrapper">
+            <footer id="site-foot"><div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 footer-column">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer-right">
+                <div class="footer-contact">
+                    <h2 class="footer-name">School District of Loyal Wisconsin     
+                    </h2>
+                    <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12 ">
+                        <a href="http://maps.google.com/maps?q=514%20W.%20Central%20Street+Loyal+WI+54446">
+                            <div>
+                                514 W. Central Street
+                            </div>
+                            <div>
+                                Loyal, WI 54446
+                            </div>
+                        </a>
+
+                        
+                        <div>
+                            <a href="tel:715-255-8552">Phone: 715-255-8552</a>
+                        </div>
+                        
+                        <div>
+                            <span>Fax: 715-255-8553</span>
+                        </div>
+                        
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 ">
+                        <span>Superintendent: <br>Mark Lacke</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footer-right">
+                <h3>Stay Connected</h3>
+                <div class="social-links social-links-bottom" id="social-links">
+                    
+        <a href="/login" title="Content Management Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/intranet" title="Staff Intranet Login" target="_self">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="https://twitter.com/LoyalSchools" title="Loyal Twitter" target="_self">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter"></i>
+        </a>
+    
+        <a href="https://www.instagram.com/loyalschools/" title="Instagram" target="_self">
+            <span class="obscure">Instagram</span>
+            <i class="fa fa-instagram"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/loyalschools/" title="Facebook " target="_self">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Complaint Link" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+                </div>
+            </div>
+
+
+            <div class="copy-and-logo col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-12 hidden-xs">
+                        <div class="copyright">
+                            © 2020 School District of Loyal
+                       
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs">
+                        <a href="http://www.schoolpointe.com" target="_blank" class="sp-logo" alt="SchoolPointe">
+                            <img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPWhite.png"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer-map">
+    <div id="map-content">
+    </div>
+</div>
+
+<div class="copy-and-logo">
+    <div class="hidden-lg hidden-md hidden-sm ">
+        <div class="copyright">
+            © 2020 School District of Loyal
+       
+        </div>
+    </div>
+    <div class="hidden-lg hidden-md hidden-sm ">
+        <a href="http://www.schoolpointe.com" target="_blank" class="sp-logo" alt="SchoolPointe">
+            <img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPWhite.png"></a>
+    </div>
+</div>
+
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-84033228-34', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer>
+</div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0"><input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0"><input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""><input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+</body>
+</html>

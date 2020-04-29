@@ -1,0 +1,1824 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Southern Fulton School District</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Southern Fulton School District - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Southern Fulton Jr/Sr High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Southern Fulton Elementary School - News" href="/rssNews.ashx?schoolId=2">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "PA_SouthernFultonSD",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=-62135596800000">
+<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+<style>
+        #site-body {
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUENTM4MQ9kFgJmD2QWAmYPZBYEZg9kFgQCAg9kFgICAQ8WAh4LXyFJdGVtQ291bnQCAhYEZg9kFgJmDxUCIVNvdXRoZXJuIEZ1bHRvbiBKci9TciBIaWdoIFNjaG9vbAExZAIBD2QWAmYPFQIhU291dGhlcm4gRnVsdG9uIEVsZW1lbnRhcnkgU2Nob29sATJkAgMPFgIeBGhyZWYFMi9zaXRlY3NzLmFzaHg/JmludHJhbmV0PTAmY2hlY2tzdW09LTYyMTM1NTk2ODAwMDAwZAIBDxYCHgZhY3Rpb24FAS8WCgIBD2QWBAIBD2QWCmYPD2QWAh4IdGFiaW5kZXgFATBkAgIPD2QWAh8DBQEwZAIDDw9kFgIfAwUBMGQCBA8PZBYCHwMFATBkAgUPD2QWAh8DBQEwZAIDD2QWAgICDw8WAh4HVmlzaWJsZWdkFgJmDxYCHgRUZXh0BewLPHVsIGNsYXNzPSdhbGVydExpc3QnPjxsaT48c3BhbiBjbGFzcz0nYWxlcnREYW5nZXJDb2xvcicgc3R5bGU9J2JhY2tncm91bmQtY29sb3I6I2FhMTExMTsgY29sb3I6I2ZmZmZmZic+QWxlcnQ6PC9zcGFuPiA8c3BhbiBjbGFzcz0nYWxlcnRUZXh0SW5mbyc+PHA+U291dGhlcm4gRnVsdG9uIGhhcyBjcmVhdGVkIGEgQ29udGludWl0eSBvZiBFZHVjYXRpb24gcGxhbiB0aGF0IHByb3ZpZGVzIGluZm9ybWF0aW9uIGFzIHRvIGhvdyBzdHVkZW50cyBhcmUgdG8gYmUgZWR1Y2F0ZWQgd2hpbGUgb3VyIHNjaG9vbHMgYXJlIHNodXRkb3duLiZuYnNwOyA8YSBocmVmPSIvdXNlcmZpbGVzLzMvbXkgZmlsZXMvZGlzdHJpY3Qgb2ZmaWNlL2NvbnRpbnVpdHlvZWR1Y2F0aW9ucGxhbnN1Ym1pc3Npb250ZW1wbGF0ZTIwMjAwMzI2LnBkZj9pZD0xMzAyIj5DbGljayBoZXJlIHRvIHZpZXcgdGhlIHBsYW4uPC9hPjwvcD48L3NwYW4+PC9saT48bGk+PHNwYW4gY2xhc3M9J2FsZXJ0RGFuZ2VyQ29sb3InIHN0eWxlPSdiYWNrZ3JvdW5kLWNvbG9yOiNhYTExMTE7IGNvbG9yOiNmZmZmZmYnPkFsZXJ0Ojwvc3Bhbj4gPHNwYW4gY2xhc3M9J2FsZXJ0VGV4dEluZm8nPjxwPlZpc2l0IG91ciA8YSBocmVmPSJodHRwczovL3d3dy5zZnNkLmsxMi5wYS51cy9EaXN0cmljdG5ld3NBcnRpY2xlcy5hc3B4Ij5EaXN0cmljdCBOZXdzIHBhZ2U8L2E+IGZvciBTdXBlcmludGVuZGVudCYjMzk7cyBMZXR0ZXIgdG8gRmFtaWxpZXM8L3A+PC9zcGFuPjwvbGk+PGxpPjxzcGFuIGNsYXNzPSdhbGVydERhbmdlckNvbG9yJyBzdHlsZT0nYmFja2dyb3VuZC1jb2xvcjojYWExMTExOyBjb2xvcjojZmZmZmZmJz5BbGVydDo8L3NwYW4+IDxzcGFuIGNsYXNzPSdhbGVydFRleHRJbmZvJz48cD48c3BhbiBzdHlsZT0iZm9udC1zaXplOjE4cHg7Ij48c3BhbiBzdHlsZT0idGV4dC1hbGlnbjogbGVmdDsgdGV4dC10cmFuc2Zvcm06IG5vbmU7IHRleHQtaW5kZW50OiAwcHg7IGxldHRlci1zcGFjaW5nOiBub3JtYWw7IGZvbnQtZmFtaWx5OiAmcXVvdDtIZWx2ZXRpY2EgTmV1ZSZxdW90OyxIZWx2ZXRpY2EsQXJpYWwsc2Fucy1zZXJpZjsgZm9udC1zdHlsZTogbm9ybWFsOyBmb250LXZhcmlhbnQ6IG5vcm1hbDsgZm9udC13ZWlnaHQ6IDQwMDsgdGV4dC1kZWNvcmF0aW9uOiBub25lOyB3b3JkLXNwYWNpbmc6IDBweDsgZGlzcGxheTogaW5saW5lICFpbXBvcnRhbnQ7IHdoaXRlLXNwYWNlOiBub3JtYWw7IG9ycGhhbnM6IDI7IGZsb2F0OiBub25lOyAtd2Via2l0LXRleHQtc3Ryb2tlLXdpZHRoOiAwcHg7Ij5Hb3Zlcm5vciBXb2xmIGhhcyBhbm5vdW5jZWQgdGhhdCBhbGwgc2Nob29scyZuYnNwO2FyZSBub3cgY2xvc2VkIGZvciB0aGUgcmVtYWluZGVyIG9mIHRoZSAyMDE5LTIwMjAgc2Nob29sIHllYXImbmJzcDtkdWUgdG8gZ3Jvd2luZyBjb25jZXJucyBzdGF0ZXdpZGUgYWJvdXQgdGhlIHNwcmVhZCBvZiB0aGUgQ29yb25hdmlydXMgKENPVklELTE5KS48L3NwYW4+PC9zcGFuPjwvcD48L3NwYW4+PC9saT48L3VsPmQCAw9kFgICAQ9kFgICAQ9kFgYCAQ8PFgIfBQUfU291dGhlcm4gRnVsdG9uIFNjaG9vbCBEaXN0cmljdGRkAgcPZBYCZg8WAh8FBcERPGRpdiBpZD0nbWVudV9EaXN0cmljdFRvcE5hdic+PHVsIGNsYXNzPScnID48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy8nIHRpdGxlPSdIb21lJyA+SG9tZTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0Rpc3RyaWN0bmV3c0FydGljbGVzLmFzcHgnIHRpdGxlPSdEaXN0cmljdCBOZXdzJyA+RGlzdHJpY3QgTmV3czwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nIycgdGl0bGU9J0NhbGVuZGFyJyA+Q2FsZW5kYXI8L2E+PHVsPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cHM6Ly93d3cuc2ZzZC5rMTIucGEudXMvY2FsbW9udGh2aWV3LmFzcHg/c2Nob29saWQ9MCZhbXA7dD0mYW1wO3NjaG9vbGxpc3RpZHM9I209MTAmYW1wO3M9MCZhbXA7dD0xOjUwOjI6MjQ6MjU6MjY6MzI6NTE6NTImYW1wO3k9MjAxOScgdGl0bGU9J0NhbGVuZGFyIG9mIEV2ZW50cycgPkNhbGVuZGFyIG9mIEV2ZW50czwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL3VzZXJmaWxlcy84L215IGZpbGVzLzR0aCB1cGRhdGUtc2Nob29sIGNsb3NpbmcgMS04LTIwMjAucGRmP2lkPTExNzEnIHRpdGxlPSdTY2hvb2wgWWVhciBDYWxlbmRhciAnID5TY2hvb2wgWWVhciBDYWxlbmRhciA8L2E+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvU2Nob29sc0xpc3QuYXNweCcgdGl0bGU9J1NjaG9vbHMnID5TY2hvb2xzPC9hPjx1bD48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy8xL2hvbWUnIHRpdGxlPSdKci9Tci4gSGlnaCBTY2hvb2wnID5Kci9Tci4gSGlnaCBTY2hvb2w8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy8yL2hvbWUnIHRpdGxlPSdFbGVtZW50YXJ5IFNjaG9vbCcgPkVsZW1lbnRhcnkgU2Nob29sPC9hPjwvbGk+PC91bD48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2FkbWluaXN0cmF0aW9uLmFzcHgnIHRpdGxlPSdEZXBhcnRtZW50cycgPkRlcGFydG1lbnRzPC9hPjx1bD48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9hZG1pbmlzdHJhdGlvbicgdGl0bGU9J091ciBEZXBhcnRtZW50cycgPk91ciBEZXBhcnRtZW50czwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvMzAnIHRpdGxlPSdBdGhsZXRpY3MnID5BdGhsZXRpY3M8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50L2NhZmVtYWluJyB0aXRsZT0nY2FmZXRlcmlhJyA+Q2FmZXRlcmlhPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC82JyB0aXRsZT0nZ3VpZGFuY2UnID5HdWlkYW5jZTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvNTInIHRpdGxlPSdtYWludGVuYW5jZScgPk1haW50ZW5hbmNlPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC83MicgdGl0bGU9J1NjaG9vbCBOdXJzZScgPlNjaG9vbCBOdXJzZTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2NvbnRlbnQvLWNvbnRlbnQtNDgnIHRpdGxlPSdTcGVjaWFsIEVkdWNhdGlvbicgPlNwZWNpYWwgRWR1Y2F0aW9uPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC82NicgdGl0bGU9J1RlY2hub2xvZ3knID5UZWNobm9sb2d5PC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC82MicgdGl0bGU9J3RyYW5zcG9ydGF0aW9uJyA+VHJhbnNwb3J0YXRpb248L2E+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvZGlzdHJpY3RCb2FyZEVkLmFzcHgnIHRpdGxlPSdCb2FyZCBvZiBFZHVjYXRpb24nID5Cb2FyZCBvZiBFZHVjYXRpb248L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9FbXBsb3ltZW50LmFzcHgnIHRpdGxlPSdFbXBsb3ltZW50JyA+RW1wbG95bWVudDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2xpbmtzRm9ybXMuYXNweCcgdGl0bGU9J0Zvcm1zICZhbXA7IExpbmtzJyA+Rm9ybXMgJiBMaW5rczwvYT48L2xpPjwvdWw+PC9kaXY+ZAIJDw8WAh8FBR9Tb3V0aGVybiBGdWx0b24gU2Nob29sIERpc3RyaWN0ZGQCBw9kFgICAQ9kFgICAQ9kFgJmDxYCHwACAhYEZg9kFgRmDxUCHVNGIEVsZW1lbnRhcnkgU2Nob29sIEJ1aWxkaW5nHVNGIEVsZW1lbnRhcnkgU2Nob29sIEJ1aWxkaW5nZAIBDxUBRi91c2VyZmlsZXMvMjAxOS0wNC85YzhlZDI2NS01ZjBmLTQ0NDEtYjc5My03MDcwZGEyYmNlOTIuanBnP3JvdGF0ZT0xODBkAgEPZBYEZg8VAiFTb3V0aGVybiBGdWx0b24gSnIvU3IgSGlnaCBTY2hvb2wqU291dGhlcm4gRnVsdG9uIEpyL1NyIEhpZ2ggU2Nob29sIEJ1aWxkaW5nZAIBDxUBOy91c2VyZmlsZXMvMjAxOC0wOS9mN2EzOTU5Mi0wZjc3LTQ0OTYtYjJlMS0wZjQyMWEyZDk2YTEuanBnZAIJD2QWBmYPZBYCZg8WAh8FBY8kPHVsIGNsYXNzPScnID48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy8nICAgdGl0bGU9J0hvbWUnPkhvbWU8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9EaXN0cmljdG5ld3NBcnRpY2xlcy5hc3B4JyAgIHRpdGxlPSdEaXN0cmljdCBOZXdzJz5EaXN0cmljdCBOZXdzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY2FsTW9udGhWaWV3LmFzcHg/cz0wJyAgIHRpdGxlPSdEaXN0cmljdCBFdmVudHMnPkRpc3RyaWN0IEV2ZW50czwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cHM6Ly9mdXR1cmVyZWFkeXBhLm9yZy9EaXN0cmljdC9GYXN0RmFjdHM/aWQ9MTQ1MjIwMDA4MTk3MDU0MTExMjE1MjUzMDg0MDE0MDA3MDU2MDQyMDgwMTUyMDI3JyB0YXJnZXQ9J19ibGFuaycgIHRpdGxlPSdEaXN0cmljdCBGYXN0IEZhY3RzJz5EaXN0cmljdCBGYXN0IEZhY3RzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvc3VwZXJNc2cuYXNweCcgICB0aXRsZT0nU3VwZXJpbnRlbmRlbnQmIzM5O3MgTWVzc2FnZSc+U3VwZXJpbnRlbmRlbnQncyBNZXNzYWdlPC9hPjwvbGk+PGxpIGNsYXNzPSdkcm9wZG93bic+PGEgaHJlZj0nIycgY2xhc3M9J2Ryb3Bkb3duLXRvZ2dsZScgZGF0YS10b2dnbGU9J2Ryb3Bkb3duJyAgIHRpdGxlPSdNZW51cyc+TWVudXMgIDxzdHJvbmcgY2xhc3M9J2NhcmV0Jz48L3N0cm9uZz48L2E+PHVsIGNsYXNzPSdkcm9wZG93bi1tZW51Jz48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvOC9teSBmaWxlcy9tYXJjaCBicmVha2Zhc3QgIG1lbnUgMjAyMC5wZGY/aWQ9MTIzMicgICB0aXRsZT0nTWFyY2ggQnJlYWtmYXN0Jz5NYXJjaCBCcmVha2Zhc3Q8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvOC9teSBmaWxlcy9lbGVtZW50YXJ5IG1hcmNoIG1lbnUgMjAyMC5wZGY/aWQ9MTIzNCcgICB0aXRsZT0nTWFyY2ggRWxlbWVudGFyeSBMdW5jaCc+TWFyY2ggRWxlbWVudGFyeSBMdW5jaDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL3VzZXJmaWxlcy84L215IGZpbGVzL2hzIG1hcmNoIG1lbnUgMjAyMC5wZGY/aWQ9MTIzMycgICB0aXRsZT0nTWFyY2ggSGlnaCBTY2hvb2wgTHVuY2gnPk1hcmNoIEhpZ2ggU2Nob29sIEx1bmNoPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvdXNlcmZpbGVzLzgvbXkgZmlsZXMvYXByaWwgMjAyMCBudXRyaXRpb24gbnVnZ2V0cy5wZGY/aWQ9MTI0MScgIGFyaWEtbGFiZWw9IiIgdGl0bGU9J0FwcmlsIDIwMjAgTnV0cml0aW9uIE51Z2dldHMnPkFwcmlsIDIwMjAgTnV0cml0aW9uIE51Z2dldHM8L2E+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSdkcm9wZG93bic+PGEgaHJlZj0nIycgY2xhc3M9J2Ryb3Bkb3duLXRvZ2dsZScgZGF0YS10b2dnbGU9J2Ryb3Bkb3duJyAgIHRpdGxlPSdBdGhsZXRpY3MnPkF0aGxldGljcyAgPHN0cm9uZyBjbGFzcz0nY2FyZXQnPjwvc3Ryb25nPjwvYT48dWwgY2xhc3M9J2Ryb3Bkb3duLW1lbnUnPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cDovL3d3dy5zZnNkLmsxMi5wYS51cy9Db250ZW50LzMwJyAgIHRpdGxlPSdBdGhsZXRpYyBJbmZvcm1hdGlvbic+QXRobGV0aWMgSW5mb3JtYXRpb248L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHBzOi8vc2ZpbmRpYW5hdGhsZXRpY3MuYmlndGVhbXMuY29tLycgICB0aXRsZT0nU2NoZWR1bGVzJz5TY2hlZHVsZXM8L2E+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSdkcm9wZG93bic+PGEgaHJlZj0nIycgY2xhc3M9J2Ryb3Bkb3duLXRvZ2dsZScgZGF0YS10b2dnbGU9J2Ryb3Bkb3duJyAgIHRpdGxlPSdQaG90byBHYWxsZXJpZXMnPlBob3RvIEdhbGxlcmllcyAgPHN0cm9uZyBjbGFzcz0nY2FyZXQnPjwvc3Ryb25nPjwvYT48dWwgY2xhc3M9J2Ryb3Bkb3duLW1lbnUnPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nLzIvR2FsbGVyeScgICB0aXRsZT0nRWxlbWVudGFyeSBQaG90byBHYWxsZXJ5Jz5FbGVtZW50YXJ5IFBob3RvIEdhbGxlcnk8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy8xL0dhbGxlcnknICAgdGl0bGU9J0hpZ2ggU2Nob29sIEdhbGxlcnknPkhpZ2ggU2Nob29sIEdhbGxlcnk8L2E+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSdkcm9wZG93bic+PGEgaHJlZj0nIycgY2xhc3M9J2Ryb3Bkb3duLXRvZ2dsZScgZGF0YS10b2dnbGU9J2Ryb3Bkb3duJyAgIHRpdGxlPSdQYXJlbnQgJmFtcDsgQ29tbXVuaXR5IEluZm9ybWF0aW9uJz5QYXJlbnQgJiBDb21tdW5pdHkgSW5mb3JtYXRpb24gIDxzdHJvbmcgY2xhc3M9J2NhcmV0Jz48L3N0cm9uZz48L2E+PHVsIGNsYXNzPSdkcm9wZG93bi1tZW51Jz48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly93d3cuc2ZzZC5rMTIucGEudXMvQ29udGVudC8zOCcgICB0aXRsZT0nQ2hhcGVyb25lICZhbXA7IFZvbHVudGVlciBJbmZvcm1hdGlvbic+Q2hhcGVyb25lICYgVm9sdW50ZWVyIEluZm9ybWF0aW9uPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwOi8vd3d3LnNmc2QuazEyLnBhLnVzL0NvbnRlbnQvNDQnICAgdGl0bGU9J0Vucm9sbG1lbnQnPkVucm9sbG1lbnQ8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly93d3cuc2ZzZC5rMTIucGEudXMvQ29udGVudC80MicgICB0aXRsZT0nU2Nob29sIFNhZmV0eSc+U2Nob29sIFNhZmV0eTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cDovL3d3dy5zZnNkLmsxMi5wYS51cy9Db250ZW50LzQ4JyAgIHRpdGxlPSdTcGVjaWFsIEVkdWNhdGlvbi9HaWZ0ZWQnPlNwZWNpYWwgRWR1Y2F0aW9uL0dpZnRlZDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cDovL3d3dy5zZnNkLmsxMi5wYS51cy9Db250ZW50LzQwJyAgIHRpdGxlPSdIb21lbGVzc25lc3MvTWNLaW5uZXkgVmVudG8nPkhvbWVsZXNzbmVzcy9NY0tpbm5leSBWZW50bzwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cHM6Ly93d3cuc2ZzZC5rMTIucGEudXMvRGlzdHJpY3QvTGlua3MtRm9ybXMnICAgdGl0bGU9J0Rpc3RyaWN0IEZvcm0vTGlua3MnPkRpc3RyaWN0IEZvcm0vTGlua3M8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly93d3cuc2ZzZC5rMTIucGEudXMvQ29udGVudC82MCcgICB0aXRsZT0nUmlnaHQgdG8gS25vdyc+UmlnaHQgdG8gS25vdzwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cHM6Ly93d3cuc2ZlZGZvdW5kYXRpb24ub3JnLycgICB0aXRsZT0nU291dGhlcm4gRnVsdG9uIEVkdWNhdGlvbiBGb3VuZGF0aW9uJz5Tb3V0aGVybiBGdWx0b24gRWR1Y2F0aW9uIEZvdW5kYXRpb248L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvOC9teSBmaWxlcy9taXNzaW9udmlzaW9uc2hhcmVkdmFsdWVzLnBkZj9pZD04NzEnICAgdGl0bGU9J1NGU0QgTWlzc2lvbic+U0ZTRCBNaXNzaW9uPC9hPjwvbGk+PGxpIGNsYXNzPSdkcm9wZG93bic+PGEgaHJlZj0nIycgY2xhc3M9J2Ryb3Bkb3duLXRvZ2dsZScgZGF0YS10b2dnbGU9J2Ryb3Bkb3duJyAgIHRpdGxlPSdTRlNEIENvbXByZWhlbnNpdmUgUGxhbic+U0ZTRCBDb21wcmVoZW5zaXZlIFBsYW4gIDxzdHJvbmcgY2xhc3M9J2NhcmV0Jz48L3N0cm9uZz48L2E+PHVsIGNsYXNzPSdkcm9wZG93bi1tZW51Jz48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvOC9teSBmaWxlcy9zZnNkY29tcHJlaGVuc2l2ZXBsYW4yMDE2LTIwMTkucGRmP2lkPTE1MicgICB0aXRsZT0nMjAxNi0yMDE5IENvbXByZWhlbnNpdmUgUGxhbic+MjAxNi0yMDE5IENvbXByZWhlbnNpdmUgUGxhbjwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL3VzZXJmaWxlcy84L215IGZpbGVzLzIwMTkgY29tcHJlaGVuc2l2ZSBwbGFuLnBkZj9pZD05ODUnICAgdGl0bGU9J0NvbXByZWhlbnNpdmUgUGxhbiBVcGRhdGVzJz5Db21wcmVoZW5zaXZlIFBsYW4gVXBkYXRlczwvYT48L2xpPjwvdWw+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvRW1wbG95bWVudC5hc3B4JyAgIHRpdGxlPSdFbXBsb3ltZW50Jz5FbXBsb3ltZW50PC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvc3RhZmYnICAgdGl0bGU9J1N0YWZmIERpcmVjdG9yeSc+U3RhZmYgRGlyZWN0b3J5PC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29udGVudC8yMCcgIGFyaWEtbGFiZWw9IiIgdGl0bGU9J1RlYWNoZXIgUmVzb3VyY2VzJz5UZWFjaGVyIFJlc291cmNlczwvYT48L2xpPjwvdWw+ZAIBD2QWBGYPDxYCHwRoZGQCAg9kFgQCAw8WAh8EaGQCBQ8WAh8AAg1kAgIPZBYGAgEPFgIfAAIRFiICAQ9kFgJmDxUHBDIwOTMGTWF5IDExRS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjA5MxhTYWZldHkgQ29tbWl0dGVlIE1lZXRpbmcYU2FmZXR5IENvbW1pdHRlZSBNZWV0aW5nE0BFbGVtZW50YXJ5IExpYnJhcnkQQmVnaW5zIEAgNDozMCBQTWQCAg9kFgJmDxUHBDIwOTQGTWF5IDE5RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjA5NBxXb3JrIFNlc3Npb24gJiBCb2FyZCBNZWV0aW5nHFdvcmsgU2Vzc2lvbiAmIEJvYXJkIE1lZXRpbmciQFNvdXRoZXJuIEZ1bHRvbiBKci9TciBIaWdoIFNjaG9vbBBCZWdpbnMgQCA3OjMwIFBNZAIDD2QWAmYPFQcEMjAyMQZNYXkgMjVFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMDIxCU5vIFNjaG9vbAlObyBTY2hvb2wAAGQCBA9kFgJmDxUHBDIwMjIGTWF5IDI5RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjAyMhJMYXN0IERheSBvZiBTY2hvb2wSTGFzdCBEYXkgb2YgU2Nob29sABFCZWdpbnMgQCAxMjowMCBQTWQCBQ9kFgJmDxUHBDIwMjMFSnVuIDFFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMDIzElRlYWNoZXIgSW4gU2VydmljZRJUZWFjaGVyIEluIFNlcnZpY2UAAGQCBg9kFgJmDxUHBDIwOTUGSnVuIDIzRS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjA5NRxXb3JrIFNlc3Npb24gJiBCb2FyZCBNZWV0aW5nHFdvcmsgU2Vzc2lvbiAmIEJvYXJkIE1lZXRpbmciQFNvdXRoZXJuIEZ1bHRvbiBKci9TciBIaWdoIFNjaG9vbBBCZWdpbnMgQCA3OjMwIFBNZAIHD2QWAmYPFQcEMjA5MwZKdWwgMTNFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMDkzGFNhZmV0eSBDb21taXR0ZWUgTWVldGluZxhTYWZldHkgQ29tbWl0dGVlIE1lZXRpbmcTQEVsZW1lbnRhcnkgTGlicmFyeRBCZWdpbnMgQCA0OjMwIFBNZAIID2QWAmYPFQcEMjA5NgZKdWwgMjFFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMDk2HFdvcmsgU2Vzc2lvbiAmIEJvYXJkIE1lZXRpbmccV29yayBTZXNzaW9uICYgQm9hcmQgTWVldGluZyJAU291dGhlcm4gRnVsdG9uIEpyL1NyIEhpZ2ggU2Nob29sEEJlZ2lucyBAIDc6MzAgUE1kAgkPZBYCZg8VBwQyMDk2BkF1ZyAxOEUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCwxLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTIwOTYcV29yayBTZXNzaW9uICYgQm9hcmQgTWVldGluZxxXb3JrIFNlc3Npb24gJiBCb2FyZCBNZWV0aW5nIkBTb3V0aGVybiBGdWx0b24gSnIvU3IgSGlnaCBTY2hvb2wQQmVnaW5zIEAgNzozMCBQTWQCCg9kFgJmDxUHBDIwOTMGU2VwIDE0RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjA5MxhTYWZldHkgQ29tbWl0dGVlIE1lZXRpbmcYU2FmZXR5IENvbW1pdHRlZSBNZWV0aW5nE0BFbGVtZW50YXJ5IExpYnJhcnkQQmVnaW5zIEAgNDozMCBQTWQCCw9kFgJmDxUHBDIwOTYGU2VwIDE1RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjA5NhxXb3JrIFNlc3Npb24gJiBCb2FyZCBNZWV0aW5nHFdvcmsgU2Vzc2lvbiAmIEJvYXJkIE1lZXRpbmciQFNvdXRoZXJuIEZ1bHRvbiBKci9TciBIaWdoIFNjaG9vbBBCZWdpbnMgQCA3OjMwIFBNZAIMD2QWAmYPFQcEMjA5NgZPY3QgMjBFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMDk2HFdvcmsgU2Vzc2lvbiAmIEJvYXJkIE1lZXRpbmccV29yayBTZXNzaW9uICYgQm9hcmQgTWVldGluZyJAU291dGhlcm4gRnVsdG9uIEpyL1NyIEhpZ2ggU2Nob29sEEJlZ2lucyBAIDc6MzAgUE1kAg0PZBYCZg8VBwQyMDkzBU5vdiA5RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjA5MxhTYWZldHkgQ29tbWl0dGVlIE1lZXRpbmcYU2FmZXR5IENvbW1pdHRlZSBNZWV0aW5nE0BFbGVtZW50YXJ5IExpYnJhcnkQQmVnaW5zIEAgNDozMCBQTWQCDg9kFgJmDxUHBDIwOTYGTm92IDE3RS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjA5NhxXb3JrIFNlc3Npb24gJiBCb2FyZCBNZWV0aW5nHFdvcmsgU2Vzc2lvbiAmIEJvYXJkIE1lZXRpbmciQFNvdXRoZXJuIEZ1bHRvbiBKci9TciBIaWdoIFNjaG9vbBBCZWdpbnMgQCA3OjMwIFBNZAIPD2QWAmYPFQcEMjA5NwVEZWMgMUUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCwxLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTIwOTccQm9hcmQgUmVvcmdhbml6YXRpb24gTWVldGluZxxCb2FyZCBSZW9yZ2FuaXphdGlvbiBNZWV0aW5nABBCZWdpbnMgQCA3OjMwIFBNZAIQD2QWAmYPFQcEMjA5MwZKYW4gMTFFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMDkzGFNhZmV0eSBDb21taXR0ZWUgTWVldGluZxhTYWZldHkgQ29tbWl0dGVlIE1lZXRpbmcTQEVsZW1lbnRhcnkgTGlicmFyeRBCZWdpbnMgQCA0OjMwIFBNZAIRD2QWAmYPFQcEMjA5MwVNYXIgOEUvY2FsZW5kYXJXZWVrVmlldy5hc3B4P3NjaG9vbHM9MCwxLDIsMyZzY2hvb2xpZD0wJnR5cGVzPSZldmVudElEPTIwOTMYU2FmZXR5IENvbW1pdHRlZSBNZWV0aW5nGFNhZmV0eSBDb21taXR0ZWUgTWVldGluZxNARWxlbWVudGFyeSBMaWJyYXJ5EEJlZ2lucyBAIDQ6MzAgUE1kAgUPDxYCHgtOYXZpZ2F0ZVVybAUhL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00ZGQCBw8PFgQfBgVFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAmc2Nob29saWQ9MCZ0eXBlcz0mdmlld0RhdGU9NC8yOS8yMDIwHwUFElZpZXcgRnVsbCBDYWxlbmRhcmRkAg8PZBYEAgEPDxYCHwYFZ2h0dHBzOi8vd3d3Lmdvb2dsZS5jb20vbWFwcy9zZWFyY2gvP2FwaT0xJnF1ZXJ5PTMwNzIrR3JlYXQrQ292ZStSb2FkK1N1aXRlKzEwMCtXYXJmb3Jkc2J1cmclMmMrUEErMTcyNjdkZAIFD2QWAmYPFgIfAAIDFgZmD2QWAmYPFQUGL2xvZ2luGENvbnRlbnQgTWFuYWdlbWVudCBMb2dpbgVfc2VsZiY8c3BhbiBjbGFzcz0nb2JzY3VyZSc+Q01TIExvZ2luPC9zcGFuPg1mYSBmYS1zaWduLWluZAIBD2QWAmYPFQUJL2ludHJhbmV0FEludHJhbmV0IFN0YWZmIExvZ2luBV9zZWxmJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5JbnRyYW5ldDwvc3Bhbj4NZmEgZmEtc2l0ZW1hcGQCAg9kFgJmDxUFCy9hZGEtcmVwb3J0DUFEQSBSZXBvcnRpbmcFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBMaW5rPC9zcGFuPhZmYSBmYS11bml2ZXJzYWwtYWNjZXNzZGRtZcHmVct++qkWJDhdoPZQW0GB8A==">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+<style type="text/css">
+    .alertdiv,
+    .alertReShow,
+    .alertList {
+        display: none;
+    }
+
+    .alertTab {
+        margin-left: 20px;
+    }
+
+    .alertTitle {
+        display: inline-block;
+        padding: 2px 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    .nextAlert {
+        background: #676767;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .alertCount {
+        position: absolute;
+        left: -115px;
+    }
+
+    .textalert {
+        color: #ffffff;
+        position: relative;
+    }
+
+    .alertBar {
+        z-index: 10;
+        font-weight: normal;
+        background: #373737;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#373737), to(#202020)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#373737, #202020); /* Chrome 10+, Saf5.1+ */
+        background-image: -moz-linear-gradient(#373737, #202020); /* FF3.6 */
+        background-image: -ms-linear-gradient(#373737, #202020); /* IE10 */
+        background-image: -o-linear-gradient(#373737, #202020); /* Opera 11.10+ */
+        background-image: linear-gradient(#373737, #202020);
+    }
+
+    a.closeAlert {
+        color: #fff;
+        font-size: 20px;
+    }
+
+    a.openAlert {
+        color: #fff;
+        font-size: 20px;
+        padding-right: 18px;
+        padding-top: 3px;
+    }
+
+    .alertDangerColor {
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .alertPrefix {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+        margin: 0;
+        border-radius: 3px;
+        font-size: 18px;
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+    .alertText {
+        display: inline-block;
+        width: 100%;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    #alertTicker > .alertTextInfo,
+    #alertTicker > .alertTextInfo > p:first-child, .alertTextInfo > span:first-child{display:inline;}
+    .popExclam {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .dark.alertBar{color:#fff;}
+     .dark.alertBar a{color:#fff; text-decoration:underline;}
+         .light.alertBar a{ text-decoration:underline;}
+        .popExclam i {
+            color: #aa1111 !important;
+            font-size: 55px;
+        }
+        .exclamText{padding-top:15px;}
+        .bottomRightEcxlam{position:fixed;z-index:1001;bottom:55px; right:25px;display:none;}
+</style>
+<!--[if lte IE 9]>
+	<style type="text/css">
+	    .alertBar {
+            background: #202020;
+        }
+	</style>
+<![endif]--><div id="ctl00_ctl00_ctl04_ctl01_BarAlert">
+	
+    <script>
+        $(document).ready(function () {
+            var startColor = "373737";
+            if (startColor == "ffffff") {
+                $(".alertBar").addClass("light");
+            }
+            else {
+                $(".alertBar").addClass("dark");
+            }
+        });
+
+    </script><div class="alert-margin">
+        <div style="position: relative; padding: 10px 45px 10px 10px;" class="alertdiv alertBar">
+            <div style="max-width: 980px; margin: 0 auto; font-size: 18px" class="textalert">
+                
+                <div class="alertCount">
+<span class="indexCount">1</span> of 3 <span class="nextAlert">Next</span>
+</div>
+                
+
+                <div id="alertTicker" tabindex="0"></div>
+            </div>
+
+            <ul class="alertList">
+<li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff">Alert:</span> <span class="alertTextInfo"><p>Southern Fulton has created a Continuity of Education plan that provides information as to how students are to be educated while our schools are shutdown.  <a href="/userfiles/3/my%20files/district%20office/continuityoeducationplansubmissiontemplate20200326.pdf?id=1302">Click here to view the plan.</a></p></span>
+</li>
+<li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff">Alert:</span> <span class="alertTextInfo"><p>Visit our <a href="https://www.sfsd.k12.pa.us/DistrictnewsArticles.aspx">District News page</a> for Superintendent's Letter to Families</p></span>
+</li>
+<li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff">Alert:</span> <span class="alertTextInfo"><p><span style="font-size:18px;"><span style='text-align: left; text-transform: none; text-indent: 0px; letter-spacing: normal; font-family: "Helvetica Neue",Helvetica,Arial,sans-serif; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; word-spacing: 0px; display: inline !important; white-space: normal; orphans: 2; float: none; -webkit-text-stroke-width: 0px;'>Governor Wolf has announced that all schools are now closed for the remainder of the 2019-2020 school year due to growing concerns statewide about the spread of the Coronavirus (COVID-19).</span></span></p></span>
+</li>
+</ul>
+<div style="position: absolute; right: 20px; top: 5px; z-index: 20;">
+                <a href="javascript:hideAlert()" class="closeAlert">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <span class="obscure">Close alert</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="alertReShow alertBar" style="position: relative; width: 100%; padding: 2px;">
+            <a style="float: right;" href="javascript:loadAlert()" class="openAlert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <span class="obscure">Open alert</span>
+            </a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>
+<div>
+      <a id="exclamationAlert" class="popExclam bottomRightEcxlam"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+</div>
+<script type="text/javascript" src="/admin/js/alert/alertDown.js?version=4"></script><script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: '2ywk7sLCO2' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><header id="site-head"><div id="DesktopHeader" class="hidden-xs">
+	<div class="bg-header1">
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-8">
+					<a id="ctl00_ctl00_header_header_ctl00_LogoLink" class="headerLogo" href="/">Southern Fulton School District</a>
+				</div>
+
+				<div class="col-xs-4 talignR">
+					<div class="wrap-translate">
+						
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+</div>
+
+					<div class="wrap-search">
+						
+
+<div class="search-box">
+	<label for="txtSearchBox" class="obscure">Search site using Google</label><input id="txtSearchBox" type="text" class="search-box-input" placeholder="Search" onkeyup="return tableInputKeyPress(event)"><i class="search-box-go fa fa-search bSearch3"></i>
+</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-header2 clearfix">
+		<div id="GrabMainNav" class="hidden-xs">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12">
+						<nav id="MainNav"><div id="menu_DistrictTopNav"><ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image">
+<a href="#" title="Calendar">Calendar</a><ul>
+<li class="without-image"><a href="/Calendar/0/2019" title="Calendar of Events">Calendar of Events</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/4th%20update-school%20closing%201-8-2020.pdf?id=1171" title="School Year Calendar ">School Year Calendar </a></li>
+</ul>
+</li>
+<li class="without-image">
+<a href="/Schools" title="Schools">Schools</a><ul>
+<li class="without-image"><a href="/1/home" title="Jr/Sr. High School">Jr/Sr. High School</a></li>
+<li class="without-image"><a href="/2/home" title="Elementary School">Elementary School</a></li>
+</ul>
+</li>
+<li class="without-image">
+<a href="/Administration" title="Departments">Departments</a><ul>
+<li class="without-image"><a href="/administration" title="Our Departments">Our Departments</a></li>
+<li class="without-image"><a href="/Content/30" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/content/cafemain" title="cafeteria">Cafeteria</a></li>
+<li class="without-image"><a href="/Content/6" title="guidance">Guidance</a></li>
+<li class="without-image"><a href="/Content/52" title="maintenance">Maintenance</a></li>
+<li class="without-image"><a href="/Content/72" title="School Nurse">School Nurse</a></li>
+<li class="without-image"><a href="/content/-content-48" title="Special Education">Special Education</a></li>
+<li class="without-image"><a href="/Content/66" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/Content/62" title="transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+</ul></div>
+
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('#menu_DistrictTopNav ul').superfish({
+        animation: { height: 'show' }, delay: 500, speed: 'fast',
+        'autoArrows':    false,
+        'dropShadows':   false
+        });  
+                
+    });
+</script></nav>
+</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="MobileHeader" class="hidden-sm hidden-md hidden-lg clearfix">
+	<div class="wrap-mobileNavBar clearfix">
+		<a id="ctl00_ctl00_header_header_ctl00_MobileName" class="mobileName" href="/">Southern Fulton School District</a>
+
+		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MobileNav">
+			<i class="fa fa-bars" aria-hidden="true"></i>
+			<span class="obscure">toggle menu</span>
+		</button>
+	</div>
+
+	<nav id="MobileNav" class="collapse"><h2>Quick Links</h2>
+
+		<ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar">Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Calendar/0/2019" title="Calendar of Events">Calendar of Events</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/4th%20update-school%20closing%201-8-2020.pdf?id=1171" title="School Year Calendar ">School Year Calendar </a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/home" title="Jr/Sr. High School">Jr/Sr. High School</a></li>
+<li class="without-image"><a href="/2/home" title="Elementary School">Elementary School</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration" title="Our Departments">Our Departments</a></li>
+<li class="without-image"><a href="/Content/30" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/content/cafemain" title="cafeteria">Cafeteria</a></li>
+<li class="without-image"><a href="/Content/6" title="guidance">Guidance</a></li>
+<li class="without-image"><a href="/Content/52" title="maintenance">Maintenance</a></li>
+<li class="without-image"><a href="/Content/72" title="School Nurse">School Nurse</a></li>
+<li class="without-image"><a href="/content/-content-48" title="Special Education">Special Education</a></li>
+<li class="without-image"><a href="/Content/66" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/Content/62" title="transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+</ul>
+<ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="https://futurereadypa.org/District/FastFacts?id=145220008197054111215253084014007056042080152027" target="_blank" title="District Fast Facts">District Fast Facts</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Menus">Menus  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/8/my%20files/march%20breakfast%20%20menu%202020.pdf?id=1232" title="March Breakfast">March Breakfast</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/elementary%20march%20menu%202020.pdf?id=1234" title="March Elementary Lunch">March Elementary Lunch</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/hs%20march%20menu%202020.pdf?id=1233" title="March High School Lunch">March High School Lunch</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/april%202020%20nutrition%20nuggets.pdf?id=1241" aria-label="" title="April 2020 Nutrition Nuggets">April 2020 Nutrition Nuggets</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Athletics">Athletics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/30" title="Athletic Information">Athletic Information</a></li>
+<li class="without-image"><a href="https://sfindianathletics.bigteams.com/" title="Schedules">Schedules</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Photo Galleries">Photo Galleries  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/2/Gallery" title="Elementary Photo Gallery">Elementary Photo Gallery</a></li>
+<li class="without-image"><a href="/1/Gallery" title="High School Gallery">High School Gallery</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parent &amp; Community Information">Parent &amp; Community Information  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/38" title="Chaperone &amp; Volunteer Information">Chaperone &amp; Volunteer Information</a></li>
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/44" title="Enrollment">Enrollment</a></li>
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/42" title="School Safety">School Safety</a></li>
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/48" title="Special Education/Gifted">Special Education/Gifted</a></li>
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/40" title="Homelessness/McKinney Vento">Homelessness/McKinney Vento</a></li>
+<li class="without-image"><a href="https://www.sfsd.k12.pa.us/District/Links-Forms" title="District Form/Links">District Form/Links</a></li>
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/60" title="Right to Know">Right to Know</a></li>
+<li class="without-image"><a href="https://www.sfedfoundation.org/" title="Southern Fulton Education Foundation">Southern Fulton Education Foundation</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/missionvisionsharedvalues.pdf?id=871" title="SFSD Mission">SFSD Mission</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="SFSD Comprehensive Plan">SFSD Comprehensive Plan  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/8/my%20files/sfsdcomprehensiveplan2016-2019.pdf?id=152" title="2016-2019 Comprehensive Plan">2016-2019 Comprehensive Plan</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/2019%20comprehensive%20plan.pdf?id=985" title="Comprehensive Plan Updates">Comprehensive Plan Updates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/content/20" aria-label="" title="Teacher Resources">Teacher Resources</a></li>
+</ul></nav>
+</div>
+
+    
+
+        </header><script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({
+			effect: 'fade',
+			pauseTime: 3000,
+			prevText: 'Prev',
+			nextText: 'Next',
+			animSpeed: 500,
+			afterLoad: function () {
+				if (typeof nivoAfterLoad === 'function' && nivoAfterLoad !== 'undefined') {
+					nivoAfterLoad();
+				}
+			},
+			beforeChange: function () {
+				if (typeof nivoBeforeChange === 'function' && nivoBeforeChange !== 'undefined') {
+					nivoBeforeChange();
+				}
+			},
+			afterChange: function () {
+				if (typeof nivoAfterChange === 'function' && nivoAfterChange !== 'undefined') {
+					nivoAfterChange();
+				}
+			}
+		});
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+		var slider = jQuery('.slides');
+
+		var nivoStartStopControl = jQuery('<div class="nivo-startstopNav"></div>');
+		$('#slideshow').append(nivoStartStopControl);
+        nivoStartStopControl.append('<span tabindex="0" href="#" id="nivoStart" title="Play Slideshow"><span><i class="fa fa-play" aria-hidden="true"></i></span><span class="obscure">play slideshow</span></span> <span tabindex="0" href="#" id="nivoStop" title="Pause Slideshow"><span><i class="fa fa-pause" aria-hidden="true"></i><span class="obscure">stop slideshow</span></span></span>');
+
+		jQuery('#nivoStop').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').stop();
+		});
+
+		jQuery('#nivoStart').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').start();
+		});
+	});
+</script><style type="text/css">
+	.nivo-startstopNav {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		z-index: 3;
+	}
+
+	.nivo-startstopNav .fa {
+		width: 25px;
+		height: 25px;
+		color: #000;
+		background-color: #fff;
+		border-radius: 50%;
+		font-size: 15px;
+		text-align: center;
+		line-height: 25px;
+	}
+
+	.nivo-startstopNav .fa:hover {
+		cursor: pointer;
+	}
+</style>
+<div id="slideshow" class="">
+	<div class="slides">
+		
+				<img title="SF Elementary School Building" alt="SF Elementary School Building" src="/images/full//userfiles/2019-04/9c8ed265-5f0f-4441-b793-7070da2bce92.jpg?rotate=180"><img title="Southern Fulton Jr/Sr High School" alt="Southern Fulton Jr/Sr High School Building" src="/images/full//userfiles/2018-09/f7a39592-0f77-4496-b2e1-0f421a2d96a1.jpg">
+</div>
+	
+	<img src="/userfiles/-18/My%20Files/Gallery-Gradient.png?id=1" class="slideshow-overlay" alt="Slideshow overlay image">
+</div>
+
+
+        <script>
+            $(document).ready(function () {
+                $('#GrabMainNav').appendTo('#slideshow');
+
+                $('#slideshow #GrabMainNav').css({
+                    'position': 'absolute',
+                    'bottom': 0,
+                    'left': 0,
+                    'width': '100%',
+                    'z-index': 7
+                });
+            });
+        </script><section id="site-body"><div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+
+    <div class="bg-body1">
+        <div class="container">
+            <div class="row">
+                <div class="hidden-xs col-sm-4 col-md-3">
+                    <nav id="LeftLinks" class="homepage"><h2 class="sectionHeader shadow">Quick Links</h2>
+
+                        <ul class="">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="https://futurereadypa.org/District/FastFacts?id=145220008197054111215253084014007056042080152027" target="_blank" title="District Fast Facts">District Fast Facts</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Menus">Menus  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/8/my%20files/march%20breakfast%20%20menu%202020.pdf?id=1232" title="March Breakfast">March Breakfast</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/elementary%20march%20menu%202020.pdf?id=1234" title="March Elementary Lunch">March Elementary Lunch</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/hs%20march%20menu%202020.pdf?id=1233" title="March High School Lunch">March High School Lunch</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/april%202020%20nutrition%20nuggets.pdf?id=1241" aria-label="" title="April 2020 Nutrition Nuggets">April 2020 Nutrition Nuggets</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Athletics">Athletics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/30" title="Athletic Information">Athletic Information</a></li>
+<li class="without-image"><a href="https://sfindianathletics.bigteams.com/" title="Schedules">Schedules</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Photo Galleries">Photo Galleries  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/2/Gallery" title="Elementary Photo Gallery">Elementary Photo Gallery</a></li>
+<li class="without-image"><a href="/1/Gallery" title="High School Gallery">High School Gallery</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parent &amp; Community Information">Parent &amp; Community Information  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/38" title="Chaperone &amp; Volunteer Information">Chaperone &amp; Volunteer Information</a></li>
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/44" title="Enrollment">Enrollment</a></li>
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/42" title="School Safety">School Safety</a></li>
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/48" title="Special Education/Gifted">Special Education/Gifted</a></li>
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/40" title="Homelessness/McKinney Vento">Homelessness/McKinney Vento</a></li>
+<li class="without-image"><a href="https://www.sfsd.k12.pa.us/District/Links-Forms" title="District Form/Links">District Form/Links</a></li>
+<li class="without-image"><a href="http://www.sfsd.k12.pa.us/Content/60" title="Right to Know">Right to Know</a></li>
+<li class="without-image"><a href="https://www.sfedfoundation.org/" title="Southern Fulton Education Foundation">Southern Fulton Education Foundation</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/missionvisionsharedvalues.pdf?id=871" title="SFSD Mission">SFSD Mission</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="SFSD Comprehensive Plan">SFSD Comprehensive Plan  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/8/my%20files/sfsdcomprehensiveplan2016-2019.pdf?id=152" title="2016-2019 Comprehensive Plan">2016-2019 Comprehensive Plan</a></li>
+<li class="without-image"><a href="/userfiles/8/my%20files/2019%20comprehensive%20plan.pdf?id=985" title="Comprehensive Plan Updates">Comprehensive Plan Updates</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/content/20" aria-label="" title="Teacher Resources">Teacher Resources</a></li>
+</ul></nav>
+</div>
+
+                <div class="col-xs-12 col-sm-8 col-md-9">
+                    <div class="row">
+                        <div class="col-xs-12 col-lg-8">
+                            <div class="wrap-news">
+                                <h2 class="sectionHeader">District News</h2>
+
+                                
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl01_lnkTitle" class="news-title" href="/News/114">SFSD Free Food Program</a>
+
+				<span class="news-post-date">Posted On: Monday, April 27, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl01_lblSummary" class="news-summary"><p>The SFSD will be providing bagged meals (breakfast and lunch) during the month of May.  Meals will be prepared by our kitchen staff at the Elementary school. Meals will be provided to any and all students starting on Friday, May 1 at the elementary school from 11:30 a.m. - 1:00 p.m.  Students MUST be present at pick-up to receive the food.  You will remain in your car and be handed the items as all social distancing rules will be in effect. After the initial pick-up on Friday, May 1, meals will be provided every Monday and Thursday from 11:30 a.m. - 1:00 p.m.  When you arrive on Monday you will receive meals for Monday, Tuesday, and Wednesday. When you arrive on Thursday you will receive meals for Thursday and Friday. There will not be a pick-up on Memorial Day. When you pick up on Thursday, May 21st you will receive meals for 5 days. The last day for meal pick-ups will be Thursday, May 28th. </p>
+
+<p> </p>
+
+<p><span class="Underline" style="text-decoration:underline;"><strong>Breakfast Menu</strong></span></p>
+
+<p>Muffins, cereal bar, bagel, cinnamon roll, cereal bowl<br>
+Juice<br>
+Milk</p>
+
+<p><a href="/userfiles/8/my%20files/5%20day%20lunch%20menu.pdf?id=1319"><span class="Underline" style="text-decoration:underline;"><strong>Lunch Menu</strong></span></a></p>
+
+<p>*Food may vary due to food shortages by suppliers.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_lnkTitle" class="news-title" href="/News/112">Student Google Account Information</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 15, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_lblSummary" class="news-summary"><p>Information regarding SF Google accounts for students</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_lnkViewAll" title="Click to read more about: Student Google Account Information" class="view-all" href="/News/112">Read More <span class="sr-only">about Student Google Account Information</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl03_lnkTitle" class="news-title" href="/News/111">Track &amp; Soccer Grandstand Request for Proposals</a>
+
+				<span class="news-post-date">Posted On: Monday, April 13, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl03_lblSummary" class="news-summary"><p><a href="/userfiles/8/my%20files/track&amp;soccer%20grandstand%20rfp.pdf?id=1314">Track/Soccer Grandstand RFP</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl04_lnkTitle" class="news-title" href="/News/110">Retaining Wall Request for Proposals</a>
+
+				<span class="news-post-date">Posted On: Monday, April 13, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl04_lblSummary" class="news-summary"><p><a href="/userfiles/8/my%20files/retaining%20wall%20rfp%20(final).pdf?id=1313">Repair of Retaining Wall RFP</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl05_lnkTitle" class="news-title" href="/News/109">Southern Fulton Comprehensive Plan</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 9, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl05_lblSummary" class="news-summary"><p><a href="/userfiles/8/my%20files/southern-fulton-sd_comprehensive-plan_4-2-2020%20(1).pdf?id=1312">Southern Fulton SD  District Level Plan 07/07/2020-06/30/2023</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl06_lnkTitle" class="news-title" href="/News/106">*** Change *** Schools Closed</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 1, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl06_lblSummary" class="news-summary"><p>*** Change *** Governor Wolf has announced that all schools are now closed for the remainder of the 2019-2020 school year due to growing concerns statewide about the spread of the Coronavirus (COVID-19).</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl07_lnkTitle" class="news-title" href="/News/101">SF Continuity of Education Plan</a>
+
+				<span class="news-post-date">Posted On: Monday, March 30, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl07_lblSummary" class="news-summary"><p>Southern Fulton has created a Continuity of Education plan that provides information as to how students are to be educated while our schools are shutdown.  <a href="/userfiles/3/my%20files/district%20office/continuityoeducationplansubmissiontemplate20200326.pdf?id=1302">Click here to view the plan</a>.</p>
+
+<p><a href="/userfiles/8/my%20files/resources%20for%20k-12%20teachers_students%20-%20resources%20for%20k-12%20teachers_students.pdf?id=1311">Click here</a> to view Resources for K-12 Teachers/Students.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl08_lnkTitle" class="news-title" href="/News/96">United Way Covid 19 Relief Fund</a>
+
+				<span class="news-post-date">Posted On: Thursday, March 19, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl08_lblSummary" class="news-summary"><p>If you need assistance finding food, paying housing bills, accessing free childcare, or other essential services, please click on the link below.</p>
+
+<p> </p>
+
+<p><a href="http://www.211.org/services/covid19">http://www.211.org/services/covid19</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl09_lnkTitle" class="news-title" href="/News/87">Talking to Children about COVID-19 - Parent Resource</a>
+
+				<span class="news-post-date">Posted On: Friday, March 6, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl09_lblSummary" class="news-summary"><p>Click Here for an informational PDF released by NASP and NASN regarding COVID-19 (Coronavirus)</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl09_lnkViewAll" title="Click to read more about: Talking to Children about COVID-19 - Parent Resource" class="view-all" href="/News/87">Read More <span class="sr-only">about Talking to Children about COVID-19 - Parent Resource</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl10_lnkTitle" class="news-title" href="/News/80">2020-2021 Kindergarten Registration</a>
+
+				<span class="news-post-date">Posted On: Wednesday, March 4, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl10_lblSummary" class="news-summary"><p><strong>CORRECTION: Southern Fulton School District will be having kindergarten registration on June 1, 2020, and June 2, 2020.   If you have children that will be 5 years old before August 1, 2020, please call the elementary school at 717-294-3400 to have your child placed on the registration list.</strong></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl11_lnkTitle" class="news-title" href="/News/75">2020-2021 Pre-Kindergarten Application</a>
+
+				<span class="news-post-date">Posted On: Monday, January 13, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl11_lblSummary" class="news-summary"><p>Please complete, save, and email the application to hbrewer@fcfpinc.org. </p>
+
+<p><a href="/userfiles/8/my%20files/fillable%20sf%20prek%202021%20application%20(1).pdf?id=1315">2020-2021 PreK Application and Information </a></p>
+
+<p>If you have the ability to print it out, you are welcome to do that and mail it to Hannah Brewer at:</p>
+
+<p> </p>
+
+<p>Attn: Hannah Brewer</p>
+
+<p>22438 Great Cove Road</p>
+
+<p>McConnellsburg, PA 17233</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl12_lnkTitle" class="news-title" href="/News/40">Safe 2 Say Something</a>
+
+				<span class="news-post-date">Posted On: Monday, March 18, 2019</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl12_lblSummary" class="news-summary"><p><img alt="Safe 2 Say" src="/userfiles/8/my%20files/safe%20to%20say.png?id=622&amp;width=350" style="width: 350px;"></p>
+
+<p><a href="/userfiles/8/my%20files/program%20overview.pdf?id=623"><span class="Underline" style="text-decoration:underline;"><strong>Program Overview</strong></span></a></p>
+
+<p><a href="/userfiles/8/my%20files/s2ss.parentbrochure.pdf?id=624"><span class="Underline" style="text-decoration:underline;"><strong>Parent Brochure</strong></span></a></p>
+
+<p><a href="/userfiles/8/my%20files/s2ss.parentletter%20(1).pdf?id=625"><span class="Underline" style="text-decoration:underline;"><strong>Parent Letter</strong></span></a></p>
+
+<p><a href="http://www.safe2saypa.org/"><span class="Underline" style="text-decoration:underline;"><strong>Safe 2 Say Something Website</strong></span></a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl13_lnkTitle" class="news-title" href="/News/3">Parent and Student access for grades and attendance</a>
+
+				<span class="news-post-date">Posted On: Sunday, July 1, 2018</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl13_lblSummary" class="news-summary"><p>Instructions for accessing our Powerschool student grades and attendance system</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl13_lnkViewAll" title="Click to read more about: Parent and Student access for grades and attendance" class="view-all" href="/News/3">Read More <span class="sr-only">about Parent and Student access for grades and attendance</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+                        </div>
+
+                        <div class="col-xs-12 col-lg-4">
+                            <h2 class="sectionHeader shadow">Upcoming Events</h2>
+
+                            
+
+<div class="wrap-events">
+	
+
+			<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-2093 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					May 11
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2093" title="Safety Committee Meeting">
+						Safety Committee Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Elementary Library
+				</div>
+
+				<div class="event-time">
+					Begins @ 4:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2094 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					May 19
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2094" title="Work Session &amp; Board Meeting">
+						Work Session &amp; Board Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Southern Fulton Jr/Sr High School
+				</div>
+
+				<div class="event-time">
+					Begins @ 7:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2021 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					May 25
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2021" title="No School">
+						No School
+					</a>
+				</div>
+
+				<div class="event-location">
+					
+				</div>
+
+				<div class="event-time">
+					
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2022 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					May 29
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2022" title="Last Day of School">
+						Last Day of School
+					</a>
+				</div>
+
+				<div class="event-location">
+					
+				</div>
+
+				<div class="event-time">
+					Begins @ 12:00 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2023 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Jun 1
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2023" title="Teacher In Service">
+						Teacher In Service
+					</a>
+				</div>
+
+				<div class="event-location">
+					
+				</div>
+
+				<div class="event-time">
+					
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2095 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Jun 23
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2095" title="Work Session &amp; Board Meeting">
+						Work Session &amp; Board Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Southern Fulton Jr/Sr High School
+				</div>
+
+				<div class="event-time">
+					Begins @ 7:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2093 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Jul 13
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2093" title="Safety Committee Meeting">
+						Safety Committee Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Elementary Library
+				</div>
+
+				<div class="event-time">
+					Begins @ 4:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2096 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Jul 21
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2096" title="Work Session &amp; Board Meeting">
+						Work Session &amp; Board Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Southern Fulton Jr/Sr High School
+				</div>
+
+				<div class="event-time">
+					Begins @ 7:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2096 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Aug 18
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2096" title="Work Session &amp; Board Meeting">
+						Work Session &amp; Board Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Southern Fulton Jr/Sr High School
+				</div>
+
+				<div class="event-time">
+					Begins @ 7:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2093 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Sep 14
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2093" title="Safety Committee Meeting">
+						Safety Committee Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Elementary Library
+				</div>
+
+				<div class="event-time">
+					Begins @ 4:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2096 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Sep 15
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2096" title="Work Session &amp; Board Meeting">
+						Work Session &amp; Board Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Southern Fulton Jr/Sr High School
+				</div>
+
+				<div class="event-time">
+					Begins @ 7:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2096 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Oct 20
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2096" title="Work Session &amp; Board Meeting">
+						Work Session &amp; Board Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Southern Fulton Jr/Sr High School
+				</div>
+
+				<div class="event-time">
+					Begins @ 7:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2093 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Nov 9
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2093" title="Safety Committee Meeting">
+						Safety Committee Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Elementary Library
+				</div>
+
+				<div class="event-time">
+					Begins @ 4:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2096 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Nov 17
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2096" title="Work Session &amp; Board Meeting">
+						Work Session &amp; Board Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Southern Fulton Jr/Sr High School
+				</div>
+
+				<div class="event-time">
+					Begins @ 7:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2097 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Dec 1
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2097" title="Board Reorganization Meeting">
+						Board Reorganization Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					
+				</div>
+
+				<div class="event-time">
+					Begins @ 7:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2093 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Jan 11
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2093" title="Safety Committee Meeting">
+						Safety Committee Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Elementary Library
+				</div>
+
+				<div class="event-time">
+					Begins @ 4:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			<li class="upcoming-events-event event-2093 clearfix">
+				<i class="fa fa-calendar"></i>
+
+				<div class="eventDate">
+					Mar 8
+				</div>
+
+				<div class="eventTitle">
+					<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=2093" title="Safety Committee Meeting">
+						Safety Committee Meeting
+					</a>
+				</div>
+
+				<div class="event-location">
+					@Elementary Library
+				</div>
+
+				<div class="event-time">
+					Begins @ 4:30 PM
+				</div>
+				<div id="eventDivider"></div>
+
+			</li>
+		
+			</ul></section><footer><a id="ctl00_ctl00_MasterContent_ctl02_hl_viewAllEvents" class="view-all-events" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/29/2020">View Full Calendar</a>
+	</footer>
+</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </section><footer id="site-foot"><div class="bg-footer1">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-9">
+				<h2 class="footerHeader">Contact Us</h2>
+
+				<div class="row">
+					<div class="col-xs-12 col-sm-4">
+						<h2 class="footerName">
+							Southern Fulton School District
+						</h2>
+
+						<div>
+                            3072 Great Cove Road Suite 100
+                            Warfordsburg, PA 17267
+                            <div>Ph: (717)294-2203</div>
+                            <div>Fax: (717)294-2207</div>
+						</div>
+					</div>
+                    <div class="col-xs-12 col-sm-4">
+						<h2 class="footerName">
+							Southern Fulton Elementary
+						</h2>
+
+						<div>
+                            3072 Great Cove Road
+                            Warfordsburg, PA 17267
+                            <div>Ph: (717)294-3400</div>
+                            <div>Fax: (717)294-6428</div>
+						</div>
+					</div>
+                    <div class="col-xs-12 col-sm-4">
+						<h2 class="footerName">
+							Southern Fulton High School
+						</h2>
+
+						<div>
+                            13083 Buck Valley Road
+                            Warfordsburg, PA 17267
+                            <div>Ph: (717)294-3251 </div>
+                            <div>Fax: (717)294-6248 </div>
+						</div>					</div>
+
+					<div class="col-xs-12 col-sm-3">
+						<a id="ctl00_ctl00_ctl05_MapLink" class="mapLink" href="https://www.google.com/maps/search/?api=1&amp;query=3072+Great+Cove+Road+Suite+100+Warfordsburg%2c+PA+17267">View Map &amp; Directions</a>
+
+						<div class="wrap-phones">
+							<span id="ctl00_ctl00_ctl05_Phones"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xs-12 col-sm-3">
+				<div class="wrap-social">
+					<h2 class="footerHeader">Stay Connected</h2>
+
+					
+        <a href="/login" title="Content Management Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/intranet" title="Intranet Staff Login" target="_self">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 talignR">
+				<span style="font-size:12px; color:#000;">Powered by: </span><a href="http://www.schoolpointe.com" target="_blank" class="pull-right" alt="SchoolPointe">
+					<img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPblack.png"></a>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-117119388-17', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987">
+</div>
+</form>
+</body>
+</html>

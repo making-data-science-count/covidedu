@@ -1,0 +1,3345 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Midland Public Schools</title>
+<link rel="icon" href="/images//userfiles/4/my%20files/120x54mpstrianglelogo.png?id=2598&amp;width=32" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1491058355">
+<meta name="google-play-app" content="app-id=com.schoolpointe.mi_midlandps">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="https://cdn.schoolpointe.com/images/apple-touch-icon.jpg">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Midland Public Schools", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "https://cdn.schoolpointe.com/images/apple-touch-icon.jpg", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><link rel="alternate" type="application/rss+xml" title="Midland Public Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="H.H. Dow High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Midland High School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Jefferson Middle School - News" href="/rssNews.ashx?schoolId=3">
+<link rel="alternate" type="application/rss+xml" title="Northeast Middle School - News" href="/rssNews.ashx?schoolId=4">
+<link rel="alternate" type="application/rss+xml" title="Adams Elementary School - News" href="/rssNews.ashx?schoolId=5">
+<link rel="alternate" type="application/rss+xml" title="Central Park Elementary School - News" href="/rssNews.ashx?schoolId=6">
+<link rel="alternate" type="application/rss+xml" title="Chestnut Hill Elementary School - News" href="/rssNews.ashx?schoolId=7">
+<link rel="alternate" type="application/rss+xml" title="Plymouth Elementary School - News" href="/rssNews.ashx?schoolId=8">
+<link rel="alternate" type="application/rss+xml" title="Siebert Elementary School - News" href="/rssNews.ashx?schoolId=9">
+<link rel="alternate" type="application/rss+xml" title="Woodcrest Elementary School - News" href="/rssNews.ashx?schoolId=10">
+<link rel="alternate" type="application/rss+xml" title="Carpenter Pre-Primary Center - News" href="/rssNews.ashx?schoolId=12">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "MI_MidlandPS",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link href="https://fonts.googleapis.com/css?family=Crete+Round%7COpen+Sans%7CFjalla+One" rel="stylesheet">
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1581347150983">
+<style>
+        #site-body {
+            padding: 0;
+        }
+    </style>
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.wrap-nav .prev, .wrap-nav .next').on('click', function () {
+                var indexChange = $(this).hasClass('prev') ? -1 : 1;
+                var lis = $(this).siblings('.nav.nav-tabs').find('li');
+                var currentIndex = lis.index(lis.filter('.active'));
+                var newIndex;
+
+                if (currentIndex + indexChange > lis.length - 1) {
+                    newIndex = 0;
+                } else if (currentIndex + indexChange < 0) {
+                    newIndex = lis.length - 1;
+                } else {
+                    newIndex = currentIndex + indexChange;
+                }
+
+                lis.removeClass('active');
+                lis.eq(newIndex).addClass('active');
+
+                var tabs = lis.parents('.wrap-nav').siblings('.tab-content').find('.tab-pane');
+                tabs.removeClass('active');
+                tabs.eq(newIndex).addClass('active');
+            });
+        });
+    </script>
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUENTM4MQ9kFgJmD2QWAmYPZBYEZg9kFgQCAg9kFgICAQ8WAh4LXyFJdGVtQ291bnQCCxYWZg9kFgJmDxUCFEguSC4gRG93IEhpZ2ggU2Nob29sATFkAgEPZBYCZg8VAhNNaWRsYW5kIEhpZ2ggU2Nob29sATJkAgIPZBYCZg8VAhdKZWZmZXJzb24gTWlkZGxlIFNjaG9vbAEzZAIDD2QWAmYPFQIXTm9ydGhlYXN0IE1pZGRsZSBTY2hvb2wBNGQCBA9kFgJmDxUCF0FkYW1zIEVsZW1lbnRhcnkgU2Nob29sATVkAgUPZBYCZg8VAh5DZW50cmFsIFBhcmsgRWxlbWVudGFyeSBTY2hvb2wBNmQCBg9kFgJmDxUCH0NoZXN0bnV0IEhpbGwgRWxlbWVudGFyeSBTY2hvb2wBN2QCBw9kFgJmDxUCGlBseW1vdXRoIEVsZW1lbnRhcnkgU2Nob29sAThkAggPZBYCZg8VAhlTaWViZXJ0IEVsZW1lbnRhcnkgU2Nob29sATlkAgkPZBYCZg8VAhtXb29kY3Jlc3QgRWxlbWVudGFyeSBTY2hvb2wCMTBkAgoPZBYCZg8VAhxDYXJwZW50ZXIgUHJlLVByaW1hcnkgQ2VudGVyAjEyZAIEDxYCHgRocmVmBTAvc2l0ZWNzcy5hc2h4PyZpbnRyYW5ldD0wJmNoZWNrc3VtPTE1ODEzNDcxNTA5ODNkAgEPFgIeBmFjdGlvbgUBLxYKAgEPZBYEAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwMFATBkAgMPD2QWAh8DBQEwZAIEDw9kFgIfAwUBMGQCBQ8PZBYCHwMFATBkAgMPZBYCAgIPDxYCHgdWaXNpYmxlZ2QWAmYPFgIeBFRleHQFsAI8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PGxpPjxzcGFuIGNsYXNzPSdhbGVydERhbmdlckNvbG9yJyBzdHlsZT0nYmFja2dyb3VuZC1jb2xvcjojYWExMTExOyBjb2xvcjojZmZmZmZmJz5BbGVydDo8L3NwYW4+IDxzcGFuIGNsYXNzPSdhbGVydFRleHRJbmZvJz48cD5NUFMgQ29udGludWl0eSBvZiBMZWFybmluZyBQbGFuIFJlbGVhc2VkISA8YSBocmVmPSJodHRwOi8vd3d3Lm1pZGxhbmRwcy5vcmcvQ29udGVudC9tcHMtY29udGludWl0eS1vZi1sZWFybmluZy1wbGFuIj5WaWV3IGl0IGhlcmU8L2E+PC9wPjwvc3Bhbj48L2xpPjwvdWw+ZAIDD2QWAgIBD2QWBgIBDw8WAh8FBRZNaWRsYW5kIFB1YmxpYyBTY2hvb2xzZGQCAw9kFgJmDxYCHwACBhYMZg9kFgJmDxUFBi9sb2dpbgVMb2dpbgVfc2VsZiY8c3BhbiBjbGFzcz0nb2JzY3VyZSc+Q01TIExvZ2luPC9zcGFuPg1mYSBmYS1zaWduLWluZAIBD2QWAmYPFQUWaHR0cHM6Ly93d3cuZ29vZ2xlLmNvbQZHb29nbGUFX3NlbGYjPHNwYW4gY2xhc3M9J29ic2N1cmUnPkdvb2dsZTwvc3Bhbj4MZmEgZmEtZ29vZ2xlZAICD2QWAmYPFQUdaHR0cHM6Ly90d2l0dGVyLmNvbS9NaWRsYW5kUFMHVHdpdHRlcgZfYmxhbmskPHNwYW4gY2xhc3M9J29ic2N1cmUnPlR3aXR0ZXI8L3NwYW4+FGZhIGZhLXR3aXR0ZXItc3F1YXJlZAIDD2QWAmYPFQUaaHR0cHM6Ly93d3cuc2Nob29scGF5LmNvbS8JU2Nob29sUGF5Bl9ibGFuayc8c3BhbiBjbGFzcz0nb2JzY3VyZSc+UGlnZ3kgQmFuazwvc3Bhbj4QY3VzdG9tIHBpZ2d5YmFua2QCBA9kFgJmDxUFMWh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3VzZXIvTWlkbGFuZFB1YmxpY1NjaG9vbHMHWW91dHViZQZfYmxhbmskPHNwYW4gY2xhc3M9J29ic2N1cmUnPllvdVR1YmU8L3NwYW4+FGZhIGZhLXlvdXR1YmUtc3F1YXJlZAIFD2QWAmYPFQULL2FkYS1yZXBvcnQNQURBIFJlcG9ydGluZwVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+QURBIExpbms8L3NwYW4+FmZhIGZhLXVuaXZlcnNhbC1hY2Nlc3NkAgUPDxYCHwUFFk1pZGxhbmQgUHVibGljIFNjaG9vbHNkZAIFD2QWCgIBD2QWBGYPFgIfAAICZAIBDxYCHwUFNjxzdHlsZT4jc2xpZGVzaG93e3Bvc2l0aW9uOnJlbGF0aXZlO3otaW5kZXg6MTs8L3N0eWxlPmQCAw9kFgZmDxYCHwUFDiNLZWVwSXRLaW5kTVBTZAIBDxYCHwUF+gI8cD5NUFPigJkg4oCca2luZG5lc3MgY2FtcGFpZ27igJ0gbGF1bmNoZWQgd2l0aCB0aGUgYmVnaW5uaW5nIG9mIHRoaXMgc2Nob29sIHllYXI8L3A+DQo8cD5XZSBrbm93IHRoYXQgS2luZG5lc3Mgc3VwcG9ydHMgU29jaWFsIEVtb3Rpb25hbCBMZWFybmluZyBza2lsbHMsIGlzIGNvbnRhZ2lvdXMsIGluc3BpcmVzIGdlbmVyb3NpdHkgYW5kIGNvbXBhc3Npb24gYW5kIG11Y2ggbW9yZS4gPC9wPg0KPHA+U3RheSB0dW5lZCBmb3IgdXBkYXRlcyBhcyBNUFMgc3R1ZGVudHMgYW5kIHN0YWZmIHNoYXJlIGtpbmRuZXNzIG9wcG9ydHVuaXRpZXMgYW5kIG9jY3VycmVuY2VzIHdpdGggZmVsbG93IHN0dWRlbnRzIGFuZCB0aHJvdWdob3V0IHRoZSBjb21tdW5pdHkhIDwvcD5kAgMPDxYCHgtOYXZpZ2F0ZVVybAUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0xZGQCBQ9kFgZmDxYCHwUFLE1QUyBJTkNMVVNJT04gJiBESVZFUlNJVFkgIFZJU0lPTiBTVEFURU1FTlQgZAIBDxYCHwUFoAE8cD5FdmVyeW9uZSBpbiBvdXIgc2Nob29sIGNvbW11bml0eSBpcyB2YWx1ZWQsIHNhZmUsIHRyZWF0ZWQgd2l0aCBraW5kbmVzcyBhbmQgcmVzcGVjdCwgYW5kIHdvcmtzIHRvZ2V0aGVyIHRvIG1ha2Ugb3VyIGNvbW11bml0eSAgYW5kICB3b3JsZCBhIGJldHRlciBwbGFjZS48L3A+ZAIDDw8WAh8GBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTJkZAIHD2QWBmYPFgIfBQULT3VyIE1pc3Npb25kAgEPFgIfBQW1ATxwPiJNaWRsYW5kIFB1YmxpYyBTY2hvb2xzLCBpbiBwYXJ0bmVyc2hpcCB3aXRoIG91ciBjb21tdW5pdHksIHByZXBhcmVzIHN0dWRlbnRzIGFzIGtub3dsZWRnZWFibGUsIHNlbGYtcmVsaWFudCwgY29vcGVyYXRpdmUgYW5kIGV0aGljYWwgbGVhcm5lcnMgd2hvIGFyZSBjb250cmlidXRpbmcgY2l0aXplbnMuIjwvcD5kAgMPDxYCHwYFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9M2RkAg8PZBYGAgEPZBYGZg8WAh8FBQ4jS2VlcEl0S2luZE1QU2QCAQ8WAh8FBfoCPHA+TVBT4oCZIOKAnGtpbmRuZXNzIGNhbXBhaWdu4oCdIGxhdW5jaGVkIHdpdGggdGhlIGJlZ2lubmluZyBvZiB0aGlzIHNjaG9vbCB5ZWFyPC9wPg0KPHA+V2Uga25vdyB0aGF0IEtpbmRuZXNzIHN1cHBvcnRzIFNvY2lhbCBFbW90aW9uYWwgTGVhcm5pbmcgc2tpbGxzLCBpcyBjb250YWdpb3VzLCBpbnNwaXJlcyBnZW5lcm9zaXR5IGFuZCBjb21wYXNzaW9uIGFuZCBtdWNoIG1vcmUuIDwvcD4NCjxwPlN0YXkgdHVuZWQgZm9yIHVwZGF0ZXMgYXMgTVBTIHN0dWRlbnRzIGFuZCBzdGFmZiBzaGFyZSBraW5kbmVzcyBvcHBvcnR1bml0aWVzIGFuZCBvY2N1cnJlbmNlcyB3aXRoIGZlbGxvdyBzdHVkZW50cyBhbmQgdGhyb3VnaG91dCB0aGUgY29tbXVuaXR5ISA8L3A+ZAIDDw8WAh8GBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTFkZAIDD2QWBmYPFgIfBQUsTVBTIElOQ0xVU0lPTiAmIERJVkVSU0lUWSAgVklTSU9OIFNUQVRFTUVOVCBkAgEPFgIfBQWgATxwPkV2ZXJ5b25lIGluIG91ciBzY2hvb2wgY29tbXVuaXR5IGlzIHZhbHVlZCwgc2FmZSwgdHJlYXRlZCB3aXRoIGtpbmRuZXNzIGFuZCByZXNwZWN0LCBhbmQgd29ya3MgdG9nZXRoZXIgdG8gbWFrZSBvdXIgY29tbXVuaXR5ICBhbmQgIHdvcmxkIGEgYmV0dGVyIHBsYWNlLjwvcD5kAgMPDxYCHwYFGy9mZWF0dXJlQ29udGVudC5hc3B4P3Jhbms9MmRkAgUPZBYGZg8WAh8FBQtPdXIgTWlzc2lvbmQCAQ8WAh8FBbUBPHA+Ik1pZGxhbmQgUHVibGljIFNj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Pg0KCQkJPGgyPlRvcCA1JTwvaDI+DQoJCQk8L2NlbnRlcj4NCgkJCTwvdGQ+DQoJCQk8dGQ+Jm5ic3A7Jm5ic3A7Jm5ic3A7PC90ZD4NCgkJCTx0ZD4NCgkJCTxjZW50ZXI+DQoJCQk8aDI+UmFua2VkICMxPC9oMj4NCgkJCTwvY2VudGVyPg0KCQkJPC90ZD4NCgkJCTx0ZD4mbmJzcDsmbmJzcDsmbmJzcDs8L3RkPg0KCQkJPHRkPg0KCQkJPGNlbnRlcj4NCgkJCTxoMj5SYW5rZWQgIzIyPC9oMj4NCgkJCTwvY2VudGVyPg0KCQkJPC90ZD4NCgkJCTx0ZD4mbmJzcDsmbmJzcDsmbmJzcDs8L3RkPg0KCQkJPHRkPg0KCQkJPGNlbnRlcj4NCgkJCTxoMj5SYW5rZWQgIzI1PC9oMj4NCgkJCTwvY2VudGVyPg0KCQkJPC90ZD4NCgkJPC90cj4NCgkJPHRyPg0KCQkJPHRkPg0KCQkJPGNlbnRlcj48c3Ryb25nPjcsNzk4PC9zdHJvbmc+PC9jZW50ZXI+DQoJCQk8L3RkPg0KCQkJPHRkPiZuYnNwOyZuYnNwOyZuYnNwOzwvdGQ+DQoJCQk8dGQ+DQoJCQk8Y2VudGVyPjxzdHJvbmc+TVBTIHJhbmtzIGluIHRoZSB0b3AgNSUgb2YgZGlzdHJpY3RzIGluIHRoZSBOQVRJT048L3N0cm9uZz48L2NlbnRlcj4NCgkJCTwvdGQ+DQoJCQk8dGQ+Jm5ic3A7Jm5ic3A7Jm5ic3A7PC90ZD4NCgkJCTx0ZD4NCgkJCTxjZW50ZXI+PHN0cm9uZz5CZXN0IHNjaG9vbCBkaXN0cmljdCBpbiB0aGUgU2FnaW5hdyBBcmVhKG91dCBvZiAyMSBkaXN0cmljdHMpIDwvc3Ryb25nPjwvY2VudGVyPg0KCQkJPC90ZD4NCgkJCTx0ZD4mbmJzcDsmbmJzcDsmbmJzcDs8L3RkPg0KCQkJPHRkPg0KCQkJPGNlbnRlcj48c3Ryb25nPkRpc3RyaWN0IHdpdGggdGhlIGJlc3QgdGVhY2hlcnMgaW4gTWljaGlnYW4gPC9zdHJvbmc+PC9jZW50ZXI+DQoJCQk8L3RkPg0KCQkJPHRkPiZuYnNwOyZuYnNwOyZuYnNwOzwvdGQ+DQoJCQk8dGQ+DQoJCQk8Y2VudGVyPjxzdHJvbmc+QmVzdCBwbGFjZXMgdG8gdGVhY2ggaW4gTWljaGlnYW48L3N0cm9uZz48L2NlbnRlcj4NCgkJCTwvdGQ+DQoJCTwvdHI+DQoJPC90Ym9keT4NCjwvdGFibGU+ZAIDDw8WAh8GBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPThkZAIPD2QWAgIBD2QWCGYPFgIfBQUWTWlkbGFuZCBQdWJsaWMgU2Nob29sc2QCAQ8PFgIfBQVcNjAwIEUgQ2FycGVudGVyIFN0PGJyIC8+TWlkbGFuZCwgTUkgNDg2NDA8aSBjbGFzcz0iZmEgZmEtbWFwLW1hcmtlciIgYXJpYS1oaWRkZW49InRydWUiPjwvaT5kZAICDw8WAh8FBUQ8aSBjbGFzcz0iZmEgZmEtcGhvbmUiIGFyaWEtaGlkZGVuPSJ0cnVlIj48L2k+IFBob25lOiAoOTg5KSA5MjMtNTAwMWRkAgMPZBYCZg8WAh8AAgYWDGYPZBYCZg8VBQYvbG9naW4FTG9naW4FX3NlbGYmPHNwYW4gY2xhc3M9J29ic2N1cmUnPkNNUyBMb2dpbjwvc3Bhbj4NZmEgZmEtc2lnbi1pbmQCAQ9kFgJmDxUFFmh0dHBzOi8vd3d3Lmdvb2dsZS5jb20GR29vZ2xlBV9zZWxmIzxzcGFuIGNsYXNzPSdvYnNjdXJlJz5Hb29nbGU8L3NwYW4+DGZhIGZhLWdvb2dsZWQCAg9kFgJmDxUFHWh0dHBzOi8vdHdpdHRlci5jb20vTWlkbGFuZFBTB1R3aXR0ZXIGX2JsYW5rJDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5Ud2l0dGVyPC9zcGFuPhRmYSBmYS10d2l0dGVyLXNxdWFyZWQCAw9kFgJmDxUFGmh0dHBzOi8vd3d3LnNjaG9vbHBheS5jb20vCVNjaG9vbFBheQZfYmxhbmsnPHNwYW4gY2xhc3M9J29ic2N1cmUnPlBpZ2d5IEJhbms8L3NwYW4+EGN1c3RvbSBwaWdneWJhbmtkAgQPZBYCZg8VBTFodHRwczovL3d3dy55b3V0dWJlLmNvbS91c2VyL01pZGxhbmRQdWJsaWNTY2hvb2xzB1lvdXR1YmUGX2JsYW5rJDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5Zb3VUdWJlPC9zcGFuPhRmYSBmYS15b3V0dWJlLXNxdWFyZWQCBQ9kFgJmDxUFCy9hZGEtcmVwb3J0DUFEQSBSZXBvcnRpbmcFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBMaW5rPC9zcGFuPhZmYSBmYS11bml2ZXJzYWwtYWNjZXNzZGTtbRSVpzCbE37XYPrAAcg8YxnyWA==">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script><script src="/WebResource.axd?d=ciQs-AUcGllikzvJxOn4IY9qdpn5WXYfT_PMnTK91Xt8dksb258BJxYsmn4olEPTocq6JTsZH-_-9MV4tnJ7755rEvo1&amp;t=636284084160000000" type="text/javascript"></script><a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+<style type="text/css">
+    .alertdiv,
+    .alertReShow,
+    .alertList {
+        display: none;
+    }
+
+    .alertTab {
+        margin-left: 20px;
+    }
+
+    .alertTitle {
+        display: inline-block;
+        padding: 2px 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    .nextAlert {
+        background: #676767;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .alertCount {
+        position: absolute;
+        left: -115px;
+    }
+
+    .textalert {
+        color: #ffffff;
+        position: relative;
+    }
+
+    .alertBar {
+        z-index: 10;
+        font-weight: normal;
+        background: #373737;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#373737), to(#202020)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#373737, #202020); /* Chrome 10+, Saf5.1+ */
+        background-image: -moz-linear-gradient(#373737, #202020); /* FF3.6 */
+        background-image: -ms-linear-gradient(#373737, #202020); /* IE10 */
+        background-image: -o-linear-gradient(#373737, #202020); /* Opera 11.10+ */
+        background-image: linear-gradient(#373737, #202020);
+    }
+
+    a.closeAlert {
+        color: #fff;
+        font-size: 20px;
+    }
+
+    a.openAlert {
+        color: #fff;
+        font-size: 20px;
+        padding-right: 18px;
+        padding-top: 3px;
+    }
+
+    .alertDangerColor {
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .alertPrefix {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+        margin: 0;
+        border-radius: 3px;
+        font-size: 18px;
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+    .alertText {
+        display: inline-block;
+        width: 100%;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    #alertTicker > .alertTextInfo,
+    #alertTicker > .alertTextInfo > p:first-child, .alertTextInfo > span:first-child{display:inline;}
+    .popExclam {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .dark.alertBar{color:#fff;}
+     .dark.alertBar a{color:#fff; text-decoration:underline;}
+         .light.alertBar a{ text-decoration:underline;}
+        .popExclam i {
+            color: #aa1111 !important;
+            font-size: 55px;
+        }
+        .exclamText{padding-top:15px;}
+        .bottomRightEcxlam{position:fixed;z-index:1001;bottom:55px; right:25px;display:none;}
+</style>
+<!--[if lte IE 9]>
+	<style type="text/css">
+	    .alertBar {
+            background: #202020;
+        }
+	</style>
+<![endif]--><div id="ctl00_ctl00_ctl05_ctl01_BarAlert">
+	
+    <script>
+        $(document).ready(function () {
+            var startColor = "373737";
+            if (startColor == "ffffff") {
+                $(".alertBar").addClass("light");
+            }
+            else {
+                $(".alertBar").addClass("dark");
+            }
+        });
+
+    </script><div class="alert-margin">
+        <div style="position: relative; padding: 10px 45px 10px 10px;" class="alertdiv alertBar">
+            <div style="max-width: 980px; margin: 0 auto; font-size: 18px" class="textalert">
+                
+
+                <div id="alertTicker" tabindex="0"></div>
+            </div>
+
+            <ul class="alertList"><li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff">Alert:</span> <span class="alertTextInfo"><p>MPS Continuity of Learning Plan Released! <a href="http://www.midlandps.org/Content/mps-continuity-of-learning-plan">View it here</a></p></span>
+</li></ul>
+<div style="position: absolute; right: 20px; top: 5px; z-index: 20;">
+                <a href="javascript:hideAlert()" class="closeAlert">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <span class="obscure">Close alert</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="alertReShow alertBar" style="position: relative; width: 100%; padding: 2px;">
+            <a style="float: right;" href="javascript:loadAlert()" class="openAlert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <span class="obscure">Open alert</span>
+            </a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>
+<div>
+      <a id="exclamationAlert" class="popExclam bottomRightEcxlam"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+</div>
+<script type="text/javascript" src="/admin/js/alert/alertDown.js?version=4"></script><script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'ILxAaM2Kec' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><header id="site-head"><div id="DesktopHeader" class="hidden-xs">
+    <div id="ctl00_ctl00_header_ctl00_bgHeader0" class="bg-header0">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <nav id="veryTopNav"><ul class="">
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf7Wj95lZwb_PYShVQs83na1ldQo-OBVOAxsZdFOm31RoYrEQ/viewform?usp=sf_link" target="_blank" title=" MPS Connect"> MPS Connect</a></li>
+<li class="without-image"><a href="/content/guide-to-enrollment" title=" Your Guide to Enrollment"> Your Guide to Enrollment</a></li>
+<li class="without-image"><a href="/content/Employment%20Opportunities" title="Now Hiring!">Now Hiring!</a></li>
+<li class="without-image"><a href="/content/volunteer-opportunities" title=" VOLUNTEERISM"> VOLUNTEERISM</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech/11-optional-insurance-program?authuser=0" target="_blank" title=" 1:1 Optional Insurance Program FAQs"> 1:1 Optional Insurance Program FAQs</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/content/Summer%20Program" aria-label="" title="Summer eLearning">Summer eLearning</a></li>
+<li class="without-image"><a href="/content/covid-19-coronavirus-information" aria-label="" title="COVID-19 (Coronavirus) Information">COVID-19 (Coronavirus) Information</a></li>
+<li class="without-image"><a href="/content/mps-food-service-during-closure" aria-label="" title="MPS FOOD SERVICE DURING THE MANDATED CLOSURE ">MPS FOOD SERVICE DURING THE MANDATED CLOSURE </a></li>
+<li class="without-image"><a href="/content/community-internet-resources" aria-label="" title="Covid-Related Community &amp; Internet Resources">Covid-Related Community &amp; Internet Resources</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpsweekataglance/home" target="_blank" aria-label="" title="Week At A Glance">Week At A Glance</a></li>
+</ul></nav>
+</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-header1">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-9">
+                    <a id="ctl00_ctl00_header_ctl00_LogoNameLink" class="logoNameLink" href="/">Midland Public Schools</a>
+                </div>
+
+                <div class="col-xs-3">
+                    <div class="wrapRight">
+                        <div class="rightTopLogo">
+                            <div class="wrap-search">
+                                
+
+<div class="search-box">
+	<label for="txtSearchBox" class="obscure">Search site using Google</label><input id="txtSearchBox" type="text" class="search-box-input" placeholder="Search" onkeyup="return tableInputKeyPress(event)"><i class="search-box-go fa fa-search bSearch3"></i>
+</div>
+                            </div>
+
+                            <div class="wrap-social">
+                                
+        <a href="/login" title="Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="https://www.google.com" title="Google" target="_self">
+            <span class="obscure">Google</span>
+            <i class="fa fa-google"></i>
+        </a>
+    
+        <a href="https://twitter.com/MidlandPS" title="Twitter" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter-square"></i>
+        </a>
+    
+        <a href="https://www.schoolpay.com/" title="SchoolPay" target="_blank">
+            <span class="obscure">Piggy Bank</span>
+            <i class="custom piggybank"></i>
+        </a>
+    
+        <a href="https://www.youtube.com/user/MidlandPublicSchools" title="Youtube" target="_blank">
+            <span class="obscure">YouTube</span>
+            <i class="fa fa-youtube-square"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-header2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <nav id="MainNav"><ul class="main-nav">
+<li class="without-image"><a href="http://www.midlandps.org" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Education">Board of Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/board" title="Board of Education Home">Board of Education Home</a></li>
+<li class="without-image"><a href="/content/boemeetingarcive" title="Board of Education Meeting Archive">Board of Education Meeting Archive</a></li>
+<li class="without-image"><a href="https://www.boarddocs.com/mi/midp/Board.nsf/Public?open&amp;id=policies" target="_blank" title="Board of Education Policies">Board of Education Policies</a></li>
+<li class="without-image"><a href="/content/Board%20of%20Education%20Schedule" title="Board of Education Schedule">Board of Education Schedule</a></li>
+<li class="without-image"><a href="/content/boardof-education-study-committee-schedule" title="Board of Education Study Committee Schedule">Board of Education Study Committee Schedule</a></li>
+<li class="without-image"><a href="/content/Notice%20of%20Special%20Board%20of%20Education%20Meetings" title="Notice of Special Board of Education Meetings">Notice of Special Board of Education Meetings</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community">Community  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/Annual%20Education%20Report" title="Annual Education Report">Annual Education Report</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/communityflyers" target="_blank" title="Community Flyers">Community Flyers</a></li>
+<li class="without-image"><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/Community/2018-19%20CROSSING%20GUARD%20INFO.pdf?id=1876" target="_blank" title="Crossing Guard Information">Crossing Guard Information</a></li>
+<li class="without-image"><a href="/content/Facility%20Rentals" title="Facility Rentals">Facility Rentals</a></li>
+<li class="without-image"><a href="/content/Community%20Flyer%20Distribution%20Practices" title="Flyer Distribution Practices">Flyer Distribution Practices</a></li>
+<li class="without-image"><a href="/content/International%20Baccalaureate%20Diploma%20Programme" title="International Baccalaureate">International Baccalaureate</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech" target="_blank" title="MPS Technology Site">MPS Technology Site</a></li>
+<li class="without-image"><a href="/content/MPS-TV" title="MPS-TV">MPS-TV</a></li>
+<li class="without-image"><a href="http://mpstv.midlandps.org/CablecastPublicSite/watch/2?channel=1" target="_blank" title="MPSTV - Watch Online Here">MPSTV - Watch Online Here</a></li>
+<li class="without-image"><a href="/content/Schools%20of%20Choice" title="Schools of Choice">Schools of Choice</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/studentflyers/" target="_blank" title="Student Flyers">Student Flyers</a></li>
+<li class="without-image"><a href="https://www.munetrix.com/Michigan/Schools/BAR/Midland-County-Educational-Service-Agency/District/Midland-Public-Schools" target="_blank" title="Transparency">Transparency</a></li>
+<li class="without-image"><a href="https://twitter.com/MidlandPS" title="Twitter">Twitter</a></li>
+<li class="without-image"><a href="https://eportal.unitedwaymidland.org/mpsvolunteer" target="_blank" title="United for Success (VOLUNTEERS)">United for Success (VOLUNTEERS)</a></li>
+<li class="without-image"><a href="/content/volunteer-opportunities" title="Volunteer Opportunities">Volunteer Opportunities</a></li>
+<li class="without-image"><a href="https://www.youtube.com/user/MidlandPublicSchools" target="_blank" title="Youtube">Youtube</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/marking-periods" title="2018-2019 Marking Periods">2018-2019 Marking Periods</a></li>
+<li class="without-image"><a href="/content/Administrative%20Council" title="Administrative Council">Administrative Council</a></li>
+<li class="without-image"><a href="/content/Attendance%20Areas" title="Attendance Areas">Attendance Areas</a></li>
+<li class="without-image"><a href="/content/Calendar" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/content/Central%20Auditorium" title="Central Auditorium">Central Auditorium</a></li>
+<li class="without-image"><a href="/content/Curriculum" title="Curriculum">Curriculum</a></li>
+<li class="without-image"><a href="/content/Employee%20Awards" title="Employee Awards">Employee Awards</a></li>
+<li class="without-image"><a href="/content/Finance" title="Finance">Finance</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/MidlandPublicSchools" target="_blank" title="Food Services">Food Services</a></li>
+<li class="without-image"><a href="/content/human-resources" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="/content/International%20Baccalaureate%20Diploma%20Programme" title="International Baccalaureate Diploma Programme">International Baccalaureate Diploma Programme</a></li>
+<li class="without-image"><a href="/content/Maintenance" title="Maintenance">Maintenance</a></li>
+<li class="without-image"><a href="/content/media-links" title="Media Center Links">Media Center Links</a></li>
+<li class="without-image"><a href="/harassment-bullying-report" title="MPS Connect">MPS Connect</a></li>
+<li class="without-image"><a href="/content/PATHS" title="Personalized Academics Through High School (PATHS)">Personalized Academics Through High School (PATHS)</a></li>
+<li class="without-image"><a href="/content/safety-drill-information" title="Safety Drill Information">Safety Drill Information</a></li>
+<li class="without-image"><a href="/content/School%20Improvement%20Plan" title="School Improvement">School Improvement</a></li>
+<li class="without-image"><a href="/content/Special%20Services" title="Special Services">Special Services</a></li>
+<li class="without-image"><a href="/content/statement-of-nondiscrimination" title="Statement of Nondiscrimination">Statement of Nondiscrimination</a></li>
+<li class="without-image"><a href="/content/Summer%20Program" title="Summer Program">Summer Program</a></li>
+<li class="without-image"><a href="/content/superintendents-weekly-communique" title="Superintendent's Weekly Communiqué Archive">Superintendent's Weekly Communiqué Archive</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech" target="_blank" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/content/Transportation" title="Transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://www.dhs.midlandps.org/" target="_blank" title="H.H. Dow High School">H.H. Dow High School</a></li>
+<li class="without-image"><a href="http://www.mhs.midlandps.org" target="_blank" title="Midland High School">Midland High School</a></li>
+<li class="without-image"><a href="http://www.jms.midlandps.org" target="_blank" title="Jefferson Middle School">Jefferson Middle School</a></li>
+<li class="without-image"><a href="http://www.nms.midlandps.org" target="_blank" title="Northeast Middle School">Northeast Middle School</a></li>
+<li class="without-image"><a href="http://www.ade.midlandps.org" target="_blank" title="Adams Elementary School">Adams Elementary School</a></li>
+<li class="without-image"><a href="http://www.cpe.midlandps.org" target="_blank" title="Central Park Elementary School">Central Park Elementary School</a></li>
+<li class="without-image"><a href="http://www.che.midlandps.org" target="_blank" title="Chestnut Hill Elementary School">Chestnut Hill Elementary School</a></li>
+<li class="without-image"><a href="http://www.pme.midlandps.org" target="_blank" title="Plymouth Elementary School">Plymouth Elementary School</a></li>
+<li class="without-image"><a href="http://www.sbe.midlandps.org" target="_blank" title="Siebert Elementary School">Siebert Elementary School</a></li>
+<li class="without-image"><a href="http://www.wce.midlandps.org" target="_blank" title="Woodcrest Elementary School">Woodcrest Elementary School</a></li>
+<li class="without-image"><a href="http://www.cpp.midlandps.org" target="_blank" title="Carpenter Pre-Primary Center">Carpenter Pre-Primary Center</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Employees">Employees  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://adminweb.aesoponline.com/access?t=1672734027" target="_blank" title="AESOP Login">AESOP Login</a></li>
+<li class="without-image"><a href="/content/benefits" title="Benefits">Benefits</a></li>
+<li class="without-image"><a href="https://clever.com/in/midlandps/" target="_blank" title="Clever">Clever</a></li>
+<li class="without-image"><a href="http://www.discoveryeducation.com/" target="_blank" title="Discovery Streaming">Discovery Streaming</a></li>
+<li class="without-image"><a href="https://efp5.midlandps.org/gas2.50/wa/r/plus/finplus51" target="_blank" title="EFinancePlus 5.0">EFinancePlus 5.0</a></li>
+<li class="without-image"><a href="https://eac5.midlandps.org/eac51/Login.aspx" target="_blank" title="Employee Access Center">Employee Access Center</a></li>
+<li class="without-image"><a href="/content/Employee%20Awards" title="Employee Awards">Employee Awards</a></li>
+<li class="without-image"><a href="https://esp4.midlandps.org/eSchoolPLUS/Account/LogOn?ReturnUrl=%2feschoolplus" target="_blank" title="ESchoolsPlus">ESchoolsPlus</a></li>
+<li class="without-image"><a href="http://app.espace.cool/" target="_blank" title="ESpace">ESpace</a></li>
+<li class="without-image"><a href="/content/finance" title="Finance">Finance</a></li>
+<li class="without-image"><a href="https://login.schooldude.com/sso/default.aspx?acctnum=837270044&amp;productid=FSD" target="_blank" title="FS Direct ">FS Direct </a></li>
+<li class="without-image"><a href="https://www.gcntraining.com/" target="_blank" title="GCN Training">GCN Training</a></li>
+<li class="without-image"><a href="https://help.midlandps.org/helpdesk/WebObjects/Helpdesk.woa" target="_blank" title="Help Desk">Help Desk</a></li>
+<li class="without-image"><a href="/content/human-resources" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="https://mcesa.illuminateed.com/ise/?prev_page=Main_NotDashboardPage&amp;page=SisLogin" target="_blank" title="Illuminate">Illuminate</a></li>
+<li class="without-image"><a href="/content/insurance" title="Insurance">Insurance</a></li>
+<li class="without-image"><a href="https://midps.sharepoint.com/SitePages/Home.aspx?wa=wsignin1.0" target="_blank" title="Intranet">Intranet</a></li>
+<li class="without-image"><a href="https://www.myschoolbuilding.com/sso/default.aspx?acctnum=837270044&amp;productid=MD" target="_blank" title="Maintenance Work Orders">Maintenance Work Orders</a></li>
+<li class="without-image"><a href="https://phone.mps.k12.mi.us/ucmuser" target="_blank" title="Manage Phone Settings (MPS Network Only)">Manage Phone Settings (MPS Network Only)</a></li>
+<li class="without-image"><a href="https://voicemail.mps.k12.mi.us/ciscopca/home.do" target="_blank" title="Manage Voicemail Settings (MPS Network Only)">Manage Voicemail Settings (MPS Network Only)</a></li>
+<li class="without-image"><a href="https://fs.midlandps.org/MealMagic/login.aspx?ReturnUrl=%2fmealmagic" target="_blank" title="Meal Magic Suite Login">Meal Magic Suite Login</a></li>
+<li class="without-image"><a href="/content/media-links" title="Media Center Links">Media Center Links</a></li>
+<li class="without-image"><a href="https://blended.midlandps.org/" target="_blank" title="Moodle">Moodle</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech" target="_blank" title="MPS Technology Site">MPS Technology Site</a></li>
+<li class="without-image"><a href="https://msdsmanagement.msdsonline.com/2ed0b737-568f-469c-9a8a-fe3e86d1f95a/ebinder/?nas=True" target="_blank" title="MSDS Safety Sheets">MSDS Safety Sheets</a></li>
+<li class="without-image"><a href="http://products.office.com/en-us/student/office-in-education" target="_blank" title="Office365">Office365</a></li>
+<li class="without-image"><a href="https://sts.midlandps.org/adfs/ls/?wa=wsignin1.0&amp;wtrealm=urn:federation:MicrosoftOnline&amp;wctx=wa%3Dwsignin1.0%26whr%3Dsts.mps.k12.mi.us%26wreply%3Dhttps:%252f%252fmidps-my.sharepoint.com%252f_layouts%252f15%252fMySite.aspx?MySiteRedirect%3DAllDocuments" target="_blank" title="OneDrive">OneDrive</a></li>
+<li class="without-image"><a href="https://pmp.mps.k12.mi.us:7272/PassTrixMain.cc" target="_blank" title="Password Manager (MPS Network Only)">Password Manager (MPS Network Only)</a></li>
+<li class="without-image"><a href="/content/payroll" title="Payroll">Payroll</a></li>
+<li class="without-image"><a href="https://midlandps.five-starpivot.com/" target="_blank" title="Pivot">Pivot</a></li>
+<li class="without-image"><a href="https://asp.schoolmessenger.com/midland/" target="_blank" title="SchoolMessenger Login">SchoolMessenger Login</a></li>
+<li class="without-image"><a href="/content/shining-star-nomination-form" title="Shining Star Nomination Form">Shining Star Nomination Form</a></li>
+<li class="without-image"><a href="http://srvmps900100.mps.k12.mi.us/CMApplicationCatalog/" target="_blank" title="Software Center (MPS Network Only)">Software Center (MPS Network Only)</a></li>
+<li class="without-image"><a href="/content/staff-lunches" title="Staff Lunches">Staff Lunches</a></li>
+<li class="without-image"><a href="https://esp4.midlandps.org/TAC/Account/LogOn?ReturnUrl=%2ftac" target="_blank" title="Teacher Access Center">Teacher Access Center</a></li>
+<li class="without-image"><a href="https://eportal.unitedwaymidland.org/mpsvolunteer" target="_blank" title="United for Success">United for Success</a></li>
+<li class="without-image"><a href="https://dbmpsuser.mps.k12.mi.us/" target="_blank" title="User Database (MPS Network Only)">User Database (MPS Network Only)</a></li>
+<li class="without-image"><a href="https://www.gmail.com/" target="_blank" title="Webmail">Webmail</a></li>
+<li class="without-image"><a href="https://mcesa-mcsb-lspolicy2a.mcesa.k12.mi.us/zones/login" target="_blank" title="Web Zone">Web Zone</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents">Parents  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/guide-to-enrollment" title="Your Guide to Enrollment">Your Guide to Enrollment</a></li>
+<li class="without-image"><a href="/content/marking-periods" title="2019-2020 Marking Periods">2019-2020 Marking Periods</a></li>
+<li class="without-image"><a href="/content/Attendance%20Areas" title="Attendance Areas">Attendance Areas</a></li>
+<li class="without-image"><a href="/content/Calendar" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/communityflyers" target="_blank" title="Community Flyers">Community Flyers</a></li>
+<li class="without-image"><a href="/content/Curriculum" title="Curriculum">Curriculum</a></li>
+<li class="without-image"><a href="/content/eLearning" title="eLearning">eLearning</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/MidlandPublicSchools" target="_blank" title="Food Services">Food Services</a></li>
+<li class="without-image"><a href="https://hac.midlandps.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f" target="_blank" title="Home Access Center">Home Access Center</a></li>
+<li class="without-image"><a href="https://hac.midlandps.org/HomeAccess/" target="_blank" title="Homeless Student Assisstance">Homeless Student Assisstance</a></li>
+<li class="without-image"><a href="/Content/700" title="Kindergarten">Kindergarten</a></li>
+<li class="without-image"><a href="/content/media-links" title="Media Center Links">Media Center Links</a></li>
+<li class="without-image"><a href="https://www.midlandps.org/userfiles/4/My%20Files/District%20Site/Parents/Medication-Form.pdf?id=1061" target="_blank" title="Medication Form">Medication Form</a></li>
+<li class="without-image"><a href="https://www.michigan.gov/documents/sos/MI_GDL_Licensing_SOS380_515146_7.pdf" target="_blank" title="Michigan Graduated Drivers Licensing Parent Checklist">Michigan Graduated Drivers Licensing Parent Checklist</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech" target="_blank" title="MPS Technology Site">MPS Technology Site</a></li>
+<li class="without-image"><a href="/content/MPS%20Testing%20Guides" title="MPS Testing Guides">MPS Testing Guides</a></li>
+<li class="without-image"><a href="http://products.office.com/en-us/student/office-in-education" target="_blank" title="Office365">Office365</a></li>
+<li class="without-image"><a href="/content/Online%20Payments" title="Online Payments">Online Payments</a></li>
+<li class="without-image"><a href="/content/Parent%20Information%20Committee" title="Parent Information Committee">Parent Information Committee</a></li>
+<li class="without-image"><a href="/content/PATHS" title="PATHS Program">PATHS Program</a></li>
+<li class="without-image"><a href="/content/Personal%20Curriculum" title="Personal Curriculum">Personal Curriculum</a></li>
+<li class="without-image"><a href="/content/Preschool%20Program" title="PreSchool Program">PreSchool Program</a></li>
+<li class="without-image"><a href="https://www.midlandps.org/userfiles/4/My%20Files/District%20Site/Parents/SchoolMessenger_Tips.pdf?id=1076" title="SchoolMessenger Tips">SchoolMessenger Tips</a></li>
+<li class="without-image"><a href="/content/Schools%20of%20Choice" title="Schools of Choice">Schools of Choice</a></li>
+<li class="without-image"><a href="/content/Special%20Services" title="Special Services">Special Services</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/studentflyers/" target="_blank" title="Student Flyers">Student Flyers</a></li>
+<li class="without-image"><a href="http://www.midlandps.org/docs/district/MI%20Student%20Envelope%20Brochure%202019-20.pdf" title="Student Insurance Plan">Student Insurance Plan</a></li>
+<li class="without-image"><a href="/content/Transcript%20Request" title="Transcript Request">Transcript Request</a></li>
+<li class="without-image"><a href="/content/Transportation" title="Transportation">Transportation</a></li>
+<li class="without-image"><a href="https://eportal.unitedwaymidland.org/mpsvolunteer" target="_blank" title="United for Success (VOLUNTEERS)">United for Success (VOLUNTEERS)</a></li>
+<li class="without-image"><a href="/content/volunteer-opportunities" title="Volunteer Opportunities">Volunteer Opportunities</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Students">Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/marking-periods" title="2019-2020 Marking Periods">2019-2020 Marking Periods</a></li>
+<li class="without-image"><a href="/content/Calendar" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="https://sso.careercruising.com/v2/saml/?DistrictToken=7E91B861-B603-4C45-BC70-ED07CF88E1D3" target="_blank" title="Career Cruising">Career Cruising</a></li>
+<li class="without-image"><a href="https://clever.com/in/midlandps/" target="_blank" title="Clever">Clever</a></li>
+<li class="without-image"><a href="/content/Curriculum" title="Curriculum">Curriculum</a></li>
+<li class="without-image"><a href="https://midlandpublic.edmodo.com/" target="_blank" title="Edmodo">Edmodo</a></li>
+<li class="without-image"><a href="https://www.pearsonsuccessnet.com/snpapp/login/login.jsp" target="_blank" title="enVision Math">enVision Math</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/MidlandPublicSchools" target="_blank" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="https://hac.midlandps.org/HomeAccess/" target="_blank" title="Home Access Center">Home Access Center</a></li>
+<li class="without-image"><a href="https://www.midlandps.org/content/190" title="Homeless Student Assisstance">Homeless Student Assisstance</a></li>
+<li class="without-image"><a href="https://mcesa.illuminatehc.com/login" title="Illuminate Student Login">Illuminate Student Login</a></li>
+<li class="without-image"><a href="/content/International%20Baccalaureate%20Diploma%20Programme" target="_blank" title="International Baccalaureate Diploma Programme">International Baccalaureate Diploma Programme</a></li>
+<li class="without-image"><a href="/content/media-links" title="Media Center Links">Media Center Links</a></li>
+<li class="without-image"><a href="https://www.michigancap.org/" target="_blank" title="MichiganCAP">MichiganCAP</a></li>
+<li class="without-image"><a href="https://mdoe.state.mi.us/schoolhealthsurveys/Home/SurveyLoginPage.aspx?audienceType=Student" target="_blank" title="MiPHY Online Survey">MiPHY Online Survey</a></li>
+<li class="without-image"><a href="https://blended.midlandps.org/" target="_blank" title="Moodle">Moodle</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech" target="_blank" title="MPS Technology Site">MPS Technology Site</a></li>
+<li class="without-image"><a href="http://products.office.com/en-us/student/office-in-education" target="_blank" title="Office365">Office365</a></li>
+<li class="without-image"><a href="https://ok2say.state.mi.us/" title="OK 2 Say">OK 2 Say</a></li>
+<li class="without-image"><a href="https://sts.midlandps.org/adfs/ls/?wa=wsignin1.0&amp;wtrealm=urn:federation:MicrosoftOnline&amp;wctx=wa%3Dwsignin1.0%26whr%3Dsts.mps.k12.mi.us%26wreply%3Dhttps:%252f%252fmidps-my.sharepoint.com%252f_layouts%252f15%252fMySite.aspx?MySiteRedirect%3DAllDocuments" target="_blank" title="OneDrive">OneDrive</a></li>
+<li class="without-image"><a href="/content/PATHS" title="PATHS Program">PATHS Program</a></li>
+<li class="without-image"><a href="https://clever.com/in/midlandps" target="_blank" title="Recommended Web Resources">Recommended Web Resources</a></li>
+<li class="without-image"><a href="/content/Transcript%20Request" title="Transcript Request">Transcript Request</a></li>
+<li class="without-image"><a href="https://www.gmail.com/" target="_blank" title="Webmail">Webmail</a></li>
+<li class="without-image"><a href="https://mcesa-mcsb-lspolicy2a.mcesa.k12.mi.us/joinzone" target="_blank" title="Web Zone">Web Zone</a></li>
+</ul>
+</li>
+</ul></nav>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="MobileHeader" class="hidden-sm hidden-md hidden-lg">
+    <div class="wrap-mobileNavBar">
+        <a id="ctl00_ctl00_header_ctl00_MobileName" class="mobileName" href="/">Midland Public Schools</a>
+
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MobileNav">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+            <span class="obscure">toggle menu</span>
+        </button>
+    </div>
+
+    <nav id="MobileNav" class="collapse"><div class="scroll">
+            
+            <h2>Top Nav</h2>
+            <ul class="">
+<li class="without-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf7Wj95lZwb_PYShVQs83na1ldQo-OBVOAxsZdFOm31RoYrEQ/viewform?usp=sf_link" target="_blank" title=" MPS Connect"> MPS Connect</a></li>
+<li class="without-image"><a href="/content/guide-to-enrollment" title=" Your Guide to Enrollment"> Your Guide to Enrollment</a></li>
+<li class="without-image"><a href="/content/Employment%20Opportunities" title="Now Hiring!">Now Hiring!</a></li>
+<li class="without-image"><a href="/content/volunteer-opportunities" title=" VOLUNTEERISM"> VOLUNTEERISM</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech/11-optional-insurance-program?authuser=0" target="_blank" title=" 1:1 Optional Insurance Program FAQs"> 1:1 Optional Insurance Program FAQs</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/content/Summer%20Program" aria-label="" title="Summer eLearning">Summer eLearning</a></li>
+<li class="without-image"><a href="/content/covid-19-coronavirus-information" aria-label="" title="COVID-19 (Coronavirus) Information">COVID-19 (Coronavirus) Information</a></li>
+<li class="without-image"><a href="/content/mps-food-service-during-closure" aria-label="" title="MPS FOOD SERVICE DURING THE MANDATED CLOSURE ">MPS FOOD SERVICE DURING THE MANDATED CLOSURE </a></li>
+<li class="without-image"><a href="/content/community-internet-resources" aria-label="" title="Covid-Related Community &amp; Internet Resources">Covid-Related Community &amp; Internet Resources</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpsweekataglance/home" target="_blank" aria-label="" title="Week At A Glance">Week At A Glance</a></li>
+</ul>
+<ul class="">
+<li class="without-image"><a href="http://www.midlandps.org" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Education">Board of Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/board" title="Board of Education Home">Board of Education Home</a></li>
+<li class="without-image"><a href="/content/boemeetingarcive" title="Board of Education Meeting Archive">Board of Education Meeting Archive</a></li>
+<li class="without-image"><a href="https://www.boarddocs.com/mi/midp/Board.nsf/Public?open&amp;id=policies" target="_blank" title="Board of Education Policies">Board of Education Policies</a></li>
+<li class="without-image"><a href="/content/Board%20of%20Education%20Schedule" title="Board of Education Schedule">Board of Education Schedule</a></li>
+<li class="without-image"><a href="/content/boardof-education-study-committee-schedule" title="Board of Education Study Committee Schedule">Board of Education Study Committee Schedule</a></li>
+<li class="without-image"><a href="/content/Notice%20of%20Special%20Board%20of%20Education%20Meetings" title="Notice of Special Board of Education Meetings">Notice of Special Board of Education Meetings</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Community">Community  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/Annual%20Education%20Report" title="Annual Education Report">Annual Education Report</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/communityflyers" target="_blank" title="Community Flyers">Community Flyers</a></li>
+<li class="without-image"><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/Community/2018-19%20CROSSING%20GUARD%20INFO.pdf?id=1876" target="_blank" title="Crossing Guard Information">Crossing Guard Information</a></li>
+<li class="without-image"><a href="/content/Facility%20Rentals" title="Facility Rentals">Facility Rentals</a></li>
+<li class="without-image"><a href="/content/Community%20Flyer%20Distribution%20Practices" title="Flyer Distribution Practices">Flyer Distribution Practices</a></li>
+<li class="without-image"><a href="/content/International%20Baccalaureate%20Diploma%20Programme" title="International Baccalaureate">International Baccalaureate</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech" target="_blank" title="MPS Technology Site">MPS Technology Site</a></li>
+<li class="without-image"><a href="/content/MPS-TV" title="MPS-TV">MPS-TV</a></li>
+<li class="without-image"><a href="http://mpstv.midlandps.org/CablecastPublicSite/watch/2?channel=1" target="_blank" title="MPSTV - Watch Online Here">MPSTV - Watch Online Here</a></li>
+<li class="without-image"><a href="/content/Schools%20of%20Choice" title="Schools of Choice">Schools of Choice</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/studentflyers/" target="_blank" title="Student Flyers">Student Flyers</a></li>
+<li class="without-image"><a href="https://www.munetrix.com/Michigan/Schools/BAR/Midland-County-Educational-Service-Agency/District/Midland-Public-Schools" target="_blank" title="Transparency">Transparency</a></li>
+<li class="without-image"><a href="https://twitter.com/MidlandPS" title="Twitter">Twitter</a></li>
+<li class="without-image"><a href="https://eportal.unitedwaymidland.org/mpsvolunteer" target="_blank" title="United for Success (VOLUNTEERS)">United for Success (VOLUNTEERS)</a></li>
+<li class="without-image"><a href="/content/volunteer-opportunities" title="Volunteer Opportunities">Volunteer Opportunities</a></li>
+<li class="without-image"><a href="https://www.youtube.com/user/MidlandPublicSchools" target="_blank" title="Youtube">Youtube</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District">District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/marking-periods" title="2018-2019 Marking Periods">2018-2019 Marking Periods</a></li>
+<li class="without-image"><a href="/content/Administrative%20Council" title="Administrative Council">Administrative Council</a></li>
+<li class="without-image"><a href="/content/Attendance%20Areas" title="Attendance Areas">Attendance Areas</a></li>
+<li class="without-image"><a href="/content/Calendar" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="/content/Central%20Auditorium" title="Central Auditorium">Central Auditorium</a></li>
+<li class="without-image"><a href="/content/Curriculum" title="Curriculum">Curriculum</a></li>
+<li class="without-image"><a href="/content/Employee%20Awards" title="Employee Awards">Employee Awards</a></li>
+<li class="without-image"><a href="/content/Finance" title="Finance">Finance</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/MidlandPublicSchools" target="_blank" title="Food Services">Food Services</a></li>
+<li class="without-image"><a href="/content/human-resources" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="/content/International%20Baccalaureate%20Diploma%20Programme" title="International Baccalaureate Diploma Programme">International Baccalaureate Diploma Programme</a></li>
+<li class="without-image"><a href="/content/Maintenance" title="Maintenance">Maintenance</a></li>
+<li class="without-image"><a href="/content/media-links" title="Media Center Links">Media Center Links</a></li>
+<li class="without-image"><a href="/harassment-bullying-report" title="MPS Connect">MPS Connect</a></li>
+<li class="without-image"><a href="/content/PATHS" title="Personalized Academics Through High School (PATHS)">Personalized Academics Through High School (PATHS)</a></li>
+<li class="without-image"><a href="/content/safety-drill-information" title="Safety Drill Information">Safety Drill Information</a></li>
+<li class="without-image"><a href="/content/School%20Improvement%20Plan" title="School Improvement">School Improvement</a></li>
+<li class="without-image"><a href="/content/Special%20Services" title="Special Services">Special Services</a></li>
+<li class="without-image"><a href="/content/statement-of-nondiscrimination" title="Statement of Nondiscrimination">Statement of Nondiscrimination</a></li>
+<li class="without-image"><a href="/content/Summer%20Program" title="Summer Program">Summer Program</a></li>
+<li class="without-image"><a href="/content/superintendents-weekly-communique" title="Superintendent's Weekly Communiqué Archive">Superintendent's Weekly Communiqué Archive</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech" target="_blank" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/content/Transportation" title="Transportation">Transportation</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://www.dhs.midlandps.org/" target="_blank" title="H.H. Dow High School">H.H. Dow High School</a></li>
+<li class="without-image"><a href="http://www.mhs.midlandps.org" target="_blank" title="Midland High School">Midland High School</a></li>
+<li class="without-image"><a href="http://www.jms.midlandps.org" target="_blank" title="Jefferson Middle School">Jefferson Middle School</a></li>
+<li class="without-image"><a href="http://www.nms.midlandps.org" target="_blank" title="Northeast Middle School">Northeast Middle School</a></li>
+<li class="without-image"><a href="http://www.ade.midlandps.org" target="_blank" title="Adams Elementary School">Adams Elementary School</a></li>
+<li class="without-image"><a href="http://www.cpe.midlandps.org" target="_blank" title="Central Park Elementary School">Central Park Elementary School</a></li>
+<li class="without-image"><a href="http://www.che.midlandps.org" target="_blank" title="Chestnut Hill Elementary School">Chestnut Hill Elementary School</a></li>
+<li class="without-image"><a href="http://www.pme.midlandps.org" target="_blank" title="Plymouth Elementary School">Plymouth Elementary School</a></li>
+<li class="without-image"><a href="http://www.sbe.midlandps.org" target="_blank" title="Siebert Elementary School">Siebert Elementary School</a></li>
+<li class="without-image"><a href="http://www.wce.midlandps.org" target="_blank" title="Woodcrest Elementary School">Woodcrest Elementary School</a></li>
+<li class="without-image"><a href="http://www.cpp.midlandps.org" target="_blank" title="Carpenter Pre-Primary Center">Carpenter Pre-Primary Center</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Employees">Employees  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://adminweb.aesoponline.com/access?t=1672734027" target="_blank" title="AESOP Login">AESOP Login</a></li>
+<li class="without-image"><a href="/content/benefits" title="Benefits">Benefits</a></li>
+<li class="without-image"><a href="https://clever.com/in/midlandps/" target="_blank" title="Clever">Clever</a></li>
+<li class="without-image"><a href="http://www.discoveryeducation.com/" target="_blank" title="Discovery Streaming">Discovery Streaming</a></li>
+<li class="without-image"><a href="https://efp5.midlandps.org/gas2.50/wa/r/plus/finplus51" target="_blank" title="EFinancePlus 5.0">EFinancePlus 5.0</a></li>
+<li class="without-image"><a href="https://eac5.midlandps.org/eac51/Login.aspx" target="_blank" title="Employee Access Center">Employee Access Center</a></li>
+<li class="without-image"><a href="/content/Employee%20Awards" title="Employee Awards">Employee Awards</a></li>
+<li class="without-image"><a href="https://esp4.midlandps.org/eSchoolPLUS/Account/LogOn?ReturnUrl=%2feschoolplus" target="_blank" title="ESchoolsPlus">ESchoolsPlus</a></li>
+<li class="without-image"><a href="http://app.espace.cool/" target="_blank" title="ESpace">ESpace</a></li>
+<li class="without-image"><a href="/content/finance" title="Finance">Finance</a></li>
+<li class="without-image"><a href="https://login.schooldude.com/sso/default.aspx?acctnum=837270044&amp;productid=FSD" target="_blank" title="FS Direct ">FS Direct </a></li>
+<li class="without-image"><a href="https://www.gcntraining.com/" target="_blank" title="GCN Training">GCN Training</a></li>
+<li class="without-image"><a href="https://help.midlandps.org/helpdesk/WebObjects/Helpdesk.woa" target="_blank" title="Help Desk">Help Desk</a></li>
+<li class="without-image"><a href="/content/human-resources" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="https://mcesa.illuminateed.com/ise/?prev_page=Main_NotDashboardPage&amp;page=SisLogin" target="_blank" title="Illuminate">Illuminate</a></li>
+<li class="without-image"><a href="/content/insurance" title="Insurance">Insurance</a></li>
+<li class="without-image"><a href="https://midps.sharepoint.com/SitePages/Home.aspx?wa=wsignin1.0" target="_blank" title="Intranet">Intranet</a></li>
+<li class="without-image"><a href="https://www.myschoolbuilding.com/sso/default.aspx?acctnum=837270044&amp;productid=MD" target="_blank" title="Maintenance Work Orders">Maintenance Work Orders</a></li>
+<li class="without-image"><a href="https://phone.mps.k12.mi.us/ucmuser" target="_blank" title="Manage Phone Settings (MPS Network Only)">Manage Phone Settings (MPS Network Only)</a></li>
+<li class="without-image"><a href="https://voicemail.mps.k12.mi.us/ciscopca/home.do" target="_blank" title="Manage Voicemail Settings (MPS Network Only)">Manage Voicemail Settings (MPS Network Only)</a></li>
+<li class="without-image"><a href="https://fs.midlandps.org/MealMagic/login.aspx?ReturnUrl=%2fmealmagic" target="_blank" title="Meal Magic Suite Login">Meal Magic Suite Login</a></li>
+<li class="without-image"><a href="/content/media-links" title="Media Center Links">Media Center Links</a></li>
+<li class="without-image"><a href="https://blended.midlandps.org/" target="_blank" title="Moodle">Moodle</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech" target="_blank" title="MPS Technology Site">MPS Technology Site</a></li>
+<li class="without-image"><a href="https://msdsmanagement.msdsonline.com/2ed0b737-568f-469c-9a8a-fe3e86d1f95a/ebinder/?nas=True" target="_blank" title="MSDS Safety Sheets">MSDS Safety Sheets</a></li>
+<li class="without-image"><a href="http://products.office.com/en-us/student/office-in-education" target="_blank" title="Office365">Office365</a></li>
+<li class="without-image"><a href="https://sts.midlandps.org/adfs/ls/?wa=wsignin1.0&amp;wtrealm=urn:federation:MicrosoftOnline&amp;wctx=wa%3Dwsignin1.0%26whr%3Dsts.mps.k12.mi.us%26wreply%3Dhttps:%252f%252fmidps-my.sharepoint.com%252f_layouts%252f15%252fMySite.aspx?MySiteRedirect%3DAllDocuments" target="_blank" title="OneDrive">OneDrive</a></li>
+<li class="without-image"><a href="https://pmp.mps.k12.mi.us:7272/PassTrixMain.cc" target="_blank" title="Password Manager (MPS Network Only)">Password Manager (MPS Network Only)</a></li>
+<li class="without-image"><a href="/content/payroll" title="Payroll">Payroll</a></li>
+<li class="without-image"><a href="https://midlandps.five-starpivot.com/" target="_blank" title="Pivot">Pivot</a></li>
+<li class="without-image"><a href="https://asp.schoolmessenger.com/midland/" target="_blank" title="SchoolMessenger Login">SchoolMessenger Login</a></li>
+<li class="without-image"><a href="/content/shining-star-nomination-form" title="Shining Star Nomination Form">Shining Star Nomination Form</a></li>
+<li class="without-image"><a href="http://srvmps900100.mps.k12.mi.us/CMApplicationCatalog/" target="_blank" title="Software Center (MPS Network Only)">Software Center (MPS Network Only)</a></li>
+<li class="without-image"><a href="/content/staff-lunches" title="Staff Lunches">Staff Lunches</a></li>
+<li class="without-image"><a href="https://esp4.midlandps.org/TAC/Account/LogOn?ReturnUrl=%2ftac" target="_blank" title="Teacher Access Center">Teacher Access Center</a></li>
+<li class="without-image"><a href="https://eportal.unitedwaymidland.org/mpsvolunteer" target="_blank" title="United for Success">United for Success</a></li>
+<li class="without-image"><a href="https://dbmpsuser.mps.k12.mi.us/" target="_blank" title="User Database (MPS Network Only)">User Database (MPS Network Only)</a></li>
+<li class="without-image"><a href="https://www.gmail.com/" target="_blank" title="Webmail">Webmail</a></li>
+<li class="without-image"><a href="https://mcesa-mcsb-lspolicy2a.mcesa.k12.mi.us/zones/login" target="_blank" title="Web Zone">Web Zone</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parents">Parents  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/guide-to-enrollment" title="Your Guide to Enrollment">Your Guide to Enrollment</a></li>
+<li class="without-image"><a href="/content/marking-periods" title="2019-2020 Marking Periods">2019-2020 Marking Periods</a></li>
+<li class="without-image"><a href="/content/Attendance%20Areas" title="Attendance Areas">Attendance Areas</a></li>
+<li class="without-image"><a href="/content/Calendar" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/communityflyers" target="_blank" title="Community Flyers">Community Flyers</a></li>
+<li class="without-image"><a href="/content/Curriculum" title="Curriculum">Curriculum</a></li>
+<li class="without-image"><a href="/content/eLearning" title="eLearning">eLearning</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/MidlandPublicSchools" target="_blank" title="Food Services">Food Services</a></li>
+<li class="without-image"><a href="https://hac.midlandps.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f" target="_blank" title="Home Access Center">Home Access Center</a></li>
+<li class="without-image"><a href="https://hac.midlandps.org/HomeAccess/" target="_blank" title="Homeless Student Assisstance">Homeless Student Assisstance</a></li>
+<li class="without-image"><a href="/Content/700" title="Kindergarten">Kindergarten</a></li>
+<li class="without-image"><a href="/content/media-links" title="Media Center Links">Media Center Links</a></li>
+<li class="without-image"><a href="https://www.midlandps.org/userfiles/4/My%20Files/District%20Site/Parents/Medication-Form.pdf?id=1061" target="_blank" title="Medication Form">Medication Form</a></li>
+<li class="without-image"><a href="https://www.michigan.gov/documents/sos/MI_GDL_Licensing_SOS380_515146_7.pdf" target="_blank" title="Michigan Graduated Drivers Licensing Parent Checklist">Michigan Graduated Drivers Licensing Parent Checklist</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech" target="_blank" title="MPS Technology Site">MPS Technology Site</a></li>
+<li class="without-image"><a href="/content/MPS%20Testing%20Guides" title="MPS Testing Guides">MPS Testing Guides</a></li>
+<li class="without-image"><a href="http://products.office.com/en-us/student/office-in-education" target="_blank" title="Office365">Office365</a></li>
+<li class="without-image"><a href="/content/Online%20Payments" title="Online Payments">Online Payments</a></li>
+<li class="without-image"><a href="/content/Parent%20Information%20Committee" title="Parent Information Committee">Parent Information Committee</a></li>
+<li class="without-image"><a href="/content/PATHS" title="PATHS Program">PATHS Program</a></li>
+<li class="without-image"><a href="/content/Personal%20Curriculum" title="Personal Curriculum">Personal Curriculum</a></li>
+<li class="without-image"><a href="/content/Preschool%20Program" title="PreSchool Program">PreSchool Program</a></li>
+<li class="without-image"><a href="https://www.midlandps.org/userfiles/4/My%20Files/District%20Site/Parents/SchoolMessenger_Tips.pdf?id=1076" title="SchoolMessenger Tips">SchoolMessenger Tips</a></li>
+<li class="without-image"><a href="/content/Schools%20of%20Choice" title="Schools of Choice">Schools of Choice</a></li>
+<li class="without-image"><a href="/content/Special%20Services" title="Special Services">Special Services</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/studentflyers/" target="_blank" title="Student Flyers">Student Flyers</a></li>
+<li class="without-image"><a href="http://www.midlandps.org/docs/district/MI%20Student%20Envelope%20Brochure%202019-20.pdf" title="Student Insurance Plan">Student Insurance Plan</a></li>
+<li class="without-image"><a href="/content/Transcript%20Request" title="Transcript Request">Transcript Request</a></li>
+<li class="without-image"><a href="/content/Transportation" title="Transportation">Transportation</a></li>
+<li class="without-image"><a href="https://eportal.unitedwaymidland.org/mpsvolunteer" target="_blank" title="United for Success (VOLUNTEERS)">United for Success (VOLUNTEERS)</a></li>
+<li class="without-image"><a href="/content/volunteer-opportunities" title="Volunteer Opportunities">Volunteer Opportunities</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Students">Students  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/marking-periods" title="2019-2020 Marking Periods">2019-2020 Marking Periods</a></li>
+<li class="without-image"><a href="/content/Calendar" title="Calendar">Calendar</a></li>
+<li class="without-image"><a href="https://sso.careercruising.com/v2/saml/?DistrictToken=7E91B861-B603-4C45-BC70-ED07CF88E1D3" target="_blank" title="Career Cruising">Career Cruising</a></li>
+<li class="without-image"><a href="https://clever.com/in/midlandps/" target="_blank" title="Clever">Clever</a></li>
+<li class="without-image"><a href="/content/Curriculum" title="Curriculum">Curriculum</a></li>
+<li class="without-image"><a href="https://midlandpublic.edmodo.com/" target="_blank" title="Edmodo">Edmodo</a></li>
+<li class="without-image"><a href="https://www.pearsonsuccessnet.com/snpapp/login/login.jsp" target="_blank" title="enVision Math">enVision Math</a></li>
+<li class="without-image"><a href="http://chartwellsk12.compass-usa.com/MidlandPublicSchools" target="_blank" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="https://hac.midlandps.org/HomeAccess/" target="_blank" title="Home Access Center">Home Access Center</a></li>
+<li class="without-image"><a href="https://www.midlandps.org/content/190" title="Homeless Student Assisstance">Homeless Student Assisstance</a></li>
+<li class="without-image"><a href="https://mcesa.illuminatehc.com/login" title="Illuminate Student Login">Illuminate Student Login</a></li>
+<li class="without-image"><a href="/content/International%20Baccalaureate%20Diploma%20Programme" target="_blank" title="International Baccalaureate Diploma Programme">International Baccalaureate Diploma Programme</a></li>
+<li class="without-image"><a href="/content/media-links" title="Media Center Links">Media Center Links</a></li>
+<li class="without-image"><a href="https://www.michigancap.org/" target="_blank" title="MichiganCAP">MichiganCAP</a></li>
+<li class="without-image"><a href="https://mdoe.state.mi.us/schoolhealthsurveys/Home/SurveyLoginPage.aspx?audienceType=Student" target="_blank" title="MiPHY Online Survey">MiPHY Online Survey</a></li>
+<li class="without-image"><a href="https://blended.midlandps.org/" target="_blank" title="Moodle">Moodle</a></li>
+<li class="without-image"><a href="https://sites.google.com/midlandps.org/mpstech" target="_blank" title="MPS Technology Site">MPS Technology Site</a></li>
+<li class="without-image"><a href="http://products.office.com/en-us/student/office-in-education" target="_blank" title="Office365">Office365</a></li>
+<li class="without-image"><a href="https://ok2say.state.mi.us/" title="OK 2 Say">OK 2 Say</a></li>
+<li class="without-image"><a href="https://sts.midlandps.org/adfs/ls/?wa=wsignin1.0&amp;wtrealm=urn:federation:MicrosoftOnline&amp;wctx=wa%3Dwsignin1.0%26whr%3Dsts.mps.k12.mi.us%26wreply%3Dhttps:%252f%252fmidps-my.sharepoint.com%252f_layouts%252f15%252fMySite.aspx?MySiteRedirect%3DAllDocuments" target="_blank" title="OneDrive">OneDrive</a></li>
+<li class="without-image"><a href="/content/PATHS" title="PATHS Program">PATHS Program</a></li>
+<li class="without-image"><a href="https://clever.com/in/midlandps" target="_blank" title="Recommended Web Resources">Recommended Web Resources</a></li>
+<li class="without-image"><a href="/content/Transcript%20Request" title="Transcript Request">Transcript Request</a></li>
+<li class="without-image"><a href="https://www.gmail.com/" target="_blank" title="Webmail">Webmail</a></li>
+<li class="without-image"><a href="https://mcesa-mcsb-lspolicy2a.mcesa.k12.mi.us/joinzone" target="_blank" title="Web Zone">Web Zone</a></li>
+</ul>
+</li>
+</ul>
+<h2>Quick Links</h2>
+            <ul class="">
+<li class="with-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf7Wj95lZwb_PYShVQs83na1ldQo-OBVOAxsZdFOm31RoYrEQ/viewform?usp=sf_link" target="_blank" title="MPS Connect"><img src="/userfiles/4/my%20files/quicklinkicons/kidsatassembly.jpg?id=3254&amp;width=210" alt="MPS Connect" title="MPS Connect" border="0"></a></li>
+<li class="with-image"><a href="/content/guide-to-enrollment" title="Your Guide to Enrollment"><img src="/userfiles/4/my%20files/quicklinkicons/cpe/cpeclassroom.jpg?id=3390&amp;width=200" alt="Your Guide to Enrollment" title="Your Guide to Enrollment" border="0"></a></li>
+<li class="with-image"><a href="/content/superintendents-weekly-communique" title="Superintendent’s Weekly Communiqué"><img src="/userfiles/4/my%20files/quicklinkicons/sharrowimage.jpg?id=3258&amp;width=210" alt="Superintendent’s Weekly Communiqué" title="Superintendent’s Weekly Communiqué" border="0"></a></li>
+<li class="with-image"><a href="/content/calendar" title="Calendar"><img src="/userfiles/4/my%20files/quicklinkicons/choir1.jpg?id=3249&amp;width=210" alt="Calendar" title="Calendar" border="0"></a></li>
+<li class="with-image"><a href="/board" title="Board of Education"><img src="/userfiles/4/my%20files/quicklinkicons/classroomwork.jpg?id=3250&amp;width=210" alt="Board of Education" title="Board of Education" border="0"></a></li>
+<li class="with-image"><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/Community/OurSchoolsNewsletter/2020/February2020.pdf?id=3605" target="_blank" title="Our Schools Newsletter"><img src="/userfiles/4/my%20files/quicklinkicons/ourschools.jpg?id=3259&amp;width=210" alt="Our Schools Newsletter" title="Our Schools Newsletter" border="0"></a></li>
+<li class="with-image"><a href="/content/volunteer-opportunities" title="VOLUNTEERISM"><img src="/userfiles/4/my%20files/quicklinkicons/adams/adamsbooks.jpg?id=3386&amp;width=200" alt="VOLUNTEERISM" title="VOLUNTEERISM" border="0"></a></li>
+<li class="with-image"><a href="/content/nowhiring" title="Employment"><img src="/userfiles/4/my%20files/quicklinkicons/jeffersonbekindstaff.jpg?id=3253&amp;width=210" alt="Employment" title="Employment" border="0"></a></li>
+<li class="with-image"><a href="https://eac5.midlandps.org/eac51/Login.aspx" target="_blank" title="Employee Access Center"><img src="/userfiles/4/my%20files/quicklinkicons/cpeplayground.jpg?id=3251&amp;width=210" alt="Employee Access Center" title="Employee Access Center" border="0"></a></li>
+<li class="with-image"><a href="https://adminweb.aesoponline.com/access?t=1672734027#new_tab" target="_blank" title="AESOP Login"><img src="/userfiles/4/my%20files/quicklinkicons/adamsgraduates.jpg?id=3244&amp;width=210" alt="AESOP Login" title="AESOP Login" border="0"></a></li>
+<li class="with-image"><a href="http://chartwellsk12.compass-usa.com/MidlandPublicSchools" target="_blank" title="Food Service"><img src="/userfiles/4/my%20files/quicklinkicons/chartwellsfoodtruck.jpg?id=3248&amp;width=210" alt="Food Service" title="Food Service" border="0"></a></li>
+<li class="with-image"><a href="https://hac.midlandps.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f" target="_blank" title="Home Access Center"><img src="/userfiles/4/my%20files/quicklinkicons/bikes.jpg?id=3247&amp;width=210" alt="Home Access Center" title="Home Access Center" border="0"></a></li>
+<li class="with-image"><a href="/content/media-links" title="Media Center Links"><img src="/userfiles/4/my%20files/quicklinkicons/football.jpg?id=3252&amp;width=210" alt="Media Center Links" title="Media Center Links" border="0"></a></li>
+<li class="with-image"><a href="https://esp4.midlandps.org/TAC/Account/LogOn?ReturnUrl=%2ftac" target="_blank" title="Teacher Access Center"><img src="/userfiles/4/my%20files/quicklinkicons/dsaawards.jpg?id=3262&amp;width=210" alt="Teacher Access Center" title="Teacher Access Center" border="0"></a></li>
+<li class="with-image"><a href="/content/Summer%20Program" aria-label="" title="Summer eLearning"><img src="/userfiles/4/my%20files/quicklinkicons/studentatboard.jpg?id=3263&amp;width=210" alt="Summer eLearning" title="Summer eLearning" border="0"></a></li>
+<li class="with-image"><a href="https://www.schoolpay.com/" target="_blank" title="SchoolPay"><img src="/userfiles/4/my%20files/quicklinkicons/robotics.jpg?id=3256&amp;width=210" alt="SchoolPay" title="SchoolPay" border="0"></a></li>
+<li class="with-image"><a href="http://mpstv.midlandps.org/CablecastPublicSite/watch/2?channel=1" target="_blank" title="Watch MPSTV Online"><img src="/userfiles/4/my%20files/quicklinkicons/kenya.jpg?id=3261&amp;width=210" alt="Watch MPSTV Online" title="Watch MPSTV Online" border="0"></a></li>
+<li class="with-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSfrBoi-2xKNT0VMLe3R7wfaH34Zkba3vofPznpNyCvcNBGhzw/viewform" target="_blank" title="Contact the Webmaster"><img src="/userfiles/4/my%20files/quicklinkicons/interactiveclass.jpg?id=3260&amp;width=210" alt="Contact the Webmaster" title="Contact the Webmaster" border="0"></a></li>
+<li class="with-image"><a href="/" title="Home"><img src="/userfiles/4/my%20files/quicklinkicons/adamselementaryoffice.jpg?id=3243&amp;width=210" alt="Home" title="Home" border="0"></a></li>
+</ul>
+</div>
+    </nav>
+</div>
+
+            
+        </header><div class="wrap-slideshow">
+        
+<script type="text/javascript" src="/admin/js/Cycle2/jquery.cycle2.dev.js"></script><script src="https://player.vimeo.com/api/player.js"></script><script type="text/javascript">
+    // https://stackoverflow.com/a/51789311/5629100
+    var YoutubeVideos = (function () {
+        var playersYoutube = [],	// players array (to control players individually)
+            queueYoutube = [];		// videos queue (once api is ready, transform this into YT player)
+
+        // Constructor
+        function YoutubeVideos() { }
+
+        // Add elements to queue
+        YoutubeVideos.prototype.add = function ($video) {
+            queueYoutube.push($video);
+        };
+
+        // Finds player based on the id of the iframe element
+        YoutubeVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersYoutube.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Load Youtube API
+        YoutubeVideos.prototype.loadApi = function () {
+            $.getScript("https://www.youtube.com/iframe_api", function () {
+                window.onYouTubeIframeAPIReady = function () {
+                    queueYoutube.forEach(function ($video) {
+                        var loopBit = function () {
+                            if ($video.data('loop-video') == true) {
+                                return 1;
+                            }
+                            return 0;
+                        };
+
+                        var player = new YT.Player($video.get(0), {
+                            width: $video.data('frame-width'),
+                            height: $video.data('frame-height'),
+                            videoId: $video.data('video-id'),
+                            events: {
+                                'onStateChange': onPlayerStateChange,
+                                'onReady': onPlayerReady
+                            },
+                            playerVars: {
+                                autoplay: 0,
+                                rel: 0,
+                                enablejsapi: 1,
+                                loop: loopBit
+                            },
+                            origin: window.location.origin
+                        });
+
+                        playersYoutube.push({
+                            playerId: $video.attr('id'),
+                            player: player
+                        });
+                    });
+                };
+            });
+        };
+
+        return YoutubeVideos;
+    })();
+
+    // Modified from https://stackoverflow.com/a/51789311/5629100
+    var VimeoVideos = (function () {
+        var queueVimeo = [],		// queue of elements which will become players.
+            playersVimeo = [];		// players array (to control players individually)
+
+        // Constructor
+        function VimeoVideos() { }
+
+        // Add elements to queue
+        VimeoVideos.prototype.add = function ($video) {
+            queueVimeo.push($video);
+        };
+
+        // Converts queue to players.
+        VimeoVideos.prototype.loadPlayers = function () {
+            queueVimeo.forEach(function (item, index) {
+                var vimeoOptions = {
+                    id: $(item).data('video-id'),
+                    autoplay: false,
+                    muted: ($(item).data('autoplay') == true) ? true : false
+                };
+
+                playersVimeo[index] = {
+                    playerId: $(item).attr('id'),
+                    player: new Vimeo.Player(item, vimeoOptions)
+                };
+            });
+        };
+
+        // Finds player based on the id of the iframe element
+        VimeoVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersVimeo.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Adds listeners to the players that have been created now so they interact
+        // correctly with the header galleries.
+        VimeoVideos.prototype.bindListeners = function () {
+            playersVimeo.forEach(function (item) {
+                item.player.on('play', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+                    $wrapSlideshow.find('.cycle-pager').fadeOut();
+                    $wrapSlideshow.find('.playPause').fadeOut();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('pause', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                    $(this.element.parentNode).data('paused', true);
+                    $wrapSlideshow.find('.cycle-pager').fadeIn();
+                    $wrapSlideshow.find('.playPause').fadeIn();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('ended', function () {
+                    if ($(this.element.parentNode).data('loop-video') == true) {
+                        this.play();
+                    } else {
+                        var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                        $(this.element.parentNode).data('paused', true);
+                        $wrapSlideshow.find('.cycle-pager').fadeIn();
+                        $wrapSlideshow.find('.playPause').fadeIn();
+                        $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                    }
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.ready().then(function () {
+                    if ($(this).parents('.cycle-slide-active').length > 0 && $(this).data('autoplay') == true) {
+                        this.play();
+                    }
+                });
+            });
+        };
+
+        return VimeoVideos;
+    })();
+
+    // When the Youtube video is paused, ends, or begins, we need to either
+    // show or hide the slideshow controls and either pause or resume the
+    // slideshow. We also handle looping the Youtube videos here because the
+    // Youtube API is not 100% reliable for that function.
+    function onPlayerStateChange(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        var $wrapSlideshow = $videoElem.parents('.wrap-slideshow').first();
+        var videoState = e.data;
+
+        if (videoState == YT.PlayerState.PAUSED) {
+            $videoElem.data('paused', true);
+            $wrapSlideshow.find('.cycle-pager').fadeIn();
+            $wrapSlideshow.find('.playPause').fadeIn();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+        }
+
+        if (videoState == YT.PlayerState.ENDED) {
+            if ($videoElem.data('loop-video') == true) {
+                playYoutubePlayerById($videoElem.attr('id'));
+            } else {
+                $videoElem.siblings('.youtubeVideoThumbnail').show();
+                $videoElem.siblings('.youtubeVideoThumbnailPlay').show();
+                $wrapSlideshow.find('.cycle-pager').fadeIn();
+                $wrapSlideshow.find('.playPause').fadeIn();
+                $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+            }
+        }
+
+        if (videoState == YT.PlayerState.PLAYING) {
+            $videoElem.data('paused', false);
+            $videoElem.siblings('.youtubeVideoThumbnail').fadeOut();
+            $videoElem.siblings('.youtubeVideoThumbnailPlay').fadeOut();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+            $wrapSlideshow.find('.cycle-pager').fadeOut();
+            $wrapSlideshow.find('.playPause').fadeOut();
+        }
+    }
+
+    function onPlayerReady(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        if ($videoElem.parent('.cycle-slide-active').length > 0 && $videoElem.data('autoplay') == true) {
+            e.target.mute();
+            forcePlayYoutubePlayer(e.target);
+        }
+    }
+
+    function pauseYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            forcePauseYoutubePlayer(player);
+        }
+    }
+
+    function forcePauseYoutubePlayer(player) {
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePauseYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function playYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        forcePlayYoutubePlayer(player);
+    }
+
+    function muteYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.mute();
+    }
+
+    function forcePlayYoutubePlayer(player) {
+        player.playVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePlayYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function pauseVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.pause();
+        }
+    }
+
+    function playVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.play();
+        }
+    }
+
+    function addYouTubeStyles(videoId, containerWidth, containerHeight, videoWidth, videoHeight, videoZoom) {
+        var containerRatio = containerWidth / containerHeight;
+        var videoRatio = videoWidth / videoHeight;
+        var trueSize = $('#' + videoId).parents('.headerGalleryV2').innerWidth() / containerWidth;
+        var styles = '#' + videoId + ' {';
+
+        if (containerRatio === videoRatio) { // Video already fits the size of the container.
+            styles += 'top: 0;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+            styles += 'height: 100%;';
+        } else if (containerRatio > videoRatio) { // Container wider than video, needs to cut off top and bottom of video to scale.
+            var scale = (containerWidth / videoWidth);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateY(-' + (((videoHeight * scale) - containerHeight) / (videoHeight * scale) * 50) + '%);'
+            }
+        } else { // Container taller than video, needs to cut off left and right of video to scale.
+            var scale = (containerHeight / videoHeight);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'height: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateX(-' + (((videoWidth * scale) - containerWidth) / (videoWidth * scale) * 50) + '%);'
+            }
+        }
+
+        styles += '}';
+
+        if ($('#youtubeVideo' + videoId + 'Styles').length > 0) {
+            $('#youtubeVideo' + videoId + 'Styles').remove();
+        }
+
+        var styleTag = $('<style id="#youtubeVideo' + videoId + 'Styles"></style>')
+        $('head').append(styleTag);
+        $(styleTag).append(styles);
+    }
+
+    // Global Variables
+    var youtubes = new YoutubeVideos();
+    var vimeos = new VimeoVideos();
+
+    $(document).ready(function () {
+        $('.youtubeVideoSlide').each(function () {
+            youtubes.add($(this));
+        });
+
+        youtubes.loadApi();
+
+        $('.vimeoVideoSlide').each(function () {
+            vimeos.add($(this));
+        });
+
+        vimeos.loadPlayers();
+        vimeos.bindListeners();
+
+        $('.wrap-slideshow').on('click', '.youtubeVideoThumbnailPlay, .youtubeVideoThumbnail', function () {
+            playYoutubePlayerById($(this).data('player-id'));
+        });
+    });
+
+    $(document).on('cycle-initialized', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+        var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+        var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+        if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true) {
+            youtubeSlide.parents('.headerGalleryV2').cycle('pause');
+        }
+
+        if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true) {
+            vimeoSlide.parents('.headerGalleryV2').cycle('pause');
+            playVimeoPlayerById(vimeoSlide.attr('id'));
+        }
+
+        $('.cycle-pager > span').attr('tabindex', 0);
+    });
+
+    $(document).ready(function () {
+        // For ADA Compliance
+        $('.wrap-slideshow').on('keydown', '.prevNext > i, .cycle-pager > span, .playPause > i', function (e) {
+            if (e.keyCode === 32 || e.keyCode === 13) {
+                e.preventDefault();
+                $(this).click();
+            }
+        });
+    });
+</script><script>
+    $(document).ready(function () {
+        $slideshow = $('#slideshow').cycle({
+            'pauseOnHover': '#slideshow',
+            'slides': '> .slide',
+            'pager': '.slideshow.cycle-pager',
+            'pagerTemplate': '<span class="page"><span class="obscure">slide number {{slideNum}}</span></span>',
+            'autoHeight': '1900:500',
+            'timeout': 6000,
+            'fx': 'fade',
+            'log': false
+        });
+
+        setTimeout(function () {
+            $('.wrap-slideshow.slideshow .playPause .fa-play').on('click', function () {
+                $slideshow.cycle('resume');
+                $('#slideshow').data('paused', false);
+            });
+
+            $('.wrap-slideshow.slideshow .playPause .fa-pause').on('click', function () {
+                $slideshow.cycle('pause');
+                $('#slideshow').data('paused', true);
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-left').on('click', function () {
+                $slideshow.cycle('prev');
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-right').on('click', function () {
+                $slideshow.cycle('next');
+            });
+        }, 500);
+
+        $slideshow.on('cycle-before', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0) {
+                pauseYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0) {
+                pauseVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+        $slideshow.on('cycle-after', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true && youtubeSlide.data('paused') != true) {
+                muteYoutubePlayerById(youtubeSlide.attr('id'))
+                playYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true && vimeoSlide.data('paused') != true) {
+                playVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+	
+    });
+</script><div class="wrap-slideshow slideshow">
+    <div id="slideshow" class="headerGalleryV2">
+        
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl00_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/8985c11d-b9be-4314-bcba-8c6f3cf5322b.png" alt="MPS Continuity of Learning and COVID-19 Response Plan " style="border-width:0px;"><div class="caption">
+		<div class="captionBottom">
+			<a href="https://www.midlandps.org/Content2/mps-continuity-of-learning-plan" target="">MPS Continuity of Learning and COVID-19 Response Plan has been released!</a>
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_ctl00_rptPhotos_ctl01_repeaterSlide" class="slide">
+	<a class="sliderImage" href="http://www.midlandps.org/Content/covid-19-coronavirus-information"><img src="/userfiles/2020-03/4993f115-60f4-4c2e-9120-699d35e23a06.jpg" alt="" style="border-width:0px;"></a><div class="caption">
+		<div class="captionTop">
+			<a href="http://www.midlandps.org/Content/covid-19-coronavirus-information" target="_blank">COVID-19 (Coronuavirus) Updates &amp; Mandatory Closure Info</a>
+		</div>
+	</div>
+</div>
+            
+    </div>
+
+    <div class="prevNext">
+        <i class="fa fa-chevron-left" aria-label="previous slide" tabindex="0"></i>
+        <i class="fa fa-chevron-right" aria-label="next slide" tabindex="0"></i>
+    </div>
+
+    <div class="cycle-pager slideshow"></div>
+
+    <div class="playPause">
+        <i class="fa fa-play" aria-label="play, resume header gallery" tabindex="0"></i>
+        <i class="fa fa-pause" aria-label="pause, stop header gallery" tabindex="0"></i>
+    </div>
+</div>
+
+
+<style>
+    .caption {
+        position: absolute;
+        bottom: 25%;
+        left: 0;
+        width: 100%;
+        padding: 0 20%;
+        z-index: 2;
+    }
+</style>
+<style>#slideshow{position:relative;z-index:1;</style>
+<style type="text/css">
+    .wrap-slideshow {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .slide {
+        display: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide.cycle-slide-active {
+        display: block;
+        animation-name: fadeIn;
+        animation-duration: 1000ms;
+    }
+
+    .slide img {
+        width: 100%;
+        display: block;
+    }
+
+    .caption,
+    .caption a {
+        color: #fff;
+    }
+
+    .captionTop,
+    .captionBottom {
+        display: none;
+    }
+
+    .cycle-slide-active .captionTop {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        animation-name: slideInRight;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-slide-active .captionBottom {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.4);
+        text-align: center;
+        animation-name: slideInLeft;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-pager {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        z-index: 2;
+    }
+
+    .cycle-pager .page {
+        display: inline-block;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+    .cycle-pager .page:before {
+        display: inline-block;
+        content: '';
+        width: 12px;
+        height: 12px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        line-height: 1px;
+    }
+
+    .cycle-pager .page.cycle-pager-active:before {
+        background-color: white;
+    }
+
+    .playPause {
+        position: absolute;
+        bottom: 0px;
+        right: 10px;
+        padding: 0;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .playPause i {
+        margin-bottom: 3px;
+    }
+
+    .playPause i.fa-play {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 8px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause i.fa-play:before {
+        margin-top: -1px;
+        margin-right: -2px;
+    }
+
+    .playPause i.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 9px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause svg.fa-play,
+    .playPause svg.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 11px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -15px;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .prevNext svg {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+    }
+
+    .prevNext svg.fa-chevron-left {
+        padding-left: 3px;
+    }
+
+    .prevNext svg.fa-chevron-right {
+        padding-right: 3px;
+    }
+
+    .prevNext i {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext .fa-chevron-left {
+        left: 20px;
+    }
+
+    .prevNext svg:first-child,
+    .prevNext .fa-chevron-left:before {
+        margin-left: -2px;
+    }
+
+    .prevNext .fa-chevron-right {
+        right: 20px;
+    }
+
+    .prevNext svg:last-child,
+    .prevNext .fa-chevron-right:before {
+        margin-right: -2px;
+    }
+
+    .wrap-slideshow .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('');
+        background-size: contain;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+
+    .vimeoVideoSlide {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+    }
+
+    .vimeoVideoSlide iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .youtubeVideoSlide {
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide .youtubeVideoThumbnail {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        object-fit: contain;
+        object-position: center;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .youtubeVideoThumbnailPlay {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background-color: #f00;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    .youtubeVideoThumbnailPlay i {
+        margin: 0 -2px 0 0;
+        line-height: 100%;
+    }
+
+    @keyframes none {
+        from {
+            display: block;
+        }
+
+        to {
+            display: block;
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            left: 100%;
+        }
+
+        60% {
+            left: -10px;
+        }
+
+        to {
+            left: 0;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            right: 100%;
+        }
+
+        60% {
+            right: -10px;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+<style id="youtubeStyles"></style>
+</div>
+
+    <div class="hidden-md hidden-lg above-header-mobile">
+        <div>
+            <div class="tab-content">
+                <div id="slideFeature1" class="tab-pane active">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        #KeepItKindMPS
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>MPS’ “kindness campaign” launched with the beginning of this school year</p>
+<p>We know that Kindness supports Social Emotional Learning skills, is contagious, inspires generosity and compassion and much more. </p>
+<p>Stay tuned for updates as MPS students and staff share kindness opportunities and occurrences with fellow students and throughout the community! </p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+
+                <div id="slideFeature2" class="tab-pane">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        MPS INCLUSION &amp; DIVERSITY  VISION STATEMENT 
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>Everyone in our school community is valued, safe, treated with kindness and respect, and works together to make our community  and  world a better place.</p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+
+                <div id="slideFeature3" class="tab-pane">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Our Mission
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>"Midland Public Schools, in partnership with our community, prepares students as knowledgeable, self-reliant, cooperative and ethical learners who are contributing citizens."</p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+            </div>
+
+            <div class="wrap-nav">
+                <a href="javascript:void(0);" class="prev"><span class="sr-only">previous featured content</span><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+
+                <ul class="nav nav-tabs">
+<li id="ctl00_ctl00_MasterNews_Li1" class="active">
+                        <a href="#slideFeature1" data-toggle="tab"><span class="obscure">featured content 1</span></a>
+                    </li>
+
+                    <li id="ctl00_ctl00_MasterNews_Li2">
+                        <a href="#slideFeature2" data-toggle="tab"><span class="obscure">featured content 2</span></a>
+                    </li>
+
+                    <li id="ctl00_ctl00_MasterNews_Li3">
+                        <a href="#slideFeature3" data-toggle="tab"><span class="obscure">featured content 3</span></a>
+                    </li>
+                </ul>
+<a href="javascript:void(0);" class="next"><span class="sr-only">next featured content</span><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="hidden">
+        <div id="ctl00_ctl00_MasterNews_SlideshowFeature" class="slideshowFeature">
+            <div class="tab-content">
+                <div id="slideFeature11" class="tab-pane active">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        #KeepItKindMPS
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>MPS’ “kindness campaign” launched with the beginning of this school year</p>
+<p>We know that Kindness supports Social Emotional Learning skills, is contagious, inspires generosity and compassion and much more. </p>
+<p>Stay tuned for updates as MPS students and staff share kindness opportunities and occurrences with fellow students and throughout the community! </p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+
+                <div id="slideFeature22" class="tab-pane">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        MPS INCLUSION &amp; DIVERSITY  VISION STATEMENT 
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>Everyone in our school community is valued, safe, treated with kindness and respect, and works together to make our community  and  world a better place.</p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+
+                <div id="slideFeature33" class="tab-pane">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Our Mission
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>"Midland Public Schools, in partnership with our community, prepares students as knowledgeable, self-reliant, cooperative and ethical learners who are contributing citizens."</p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+            </div>
+
+            <div class="wrap-nav">
+                <a href="javascript:void(0);" class="prev"><span class="sr-only">previous featured content</span><i class="fa fa-chevron-left" aria-hidden="true"></i></a>
+
+                <ul class="nav nav-tabs">
+<li id="ctl00_ctl00_MasterNews_slideFeatureTab1" class="active">
+                        <a href="#slideFeature11" data-toggle="tab"><span class="obscure">featured content 1</span></a>
+                    </li>
+
+                    <li id="ctl00_ctl00_MasterNews_slideFeatureTab2">
+                        <a href="#slideFeature22" data-toggle="tab"><span class="obscure">featured content 2</span></a>
+                    </li>
+
+                    <li id="ctl00_ctl00_MasterNews_slideFeatureTab3">
+                        <a href="#slideFeature33" data-toggle="tab"><span class="obscure">featured content 3</span></a>
+                    </li>
+                </ul>
+<a href="javascript:void(0);" class="next"><span class="sr-only">next featured content</span><i class="fa fa-chevron-right" aria-hidden="true"></i></a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.slideshowFeature').appendTo('#slideshow');
+            $('.otherSlideshowFeature').appendTo('#slideshow');
+        });
+    </script><section id="site-body"><div id="start-content"></div>
+    <div id="uw_skip_to_main_content_anchor"></div>
+
+    <div class="bg-body0">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    
+<div class="feature-content ">
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-body1 hidden-xs">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h2 class="quicklinksHeader"><span>Quicklinks</span></h2>
+
+                    <div class="row">
+                        <nav id="HomeCircleNav"><ul class="">
+<li class="with-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSf7Wj95lZwb_PYShVQs83na1ldQo-OBVOAxsZdFOm31RoYrEQ/viewform?usp=sf_link" target="_blank" title="MPS Connect"><img src="/userfiles/4/my%20files/quicklinkicons/kidsatassembly.jpg?id=3254&amp;width=210" alt="MPS Connect" title="MPS Connect" border="0"></a></li>
+<li class="with-image"><a href="/content/guide-to-enrollment" title="Your Guide to Enrollment"><img src="/userfiles/4/my%20files/quicklinkicons/cpe/cpeclassroom.jpg?id=3390&amp;width=200" alt="Your Guide to Enrollment" title="Your Guide to Enrollment" border="0"></a></li>
+<li class="with-image"><a href="/content/superintendents-weekly-communique" title="Superintendent’s Weekly Communiqué"><img src="/userfiles/4/my%20files/quicklinkicons/sharrowimage.jpg?id=3258&amp;width=210" alt="Superintendent’s Weekly Communiqué" title="Superintendent’s Weekly Communiqué" border="0"></a></li>
+<li class="with-image"><a href="/content/calendar" title="Calendar"><img src="/userfiles/4/my%20files/quicklinkicons/choir1.jpg?id=3249&amp;width=210" alt="Calendar" title="Calendar" border="0"></a></li>
+<li class="with-image"><a href="/board" title="Board of Education"><img src="/userfiles/4/my%20files/quicklinkicons/classroomwork.jpg?id=3250&amp;width=210" alt="Board of Education" title="Board of Education" border="0"></a></li>
+<li class="with-image"><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/Community/OurSchoolsNewsletter/2020/February2020.pdf?id=3605" target="_blank" title="Our Schools Newsletter"><img src="/userfiles/4/my%20files/quicklinkicons/ourschools.jpg?id=3259&amp;width=210" alt="Our Schools Newsletter" title="Our Schools Newsletter" border="0"></a></li>
+<li class="with-image"><a href="/content/volunteer-opportunities" title="VOLUNTEERISM"><img src="/userfiles/4/my%20files/quicklinkicons/adams/adamsbooks.jpg?id=3386&amp;width=200" alt="VOLUNTEERISM" title="VOLUNTEERISM" border="0"></a></li>
+<li class="with-image"><a href="/content/nowhiring" title="Employment"><img src="/userfiles/4/my%20files/quicklinkicons/jeffersonbekindstaff.jpg?id=3253&amp;width=210" alt="Employment" title="Employment" border="0"></a></li>
+<li class="with-image"><a href="https://eac5.midlandps.org/eac51/Login.aspx" target="_blank" title="Employee Access Center"><img src="/userfiles/4/my%20files/quicklinkicons/cpeplayground.jpg?id=3251&amp;width=210" alt="Employee Access Center" title="Employee Access Center" border="0"></a></li>
+<li class="with-image"><a href="https://adminweb.aesoponline.com/access?t=1672734027#new_tab" target="_blank" title="AESOP Login"><img src="/userfiles/4/my%20files/quicklinkicons/adamsgraduates.jpg?id=3244&amp;width=210" alt="AESOP Login" title="AESOP Login" border="0"></a></li>
+<li class="with-image"><a href="http://chartwellsk12.compass-usa.com/MidlandPublicSchools" target="_blank" title="Food Service"><img src="/userfiles/4/my%20files/quicklinkicons/chartwellsfoodtruck.jpg?id=3248&amp;width=210" alt="Food Service" title="Food Service" border="0"></a></li>
+<li class="with-image"><a href="https://hac.midlandps.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f" target="_blank" title="Home Access Center"><img src="/userfiles/4/my%20files/quicklinkicons/bikes.jpg?id=3247&amp;width=210" alt="Home Access Center" title="Home Access Center" border="0"></a></li>
+<li class="with-image"><a href="/content/media-links" title="Media Center Links"><img src="/userfiles/4/my%20files/quicklinkicons/football.jpg?id=3252&amp;width=210" alt="Media Center Links" title="Media Center Links" border="0"></a></li>
+<li class="with-image"><a href="https://esp4.midlandps.org/TAC/Account/LogOn?ReturnUrl=%2ftac" target="_blank" title="Teacher Access Center"><img src="/userfiles/4/my%20files/quicklinkicons/dsaawards.jpg?id=3262&amp;width=210" alt="Teacher Access Center" title="Teacher Access Center" border="0"></a></li>
+<li class="with-image"><a href="/content/Summer%20Program" aria-label="" title="Summer eLearning"><img src="/userfiles/4/my%20files/quicklinkicons/studentatboard.jpg?id=3263&amp;width=210" alt="Summer eLearning" title="Summer eLearning" border="0"></a></li>
+<li class="with-image"><a href="https://www.schoolpay.com/" target="_blank" title="SchoolPay"><img src="/userfiles/4/my%20files/quicklinkicons/robotics.jpg?id=3256&amp;width=210" alt="SchoolPay" title="SchoolPay" border="0"></a></li>
+<li class="with-image"><a href="http://mpstv.midlandps.org/CablecastPublicSite/watch/2?channel=1" target="_blank" title="Watch MPSTV Online"><img src="/userfiles/4/my%20files/quicklinkicons/kenya.jpg?id=3261&amp;width=210" alt="Watch MPSTV Online" title="Watch MPSTV Online" border="0"></a></li>
+<li class="with-image"><a href="https://docs.google.com/forms/d/e/1FAIpQLSfrBoi-2xKNT0VMLe3R7wfaH34Zkba3vofPznpNyCvcNBGhzw/viewform" target="_blank" title="Contact the Webmaster"><img src="/userfiles/4/my%20files/quicklinkicons/interactiveclass.jpg?id=3260&amp;width=210" alt="Contact the Webmaster" title="Contact the Webmaster" border="0"></a></li>
+<li class="with-image"><a href="/" title="Home"><img src="/userfiles/4/my%20files/quicklinkicons/adamselementaryoffice.jpg?id=3243&amp;width=210" alt="Home" title="Home" border="0"></a></li>
+</ul>
+<a id="homeCirclePrev" href="javascript:void(0);">
+                                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                <span class="obscure">previous quick links</span>
+                            </a>
+                            <a id="homeCircleNext" href="javascript:void(0);">
+                                <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                                <span class="obscure">next quick links</span>
+                            </a>
+                        </nav>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-body2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-8">
+                    <div class="homePanel">
+                        <div class="wrap-news">
+                            <h2 class="sectionHeader">Latest News</h2>
+
+                            
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl01_lnkTitle" class="news-title" href="/News/502">MPS Teacher Week At A Glance (WAAG) site Is now Available!</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 16, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl01_lblSummary" class="news-summary"><p><strong>WAAG</strong> is a helpful tool during this closure to help students and parents plan their upcoming week and reduce the number of individual emails one may recieve</p>
+<p><a href="https://sites.google.com/midlandps.org/mpsweekataglance/home" target="_blank">Click here to visit MPS's WAAG Site</a></p>
+
+<p>You will see your or your child's building on the home page, click it scroll through the page until you see your teachers page, click it and you'll see your teacher's WAAG.</p>
+
+<p>This will be updated by 4:00 pm every Friday. Plan to check it weekly.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl01_lnkViewAll" title="Click to read more about: MPS Teacher Week At A Glance (WAAG) site Is now Available!" class="view-all" href="/News/502">Read More <span class="sr-only">about MPS Teacher Week At A Glance (WAAG) site Is now Available!</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_lnkTitle" class="news-title" href="/News/499">Have a broken MPS Chromebook?</a>
+
+				<span class="news-post-date">Posted On: Tuesday, April 7, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_lblSummary" class="news-summary"><p>Tech support is available for MPS staff and for MPS families during the extended school shutdown.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl02_lnkViewAll" title="Click to read more about: Have a broken MPS Chromebook?" class="view-all" href="/News/499">Read More <span class="sr-only">about Have a broken MPS Chromebook?</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl03_lnkTitle" class="news-title" href="/News/505">Advertisement to Bid 20-209 Advertisement to Bid</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 22, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl03_lblSummary" class="news-summary"><p>Midland Public Schools requests Bid Proposals for Bid Package 20-209 Dow High Athletic Field. <strong>Bid Proposals will be received through Building Connected by 2:00 pm local time on May 7, 2020.</strong></p>
+
+<p><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/bid/2020/20-209%20Dow%20High%20Athletic%20Field.pdf?id=3792" target="_blank">View full details here</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl03_lnkViewAll" title="Click to read more about: Advertisement to Bid 20-209 Advertisement to Bid" class="view-all" href="/News/505">Read More <span class="sr-only">about Advertisement to Bid 20-209 Advertisement to Bid</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl04_lnkTitle" class="news-title" href="/News/504">Advertisement to bid  20-208 MHS Baseball Parking Lot</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 22, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl04_lblSummary" class="news-summary"><p>Midland Public Schools requests Bid Proposals for Bid Package 20-208 Midland High Baseball Parking Lot Paving. <strong>Bid Proposals will be received through Building Connected by 2:00 pm local time on May 7, 2020</strong>. </p>
+
+
+<a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/bid/2020/20-208%20MHS%20Baseball%20Parking%20Lot.pdf?id=3791" target="_blank">View full details here</a></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl04_lnkViewAll" title="Click to read more about: Advertisement to bid  20-208 MHS Baseball Parking Lot" class="view-all" href="/News/504">Read More <span class="sr-only">about Advertisement to bid  20-208 MHS Baseball Parking Lot</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl05_lnkTitle" class="news-title" href="/News/508">Advertisement to Bid Waste and Recycle Disposal Services</a>
+
+				<span class="news-post-date">Posted On: Friday, April 24, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl05_lblSummary" class="news-summary"><p>Midland Public Schools is requesting bids for waste and recycle pick-up/disposal for the district.  The waste/recycle containers will be located at 14 sites as listed in Appendix A, along with the number of containers, sizes and pick-up schedule.</p>
+<p><strong>Pre-Proposal Meeting:</strong> (Required) <br>
+By Appointment 989-923-5035 </p>
+<p><strong>Proposal Due Date: </strong><br>
+May 7, 2020 - 2:00 p.m., local time.</p> 
+<p><strong>Return to:<br> 
+Waste and Recycle Bid Mr. Michael Moeggenberg<br>
+Director of Facilities and Operations<br> 
+Midland Public Schools<br> 
+600 E. Carpenter Street<br> 
+Midland, Michigan 48640-5499</strong></p> 
+<p><strong>Late Proposals Will Be Rejected</strong></p>
+<p><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/bid/2020/Request%20for%20Proposal%20Waste%2020-22%20(1).pdf?id=3801" target="_blank">View Full Details here</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl05_lnkViewAll" title="Click to read more about: Advertisement to Bid Waste and Recycle Disposal Services" class="view-all" href="/News/508">Read More <span class="sr-only">about Advertisement to Bid Waste and Recycle Disposal Services</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl06_lnkTitle" class="news-title" href="/News/509">Advertisement to Bid Integrate Pest Management</a>
+
+				<span class="news-post-date">Posted On: Friday, April 24, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl06_lblSummary" class="news-summary"><p>Midland Public Schools is requesting bids for an Integrated Pest Management program. Integrated Pest Management (IPM) is a pest management strategy that focuses on long-term prevention or suppression of pest problems with minimum impact on human health and environment. The Michigan Pesticide Control Act, as outlined in P.A. 171 and Regulations 636 and 637 now require all schools to adopt such a program. Midland Public Schools adopted this policy on June 12, 1995.</p>
+
+<p>A site inspection may be conducted during the period of Monday, May 4 through Wednesday, May 13, 2020. If you plan to inspect the buildings, arrangements must be made ahead of time by calling James Rupert, 989-923-5032. A building list is included in the bid package.</p>
+
+<p><strong>Due Date and Place:</strong><br>
+May 14, 2020<br>
+Attn: Michael Moeggenberg<br>
+2:00 p.m.<br>
+Midland Public Schools<br>
+600 E. Carpenter Street<br>
+Midland, MI 48640</p>
+
+<p><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/bid/2020/MPS%20Buildings.pdf?id=3802" target="_blank">View MPS Buidling Maps here</a></p>
+<p><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/bid/2020/Pest%20Management%20Bid%202020.pdf?id=3799" target="_blank">View Full details here</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl06_lnkViewAll" title="Click to read more about: Advertisement to Bid Integrate Pest Management" class="view-all" href="/News/509">Read More <span class="sr-only">about Advertisement to Bid Integrate Pest Management</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl07_lnkTitle" class="news-title" href="/News/510">Advertisement to Bid CUSTODIAL SUPPLIES</a>
+
+				<span class="news-post-date">Posted On: Friday, April 24, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl07_lblSummary" class="news-summary"><p><strong>Due Date and Place:</strong><br> 
+May 18, 2020<br> 
+2:00 p.m.<br><br>
+Mike Moeggenberg – Custodial Supplies<br>
+Midland Public Schools<br> 
+600 E. Carpenter Street<br>
+Midland, MI  48640</p> 
+ 
+
+<p><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/bid/2020/Custodial%20Supply%20Bid%202020.pdf?id=3800" target="_blank">View Full Details here</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl07_lnkViewAll" title="Click to read more about: Advertisement to Bid CUSTODIAL SUPPLIES" class="view-all" href="/News/510">Read More <span class="sr-only">about Advertisement to Bid CUSTODIAL SUPPLIES</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl08_lnkTitle" class="news-title" href="/News/500">MPS Continuity of Learning Plan Released</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 9, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl08_lblSummary" class="news-summary"><p><a href="https://drive.google.com/a/midlandps.org/file/d/1wBbqAccnQS75osQp-DzbDL9wHdrK7BfA/view?usp=sharing" target="_blank">Midland Public Schools Continuity of Learning and Covid Respond Plan</a></p>
+
+<p>Helpful Resources<br><a href="https://www.midlandps.org/clever-help" target="_blank">Clever Help</a><br><a href="https://www.midlandps.org/google-classroom-help" target="_blank">Google Classroom Help</a><br><a href="https://www.midlandps.org/Zoom-Help" target="_blank">Zoom Help</a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl08_lnkViewAll" title="Click to read more about: MPS Continuity of Learning Plan Released" class="view-all" href="/News/500">Read More <span class="sr-only">about MPS Continuity of Learning Plan Released</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl09_lnkTitle" class="news-title" href="/News/494">Expanding Child Care Access for Essential Workforce During the Covid-19 Emergency</a>
+
+				<span class="news-post-date">Posted On: Tuesday, March 24, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl09_lblSummary" class="news-summary"><p>Governor Whitmer announced an Executive Order last night to expand capacity for tuition-based child care services for health care workers, first responders and other members of the essential workforce. To all essential workers in Michigan, we say thank you for your service during this crisis.</p>
+
+<p>The Governor has defined essential workers as health care workers, direct care workers, emergency medical service providers, first responders, law enforcement personnel, sanitation workers, child care workers, corrections personnel, postal workers, public health employees, court personnel, critical infrastructure providers including: utilities, manufacturing, mass transit, grocers, suppliers, and key government employees including: child protective service workers, child welfare, foster care, recipient rights, the Governor’s office, cabinet members and their designees, the Department of Health and Human Services field office staff, Unemployment Insurance Agency employees, and other employees identified by the Department of Technology, Management, and Budget.</p>
+
+<p>The Governor has called on Intermediate School Districts (ISDs) to help mobilize and coordinate efforts to expand accessibility for child care services during this emergency. The ISDs will be partnering with the Early Childhood Investment Corporation and Michigan 2-1-1 to coordinate these efforts.</p>
+
+<p>If you are a member of the essential workforce defined above and are in need of tuition-based child care, go to www.helpmegrow-mi.org/essential and your information will be routed to someone in your community who can help you find care.</p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl09_lnkViewAll" title="Click to read more about: Expanding Child Care Access for Essential Workforce During the Covid-19 Emergency" class="view-all" href="/News/494">Read More <span class="sr-only">about Expanding Child Care Access for Essential Workforce During the Covid-19 Emergency</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl10_lnkTitle" class="news-title" href="/News/492">Invitation to BID - Shaw Moisture Treatment Application</a>
+
+				<span class="news-post-date">Posted On: Wednesday, March 18, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl10_lblSummary" class="news-summary"><p>Contractors are encouraged to walk the site to determine the scope of work, equipment and materials required. Appointments to walk the site should be scheduled with the contact listed below.<br>
+Michael Moeggenberg<br>
+Director of Facilities and Operations<br>
+Midland Public Schools<br>
+989-923-5035<br><a href="mailto:moeggenbergmj@midlandps.org">moeggenbergmj@midlandps.org</a></p>
+
+<p>Bids will be accepted until 2:00 P.M. local time on <strong>April 21, 2020</strong>, at which time bids will be opened and read aloud for presentation to the Board of Education at their next regularly scheduled meeting. No oral, telephonic or facsimile proposals will be considered. No proposals will be considered after time of closing of bids other than an act of God, determined by the district.</p>
+
+<center>
+<p>All bids must be submitted on the attached bid form and signed by the bidder. Two (2) copies of the bid form should be addressed to the attention of:</p>
+
+<p> </p>
+
+<p>Michael Moeggenberg<br>
+Director of Facilities and Operations<br>
+Midland Public Schools<br>
+600 East Carpenter Street<br>
+Midland, Michigan 48640<br><strong>“Midland High Moisture Emission Control Installation”</strong></p>
+
+<p>One (1) copy of the bid form should be retained for your files. Questions should be referred to Michael Moeggenberg, Director of Facilities and Operations at<br>
+989-923-5035 or <a href="mailto:moeggenbergmj@midlandps.org">moeggenbergmj@midlandps.org</a></p>
+</center>
+
+<p><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/bid/MHS%20Moisture%20Treatment.pdf?id=3743" target="_blank"><strong>View full details here</strong></a></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl10_lnkViewAll" title="Click to read more about: Invitation to BID - Shaw Moisture Treatment Application" class="view-all" href="/News/492">Read More <span class="sr-only">about Invitation to BID - Shaw Moisture Treatment Application</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl11_lnkTitle" class="news-title" href="/News/484">Download our NEW APP</a>
+
+				<span class="news-post-date">Posted On: Friday, February 28, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl11_lblSummary" class="news-summary"><p>Stay up to date on all things MPS with our App!</p>
+
+<p>In December we launched our new Midland Public Schools app. In the app, you will find MPS info like news, events, staff, schools and more. Interested in including it on your smartphone or tablet? It is free to download search "Midland Public Schools" in your app store.</p>
+
+<center>
+<img alt="App District Home Screen" src="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/AppDistrictHome.jpg?id=3669" width="300px">     <img alt="App School List" src="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/AppSchoolList.jpg?id=3668" width="300px">
+</center>
+
+<p style="font-size:16px;"><strong>Have you already downloaded our app but now have questions on how to use it, <a href="http://www.midlandps.org/Content/app-how-to">this page will help you get started</a></strong></p></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl11_lnkViewAll" title="Click to read more about: Download our NEW APP" class="view-all" href="/News/484">Read More <span class="sr-only">about Download our NEW APP</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl12_lnkTitle" class="news-title" href="/News/52">MPS Bond Update</a>
+
+				<span class="news-post-date">Posted On: Tuesday, February 11, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl12_lblSummary" class="news-summary"><center>
+<p><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/Bond/20200211/Additional%20Completed%20Bond%20Projects%20as%20of%2002-2020.pdf?id=3632" target="_blank">Additional Completed Bond Projects as of February 2020</a></p>
+
+<p><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/Bond/20200211/PIC%20PP%20020520.pdf?id=3633" target="_blank">Bond PIC Meeting Presentation</a></p>
+
+<p><a href="/Content/weekly-bond-construction-updates"><strong>View all weekly bond Construction Updates here!</strong></a></p>
+
+<p><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/MPS%20Contractors%20010719.pdf?id=2260" target="_blank">MPS Contractors 010719</a></p>
+
+<p><a href="http://www.midlandps.org/userfiles/4/My%20Files/Updated%20Bond%20Worklist%20(as%20of%20August%202019).pdf?id=2845" target="_blank">Updated Bond Worklist</a></p>
+
+<p><a href="/userfiles/4/My%20Files/District%20Site/Bond/2018-03-29SpecialCommunique.pdf?id=1451" target="_blank">Superintendent Bond Special Edition Communique</a></p>
+
+<p><a href="/userfiles/4/My%20Files/District%20Site/Bond/february-2015-debt-proposal-PP.pdf?id=1455" target="_blank">Facility Renewal Proposal</a></p>
+
+<p><a href="/userfiles/4/My%20Files/District%20Site/Bond/81914-MPS_FACILITY_PROPOSAL.pdf?id=1452" target="_blank">Facility Assessment</a></p>
+</center></span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ctl01_rep_news_ctl12_lnkViewAll" title="Click to read more about: MPS Bond Update" class="view-all" href="/News/52">Read More <span class="sr-only">about MPS Bond Update</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section><div class="wrap-viewAll">
+                                <a id="ctl00_ctl00_MasterContent_ViewAllNews" href="/news">Show All <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4">
+                    <div class="homePanel">
+                        <div class="wrap-calendar">
+                            <h2 class="sectionHeader">Calendar</h2>
+
+                            
+
+<style type="text/css">
+	.event-date {
+		width: 55px;
+		text-align: center;
+		padding: 0;
+		border-radius: 3px;
+		font-size: 14px;
+		margin: 0 15px 0 0;
+		display: block;
+		float: left;
+		white-space: nowrap;
+		overflow: hidden;
+		border: 3px solid #555;
+	}
+
+	.event-date .event-month, .event-date .event-month2 {
+		background: #555;
+		padding: 2px 0;
+	}
+
+
+</style>
+<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-16703">
+			<div class="event-date  ">
+				<div class="event-month">Apr</div>
+<div class="event-date-number single-day">29</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16703" title="Closed ">
+					Closed 
+					<span class="obscure">April 29, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-15205">
+			<div class="event-date  ">
+				<div class="event-month">Apr</div>
+<div class="event-date-number single-day">29</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=15205" title="5.1 to 19.4 HR &amp; Payroll">
+					5.1 to 19.4 HR &amp; Payroll
+					<span class="obscure">April 29, @Administration Center - Conference Room A, 11:00 AM — 2:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@Administration Center - Conference Room A
+			</div>
+			<div class="event-time">
+				11:00 AM — 2:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16704">
+			<div class="event-date  ">
+				<div class="event-month">Apr</div>
+<div class="event-date-number single-day">30</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16704" title="Closed ">
+					Closed 
+					<span class="obscure">April 30, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16705">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">1</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16705" title="Closed ">
+					Closed 
+					<span class="obscure">May 1, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16706">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">2</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16706" title="Closed ">
+					Closed 
+					<span class="obscure">May 2, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16707">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">3</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16707" title="Closed ">
+					Closed 
+					<span class="obscure">May 3, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16708">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">4</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16708" title="Closed ">
+					Closed 
+					<span class="obscure">May 4, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16709">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">5</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16709" title="Closed ">
+					Closed 
+					<span class="obscure">May 5, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-7217">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">5</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=7217" title="Cinco de Mayo">
+					Cinco de Mayo
+					<span class="obscure">May 5, , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16710">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">6</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16710" title="Closed ">
+					Closed 
+					<span class="obscure">May 6, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-15220">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">6</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=15220" title="Census Training">
+					Census Training
+					<span class="obscure">May 6, @Administration Center - Conference Room A, Administration Center - Conference Room B, 6:30 AM — 3:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@Administration Center - Conference Room A, Administration Center - Conference Room B
+			</div>
+			<div class="event-time">
+				6:30 AM — 3:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-15622">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">6</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=15622" title="PRODIGY Meeting">
+					PRODIGY Meeting
+					<span class="obscure">May 6, @Administration Center - Technology Conference Room, 2:30 PM — 4:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@Administration Center - Technology Conference Room
+			</div>
+			<div class="event-time">
+				2:30 PM — 4:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16711">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">7</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16711" title="Closed ">
+					Closed 
+					<span class="obscure">May 7, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-15221">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">7</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=15221" title="Census Training">
+					Census Training
+					<span class="obscure">May 7, @Administration Center - Conference Room A, Administration Center - Conference Room B, 6:30 AM — 3:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@Administration Center - Conference Room A, Administration Center - Conference Room B
+			</div>
+			<div class="event-time">
+				6:30 AM — 3:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16712">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">8</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16712" title="Closed ">
+					Closed 
+					<span class="obscure">May 8, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-15222">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">8</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=15222" title="Census Training">
+					Census Training
+					<span class="obscure">May 8, @Administration Center - Conference Room A, Administration Center - Conference Room B, 6:30 AM — 3:00 PM</span>
+				</a>
+			</div>
+			<div class="event-location">
+				@Administration Center - Conference Room A, Administration Center - Conference Room B
+			</div>
+			<div class="event-time">
+				6:30 AM — 3:00 PM
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16713">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">9</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16713" title="Closed ">
+					Closed 
+					<span class="obscure">May 9, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-7222">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">10</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=7222" title="Mother's Day">
+					Mother's Day
+					<span class="obscure">May 10, , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16714">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">10</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16714" title="Closed ">
+					Closed 
+					<span class="obscure">May 10, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		<li class="upcoming-events-event event-16715">
+			<div class="event-date  ">
+				<div class="event-month">May</div>
+<div class="event-date-number single-day">11</div>
+			</div>
+			<div class="event-link ">
+				<a href="/calendarWeekView.aspx?schools=1,2,3,4,5,6,7,8,9,10,12&amp;schoolid=0&amp;types=&amp;eventID=16715" title="Closed ">
+					Closed 
+					<span class="obscure">May 11, @ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - , </span>
+				</a>
+			</div>
+			<div class="event-location">
+				@ADE | PME | CHE | SBE | WCE | CPE | NMS | JMS | MHS | DHS | AUD | CRE - 
+			</div>
+			<div class="event-time">
+				
+			</div>
+		</li>
+	
+		</ul></section><footer><a id="ctl00_ctl00_MasterContent_ctl02_hl_viewAllEvents" class="view-all-events" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/29/2020">View All</a>
+</footer><div class="wrap-viewAll">
+                                <a href="/calendarWeekView.aspx?id=0">Full Calendar <i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="ctl00_ctl00_MasterContent_BgBody3" class="bg-body3" style="background-image:url(https://cdn.schoolpointe.com/images/Generic-Featured-Content-Image.jpg);">
+	
+        <div class="fade-right"></div>
+        <div class="fade-left"></div>
+        <div class="overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <span id="ctl00_ctl00_MasterContent_TeaserFeatureTitle" class="teaserFeatureTitle">INCLUSION &amp; DIVERSITY (I &amp; D) IS A  STRONG EMPHASIS FOR MPS! </span>
+
+                        <div class="wrap-viewAll">
+                            <a id="ctl00_ctl00_MasterContent_TeaserFeatureLink" href="/0/featured/4">Read More<span class="obscure">about this feature</span></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+</div>
+
+    <div class="bg-body4">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6 borderWall">
+                    
+                </div>
+                <div class="col-xs-6">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-body5">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Midland Public Schools at a Glance
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <table><tbody>
+<tr>
+<td>
+			<center>
+			<h2>Total MPS Student Enrollment</h2>
+			</center>
+			</td>
+			<td>   </td>
+			<td>
+			<center>
+			<h2>Top 5%</h2>
+			</center>
+			</td>
+			<td>   </td>
+			<td>
+			<center>
+			<h2>Ranked #1</h2>
+			</center>
+			</td>
+			<td>   </td>
+			<td>
+			<center>
+			<h2>Ranked #22</h2>
+			</center>
+			</td>
+			<td>   </td>
+			<td>
+			<center>
+			<h2>Ranked #25</h2>
+			</center>
+			</td>
+		</tr>
+<tr>
+<td>
+			<center><strong>7,798</strong></center>
+			</td>
+			<td>   </td>
+			<td>
+			<center><strong>MPS ranks in the top 5% of districts in the NATION</strong></center>
+			</td>
+			<td>   </td>
+			<td>
+			<center><strong>Best school district in the Saginaw Area(out of 21 districts) </strong></center>
+			</td>
+			<td>   </td>
+			<td>
+			<center><strong>District with the best teachers in Michigan </strong></center>
+			</td>
+			<td>   </td>
+			<td>
+			<center><strong>Best places to teach in Michigan</strong></center>
+			</td>
+		</tr>
+</tbody></table>
+</div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var $links = $('#HomeCircleNav > ul > li');
+            var pages = Math.ceil($links.length / 4) - 1;
+            var linksOnPage = 4;
+            var currentPage = 0;
+
+            $links.each(function () {
+                if ($(this).hasClass('without-image')) {
+                    var a = $(this).children('a').html('<span class="obscure">');
+                }
+
+                $(this).children('a').append('<span class="navTitle">' + $(this).children('a').attr('title') + '</span>');
+            });
+
+            $links.slice(0, linksOnPage).addClass('active');
+
+            var $prevButton = $('#homeCirclePrev');
+            var $nextButton = $('#homeCircleNext');
+
+            $prevButton.click(function () {
+                $links = $('#HomeCircleNav > ul > li');
+                $links.removeClass('active');
+
+                if (currentPage == 0) {
+                    currentPage = pages;
+
+                    $links.slice((linksOnPage * currentPage), $links.length).addClass('active');
+                } else {
+                    var start = (--currentPage * linksOnPage);
+                    $links.slice(start, (start + linksOnPage)).addClass('active');
+                }
+            });
+
+            $nextButton.click(function () {
+                $links = $('#HomeCircleNav > ul > li');
+                $links.removeClass('active');
+
+                if (currentPage == pages) {
+                    currentPage = 0;
+
+                    $links.slice(0, linksOnPage).addClass('active');
+                } else {
+                    var start = (++currentPage * linksOnPage);
+                    $links.slice(start, (start + linksOnPage)).addClass('active');
+                }
+            });
+        });
+    </script></section><footer id="site-foot"><div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 bg-footer1" style="background-image: url('/userfiles/-2/My Files/band.JPG?id=3264');">
+            <div class="overlay"></div>
+            <div class="fade-left"></div>
+            <div class="wrap-info">
+                <h2 class="footerName">
+                    Midland Public Schools
+                </h2>
+
+                <div class="wrap-address">
+                    <span id="ctl00_ctl00_footer_ctl00_Address">600 E Carpenter St<br>Midland, MI 48640<i class="fa fa-map-marker" aria-hidden="true"></i></span>
+                </div>
+
+                <div class="wrap-phones">
+                    <span id="ctl00_ctl00_footer_ctl00_Phones"><i class="fa fa-phone" aria-hidden="true"></i> Phone: (989) 923-5001</span>
+                </div>
+
+                <div class="wrap-social">
+                    
+        <a href="/login" title="Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="https://www.google.com" title="Google" target="_self">
+            <span class="obscure">Google</span>
+            <i class="fa fa-google"></i>
+        </a>
+    
+        <a href="https://twitter.com/MidlandPS" title="Twitter" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter-square"></i>
+        </a>
+    
+        <a href="https://www.schoolpay.com/" title="SchoolPay" target="_blank">
+            <span class="obscure">Piggy Bank</span>
+            <i class="custom piggybank"></i>
+        </a>
+    
+        <a href="https://www.youtube.com/user/MidlandPublicSchools" title="Youtube" target="_blank">
+            <span class="obscure">YouTube</span>
+            <i class="fa fa-youtube-square"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_self">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+                </div>
+
+                <div class="wrap-brand">
+                    Powered by <a href="http://www.schoolpointe.com" target="_blank" alt="schoolpointe">
+                        <img src="https://cdn.schoolpointe.com/images/new/SPwhite.png" alt="SchoolPointe logo black"></a>
+                </div>
+            </div>
+                <div class="wrap-info">
+            	<h1 class="footerTitle">Quick Links</h1>
+						<ul class="footerNav">
+<li class="without-image"><a href="https://clever.com/in/midlandps/" target="_blank" title="Clever">Clever</a></li>
+<li class="without-image"><a href="/content/Code%20of%20Student%20Conduct" title="Code of Student Conduct">Code of Student Conduct</a></li>
+<li class="without-image"><a href="/content/download-our-app" aria-label="" title="Download our App">Download our App</a></li>
+<li class="without-image"><a href="http://www.midlandps.org/userfiles/4/My%20Files/District%20Site/District/HR/20190917FOIAProceduresandGuidelines.pdf?id=2881" target="_blank" title="Freedom of Information Act (FOIA)">Freedom of Information Act (FOIA)</a></li>
+<li class="without-image"><a href="/content/Curriculum" title="Handbooks">Handbooks</a></li>
+<li class="without-image"><a href="https://hac.midlandps.org/HomeAccess/Account/LogOn?ReturnUrl=%2fHomeAccess%2f" target="_blank" title="Home Access Center">Home Access Center</a></li>
+<li class="without-image"><a href="https://www.schoolpay.com/" target="_blank" title="SchoolPay">SchoolPay</a></li>
+<li class="without-image"><a href="/content/statement-of-nondiscrimination" title="Statement of Nondiscrimination">Statement of Nondiscrimination</a></li>
+<li class="without-image"><a href="/userfiles/4/My%20Files/District%20Site/Parents/enrollmentforms/2018acceptableusepolicy.pdf?id=1814" target="_blank" title="Student Acceptable Use Policy">Student Acceptable Use Policy</a></li>
+<li class="without-image"><a href="https://www.gmail.com" target="_blank" title="Webmail">Webmail</a></li>
+</ul>
+</div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 bg-footer2">
+            
+<style>
+    #map-modifier
+    {
+        height: 375px;
+        overflow: hidden;
+    }
+
+    #embedded-map
+    {
+        margin-top: -130px;
+    }
+</style>
+<div id="map-modifier">
+    <iframe id="embedded-map" width="100%" height="600" frameborder="0" style="border: 0" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyDmmmA2fT38Ndnp14erRXOY6FIMLEBpnFU&amp;q=Midland%20Public%20Schools+600%20E%20Carpenter%20St+Midland+MI" allowfullscreen></iframe>
+</div>
+
+            <!-- Spacer, School Image Background -->
+        </div>
+    </div>
+</div>
+
+<script>
+    function footer2Size() {
+        $('.bg-footer2').css({ "height": $('.bg-footer1').outerHeight(false) + "px" });
+    }
+
+    $(window).resize(function () {
+        footer2Size();
+    });
+
+    $(document).ready(function () {
+        footer2Size();
+    });
+
+    $(window).load(function () {
+        footer2Size();
+    });
+</script><script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-100716415-20', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><script src="/Customers/MI/MidlandPS/js/budgetBadge.js" type="text/javascript"></script><link href="/Customers/MI/MidlandPS/css/budgetBadge.css" rel="stylesheet" type="text/css">
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0"><input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0"><input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""><input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+
+    <script>
+        $(function () {
+            $('#MobileNav li.with-image a').each(function () {
+                $(this).html($(this).find('img').attr('alt'));
+            });
+        });
+    </script>
+</body>
+</html>

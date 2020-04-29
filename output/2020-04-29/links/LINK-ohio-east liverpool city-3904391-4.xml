@@ -1,0 +1,958 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Ohio Department of HEALTH COVID-19 HOTLINE - East Liverpool City Schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/images//docs/district/fav%20icon/el%20logo%20decal%20interlocked-01%20(1).png?id=20&amp;width=32" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districtManageContent.aspx?cid=114">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1043073721">
+<meta name="google-play-app" content="app-id=com.schoolpointe.stayconnected">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="https://cdn.schoolpointe.com/images/apple-touch-icon.jpg">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Stay Connected", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "https://cdn.schoolpointe.com/images/apple-touch-icon.jpg", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><link rel="alternate" type="application/rss+xml" title="East Liverpool City Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="East Liverpool Junior-Senior High - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Westgate Middle School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="LaCroft Elementary - News" href="/rssNews.ashx?schoolId=3">
+<link rel="alternate" type="application/rss+xml" title="North Elementary - News" href="/rssNews.ashx?schoolId=4">
+<link rel="alternate" type="application/rss+xml" title="East Liverpool Preschool - News" href="/rssNews.ashx?schoolId=5">
+<link rel="alternate" type="application/rss+xml" title="Career and Technical Education - News" href="/rssNews.ashx?schoolId=7">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "OH_EastLiverpoolCitySchs",
+                                url: "/content_page2.aspx?cid=114",
+                                errorCount: count,
+                                value: parseInt("114", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link rel="icon" href="/userfiles/-2/My%20Files/HF-Watermark.png?id=3" type="image/x-icon">
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=-62135596800000">
+<script src="https://use.typekit.net/csp5tqw.js"></script><script>try { Typekit.load({ async: true }); } catch (e) { }</script>
+</head>
+<body class="school-0 content_page2">
+    <form name="aspnetForm" method="post" action="/Content2/114" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEwNjI4MTA1OTRkZN7QMaFMTZ/Fnbm00RgZkyrC46yz">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+        
+	
+		
+<div class="headerback">
+    <div class="darkBlueHeaderBar"></div>
+    <div class="darkToLightBlueGradient"></div>
+    <header id="site-head" class="container"><div class="row">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 col-xl-7">
+                        <div class="nameContainer">
+                            <a id="lnkSchoolName" class="lnkSchoolName" href="/" style="background-image: url('/docs/userfiles/2/my files/elcsdlogo.jpg?id=376');"><span class="obscure">Logo link to home page</span></a>
+                        </div>
+                    </div>
+
+                    <div class="hidden-xs hidden-sm col-md-5 col-lg-5 col-xl-5">
+                        <div class="watermark"></div>
+                        <div class="floatright">
+                            
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+<div class="search">
+                                <div>
+                                    <div class="searchPad">
+                                        <label for="txtSearch" class="obscure">Search site using Google</label>
+                                        <input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+
+                                    <div class="searchGo">
+                                        <a title="Search" class="bSearch glyphicon glyphicon-search">
+                                            <span class="obscure">Search Site button</span>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+
+                            <a href="/login.aspx" class="olcSignin">Sign-in to OLC</a>
+                               <div class="clearfix"></div>
+
+                          
+                               <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header><div class="navTopBorder"></div>
+
+    <nav id="DistrictHeaderNav"><div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 hidden-xs">
+                    <ul class="nav navbar-nav headerNav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-label="" title="COVID-19 Updates"><img src="/userfiles/2/my%20files/covid-19.jpg?id=369&amp;height=32" alt="COVID-19 Updates" title="COVID-19 Updates" border="0"><strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://youtu.be/WKcZQEYPiCU" target="_blank" aria-label="" title="PNN News Announcements ">PNN News Announcements </a></li>
+<li class="without-image"><a href="https://sites.google.com/elpotters.school/mentalhealthelcsd/home" target="_blank" aria-label="" title="ELSCD Mental Health Support">ELSCD Mental Health Support</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1vsJ6SJrg6tDv1chKioos6AmDjfUHZtb-Fd0DLm6GP14" aria-label="" title="All Call to Parents 4-20-2020">All Call to Parents 4-20-2020</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1KQs2NgFRU4uq8oeRa5yGgAIgjJrbp2av9020tYQz7m4/edit?usp=sharing" aria-label="" title="School Closure Extended ">School Closure Extended </a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1q--rVLQmPjbmkZeAUEsKWh51YHZeyUdtGK98s7FCb8o/edit" aria-label="" title="Brunch and Tech Reminder ">Brunch and Tech Reminder </a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/142vjVQuh3lsVVy-z0EljOjCv6vna4X3J6_pmIkvwcs0/edit" aria-label="" title="All Call To Parents 3/22/2020">All Call To Parents 3/22/2020</a></li>
+<li class="without-image"><a href="https://www.elpotters.school/News/30#sthash.7Tv7Bbah.dpbs" aria-label="" title="How to Contact the School">How to Contact the School</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1uw6n5crLES804xD6i17XPxJSYvsrIo0n2TT_xmJgVeQ/edit?usp=sharing" aria-label="" title="Connect a Chromebook to your internet">Connect a Chromebook to your internet</a></li>
+<li class="without-image"><a href="https://classroom.google.com" aria-label="" title="Student Google Classroom">Student Google Classroom</a></li>
+<li class="without-image"><a href="https://gmail.google.com/" aria-label="" title="Student Email">Student Email</a></li>
+<li class="without-image"><a href="https://www.elpotters.school/News/27#sthash.z7aNC4X3.dpbs" aria-label="" title="Assignment Packets ">Assignment Packets </a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/covid-19%20special%20education-related%20services%20pr-01.pdf?id=377" aria-label="" title="Covid-19 Special Education-Related Services">Covid-19 Special Education-Related Services</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1nr8-T8O3Pkj7AGRUy4I2zQ_h7H5se7FsBuQZcFXCOEs/edit" aria-label="" title="Wednesday Brunch During the School Closure ">Wednesday Brunch During the School Closure </a></li>
+<li class="without-image"><a href="https://docs.google.com/spreadsheets/d/1ym08ADeVIxTuy37LxDL7gZu19o_xMzwx7Ei7bZ9R6no/edit?usp=sharing" aria-label="" title="School Counselors">School Counselors</a></li>
+<li class="without-image"><a href="https://docs.google.com/spreadsheets/d/15VAm47dUm45GLNI4cGGHZuwbkLRMzXxdwyEBe4G5N1c/edit?usp=sharing" aria-label="" title="School Nurses">School Nurses</a></li>
+<li class="without-image"><a href="/Content/116" aria-label="" title="Teacher Emails">Teacher Emails</a></li>
+<li class="without-image"><a href="https://columbiana-health.org/" aria-label="" title="Corona Virus - Columbiana County Health Department ">Corona Virus - Columbiana County Health Department </a></li>
+<li class="without-image"><a href="https://odh.ohio.gov/wps/portal/gov/odh/know-our-programs/novel-coronavirus/2019-ncov" aria-label="" title="Corona Virus - The Ohio Department of Health">Corona Virus - The Ohio Department of Health</a></li>
+<li class="without-image"><a href="https://www.cdc.gov/coronavirus/2019-nCoV/index.html" aria-label="" title="Corona Virus -  CDC">Corona Virus -  CDC</a></li>
+<li class="without-image"><a href="https://www.elpotters.school/Content2/114" aria-label="" title="Ohio Department of Health COVID-19 Hotline">Ohio Department of Health COVID-19 Hotline</a></li>
+<li class="without-image"><a href="https://www.internetessentials.com/covid19" aria-label="" title="Comcast is offering 2 months free to new Internet Essentials customers">Comcast is offering 2 months free to new Internet Essentials customers</a></li>
+<li class="without-image"><a href="https://www.elpotters.school/Content2/120" aria-label="" title="PRECAUTIONS TO PREVENT ALL INFECTIOUS DISEASES">PRECAUTIONS TO PREVENT ALL INFECTIOUS DISEASES</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="News">News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Jr/Sr High School">Jr/Sr High School</a></li>
+<li class="without-image"><a href="/7/home" title="Career and Technical Education">Career and Technical Education</a></li>
+<li class="without-image"><a href="/2/home" title="Westgate Middle School">Westgate Middle School</a></li>
+<li class="without-image"><a href="/3/home" title="LaCroft Elementary School">LaCroft Elementary School</a></li>
+<li class="without-image"><a href="/4/home" title="North Elementary School">North Elementary School</a></li>
+<li class="without-image"><a href="/5/home" title="East Liverpool Preschool">East Liverpool Preschool</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parent &amp; Student Resources">Parent &amp; Student Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://sites.google.com/elpotters.school/mentalhealthelcsd/home" target="_blank" aria-label="" title="ELSCD Mental Health Support">ELSCD Mental Health Support</a></li>
+<li class="without-image"><a href="https://columbiana-health.org/" aria-label="" title="Corona Virus - Columbiana County Health Department ">Corona Virus - Columbiana County Health Department </a></li>
+<li class="without-image"><a href="https://odh.ohio.gov/wps/portal/gov/odh/know-our-programs/novel-coronavirus/2019-ncov" aria-label="" title="Corona Virus - The Ohio Department of Health">Corona Virus - The Ohio Department of Health</a></li>
+<li class="without-image"><a href="https://www.cdc.gov/coronavirus/2019-nCoV/index.html" aria-label="" title="Corona Virus -  CDC">Corona Virus -  CDC</a></li>
+<li class="without-image"><a href="/Content/80" title="East Liverpool City Schools Highlights">East Liverpool City Schools Highlights</a></li>
+<li class="without-image"><a href="https://parentaccess.access-k12.org/district" target="_blank" title="Parent Progressbook Access">Parent Progressbook Access</a></li>
+<li class="without-image"><a href="/docs/district/parent%20resources/progressbook%20user%20quick%20reference.pdf?id=183" title="-ProgressBook User Quick Reference Guide">-ProgressBook User Quick Reference Guide</a></li>
+<li class="without-image"><a href="https://mail.google.com" target="_blank" title="Student Email">Student Email</a></li>
+<li class="without-image"><a href="/content/72" title="Attendance Information">Attendance Information</a></li>
+<li class="without-image"><a href="https://www.myschoolaccount.com/" target="_blank" title="Add Funds to MY SCHOOL ACCOUNT">Add Funds to MY SCHOOL ACCOUNT</a></li>
+<li class="without-image"><a href="/content/78" title="Student Handbooks">Student Handbooks</a></li>
+<li class="without-image"><a href="#" title="PNN Radio">PNN Radio</a></li>
+<li class="with-image"><a href="/content/74" title="Final Forms"><img src="/docs/district/nav%20buttons/finalforms.jpg?id=17&amp;height=32" alt="Final Forms" title="Final Forms" border="0"></a></li>
+<li class="without-image"><a href="/1/Lunch" title="Breakfast and Lunch Menus">Breakfast and Lunch Menus</a></li>
+<li class="without-image"><a href="https://www.epa.gov/sites/production/files/2016-07/documents/bed-bug-guidance-for-parents.pdf%20" target="_blank" title="EPA Bed Bug Guidance for Parents">EPA Bed Bug Guidance for Parents</a></li>
+<li class="without-image"><a href="https://www.epa.gov/sites/production/files/2014-02/documents/bed-bug-prevention-detection-control.pdf%20%20" target="_blank" title="EPA Bed Bug Prevention &amp; Detection">EPA Bed Bug Prevention &amp; Detection</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/administration" title="Departments">Departments</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="School Announcements">School Announcements  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/80" title="East Liverpool City Schools Highlights">East Liverpool City Schools Highlights</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1SrmlnrOVsRKL_DV-Uq7asTdXohe_WpgSR9n5sgtq5pg/edit" title="Jr/SR High School Announcements">Jr/SR High School Announcements</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/13efQoRhOWv8TXhj7tErpqe8JLKzC4R3t5NgMUmJsLA0/edit" title="Westgate Middle School Announcments">Westgate Middle School Announcments</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1VCSvN_KtlA781UeW8KwQ37kTJSXH5VqehHFVqIp5uR4/edit" title="North Elementary School Announcments">North Elementary School Announcments</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1_UqOzc7JsaE1jEFiyt28Tk3_AhtFx5lvize_0VIDNos/edit" title="LaCroft Elementary School Announcments">LaCroft Elementary School Announcments</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1uuYmVIkcrjcrfEI2uIyEQ6F4iOElvg6L1JroDVzfY20/edit?usp=sharing" target="_blank" title="East Liverpool Preschool">East Liverpool Preschool</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff">Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/124" aria-label="" title="How-To-Videos">How-To-Videos</a></li>
+<li class="without-image"><a href="https://mail.google.com" title="Email">Email</a></li>
+<li class="without-image"><a href="https://central.access-k12.org" target="_blank" title="Progressbook">Progressbook</a></li>
+<li class="without-image"><a href="http://elcsdhelpdesk.eastliverpool.k12.oh.us:8080/" target="_blank" title="Technology Help Desk">Technology Help Desk</a></li>
+<li class="without-image"><a href="https://kiosk.managementcouncil.org" title="Employee Kiosk">Employee Kiosk</a></li>
+<li class="without-image"><a href="https://app.frontlineeducation.com/" target="_blank" title="Frontline ( Formerly Aesop ) ">Frontline ( Formerly Aesop ) </a></li>
+<li class="without-image"><a href="https://samegoal.com/iep/a/elcsd.k12.oh.us" title="Samegoal IEP Anywhere">Samegoal IEP Anywhere</a></li>
+<li class="without-image"><a href="https://clever.com/oauth/authorize?channel=clever&amp;client_id=4c63c1cf623dce82caac&amp;confirmed=true&amp;district_id=5894727b0eef8d00012d895a&amp;redirect_uri=https%3A%2F%2Fclever.com%2Fin%2Fauth_callback&amp;response_type=code&amp;state=f2ac35686f73ae612cbd69316058286e421a7384b5e175d3cabca4f5c65f7d6f" title="Clever Portal">Clever Portal</a></li>
+<li class="without-image"><a href="https://global-zone50.renaissance-go.com/welcomeportal/104282" title="Renaissance">Renaissance</a></li>
+<li class="without-image"><a href="https://www.apexvs.com/ApexUI/default.aspx" title="Apex Learning">Apex Learning</a></li>
+<li class="without-image"><a href="https://account.goguardian.com/#/?referral=https%3A%2F%2Fadmin.goguardian.com" title="GoGuardian">GoGuardian</a></li>
+<li class="without-image"><a href="https://my.amplify.com/auth/realms/Amplify/protocol/openid-connect/auth?nonce=T9WpN1hAsLjCVR6S&amp;state=eNyxLHrYMPxqYCBr&amp;redirect_uri=https%3A%2F%2Fmclass.amplify.com%2Fmobilelogin%2Foidc_redirect&amp;response_type=code&amp;client_id=mclass-weblogin&amp;scope=openid" title="Amplify">Amplify</a></li>
+<li class="without-image"><a href="/Content/64" title="LPDC">LPDC</a></li>
+<li class="without-image"><a href="https://tec.access-k12.org/tec/frmLogin.php" title="Education Connection - TEC">Education Connection - TEC</a></li>
+<li class="without-image"><a href="https://www.access-k12.org/" title="ACCESS">ACCESS</a></li>
+<li class="without-image"><a href="https://forms.gle/Nihh8LrKWyzQzvGYA" title="Annual Staff Blood Borne Pathogen Training">Annual Staff Blood Borne Pathogen Training</a></li>
+<li class="without-image"><a href="/content/60" title="Blizzard Bag Assignment Directions">Blizzard Bag Assignment Directions</a></li>
+<li class="without-image"><a href="http://www.eastliverpool.k12.oh.us/chris/forms/chromebookrepairform.asp" title="7th-12th Chromebook Repair Form ">7th-12th Chromebook Repair Form </a></li>
+</ul>
+</li>
+</ul>
+</div>
+            </div>
+        </div>
+
+        <div class="container hidden-lg hidden-md hidden-sm">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mobileNav">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="hidden-lg hidden-md hidden-sm col-xs-12">
+                    <div class="collapse navbar-collapse" id="mobileNav">
+                                                    
+                          
+                        <ul class="nav navbar-nav headerNav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-label="" title="COVID-19 Updates"><img src="/userfiles/2/my%20files/covid-19.jpg?id=369&amp;height=32" alt="COVID-19 Updates" title="COVID-19 Updates" border="0"><strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://youtu.be/WKcZQEYPiCU" target="_blank" aria-label="" title="PNN News Announcements ">PNN News Announcements </a></li>
+<li class="without-image"><a href="https://sites.google.com/elpotters.school/mentalhealthelcsd/home" target="_blank" aria-label="" title="ELSCD Mental Health Support">ELSCD Mental Health Support</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1vsJ6SJrg6tDv1chKioos6AmDjfUHZtb-Fd0DLm6GP14" aria-label="" title="All Call to Parents 4-20-2020">All Call to Parents 4-20-2020</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1KQs2NgFRU4uq8oeRa5yGgAIgjJrbp2av9020tYQz7m4/edit?usp=sharing" aria-label="" title="School Closure Extended ">School Closure Extended </a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1q--rVLQmPjbmkZeAUEsKWh51YHZeyUdtGK98s7FCb8o/edit" aria-label="" title="Brunch and Tech Reminder ">Brunch and Tech Reminder </a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/142vjVQuh3lsVVy-z0EljOjCv6vna4X3J6_pmIkvwcs0/edit" aria-label="" title="All Call To Parents 3/22/2020">All Call To Parents 3/22/2020</a></li>
+<li class="without-image"><a href="https://www.elpotters.school/News/30#sthash.7Tv7Bbah.dpbs" aria-label="" title="How to Contact the School">How to Contact the School</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1uw6n5crLES804xD6i17XPxJSYvsrIo0n2TT_xmJgVeQ/edit?usp=sharing" aria-label="" title="Connect a Chromebook to your internet">Connect a Chromebook to your internet</a></li>
+<li class="without-image"><a href="https://classroom.google.com" aria-label="" title="Student Google Classroom">Student Google Classroom</a></li>
+<li class="without-image"><a href="https://gmail.google.com/" aria-label="" title="Student Email">Student Email</a></li>
+<li class="without-image"><a href="https://www.elpotters.school/News/27#sthash.z7aNC4X3.dpbs" aria-label="" title="Assignment Packets ">Assignment Packets </a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/covid-19%20special%20education-related%20services%20pr-01.pdf?id=377" aria-label="" title="Covid-19 Special Education-Related Services">Covid-19 Special Education-Related Services</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1nr8-T8O3Pkj7AGRUy4I2zQ_h7H5se7FsBuQZcFXCOEs/edit" aria-label="" title="Wednesday Brunch During the School Closure ">Wednesday Brunch During the School Closure </a></li>
+<li class="without-image"><a href="https://docs.google.com/spreadsheets/d/1ym08ADeVIxTuy37LxDL7gZu19o_xMzwx7Ei7bZ9R6no/edit?usp=sharing" aria-label="" title="School Counselors">School Counselors</a></li>
+<li class="without-image"><a href="https://docs.google.com/spreadsheets/d/15VAm47dUm45GLNI4cGGHZuwbkLRMzXxdwyEBe4G5N1c/edit?usp=sharing" aria-label="" title="School Nurses">School Nurses</a></li>
+<li class="without-image"><a href="/Content/116" aria-label="" title="Teacher Emails">Teacher Emails</a></li>
+<li class="without-image"><a href="https://columbiana-health.org/" aria-label="" title="Corona Virus - Columbiana County Health Department ">Corona Virus - Columbiana County Health Department </a></li>
+<li class="without-image"><a href="https://odh.ohio.gov/wps/portal/gov/odh/know-our-programs/novel-coronavirus/2019-ncov" aria-label="" title="Corona Virus - The Ohio Department of Health">Corona Virus - The Ohio Department of Health</a></li>
+<li class="without-image"><a href="https://www.cdc.gov/coronavirus/2019-nCoV/index.html" aria-label="" title="Corona Virus -  CDC">Corona Virus -  CDC</a></li>
+<li class="without-image"><a href="https://www.elpotters.school/Content2/114" aria-label="" title="Ohio Department of Health COVID-19 Hotline">Ohio Department of Health COVID-19 Hotline</a></li>
+<li class="without-image"><a href="https://www.internetessentials.com/covid19" aria-label="" title="Comcast is offering 2 months free to new Internet Essentials customers">Comcast is offering 2 months free to new Internet Essentials customers</a></li>
+<li class="without-image"><a href="https://www.elpotters.school/Content2/120" aria-label="" title="PRECAUTIONS TO PREVENT ALL INFECTIOUS DISEASES">PRECAUTIONS TO PREVENT ALL INFECTIOUS DISEASES</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="News">News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="Calendar">Calendar</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Jr/Sr High School">Jr/Sr High School</a></li>
+<li class="without-image"><a href="/7/home" title="Career and Technical Education">Career and Technical Education</a></li>
+<li class="without-image"><a href="/2/home" title="Westgate Middle School">Westgate Middle School</a></li>
+<li class="without-image"><a href="/3/home" title="LaCroft Elementary School">LaCroft Elementary School</a></li>
+<li class="without-image"><a href="/4/home" title="North Elementary School">North Elementary School</a></li>
+<li class="without-image"><a href="/5/home" title="East Liverpool Preschool">East Liverpool Preschool</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Parent &amp; Student Resources">Parent &amp; Student Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://sites.google.com/elpotters.school/mentalhealthelcsd/home" target="_blank" aria-label="" title="ELSCD Mental Health Support">ELSCD Mental Health Support</a></li>
+<li class="without-image"><a href="https://columbiana-health.org/" aria-label="" title="Corona Virus - Columbiana County Health Department ">Corona Virus - Columbiana County Health Department </a></li>
+<li class="without-image"><a href="https://odh.ohio.gov/wps/portal/gov/odh/know-our-programs/novel-coronavirus/2019-ncov" aria-label="" title="Corona Virus - The Ohio Department of Health">Corona Virus - The Ohio Department of Health</a></li>
+<li class="without-image"><a href="https://www.cdc.gov/coronavirus/2019-nCoV/index.html" aria-label="" title="Corona Virus -  CDC">Corona Virus -  CDC</a></li>
+<li class="without-image"><a href="/Content/80" title="East Liverpool City Schools Highlights">East Liverpool City Schools Highlights</a></li>
+<li class="without-image"><a href="https://parentaccess.access-k12.org/district" target="_blank" title="Parent Progressbook Access">Parent Progressbook Access</a></li>
+<li class="without-image"><a href="/docs/district/parent%20resources/progressbook%20user%20quick%20reference.pdf?id=183" title="-ProgressBook User Quick Reference Guide">-ProgressBook User Quick Reference Guide</a></li>
+<li class="without-image"><a href="https://mail.google.com" target="_blank" title="Student Email">Student Email</a></li>
+<li class="without-image"><a href="/content/72" title="Attendance Information">Attendance Information</a></li>
+<li class="without-image"><a href="https://www.myschoolaccount.com/" target="_blank" title="Add Funds to MY SCHOOL ACCOUNT">Add Funds to MY SCHOOL ACCOUNT</a></li>
+<li class="without-image"><a href="/content/78" title="Student Handbooks">Student Handbooks</a></li>
+<li class="without-image"><a href="#" title="PNN Radio">PNN Radio</a></li>
+<li class="with-image"><a href="/content/74" title="Final Forms"><img src="/docs/district/nav%20buttons/finalforms.jpg?id=17&amp;height=32" alt="Final Forms" title="Final Forms" border="0"></a></li>
+<li class="without-image"><a href="/1/Lunch" title="Breakfast and Lunch Menus">Breakfast and Lunch Menus</a></li>
+<li class="without-image"><a href="https://www.epa.gov/sites/production/files/2016-07/documents/bed-bug-guidance-for-parents.pdf%20" target="_blank" title="EPA Bed Bug Guidance for Parents">EPA Bed Bug Guidance for Parents</a></li>
+<li class="without-image"><a href="https://www.epa.gov/sites/production/files/2014-02/documents/bed-bug-prevention-detection-control.pdf%20%20" target="_blank" title="EPA Bed Bug Prevention &amp; Detection">EPA Bed Bug Prevention &amp; Detection</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/administration" title="Departments">Departments</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="School Announcements">School Announcements  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/80" title="East Liverpool City Schools Highlights">East Liverpool City Schools Highlights</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1SrmlnrOVsRKL_DV-Uq7asTdXohe_WpgSR9n5sgtq5pg/edit" title="Jr/SR High School Announcements">Jr/SR High School Announcements</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/13efQoRhOWv8TXhj7tErpqe8JLKzC4R3t5NgMUmJsLA0/edit" title="Westgate Middle School Announcments">Westgate Middle School Announcments</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1VCSvN_KtlA781UeW8KwQ37kTJSXH5VqehHFVqIp5uR4/edit" title="North Elementary School Announcments">North Elementary School Announcments</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1_UqOzc7JsaE1jEFiyt28Tk3_AhtFx5lvize_0VIDNos/edit" title="LaCroft Elementary School Announcments">LaCroft Elementary School Announcments</a></li>
+<li class="without-image"><a href="https://docs.google.com/document/d/1uuYmVIkcrjcrfEI2uIyEQ6F4iOElvg6L1JroDVzfY20/edit?usp=sharing" target="_blank" title="East Liverpool Preschool">East Liverpool Preschool</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff">Staff  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/124" aria-label="" title="How-To-Videos">How-To-Videos</a></li>
+<li class="without-image"><a href="https://mail.google.com" title="Email">Email</a></li>
+<li class="without-image"><a href="https://central.access-k12.org" target="_blank" title="Progressbook">Progressbook</a></li>
+<li class="without-image"><a href="http://elcsdhelpdesk.eastliverpool.k12.oh.us:8080/" target="_blank" title="Technology Help Desk">Technology Help Desk</a></li>
+<li class="without-image"><a href="https://kiosk.managementcouncil.org" title="Employee Kiosk">Employee Kiosk</a></li>
+<li class="without-image"><a href="https://app.frontlineeducation.com/" target="_blank" title="Frontline ( Formerly Aesop ) ">Frontline ( Formerly Aesop ) </a></li>
+<li class="without-image"><a href="https://samegoal.com/iep/a/elcsd.k12.oh.us" title="Samegoal IEP Anywhere">Samegoal IEP Anywhere</a></li>
+<li class="without-image"><a href="https://clever.com/oauth/authorize?channel=clever&amp;client_id=4c63c1cf623dce82caac&amp;confirmed=true&amp;district_id=5894727b0eef8d00012d895a&amp;redirect_uri=https%3A%2F%2Fclever.com%2Fin%2Fauth_callback&amp;response_type=code&amp;state=f2ac35686f73ae612cbd69316058286e421a7384b5e175d3cabca4f5c65f7d6f" title="Clever Portal">Clever Portal</a></li>
+<li class="without-image"><a href="https://global-zone50.renaissance-go.com/welcomeportal/104282" title="Renaissance">Renaissance</a></li>
+<li class="without-image"><a href="https://www.apexvs.com/ApexUI/default.aspx" title="Apex Learning">Apex Learning</a></li>
+<li class="without-image"><a href="https://account.goguardian.com/#/?referral=https%3A%2F%2Fadmin.goguardian.com" title="GoGuardian">GoGuardian</a></li>
+<li class="without-image"><a href="https://my.amplify.com/auth/realms/Amplify/protocol/openid-connect/auth?nonce=T9WpN1hAsLjCVR6S&amp;state=eNyxLHrYMPxqYCBr&amp;redirect_uri=https%3A%2F%2Fmclass.amplify.com%2Fmobilelogin%2Foidc_redirect&amp;response_type=code&amp;client_id=mclass-weblogin&amp;scope=openid" title="Amplify">Amplify</a></li>
+<li class="without-image"><a href="/Content/64" title="LPDC">LPDC</a></li>
+<li class="without-image"><a href="https://tec.access-k12.org/tec/frmLogin.php" title="Education Connection - TEC">Education Connection - TEC</a></li>
+<li class="without-image"><a href="https://www.access-k12.org/" title="ACCESS">ACCESS</a></li>
+<li class="without-image"><a href="https://forms.gle/Nihh8LrKWyzQzvGYA" title="Annual Staff Blood Borne Pathogen Training">Annual Staff Blood Borne Pathogen Training</a></li>
+<li class="without-image"><a href="/content/60" title="Blizzard Bag Assignment Directions">Blizzard Bag Assignment Directions</a></li>
+<li class="without-image"><a href="http://www.eastliverpool.k12.oh.us/chris/forms/chromebookrepairform.asp" title="7th-12th Chromebook Repair Form ">7th-12th Chromebook Repair Form </a></li>
+</ul>
+</li>
+</ul>
+<h1>Quick Links</h1>
+                        <ul class="nav navbar-nav headerNav">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="#" title="About the District">About the District</a></li>
+<li class="without-image"><a href="http://www.elhsaa.com" target="_blank" title="Alumni">Alumni</a></li>
+<li class="without-image"><a href="/Content/62" title="Levy Information">Levy Information</a></li>
+<li class="without-image"><a href="#" title="Committees">Committees</a></li>
+<li class="without-image"><a href="/Content/32" title="Contact Us">Contact Us</a></li>
+<li class="without-image"><a href="https://sites.google.com/elpotters.school/mentalhealthelcsd/home" target="_blank" aria-label="" title="ELSCD Mental Health Support">ELSCD Mental Health Support</a></li>
+<li class="without-image"><a href="https://reportcard.education.ohio.gov/district/schools/043919" target="_blank" title="Report Card">Report Card</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/administration" title="Departments">Departments</a></li>
+<li class="without-image"><a href="#" title="District Financial Reports">District Financial Reports</a></li>
+<li class="without-image"><a href="/workshop" title="Workshops">Workshops</a></li>
+<li class="without-image"><a href="/content/112" title="Public Records Policy">Public Records Policy</a></li>
+</ul>
+</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</div>
+
+	
+
+
+        
+	
+
+        
+
+        <div class="body-content-container" style="background-image: url('/docs/docs/district/school building images/org_dsc05442.jpg?id=44');">
+            <div class="container extraPad">
+                <div class="masterC alignment-stretch">
+                    <div class="row">
+                        
+	<div class="content-section content-section-1">
+		<div class="hidden-xs col-sm-4 col-md-4 col-lg-3 backgroundcolor">
+			<div class="clearfix panel content">
+				
+					<h1>Quick Links</h1>
+					<ul class="sf-vertical">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="#" title="About the District">About the District</a></li>
+<li class="without-image"><a href="http://www.elhsaa.com" target="_blank" title="Alumni">Alumni</a></li>
+<li class="without-image"><a href="/Content/62" title="Levy Information">Levy Information</a></li>
+<li class="without-image"><a href="#" title="Committees">Committees</a></li>
+<li class="without-image"><a href="/Content/32" title="Contact Us">Contact Us</a></li>
+<li class="without-image"><a href="https://sites.google.com/elpotters.school/mentalhealthelcsd/home" target="_blank" aria-label="" title="ELSCD Mental Health Support">ELSCD Mental Health Support</a></li>
+<li class="without-image"><a href="https://reportcard.education.ohio.gov/district/schools/043919" target="_blank" title="Report Card">Report Card</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/Employment" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/administration" title="Departments">Departments</a></li>
+<li class="without-image"><a href="#" title="District Financial Reports">District Financial Reports</a></li>
+<li class="without-image"><a href="/workshop" title="Workshops">Workshops</a></li>
+<li class="without-image"><a href="/content/112" title="Public Records Policy">Public Records Policy</a></li>
+</ul>
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+		</div>
+		<div class="col-xs-12 col-sm-8 col-md-8 col-lg-9 backgroundcolor">
+			<div class="clearfix panel content">
+				
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+    
+
+    <h1 id="middle2Column" class="spContentTitle">
+        <span id="ctl00_ctl00_MasterContent_ContentColumnRight_lbl_ctitle" class="title">Ohio Department of HEALTH COVID-19 HOTLINE</span>
+    </h1>
+    <div class="maincontentsection">
+        <div id="ctl00_ctl00_MasterContent_ContentColumnRight_divMainContent">
+            
+
+<span id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_lbl_content" class="content"><p><strong>If you have questions regarding Coronavirus/COVID-19 please call 1-833-4ASKODH (1-833-427-5634)</strong></p>
+
+<p> </p></span>
+
+
+            
+
+        </div>
+        <div id="ctl00_ctl00_MasterContent_ContentColumnRight_divIntranetCP" style="display:none;">
+            This is a secure Staff Intranet content page and cannot be viewed by the public.  
+			Please contact your Technology Director to gain access to the Staff Intranet 
+			area in order to view this page.
+			<br><br>
+            Thank you,<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_lblDistrict"></span>
+        </div>
+    </div>
+
+			</div>
+		</div>
+		<div class="clr">
+		</div>
+	</div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix"></div>
+        </div>
+
+        
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div id="school-map">
+            <h6 class="footerHead">Contact Us</h6>
+
+            <div style="float: left; margin-right: 30px;">
+                <span id="ctl00_ctl00_ctl05_hName">East Liverpool City Schools</span>
+                <span id="ctl00_ctl00_ctl05_hAddress">810 W 8th St.<br>East Liverpool, OH 43920</span>
+            </div>
+
+            <div style="float: left;">
+                <span id="AddInfo">
+                    <a href="http://maps.google.com/maps?q=810%20W%208th%20St.+East%20Liverpool+OH+43920" id="ctl00_ctl00_ctl05_mapLink">
+                        View Map &amp; Directions
+                    </a>
+                </span>
+
+                <span id="AddInfo">
+                    <div id="ctl00_ctl00_ctl05_dphone">
+                        <span id="ctl00_ctl00_ctl05_hPhone" style="display: inline;">Phone: 330-385-7132</span>
+                    </div>
+                </span>
+
+                <span id="AddInfo">
+                    
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 col-xl-6">
+        <div id="social-links">
+            <h6 class="footerHead">Stay Connected</h6>
+            
+        <a href="/login" title="cms login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="https://www.facebook.com/pages/category/School/East-Liverpool-City-Schools-749402575207795/" title="East Liverpool City Schools Facebook" target="_blank">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook-square"></i>
+        </a>
+    
+        <a href="https://twitter.com/Potter__Proud" title="East Liverpool City Schools Twitter" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter-square"></i>
+        </a>
+    
+
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <a href="http://www.schoolpointe.com" target="_blank" title="SchoolPointe" class="schoolpointe">
+            <img src="https://cdn.schoolpointe.com/images/new/SPwhite.png" alt="SchoolPointe white logo"></a>
+    </div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-117119388-27', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer>
+</div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="E4773489">
+</div>
+</form>
+</body>
+</html>

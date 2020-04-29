@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width">
+<title></title>
+<link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CSacramento" rel="stylesheet" type="text/css">
+<link href="/css/bootstrap?v=wULdB6smAP_JjgPYmwdAiGhHffQVI13p_2yBnNWmEds1" rel="stylesheet">
+<link href="/content/css?v=b1K4LL2BFxz7pPoqco0GNhdYkR3l2HxLCnPadxrH8PA1" rel="stylesheet">
+<link href="/content/create?v=urpYonXgpk3Yzyz_wTnRIbt97kZG-BevbjGg26ZI-aA1" rel="stylesheet">
+<link href="/css/autocomplete?v=PcipScxuuyhSN5_gwpYlHbx6Q3x3uXM0F3QPrLsyBS41" rel="stylesheet">
+<link href="/content/site?v=M8A1SD0_AIYyuvCtfkTbrBjSy74NFXHoPAnxw2jVhPc1" rel="stylesheet">
+<script src="/bundles/modernizr?v=inCVuEFe6J4Q07A0AcRsbJic_UE5MwpRMNGcOtk94TE1"></script><style type="text/css">
+        body
+        {
+            padding-top: 5px;
+        }
+
+        #form-fields-list
+        {
+            border: none;
+            padding-bottom: 20px;
+            min-height: 0px;
+        }
+
+        #form-fields-list > li
+        {
+            margin: 0;
+        }
+
+        #form-fields-list > li > .field-container > .field,
+        #form-fields-list > li:hover > .field-container > .field
+        {
+            border: solid 1px transparent;
+        }
+
+        .field-properties-edit-button,
+        .field-properties-delete-button
+        {
+            display: none;
+        }
+
+        #form-fields-list > li.not-valid > .field-container
+        {
+            background-color: #FAEDED;
+            border: dotted 1px #d90000;
+        }
+
+        .validation-errors
+        {
+            color: #d90000;
+            font-weight: bold;
+            display: block;
+        }
+
+        table tr.not-valid td:first-child
+        {
+            background-color: #d90000;
+            color: white;
+        }
+
+        input[type=email].not-valid
+        {
+            border-color: #d90000;
+        }
+
+        #the-form
+        {
+            display: none;
+        }
+
+        .rating-grid
+        {
+            max-width: 100%;
+            overflow: auto;
+        }
+
+        #form-fields .rich-text, #form-fields-list .rich-text
+        {
+            min-height: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                    <div id="the-form">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div id="title"></div>
+                            </div>
+                            <div class="panel-body">
+                                <ul id="form-fields-list"></ul>
+<div class="g-recaptcha pull-right" id="g-recaptcha"></div>
+                            </div>
+                            <div class="panel-footer">
+                                <input type="button" id="submit" class="btn btn-default pull-right" value="Submit"><div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="validation-error-dialog" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <strong class="modal-title" id="myModalLabel">Form Validation Errors</strong>
+                </div>
+                <div class="modal-body">
+                    <div id="validation-errors">
+                        Please correct the highlighted fields and click submit again.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="signature-modal" tabindex="-1" role="dialog" aria-labelledby="signatureModalLabel" data-keyboard="false" data-backdrop="static">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <strong class="modal-title" id="signatureModalLabel">Your Signature</strong>
+                </div>
+                <div class="modal-body clearfix">
+                    <div>
+                        <ul class="nav nav-tabs" data-tabs="tabs" role="tablist" id="signature-tabs">
+<li role="presentation" class="active">
+                                <a href="#type-signature" aria-controls="type-signature" role="tab" data-toggle="tab">Type Your Name</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#draw-signature" aria-controls="draw-signature" role="tab" data-toggle="tab">Draw Your Signature</a>
+                            </li>
+                        </ul>
+<div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="type-signature">
+                                <input type="text" class="form-control signature-input" placeholder="John Doe" aria-label="Please type your full name"><p class="help-block">Please type your full name</p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane clearfix" id="draw-signature">
+                                <div class="signature-pane"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="reset-signature btn btn-default pull-left">Clear</button>
+                    <button type="button" class="btn btn-default" id="cancel-signature-modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submit-signature-modal">Save Signature</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/bundles/jquery?v=cetA9LirphZpoxk4cgQs_DhLywI7tlebV2DoGEuQ3BQ1"></script><script src="/bundles/jquery-ui?v=yqCVigxSu97_s_vulMWzX97PVmpAp1RUApV3df4vSeo1"></script><script src="/bundles/bootstrap?v=-beHpj83-IUeXjvOpcYx6ytwwWacK_o4nvf8tlbJZcU1"></script><script src="/bundles/handlebars?v=uvI7jjOrUut-CI0C-rr4M1_ioIEMdEc8-ClNhwsGcjc1"></script><script src="/bundles/autocomplete?v=R165EGi1EPsTwx9r0HD8Rji4bCnpBNQ-xqIMn2pAga41"></script><script type="text/x-handlebars-template" id="single-line-text">
+    <div class="form-group field">
+        <label class="control-label" for="field_{{id}}">{{title}} {{#required}}*{{/required}}</label>
+        <input class="form-control" id="field_{{id}}" type="{{type}}{{^type}}text{{/type}}" placeholder="{{placeholder}}" maxlength="2000" />
+        <p class="help-block">{{help}}</p>
+    </div>
+</script><script type="text/x-handlebars-template" id="multi-line-text">
+    <div class="form-group field">
+        <label class="control-label" for="field_{{id}}">{{title}} {{#required}}*{{/required}}</label>
+        <textarea class="form-control" id="field_{{id}}" placeholder="{{placeholder}}" maxlength="2000" />
+        <p class="help-block">{{help}}</p>
+    </div>
+</script><script type="text/x-handlebars-template" id="dropdown">
+    <div class="form-group field">
+        <label class="control-label" for="field_{{id}}">{{title}} {{#required}}*{{/required}}</label>
+        <select class="form-control" id="field_{{id}}">
+            <option value="" selected>{{placeholder}}</option>
+            {{#options}}
+            <option value="{{value}}">{{text}}</option>
+            {{/options}}
+        </select>
+        <p class="help-block">{{help}}</p>
+    </div>
+</script><script type="text/x-handlebars-template" id="checkbox">
+    <div class="form-group field">
+        <div class="checkbox">
+            <label for="field_{{id}}">
+                <input type="checkbox" id="field_{{id}}" />&nbsp;{{title}} {{#required}}*{{/required}}
+            </label>
+        </div>
+        <p class="help-block">{{help}}</p>
+    </div>
+</script><script type="text/x-handlebars-template" id="checkbox-list">
+    <div class="form-group field" id="field_{{id}}">
+
+        <strong class="control-label">{{title}} {{#required}}*{{/required}}</strong>
+        {{#options}}
+        <div class="checkbox">
+            <label for="field_{{../id}}_{{@index}}">
+                <input type="checkbox" name="field_{{../id}}" id="field_{{../id}}_{{@index}}" value="{{value}}" />&nbsp;{{text}}
+            </label>
+        </div>
+        {{/options}}
+
+        <p class="help-block">{{help}}</p>
+    </div>
+</script><script type="text/x-handlebars-template" id="radio-button-list">
+    <div class="form-group field" id="field_{{id}}">
+        <strong class="control-label">{{title}} {{#required}}*{{/required}}</strong>
+        {{#options}}
+        <div class="radio">
+            <label for="field_{{../id}}_{{@index}}">
+                <input type="radio" name="field_{{../id}}" id="field_{{../id}}_{{@index}}" value="{{value}}" />&nbsp;{{text}} 
+            </label>
+        </div>
+        {{/options}}
+        <p class="help-block">{{help}}</p>
+    </div>
+</script><script type="text/x-handlebars-template" id="page-break">
+    <div class="form-group field">
+        <label class="control-label" id="field_{{id}}">Page Break</label>
+    </div>
+</script><script type="text/x-handlebars-template" id="fields-list-item-template">
+    <li data-field-type="{{type}}">
+        <i class="fa {{icon}}"></i>
+        {{name}}
+    </li>
+</script><script type="text/x-handlebars-template" id="field-item-template">
+    <li data-field-id="{{fieldId}}" data-field-type="{{fieldId}}" style="width: 100%;">
+        <span data-field-id="{{fieldId}}" class='field-properties-edit-button btn btn-default'>
+            <i class='fa fa-pencil'></i> Edit
+        </span>
+
+        <i class='fa fa-times field-properties-delete-button'></i>
+
+        <div class="field-container">
+            {{{content}}}
+        </div>
+    </li>
+</script><script type="text/x-handlebars-template" id="rating-grid">
+    <div class="field">
+        <div class="rating-grid">
+            <table class="table table-bordered table-hover table-striped" id="field_{{id}}" summary="Rating Grid">
+                <caption><strong class="control-label">{{title}} {{#required}}*{{/required}}</strong></caption>
+                <thead>
+                    <tr>
+                        <th>
+                            Statement
+                        </th>
+                        {{#ratingGridOptions}}
+                        {{#each columns}}
+                        <th class="text-center" id="radio-aria-label-{{@index}}">
+                            {{text}}
+                        </th>
+                        {{/each}}
+                        {{/ratingGridOptions}}
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#ratingGridOptions}}
+                    {{#each statements}}
+                    <tr data-statement="{{value}}">
+                        <td id="statement-label-{{@index}}">{{text}}</td>
+                        {{#each ../columns}}
+                        <td class="text-center">
+                            <input type="radio" name="radio_{{../../../id}}_{{../value}}_{{../id}}" value="{{value}}" aria-labelledby="statement-label-{{@../index}} radio-aria-label-{{@index}}" />
+                        </td>
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                    {{/ratingGridOptions}}
+                </tbody>
+            </table>
+
+            <p class="help-block">{{help}}</p>
+        </div>
+    </div>
+</script><script type="text/x-handlebars-template" id="address">
+    <div class="address-field field clearfix form-group" id="field_{{id}}">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <strong class="control-label">{{title}} {{#required}}*{{/required}}</strong>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <input type="text" aria-label="Address Line 1" class="form-control address-line-1" placeholder="Address Line 1" maxlength="256" />
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="form-group">
+                <input type="text" aria-label="Address Line 2" class="form-control address-line-2" placeholder="Address Line 2" maxlength="256" />
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            <div class="form-group">
+                <input type="text" aria-label="City" class="form-control address-city" placeholder="City" maxlength="256" />
+            </div>
+        </div>
+        <div class="col-xs-8 col-sm-2">
+            <div class="form-group">
+                <select class="form-control address-state" aria-label="Select a state">
+                    <option value="" selected>Select a state...</option>
+                    <optgroup label="States">
+                        <option value="AL">Alabama</option>
+                        <option value="AK">Alaska</option>
+                        <option value="AZ">Arizona</option>
+                        <option value="AR">Arkansas</option>
+                        <option value="CA">California</option>
+                        <option value="CO">Colorado</option>
+                        <option value="CT">Connecticut</option>
+                        <option value="DE">Delaware</option>
+                        <option value="DC">District Of Columbia</option>
+                        <option value="FL">Florida</option>
+                        <option value="GA">Georgia</option>
+                        <option value="HI">Hawaii</option>
+                        <option value="ID">Idaho</option>
+                        <option value="IL">Illinois</option>
+                        <option value="IN">Indiana</option>
+                        <option value="IA">Iowa</option>
+                        <option value="KS">Kansas</option>
+                        <option value="KY">Kentucky</option>
+                        <option value="LA">Louisiana</option>
+                        <option value="ME">Maine</option>
+                        <option value="MD">Maryland</option>
+                        <option value="MA">Massachusetts</option>
+                        <option value="MI">Michigan</option>
+                        <option value="MN">Minnesota</option>
+                        <option value="MS">Mississippi</option>
+                        <option value="MO">Missouri</option>
+                        <option value="MT">Montana</option>
+                        <option value="NE">Nebraska</option>
+                        <option value="NV">Nevada</option>
+                        <option value="NH">New Hampshire</option>
+                        <option value="NJ">New Jersey</option>
+                        <option value="NM">New Mexico</option>
+                        <option value="NY">New York</option>
+                        <option value="NC">North Carolina</option>
+                        <option value="ND">North Dakota</option>
+                        <option value="OH">Ohio</option>
+                        <option value="OK">Oklahoma</option>
+                        <option value="OR">Oregon</option>
+                        <option value="PA">Pennsylvania</option>
+                        <option value="RI">Rhode Island</option>
+                        <option value="SC">South Carolina</option>
+                        <option value="SD">South Dakota</option>
+                        <option value="TN">Tennessee</option>
+                        <option value="TX">Texas</option>
+                        <option value="UT">Utah</option>
+                        <option value="VT">Vermont</option>
+                        <option value="VA">Virginia</option>
+                        <option value="WA">Washington</option>
+                        <option value="WV">West Virginia</option>
+                        <option value="WI">Wisconsin</option>
+                        <option value="WY">Wyoming</option>
+                    </optgroup>
+                    <optgroup label="US Outlying Territories">
+                        <option value="AS">American Samoa</option>
+                        <option value="GU">Guam</option>
+                        <option value="MP">Northern Mariana Islands</option>
+                        <option value="PR">Puerto Rico</option>
+                        <option value="UM">United States Minor Outlying Islands</option>
+                        <option value="VI">Virgin Islands</option>
+                    </optgroup>
+                    <optgroup label="Armed Forces">
+                        <option value="AA">Armed Forces Americas</option>
+                        <option value="AP">Armed Forces Pacific</option>
+                        <option value="AE">Armed Forces Others</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4">
+            <div class="form-group">
+                <input type="text" aria-label="Zipcode" class="form-control address-zip" placeholder="Zip" />
+            </div>
+        </div>
+        <p class="help-block">{{help}}</p>
+    </div>
+</script><script type="text/x-handlebars-template" id="signature">
+    <div class="form-group field" id="field_{{id}}">
+        <div class="row">
+            <label class="control-label col-xs-12" for="field_{{id}}_btn">{{title}} {{#required}}*{{/required}}</label>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <button class="btn btn-primary form-control sign-this-form" id="field_{{id}}_btn" aria-label="Click here to sign this form." data-fieldid="field_{{id}}">Sign this Form</button>
+                </div>
+                <div class="col-sm-2">
+                    <input type="text" class="form-control text-center" disabled="disabled" aria-label="Today's Date'" value="04/29/2020" />
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-sm-6">
+                    <input type="email" class="form-control" placeholder="jdoe@example.com" />
+                    <p class="help-block">Please enter your email address. You will be emailed a copy of this signed form at this address.</p>
+                </div>
+                <p class="help-block">{{help}}</p>
+            </div>
+        </div>
+    </div>
+</script><script type="text/x-handlebars-template" id="rich-text">
+    <div class="field">
+        <div class="rich-text" id="field_{{id}}">{{^text}}Click [Edit] to modify this text.{{/text}}{{{text}}}</div>
+    </div>
+</script><script>
+        $(document).ready(function ()
+        {
+            var fieldItemTemplate = Handlebars.compile($('#field-item-template').html());
+
+            function getTemplateByField(field)
+            {
+                if (field.template === undefined)
+                {
+                    field.template = Handlebars.compile($('#' + field.templateId).html());
+                }
+                return field.template;
+            }
+
+            function setupForm(formData)
+            {
+                $('title, #title').text(formData.title);
+
+                $(formData.fields).each(function (idx, itm)
+                {
+                    itm.properties.type = itm.type;
+                    var template = getTemplateByField(itm);
+                    var html = template(itm.properties);
+                    var element = $(fieldItemTemplate({ fieldId: itm.properties.id, content: html, fieldType: itm.type }));
+
+                    element.data('field-definition', itm);
+                    element.removeAttr('style');
+                    $('#form-fields-list').append(element);
+                });
+
+                if (formData.requireCaptcha)
+                {
+                    window.gRecaptchaOnLoadCallback = function ()
+                    {
+                        console.log("google recaptcha loaded");
+                        grecaptcha.render('g-recaptcha', {
+                            'sitekey': '6LdcwRsTAAAAAPaMoRgb8zDMPfETEyLA9yIVhBs7',
+                            'theme': 'light',
+                            'size': 'compact'
+                        });
+                    }
+
+                    var url = "https://www.google.com/recaptcha/api.js?onload=gRecaptchaOnLoadCallback&render=explicit";
+                    var gcaptchaScript = document.createElement('script');
+                    gcaptchaScript.setAttribute('src', url);
+                    document.head.appendChild(gcaptchaScript);
+                }
+
+                $('.field-properties-edit-button, .field-properties-delete-button').each(function (idx, itm)
+                {
+                    $(itm).remove();
+                });
+
+                function getOptionByValue(def, value)
+                {
+                    var items = def.properties.options.filter(function (f)
+                    {
+                        return f.value === value;
+                    });
+
+                    if (items.length > 0) return items[0];
+                    return "";
+                }
+
+                function getAnswer(def)
+                {
+                    var fieldId = 'field_' + def.properties.id;
+                    switch (def.type)
+                    {
+                        case "text":
+                        case "number":
+                        case "date":
+                        case "email":
+                        case "tel":
+                        case "multi-line-text":
+                            return $('#' + fieldId).val();
+                            break;
+                        case "dropdown":
+                            var ans = $('#' + fieldId).find('option:selected');
+                            if (ans.attr('value') == "") return "";
+                            return JSON.stringify([{ value: ans.attr('value'), text: $.trim(ans.text()) }]);
+                            break;
+                        case "checkbox":
+                            return $('#' + fieldId).prop("checked");
+                            break;
+                        case "checkbox-list":
+                            return JSON.stringify($.map($('input:checkbox[name=' + fieldId + ']:checked'), function (f)
+                            {
+                                return getOptionByValue(def, $(f).val());
+                            }));
+                            break;
+                        case "radio-button-list":
+                            var ans = $.map($('input:radio[name=' + fieldId + ']:checked'), function (f)
+                            {
+                                return getOptionByValue(def, $(f).val());
+                            });
+                            if (ans.length > 0) return JSON.stringify(ans);
+                            break;
+                        case "rating-grid":
+                            var ans = $.map($('#' + fieldId + ' > tbody > tr'), function (r)
+                            {
+                                var optionId = $(r).data('statement');
+                                var statementText = $(r).find("td:first").text();
+                                var selectedRadio = $(r).find('input[type=radio]:checked').val();
+                                if (typeof selectedRadio === 'undefined') selectedRadio = "";
+                                return {
+                                    statement: { text: statementText, value: optionId },
+                                    value: selectedRadio
+                                };
+                            });
+
+                            if (def.properties.required)
+                            {
+                                var f = ans.filter(function (i) { return i.value === null || typeof i.value === 'undefined' || i.value === '' });
+                                if (f.length > 0) return "";
+                            }
+
+                            ans = ans.filter(function (i) { return i.value !== null && typeof i.value !== 'undefined' && i.value !== '' });
+
+                            if (ans.length == 0) return "";
+
+                            return JSON.stringify(ans);
+                            break;
+                        case "address":
+                            var address = {};
+                            var field = $('#' + fieldId);
+                            address.Line1 = field.find('.address-line-1').val().trim();
+                            address.Line2 = field.find('.address-line-2').val().trim();
+                            address.City = field.find('.address-city').val().trim();
+                            address.State = field.find('.address-state').val().trim();
+                            address.Zip = field.find('.address-zip').val().trim();
+                            if (def.properties.required)
+                            {
+                                if (address.Line1 === "" || address.City === "" || address.State === "" || address.Zip === "")
+                                {
+                                    return "";
+                                }
+                            }
+
+                            if (address.Line1 === "" && address.City === "" && address.State === "" && address.Zip === "")
+                            {
+                                return "";
+                            }
+
+                            return JSON.stringify(address);
+                            break;
+                        case "signature":
+                            var sigData = $('#signature-modal').data('signature' + fieldId);
+                            var email = $('#' + fieldId).find('input[type=email]').val();
+                            if (email === "" || !validateEmail($.trim(email)) || sigData === "" || sigData == null || typeof sigData === 'undefined')
+                            {
+                                return "";
+                            }
+                            return JSON.stringify({ signature: sigData, email: email, date: new Date() });
+                            break;
+                        default: break;
+                    }
+                    return "";
+                }
+
+                function validateEmail(email)
+                {
+                    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+                    return re.test(email);
+                }
+
+                function validateDate(d)
+                {
+                    d = new Date(d);
+                    if (Object.prototype.toString.call(d) !== "[object Date]")
+                        return false;
+                    return !isNaN(d.getTime());
+                }
+
+                $('#submit').click(function ()
+                {
+                    $('#form-fields-list > li, #form-fields-list  tr, input').removeClass("not-valid");
+                    $('#form-fields-list > li > .validation-errors').remove();
+
+                    var results = [];
+                    $('#form-fields-list > li').each(function (idx, li)
+                    {
+                        var def = $(li).data('field-definition');
+
+                        if (def.type === 'rich-text') return;
+
+                        var answer = getAnswer(def);
+                        var error = "";
+                        if (def.properties.required)
+                        {
+                            if (answer == null || $.trim(answer) === "" || $.trim(answer) === "[]")
+                            {
+                                $(this).addClass('not-valid');
+                                error = "This field is required";
+
+                                if (def.type === "rating-grid")
+                                {
+                                    // highlight the row that is not filled out
+                                    var rows = $('#field_' + def.properties.id + ' > tbody > tr');
+                                    $(rows).each(function (idx, itm)
+                                    {
+                                        var cnt = $(itm).find('input[type=radio]:checked').length;
+                                        if (cnt == 0)
+                                        {
+                                            $(itm).addClass('not-valid');
+                                        }
+                                    });
+                                } else if (def.type == "signature")
+                                {
+                                    var field = $('#field_' + def.properties.id);
+                                    var emailField = field.find('input[type=email]');
+                                    if (emailField.val().trim() === "")
+                                    {
+                                        emailField.addClass('not-valid');
+                                    }
+                                }
+                            }
+                        }
+
+                        if (!(answer == null || $.trim(answer) === "" || $.trim(answer) === "[]"))
+                        {
+                            // even if not required, check fields are valid for their type.
+                            if (def.type === "email")
+                            {
+                                if (!validateEmail($.trim(answer)))
+                                {
+                                    $(this).addClass('not-valid');
+                                    error = "Invalid Email";
+                                }
+                            }
+                            else if (def.type === "number")
+                            {
+                                if (isNaN($.trim(answer)))
+                                {
+                                    $(this).addClass('not-valid');
+                                    error = "Invalid Number";
+                                }
+                            }
+                            else if (def.type === "date")
+                            {
+                                if (!validateDate($.trim(answer)))
+                                {
+                                    $(this).addClass('not-valid');
+                                    error = "Invalid Date";
+                                }
+                            }
+                        }
+
+                        if (error !== "")
+                        {
+                            $(this).prepend("<div class='validation-errors'><i class='fa fa-exclamation-triangle'></i>&nbsp;" + error + "</div>");
+                        }
+                        results.push({ fieldId: def.id, answer: answer });
+                    });
+
+
+                    if ($('#form-fields-list > li.not-valid').length > 0)
+                    {
+                        $('#validation-error-dialog').modal("show");
+                        return;
+                    }
+                    var captchaResponse = "";
+
+                    if (formData.requireCaptcha)
+                    {
+                        captchaResponse = grecaptcha.getResponse();
+                        if (captchaResponse == "")
+                        {
+                            bootbox.alert('Please verify that you are not a robot.');
+                            return;
+                        }
+                    }
+                    var data = {
+                        slug: 'QuJ5cJ57IYr',
+                        answers: results,
+                        captchaResponse: captchaResponse
+                    };
+
+                    jQuery.ajax({
+                        type: "POST",
+                        url: "/Public/SubmitForm",
+                        dataType: "json",
+                        data: JSON.stringify(data),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data)
+                        {
+                            if (typeof data.Error === 'undefined')
+                            {
+                                $('#the-form').html("The form has been submitted.  Thank you.");
+                                if (formData.redirectToUrl != null && formData.redirectToUrl != '')
+                                {
+                                    $('#the-form').append("<div>Redirecting to " + formData.redirectToUrl + "</div>");
+                                    setTimeout(function () { window.location = formData.redirectToUrl; }, 2000);
+                                }
+                            }
+                            else
+                            {
+                                bootbox.alert(data.Error);
+                            }
+                        },
+                        failure: function (errMsg)
+                        {
+                            bootbox.alert(errMsg);
+                        }
+                    });
+                });
+
+                $('input[type=tel]').mask('(999) 999-9999');
+                $('input.address-zip').mask('99999?-9999');
+                $('#the-form').show();
+
+                $('#signature-tabs').on('shown.bs.tab', function (e)
+                {
+                    if ($(e.target).attr('href') === '#draw-signature')
+                    {
+                        $(window).trigger('resize');
+                    }
+                });
+
+                $('.signature-pane').jSignature();
+                $('.reset-signature').click(function ()
+                {
+                    $('.signature-input').val("");
+                    $('.signature-pane').jSignature('reset');
+                });
+
+                $('#cancel-signature-modal').click(function ()
+                {
+                    $('.signature-input').val("");
+                    $('.signature-pane').jSignature('reset');
+                    $('#signature-modal').modal('hide');
+                });
+
+                $('.sign-this-form').click(function ()
+                {
+                    $('.signature-input').val("");
+                    $('.signature-pane').jSignature('reset');
+                    $('#signature-modal').data('fieldid', $(this).data('fieldid'));
+                    $('#signature-modal').modal('show');
+                });
+
+                $('#submit-signature-modal').click(function ()
+                {
+                    var isDrawingSignature = $("ul#signature-tabs li.active > a").attr('href') === '#draw-signature';
+                    var fieldId = $('#signature-modal').data('fieldid');
+                    if (isDrawingSignature)
+                    {
+                        if ($('.signature-pane').jSignature('getData', 'native').length > 0)
+                        {
+                            var sigData = $('.signature-pane').jSignature("getData", "svg");
+                            $('#signature-modal').data('signature' + fieldId, { mimeType: sigData[0], data: sigData[1] });
+                            $('#signature-modal').modal('hide');
+                        }
+                        else
+                        {
+                            bootbox.alert('Please draw your signature.');
+                            $('#signature-modal').data('signature' + fieldId, "");
+                        }
+                    }
+                    else
+                    {
+                        var txt = $('.signature-input').val().trim();
+                        if (txt !== "")
+                        {
+                            $('#signature-modal').data('signature' + fieldId, { mimeType: "text/plain", data: txt });
+                            $('#signature-modal').modal('hide');
+                        }
+                        else
+                        {
+                            bootbox.alert('Please type your full name.');
+                            $('#signature-modal').data('signature' + fieldId, "");
+                        }
+                    }
+
+                    var data = $('#signature-modal').data('signature' + fieldId);
+
+                    if (data != null && typeof data !== 'undefined' && data !== "")
+                    {
+                        $('#' + fieldId).find('.sign-this-form').removeClass('btn-info').addClass('btn-success').text('Signature Accepted');
+                    }
+                });
+            }
+
+            function getFormData(password, callback)
+            {
+                var data = { slug: 'QuJ5cJ57IYr', password: password };
+
+                jQuery.ajax({
+                    type: "POST",
+                    url: "/Public/FormData",
+                    dataType: "json",
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data)
+                    {
+                        if (typeof data.Error === 'undefined')
+                        {
+                            setupForm(data);
+                            callback(true);
+                        }
+                        else
+                        {
+                            callback(false, data.Error);
+                        }
+                    },
+                    failure: function (errMsg)
+                    {
+                        callback(false, "An error occurred.  Please refresh the page and try again.");
+                    }
+                });
+            }
+
+            function showPasswordModal()
+            {
+                bootbox.prompt({
+                    closeButton: false,
+                    title: "Password required",
+                    callback: function (result)
+                    {
+                        if (result == null || result == '')
+                        {
+                            bootbox.alert("A password is required.", function ()
+                            {
+                                showPasswordModal();
+                            });
+                        }
+                        else
+                        {
+                            getFormData(result, function (success, msg)
+                            {
+                                if (!success)
+                                {
+                                    bootbox.alert(msg, function () { showPasswordModal(); });
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+
+            if ('False'.toLowerCase() === 'true')
+            {
+                showPasswordModal();
+            }
+            else
+            {
+                getFormData('', function (success, msg)
+                {
+                    if (!success)
+                    {
+                        bootbox.alert(msg);
+                    }
+                });
+            }
+
+            $.blockUI.defaults.css = {
+                'background-color': 'transparent',
+                'border': 'none',
+                'color': 'white',
+                'position': 'fixed',
+                'width': '100%',
+                'bottom': '50%',
+                'text-align': 'center'
+            };
+
+            $(document).ajaxStart(function ()
+            {
+                $.blockUI();
+            }).ajaxStop($.unblockUI);
+
+        });
+    </script><script>
+        (function (i, s, o, g, r, a, m)
+        {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () { (i[r].q = i[r].q || []).push(arguments) }, i[r].l = 1 * new Date(); a = s.createElement(o),
+               m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-58503126-3', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+</html>

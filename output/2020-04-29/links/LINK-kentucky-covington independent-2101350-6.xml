@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="ROBOTS" content="NOINDEX">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<base href="https://covingtonky.infinitecampus.org/campus/">
+<title>Covington Independent School District Login</title>
+<script language="Javascript" src="scripts/login.js"></script><script language="Javascript">
+        function start(){
+            /*conditional to check contents of page to only refresh in specific scenarios to get around issues such
+            as plugins adding in their own frames such as documented in SIS-123400. We refresh the page to prevent
+            potential edge case errors with a session timing out and having the login page display in an inner iframe.
+             */
+            if(parent.frames.length !== 0 && (top.document.getElementById('mainBody') !== null) || top.document.getElementsByTagName("ic-nav-wrapper-app").length > 0) {
+                
+                top.location = this.location;
+                
+            }
+            document.getElementById("username").focus();
+
+            if (location.hash) {
+                var successURLObj = document.getElementById("successURL");
+                if (successURLObj && successURLObj.value.indexOf("#") === -1) {
+                    successURLObj.value = successURLObj.value + location.hash;
+                }
+            }
+
+            
+
+            // clear HR items from session storage - needed if a user clicked the 'logoff' button but didn't close the window
+            sessionStorage.removeItem('currentHRTool');
+            sessionStorage.removeItem('personnelMasterAdvancedSearch');
+        }
+
+        function sendEmail() {
+            var email = encodeURIComponent($('#useremail').val());
+            var appName = 'covington';
+            $.get('username?email=' + email + '&appName=' + appName, function(data) {
+                $('#usernamebox').html(data);
+            }, "html");
+        }
+
+        function sendPasswordEmail() {
+            var username = encodeURIComponent($('#usernameinput').val());
+            var appName = 'covington';
+            $.get('passwordreset?username=' + username + '&appName=' + appName + '&fromPortal=False', function(data) {
+                $('#passwordbox').html(data);
+            }, "html")
+        }
+
+        function retry() {
+            $('#usernamebox').html('<input id="useremail" class="passwordResetInput" type="text" value="" placeholder="Enter Account Security Email" aria-label="Account Security Email"/>' +
+                '<input id="usernamebutton" class="passwordResetButton" type="button" onclick="sendEmail();" value="Continue"/>');
+        }
+
+        function retryPassword() {
+            $('#passwordbox').html('<input id="usernameinput" class="passwordResetInput" type="text" value="" placeholder="Enter Username" aria-label="Username"/>' +
+                '<input id="passwordbutton" class="passwordResetButton" type ="button"  onclick="sendPasswordEmail()" value="Continue"/>');
+        }
+
+        function toggleSSOError(){
+            $('#divSSOError').toggle('fast', function(){
+                if($('#aShowSSOErr').text() == "(Show detail)"){
+                    $('#aShowSSOErr').text("(Show less)");
+                }else{
+                    $('#aShowSSOErr').text("(Show detail)");
+                }
+            });
+        }
+
+        function reCaptchaCallback() {
+            var reCaptchaSiteKey = "";
+
+            grecaptcha.render("recaptcha", {
+                'sitekey': reCaptchaSiteKey
+            });
+        }
+    </script><script src="scripts/jquery/jquery-1.7.2/jquery-campus-1.7.2.min.js"></script><script>
+        $(document).ready(function(){
+            var contextComm = parent.campusContextCommunicator;
+            if(contextComm){
+                contextComm.redirectToLogin();
+            }
+        });
+
+
+    </script><link rel="stylesheet" type="text/css" href="styles/login.css?v=1">
+</head>
+<body onload="start()">
+<div class="container">
+    <div class="logocontainer">
+        <img class="floatleft" alt="" src="images/login/campus_logo.png"><img class="floatright" alt="" src="images/login/transforming_k12.png">
+</div>
+    <div class="frmcontainer">
+        <div class="editionbox">
+            <table id="editionlayout" border="0" cellpadding="0" cellspacing="0">
+<tr valign="top">
+<td class="fillertd"> </td>
+                    <td> </td>
+                    <td class="lefteditionbox"></td>
+                    <td class="centereditionbox" align="right"><div class="editiontext">District Edition</div></td>
+                    <td class="righteditionbox"></td>
+                </tr>
+<tr>
+<td colspan="4" class="versionmsgtd" align="right">
+                        <div class="versionmsg">Version: Campus.2012.7</div>
+                        <div class="securitylabel">Covington Independent School District</div>
+                    </td>
+                    <td></td>
+                </tr>
+</table>
+</div>
+
+        
+
+        <form method="POST" id="form_signin" accept-charset="utf-8" action="https://covingtonky.infinitecampus.org/campus/verify.jsp">
+            <input type="hidden" name="appName" value="covington"><input type="hidden" id="screen" name="screen" value=""><div class="container span2">
+                <div><label for="username">Username</label></div>
+                <input class="span2 login-text-input" type="text" id="username" name="username" title="Enter your username" autocomplete="off">
+</div>
+
+            <div class="container span2">
+                <div><label for="password">Password</label></div>
+                <input class="span2 login-text-input" type="password" id="password" name="password" title="Enter your password" autocomplete="off">
+</div>
+
+            
+
+            
+
+            
+
+            <div class="container span8">
+                <div class="span2 alignright">
+                    <input class="signinbtn" id="signinbtn" type="submit" value="Log In">
+</div>
+                <div class="span4 alignleft">
+                    <div class="statusmsg"></div>
+                </div>
+            </div>
+            <input type="hidden" name="useCSRFProtection" value="true">
+</form>
+        <div class="passwordreset" style="padding-bottom:25px">
+                
+
+
+
+
+
+<div class="forgotpasswd span2">
+    
+        <a href="" onclick="toggle('password');return false" class="login-help-link passwordToggle">Forgot Password?</a>
+         
+        <a href="" onclick="toggle('username');return false" class="login-help-link userNameToggle">Forgot Username?</a>
+    
+    
+     
+    <a href="" onclick="toggle('problems');return false" class="login-help-link helpToggle">Help</a>
+    
+</div>
+<div id="usernamebox" style="display: none;">
+    <input id="useremail" class="passwordResetInput" type="text" value="" placeholder="Enter Account Security Email" aria-label="Account Security Email"><input id="usernamebutton" class="passwordResetButton" type="button" onclick="sendEmail();" value="Continue">
+</div>
+<div id="passwordbox" style="display: none;">
+    <input id="usernameinput" class="passwordResetInput" type="text" value="" placeholder="Enter Username" aria-label="Username"><input id="passwordbutton" type="button" class="passwordResetButton" onclick="sendPasswordEmail()" value="Continue">
+</div>
+
+
+
+                <div id="helpbox" style="display:none;">
+                    <hr class="loginhr" style="margin-left:0; margin-right:0;">
+<h2>You may now reset your own password. Please follow prompts. </h2>
+<br><br><p> System Support Email Address: <a href="mailto:portal.support@covington.kyschools.us" target="_top">portal.support@covington.kyschools.us</a></p>
+
+                </div>
+            </div>
+    </div>
+</div>
+
+<!--[if lt IE 10]>
+<div class="frmcontainer2">
+    <div class="editionbox">
+        <table id="editionlayout" border="0" cellpadding="0" cellspacing="0">
+            <tr valign="top">
+                <td class="fillertd">&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="lefteditionbox"></td>
+                <td class="centereditionbox" align="right"><div class="editiontext">Notice</div></td>
+                <td class="righteditionbox"></td>
+            </tr>
+        </table>
+    </div>
+    <div class="notice"> <p><b>If you are using Internet Explorer 7 or 8, the browsers will no longer be supported as of June, 2015. Internet Explorer 9 has only limited support. <br> Please refer to the <a href="https://community.infinitecampus.com/kb/display/DOC/Supported+Platforms">Supported Platforms article</a> on the Campus Community.</b><p></div>
+</div>
+<div>&nbsp;</div>
+
+<![endif]-->
+
+<div class="appinfo">
+    <div>©2003-2020 Infinite Campus, Inc.</div>
+    <div><a href="http://www.infinitecampus.com" target="_blank">www.infinitecampus.com</a></div>
+    <div class="appserver">App Server=c388ky-cmb001</div>
+</div>
+
+<script>
+    $(document).on('keyup', '#useremail',  function(event){
+        if(event.which === 13){
+            $('#usernamebutton').click();
+        }
+    });
+    $(document).on('keyup', '#usernameinput', function(event){
+        if(event.which === 13){
+            $('#passwordbutton').click();
+        }
+    });
+</script>
+</body>
+</html>

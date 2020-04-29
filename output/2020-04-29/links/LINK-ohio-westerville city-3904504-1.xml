@@ -1,0 +1,1875 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>COVID-19 Information - Westerville City Schools</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet" type="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districtdepts.aspx?deptid=143">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Westerville City Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Alcott Elementary - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Annehurst Elementary - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Cherrington Elementary - News" href="/rssNews.ashx?schoolId=4">
+<link rel="alternate" type="application/rss+xml" title="Emerson Elementary - News" href="/rssNews.ashx?schoolId=10">
+<link rel="alternate" type="application/rss+xml" title="Fouse Elementary - News" href="/rssNews.ashx?schoolId=11">
+<link rel="alternate" type="application/rss+xml" title="Hanby Elementary - News" href="/rssNews.ashx?schoolId=14">
+<link rel="alternate" type="application/rss+xml" title="Hawthorne Elementary - News" href="/rssNews.ashx?schoolId=16">
+<link rel="alternate" type="application/rss+xml" title="Huber Ridge Elementary - News" href="/rssNews.ashx?schoolId=17">
+<link rel="alternate" type="application/rss+xml" title="Longfellow Elementary - News" href="/rssNews.ashx?schoolId=18">
+<link rel="alternate" type="application/rss+xml" title="Mark Twain Elementary - News" href="/rssNews.ashx?schoolId=19">
+<link rel="alternate" type="application/rss+xml" title="McVay Elementary - News" href="/rssNews.ashx?schoolId=20">
+<link rel="alternate" type="application/rss+xml" title="Pointview Elementary - News" href="/rssNews.ashx?schoolId=21">
+<link rel="alternate" type="application/rss+xml" title="Robert Frost Elementary - News" href="/rssNews.ashx?schoolId=22">
+<link rel="alternate" type="application/rss+xml" title="Whittier Elementary - News" href="/rssNews.ashx?schoolId=23">
+<link rel="alternate" type="application/rss+xml" title="Wilder Elementary - News" href="/rssNews.ashx?schoolId=24">
+<link rel="alternate" type="application/rss+xml" title="Blendon Middle School - News" href="/rssNews.ashx?schoolId=25">
+<link rel="alternate" type="application/rss+xml" title="Genoa Middle School - News" href="/rssNews.ashx?schoolId=26">
+<link rel="alternate" type="application/rss+xml" title="Heritage Middle School - News" href="/rssNews.ashx?schoolId=27">
+<link rel="alternate" type="application/rss+xml" title="Walnut Springs Middle School - News" href="/rssNews.ashx?schoolId=28">
+<link rel="alternate" type="application/rss+xml" title="Westerville Central High School - News" href="/rssNews.ashx?schoolId=29">
+<link rel="alternate" type="application/rss+xml" title="Westerville North High School - News" href="/rssNews.ashx?schoolId=30">
+<link rel="alternate" type="application/rss+xml" title="Westerville South High School - News" href="/rssNews.ashx?schoolId=31">
+<link rel="alternate" type="application/rss+xml" title="Preschool Program at the Early Learning Center - News" href="/rssNews.ashx?schoolId=35">
+<link rel="alternate" type="application/rss+xml" title="The Academic Enrichment Center - News" href="/rssNews.ashx?schoolId=36">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "OH_WestervilleCitySD",
+                                url: "/administrativedepartment.aspx?aid=143",
+                                errorCount: count,
+                                value: parseInt("143", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1538566047287">
+<link rel="icon" href="/Customers/OH/WestervilleCitySD/sysimages/custom/favicon.ico" type="image/x-icon">
+</head>
+<body class="school-0 administrativedepartment">
+    <form name="aspnetForm" method="post" action="/administration/143" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJNzkyMTY4MDQ4D2QWAmYPZBYCZg9kFgRmD2QWBmYPZBYCZg9kFgICAQ8WAh4EVGV4dAUYV2VzdGVydmlsbGUgQ2l0eSBTY2hvb2xzZAIDD2QWAgIBDxYCHgtfIUl0ZW1Db3VudAIYFjBmD2QWAmYPFQIRQWxjb3R0IEVsZW1lbnRhcnkBMWQCAQ9kFgJmDxUCFEFubmVodXJzdCBFbGVtZW50YXJ5ATJkAgIPZBYCZg8VAhZDaGVycmluZ3RvbiBFbGVtZW50YXJ5ATRkAgMPZBYCZg8VAhJFbWVyc29uIEVsZW1lbnRhcnkCMTBkAgQPZBYCZg8VAhBGb3VzZSBFbGVtZW50YXJ5AjExZAIFD2QWAmYPFQIQSGFuYnkgRWxlbWVudGFyeQIxNGQCBg9kFgJmDxUCFEhhd3Rob3JuZSBFbGVtZW50YXJ5AjE2ZAIHD2QWAmYPFQIWSHViZXIgUmlkZ2UgRWxlbWVudGFyeQIxN2QCCA9kFgJmDxUCFUxvbmdmZWxsb3cgRWxlbWVudGFyeQIxOGQCCQ9kFgJmDxUCFU1hcmsgVHdhaW4gRWxlbWVudGFyeQIxOWQCCg9kFgJmDxUCEE1jVmF5IEVsZW1lbnRhcnkCMjBkAgsPZBYCZg8VAhRQb2ludHZpZXcgRWxlbWVudGFyeQIyMWQCDA9kFgJmDxUCF1JvYmVydCBGcm9zdCBFbGVtZW50YXJ5AjIyZAIND2QWAmYPFQITV2hpdHRpZXIgRWxlbWVudGFyeQIyM2QCDg9kFgJmDxUCEVdpbGRlciBFbGVtZW50YXJ5AjI0ZAIPD2QWAmYPFQIVQmxlbmRvbiBNaWRkbGUgU2Nob29sAjI1ZAIQD2QWAmYPFQITR2Vub2EgTWlkZGxlIFNjaG9vbAIyNmQCEQ9kFgJmDxUCFkhlcml0YWdlIE1pZGRsZSBTY2hvb2wCMjdkAhIPZBYCZg8VAhxXYWxudXQgU3ByaW5ncyBNaWRkbGUgU2Nob29sAjI4ZAITD2QWAmYPFQIfV2VzdGVydmlsbGUgQ2VudHJhbCBIaWdoIFNjaG9vbAIyOWQCFA9kFgJmDxUCHVdlc3RlcnZpbGxlIE5vcnRoIEhpZ2ggU2Nob29sAjMwZAIVD2QWAmYPFQIdV2VzdGVydmlsbGUgU291dGggSGlnaCBTY2hvb2wCMzFkAhYPZBYCZg8VAi5QcmVzY2hvb2wgUHJvZ3JhbSBhdCB0aGUgRWFybHkgTGVhcm5pbmcgQ2VudGVyAjM1ZAIXD2QWAmYPFQIeVGhlIEFjYWRlbWljIEVucmljaG1lbnQgQ2VudGVyAjM2ZAIFDxYCHgRocmVmBTAvc2l0ZWNzcy5hc2h4PyZpbnRyYW5ldD0wJmNoZWNrc3VtPTE1Mzg1NjYwNDcyODdkAgEPFgIeBmFjdGlvbgUTL2FkbWluaXN0cmF0aW9uLzE0MxYIAgEPZBYGAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwQFATBkAgMPD2QWAh8EBQEwZAIEDw9kFgIfBAUBMGQCBQ8PZBYCHwQFATBkAgMPZBYEZg8PFgIeB1Zpc2libGVnZBYCAgEPFgIfAQIBFgJmD2QWAmYPFQUPQ09WSUQtMTkgVXBkYXRlBmFhMTExMQZmZmZmZmYFQWxlcnScAjxwPjxzdHJvbmc+MDQtMjEtMjAyMDwvc3Ryb25nPjwvcD4NCg0KPHVsPg0KCTxsaT48YSBocmVmPSJodHRwczovL3d3dy53Y3NvaC5vcmcvZG9jcy9kaXN0cmljdC9kZXB0cy8xNDMvd2NzZCUyMGZhbWlseSUyMG1lc3NhZ2UlMjAwNC0yMS0yMC5wZGY/aWQ9NTcxOTE4IiB0YXJnZXQ9Il9ibGFuayI+V0NTRCBGYW1pbHkgTWVzc2FnZTogU2Nob29scyB3aWxsIG5vdCByZW9wZW4gdGhlIHJlbWFpbmRlciBvZiB0aGlzIGFjYWRlbWljIHllYXIuPC9hPjwvbGk+DQo8L3VsPg0KDQo8cD4mbmJzcDs8L3A+ZAICD2QWAmYPFgIfAAUbPHVsIGNsYXNzPSdhbGVydExpc3QnPjwvdWw+ZAIHDw8WAh8FaGRkAgMPZBYCAgEPZBYCAgEPZBYIAgEPDxYCHgtOYXZpZ2F0ZVVybAUBL2RkAgMPDxYCHwYFAS9kFgRmDw8WAh8ABRZXZXN0ZXJ2aWxsZSBDaXR5Jm5ic3A7ZGQCAQ8PFgIfAAUPU2Nob29sIERpc3RyaWN0ZGQCCQ9kFgJmDxYCHwECBRYKZg9kFgJmDxUFHmh0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9XQ1NPSBFEaXN0cmljdCBGYWNlYm9vawVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+RmFjZWJvb2s8L3NwYW4+DmZhIGZhLWZhY2Vib29rZAIBD2QWAmYPFQUlaHR0cHM6Ly93d3cueW91dHViZS5jb20vdXNlci9XQ1NET2hpbxBEaXN0cmljdCBZb3V0dWJlBV9zZWxmJDxzcGFuIGNsYXNzPSdvYnNjdXJlJz5Zb3VUdWJlPC9zcGFuPg1mYSBmYS15b3V0dWJlZAICD2QWAmYPFQUZaHR0cHM6Ly90d2l0dGVyLmNvbS93Y3NvaBBEaXN0cmljdCBUd2l0dGVyBl9ibGFuayQ8c3BhbiBjbGFzcz0nb2JzY3VyZSc+VHdpdHRlcjwvc3Bhbj4NZmEgZmEtdHdpdHRlcmQCAw9kFgJmDxUFFiBodHRwOi8vd3d3Lndjc25ldC5vcmcRRGlzdHJpY3QgaW50cmFOZXQGX2JsYW5rJTxzcGFuIGNsYXNzPSdvYnNjdXJlJz5JbnRyYW5ldDwvc3Bhbj4NZmEgZmEtc2l0ZW1hcGQCBA9kFgJmDxUFFWh0dHA6Ly93d3cud2Nzb2gub3JnLxFEaXN0cmljdCBIb21lcGFnZQVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+SG9tZXBhZ2U8L3NwYW4+CmZhIGZhLWhvbWVkAgsPZBYCZg8WAh8BAgUWCmYPZBYCZg8VBR5odHRwczovL3d3dy5mYWNlYm9vay5jb20vV0NTT0gRRGlzdHJpY3QgRmFjZWJvb2sFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkZhY2Vib29rPC9zcGFuPg5mYSBmYS1mYWNlYm9va2QCAQ9kFgJmDxUFJWh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL3VzZXIvV0NTRE9oaW8QRGlzdHJpY3QgWW91dHViZQVfc2VsZiQ8c3BhbiBjbGFzcz0nb2JzY3VyZSc+WW91VHViZTwvc3Bhbj4NZmEgZmEteW91dHViZWQCAg9kFgJmDxUFGWh0dHBzOi8vdHdpdHRlci5jb20vd2Nzb2gQRGlzdHJpY3QgVHdpdHRlcgZfYmxhbmskPHNwYW4gY2xhc3M9J29ic2N1cmUnPlR3aXR0ZXI8L3NwYW4+DWZhIGZhLXR3aXR0ZXJkAgMPZBYCZg8VBRYgaHR0cDovL3d3dy53Y3NuZXQub3JnEURpc3RyaWN0IGludHJhTmV0Bl9ibGFuayU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+SW50cmFuZXQ8L3NwYW4+DWZhIGZhLXNpdGVtYXBkAgQPZBYCZg8VBRVodHRwOi8vd3d3Lndjc29oLm9yZy8RRGlzdHJpY3QgSG9tZXBhZ2UFX3NlbGYlPHNwYW4gY2xhc3M9J29ic2N1cmUnPkhvbWVwYWdlPC9zcGFuPgpmYSBmYS1ob21lZAILD2QWBAIBD2QWAgIBD2QWBAIBDw8WAh8ABRRDT1ZJRC0xOSBJbmZvcm1hdGlvbmRkAgMPZBYKAgEPFgIfBWhkAgMPFgIfBWgWAgIBDw8WAh8FaGRkAgUPFgIfBWgWAgIBDxYCHwAFASBkAgcPFgIfBWgWBAIBDxYCHwBlZAIDDxYCHwAFBjxiciAvPmQCCw9kFgICAQ8WAh8ABd5BPHA+Jm5ic3A7PC9wPg0KDQo8cCBzdHlsZT0idGV4dC1hbGlnbjogY2VudGVyOyI+PGEgaHJlZj0iaHR0cDovL3d3dy53Y3NvaC5vcmcvYWRtaW5pc3RyYXRpb24vMTQ4IiB0YXJnZXQ9Il9ibGFuayI+PGltZyBhbHQ9IlZpZXcgTWVhbCBhbmQgRm9vZCBTZXJ2aWNlIEluZm9ybWF0aW9uIiBzcmM9Ii9kb2NzL2Rpc3RyaWN0L2NvdmlkMTkvbWVhbHNfMjUwLnBuZz9pZD01NzE4MTAmYW1wO3dpZHRoPTI1MCIgc3R5bGU9ImJvcmRlci13aWR0aDogMHB4OyBib3JkZXItc3R5bGU6IHNvbGlkOyB3aWR0aDogMjUwcHg7IGhlaWdodDogODNweDsiIC8+PC9hPjxhIGhyZWY9Imh0dHBzOi8vd3d3Lndjc29oLm9yZy9hZG1pbmlzdHJhdGlvbi8xMzIiIHRhcmdldD0iX2JsYW5rIj48aW1nIGFsdD0iVmlldyByZXNvdXJjZXMgZm9yIHN0dWRlbnQgc29jaWFsIGVtb3Rpb25hbCBzdXBwb3J0IiBzcmM9Ii9kb2NzL2Rpc3RyaWN0L2NvdmlkMTkvZW1vdGlvbmFsXzI1MC5wbmc/aWQ9NTcxODExJmFtcDt3aWR0aD0yNTAiIHN0eWxlPSJ3aWR0aDogMjUwcHg7IGJvcmRlci13aWR0aDogMHB4OyBib3JkZXItc3R5bGU6IHNvbGlkOyBoZWlnaHQ6IDgzcHg7IiAvPjwvYT48L3A+DQoNCjxwIHN0eWxlPSJ0ZXh0LWFsaWduOiBjZW50ZXI7Ij48YSBocmVmPSJodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9kb2N1bWVudC9kLzE3cWJmaDhSZU5Pd0dScEpmczMycTA4Szhjd2FpYlNVcGQxRFRkMW5xN1FvL2VkaXQiIHRhcmdldD0iX2JsYW5rIj48aW1nIGFsdD0iVmlldyB0aGUgIExvbmcgVGVybSBEaXN0YW5jZSBMZWFybmluZyBQbGFuIDIwMjAgZm9yIEZhbWlsaWVzIiBzcmM9Ii9kb2NzL2Rpc3RyaWN0L2NvdmlkMTkvbGVhcm5pbmdfMjUwLnBuZz9pZD01NzE4MTImYW1wO3dpZHRoPTI1MCIgc3R5bGU9IndpZHRoOiAyNTBweDsgYm9yZGVyLXdpZHRoOiAwcHg7IGJvcmRlci1zdHlsZTogc29saWQ7IGhlaWdodDogODNweDsiIC8+PC9hPjwvcD4NCg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPiZuYnNwOzwvcD4NCg0KPGhyIC8+DQo8cD4mbmJzcDs8L3A+DQoNCjxwPjxzdHJvbmc+MDQtMjEtMjAyMDwvc3Ryb25nPjwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8cD5EZWFyIFdDU0QgRmFtaWxpZXM6PC9wPg0KDQo8cD5FYXJsaWVyIEkgc2VudCB5b3UgYW4gb3Bwb3J0dW5pdHkgdG8gcGFydGljaXBhdGUgaW4gYSBUaG91Z2h0RXhjaGFuZ2UgYXMgYSB3YXkgZm9yIHlvdSB0byBwcm92aWRlIGZlZWRiYWNrIGFib3V0IHdoYXQgeW91ciBjaGlsZHJlbiBhcmUgZXhwZXJpZW5jaW5nIGR1cmluZyB0aGlzIGV4dGVuZGVkIGNsb3N1cmUsIGFzIHdlbGwgYXMgaG93IHdlIGNhbiBjb250aW51ZSB0byBzdXBwb3J0IG91ciBzdHVkZW50cyBhbmQgZmFtaWxpZXMgZHVyaW5nIHRoaXMgdGltZS4gSSBob3BlIHlvdSB0YWtlIGEgZmV3IG1vbWVudHMgdG8gcGFydGljaXBhdGUsIGJlY2F1c2UgYXMgd2UgbGVhcm5lZCB5ZXN0ZXJkYXksIE9oaW8mcnNxdW87cyBzY2hvb2xzIHdpbGwgbm90IHJlb3BlbiB0aGUgcmVtYWluZGVyIG9mIHRoaXMgYWNhZGVtaWMgeWVhci48L3A+DQoNCjxwPldlIHdlcmUgbm90IGF0IGFsbCBzdXJwcmlzZWQgYnkgdGhlIEdvdmVybm9yJnJzcXVvO3MgZGVjaXNpb24uIEluIGZhY3QsIHRoZSBmb3VuZGF0aW9uIHdlJiMzOTt2ZSBlc3RhYmxpc2hlZCBvdmVyIHRoZSBwYXN0IGZldyB3ZWVrcyB3YXMgYnVpbHQgdG8gc3VwcG9ydCBhbiBleHRlbmRlZCBjbG9zdXJlIHRocm91Z2ggdGhlIHJlc3Qgb2YgdGhlIGFjYWRlbWljIHllYXIuIFdlIGFudGljaXBhdGVkIHRoYXQgc2Nob29scyB3b3VsZCByZW1haW4gY2xvc2VkLCBzbyBpZiBub3RoaW5nIGVsc2UsIGl0JiMzOTtzIGEgcmVsaWVmIHRvIGhlYXIgdGhpcyBvZmZpY2lhbGx5IGZyb20gdGhlIEdvdmVybm9yLiBOb3cgd2UsIGFsb25nIHdpdGggb3VyIGZhbWlsaWVzIGFuZCBzdGFmZiwgY2FuIHBsYW4gYWNjb3JkaW5nbHkuPC9wPg0KDQo8cD5JZiB5b3UgZG8gbm90IGhhdmUgYSAxMjxzdXA+dGg8L3N1cD4tZ3JhZGUgc3R1ZGVudCBpbiB5b3VyIGhvbWUsIHRoaXMgaXMgbGlrZWx5IHRoZSBmaXJzdCB0aW1lIHlvdSBhcmUgaGVhcmluZyB0aGF0IHdlIHNlY3VyZWQgdGhlIHdlZWtlbmQgb2YgSnVuZSAyNi0yNyBhcyBhbiBhbHRlcm5hdGl2ZSBkYXRlIGZvciBncmFkdWF0aW9uIGF0IHRoZSBDZWxlc3RlIENlbnRlci4gV2UgcmVtYWluIG9wdGltaXN0aWMgdGhhdCB3ZSB3aWxsIGJlIGFibGUgdG8gaG9sZCBhIHRyYWRpdGlvbmFsIGdyYWR1YXRpb24gY2VyZW1vbnkgdG8gY2VsZWJyYXRlIHRoZSBhY2hpZXZlbWVudHMgb2Ygb3VyIENsYXNzIG9mIDIwMjAsIGFsb25nIHdpdGggdGhlaXIgZmFtaWxpZXMsIHlldCB0aGlzIHllYXIuIEhvd2V2ZXIsIHdlIGFsc28gcmVhbGl6ZSB0aGF0IGV2ZW4gdGhvc2UgYWx0ZXJuYXRpdmUgcGxhbnMgaGF2ZSBhIGdvb2QgY2hhbmNlIG9mIGJlaW5nIGltcGFjdGVkIGJ5IGZ1dHVyZSBzdGF0ZSBkZWNpc2lvbnMuIFRoZXJlZm9yZSwgd2UgY29udGludWUgdG8gd29yayB3aXRoIG91ciBCb2FyZCBvZiBFZHVjYXRpb24gb24gc29tZSBvdGhlciBpZGVhcyB0byBjZWxlYnJhdGUgdGhlIENsYXNzIG9mIDIwMjAuPC9wPg0KDQo8cD5SZWdhcmRpbmcgbmV4dCBzY2hvb2wgeWVhciwgd2UgaGFkIGFscmVhZHkgZXN0YWJsaXNoZWQgYSB0ZWFtIHByaW9yIHRvIHRoZSBHb3Zlcm5vciYjMzk7cyBhbm5vdW5jZW1lbnQgdGhhdCBpcyB0YXNrZWQgd2l0aCB3b3JraW5nIHRocm91Z2ggd2hhdCB0aGUgc3RhcnQgb2YgdGhlIDIwMjAtMjEgc2Nob29sIHllYXIgbWF5IGxvb2sgbGlrZS4gVGhlIGZpcnN0IG1lZXRpbmcgb2YgdGhpcyBncm91cCAodmlydHVhbCwgb2YgY291cnNlKSBpcyB0aGlzIGNvbWluZyBUaHVyc2RheSwgc28gdGhvc2UgY29udmVyc2F0aW9ucyBhcmUgc2V0IHRvIGJlZ2luIHRoaXMgd2Vlay4gV2UgYWxzbyByZW1haW4gaW4gdG91Y2ggd2l0aCBvdGhlciBzY2hvb2wgZGlzdHJpY3RzIGFzIG91ciByZXNwZWN0aXZlIGxlYWRlcnNoaXAgdGVhbXMgZGlzY3VzcyB0aGUgcGFyYW1ldGVycyBmb3IgbmV4dCBzY2hvb2wgeWVhci4gU2Nob29sIGRpc3RyaWN0cyB0aHJvdWdob3V0IHRoZSBhcmVhIGNvbnRpbnVlIHRvIGNvbGxhYm9yYXRlIG9uIGhvdyBvdXIgZWR1Y2F0aW9uYWwgc3lzdGVtcyBjYW4gd29yayB0byBzdXBwb3J0IG91ciBzdHVkZW50cyBhbmQgZmFtaWxpZXMgZHVyaW5nIHRoZXNlIG1vc3QgdW51c3VhbCB0aW1lcy4mbmJzcDs8L3A+DQoNCjxwPldlIHdpbGwgY29udGludWUgdG8gc2hhcmUgdXBkYXRlcyB3aXRoIHlvdSBhcyBhZGRpdGlvbmFsIHBsYW5zIGFuZCBkZXRhaWxzIGFyZSBmaW5hbGl6ZWQuIFVudGlsIHRoZW4sIHBsZWFzZSBzdGF5IHNhZmUuIFdlIHRydWx5IGFwcHJlY2lhdGUgeW91ciBjb250aW51ZWQgc3VwcG9ydCBhbmQgY29vcGVyYXRpb24uPC9wPg0KDQo8cD5TaW5jZXJlbHksPGJyIC8+DQpEci4gSm9obiBSLiBLZWxsb2dnPGJyIC8+DQpTdXBlcmludGVuZGVudDwvcD4NCg0KPHA+Jm5ic3A7PC9wPg0KDQo8aHIgLz4NCjxwPiZuYnNwOzwvcD4NCg0KPHA+PHN0cm9uZz4wNC0xMy0yMDIwPC9zdHJvbmc+PC9wPg0KDQo8cD4mbmJzcDs8L3A+DQoNCjxwPjxzdHJvbmc+RGlzdHJpY3Qgb2ZmaWNpYWxzIG9mZmVyIHVwZGF0ZSBvbiBTdW1tZXIgU2Nob29sIChHcmFkZXMgOS0xMikgYW5kIFN1bW1lciBJbnRlcnZlbnRpb24gKEdyYWRlcyBLLTgpIHByb2dyYW1zPC9zdHJvbmc+PC9wPg0KDQo8cD5XaGVuIGFubm91bmNpbmcgdGhhdCBzY2hvb2xzIHdvdWxkIGJlIGNsb3NlZCB0aHJvdWdoIGF0IGxlYXN0IE1heSAxLCBPaGlvIEdvdmVybm9yIE1pa2UgRGVXaW5lIGFsc28gc3RhdGVkIHRoYXQgaGUgd291bGQgZXZhbHVhdGUgY2lyY3Vtc3RhbmNlcyBhdCB0aGF0IHRpbWUmbmJzcDt0byBkZXRlcm1pbmUgaWYgc2Nob29scyBzaG91bGQgcmVtYWluIGNsb3NlZCBiZXlvbmQgdGhhdCBkYXRlLiBJbiByZXNwb25zZSB0byB0aGlzIHVuY2VydGFpbnR5LCBhbmQgdG8gZW5hYmxlIHN0dWRlbnRzLCBwYXJlbnRzLCBhbmQgZ3VhcmRpYW5zIHRvIHBsYW4gYWNjb3JkaW5nbHksIFdlc3RlcnZpbGxlIENpdHkgU2Nob29sIERpc3RyaWN0IChXQ1NEKSBvZmZpY2lhbHMgdG9kYXkgcmVsZWFzZWQgYW4gdXBkYXRlIG9uIHRoZSBkaXN0cmljdCYjMzk7cyBTdW1tZXIgU2Nob29sIHByb2dyYW0gZm9yIGdyYWRlcyA5LTEyLCBhcyB3ZWxsIGFzIFN1bW1lciBJbnRlcnZlbnRpb24gZm9yIGdyYWRlcyBLLTguPC9wPg0KDQo8cD48c3Ryb25nPkdyYWRlcyA5LTEyPC9zdHJvbmc+PC9wPg0KDQo8cD5XQ1NEIFN1bW1lciBTY2hvb2wgZm9yIHN0dWRlbnRzIGluIGdyYWRlcyA5LTEyIGlzIG9mZmVyZWQgdG8gb3VyIGRpc3RyaWN0JnJzcXVvO3Mgc3R1ZGVudHMsIGFzIHdlbGwgYXMgc3R1ZGVudHMgZnJvbSBvdGhlciBkaXN0cmljdHMuIEluIHN1bW1lciAyMDIwLCB0aGlzIHByb2dyYW0gd2lsbCBiZSBlbnRpcmVseSZuYnNwO29ubGluZSwgd2l0aCBzdHVkZW50cyB3b3JraW5nIHZpcnR1YWxseSB1c2luZyBBcGV4IGRpZ2l0YWwgY29udGVudC4gQmVzdCBwcmFjdGljZXMgZm9yIHZpcnR1YWwgaW5zdHJ1Y3Rpb24gd2lsbCBiZSBpbmNvcnBvcmF0ZWQuIEZvciBleGFtcGxlLCBzdHVkZW50cyB3aWxsIGJlIHJlcXVpcmVkIHRvIGF0dGVuZCB2aXJ0dWFsIG1lZXRpbmdzIHdpdGggdGVhY2hlcnMgb24gYSZuYnNwO3ByZXNjcmliZWQgYmFzaXMsIHdpdGggbGVzc29uIGVuZ2FnZW1lbnQvY29tcGxldGlvbiBiZWluZyBjbG9zZWx5IG1vbml0b3JlZCBhbmQgZnJlcXVlbnRseSBzaGFyZWQgd2l0aCBwYXJlbnRzL2d1YXJkaWFucy4gRGlyZWN0IHRlYWNoZXIgYXNzaXN0YW5jZSB3aWxsIGJlIHByb3ZpZGVkIHRvIHN0dWRlbnRzIHRocm91Z2ggdmlydHVhbCBtZWFucy4gRm9yIHJlZ2lzdGVyZWQgV0NTRCBzdHVkZW50cyB3aXRob3V0IGEgZGV2aWNlIGFuZC9vciB3aS1maSwgaXQgaXMgb3VyIGludGVudCB0byBwcm92aWRlIHRoZXNlIG1lYW5zIHNvIHRoZXkgY2FuIGNvbXBsZXRlIHRoZWlyIGNvdXJzZXdvcmsuJm5ic3A7PC9wPg0KDQo8cD48YnIgLz4NClBlbmRpbmcgQm9hcmQgb2YgRWR1Y2F0aW9uIGFwcHJvdmFsLCB0aGUgY29zdCBmb3IgV0NTRCBzdHVkZW50cyB3aXNoaW5nIHRvIHJlY292ZXIgY3JlZGl0IHdpbGwgZGVjcmVhc2UgZnJvbSAkMTAwIHRvIG9ubHkgJDUwIHBlciBjcmVkaXQuIFN0dWRlbnRzIGludGVyZXN0ZWQgaW4gYWR2YW5jaW5nIHRoZWlyIGNvdXJzZSBjcmVkaXRzIG92ZXIgdGhlIHN1bW1lciBieSB0YWtpbmcgYSBuZXcgY2xhc3MgaW4gd2hpY2ggdGhleSBoYXZlIG5vdCBwcmV2aW91c2x5IGJlZW4gZW5yb2xsZWQgbWF5IGRvIHNvIGF0IGEgY29zdCBvZiAkNDAwIHBlciBjcmVkaXQuIE5vbi1XQ1NEIHN0dWRlbnRzIGNhbiBhbHNvIHJlZ2lzdGVyIHRvIGFkdmFuY2UgdGhlaXIgY291cnNlIGNyZWRpdCBhdCAkNDcwIHBlciBjcmVkaXQuIE9uLWxpbmUgcmVnaXN0cmF0aW9uIGNhbiBiZSBjb21wbGV0ZWQgdGhyb3VnaCBNYXkgMjYgYXQmbmJzcDs8YSBocmVmPSJodHRwczovL3Rpbnl1cmwuY29tL1dDU1N1bW1lckhTMjAyMCIgdGFyZ2V0PSJfYmxhbmsiPmh0dHBzOi8vdGlueXVybC5jb20vV0NTU3VtbWVySFMyMDIwPC9hPi48L3A+DQoNCjxwPjxzdHJvbmc+R3JhZGVzIEstODwvc3Ryb25nPjwvcD4NCg0KPHA+Rm9yIHN0dWRlbnRzIGluIGdyYWRlcyBLLTgsIHJlY29tbWVuZGF0aW9uIGxldHRlcnMgd2VyZSB0byBiZSBtYWlsZWQgdGhlIHdlZWsgb2YgTWFyY2ggMzAsIDIwMjAuJm5ic3A7IEhvd2V2ZXIsIGdpdmVuIHRoZSBzdGF0ZSZyc3F1bztzIGN1cnJlbnQgc2l0dWF0aW9uLCBkaXN0cmljdCBvZmZpY2lhbHMgaGF2ZSBub3QgeWV0IGRldGVybWluZWQgdGhlIGZvcm1hdCB0aGF0IHdpbGwgYmUgdXNlZCB0byBwcm92aWRlIHRoaXMgcGFydGljdWxhciBzdW1tZXIgcHJvZ3JhbS48L3A+DQoNCjxwPiZsZHF1bztXZSBleHBlY3QgdG8gaGF2ZSBhIGRlY2lzaW9uIHJlZ2FyZGluZyB0aGUgZm9ybWF0IG9mIG91ciBLLTggc3VtbWVyIGludGVydmVudGlvbiBvbiBvciBiZWZvcmUgTWF5IDgsJnJkcXVvOyBzYWlkIERyLiBTY290dCBFYmJyZWNodCwgZGlyZWN0b3Igb2YgYWx0ZXJuYXRpdmUgZWR1Y2F0aW9uIGFuZCBhc3Nlc3NtZW50LiAmbGRxdW87VGhpcyBpbmZvcm1hdGlvbiB3aWxsIGJlIGNvbW11bmljYXRlZCB0byBhbGwgaW52aXRlZCBzdHVkZW50cyBhbmQgdGhlaXIgZmFtaWxpZXMgc28gdGhleSBjYW4gdGhlbiBkZWNpZGUgaWYgdGhlIHByb2dyYW0gaXMgcmlnaHQgZm9yIHRoZW0uJnJkcXVvOyZuYnNwOzwvcD4NCg0KPHA+UGFyZW50cy9ndWFyZGlhbnMgd2l0aCBxdWVzdGlvbnMgcmVnYXJkaW5nIHNjaG9vbCBwZXJzb25uZWwmcnNxdW87cyByZWNvbW1lbmRhdGlvbiBmb3IgdGhlaXIgY2hpbGQgdG8gYXR0ZW5kIHN1bW1lciBpbnRlcnZlbnRpb24gYXJlIGVuY291cmFnZWQgdG8gZW1haWwgdGhlaXIgY2hpbGQmcnNxdW87cyB0ZWFjaGVyLCBjb3Vuc2Vsb3IsIG9yIHByaW5jaXBhbC4mbmJzcDs8L3A+DQoNCjxwPiZuYnNwOzwvcD4NCg0KPGhyIC8+DQo8cD4mbmJzcDs8L3A+DQoNCjxwPjxzdHJvbmc+VXBkYXRlIDAzLTI2LTIwMjA8L3N0cm9uZz48L3A+DQoNCjxwPkRlYXIgV0NTRCBGYW1pbGllczo8L3A+DQoNCjxwPlRoZSBPaGlvIEdlbmVyYWwgQXNzZW1ibHkgcmVjZW50bHkgcGFzc2VkIGxlZ2lzbGF0aW9uIHRoYXQgYWRkcmVzc2VzIHNldmVyYWwgZWR1Y2F0aW9uYWwgbWF0dGVycyBkdXJpbmcgdGhpcyBwdWJsaWMgaGVhbHRoIGNyaXNpcy4gVGhlIEdvdmVybm9yIGlzIGV4cGVjdGVkIHRvIHNpZ24gdGhlIGJpbGwgaW50byBsYXcgc29vbi4gSW4gc3VtbWFyeSwgdGhlIGZvbGxvd2luZyBlZHVjYXRpb24tcmVsYXRlZCBjaGFuZ2VzIGltcGFjdGluZyBmYW1pbGllcyB3aWxsIHRha2UgZWZmZWN0IGltbWVkaWF0ZWx5IHVwb24gdGhlIEdvdmVybm9yJnJzcXVvO3Mgc2lnbmF0dXJlOjwvcD4NCg0KPHVsPg0KCTxsaT5TdGF0ZSBhbmQgZmVkZXJhbCB0ZXN0aW5nIGlzIGVsaW1pbmF0ZWQgZm9yIHRoZSAyMDE5LTIwMjAgc2Nob29sIHllYXI7PC9saT4NCgk8bGk+U3RhdGUgcmVwb3J0IGNhcmRzIHdpbGwgbm90IGJlIGlzc3VlZCBmb3IgdGhlIDIwMTktMjAyMCBzY2hvb2wgeWVhciAobm90ZSB0aGF0IHRoZXNlIGFyZSB0aGUgc3RhdGUtaXNzdWVkIHJlcG9ydCBjYXJkcyBmb3Igc2Nob29scyBhbmQgc2Nob29sIGRpc3RyaWN0cywgbm90IHN0dWRlbnQgcmVwb3J0IGNhcmRzKTs8L2xpPg0KCTxsaT5UaGUgRWRDaG9pY2Ugdm91Y2hlciBwcm9ncmFtIHN1cHBvcnRpbmcgcHJpdmF0ZSBzY2hvb2xzIGlzIGZyb3plbiBhdCAyMDE5LTIwMjAgZWxpZ2liaWxpdHkgbGV2ZWxzOzwvbGk+DQoJPGxpPlRoaXJkLWdyYWRlIHJlYWRpbmcgZ3VhcmFudGVlIHJldGVudGlvbiByZXF1aXJlbWVudHMgYXJlIHdhaXZlZDs8L2xpPg0KCTxsaT5TY2hvb2xzIGNhbiBncmFudCBoaWdoIHNjaG9vbCBkaXBsb21hcyB0byBzdHVkZW50cyBvbiB0cmFjayB0byBncmFkdWF0ZSBhbmQgZm9yIHdob20gdGhlIHByaW5jaXBhbCBkZXRlcm1pbmVzIHRoYXQgdGhlIHN0dWRlbnQgaGFzIHN1Y2Nlc3NmdWxseSBjb21wbGV0ZWQgdGhlIGN1cnJpY3VsdW07PC9saT4NCgk8bGk+SW5kaXZpZHVhbHMgd2l0aCBhcHByb3ByaWF0ZSBzdGF0ZSBsaWNlbnNlcyBhcmUgYWxsb3dlZCB0byBwcm92aWRlIHNlcnZpY2VzIGVsZWN0cm9uaWNhbGx5IG9yIHZpYSB0ZWxlaGVhbHRoIGNvbW11bmljYXRpb24gdG8gc3R1ZGVudHMgd2l0aCBzcGVjaWFsIG5lZWRzOzwvbGk+DQoJPGxpPkJvYXJkcyBvZiBlZHVjYXRpb24gbWF5IHVzZSBlbGVjdHJvbmljIGNvbW11bmljYXRpb24gZm9yIGluLXBlcnNvbiBtZWV0aW5ncyBhbmQgaGVhcmluZ3MgZHVyaW5nIHRoZSBlbWVyZ2VuY3kgcGVyaW9kLCBidXQgbm90IGxhdGVyIHRoYW4gRGVjLiAxLCAyMDIwOzwvbGk+DQoJPGxpPlNjaG9vbCBkaXN0cmljdHMgbWF5IHVzZSBkaXN0YW5jZSBsZWFybmluZyB0byBtYWtlIHVwIGFueSBudW1iZXIgb2YgZGF5cyBvciBob3VycyBuZWNlc3NhcnkgdG8gbWVldCBtaW5pbXVtIGluc3RydWN0aW9uYWwgaG91ciByZXF1aXJlbWVudHMuPC9saT4NCjwvdWw+DQoNCjxwPlBsZWFzZSBrbm93IHRoYXQgd2Ugd2lsbCBjb250aW51ZSB0byBjb21tdW5pY2F0ZSBhbnkgb3RoZXIgaW1wb3J0YW50IGRldGFpbHMgcmVnYXJkaW5nIHRoZXNlIG1hdHRlcnMgYXMgd2UgbGVhcm4gbW9yZSBhYm91dCB3aGF0IHRoaXMgbGVnaXNsYXRpb24gbWVhbnMgZm9yIG91ciBzdHVkZW50cyBhbmQgZmFtaWxpZXMuPC9wPg0KDQo8cD5TaW5jZXJlbHksPGJyIC8+DQpEci4gSm9obiBSLiBLZWxsb2dnPGJyIC8+DQpTdXBlcmludGVuZGVudCZuYnNwOyZuYnNwOzwvcD5kAgMPZBYCAgEPZBYEZg9kFgICAw9kFgJmDxYCHwECAhYEZg9kFgYCAQ8PFgIfAAUWRGlzdHJpY3QgTm90aWZpY2F0aW9uc2RkAgMPDxYCHwAFBTYyMzkyZGQCBQ8WAh8BAhMWJgIBD2QWBGYPFQJDL2RvY3MvZGlzdHJpY3QvZGVwdHMvMTQzL3djc2QgZmFtaWx5IG1lc3NhZ2UgMDQtMjEtMjAucGRmP2lkPTU3MTkxOFFXQ1NEIEZhbWlseSBNZXNzYWdlOiBTY2hvb2xzIHdpbGwgbm90IHJlb3BlbiB0aGUgcmVtYWluZGVyIG9mIHRoaXMgYWNhZGVtaWMgeWVhci5kAgEPDxYCHwAFDkFwcmlsIDIxLCAyMDIwZGQCAg9kFgRmDxUCUy9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My9maW5hbCBjaHJvbWVib29rIG1lc3NhZ2UgdG8gZmFtaWxpZXMgNC4xNy4yMC5wZGY/aWQ9NTcxOTEzPldDU0QgRmFtaWx5IE1lc3NhZ2U6IEZpbmFsIENocm9tZWJvb2sgRGlzdHJpYnV0aW9uIEluZm9ybWF0aW9uZAIBDw8WAh8ABQ5BcHJpbCAxNywgMjAyMGRkAgMPZBYEZg8VAlwvZG9jcy9kaXN0cmljdC9kZXB0cy8xNDMvd2NzZCBtb2JpbGUgaG90c3BvdCBjb21tdW5pY2F0aW9uIHRvIGZhbWlsaWVzIDQuMTQuMjAucGRmP2lkPTU3MTg4MzBXQ1NEIEZhbWlseSBNZXNzYWdlOiBNb2JpbGUgSG90c3BvdCBBdmFpbGFiaWxpdHlkAgEPDxYCHwAFDkFwcmlsIDE0LCAyMDIwZGQCBA9kFgRmDxUCSi9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My9zdW1tZXIgc2Nob29sIG5ld3MgcmVsZWFzZSAwNC0xMy0yMC5wZGY/aWQ9NTcxODc5aFdDU0QgRmFtaWx5IE1lc3NhZ2U6IFVwZGF0ZSBvbiBTdW1tZXIgU2Nob29sIChHcmFkZXMgOS0xMikgYW5kIFN1bW1lciBJbnRlcnZlbnRpb24gKEdyYWRlcyBLLTgpIHByb2dyYW1zZAIBDw8WAh8ABQ5BcHJpbCAxMywgMjAyMGRkAgUPZBYEZg8VAlAvZG9jcy9kaXN0cmljdC9kZXB0cy8xNDMvd2NzZCBmYW1pbHkgbWVzc2FnZSAtIHBoYXNlIDMgdGVjaCA0LjcuMjAucGRmP2lkPTU3MTgxNi5XQ1NEIEZhbWlseSBNZXNzYWdlOiBQaGFzZSAzIENocm9tZWJvb2sgQWNjZXNzZAIBDw8WAh8ABQ1BcHJpbCA3LCAyMDIwZGQCBg9kFgRmDxUCUi9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My9kZWFyIHdjc2QgZmFtaWxpZXMgLSBjaHJvbWVib29rcyAwNC0wMy0yMDIwLnBkZj9pZD01NzE4MDgsV0NTRCBGYW1pbHkgTWVzc2FnZTogQ2hyb21lYm9vayBEaXN0cmlidXRpb25kAgEPDxYCHwAFDUFwcmlsIDMsIDIwMjBkZAIHD2QWBGYPFQJBL2RvY3MvZGlzdHJpY3QvZGVwdHMvMTQzL3djc2QgZmFtaWx5IG1lc3NhZ2UgNC4xLjIwLnBkZj9pZD01NzE3ODggV0NTRCBGYW1pbHkgTWVzc2FnZTogQ2hyb21lYm9va3NkAgEPDxYCHwAFDUFwcmlsIDEsIDIwMjBkZAIID2QWBGYPFQJCL2RvY3MvZGlzdHJpY3QvZGVwdHMvMTQzL3djc2QgZmFtaWx5IG1lc3NhZ2UgMy4zMC4yMC5wZGY/aWQ9NTcxNzc2J1dDU0QgRmFtaWx5IE1lc3NhZ2U6IExvbmctVGVybSBQbGFubmluZ2QCAQ8PFgIfAAUOTWFyY2ggMzAsIDIwMjBkZAIJD2QWBGYPFQJPL2RvY3MvZGlzdHJpY3QvZGVwdHMvMTQzL3N0YXRlIHN0YXkgYXQgaG9tZSBmYXEgYW5kIG9yZGVyIDMtMjItMjAucGRmP2lkPTU3MTYzMClTdGF0ZSBvZiBPaGlvOiBTdGF5IGF0IEhvbWUgT3JkZXIgYW5kIEZBUWQCAQ8PFgIfAAUOTWFyY2ggMjIsIDIwMjBkZAIKD2QWBGYPFQJCL2RvY3MvZGlzdHJpY3QvZGVwdHMvMTQzL3djc2QgZmFtaWx5IG1lc3NhZ2UgMy4xOC4yMC5wZGY/aWQ9NTcxNTg2KFdDU0QgRmFtaWx5IE1lc3NhZ2U6IEltcG9ydGFudCBSZW1pbmRlcnNkAgEPDxYCHwAFDk1hcmNoIDE4LCAyMDIwZGQCCw9kFgRmDxUCTC9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My9jb3ZpZC0xOSBwYXJlbnQgY29tbXVuaWNhdGlvbiAzLjE3LjIwLnBkZj9pZD01NzE1NzRKV0NTRCBGYW1pbHkgTWVzc2FnZTogTWVhbCBEZWxpdmVyeSwgUGVyc29uYWwgQmVsb25naW5nIFBpY2t1cCwgYW5kIFRlc3RpbmdkAgEPDxYCHwAFDk1hcmNoIDE3LCAyMDIwZGQCDA9kFgRmDxUCQi9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My93Y3NkIGZhbWlseSBtZXNzYWdlIDMuMTYuMjAucGRmP2lkPTU3MTUzMVdXQ1NEIEZhbWlseSBJbmZvcm1hdGlvbjogUGlja2luZyB1cCBQZXJzb25hbCBCZWxvbmdpbmdzIGFuZCBPdGhlciBJbXBvcnRhbnQgSW5mb3JtYXRpb25kAgEPDxYCHwAFDk1hcmNoIDE2LCAyMDIwZGQCDQ9kFgRmDxUCPS9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My9jb3ZpZDE5IHVwZGF0ZSAzLjE1LjIwLnBkZj9pZD01NzE1MjAyV0NTRCBGYW1pbHkgTWVzc2FnZTogSW1wb3J0YW50IERldGFpbHMgRm9ydGhjb21pbmdkAgEPDxYCHwAFDk1hcmNoIDE1LCAyMDIwZGQCDg9kFgRmDxUCPS9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My9jb3ZpZDE5IHVwZGF0ZSAzLjE0LjIwLnBkZj9pZD01NzE0OTdDVVJHRU5UISBXQ1NEIFN0YWZmIGFuZCBGYW1pbHkgTWVzc2FnZTogU2Nob29scyBDbG9zaW5nIEltbWVkaWF0ZWx5IGQCAQ8PFgIfAAUOTWFyY2ggMTQsIDIwMjBkZAIPD2QWBGYPFQJHL2RvY3MvZGlzdHJpY3QvZGVwdHMvMTQzL2ZhbWlseSBjb3ZpZDE5IHVwZGF0ZSAwMy0xMy0yMDIwLnBkZj9pZD01NzE0OTYfV0NTRCBGYW1pbHkgTWVzc2FnZTogTmV4dCBTdGVwc2QCAQ8PFgIfAAUOTWFyY2ggMTMsIDIwMjBkZAIQD2QWBGYPFQJpL2RvY3MvZGlzdHJpY3QvZGVwdHMvMTQzL3djc2QgZmFtaWx5IG1lc3NhZ2UgLSBjbG9zaW5nIHNjaG9vbHMgcGVyIGdvdmVybm9yIG9yZGVyIDMtMTItMjAyMC5wZGY/aWQ9NTcxNDgwN1dDU0QgRmFtaWx5IE1lc3NhZ2U6IENsb3Npbmcgc2Nob29scyBwZXIgZ292ZXJub3Igb3JkZXJkAgEPDxYCHwAFDk1hcmNoIDEyLCAyMDIwZGQCEQ9kFgRmDxUCPy9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My9jb3ZpZC0xOSBsZXR0ZXIgMDMtMTEtMjAucGRmP2lkPTU3MTQ3MCFXQ1NEOiBDT1ZJRC0xOSBJbmZvcm1hdGlvbiBVUERBVEVkAgEPDxYCHwAFDk1hcmNoIDExLCAyMDIwZGQCEg9kFgRmDxUCWy9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My9jb3ZpZC0xOSBydW1vciBjb250cm9sIGxldHRlciB0byBmYW1pbGllcyAwMy0xMC0yMDIwLnBkZj9pZD01NzE0NjkmV0NTRDogUnVtb3IgQ29udHJvbCBsZXR0ZXIgdG8gZmFtaWxpZXNkAgEPDxYCHwAFDk1hcmNoIDEwLCAyMDIwZGQCEw9kFgRmDxUCUS9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My9sZXR0ZXIgdG8gZmFtaWxpZXMgbWFyY2ggNCAyMDIwIC0gY292aWQtMTkucGRmP2lkPTU3MTQ2MSpXQ1NEIExldHRlciB0byBmYW1pbGllcyByZWdhcmRpbmcgQ09WSUQtMTlkAgEPDxYCHwAFDU1hcmNoIDQsIDIwMjBkZAIBD2QWBgIBDw8WAh8ABRNTdGF0ZSBOb3RpZmljYXRpb25zZGQCAw8PFgIfAAUFNjIzOTRkZAIFDxYCHwECARYCAgEPZBYEZg8VAnUvZG9jcy9kaXN0cmljdC9kZXB0cy8xNDMvaW5mb3JtYXRpb24gZm9yIHNjaG9vbHMgdGhhdCBob3N0IHBvbGxpbmcgbG9jYXRpb25zIG9uIGVsZWN0aW9uIGRheS0wMy0xMS0yMDIwLnBkZj9pZD01NzE0NzNDSW5mb3JtYXRpb24gZm9yIHNjaG9vbHMgdGhhdCBob3N0IHBvbGxpbmcgbG9jYXRpb25zIG9uIGVsZWN0aW9uIGRheWQCAQ8PFgIfAAWKAUpvaW50IHN0YXRlbWVudCBmcm9tIHRoZSBPaGlvIERlcGFydG1lbnQgb2YgSGVhbHRoLCBPaGlvIFNlY3JldGFyeSBvZiBTdGF0ZSBGcmFuayBMYVJvc2UgYW5kIHRoZSBPaGlvIERlcGFydG1lbnQgb2YgRWR1Y2F0aW9uICgwMy0xMS0yMDIwKWRkAgIPZBYCAgMPZBYCZg8WAh8BAgcWDmYPZBYGZg8PFgIfAAUeV0NTRCBJbnN0cnVjdGlvbmFsIEluZm9ybWF0aW9uZGQCAQ8PFgIfAAUEMTQ0MGRkAgIPFgIfAQIBFgICAQ9kFgYCAQ8PFgYeBlRhcmdldAUGX2JsYW5rHwAFLUxvbmctVGVybSBEaXN0YW5jZSBMZWFybmluZyBQbGFuIGZvciBGYW1pbGllcx8GBWBodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9kb2N1bWVudC9kLzE3cWJmaDhSZU5Pd0dScEpmczMycTA4Szhjd2FpYlNVcGQxRFRkMW5xN1FvL2VkaXQ/dXNwPXNoYXJpbmdkZAIDDw8WBB8HBQZfYmxhbmsfBgVgaHR0cHM6Ly9kb2NzLmdvb2dsZS5jb20vZG9jdW1lbnQvZC8xN3FiZmg4UmVOT3dHUnBKZnMzMnEwOEs4Y3dhaWJTVXBkMURUZDFucTdRby9lZGl0P3VzcD1zaGFyaW5nZGQCBQ8PFgQfAAUBIB8FaGRkAgEPZBYGZg8PFgIfAAUSQ09WSUQtMTkgUmVzb3VyY2VzZGQCAQ8PFgIfAAUEMTQxOGRkAgIPFgIfAQIEFggCAQ9kFgYCAQ8PFgYfBwUGX2JsYW5rHwAFKkxvdy1jb3N0IEludGVybmV0IGFuZCBUZWNobm9sb2d5IFJlc291cmNlcx8GBRtodHRwczovL3d3dy5ldmVyeW9uZW9uLm9yZy9kZAIDDw8WBB8HBQZfYmxhbmsfBgUbaHR0cHM6Ly93d3cuZXZlcnlvbmVvbi5vcmcvZGQCBQ8PFgQfAAUBIB8FaGRkAgIPZBYGAgEPDxYGHwcFBl9ibGFuax8ABSFTdGF0ZSBVcGRhdGVzIG9uIEFjYWRlbWljIFRlc3RpbmcfBgVwaHR0cDovL2VkdWNhdGlvbi5vaGlvLmdvdi9Ub3BpY3MvU3R1ZGVudC1TdXBwb3J0cy9Db3JvbmF2aXJ1cy9BZGRpdGlvbmFsLUluZm9ybWF0aW9uLW9uLVN0YXRlLVRlc3RpbmctRHVyaW5nLXRoZWRkAgMPDxYEHwcFBl9ibGFuax8GBXBodHRwOi8vZWR1Y2F0aW9uLm9oaW8uZ292L1RvcGljcy9TdHVkZW50LVN1cHBvcnRzL0Nvcm9uYXZpcnVzL0FkZGl0aW9uYWwtSW5mb3JtYXRpb24tb24tU3RhdGUtVGVzdGluZy1EdXJpbmctdGhlZGQCBQ8PFgQfAAUBIB8FaGRkAgMPZBYGAgEPDxYGHwcFBl9ibGFuax8ABSpIb3cgdG8gVGFsayB0byBZb3VyIEtpZHMgQWJvdXQgQ29yb25hdmlydXMfBgVNaHR0cHM6Ly93d3cucGJzLm9yZy9wYXJlbnRzL3Rocml2ZS9ob3ctdG8tdGFsay10by15b3VyLWtpZHMtYWJvdXQtY29yb25hdmlydXNkZAIDDw8WBB8HBQZfYmxhbmsfBgVNaHR0cHM6Ly93d3cucGJzLm9yZy9wYXJlbnRzL3Rocml2ZS9ob3ctdG8tdGFsay10by15b3VyLWtpZHMtYWJvdXQtY29yb25hdmlydXNkZAIFDw8WAh8ABQdQQlMub3JnZGQCBA9kFgYCAQ8PFgYfBwUGX2JsYW5rHwAFIUNPVklELTE5IFN5bXB0b20gQ29tcGFyaXNvbiBDaGFydB8GBUVodHRwOi8vd3d3Lndjc29oLm9yZy9kb2NzL2Rpc3RyaWN0L2RlcHRzLzE0My9jb3JvbmFzeW1wdG9tc2NoYXJ0LmpwZWdkZAIDDw8WBB8HBQZfYmxhbmsfBgVFaHR0cDovL3d3dy53Y3NvaC5vcmcvZG9jcy9kaXN0cmljdC9kZXB0cy8xNDMvY29yb25hc3ltcHRvbXNjaGFydC5qcGVnZGQCBQ8PFgQfAAUBIB8FaGRkAgIPZBYGZg8PFgIfAAUfRnVuIFRoaW5ncyB0byBFeHBsb3JlIGZyb20gSG9tZWRkAgEPDxYCHwAFBDE0MjJkZAICDxYCHwECBBYIAgEPZBYGAgEPDxYGHwcFBl9ibGFuax8ABRBTdG9yeWxpbmUgb25saW5lHwYFIGh0dHBzOi8vd3d3LnN0b3J5bGluZW9ubGluZS5uZXQvZGQCAw8PFgQfBwUGX2JsYW5rHwYFIGh0dHBzOi8vd3d3LnN0b3J5bGluZW9ubGluZS5uZXQvZGQCBQ8PFgQfAAUBIB8FaGRkAgIPZBYGAgEPDxYGHwcFBl9ibGFuax8ABRNWaXJ0dWFsIEZpZWxkIFRyaXBzHwYFYGh0dHBzOi8vZG9jcy5nb29nbGUuY29tL2RvY3VtZW50L2QvMXRWdXF0V09sOFkwVUhZMUxXZTd4Q2RZMmItSDhwQUh0TjAyc2FxanN6X0kvZWRpdD91c3A9c2hhcmluZ2RkAgMPDxYEHwcFBl9ibGFuax8GBWBodHRwczovL2RvY3MuZ29vZ2xlLmNvbS9kb2N1bWVudC9kLzF0VnVxdFdPbDhZMFVIWTFMV2U3eENkWTJiLUg4cEFIdE4wMnNhcWpzel9JL2VkaXQ/dXNwPXNoYXJpbmdkZAIFDw8WBB8ABQEgHwVoZGQCAw9kFgYCAQ8PFgYfBwUGX2JsYW5rHwAFFU9ubGluZSBDb2xvcmluZyBQYWdlcx8GBRlodHRwczovL3d3dy50aGVjb2xvci5jb20vZGQCAw8PFgQfBwUGX2JsYW5rHwYFGWh0dHBzOi8vd3d3LnRoZWNvbG9yLmNvbS9kZAIFDw8WBB8ABQEgHwVoZGQCBA9kFgYCAQ8PFgYfBwUGX2JsYW5rHwAFGk1vcmUgb25saW5lIGNvbG9yaW5nIHBhZ2VzHwYFIGh0dHBzOi8vd3d3Lm9ubGluZS1jb2xvcmluZy5jb20vZGQCAw8PFgQfBwUGX2JsYW5rHwYFIGh0dHBzOi8vd3d3Lm9ubGluZS1jb2xvcmluZy5jb20vZGQCBQ8PFgQfAAUBIB8FaGRkAgMPZBYGZg8PFgIfAAUoQ2VudGVycyBmb3IgRGlzZWFzZSBDb250cm9sICYgUHJldmVudGlvbmRkAgEPDxYCHwAFBDE0MTZkZAICDxYCHwECAxYGAgEPZBYGAgEPDxYGHwcFBl9ibGFuax8ABSBDb3JvbmF2aXJ1cyAoQ09WSUQtMTkpIE1haW4gcGFnZR8GBTRodHRwczovL3d3dy5jZGMuZ292L2Nvcm9uYXZpcnVzLzIwMTktbmNvdi9pbmRleC5odG1sZGQCAw8PFgQfBwUGX2JsYW5rHwYFNGh0dHBzOi8vd3d3LmNkYy5nb3YvY29yb25hdmlydXMvMjAxOS1uY292L2luZGV4Lmh0bWxkZAIFDw8WBB8ABQEgHwVoZGQCAg9kFgYCAQ8PFgYfBwUGX2JsYW5rHwAFKENvcm9uYXZpcnVzIChDT1ZJRC0xOSkgU2l0dWF0aW9uIFN1bW1hcnkfBgU2aHR0cHM6Ly93d3cuY2RjLmdvdi9jb3JvbmF2aXJ1cy8yMDE5LW5Db1Yvc3VtbWFyeS5odG1sZGQCAw8PFgQfBwUGX2JsYW5rHwYFNmh0dHBzOi8vd3d3LmNkYy5nb3YvY29yb25hdmlydXMvMjAxOS1uQ29WL3N1bW1hcnkuaHRtbGRkAgUPDxYEHwAFASAfBWhkZAIDD2QWBgIBDw8WBh8HBQZfYmxhbmsfAAUmQ29yb25hdmlydXMgKENPVklELTE5KSBTaXR1YXRpb24gRmFjdHMfBgVAaHR0cHM6Ly93d3cuY2RjLmdvdi9jb3JvbmF2aXJ1cy8yMDE5LW5jb3YvYWJvdXQvc2hhcmUtZmFjdHMuaHRtbGRkAgMPDxYEHwcFBl9ibGFuax8GBUBodHRwczovL3d3dy5jZGMuZ292L2Nvcm9uYXZpcnVzLzIwMTktbmNvdi9hYm91dC9zaGFyZS1mYWN0cy5odG1sZGQCBQ8PFgQfAAUBIB8FaGRkAgQPZBYGZg8PFgIfAAUZV29ybGQgSGVhbHRoIE9yZ2FuaXphdGlvbmRkAgEPDxYCHwAFBDE0MTBkZAICDxYCHwECAhYEAgEPZBYGAgEPDxYGHwcFBl9ibGFuax8ABR9Db3JvbmF2aXJ1c2VzIChDb1YpIEluZm9ybWF0aW9uHwYFLWh0dHBzOi8vd3d3Lndoby5pbnQvaGVhbHRoLXRvcGljcy9jb3JvbmF2aXJ1c2RkAgMPDxYEHwcFBl9ibGFuax8GBS1odHRwczovL3d3dy53aG8uaW50L2hlYWx0aC10b3BpY3MvY29yb25hdmlydXNkZAIFDw8WAh8ABRlXb3JsZCBIZWFsdGggT3JnYW5pemF0aW9uZGQCAg9kFgYCAQ8PFgYfBwUGX2JsYW5rHwAFH1EmQSBvbiBjb3JvbmF2aXJ1c2VzIChDT1ZJRC0xOSkfBgU6aHR0cHM6Ly93d3cud2hvLmludC9uZXdzLXJvb20vcS1hLWRldGFpbC9xLWEtY29yb25hdmlydXNlc2RkAgMPDxYEHwcFBl9ibGFuax8GBTpodHRwczovL3d3dy53aG8uaW50L25ld3Mtcm9vbS9xLWEtZGV0YWlsL3EtYS1jb3JvbmF2aXJ1c2VzZGQCBQ8PFgIfAAUZV29ybGQgSGVhbHRoIE9yZ2FuaXphdGlvbmRkAgUPZBYGZg8PFgIfAAUXQXJlYSBIZWFsdGggRGVwYXJ0bWVudHNkZAIBDw8WAh8ABQQxNDEyZGQCAg8WAh8BAgQWCAIBD2QWBgIBDw8WBh8HBQZfYmxhbmsfAAUZT2hpbyBEZXBhcnRtZW50IG9mIEhlYWx0aB8GBRhodHRwOi8vd3d3Lm9kaC5vaGlvLmdvdi9kZAIDDw8WBB8HBQZfYmxhbmsfBgUYaHR0cDovL3d3dy5vZGgub2hpby5nb3YvZGQCBQ8PFgQfAAUBIB8FaGRkAgIPZBYGAgEPDxYGHwcFBl9ibGFuax8ABR9GcmFua2xpbiBDb3VudHkgQm9hcmQgb2YgSGVhbHRoHwYFFmh0dHA6Ly93d3cubXlmY3BoLm9yZy9kZAIDDw8WBB8HBQZfYmxhbmsfBgUWaHR0cDovL3d3dy5teWZjcGgub3JnL2RkAgUPDxYEHwAFASAfBWhkZAIDD2QWBgIBDw8WBh8HBQZfYmxhbmsfAAUfRGVsYXdhcmUgQ291bnR5IEJvYXJkIG9mIEhlYWx0aB8GBR5odHRwOi8vd3d3LmRlbGF3YXJlaGVhbHRoLm9yZy9kZAIDDw8WBB8HBQZfYmxhbmsfBgUeaHR0cDovL3d3dy5kZWxhd2FyZWhlYWx0aC5vcmcvZGQCBQ8PFgQfAAUBIB8FaGRkAgQPZBYGAgEPDxYGHwcFBl9ibGFuax8ABRpDb2x1bWJ1cyBIZWFsdGggRGVwYXJ0bWVudB8GBSVodHRwOi8vd3d3LnB1YmxpY2hlYWx0aC5jb2x1bWJ1cy5nb3YvZGQCAw8PFgQfBwUGX2JsYW5rHwYFJWh0dHA6Ly93d3cucHVibGljaGVhbHRoLmNvbHVtYnVzLmdvdi9kZAIFDw8WBB8ABQEgHwVoZGQCBg9kFgZmDw8WAh8ABQxCb2FyZCBQb2xpY3lkZAIBDw8WAh8ABQQxNDE0ZGQCAg8WAh8BAgEWAgIBD2QWBgIBDw8WBh8HBQZfYmxhbmsfAAUTQm9hcmQgUG9saWN5IE9ubGluZR8GBUJodHRwOi8vd3d3LmJvYXJkZG9jcy5jb20vb2gvd2NzZC9Cb2FyZC5uc2YvUHVibGljP29wZW4maWQ9cG9saWNpZXNkZAIDDw8WBB8HBQZfYmxhbmsfBgVCaHR0cDovL3d3dy5ib2FyZGRvY3MuY29tL29oL3djc2QvQm9hcmQubnNmL1B1YmxpYz9vcGVuJmlkPXBvbGljaWVzZGQCBQ8PFgQfAAUBIB8FaGRkAg8PZBYIAgUPFgIeCWlubmVyaHRtbAUYV2VzdGVydmlsbGUgQ2l0eSBTY2hvb2xzZAIGDxYCHwgFNTkzNiBFYXN0d2luZCBEcml2ZSwgU3VpdGUgMjAwLCBXZXN0ZXJ2aWxsZSAsIE9IIDQzMDgxZAIHD2QWAgIBDxYCHwgFGVBob25lOiAoNjE0KSA3OTctNTcwMCAgfCBkAggPZBYCAgEPFgIfCAUWRmF4OiAoNjE0KSA3OTctNTcwMSB8IGRk8LQ3KTcRNKkCFwoIZSFqqd9IxxQ=">
+</div>
+
+        <div id="fb-root"></div>
+        <script>
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) return;
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.4";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+
+		</script><a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+<style type="text/css">
+    .alertdiv,
+    .alertReShow,
+    .alertList {
+        display: none;
+    }
+
+    .alertTab {
+        margin-left: 20px;
+    }
+
+    .alertTitle {
+        display: inline-block;
+        padding: 2px 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    .nextAlert {
+        background: #676767;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .alertCount {
+        position: absolute;
+        left: -115px;
+    }
+
+    .textalert {
+        color: #ffffff;
+        position: relative;
+    }
+
+    .alertBar {
+        z-index: 10;
+        font-weight: normal;
+        background: #373737;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#373737), to(#202020)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#373737, #202020); /* Chrome 10+, Saf5.1+ */
+        background-image: -moz-linear-gradient(#373737, #202020); /* FF3.6 */
+        background-image: -ms-linear-gradient(#373737, #202020); /* IE10 */
+        background-image: -o-linear-gradient(#373737, #202020); /* Opera 11.10+ */
+        background-image: linear-gradient(#373737, #202020);
+    }
+
+    a.closeAlert {
+        color: #fff;
+        font-size: 20px;
+    }
+
+    a.openAlert {
+        color: #fff;
+        font-size: 20px;
+        padding-right: 18px;
+        padding-top: 3px;
+    }
+
+    .alertDangerColor {
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .alertPrefix {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+        margin: 0;
+        border-radius: 3px;
+        font-size: 18px;
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+    .alertText {
+        display: inline-block;
+        width: 100%;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    #alertTicker > .alertTextInfo,
+    #alertTicker > .alertTextInfo > p:first-child, .alertTextInfo > span:first-child{display:inline;}
+    .popExclam {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .dark.alertBar{color:#fff;}
+     .dark.alertBar a{color:#fff; text-decoration:underline;}
+         .light.alertBar a{ text-decoration:underline;}
+        .popExclam i {
+            color: #aa1111 !important;
+            font-size: 55px;
+        }
+        .exclamText{padding-top:15px;}
+        .bottomRightEcxlam{position:fixed;z-index:1001;bottom:55px; right:25px;display:none;}
+</style>
+<!--[if lte IE 9]>
+	<style type="text/css">
+	    .alertBar {
+            background: #202020;
+        }
+	</style>
+<![endif]--><div id="ctl00_ctl00_ctl05_ctl01_bootstrapAlert">
+	
+    <div class="modal" tabindex="-1" role="dialog" id="alertModal" data-id="138" data-notification="False">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                
+
+                
+                        <div class="modal-header clearfix">
+                            <h1 class="modal-title alertTitle">
+                                COVID-19 Update
+                            </h1>
+                        </div>
+
+                        <div class="modal-body">
+                                <div class="popExclam">
+<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>  </div>
+                                <br><h2 style="background-color: #aa1111; color: #ffffff" class="alertPrefix">
+                                Alert:
+                            </h2>
+
+                            <div class="alertText">
+                                <p><strong>04-21-2020</strong></p>
+
+<ul>
+<li><a href="https://www.wcsoh.org/docs/district/depts/143/wcsd%20family%20message%2004-21-20.pdf?id=571918" target="_blank">WCSD Family Message: Schools will not reopen the remainder of this academic year.</a></li>
+</ul>
+<p> </p>
+                            </div>
+                        </div>
+                    
+                
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="/admin/js/alert/alertPopUp.js?version=2"></script>
+</div>
+
+
+
+
+<div>
+      <a id="exclamationAlert" class="popExclam bottomRightEcxlam"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+</div>
+<script type="text/javascript" src="/admin/js/alert/alertDown.js?version=4"></script><div class="headerback">
+            <header id="site-head"><div class="header-logo-container">
+    <div class="container">
+        <div class="row">
+            <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="logo hidden-xs" href="/"><span class="obscure">Westerville Bell logo</span></a>
+            <a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome2" class="schoolName" href="/"><span id="ctl00_ctl00_header_header_ctl00_schoolNameLarge" class="schoolNameLarge">Westerville City </span><span id="ctl00_ctl00_header_header_ctl00_schoolNameSmall" class="schoolNameSmall">School District</span></a>
+
+            <div class="header-right hidden-xs">
+                <div class="search">
+                    <div class="searchPad">
+                        <label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+                    <div class="searchgo">
+                        <a title="Search" class="bSearch glyphicon glyphicon-search"><span class="obscure">Search Site</span></a>
+                    </div>
+                </div>
+
+                
+
+<label for="googleTranslateSelect" class="obscure">Translate Page</label>
+<div id="google_translate_element"></div>
+
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInitMobile"></script><script type="text/javascript">
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results1 = regex.exec(location.search);
+        var returnVal = (results1 === null) ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+
+        if (returnVal === '') {
+            var results2 = regex.exec(location.hash);
+            returnVal = (results2 === null) ? '' : decodeURIComponent(results2[1].replace(/\+/g, ' '));
+        }
+
+        return returnVal;
+    }
+
+	function googleTranslateElementInitMobile() {
+        new google.translate.TranslateElement({ pageLanguage: 'en',  layout: google.translate.TranslateElement.InlineLayout.Mobile }, 'google_translate_element');
+
+        var lang = getUrlParameter('translatelang');
+
+        if (lang != '') {
+            var jObj = $('#googleTranslateSelect');
+            var db = jObj.get(0);
+            jObj.val(lang);
+            fireEvent(db, 'change');
+        }
+    }
+
+    function fireEvent(element, event) {
+        if (document.createEventObject) {
+            // dispatch for IE
+            var evt = document.createEventObject();
+            return document.getElementById("googleTranslateSelect").fireEvent('on' + event, evt);
+        }
+        else {
+            // dispatch for firefox + others
+            var evt = document.createEvent("HTMLEvents");
+            evt.initEvent(event, true, true);
+            return !element.dispatchEvent(evt);
+        }
+    }
+
+	$(window).load(function () {
+		$("select.goog-te-combo").attr('id', 'googleTranslateSelect');
+		$('div#google_translate_element img').attr('alt', 'Google Logo');
+		$('div#goog-gt-tt img').attr('alt', 'Google Translate Logo');
+    });
+</script><style type="text/css">
+	.goog-te-gadget .goog-te-combo {
+		padding: 0 4px;
+		width: 100%;
+	}
+
+	.skiptranslate.goog-te-gadget > div {
+		margin-bottom: -20px;
+		display: block;
+		position: relative;
+	}
+</style>
+<div class="header-nav-block">
+                    <ul class="nav navbar-nav district-very-top-nav-links">
+<li class="without-image"><a href="https://mail.google.com" target="_blank" title="Gmail">Gmail</a></li>
+<li class="without-image"><a href="/Administration/108" title="PowerSchool">PowerSchool</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Schoology">Schoology  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://westerville.schoology.com/" target="_blank" title="Students &amp; Staff Access">Students &amp; Staff Access</a></li>
+<li class="without-image"><a href="https://www.schoology.com/home.php" target="_blank" title="Parent Access">Parent Access</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+                <div id="social-links">
+                    
+        <a href="https://www.facebook.com/WCSOH" title="District Facebook" target="_self">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="https://www.youtube.com/user/WCSDOhio" title="District Youtube" target="_self">
+            <span class="obscure">YouTube</span>
+            <i class="fa fa-youtube"></i>
+        </a>
+    
+        <a href="https://twitter.com/wcsoh" title="District Twitter" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter"></i>
+        </a>
+    
+        <a href="http://www.wcsnet.org" title="District intraNet" target="_blank">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="http://www.wcsoh.org/" title="District Homepage" target="_self">
+            <span class="obscure">Homepage</span>
+            <i class="fa fa-home"></i>
+        </a>
+    
+
+                    <div class="clr">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="NavBack">
+    <div class="container">
+        <div class="row">
+            <div class="navigation">
+                <nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <div class="hidden-lg hidden-md hidden-sm">
+                            <div class="header-elements-nav">
+                                <div class="search">
+                                    <div class="searchPad">
+                                        <label for="txtSearch2" class="obscure">Search site using Google</label><input id="txtSearch2" placeholder="Search" class="inputSearch" type="text">
+</div>
+                                    <div class="searchgo">
+                                        <a title="Search" class="bSearch glyphicon glyphicon-search"><span class="obscure">Search Site</span></a>
+                                    </div>
+                                </div>
+                                <div id="social-links">
+                                    
+        <a href="https://www.facebook.com/WCSOH" title="District Facebook" target="_self">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="https://www.youtube.com/user/WCSDOhio" title="District Youtube" target="_self">
+            <span class="obscure">YouTube</span>
+            <i class="fa fa-youtube"></i>
+        </a>
+    
+        <a href="https://twitter.com/wcsoh" title="District Twitter" target="_blank">
+            <span class="obscure">Twitter</span>
+            <i class="fa fa-twitter"></i>
+        </a>
+    
+        <a href="http://www.wcsnet.org" title="District intraNet" target="_blank">
+            <span class="obscure">Intranet</span>
+            <i class="fa fa-sitemap"></i>
+        </a>
+    
+        <a href="http://www.wcsoh.org/" title="District Homepage" target="_self">
+            <span class="obscure">Homepage</span>
+            <i class="fa fa-home"></i>
+        </a>
+    
+
+                                </div>
+                                <div class="clr"></div>
+                            </div>
+
+                            <ul class="nav navbar-nav district-very-top-nav-links">
+<li class="without-image"><a href="https://mail.google.com" target="_blank" title="Gmail">Gmail</a></li>
+<li class="without-image"><a href="/Administration/108" title="PowerSchool">PowerSchool</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_blank" title="Schoology">Schoology  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://westerville.schoology.com/" target="_blank" title="Students &amp; Staff Access">Students &amp; Staff Access</a></li>
+<li class="without-image"><a href="https://www.schoology.com/home.php" target="_blank" title="Parent Access">Parent Access</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+                        <ul class="nav navbar-nav district-top-nav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Our Schools">Our Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/35/Home" title="Preschool Program at the Early Learning Center">Preschool Program at the Early Learning Center</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Elementary Schools">Elementary Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/1/Home" title="Alcott">Alcott</a></li>
+<li class="without-image"><a href="/2/Home" title="Annehurst">Annehurst</a></li>
+<li class="without-image"><a href="/4/Home" title="Cherrington">Cherrington</a></li>
+<li class="without-image"><a href="/10/Home" title="Emerson">Emerson</a></li>
+<li class="without-image"><a href="/11/Home" title="Fouse">Fouse</a></li>
+<li class="without-image"><a href="/14/Home" title="Hanby">Hanby</a></li>
+<li class="without-image"><a href="/16/Home" title="Hawthorne">Hawthorne</a></li>
+<li class="without-image"><a href="/17/Home" title="Huber Ridge">Huber Ridge</a></li>
+<li class="without-image"><a href="/18/Home" title="Longfellow">Longfellow</a></li>
+<li class="without-image"><a href="/20/Home" title="McVay">McVay</a></li>
+<li class="without-image"><a href="/19/Home" title="Mark Twain">Mark Twain</a></li>
+<li class="without-image"><a href="/21/Home" title="Pointview">Pointview</a></li>
+<li class="without-image"><a href="/22/Home" title="Robert Frost">Robert Frost</a></li>
+<li class="without-image"><a href="/23/Home" title="Whittier">Whittier</a></li>
+<li class="without-image"><a href="/24/Home" title="Wilder">Wilder</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Middle Schools">Middle Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/25/Home" title="Blendon">Blendon</a></li>
+<li class="without-image"><a href="/26/Home" title="Genoa">Genoa</a></li>
+<li class="without-image"><a href="/27/Home" title="Heritage">Heritage</a></li>
+<li class="without-image"><a href="/28/Home" title="Walnut Springs">Walnut Springs</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="High Schools">High Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/29/Home" title="Westerville Central">Westerville Central</a></li>
+<li class="without-image"><a href="/30/Home" title="Westerville North">Westerville North</a></li>
+<li class="without-image"><a href="/31/Home" title="Westerville South">Westerville South</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/36/home" title="Academic Enrichment Center">Academic Enrichment Center</a></li>
+<li class="without-image"><a href="/schools" title="Complete School List">Complete School List</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Our District">Our District  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/40" title="About Our District">About Our District</a></li>
+<li class="without-image"><a href="/Administration/42" title="About Our Community">About Our Community</a></li>
+<li class="without-image"><a href="/District/Links-Forms" target="_blank" title="Annual Reports">Annual Reports</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Athletics">Athletics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Administration/101" title="District Athletics">District Athletics</a></li>
+<li class="without-image"><a href="/Administration/114" title="Extracurricular Activities for Home Educated &amp; Private School Students">Extracurricular Activities for Home Educated &amp; Private School Students</a></li>
+<li class="without-image"><a href="/Content/1108" title="Sports Participation Fees">Sports Participation Fees</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Board of Education">Board of Education  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education Homepage">Board of Education Homepage</a></li>
+<li class="without-image"><a href="http://www.boarddocs.com/oh/wcsd/board.nsf/public" target="_blank" title="BoardDocs: Agendas &amp; Meeting Archives ">BoardDocs: Agendas &amp; Meeting Archives </a></li>
+<li class="without-image"><a href="/Administration/66" title="Policy Adoption Schedule &amp; Update Information">Policy Adoption Schedule &amp; Update Information</a></li>
+<li class="without-image"><a href="/Content/976" title="Business Advisory Council">Business Advisory Council</a></li>
+<li class="without-image"><a href="http://www.boarddocs.com/oh/wcsd/Board.nsf/Public?open&amp;id=policies" target="_blank" title="Board Policy">Board Policy</a></li>
+<li class="without-image"><a href="/0/Content/478" title="Win-Win Agreement">Win-Win Agreement</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/0/Content/562" title="Calamity Day Information">Calamity Day Information</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Directories">Directories  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="http://www.wcsoh.org/docs//district/depts/40/1718districtservicedirectory.pdf?id=565942" target="_blank" title="Service Directory">Service Directory</a></li>
+<li class="without-image"><a href="/Staff" title="Staff Directory ">Staff Directory </a></li>
+<li class="without-image"><a href="/school_teacher.aspx" title="Staff Websites">Staff Websites</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Administration/102" title="Districtwide Partners">Districtwide Partners</a></li>
+<li class="without-image"><a href="https://www.applitrack.com/wcsoh/onlineapp/default.aspx?all=1" target="_blank" title="Employment Opportunities">Employment Opportunities</a></li>
+<li class="without-image"><a href="http://www.govdeals.com/index.cfm?fa=Main.advSearchResults&amp;myseller=5078" target="_blank" title="GovDeals.com">GovDeals.com</a></li>
+<li class="without-image"><a href="/Administration/18" title="Human Resources">Human Resources</a></li>
+<li class="without-image"><a href="/content/21302" title="Leadership">Leadership</a></li>
+<li class="without-image"><a href="/content/legal" title="Legal Notices">Legal Notices</a></li>
+<li class="without-image"><a href="http://www.wcsoh.org/District/Links-Forms" title="Maps (Including Attendance Areas)">Maps (Including Attendance Areas)</a></li>
+<li class="without-image"><a href="/0/Content/492" title="RFPs/RFQs/Notice to Bidders">RFPs/RFQs/Notice to Bidders</a></li>
+<li class="without-image"><a href="/administration/40" title="Strategic Plan">Strategic Plan</a></li>
+<li class="without-image"><a href="/Administration/52" title="Transportation">Transportation</a></li>
+<li class="without-image"><a href="/0/Content/326" title="Vision, Mission &amp; Values">Vision, Mission &amp; Values</a></li>
+<li class="without-image"><a href="/content/478" title="Win-Win">Win-Win</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Our Calendars">Our Calendars  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Content/474" title="Comprehensive District Calendar">Comprehensive District Calendar</a></li>
+<li class="without-image"><a href="/Calendar" title="Interactive Calendar">Interactive Calendar</a></li>
+<li class="without-image"><a href="/Content/474" title="Testing Calendars">Testing Calendars</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Our Departments">Our Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Administration/14" title="Superintendent">Superintendent</a></li>
+<li class="without-image"><a href="/Superintendent" title="   - Superintendent's Message">   - Superintendent's Message</a></li>
+<li class="without-image"><a href="/Administration/16" title="Treasurer/Fiscal Services">Treasurer/Fiscal Services</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Academics">Academics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/44" title="Academics Homepage">Academics Homepage</a></li>
+<li class="without-image"><a href="/Administration/96" title="Elementary Academic Affairs">Elementary Academic Affairs</a></li>
+<li class="without-image"><a href="/Administration/94" title="Secondary Academic Affairs">Secondary Academic Affairs</a></li>
+<li class="without-image"><a href="/Administration/78" title="Assessment &amp; Alternative Education Services">Assessment &amp; Alternative Education Services</a></li>
+<li class="without-image"><a href="/administration/74" title="Career Tech &amp; College Readiness">Career Tech &amp; College Readiness</a></li>
+<li class="without-image"><a href="/Administration/22" title="Curriculum &amp; Instruction Services">Curriculum &amp; Instruction Services</a></li>
+<li class="without-image"><a href="https://sites.google.com/westerville.k12.oh.us/wcsohedtech/home" target="_blank" title="Educational Technology">Educational Technology</a></li>
+<li class="without-image"><a href="/Administration/72" title="English Learners">English Learners</a></li>
+<li class="without-image"><a href="/Content/1094" title="Federal Programs / Resources">Federal Programs / Resources</a></li>
+<li class="without-image"><a href="/Administration/86" title="Gifted Education">Gifted Education</a></li>
+<li class="without-image"><a href="/Administration/115" title="International Baccalaureate">International Baccalaureate</a></li>
+<li class="without-image"><a href="/Administration/90" title="Magnet Program">Magnet Program</a></li>
+<li class="without-image"><a href="/administration/153" title="Minority Student Achievement">Minority Student Achievement</a></li>
+<li class="without-image"><a href="/Administration/100" title="Preschool Program">Preschool Program</a></li>
+<li class="without-image"><a href="/Administration/28" title="Special Education">Special Education</a></li>
+<li class="without-image"><a href="/Administration/103" title="Student Well Being">Student Well Being</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Administrative">Administrative  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/76" title="Administrative Homepage">Administrative Homepage</a></li>
+<li class="without-image"><a href="/Administration/32" title="Communications">Communications</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Facilities &amp; Operations">Facilities &amp; Operations  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/Administration/112" title="Facilities &amp; Operations Homepage">Facilities &amp; Operations Homepage</a></li>
+<li class="without-image"><a href="/Administration/124" title=" - Office of Purchasing &amp; Logistics"> - Office of Purchasing &amp; Logistics</a></li>
+<li class="without-image"><a href="/Administration/38" title="   - Food Services">   - Food Services</a></li>
+<li class="without-image"><a href="/Administration/36" title="   - Purchasing">   - Purchasing</a></li>
+<li class="without-image"><a href="/Administration/52" title="   - Transportation">   - Transportation</a></li>
+<li class="without-image"><a href="/Administration/107" title="    - Warehouse Services">    - Warehouse Services</a></li>
+<li class="without-image"><a href="/Administration/125" title="Custodial Services">Custodial Services</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Health &amp; Safety Services">Health &amp; Safety Services  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/104" title="Health &amp; Safety Services Homepage">Health &amp; Safety Services Homepage</a></li>
+<li class="without-image"><a href="/Administration/64" title="Health Services">Health Services</a></li>
+<li class="without-image"><a href="/Administration/30" title="Safety">Safety</a></li>
+<li class="without-image"><a href="/Content/648" title="School Resource Officer Program">School Resource Officer Program</a></li>
+<li class="without-image"><a href="/administration/103" title="Student Well Being">Student Well Being</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="https://www.wcscareers.org/" target="_blank" title="Human Resources / Employee Relations">Human Resources / Employee Relations</a></li>
+<li class="without-image"><a href="/Administration/32" title="Technology Services">Technology Services</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul class="nav navbar-nav district-top-right-nav">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="District Portals">District Portals  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/content/902" title="...for Students">...for Students</a></li>
+<li class="without-image"><a href="/content/900" title="...for Parents &amp; Guardians">...for Parents &amp; Guardians</a></li>
+<li class="without-image"><a href="/content/894" title="...for Community Members">...for Community Members</a></li>
+<li class="without-image"><a href="/content/1284" target="_blank" title="...for Staff">...for Staff</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/" title="District Homepage">District Homepage</a></li>
+</ul>
+</div>
+                </nav>
+</div>
+        </div>
+    </div>
+</div>
+
+	
+
+            </header>
+</div>
+
+        
+	
+	
+
+
+        
+	
+	
+
+
+        <div class="body-content-container">
+            
+
+            <div class="container">
+                <div class="masterC alignment-stretch">
+                    <div class="row">
+                        
+
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+		<div class="clearfix panel content">
+			
+	<div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+
+	<div id="ctl00_ctl00_MasterContent_ContentColumnMiddle_adminDeptContent">
+	
+		<h1 id="middle3Column">
+			<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_lbl_ctitle" class="title">COVID-19 Information</span>
+		</h1>
+
+		<div class="maincontentsection">
+			
+
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+    if (typeof nivoSlider == 'undefined') {
+        document.write('<script type="text/javascript" src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js"></' + 'script>');
+    }
+
+    $(document).ready(function () {
+        $('.deptSlideShow .slides').nivoSlider({
+            effect: 'fade',
+            prevText: '<i class="fa fa-chevron-left" aria-label="previous slide"></i>',
+            nextText: '<i class="fa fa-chevron-right" aria-label="next slide"></i>'
+        });
+
+        $('.deptSlideShowSingle .slides').nivoSlider({
+            effect: 'fade',
+            prevText: '<i class="fa fa-chevron-left" aria-label="previous slide"></i>',
+            nextText: '<i class="fa fa-chevron-right" aria-label="next slide"></i>'
+        });
+
+        var slider = jQuery('.slides');
+
+        var nivoStartStopControl = jQuery('<div class="nivo-startstopNav"></div>');
+        $('.deptSlideShow').append(nivoStartStopControl);
+        nivoStartStopControl.append('<span href="#" id="nivoStart" title="Play Slideshow"><span><i class="fa fa-play" aria-hidden="true"></i></span><span class="obscure">play slideshow</span></span> <span href="#" id="nivoStop" title="Pause Slideshow"><span><i class="fa fa-pause" aria-hidden="true"></i><span class="obscure">stop slideshow</span></span></span>');
+
+        jQuery('#nivoStop').click(function (event) {
+            event.preventDefault();
+            slider.data('nivoslider').stop();
+        });
+
+        jQuery('#nivoStart').click(function (event) {
+            event.preventDefault();
+            slider.data('nivoslider').start();
+        });
+    });
+</script><style type="text/css">
+    .deptSlideShow {
+        position: relative;
+    }
+
+    .deptSlideShow .nivoSlider {
+        width: 70% !important;
+        margin: 0 auto;
+    }
+
+    .nivo-directionNav a {
+        padding: 5px;
+        color: #fff;
+        font-size: 24px;
+        text-shadow: 0px 0px 3px #000;
+    }
+
+    .nivo-startstopNav {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        z-index: 3;
+    }
+
+    .nivo-startstopNav .fa {
+        width: 25px;
+        height: 25px;
+        color: #000;
+        background-color: #fff;
+        border-radius: 50%;
+        font-size: 15px;
+        text-align: center;
+        line-height: 25px;
+    }
+
+    .nivo-startstopNav .fa:hover {
+        cursor: pointer;
+    }
+
+    .deptHeadInfo {
+        display: none;
+    }
+</style>
+<div class="floatright1 department-head-information">
+    
+
+    <div class="deptInfo">
+        
+
+        
+    </div>
+
+    
+</div>
+
+<div id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_wrapDeptText" class="content">
+    <p> </p>
+
+<p style="text-align: center;"><a href="http://www.wcsoh.org/administration/148" target="_blank"><img alt="View Meal and Food Service Information" src="/docs/district/covid19/meals_250.png?id=571810&amp;width=250" style="border-width: 0px; border-style: solid; width: 250px; height: 83px;"></a><a href="https://www.wcsoh.org/administration/132" target="_blank"><img alt="View resources for student social emotional support" src="/docs/district/covid19/emotional_250.png?id=571811&amp;width=250" style="width: 250px; border-width: 0px; border-style: solid; height: 83px;"></a></p>
+
+<p style="text-align: center;"><a href="https://docs.google.com/document/d/17qbfh8ReNOwGRpJfs32q08K8cwaibSUpd1DTd1nq7Qo/edit" target="_blank"><img alt="View the  Long Term Distance Learning Plan 2020 for Families" src="/docs/district/covid19/learning_250.png?id=571812&amp;width=250" style="width: 250px; border-width: 0px; border-style: solid; height: 83px;"></a></p>
+
+<p style="text-align: center;"> </p>
+
+<hr>
+<p> </p>
+
+<p><strong>04-21-2020</strong></p>
+
+<p> </p>
+
+<p>Dear WCSD Families:</p>
+
+<p>Earlier I sent you an opportunity to participate in a ThoughtExchange as a way for you to provide feedback about what your children are experiencing during this extended closure, as well as how we can continue to support our students and families during this time. I hope you take a few moments to participate, because as we learned yesterday, Ohio’s schools will not reopen the remainder of this academic year.</p>
+
+<p>We were not at all surprised by the Governor’s decision. In fact, the foundation we've established over the past few weeks was built to support an extended closure through the rest of the academic year. We anticipated that schools would remain closed, so if nothing else, it's a relief to hear this officially from the Governor. Now we, along with our families and staff, can plan accordingly.</p>
+
+<p>If you do not have a 12<sup>th</sup>-grade student in your home, this is likely the first time you are hearing that we secured the weekend of June 26-27 as an alternative date for graduation at the Celeste Center. We remain optimistic that we will be able to hold a traditional graduation ceremony to celebrate the achievements of our Class of 2020, along with their families, yet this year. However, we also realize that even those alternative plans have a good chance of being impacted by future state decisions. Therefore, we continue to work with our Board of Education on some other ideas to celebrate the Class of 2020.</p>
+
+<p>Regarding next school year, we had already established a team prior to the Governor's announcement that is tasked with working through what the start of the 2020-21 school year may look like. The first meeting of this group (virtual, of course) is this coming Thursday, so those conversations are set to begin this week. We also remain in touch with other school districts as our respective leadership teams discuss the parameters for next school year. School districts throughout the area continue to collaborate on how our educational systems can work to support our students and families during these most unusual times. </p>
+
+<p>We will continue to share updates with you as additional plans and details are finalized. Until then, please stay safe. We truly appreciate your continued support and cooperation.</p>
+
+<p>Sincerely,<br>
+Dr. John R. Kellogg<br>
+Superintendent</p>
+
+<p> </p>
+
+<hr>
+<p> </p>
+
+<p><strong>04-13-2020</strong></p>
+
+<p> </p>
+
+<p><strong>District officials offer update on Summer School (Grades 9-12) and Summer Intervention (Grades K-8) programs</strong></p>
+
+<p>When announcing that schools would be closed through at least May 1, Ohio Governor Mike DeWine also stated that he would evaluate circumstances at that time to determine if schools should remain closed beyond that date. In response to this uncertainty, and to enable students, parents, and guardians to plan accordingly, Westerville City School District (WCSD) officials today released an update on the district's Summer School program for grades 9-12, as well as Summer Intervention for grades K-8.</p>
+
+<p><strong>Grades 9-12</strong></p>
+
+<p>WCSD Summer School for students in grades 9-12 is offered to our district’s students, as well as students from other districts. In summer 2020, this program will be entirely online, with students working virtually using Apex digital content. Best practices for virtual instruction will be incorporated. For example, students will be required to attend virtual meetings with teachers on a prescribed basis, with lesson engagement/completion being closely monitored and frequently shared with parents/guardians. Direct teacher assistance will be provided to students through virtual means. For registered WCSD students without a device and/or wi-fi, it is our intent to provide these means so they can complete their coursework. </p>
+
+<p><br>
+Pending Board of Education approval, the cost for WCSD students wishing to recover credit will decrease from $100 to only $50 per credit. Students interested in advancing their course credits over the summer by taking a new class in which they have not previously been enrolled may do so at a cost of $400 per credit. Non-WCSD students can also register to advance their course credit at $470 per credit. On-line registration can be completed through May 26 at <a href="https://tinyurl.com/WCSSummerHS2020" target="_blank">https://tinyurl.com/WCSSummerHS2020</a>.</p>
+
+<p><strong>Grades K-8</strong></p>
+
+<p>For students in grades K-8, recommendation letters were to be mailed the week of March 30, 2020.  However, given the state’s current situation, district officials have not yet determined the format that will be used to provide this particular summer program.</p>
+
+<p>“We expect to have a decision regarding the format of our K-8 summer intervention on or before May 8,” said Dr. Scott Ebbrecht, director of alternative education and assessment. “This information will be communicated to all invited students and their families so they can then decide if the program is right for them.” </p>
+
+<p>Parents/guardians with questions regarding school personnel’s recommendation for their child to attend summer intervention are encouraged to email their child’s teacher, counselor, or principal. </p>
+
+<p> </p>
+
+<hr>
+<p> </p>
+
+<p><strong>Update 03-26-2020</strong></p>
+
+<p>Dear WCSD Families:</p>
+
+<p>The Ohio General Assembly recently passed legislation that addresses several educational matters during this public health crisis. The Governor is expected to sign the bill into law soon. In summary, the following education-related changes impacting families will take effect immediately upon the Governor’s signature:</p>
+
+<ul>
+<li>State and federal testing is eliminated for the 2019-2020 school year;</li>
+	<li>State report cards will not be issued for the 2019-2020 school year (note that these are the state-issued report cards for schools and school districts, not student report cards);</li>
+	<li>The EdChoice voucher program supporting private schools is frozen at 2019-2020 eligibility levels;</li>
+	<li>Third-grade reading guarantee retention requirements are waived;</li>
+	<li>Schools can grant high school diplomas to students on track to graduate and for whom the principal determines that the student has successfully completed the curriculum;</li>
+	<li>Individuals with appropriate state licenses are allowed to provide services electronically or via telehealth communication to students with special needs;</li>
+	<li>Boards of education may use electronic communication for in-person meetings and hearings during the emergency period, but not later than Dec. 1, 2020;</li>
+	<li>School districts may use distance learning to make up any number of days or hours necessary to meet minimum instructional hour requirements.</li>
+</ul>
+<p>Please know that we will continue to communicate any other important details regarding these matters as we learn more about what this legislation means for our students and families.</p>
+
+<p>Sincerely,<br>
+Dr. John R. Kellogg<br>
+Superintendent  </p>
+</div>
+
+		</div>
+	
+</div>
+
+	
+
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+		<div class="clearfix panel content border-panel Admin-right">
+			
+	<div id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_divDownloads" class="gutter">
+	<div id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_formTitle" class="gutterHeader  right-title">
+		<header class="gutterHeaderText"><span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_DocumentsLabel">Documents</span>
+		</header>
+</div>
+	<div class="gutterMiddle">
+		
+<ul class="LinkColumn form-category-list">
+<li>
+		
+				<h3 class="form-category">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_lbl_title1" class="category">District Notifications</span>
+				</h3>
+				
+				<div>
+					
+							<ul class="form-list">
+<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/wcsd%20family%20message%2004-21-20.pdf?id=571918">
+                                            WCSD Family Message: Schools will not reopen the remainder of this academic year.
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl01_lbl_formDesc" class="linkform">April 21, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/final%20chromebook%20message%20to%20families%204.17.20.pdf?id=571913">
+                                            WCSD Family Message: Final Chromebook Distribution Information
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl02_lbl_formDesc" class="linkform">April 17, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/wcsd%20mobile%20hotspot%20communication%20to%20families%204.14.20.pdf?id=571883">
+                                            WCSD Family Message: Mobile Hotspot Availability
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl03_lbl_formDesc" class="linkform">April 14, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/summer%20school%20news%20release%2004-13-20.pdf?id=571879">
+                                            WCSD Family Message: Update on Summer School (Grades 9-12) and Summer Intervention (Grades K-8) programs
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl04_lbl_formDesc" class="linkform">April 13, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/wcsd%20family%20message%20-%20phase%203%20tech%204.7.20.pdf?id=571816">
+                                            WCSD Family Message: Phase 3 Chromebook Access
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl05_lbl_formDesc" class="linkform">April 7, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/dear%20wcsd%20families%20-%20chromebooks%2004-03-2020.pdf?id=571808">
+                                            WCSD Family Message: Chromebook Distribution
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl06_lbl_formDesc" class="linkform">April 3, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/wcsd%20family%20message%204.1.20.pdf?id=571788">
+                                            WCSD Family Message: Chromebooks
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl07_lbl_formDesc" class="linkform">April 1, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/wcsd%20family%20message%203.30.20.pdf?id=571776">
+                                            WCSD Family Message: Long-Term Planning
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl08_lbl_formDesc" class="linkform">March 30, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/state%20stay%20at%20home%20faq%20and%20order%203-22-20.pdf?id=571630">
+                                            State of Ohio: Stay at Home Order and FAQ
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl09_lbl_formDesc" class="linkform">March 22, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/wcsd%20family%20message%203.18.20.pdf?id=571586">
+                                            WCSD Family Message: Important Reminders
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl10_lbl_formDesc" class="linkform">March 18, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/covid-19%20parent%20communication%203.17.20.pdf?id=571574">
+                                            WCSD Family Message: Meal Delivery, Personal Belonging Pickup, and Testing
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl11_lbl_formDesc" class="linkform">March 17, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/wcsd%20family%20message%203.16.20.pdf?id=571531">
+                                            WCSD Family Information: Picking up Personal Belongings and Other Important Information
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl12_lbl_formDesc" class="linkform">March 16, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/covid19%20update%203.15.20.pdf?id=571520">
+                                            WCSD Family Message: Important Details Forthcoming
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl13_lbl_formDesc" class="linkform">March 15, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/covid19%20update%203.14.20.pdf?id=571497">
+                                            URGENT! WCSD Staff and Family Message: Schools Closing Immediately 
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl14_lbl_formDesc" class="linkform">March 14, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/family%20covid19%20update%2003-13-2020.pdf?id=571496">
+                                            WCSD Family Message: Next Steps
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl15_lbl_formDesc" class="linkform">March 13, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/wcsd%20family%20message%20-%20closing%20schools%20per%20governor%20order%203-12-2020.pdf?id=571480">
+                                            WCSD Family Message: Closing schools per governor order
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl16_lbl_formDesc" class="linkform">March 12, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/covid-19%20letter%2003-11-20.pdf?id=571470">
+                                            WCSD: COVID-19 Information UPDATE
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl17_lbl_formDesc" class="linkform">March 11, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/covid-19%20rumor%20control%20letter%20to%20families%2003-10-2020.pdf?id=571469">
+                                            WCSD: Rumor Control letter to families
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl18_lbl_formDesc" class="linkform">March 10, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/letter%20to%20families%20march%204%202020%20-%20covid-19.pdf?id=571461">
+                                            WCSD Letter to families regarding COVID-19
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl00_rep_forms_ctl19_lbl_formDesc" class="linkform">March 4, 2020</span>
+									</div>
+								</div>
+							</li>
+						
+							</ul>
+</div>
+			
+				<h3 class="form-category">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl01_lbl_title1" class="category">State Notifications</span>
+				</h3>
+				
+				<div>
+					
+							<ul class="form-list">
+<li>
+								<div style="padding: 5px;">
+									<div class="form-link">
+ <a class="forms-category-link linkform" target="_blank" href="/docs/district/depts/143/information%20for%20schools%20that%20host%20polling%20locations%20on%20election%20day-03-11-2020.pdf?id=571473">
+                                            Information for schools that host polling locations on election day
+                                        </a>
+									</div>
+									<div class="form-description">
+										<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl00_rep_formCategories_ctl01_rep_forms_ctl01_lbl_formDesc" class="linkform">Joint statement from the Ohio Department of Health, Ohio Secretary of State Frank LaRose and the Ohio Department of Education (03-11-2020)</span>
+									</div>
+								</div>
+							</li>
+						
+							</ul>
+</div>
+			
+	</li>
+</ul>
+</div>
+</div>
+<div id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_divLinks" class="gutter">
+	<div id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_linkTitle" class="gutterHeader right-title">
+		<header class="gutterHeaderText"><span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_LinksLabel">Links</span>
+		</header>
+</div>
+	<div class="gutterMiddle">
+		
+<ul class="LinkColumn link-category-list">
+<li>
+				
+					<h1>
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl00_hl_catName" class="category">WCSD Instructional Information</span>
+						
+					</h1>
+					<div>
+						
+								<ul class="links-list">
+<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl00_rep_links_ctl01_hl_link" class="linkform" href="https://docs.google.com/document/d/17qbfh8ReNOwGRpJfs32q08K8cwaibSUpd1DTd1nq7Qo/edit?usp=sharing" target="_blank">Long-Term Distance Learning Plan for Families</a>
+										
+										<br>
+</div>
+								</li>
+							
+								</ul>
+</div>
+					
+			</li>
+		
+			<li>
+				
+					<h1>
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl01_hl_catName" class="category">COVID-19 Resources</span>
+						
+					</h1>
+					<div>
+						
+								<ul class="links-list">
+<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl01_rep_links_ctl01_hl_link" class="linkform" href="https://www.everyoneon.org/" target="_blank">Low-cost Internet and Technology Resources</a>
+										
+										<br>
+</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl01_rep_links_ctl02_hl_link" class="linkform" href="http://education.ohio.gov/Topics/Student-Supports/Coronavirus/Additional-Information-on-State-Testing-During-the" target="_blank">State Updates on Academic Testing</a>
+										
+										<br>
+</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl01_rep_links_ctl03_hl_link" class="linkform" href="https://www.pbs.org/parents/thrive/how-to-talk-to-your-kids-about-coronavirus" target="_blank">How to Talk to Your Kids About Coronavirus</a>
+										
+										<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl01_rep_links_ctl03_lbl_linkTitle" class="linkform linkformdescription">PBS.org</span>
+									</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl01_rep_links_ctl04_hl_link" class="linkform" href="http://www.wcsoh.org/docs/district/depts/143/coronasymptomschart.jpeg" target="_blank">COVID-19 Symptom Comparison Chart</a>
+										
+										<br>
+</div>
+								</li>
+							
+								</ul>
+</div>
+					
+			</li>
+		
+			<li>
+				
+					<h1>
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl02_hl_catName" class="category">Fun Things to Explore from Home</span>
+						
+					</h1>
+					<div>
+						
+								<ul class="links-list">
+<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl02_rep_links_ctl01_hl_link" class="linkform" href="https://www.storylineonline.net/" target="_blank">Storyline online</a>
+										
+										<br>
+</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl02_rep_links_ctl02_hl_link" class="linkform" href="https://docs.google.com/document/d/1tVuqtWOl8Y0UHY1LWe7xCdY2b-H8pAHtN02saqjsz_I/edit?usp=sharing" target="_blank">Virtual Field Trips</a>
+										
+										<br>
+</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl02_rep_links_ctl03_hl_link" class="linkform" href="https://www.thecolor.com/" target="_blank">Online Coloring Pages</a>
+										
+										<br>
+</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl02_rep_links_ctl04_hl_link" class="linkform" href="https://www.online-coloring.com/" target="_blank">More online coloring pages</a>
+										
+										<br>
+</div>
+								</li>
+							
+								</ul>
+</div>
+					
+			</li>
+		
+			<li>
+				
+					<h1>
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl03_hl_catName" class="category">Centers for Disease Control &amp; Prevention</span>
+						
+					</h1>
+					<div>
+						
+								<ul class="links-list">
+<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl03_rep_links_ctl01_hl_link" class="linkform" href="https://www.cdc.gov/coronavirus/2019-ncov/index.html" target="_blank">Coronavirus (COVID-19) Main page</a>
+										
+										<br>
+</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl03_rep_links_ctl02_hl_link" class="linkform" href="https://www.cdc.gov/coronavirus/2019-nCoV/summary.html" target="_blank">Coronavirus (COVID-19) Situation Summary</a>
+										
+										<br>
+</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl03_rep_links_ctl03_hl_link" class="linkform" href="https://www.cdc.gov/coronavirus/2019-ncov/about/share-facts.html" target="_blank">Coronavirus (COVID-19) Situation Facts</a>
+										
+										<br>
+</div>
+								</li>
+							
+								</ul>
+</div>
+					
+			</li>
+		
+			<li>
+				
+					<h1>
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl04_hl_catName" class="category">World Health Organization</span>
+						
+					</h1>
+					<div>
+						
+								<ul class="links-list">
+<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl04_rep_links_ctl01_hl_link" class="linkform" href="https://www.who.int/health-topics/coronavirus" target="_blank">Coronaviruses (CoV) Information</a>
+										
+										<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl04_rep_links_ctl01_lbl_linkTitle" class="linkform linkformdescription">World Health Organization</span>
+									</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl04_rep_links_ctl02_hl_link" class="linkform" href="https://www.who.int/news-room/q-a-detail/q-a-coronaviruses" target="_blank">Q&amp;A on coronaviruses (COVID-19)</a>
+										
+										<br><span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl04_rep_links_ctl02_lbl_linkTitle" class="linkform linkformdescription">World Health Organization</span>
+									</div>
+								</li>
+							
+								</ul>
+</div>
+					
+			</li>
+		
+			<li>
+				
+					<h1>
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl05_hl_catName" class="category">Area Health Departments</span>
+						
+					</h1>
+					<div>
+						
+								<ul class="links-list">
+<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl05_rep_links_ctl01_hl_link" class="linkform" href="http://www.odh.ohio.gov/" target="_blank">Ohio Department of Health</a>
+										
+										<br>
+</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl05_rep_links_ctl02_hl_link" class="linkform" href="http://www.myfcph.org/" target="_blank">Franklin County Board of Health</a>
+										
+										<br>
+</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl05_rep_links_ctl03_hl_link" class="linkform" href="http://www.delawarehealth.org/" target="_blank">Delaware County Board of Health</a>
+										
+										<br>
+</div>
+								</li>
+							
+								<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl05_rep_links_ctl04_hl_link" class="linkform" href="http://www.publichealth.columbus.gov/" target="_blank">Columbus Health Department</a>
+										
+										<br>
+</div>
+								</li>
+							
+								</ul>
+</div>
+					
+			</li>
+		
+			<li>
+				
+					<h1>
+						<span id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl06_hl_catName" class="category">Board Policy</span>
+						
+					</h1>
+					<div>
+						
+								<ul class="links-list">
+<li>
+									<div style="padding: 5px;">
+										<a id="ctl00_ctl00_MasterContent_ContentColumnRight_adminDeptRight_ctl01_rep_LinkCats_ctl06_rep_links_ctl01_hl_link" class="linkform" href="http://www.boarddocs.com/oh/wcsd/Board.nsf/Public?open&amp;id=policies" target="_blank">Board Policy Online</a>
+										
+										<br>
+</div>
+								</li>
+							
+								</ul>
+</div>
+					
+			</li>
+		
+</ul>
+</div>
+</div>
+
+
+
+			
+			
+		</div>
+	</div>
+	<div class="clr">
+	</div>
+
+
+                    </div>
+                    <div class="clr">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot"><div class="footer-nav">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<div class="footer-nav-block">
+					
+					<h6>District Links</h6>		
+					<ul class="nav navbar-nav DistrictQuickL-links">
+<li class="without-image"><a href="/Administration/44" title="Academic Programs &amp; Services">Academic Programs &amp; Services</a></li>
+<li class="without-image"><a href="/Administration/76" title="Administrative Services">Administrative Services</a></li>
+<li class="without-image"><a href="/Administration/101" title="Athletics ">Athletics </a></li>
+<li class="without-image"><a href="/Content/562" title="Calamity Day Information">Calamity Day Information</a></li>
+<li class="without-image"><a href="/Administration/22" title="Curriculum &amp; Instruction">Curriculum &amp; Instruction</a></li>
+<li class="without-image"><a href="https://www.wcsoh.org/docs/district/depts/22/hsapg%202020-21.pdf?id=571166" target="_blank" title="    - H.S. Academic Planning Guide ">    - H.S. Academic Planning Guide </a></li>
+<li class="without-image"><a href="https://www.wcscareers.org/" target="_blank" title="Employment Opportunities">Employment Opportunities</a></li>
+<li class="without-image"><a href="/Administration/16" title="Financial Information">Financial Information</a></li>
+</ul>
+</div>
+				
+				<div class="footer-nav-block">
+					<h6><span class="obscure">Continue Links</span></h6>	
+					<ul class="nav navbar-nav DistrictQuickR-links">
+<li class="without-image"><a href="/Administration/38" title="Food Services ">Food Services </a></li>
+<li class="without-image"><a href="https://www.wcsoh.org/Content/664" title="Kindergarten Registration">Kindergarten Registration</a></li>
+<li class="without-image"><a href="http://www.boarddocs.com/oh/wcsd/Board.nsf/Public?open&amp;id=policies" target="_blank" title="Policy">Policy</a></li>
+<li class="without-image"><a href="/Content2/440" target="_blank" title="Safe School Helpline">Safe School Helpline</a></li>
+<li class="without-image"><a href="/Staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/0/teacher" title="Staff Websites">Staff Websites</a></li>
+<li class="without-image"><a href="/Content/1182" title="Volunteer Information">Volunteer Information</a></li>
+<li class="without-image"><a href="http://www.wcsoh.org/Content/474" title="Testing Calendars">Testing Calendars</a></li>
+<li class="without-image"><a href="/administration/103" title="Student Well Being">Student Well Being</a></li>
+</ul>
+</div>
+
+				<div class="footer-nav-block">
+					<h6>Resources</h6>
+					<ul class="nav navbar-nav Resources-links">
+<li class="without-image"><a href="/administration/44" title="Academic Programs &amp; Services">Academic Programs &amp; Services</a></li>
+<li class="without-image"><a href="/board" target="_blank" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/content/562" title="Calamity Day Information">Calamity Day Information</a></li>
+<li class="without-image"><a href="http://www.spsezpay.com/westerville/" target="_blank" title="EZpay">EZpay</a></li>
+<li class="without-image"><a href="/administration/38" title="Food Services">Food Services</a></li>
+<li class="without-image"><a href="/administration/60" title="Language Assistance">Language Assistance</a></li>
+<li class="without-image"><a href="http://www.wcsoh.org/Content2/440" title="Safe School Helpline">Safe School Helpline</a></li>
+<li class="without-image"><a href="/schools" title="School Listings">School Listings</a></li>
+<li class="without-image"><a href="/administration/117" title="Summer School">Summer School</a></li>
+<li class="without-image"><a href="/administration/52" title="Transportation Services">Transportation Services</a></li>
+<li class="without-image"><a href="https://www.wcsoh.org/Content/906" title="Virtual Backpack">Virtual Backpack</a></li>
+</ul>
+</div>
+
+				<div class="footer-nav-block">
+					<h6>Organizations</h6>
+					<ul class="nav navbar-nav Organizations-links">
+<li class="without-image"><a href="https://www.neighborhoodbridges.org/westerville-oh" target="_blank" title="Neighborhood Bridges">Neighborhood Bridges</a></li>
+<li class="without-image"><a href="http://www.n2nwesterville.org/" target="_blank" title="Neighbor 2 Neighbor">Neighbor 2 Neighbor</a></li>
+<li class="without-image"><a href="https://www.facebook.com/groups/193920809688/" target="_blank" title="Westerville Alumni Association">Westerville Alumni Association</a></li>
+<li class="without-image"><a href="http://www.westervillechamber.com/" title="Westerville Area Chamber of Commerce">Westerville Area Chamber of Commerce</a></li>
+<li class="without-image"><a href="https://www.facebook.com/WestervilleCaringSharing/" target="_blank" title="Westerville Caring &amp; Sharing">Westerville Caring &amp; Sharing</a></li>
+<li class="without-image"><a href="http://www.westervilleeducationchallenge.org/" target="_blank" title="Westerville Education Challenge">Westerville Education Challenge</a></li>
+<li class="without-image"><a href="http://www.westervilleeducationfoundation.com/" target="_blank" title="Westerville Education Foundation">Westerville Education Foundation</a></li>
+<li class="without-image"><a href="http://www.westervilleparentcouncil.com" target="_blank" title="Westerville Parent Council">Westerville Parent Council</a></li>
+<li class="without-image"><a href="http://www.westervillepartnersforeducation.org" target="_blank" title="Westerville Partners for Education">Westerville Partners for Education</a></li>
+<li class="without-image"><a href="https://www.westerville.k12.oh.us/olc/16217/class/118577" target="_blank" title="Westerville Rotary I-Can Program">Westerville Rotary I-Can Program</a></li>
+</ul>
+</div>				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="footer-info">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+				<a href="http://www.schoolpointe.com" target="_blank" class="sp-logo" alt="SchoolPointe">
+					<img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPwhite.png"></a>
+				<div class="footer-info-left">
+					<div class="footer-info-left-top">
+						<div class="copyright">©2007-2020 Westerville City School District. All Rights Reserved.</div>
+					</div>
+					<div class="footer-info-left-bottom">
+						<ul class="nav navbar-nav very-bottom-nav-links">
+<li class="without-image"><a href="/intranet_home.aspx" target="_blank" title=".">.</a></li>
+<li class="without-image"><a href="/content/1198" title="Site Disclaimer">Site Disclaimer</a></li>
+<li class="without-image"><a href="/content/1092" title="Legal Notices">Legal Notices</a></li>
+<li class="without-image"><a href="/login.aspx" title="CMS Login">CMS Login</a></li>
+<li class="without-image"><a href="https://asp.schoolmessenger.com/westervillecsd" target="_blank" title="SM-Login">SM-Login</a></li>
+<li class="without-image"><a href="/content/1284" title="Staff Portal">Staff Portal</a></li>
+</ul>
+</div>
+				</div>
+
+				<div class="footer-info-right">
+					<div class="footer-info-right-top">
+						<div id="ctl00_ctl00_ctl06_hName">Westerville City Schools</div>
+						<div id="ctl00_ctl00_ctl06_hAddress">936 Eastwind Drive, Suite 200, Westerville , OH 43081</div>
+					</div>
+					<div class="footer-info-right-bottom">
+						<div id="ctl00_ctl00_ctl06_dphone">
+							<span id="ctl00_ctl00_ctl06_hPhone">Phone: (614) 797-5700  | </span>
+						</div>
+						<div id="ctl00_ctl00_ctl06_dfax">
+							<span id="ctl00_ctl00_ctl06_hfax">Fax: (614) 797-5701 | </span>
+						</div>
+						<div id="ctl00_ctl00_ctl06_demail">
+							Email: <a href="mailto:wcs@westerville.k12.oh.us">wcs@westerville.k12.oh.us</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-3294424-31', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer>
+</div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="437AF562">
+</div>
+</form>
+</body>
+</html>

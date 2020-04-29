@@ -1,0 +1,1784 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Sebring Local Schools</title>
+<link href="https://fonts.googleapis.com/css?family=Oswald:400,700%7COpen+Sans:400,700" rel="stylesheet" type="text/css">
+<link rel="icon" href="master-pages/%3C%25=%20_faviconPath%20%25%3E" type="image/x-icon">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<meta name="author" content="SchoolPointe, Inc.">
+<meta name="apple-itunes-app" content="app-id=1043073721">
+<meta name="google-play-app" content="app-id=com.schoolpointe.stayconnected">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" href="https://cdn.schoolpointe.com/images/apple-touch-icon.jpg">
+<script src="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.js"></script><link href="https://cdn.schoolpointe.com/js/jquery.smartbanner/jquery.smartbanner.css" rel="stylesheet" type="text/css">
+<script>
+    $(document).ready(function () {
+        $.smartbanner({
+            title: "Stay Connected", // What the title of the app should be in the banner (defaults to <title>)
+            author: "SchoolPointe, Inc", // What the author of the app should be in the banner (defaults to <meta name="author"> or hostname)
+            price: 'FREE', // Price of the app
+            appStoreLanguage: 'us', // Language code for App Store
+            inAppStore: 'On the App Store', // Text of price for iOS
+            inGooglePlay: 'In Google Play', // Text of price for Android
+            GooglePlayParams: null, // Aditional parameters for the market
+            icon: "https://cdn.schoolpointe.com/images/apple-touch-icon.jpg", // The URL of the icon (defaults to <meta name="apple-touch-icon">)
+            iconGloss: null, // Force gloss effect for iOS even for precomposed
+            url: null, // The URL for the button. Keep null if you want the button to link to the app store.
+            button: 'VIEW', // Text for the install button
+            scale: 'auto', // Scale based on viewport size (set to 1 to disable)
+            speedIn: 300, // Show animation speed of the banner
+            speedOut: 400, // Close animation speed of the banner
+            daysHidden: 15, // Duration to hide the banner after being closed (0 = always show banner)
+            daysReminder: 90, // Duration to hide the banner after "VIEW" is clicked *separate from when the close button is clicked* (0 = always show banner)
+            force: null, // Choose 'ios', 'android' or 'windows'. Don't do a browser check, just always show this banner
+            hideOnInstall: true, // Hide the banner after "VIEW" is clicked.
+            layer: false, // Display as overlay layer or slide down the page
+            iOSUniversalApp: true, // If the iOS App is a universal app for both iPad and iPhone, display Smart Banner to iPad users, too.      
+            appendToSelector: 'body', //Append the banner to a specific selector
+            onInstall: function () {
+                // alert('Click install');
+            },
+            onClose: function () {
+                // alert('Click close');
+            }
+        });
+    });
+</script><meta name="google-site-verification" content="G1bqRTWKpYGr_m20b17QeNLAFUCnqoaOKS1zhbzko74">
+<link rel="alternate" type="application/rss+xml" title="Sebring Local Schools - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="McKinley Jr/Sr. High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Beatrice L. Miller ES - News" href="/rssNews.ashx?schoolId=2">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "OH_SebringLclSchs",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<style type="text/css">
+		#news-list .article {
+			float: left;
+			position: relative;
+			margin-left: 2% !Important;
+			margin-right: 2% !Important;
+			height: 200px;
+			overflow: hidden;
+			width: 46% !important;
+			border: none !important;
+		}
+
+		#slideshow {
+			max-height: none !important;
+		}
+
+		@media only screen and (max-width: 767px) {
+			#news-list .article {
+				width: 100% !important;
+				height: auto !important;
+			}
+		}
+	</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1528293320637">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value=""><input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value=""><input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTg3ODUzMTQ3NA9kFgJmD2QWAmYPZBYEZg9kFgQCBA9kFgICAQ8WAh4LXyFJdGVtQ291bnQCAhYEZg9kFgJmDxUCG01jS2lubGV5IEpyL1NyLiBIaWdoIFNjaG9vbAExZAIBD2QWAmYPFQIVQmVhdHJpY2UgTC4gTWlsbGVyIEVTATJkAgYPFgIeBGhyZWYFMC9zaXRlY3NzLmFzaHg/JmludHJhbmV0PTAmY2hlY2tzdW09MTUyODI5MzMyMDYzN2QCAQ8WAh4GYWN0aW9uBQEvFgoCAQ9kFgQCAQ9kFgpmDw9kFgIeCHRhYmluZGV4BQEwZAICDw9kFgIfAwUBMGQCAw8PZBYCHwMFATBkAgQPD2QWAh8DBQEwZAIFDw9kFgIfAwUBMGQCAw9kFgICAg9kFgJmDxYCHgRUZXh0BRs8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PC91bD5kAgMPZBYCAgEPZBYCAgEPZBYGAgEPDxYCHgtOYXZpZ2F0ZVVybAUBL2QWAmYPDxYCHwQFFVNlYnJpbmcgTG9jYWwgU2Nob29sc2RkAgkPDxYCHwUFAS9kZAILDw8WBB8FBQEvHwQFFVNlYnJpbmcgTG9jYWwgU2Nob29sc2RkAgcPZBYCZg8WAh8AAigWUGYPZBYEZg8VAmBXZSBsb3ZlIGFuZCBtaXNzIGFsbCBvdXIgc3R1ZGVudHMhIEhvcGUgZXZlcnlvbmUgaXMgc3RheWluZyBzYWZlICZhbXA7IGhlYWx0aHkgZHVyaW5nIHRoaXMgdGltZSFgV2UgbG92ZSBhbmQgbWlzcyBhbGwgb3VyIHN0dWRlbnRzISBIb3BlIGV2ZXJ5b25lIGlzIHN0YXlpbmcgc2FmZSAmYW1wOyBoZWFsdGh5IGR1cmluZyB0aGlzIHRpbWUhZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wNC83MTE5MGQxMS02MGZhLTQ1MTYtYjJhMS00Nzg3Nzc0MjFhNWYuanBnZAIBD2QWBGYPFQJXRXZlcnlvbmUgYXQgTWNLaW5sZXkgd29ya2VkIHRvZ2V0aGVyIHRvIHJhaXNlICQzLDM2Ny42NyBmb3IgI0hvcGVGb3JCcmVuZGVuIHRoaXMgeWVhciEgV0V2ZXJ5b25lIGF0IE1jS2lubGV5IHdvcmtlZCB0b2dldGhlciB0byByYWlzZSAkMywzNjcuNjcgZm9yICNIb3BlRm9yQnJlbmRlbiB0aGlzIHllYXIhIGQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvNmI3NjBmZTgtNmJlZC00YzMxLTkzMWItZjA4MjcwYTViNjAxLmpwZ2QCAg9kFgRmDxUCABVTZWJyaW5nIExvY2FsIFNjaG9vbHNkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAxL2E2MWU0N2RjLTAwZTktNDIzYi04ODdkLTgyNzk5MjBjODU1ZS5wbmdkAgMPZBYEZg8VAnNUaGUgY2xhc3NlcyBhdCBCLkwuIE1pbGxlciB3ZXJlIGZpbGxlZCB3aXRoIGV4dHJhIGxvdHMgb2YgbG92ZSBhbmQga2luZG5lc3MgZHVyaW5nIG91ciBWYWxlbnRpbmUmIzM5O3MgRGF5IHBhcnRpZXMhc1RoZSBjbGFzc2VzIGF0IEIuTC4gTWlsbGVyIHdlcmUgZmlsbGVkIHdpdGggZXh0cmEgbG90cyBvZiBsb3ZlIGFuZCBraW5kbmVzcyBkdXJpbmcgb3VyIFZhbGVudGluZSYjMzk7cyBEYXkgcGFydGllcyFkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyL2FhMTFhZmQwLTcyZmQtNDQzNC04MDhhLWRmNzhhNzhmZDE4OC5qcGdkAgQPZBYEZg8VAocBVGhhbmsgeW91IHRvIFN0YW5sZXkgTGVvbmUgZm9yIHNwZWFraW5nIHRvIG91ciBzdHVkZW50cywgc3RhZmYgYW5kIGZhbWlseSBtZW1iZXJzIHRocm91Z2hvdXQgdGhlIHNjaG9vbCB5ZWFyIG9uIHRoZSBzdWJqZWN0IG9mIHRyYXVtYS4ghwFUaGFuayB5b3UgdG8gU3RhbmxleSBMZW9uZSBmb3Igc3BlYWtpbmcgdG8gb3VyIHN0dWRlbnRzLCBzdGFmZiBhbmQgZmFtaWx5IG1lbWJlcnMgdGhyb3VnaG91dCB0aGUgc2Nob29sIHllYXIgb24gdGhlIHN1YmplY3Qgb2YgdHJhdW1hLiBkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyL2RhOGFkMWUxLWY2MWEtNGZjMy05MDI0LTNmNDliMWFkNDAyMC5qcGdkAgUPZBYEZg8VAi9PdXIgS2luZGVyZ2FydGVuIGNsYXNzZXMgYXJlIDEwMCBkYXlzIHNtYXJ0ZXIhIC9PdXIgS2luZGVyZ2FydGVuIGNsYXNzZXMgYXJlIDEwMCBkYXlzIHNtYXJ0ZXIhIGQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvODVjNjQ4NDItYjEwMC00YzUxLTg0MDQtYWQ0NWZhMmUzNGE3LmpwZ2QCBg9kFgRmDxUCQVdoYXQgYSBmZXN0aXZlIGhvbGlkYXkgbHVuY2ggd2l0aCBzdHVkZW50cyBhbmQgc3RhZmYgYXQgTWNLaW5sZXkhQVdoYXQgYSBmZXN0aXZlIGhvbGlkYXkgbHVuY2ggd2l0aCBzdHVkZW50cyBhbmQgc3RhZmYgYXQgTWNLaW5sZXkhZAIBDxUBOy91c2VyZmlsZXMvMjAyMC0wMi9jYzQ1OWM2ZS1iOTc5LTRhY2EtOWFlNi0xYjlhNmFhM2VlNTUuanBnZAIHD2QWBGYPFQJgT3VyIDJuZCBHcmFkZSBDbGFzc2VzIGhhZCBsb3RzIG9mIGZ1biBpbnRlcnZpZXdpbmcgd2l0aCBTYW50YSBmb3IgYW4gRWxmIGpvYiBhdCB0aGUgTm9ydGggUG9sZSEgYE91ciAybmQgR3JhZGUgQ2xhc3NlcyBoYWQgbG90cyBvZiBmdW4gaW50ZXJ2aWV3aW5nIHdpdGggU2FudGEgZm9yIGFuIEVsZiBqb2IgYXQgdGhlIE5vcnRoIFBvbGUhIGQCAQ8VATsvdXNlcmZpbGVzLzIwMjAtMDIvNWM1ODM5NmEtOWExYS00ZjVkLWEzNDQtODFkZGZmMjMzMTE3LmpwZ2QCCA9kFgRmDxUCRUEgam9iIHdlbGwgZG9uZSB0byBhbGwgb2YgdGhpcyB5ZWFyJiMzOTtzIFNwZWxsaW5nIEJlZSBwYXJ0aWNpcGFudHMhIEVBIGpvYiB3ZWxsIGRvbmUgdG8gYWxsIG9mIHRoaXMgeWVhciYjMzk7cyBTcGVsbGluZyBCZWUgcGFydGljaXBhbnRzISBkAgEPFQE7L3VzZXJmaWxlcy8yMDIwLTAyLzM3N2MxMTBmLTM5ZTUtNDRlNi1hZTE3LWIwZGU5ODQ1Y2RhNi5qcGdkAgkPZBYEZg8VAltPdXIgc3R1ZGVudHMgbGVhcm5lZCBhIGxvdCBhYm91dCBmaXJlIHNhZmV0eSBhbmQgaG93IHRvIGJlIHByZXBhcmVkIGluIHNjaG9vbCBhbmQgYXQgaG9tZSEgW091ciBzdHVkZW50cyBsZWFybmVkIGEgbG90IGFib3V0IGZpcmUgc2FmZXR5IGFuZCBob3cgdG8gYmUgcHJlcGFyZWQgaW4gc2Nob29sIGFuZCBhdCBob21lISBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEyL2I1YmQyYTJiLTlmODgtNDgyYS04ZDMzLWQzZjE4ZGM1MDlmMS5qcGdkAgoPZBYEZg8VAmpUaGFuayB5b3UgdG8gZXZlcnlvbmUgd2hvIGhlbHBlZCBtYWtlIG91ciBUcmljayBvciBUcmVhdCBmb3IgVHVya2V5cyBGdW5kcmFpc2VyIGEgaHVnZSBzdWNjZXNzIHRoaXMgeWVhciEgalRoYW5rIHlvdSB0byBldmVyeW9uZSB3aG8gaGVscGVkIG1ha2Ugb3VyIFRyaWNrIG9yIFRyZWF0IGZvciBUdXJrZXlzIEZ1bmRyYWlzZXIgYSBodWdlIHN1Y2Nlc3MgdGhpcyB5ZWFyISBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEyLzcyYmQyOTUwLTcyMWEtNGJlNi04N2UzLTNlYTA2ZGUxMzYxOS5qcGdkAgsPZBYEZg8VAnZPdXIgMm5kIGdyYWRlcnMgcHV0IG9uIGEgZGVsaWdodGZ1bCBIYXJ2ZXN0IHByb2dyYW0gZm9yIGZhbWlsaWVzIGFuZCBvdXIgUFRPIHByb3ZpZGVkIGEgZGVsaWNpb3VzIFRoYW5rc2dpdmluZyBsdW5jaCEgdk91ciAybmQgZ3JhZGVycyBwdXQgb24gYSBkZWxpZ2h0ZnVsIEhhcnZlc3QgcHJvZ3JhbSBmb3IgZmFtaWxpZXMgYW5kIG91ciBQVE8gcHJvdmlkZWQgYSBkZWxpY2lvdXMgVGhhbmtzZ2l2aW5nIGx1bmNoISBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEyLzQzNWExN2E2LTljZGMtNGQ0OS1hZDU1LWY3NTU1YTVlNzNlNS5qcGdkAgwPZBYEZg8VAlVUaGFuayB5b3UgdG8gZXZlcnlvbmUgd2hvIGF0dGVuZGVkIG91ciAmcXVvdDtEaW5uZXIgYXQgT3VyIEhvdXNlJnF1b3Q7IEZhbWlseSBOaWdodCEgVVRoYW5rIHlvdSB0byBldmVyeW9uZSB3aG8gYXR0ZW5kZWQgb3VyICZxdW90O0Rpbm5lciBhdCBPdXIgSG91c2UmcXVvdDsgRmFtaWx5IE5pZ2h0ISBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEyLzVmYzAwNzcwLTk1Y2ItNDQ3Mi1hYzdlLTllMTM5MGM3M2MwMi5qcGdkAg0PZBYEZg8VAkxPdXIgTWNLaW5sZXkgc3RhZmYgcHV0IHRvZ2V0aGVyIGEgd29uZGVyZnVsIEhhcnZlc3QgbHVuY2ggZm9yIG91ciBzdHVkZW50cyEgTE91ciBNY0tpbmxleSBzdGFmZiBwdXQgdG9nZXRoZXIgYSB3b25kZXJmdWwgSGFydmVzdCBsdW5jaCBmb3Igb3VyIHN0dWRlbnRzISBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEyLzMyMjFjNjM0LTc1ZGEtNDYwNC05YWM2LTY0MDQ0YmU5MmEzOS5qcGdkAg4PZBYEZg8VAl1PdXIgS2luZGVyZ2FydG5lcnMgZW5qb3llZCBkcmVzc2luZyB1cCBhcyB0dXJrZXlzIGFuZCBlYXRpbmcgYSBkZWxpY2lvdXMgVGhhbmtzZ2l2aW5nIGx1bmNoISBdT3VyIEtpbmRlcmdhcnRuZXJzIGVuam95ZWQgZHJlc3NpbmcgdXAgYXMgdHVya2V5cyBhbmQgZWF0aW5nIGEgZGVsaWNpb3VzIFRoYW5rc2dpdmluZyBsdW5jaCEgZAIBDxUBPC91c2VyZmlsZXMvMjAxOS0xMi84OTJjNDliOS1jZTA1LTQ3YTItOGQ5Zi05MTZmYWNhN2NhMjMuanBlZ2QCDw9kFgRmDxUCQlRoYW5rIHlvdSB2ZXRlcmFucyBmb3IgeW91ciBkZWRpY2F0aW9uIGFuZCBzZXJ2aWNlIHRvIG91ciBjb3VudHJ5LkNUaGFuayB5b3UgdmV0ZXJhbnMgZm9yIHlvdXIgZGVkaWNhdGlvbiBhbmQgc2VydmljZSB0byBvdXIgY291bnRyeS4gZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMS9kYjAxYTYwNS0yZGU1LTRiNzUtOTIyMS1kMDdmODgzZmNmZDcuanBnZAIQD2QWBGYPFQJrTWlsbGNyZWVrIE1ldHJvIFBhcmtzIEZhcm0gdGF1Z2h0IG91ciAzcmQgZ3JhZGUgc3R1ZGVudHMgYWJvdXQgaGFydmVzdGluZyBhbmQgdGhlIHZlcnkgZmlyc3QgVGhhbmtzZ2l2aW5nISBrTWlsbGNyZWVrIE1ldHJvIFBhcmtzIEZhcm0gdGF1Z2h0IG91ciAzcmQgZ3JhZGUgc3R1ZGVudHMgYWJvdXQgaGFydmVzdGluZyBhbmQgdGhlIHZlcnkgZmlyc3QgVGhhbmtzZ2l2aW5nISBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExL2JlOGU5ZjM0LTYxN2UtNGIzZS04ZTFmLTdmOWM1NzExMjZhMC5qcGdkAhEPZBYEZg8VAk9TZXZlbnRoICZhbXA7IEVpZ2h0aCBncmFkZSBzdHVkZW50cyBlbmpveWVkIGEgc2xpbWUgbWFraW5nIGV4cGVyaW1lbnQgaW4gY2xhc3MhT1NldmVudGggJmFtcDsgRWlnaHRoIGdyYWRlIHN0dWRlbnRzIGVuam95ZWQgYSBzbGltZSBtYWtpbmcgZXhwZXJpbWVudCBpbiBjbGFzcyFkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExLzkyZjM0NjE2LTU5NTUtNGE1ZC04NmY4LTFmYTJhMTk3ZTZlZS5qcGdkAhIPZBYEZg8VAlJTcGFuaXNoIDMgc3R1ZGVudHMgcHV0IG9uIFNrZWxldG9uIFB1cHBldCBTaG93cyBpbiBjZWxlYnJhdGlvbiBvZiBEYXkgb2YgdGhlIERlYWQhUlNwYW5pc2ggMyBzdHVkZW50cyBwdXQgb24gU2tlbGV0b24gUHVwcGV0IFNob3dzIGluIGNlbGVicmF0aW9uIG9mIERheSBvZiB0aGUgRGVhZCFkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExLzVmODU3YzY0LWIzZTAtNDdiNS04OTNkLWNhN2UxZDBlZjVjNy5qcGdkAhMPZBYEZg8VAjFPdXIgU3BhbmlzaCBzdHVkZW50cyBjZWxlYnJhdGVkIERheSBvZiB0aGUgRGVhZCEgMU91ciBTcGFuaXNoIHN0dWRlbnRzIGNlbGVicmF0ZWQgRGF5IG9mIHRoZSBEZWFkISBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExLzIwYzdkNzExLTM2NmUtNGI0NC1hMzQyLTA2Mzg0YWY3MDI4Mi5qcGdkAhQPZBYEZg8VAm1UaGFuayB5b3UgdG8gQ2F0aGVyaW5lIEJvc2xleSBmb3Igc3BlYWtpbmcgd2l0aCBvdXIgc3R1ZGVudHMgYWJvdXQgdGhlIGltcG9ydGFuY2Ugb2Ygc29jaWFsIG1lZGlhIGF3YXJlbmVzcy4gbVRoYW5rIHlvdSB0byBDYXRoZXJpbmUgQm9zbGV5IGZvciBzcGVha2luZyB3aXRoIG91ciBzdHVkZW50cyBhYm91dCB0aGUgaW1wb3J0YW5jZSBvZiBzb2NpYWwgbWVkaWEgYXdhcmVuZXNzLiBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTExL2Y2ZjIzNWM5LTRhYmQtNDRjMi05MWFlLTIyY2FmNzNjNzkxNi5qcGdkAhUPZBYEZg8VAj9Db25ncmF0dWxhdGlvbnMgdG8gb3VyIG5ld2x5IGVsZWN0ZWQgNXRoIGdyYWRlIFN0dWRlbnQgU2VuYXRlISA/Q29uZ3JhdHVsYXRpb25zIHRvIG91ciBuZXdseSBlbGVjdGVkIDV0aCBncmFkZSBTdHVkZW50IFNlbmF0ZSEgZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMS81ZTkxZDBkMC1hYzQ5LTRmYTktODQ4MC0yYmY0NDk0ZjZmNmMuanBnZAIWD2QWBGYPFQJDV2UgaGF2ZSBUcm9qYW4gU3Bpcml0IGV2ZXJ5ZGF5LCBidXQgZXNwZWNpYWxseSBkdXJpbmcgU3Bpcml0IFdlZWshIENXZSBoYXZlIFRyb2phbiBTcGlyaXQgZXZlcnlkYXksIGJ1dCBlc3BlY2lhbGx5IGR1cmluZyBTcGlyaXQgV2VlayEgZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMS8xOWFlZTU3MS1jZmY3LTQ0ZmUtYjc3ZC04ZjQ0NDY4OTBmZTEuanBnZAIXD2QWBGYPFQJlT3VyIGtpbmRlcmdhcnRlbiBjbGFzc2VzIGVuam95ZWQgdGhlaXIgYXBwbGUgb3JjaGFyZCB0b3VyIG9uIGEgZmllbGQgdHJpcCB0byBXaGl0ZSBIb3VzZSBGcnVpdCBGYXJtLiBlT3VyIGtpbmRlcmdhcnRlbiBjbGFzc2VzIGVuam95ZWQgdGhlaXIgYXBwbGUgb3JjaGFyZCB0b3VyIG9uIGEgZmllbGQgdHJpcCB0byBXaGl0ZSBIb3VzZSBGcnVpdCBGYXJtLiBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTEwLzY1MjA0N2M0LTAyMzYtNGJjZi05ZThmLTI1NmI1ZmM2NzQ4My5qcGdkAhgPZBYEZg8VAqcBVGhhbmsgeW91IHNvIG11Y2ggdG8gb3VyIEFsbCBTdGFyIEFsdW1uaSBHZW9yZ2UgQ2xhcmssIENocmlzdG9waGVyIENsZW1lbnMsIERlc3RpbmVlIEdyZWVuLCBFbW1hIEhvbG9kbmFrIGFuZCBaYW5lIFR3YWRkbGUgZm9yIHNoYXJpbmcgdGhlaXIgc3RvcmllcyB3aXRoIG91ciBzdHVkZW50cyGnAVRoYW5rIHlvdSBzbyBtdWNoIHRvIG91ciBBbGwgU3RhciBBbHVtbmkgR2VvcmdlIENsYXJrLCBDaHJpc3RvcGhlciBDbGVtZW5zLCBEZXN0aW5lZSBHcmVlbiwgRW1tYSBIb2xvZG5hayBhbmQgWmFuZSBUd2FkZGxlIGZvciBzaGFyaW5nIHRoZWlyIHN0b3JpZXMgd2l0aCBvdXIgc3R1ZGVudHMhZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0xMC85MzllMmVhMC01NzMyLTQ5MTUtOWVhMC1lYjM1NGZjZjc3ZjUuanBnZAIZD2QWBGYPFQJpVHdvIGdyb3VwcyBvZiBNY0tpbmxleSBzdHVkZW50cyBhdHRlbmRlZCB0aGUgZmlyc3QgU2tpbGxlZCBUcmFkZXMgRXhwbyBoZWxkIGF0IHRoZSBDYW5maWVsZCBGYWlyZ3JvdW5kcy4gaVR3byBncm91cHMgb2YgTWNLaW5sZXkgc3R1ZGVudHMgYXR0ZW5kZWQgdGhlIGZpcnN0IFNraWxsZWQgVHJhZGVzIEV4cG8gaGVsZCBhdCB0aGUgQ2FuZmllbGQgRmFpcmdyb3VuZHMuIGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMTAvNjNlZDFjOTMtMDhlMy00NGE0LWIwNmQtODY1NmJkOTIxMDE4LmpwZ2QCGg9kFgRmDxUCY091ciBzdHVkZW50cyBkaWQgYW4gYXdlc29tZSBqb2Igd2l0aCB0aGVpciBzdW1tZXIgcmVhZGluZyBsb2dzIGFuZCBlbmpveWVkIG91ciBwaWNuaWMgY2VsZWJyYXRpb24hIGNPdXIgc3R1ZGVudHMgZGlkIGFuIGF3ZXNvbWUgam9iIHdpdGggdGhlaXIgc3VtbWVyIHJlYWRpbmcgbG9ncyBhbmQgZW5qb3llZCBvdXIgcGljbmljIGNlbGVicmF0aW9uISBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA5LzU4OTMzOGQ3LTEyMTYtNGYzMi1hYzRmLTFmZWU3MGQzZGNkMy5qcGdkAhsPZBYEZg8VAllUaGUgaGlnaCBzY2hvb2wgbWFyY2hpbmcgYmFuZCBoYWQgYW4gYXdlc29tZSBwZXJmb3JtYW5jZSBhdCB0aGUgQ2FuZmllbGQgRmFpciB0aGlzIHllYXIhIFlUaGUgaGlnaCBzY2hvb2wgbWFyY2hpbmcgYmFuZCBoYWQgYW4gYXdlc29tZSBwZXJmb3JtYW5jZSBhdCB0aGUgQ2FuZmllbGQgRmFpciB0aGlzIHllYXIhIGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZGQzY2YxNGEtMWE3MS00ZmJkLWJmY2QtYjE1ODI1MjI4MGQ4LmpwZ2QCHA9kFgRmDxUCak91ciBDaGVlcmxlYWRlcnMgZGlkIGFuIGF3ZXNvbWUgam9iIHJlcHJlc2VudGluZyBTZWJyaW5nIGluIHRoZSBDYW5maWVsZCBGYWlyIENoZWVybGVhZGluZyBEZW1vbnN0cmF0aW9uISBqT3VyIENoZWVybGVhZGVycyBkaWQgYW4gYXdlc29tZSBqb2IgcmVwcmVzZW50aW5nIFNlYnJpbmcgaW4gdGhlIENhbmZpZWxkIEZhaXIgQ2hlZXJsZWFkaW5nIERlbW9uc3RyYXRpb24hIGQCAQ8VATsvdXNlcmZpbGVzLzIwMTktMDkvZmFmOTc4ODYtNTA0Ny00ZjViLWJkMWUtYjVhMDkwYjA0MGMzLmpwZ2QCHQ9kFgRmDxUCnQFBbGV4IFNoZWVuLCBGb3VuZGVyIG9mIEJlY2F1c2UgSSBTYWlkIEkgV291bGQsIHNwb2tlIHdpdGggTWNLaW5sZXkgc3R1ZGVudHMgYWJvdXQgaGlzIGluc3BpcmF0aW9uYWwgam91cm5leSBhbmQgaG93IHRoZSBjb25jZXB0IG9mIHByb21pc2UgY2FyZHMgY2FtZSB0byBiZS4gnQFBbGV4IFNoZWVuLCBGb3VuZGVyIG9mIEJlY2F1c2UgSSBTYWlkIEkgV291bGQsIHNwb2tlIHdpdGggTWNLaW5sZXkgc3R1ZGVudHMgYWJvdXQgaGlzIGluc3BpcmF0aW9uYWwgam91cm5leSBhbmQgaG93IHRoZSBjb25jZXB0IG9mIHByb21pc2UgY2FyZHMgY2FtZSB0byBiZS4gZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOC9jYmQxY2Y4MS1kODZiLTQ1MGEtOTg5Yi04ZWRlOTk4MmM0ODAuanBnZAIeD2QWBGYPFQJcT3VyIGVsZW1lbnRhcnkgc3R1ZGVudHMgYXJlIHJlYWR5IHRvIGxlYXJuIGFuZCBsb29raW5nIGZvcndhcmQgdG8gdGhlIDIwMTktMjAyMCBzY2hvb2wgeWVhciFcT3VyIGVsZW1lbnRhcnkgc3R1ZGVudHMgYXJlIHJlYWR5IHRvIGxlYXJuIGFuZCBsb29raW5nIGZvcndhcmQgdG8gdGhlIDIwMTktMjAyMCBzY2hvb2wgeWVhciFkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA4L2I0NjY3ZTU3LTc5N2QtNDY1NS1hNjQyLWI5NWVmMWJhNmNmZS5qcGdkAh8PZBYEZg8VAn9PdXIgc3R1ZGVudHMgYXJlIHJlYWR5IHRvIGRpc2NvdmVyIHRoZWlyIHN0b3J5IHRoaXMgc2Nob29sIHllYXIsIGFzIHBhcnQgb2Ygb3VyIE1jS2lubGV5IHNjaG9vbCB0aGVtZSAtIFdoYXQmIzM5O3MgWW91ciBTdG9yeT8gf091ciBzdHVkZW50cyBhcmUgcmVhZHkgdG8gZGlzY292ZXIgdGhlaXIgc3RvcnkgdGhpcyBzY2hvb2wgeWVhciwgYXMgcGFydCBvZiBvdXIgTWNLaW5sZXkgc2Nob29sIHRoZW1lIC0gV2hhdCYjMzk7cyBZb3VyIFN0b3J5PyBkAgEPFQE7L3VzZXJmaWxlcy8yMDE5LTA4L2I5Mzg1ZDZmLTFhM2UtNDQ0Ni04MDU2LWU2YWZkMjBmNTI5My5qcGdkAiAPZBYEZg8VAjRTZWJyaW5nIE1jS2lubGV5IEp1bmlvciBIaWdoIFNjaG9vbCBvZmZlcnMgcm9ib3RpY3MuNFNlYnJpbmcgTWNLaW5sZXkgSnVuaW9yIEhpZ2ggU2Nob29sIG9mZmVycyByb2JvdGljcy5kAgEPFQE7L3VzZXJmaWxlcy8yMDE4LTEwLzY5YmVjMmQxLWEyODMtNGM1My1hYTU2LWRlZGU3N2I2YTI0Zi5qcGdkAiEPZBYEZg8VAmNTZWJyaW5nIE1jS2lubGV5IGhhcyBhIHRhbGVudGVkIGFuZCBwYXNzaW9uYXRlIHN0YWZmLCB3aG8gYXJlIGRlZGljYXRlZCB0byB0aGUgc3R1ZGVudHMgdGhleSB0ZWFjaC5jU2VicmluZyBNY0tpbmxleSBoYXMgYSB0YWxlbnRlZCBhbmQgcGFzc2lvbmF0ZSBzdGFmZiwgd2hvIGFyZSBkZWRpY2F0ZWQgdG8gdGhlIHN0dWRlbnRzIHRoZXkgdGVhY2guZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wMS8wOWMwZjA0YS03ZDBjLTQxMTItOGIwOS0zOWFhMTAwMDFlNGUuanBnZAIiD2QWBGYPFQJgU2VicmluZyBMb2NhbCBTY2hvb2xzIGFyZSAxIHRvIDEgaW4gdGVjaG5vbG9neSwgbWVhbmluZyBlYWNoIHN0dWRlbnQgaGFzIGhpcy9oZXIgb3duIENocm9tZWJvb2suYFNlYnJpbmcgTG9jYWwgU2Nob29scyBhcmUgMSB0byAxIGluIHRlY2hub2xvZ3ksIG1lYW5pbmcgZWFjaCBzdHVkZW50IGhhcyBoaXMvaGVyIG93biBDaHJvbWVib29rLmQCAQ8VATsvdXNlcmZpbGVzLzIwMTgtMTEvNzk3MGI4ZGYtNzk5MC00MWE4LWJlZmUtZDNlMzE0NjZlZDVhLmpwZ2QCIw9kFgRmDxUCTVNtYWxsZXIgY2xhc3Mgc2l6ZXMgbWVhbnMgbW9yZSBwZXJzb25hbGl6ZWQgaW5zdHJ1Y3Rpb24gZm9yIFNlYnJpbmcgc3R1ZGVudHMuWlN0dWRlbnRzIGluIE1ycy4gV2Fsc2gmIzM5O3Mga2luZGVyZ2FydGVuIGNsYXNzIGVhdCB0aGVpciBicmVha2Zhc3QgYW5kIHdvcmsgb24gYSBwcm9qZWN0LmQCAQ8VATsvdXNlcmZpbGVzLzIwMTgtMDkvZjkxNDFhN2UtZDBkYy00NjBlLThkYTMtMmQzZDhjMjBjZjI3LmpwZ2QCJA9kFgRmDxUCUFBvc2l0aXZlIG1lc3NhZ2VzIGNhbiBiZSBzZWVuIHRocm91Z2hvdXQgdGhlIHdhbGxzIGluc2lkZSBib3RoIHNjaG9vbCBidWlsZGluZ3MuUFBvc2l0aXZlIG1lc3NhZ2VzIGNhbiBiZSBzZWVuIHRocm91Z2hvdXQgdGhlIHdhbGxzIGluc2lkZSBib3RoIHNjaG9vbCBidWlsZGluZ3MuZAIBDxUBOy91c2VyZmlsZXMvMjAxOS0wOC82NjQ1NjUwYy1lYmNjLTQ4YTEtOTEyYi03MzYwMTYzYjY2MGYuanBnZAIlD2QWBGYPFQIOQWRtaW4gQnVpbGRpbmcfU2VicmluZyBBZG1pbmlzdHJhdGlvbiBCdWlsZGluZ2QCAQ8VAQ1EU0MxOTczLTEuanBnZAImD2QWBGYPFQIUQkwgTWlsbGVyIEVsZW1lbnRhcnkZQkwgTWlsbGVyIFNjaG9vbCBFbnRyYW5jZWQCAQ8VARBEU0MyNDQ5LTE3LTAuanBnZAInD2QWBGYPFQIUTWNLaW5sZXkgSGlnaCBTY2hvb2wWTWNLaW5sZXkgTWFpbiBFbnRyYW5jZWQCAQ8VAQ9EU0MxOTgxLTMtMC5qcGdkAgsPZBYKAgEPZBYCAgEPZBYCZg8WAh8EBdklPHVsIGNsYXNzPSduYXYgbmF2YmFyLW5hdiBsZWZ0LW5hdi1saW5rcycgPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2Rpc3RyaWN0X3N0YWZmLmFzcHgnICAgdGl0bGU9J1N0YWZmIERpcmVjdG9yeSc+U3RhZmYgRGlyZWN0b3J5PC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29udGVudC9kYWMnICBhcmlhLWxhYmVsPSIiIHRpdGxlPSdBbGwgQ2FsbCc+QWxsIENhbGw8L2E+PC9saT48bGkgY2xhc3M9J2Ryb3Bkb3duJz48YSBocmVmPScjJyBjbGFzcz0nZHJvcGRvd24tdG9nZ2xlJyBkYXRhLXRvZ2dsZT0nZHJvcGRvd24nICAgdGl0bGU9J0FsdW1uaSc+QWx1bW5pICA8c3Ryb25nIGNsYXNzPSdjYXJldCc+PC9zdHJvbmc+PC9hPjx1bCBjbGFzcz0nZHJvcGRvd24tbWVudSc+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvZG9jcy9kaXN0cmljdC90aGUgYWx1bW5pIGxpbmsgMjAyMC5wZGY/aWQ9MTg3OTMnIHRhcmdldD0nX2JsYW5rJyBhcmlhLWxhYmVsPSIiIHRpdGxlPSdBbHVtbmkgTGluayAoMjAyMCknPkFsdW1uaSBMaW5rICgyMDIwKTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL3VzZXJmaWxlcy8yL215IGZpbGVzL2hhbGwgb2YgZmFtZSBub21pbmF0aW9uIGZvcm0gdXBkYXRlZCBqdW5lIDEzIDIwMTcucGRmP2lkPTE2NzA4JyB0YXJnZXQ9J19ibGFuaycgIHRpdGxlPSdIYWxsIG9mIEZhbWUgTm9taW5hdGlvbiBGb3JtJz5IYWxsIG9mIEZhbWUgTm9taW5hdGlvbiBGb3JtPC9hPjwvbGk+PC91bD48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvMjAyMjYnICAgdGl0bGU9J0FubnVhbCBOb3RpY2VzJz5Bbm51YWwgTm90aWNlczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvMjAyMzInICAgdGl0bGU9J0J1c2luZXNzIEFkdmlzb3J5IENvdW5jaWwnPkJ1c2luZXNzIEFkdmlzb3J5IENvdW5jaWw8L2E+PC9saT48bGkgY2xhc3M9J2Ryb3Bkb3duJz48YSBocmVmPScjJyBjbGFzcz0nZHJvcGRvd24tdG9nZ2xlJyBkYXRhLXRvZ2dsZT0nZHJvcGRvd24nICAgdGl0bGU9J0NhbGVuZGFyJz5DYWxlbmRhciAgPHN0cm9uZyBjbGFzcz0nY2FyZXQnPjwvc3Ryb25nPjwvYT48dWwgY2xhc3M9J2Ryb3Bkb3duLW1lbnUnPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2RvY3MvYnVpbGRpbmcvMy8yMDE5LTIwMjAgb3B0IDEgLSBhZG9wdGVkLnBkZj9pZD0xNzY2MScgdGFyZ2V0PSdfYmxhbmsnICB0aXRsZT0nRGlzdHJpY3QgQ2FsZW5kYXIgMjAxOS0yMDIwJz5EaXN0cmljdCBDYWxlbmRhciAyMDE5LTIwMjA8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvODAvbXkgZmlsZXMvdGVzdGluZyBzY2hlZHVsZSAyMDE5LTIwLnBkZj9pZD0xODIxMScgdGFyZ2V0PSdfYmxhbmsnICB0aXRsZT0nVGVzdGluZyBDYWxlbmRhciAyMDE5LTIwMjAnPlRlc3RpbmcgQ2FsZW5kYXIgMjAxOS0yMDIwPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvZG9jcy9kaXN0cmljdC9jYWxlbmRhcnMvZGlzdHJpY3Qob3B0MSkyMC0yMS5wZGY/aWQ9MTg3ODMnICBhcmlhLWxhYmVsPSIiIHRpdGxlPSdEaXN0cmljdCBDYWwuIChPcHQuIDEpIDIwMjAtMjAyMSc+RGlzdHJpY3QgQ2FsLiAoT3B0LiAxKSAyMDIwLTIwMjE8L2E+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC8yMDE0OCcgICB0aXRsZT0nQ09NTUVOVFMgJmFtcDsgQ09OQ0VSTlMnPkNPTU1FTlRTICYgQ09OQ0VSTlM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50X3BhZ2UuYXNweD9jaWQ9MTA4JyAgIHRpdGxlPSdEaXN0cmljdCBHb2FscyAtIE9oaW8gSW1wcm92ZW1lbnQgUHJvY2Vzcyc+RGlzdHJpY3QgR29hbHMgLSBPaGlvIEltcHJvdmVtZW50IFByb2Nlc3M8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9Db250ZW50LzIwMTg2JyB0YXJnZXQ9J19ibGFuaycgIHRpdGxlPSdEaXN0cmljdCBQcm9maWxlJz5EaXN0cmljdCBQcm9maWxlPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29tbV9yZWdpc3RyYXRpb24uYXNweCcgICB0aXRsZT0nRS1Db21tdW5pY2F0aW9uIFJlZ2lzdHJhdGlvbic+RS1Db21tdW5pY2F0aW9uIFJlZ2lzdHJhdGlvbjwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2VtcGxveW1lbnQuYXNweCcgICB0aXRsZT0nRW1wbG95bWVudCBhbmQgVm9sdW50ZWVyIE9wcG9ydHVuaXRpZXMnPkVtcGxveW1lbnQgYW5kIFZvbHVudGVlciBPcHBvcnR1bml0aWVzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC8yMDIwNCcgICB0aXRsZT0nTWlsaXRhcnkgU3VwcG9ydCc+TWlsaXRhcnkgU3VwcG9ydDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvMjAyMDYnICAgdGl0bGU9J01pc3Npb24gU3RhdGVtZW50Jz5NaXNzaW9uIFN0YXRlbWVudDwvYT48L2xpPjxsaSBjbGFzcz0nZHJvcGRvd24nPjxhIGhyZWY9JyMnIGNsYXNzPSdkcm9wZG93bi10b2dnbGUnIGRhdGEtdG9nZ2xlPSdkcm9wZG93bicgICB0aXRsZT0nUGhvdG9zJz5QaG90b3MgIDxzdHJvbmcgY2xhc3M9J2NhcmV0Jz48L3N0cm9uZz48L2E+PHVsIGNsYXNzPSdkcm9wZG93bi1tZW51Jz48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly93d3cuc2VicmluZy5rMTIub2gudXMvQ29udGVudDIvMjAxNzQnICAgdGl0bGU9J0ZsaWNrciBQaG90b3MnPkZsaWNrciBQaG90b3M8L2E+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvY29udGVudF9wYWdlLmFzcHg/Y2lkPTExMCcgICB0aXRsZT0nUmVnaXN0cmF0aW9uIEZvcm1zJz5SZWdpc3RyYXRpb24gRm9ybXM8L2E+PC9saT48bGkgY2xhc3M9J2Ryb3Bkb3duJz48YSBocmVmPScjJyBjbGFzcz0nZHJvcGRvd24tdG9nZ2xlJyBkYXRhLXRvZ2dsZT0nZHJvcGRvd24nICAgdGl0bGU9J1JlcG9ydCBDYXJkICc+UmVwb3J0IENhcmQgICA8c3Ryb25nIGNsYXNzPSdjYXJldCc+PC9zdHJvbmc+PC9hPjx1bCBjbGFzcz0nZHJvcGRvd24tbWVudSc+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwczovL3JlcG9ydGNhcmQuZWR1Y2F0aW9uLm9oaW8uZ292L2Rpc3RyaWN0L292ZXJ2aWV3LzA0ODM1NScgICB0aXRsZT0nRGlzdHJpY3QgUmVwb3J0IENhcmQnPkRpc3RyaWN0IFJlcG9ydCBDYXJkPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwczovL3JlcG9ydGNhcmQuZWR1Y2F0aW9uLm9oaW8uZ292L3NjaG9vbC9vdmVydmlldy8wMjQ4MzYnICAgdGl0bGU9J0IuTC4gTWlsbGVyIFJlcG9ydCBDYXJkJz5CLkwuIE1pbGxlciBSZXBvcnQgQ2FyZDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0naHR0cHM6Ly9yZXBvcnRjYXJkLmVkdWNhdGlvbi5vaGlvLmdvdi9zY2hvb2wvb3ZlcnZpZXcvMDIzODc5JyAgIHRpdGxlPSdNY0tpbmxleSBSZXBvcnQgQ2FyZCc+TWNLaW5sZXkgUmVwb3J0IENhcmQ8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHBzOi8vZWR1Y2F0aW9uLm9oaW8uZ292L2dldGF0dGFjaG1lbnQvVG9waWNzL0RhdGEvUmVwb3J0LUNhcmQtUmVzb3VyY2VzL1JlcG9ydC1DYXJkLUd1aWRlLnBkZi5hc3B4JyAgIHRpdGxlPSdSZXBvcnQgQ2FyZCBHdWlkZSc+UmVwb3J0IENhcmQgR3VpZGU8L2E+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC8yMDE2OCcgICB0aXRsZT0nU2VicmluZy9XQiBGb3VuZGF0aW9uJz5TZWJyaW5nL1dCIEZvdW5kYXRpb248L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jb250ZW50X3BhZ2UuYXNweD9jaWQ9MTA2JyAgIHRpdGxlPSdTdGF0ZSBUZXN0aW5nJz5TdGF0ZSBUZXN0aW5nPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvdXNlcmZpbGVzLzgwL215IGZpbGVzL3RyYW5zY3JpcHQgcmVxdWVzdC5kb2N4P2lkPTE2NzU1JyAgIHRpdGxlPSdUcmFuc2NyaXB0IFJlcXVlc3QnPlRyYW5zY3JpcHQgUmVxdWVzdDwvYT48L2xpPjxsaSBjbGFzcz0nZHJvcGRvd24nPjxhIGhyZWY9JyMnIGNsYXNzPSdkcm9wZG93bi10b2dnbGUnIGRhdGEtdG9nZ2xlPSdkcm9wZG93bicgICB0aXRsZT0nVHdpdHRlciBGZWVkJz5Ud2l0dGVyIEZlZWQgIDxzdHJvbmcgY2xhc3M9J2NhcmV0Jz48L3N0cm9uZz48L2E+PHVsIGNsYXNzPSdkcm9wZG93bi1tZW51Jz48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly93d3cudHdpdHRlci5jb20vU2VicmluZ0xvY2FsJyB0YXJnZXQ9J19ibGFuaycgIHRpdGxlPSdTZWJyaW5nTG9jYWwgVHdpdHRlcic+U2VicmluZ0xvY2FsIFR3aXR0ZXI8L2E+PC9saT48L3VsPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC8yMDE4MCcgICB0aXRsZT0nQWNjZXNzaWJpbGl0eSc+QWNjZXNzaWJpbGl0eTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2FkYS1yZXBvcnQnICAgdGl0bGU9J0FEQSBSZXBvcnQnPkFEQSBSZXBvcnQ8L2E+PC9saT48L3VsPmQCAw9kFgICAQ9kFgICAQ9kFgJmDxYCHwRlZAIJD2QWAgIBD2QWAgICD2QWAgIDDxYCHwACBGQCCw9kFgRmD2QWBAIBD2QWAmYPFgIfAAIDFgYCAQ9kFgQCAQ8PFgYeCEltYWdlVXJsBXQvaW1hZ2VzL2dhbGxlcnkvX2Z1bGxfL3VzZXJmaWxlcy8xMjcvbXkgZmlsZXMvMjAxOS0yMCBzY2hvb2wgeWVhci9pbWdfMjI1Ny5qcGc/aWQ9MTg0NDcmdGh1bWJ3aWR0aD0xMDAmZnVsbHdpZHRoPTYwMB8FBS8vRGlzdHJpY3RHYWxsZXJ5LmFzcHg/Q2F0ZWdvcnlJZD0yNjgmc2Nob29saWQ9MB8EBW5TZWJyaW5nIE1jS2lubGV5IHdlbGNvbWVkIGJhY2sgZml2ZSBncmFkdWF0ZXMgZnJvbSB0aGUgQ2xhc3Mgb2YgMjAxNSBmb3IgdGhlIGZpcnN0IEFsdW1uaSBTZXJpZXMgb2YgdGhlIHllYXIuIGRkAgMPDxYEHwQFGUFsdW1uaSBTZXJpZXMgT2N0b2JlciAybmQfBQUvL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SUQ9MjY4JnNjaG9vbElEPTBkZAICD2QWBAIBDw8WBh8GBY8BL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTktMjAyMCBwaG90b3MvNjkxMTg3MDJfMjk1NjM1NzkwNzcxMjU2N18yOTM5MTI5NjQ0ODgxODA1MzEyX24uanBnP2lkPTE4MzI2JnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUvL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjUyJnNjaG9vbGlkPTAfBAUkVGhlIDIwMTkgU2VicmluZyBDaGVlcmxlYWRpbmcgU3F1YWRzZGQCAw8PFgQfBAUSMjAxOSBDYW5maWVsZCBGYWlyHwUFLy9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTI1MiZzY2hvb2xJRD0wZGQCAw9kFgQCAQ8PFgYfBgVoL2ltYWdlcy9nYWxsZXJ5L19mdWxsXy9kb2NzL2Rpc3RyaWN0LzIwMTktMjAyMCBwaG90b3MvaW1nXzA4NTAuanBnP2lkPTE4MzczJnRodW1id2lkdGg9MTAwJmZ1bGx3aWR0aD02MDAfBQUvL0Rpc3RyaWN0R2FsbGVyeS5hc3B4P0NhdGVnb3J5SWQ9MjU2JnNjaG9vbGlkPTAfBAVfU3R1ZGVudHMgZ290IHRvIHRha2UgcGFydCBpbiBhIE1lZXQgJiBHcmVldCB3aXRoIEFsZXggU2hlZW4sIGZvdW5kZXIgb2YgQmVjYXVzZSBJIFNhaWQgSSBXb3VsZC5kZAIDDw8WBB8EBRZCZWNhdXNlIEkgU2FpZCBJIFdvdWxkHwUFLy9EaXN0cmljdEdhbGxlcnkuYXNweD9DYXRlZ29yeUlEPTI1NiZzY2hvb2xJRD0wZGQCAw8WAh4HVmlzaWJsZWgWAmYPFgIfB2hkAgEPZBYGZg8WAh8EBQZWaWRlb3NkAgEPFgIfBAWdLDxwPkNoZWNrIG91dCBvdXIgWW91VHViZSBDaGFubmVsOiZuYnNwOzxhIGhyZWY9Imh0dHA6Ly9iaXQubHkvMlR2NTk2WCI+aHR0cDovL2JpdC5seS8yVHY1OTZYPC9hPjwvcD4NCg0KPHA+V2hhdCBpcyBTQ0FSUD88L3A+DQoNCjxwPjxpZnJhbWUgYWxsb3c9ImFjY2VsZXJvbWV0ZXI7IGF1dG9wbGF5OyBlbmNyeXB0ZWQtbWVkaWE7IGd5cm9zY29wZTsgcGljdHVyZS1pbi1waWN0dXJlIiBmcmFtZWJvcmRlcj0iMCIgaGVpZ2h0PSIzMDAiIHNjcm9sbGluZz0ibm8iIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvbC14OXNnb1hvNUUiIHdpZHRoPSI0MTIiPjwvaWZyYW1lPjwvcD4NCg0KPHA+Tm8gUGxhY2UgTGlrZSBIb3BlIGJ5IFN0YW5sZXkgTGVvbmU8L3A+DQoNCjxwPjxpZnJhbWUgYWxsb3c9ImFjY2VsZXJvbWV0ZXI7IGF1dG9wbGF5OyBlbmNyeXB0ZWQtbWVkaWE7IGd5cm9zY29wZTsgcGljdHVyZS1pbi1waWN0dXJlIiBmcmFtZWJvcmRlcj0iMCIgaGVpZ2h0PSIzMDAiIHNjcm9sbGluZz0ibm8iIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvazJsbTJibnNZT0UiIHdpZHRoPSI0MTIiPjwvaWZyYW1lPjwvcD4NCg0KPHA+V2VsY29tZSB0byBraW5kZXJnYXJ0ZW4gYXQgQi5MLiBNaWxsZXIgRWxlbWVudGFyeSBTY2hvb2w8L3A+DQoNCjxwPjxpZnJhbWUgYWxsb3c9ImFjY2VsZXJvbWV0ZXI7IGF1dG9wbGF5OyBlbmNyeXB0ZWQtbWVkaWE7IGd5cm9zY29wZTsgcGljdHVyZS1pbi1waWN0dXJlIiBmcmFtZWJvcmRlcj0iMCIgaGVpZ2h0PSIzMDAiIHNjcm9sbGluZz0ibm8iIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvV0UyMU5LenVNWDAiIHdpZHRoPSI0MTIiPjwvaWZyYW1lPjwvcD4NCg0KPHA+VmFsZW50aW5lJiMzOTtzIERheTwvcD4NCg0KPHA+PGlmcmFtZSBhbGxvdz0iYWNjZWxlcm9tZXRlcjsgYXV0b3BsYXk7IGVuY3J5cHRlZC1tZWRpYTsgZ3lyb3Njb3BlOyBwaWN0dXJlLWluLXBpY3R1cmUiIGZyYW1lYm9yZGVyPSIwIiBoZWlnaHQ9IjMwMCIgc2Nyb2xsaW5nPSJubyIgc3JjPSJodHRwczovL3d3dy55b3V0dWJlLmNvbS9lbWJlZC9TS1B2S3Zta1Y3cyIgd2lkdGg9IjQxMiI+PC9pZnJhbWU+PC9wPg0KDQo8cD5CLkwuIE1pbGxlciBQcmVzY2hvb2w8L3A+DQoNCjxwPjxpZnJhbWUgYWxsb3c9ImFjY2VsZXJvbWV0ZXI7IGF1dG9wbGF5OyBlbmNyeXB0ZWQtbWVkaWE7IGd5cm9zY29wZTsgcGljdHVyZS1pbi1waWN0dXJlIiBmcmFtZWJvcmRlcj0iMCIgaGVpZ2h0PSIzMDAiIHNjcm9sbGluZz0ibm8iIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvWkh3WHFRVnFRU1UiIHdpZHRoPSI0MTIiPjwvaWZyYW1lPjwvcD4NCg0KPHA+MTAwdGggRGF5IG9mIEtpbmRlcmdhcnRlbjwvcD4NCg0KPHA+PGlmcmFtZSBhbGxvdz0iYWNjZWxlcm9tZXRlcjsgYXV0b3BsYXk7IGVuY3J5cHRlZC1tZWRpYTsgZ3lyb3Njb3BlOyBwaWN0dXJlLWluLXBpY3R1cmUiIGZyYW1lYm9yZGVyPSIwIiBoZWlnaHQ9IjMwMCIgc2Nyb2xsaW5nPSJubyIgc3JjPSJodHRwczovL3d3dy55b3V0dWJlLmNvbS9lbWJlZC9aQ0dSaFU4cl9RQSIgd2lkdGg9IjQxMiI+PC9pZnJhbWU+PC9wPg0KDQo8cD5IYXBweSBIb2xpZGF5cyE8L3A+DQoNCjxwPjxpZnJhbWUgYWxsb3c9ImFjY2VsZXJvbWV0ZXI7IGF1dG9wbGF5OyBlbmNyeXB0ZWQtbWVkaWE7IGd5cm9zY29wZTsgcGljdHVyZS1pbi1waWN0dXJlIiBmcmFtZWJvcmRlcj0iMCIgaGVpZ2h0PSIzMDAiIHNjcm9sbGluZz0ibm8iIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvTjFZZlB5aVBEYjQiIHdpZHRoPSI0MTIiPjwvaWZyYW1lPjwvcD4NCg0KPHA+U3RhbmxleSBMZW9uZSwgSnIuIC0gSW5zcGlyYXRpb25hbCBTcGVha2VyJm5ic3A7PC9wPg0KDQo8cD48aWZyYW1lIGFsbG93PSJhY2NlbGVyb21ldGVyOyBhdXRvcGxheTsgZW5jcnlwdGVkLW1lZGlhOyBneXJvc2NvcGU7IHBpY3R1cmUtaW4tcGljdHVyZSIgZnJhbWVib3JkZXI9IjAiIGhlaWdodD0iMzAwIiBzY3JvbGxpbmc9Im5vIiBzcmM9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2VtYmVkL2VvVlhBem9SWW13IiB3aWR0aD0iNDEyIj48L2lmcmFtZT48L3A+DQoNCjxwPkFsdW1uaSBTZXJpZXMgb24gTm92ZW1iZXIgMjJuZCZuYnNwOzwvcD4NCg0KPHA+PGlmcmFtZSBhbGxvdz0iYWNjZWxlcm9tZXRlcjsgYXV0b3BsYXk7IGVuY3J5cHRlZC1tZWRpYTsgZ3lyb3Njb3BlOyBwaWN0dXJlLWluLXBpY3R1cmUiIGZyYW1lYm9yZGVyPSIwIiBoZWlnaHQ9IjMwMCIgc2Nyb2xsaW5nPSJubyIgc3JjPSJodHRwczovL3d3dy55b3V0dWJlLmNvbS9lbWJlZC9ub2dTb1BDNlpVUSIgd2lkdGg9IjQxMiI+PC9pZnJhbWU+PC9wPg0KDQo8cD5XYXRjaCB0aGUgbGF0ZXN0IHJlY2FwIHZpZGVvPC9wPg0KDQo8cD48aWZyYW1lIGFsbG93PSJhY2NlbGVyb21ldGVyOyBhdXRvcGxheTsgZW5jcnlwdGVkLW1lZGlhOyBneXJvc2NvcGU7IHBpY3R1cmUtaW4tcGljdHVyZSIgZnJhbWVib3JkZXI9IjAiIGhlaWdodD0iMzAwIiBzY3JvbGxpbmc9Im5vIiBzcmM9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2VtYmVkL29lbnFGX3BTdnNBIiB3aWR0aD0iNDEyIj48L2lmcmFtZT48L3A+DQoNCjxwPkhhcHB5IFZldGVyYW5zIERheSE8L3A+DQoNCjxwPjxpZnJhbWUgYWxsb3c9ImFjY2VsZXJvbWV0ZXI7IGF1dG9wbGF5OyBlbmNyeXB0ZWQtbWVkaWE7IGd5cm9zY29wZTsgcGljdHVyZS1pbi1waWN0dXJlIiBmcmFtZWJvcmRlcj0iMCIgaGVpZ2h0PSIzMDAiIHNjcm9sbGluZz0ibm8iIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvZE1LOWI1WGI3amsiIHdpZHRoPSI0MTIiPjwvaWZyYW1lPjwvcD4NCg0KPHA+V2F0Y2ggdGhlIGxhdGVzdCByZWNhcCB2aWRlbzwvcD4NCg0KPHA+PGlmcmFtZSBhbGxvdz0iYWNjZWxlcm9tZXRlcjsgYXV0b3BsYXk7IGVuY3J5cHRlZC1tZWRpYTsgZ3lyb3Njb3BlOyBwaWN0dXJlLWluLXBpY3R1cmUiIGZyYW1lYm9yZGVyPSIwIiBoZWlnaHQ9IjMwMCIgc2Nyb2xsaW5nPSJubyIgc3JjPSJodHRwczovL3d3dy55b3V0dWJlLmNvbS9lbWJlZC9IWlQwN3FnUDlnVSIgd2lkdGg9IjQxMiI+PC9pZnJhbWU+PC9wPg0KDQo8cD5CZWR0aW1lIFN0b3JpZXM8L3A+DQoNCjxwPjxpZnJhbWUgYWxsb3c9ImFjY2VsZXJvbWV0ZXI7IGF1dG9wbGF5OyBlbmNyeXB0ZWQtbWVkaWE7IGd5cm9zY29wZTsgcGljdHVyZS1pbi1waWN0dXJlIiBmcmFtZWJvcmRlcj0iMCIgaGVpZ2h0PSIzMDAiIHNjcm9sbGluZz0ibm8iIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvUzQwd0dBSUpPVVEiIHdpZHRoPSI0MTIiPjwvaWZyYW1lPjwvcD4NCg0KPHA+RmFsbCBGdW4gaW4gS2luZGVyZ2FydGVuJm5ic3A7PC9wPg0KDQo8cD48aWZyYW1lIGFsbG93PSJhY2NlbGVyb21ldGVyOyBhdXRvcGxheTsgZW5jcnlwdGVkLW1lZGlhOyBneXJvc2NvcGU7IHBpY3R1cmUtaW4tcGljdHVyZSIgZnJhbWVib3JkZXI9IjAiIGhlaWdodD0iMzAwIiBzY3JvbGxpbmc9Im5vIiBzcmM9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2VtYmVkL0llQ2hjTWFEeU53IiB3aWR0aD0iNDEyIj48L2lmcmFtZT48L3A+DQoNCjxwPkFsdW1uaSBTZXJpZXMgb24gT2N0b2JlciAybmQmbmJzcDs8L3A+DQoNCjxwPjxpZnJhbWUgYWxsb3c9ImFjY2VsZXJvbWV0ZXI7IGF1dG9wbGF5OyBlbmNyeXB0ZWQtbWVkaWE7IGd5cm9zY29wZTsgcGljdHVyZS1pbi1waWN0dXJlIiBmcmFtZWJvcmRlcj0iMCIgaGVpZ2h0PSIzMDAiIHNjcm9sbGluZz0ibm8iIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvT2NkUE03TGdVNVEiIHdpZHRoPSI0MTIiPjwvaWZyYW1lPjwvcD4NCg0KPHA+V2F0Y2ggdGhlIGxhdGVzdCByZWNhcCB2aWRlbzwvcD4NCg0KPHA+PGlmcmFtZSBhbGxvdz0iYWNjZWxlcm9tZXRlcjsgYXV0b3BsYXk7IGVuY3J5cHRlZC1tZWRpYTsgZ3lyb3Njb3BlOyBwaWN0dXJlLWluLXBpY3R1cmUiIGZyYW1lYm9yZGVyPSIwIiBoZWlnaHQ9IjMwMCIgc2Nyb2xsaW5nPSJubyIgc3JjPSJodHRwczovL3d3dy55b3V0dWJlLmNvbS9lbWJlZC85X3hoQzl0eHhVbyIgd2lkdGg9IjQxMiI+PC9pZnJhbWU+PC9wPg0KDQo8cD5XYXRjaCB0aGUgbGF0ZXN0IHJlY2FwIHZpZGVvPC9wPg0KDQo8cD48aWZyYW1lIGFsbG93PSJhY2NlbGVyb21ldGVyOyBhdXRvcGxheTsgZW5jcnlwdGVkLW1lZGlhOyBneXJvc2NvcGU7IHBpY3R1cmUtaW4tcGljdHVyZSIgZnJhbWVib3JkZXI9IjAiIGhlaWdodD0iMzAwIiBzY3JvbGxpbmc9Im5vIiBzcmM9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2VtYmVkL1dpSDVlU0VudE1JIiB3aWR0aD0iNDEyIj48L2lmcmFtZT48L3A+DQoNCjxwPkJlY2F1c2UgSSBTYWlkIEkgV291bGQgU3BlYWtlciZuYnNwOzwvcD4NCg0KPHA+PGlmcmFtZSBhbGxvdz0iYWNjZWxlcm9tZXRlcjsgYXV0b3BsYXk7IGVuY3J5cHRlZC1tZWRpYTsgZ3lyb3Njb3BlOyBwaWN0dXJlLWluLXBpY3R1cmUiIGZyYW1lYm9yZGVyPSIwIiBoZWlnaHQ9IjMwMCIgc2Nyb2xsaW5nPSJubyIgc3JjPSJodHRwczovL3d3dy55b3V0dWJlLmNvbS9lbWJlZC9lS2dWSTRHdm51MCIgd2lkdGg9IjQxMiI+PC9pZnJhbWU+PC9wPg0KDQo8cD5GaXJzdCBEYXkgb2YgU2Nob29sJm5ic3A7PC9wPg0KDQo8cD48aWZyYW1lIGFsbG93PSJhY2NlbGVyb21ldGVyOyBhdXRvcGxheTsgZW5jcnlwdGVkLW1lZGlhOyBneXJvc2NvcGU7IHBpY3R1cmUtaW4tcGljdHVyZSIgZnJhbWVib3JkZXI9IjAiIGhlaWdodD0iMzAwIiBzY3JvbGxpbmc9Im5vIiBzcmM9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2VtYmVkL0JuMEllTGxzMV9VIiB3aWR0aD0iNDEyIj48L2lmcmFtZT48L3A+DQoNCjxwPlNlYnJpbmcgTG9jYWwgU2Nob29scywgVGhpcyBJcyBIb21lPC9wPg0KDQo8cD48aWZyYW1lIGFsbG93PSJhY2NlbGVyb21ldGVyOyBhdXRvcGxheTsgZW5jcnlwdGVkLW1lZGlhOyBneXJvc2NvcGU7IHBpY3R1cmUtaW4tcGljdHVyZSIgZnJhbWVib3JkZXI9IjAiIGhlaWdodD0iMzAwIiBzY3JvbGxpbmc9Im5vIiBzcmM9Imh0dHBzOi8vd3d3LnlvdXR1YmUuY29tL2VtYmVkL05OMWQyeWJnbWVvIiB3aWR0aD0iNDEyIj48L2lmcmFtZT48L3A+DQoNCjxwPkFsbC1TdGFyIEFsdW1uaSBTZXJpZXM8L3A+DQoNCjxwPjxpZnJhbWUgYWxsb3c9ImFjY2VsZXJvbWV0ZXI7IGF1dG9wbGF5OyBlbmNyeXB0ZWQtbWVkaWE7IGd5cm9zY29wZTsgcGljdHVyZS1pbi1waWN0dXJlIiBmcmFtZWJvcmRlcj0iMCIgaGVpZ2h0PSIzMDAiIHNjcm9sbGluZz0ibm8iIHNyYz0iaHR0cHM6Ly93d3cueW91dHViZS5jb20vZW1iZWQvQ01fcXAxTmNMZmciIHdpZHRoPSI0MTIiPjwvaWZyYW1lPjwvcD4NCg0KPHA+T2hpbyBEZXBhcnRtZW50IG9mIEVkdWNhdGlvbiBTdXBlcmludGVuZGVudCB2aXNpdHMgU2VicmluZzwvcD4NCg0KPHA+PGlmcmFtZSBhbGxvdz0iYWNjZWxlcm9tZXRlcjsgYXV0b3BsYXk7IGVuY3J5cHRlZC1tZWRpYTsgZ3lyb3Njb3BlOyBwaWN0dXJlLWluLXBpY3R1cmUiIGZyYW1lYm9yZGVyPSIwIiBoZWlnaHQ9IjMwMCIgc2Nyb2xsaW5nPSJubyIgc3JjPSJodHRwczovL3d3dy55b3V0dWJlLmNvbS9lbWJlZC9kb0tWbERHRUpYTSIgd2lkdGg9IjQxMiI+PC9pZnJhbWU+PC9wPmQCAw8PFgIfBQUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0yZGQCDQ9kFgQCAQ9kFgZmDxYCHwACBhYMAgEPZBYCZg8VBwUyMzMzNSpNYXk8ZGl2IGNsYXNzPSJldmVudC1kYXRlLW51bWJlciI+IDE8L2Rpdj5GL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMzMzNRFCLkwuIFNuaWNrZXQgc2FsZRFCLkwuIFNuaWNrZXQgc2FsZQAAZAICD2QWAmYPFQcFMjMzMzQvTWF5PGRpdiBjbGFzcz0iZXZlbnQtZGF0ZS1udW1iZXIiPiAzIC0gIDg8L2Rpdj5GL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMzMzNBlUZWFjaGVyIEFwcHJlY2lhdGlvbiBXZWVrGVRlYWNoZXIgQXBwcmVjaWF0aW9uIFdlZWsAAGQCAw9kFgJmDxUHBTIzNDQxK01heTxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMTE8L2Rpdj5GL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMzQ0MRw1dGggZ3IuIFBpY25pYyAmIE9yaWVudGF0aW9uHDV0aCBnci4gUGljbmljICYgT3JpZW50YXRpb24AAGQCBA9kFgJmDxUHBTIzNDQyK01heTxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMTE8L2Rpdj5GL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMzQ0MhI1dGggZ3IuIEdyYWR1YXRpb24SNXRoIGdyLiBHcmFkdWF0aW9uABc2OjAwIFBNICZtZGFzaDsgNzowMCBQTWQCBQ9kFgJmDxUHBTIzMzMzMU1heTxkaXYgY2xhc3M9ImV2ZW50LWRhdGUtbnVtYmVyIj4gMTMgLSAgMTU8L2Rpdj5GL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAsMSwyLDMmc2Nob29saWQ9MCZ0eXBlcz0mZXZlbnRJRD0yMzMzMw81dGggR3IuIHRvIENhbXAPNXRoIEdyLiB0byBDYW1wAABkAgYPZBYCZg8VBwUyMzYyMytNYXk8ZGl2IGNsYXNzPSJldmVudC1kYXRlLW51bWJlciI+IDE0PC9kaXY+Ri9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wLDEsMiwzJnNjaG9vbGlkPTAmdHlwZXM9JmV2ZW50SUQ9MjM2MjMPU2VuaW9yIFNob3djYXNlD1NlbmlvciBTaG93Y2FzZQAXNTowMCBQTSAmbWRhc2g7IDY6MzAgUE1kAgQPDxYCHwUFIS9jYWxNb250aFZpZXcuYXNweD9zPTAmeT0yMDIwJm09NGRkAgYPDxYEHwUFRS9jYWxlbmRhcldlZWtWaWV3LmFzcHg/c2Nob29scz0wJnNjaG9vbGlkPTAmdHlwZXM9JnZpZXdEYXRlPTQvMjkvMjAyMB8EBQhWaWV3IEFsbGRkAgMPZBYEZg88KwAKAQAPFgoeDU5leHRNb250aFRleHQFLj48c3BhbiBjbGFzcz0nb2JzY3VyZSc+R28gdG8gbmV4dCBtb250aDwvc3Bhbj4eAlNEFgEGAECkQtDr1wgeC1RpdGxlRm9ybWF0CyolU3lzdGVtLldlYi5VSS5XZWJDb250cm9scy5UaXRsZUZvcm1hdAAeDURheU5hbWVGb3JtYXQLKidTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLkRheU5hbWVGb3JtYXQBHg1QcmV2TW9udGhUZXh0BTI8PHNwYW4gY2xhc3M9J29ic2N1cmUnPkdvIHRvIHByZXZpb3VzIG1vbnRoPC9zcGFuPmRkAgEPDxYGHgZUYXJnZXQFBl9ibGFuax8EBRJWaWV3IEZ1bGwgQ2FsZW5kYXIfBQUlL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00JnQ9MGRkAhEPZBYCZg8WAh8AAgIWBGYPZBYCZg8VAw1mYSBmYS1zaWduLWluCy9sb2dpbi5hc3B4AGQCAQ9kFgJmDxUDDWZhIGZhLXR3aXR0ZXIjaHR0cDovL3d3dy50d2l0dGVyLmNvbS9TZWJyaW5nTG9jYWwUU2VicmluZ0xvY2FsIFR3aXR0ZXJkZAFqIlnu9RD9bI1hQF2H6+Jb2xqg">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+var theForm = document.forms['aspnetForm'];
+if (!theForm) {
+    theForm = document.aspnetForm;
+}
+function __doPostBack(eventTarget, eventArgument) {
+    if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+        theForm.__EVENTTARGET.value = eventTarget;
+        theForm.__EVENTARGUMENT.value = eventArgument;
+        theForm.submit();
+    }
+}
+//]]>
+</script><script src="/WebResource.axd?d=ciQs-AUcGllikzvJxOn4IY9qdpn5WXYfT_PMnTK91Xt8dksb258BJxYsmn4olEPTocq6JTsZH-_-9MV4tnJ7755rEvo1&amp;t=635875512900000000" type="text/javascript"></script><a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        function createCookie(name, value, days) {
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                var expires = "; expires=" + date.toGMTString();
+            }
+
+            else var expires = "";
+            document.cookie = name + "=" + value + expires + "; path=/";
+        }
+
+        function readCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+            }
+
+            return null;
+        }
+
+        function eraseCookie(name) {
+            createCookie(name, "", -1);
+        }
+
+        function setColorPreference(colorPreference) {
+            if (colorPreference >= 1 && colorPreference <= 4) {
+                var colors = [
+                    { b: "#000000", t: "#ffffff" },
+                    { b: "#ffffff", t: "#000000" },
+                    { b: "#000000", t: "#ffff00" },
+                    { b: "#fe0000", t: "#ffffff" }
+                ];
+            }
+
+            $('body').attr('id', 'colorOverride');
+
+            var css = "<style type='text/css'> body#colorOverride * { background-color:" + colors[colorPreference - 1].b + " !important; color:" + colors[colorPreference - 1].t + " !important;} *:focus {color:" + colors[colorPreference - 1].t + "; border:1px dotted " + colors[colorPreference - 1].t + "}</style>";
+            $('#helperStyle').html(css);
+            createCookie('colorchange', colorPreference, 1);
+        }
+
+        function setTextSize(textSize) {
+            $('#resizingText').html('<style type="text/css"> \
+		        #middle-nav ul li a, nav#top-nav li a {font-size:' + (14 + textSize) + 'pt;} \
+                h1, #content-right header {font-size:' + (24 + textSize) + 'px;} \
+                #news-list .article .news-summary, section#upcoming-events ul a, .foot2 li a, .aside-content li a{font-size:' + (13 + textSize) + 'px;} \
+                .foot2 li ul li a{font-size:' + (13 + textSize) + 'pt;} \
+                #news-list .article a.news-title{font-size:' + (14 + textSize) + 'pt;} \
+                #school-map span{font-size:' + (13 + textSize) + 'pt;} \
+                .foot2 li ul li a, .sf-vertical li a, ul.nav.navbar-nav > li > a{font-size:' + (13 + textSize) + 'px !important;} \
+                html, body, table, tr, td, div, .panel, .panel p, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, img, ins, kbd, q, s, samp, small, strike, sub, sup, var, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, article, aside, canvas, details, embed, figure, figcaption, footer, header, footer,hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video{font-size:' + (13 + textSize) + 'pt !important; line-height: ' + (13 + textSize) + 'pt ; } \
+                </style>');
+            createCookie('textsize', textSize, 1);
+        }
+
+        var textSize = readCookie('textsize');
+
+        if (textSize && textSize != 0) {
+            textSize = parseInt(textSize, 10);
+            setTextSize(textSize);
+        }
+
+        var colorPreference = readCookie('colorchange');
+
+        if (colorPreference && colorPreference != 0) {
+            colorPreference = parseInt(colorPreference, 10);
+            setColorPreference(colorPreference);
+        }
+
+        $('.vision-helper-revert').click(function () {
+            eraseCookie('textsize');
+            eraseCookie('colorchange');
+            textSize = 0;
+            $('#resizingText').empty();
+            $('#helperStyle').empty();
+        });
+
+        $('.vision-helper-change-font-size').click(function () {
+            var add = parseInt($(this).data('size-add'), 10);
+            textSize += add;
+            if (textSize < 1) textSize = 1;
+            setTextSize(textSize);
+        });
+
+        $('.color-preference').click(function () {
+            var colorPreference = parseInt($(this).data('color-preference'), 10);
+            setColorPreference(colorPreference);
+        });
+    });
+</script><div style="position: relative;" class="visionBardiv">
+    <div class="vision-helper-wrapper">
+        <div id="helperStyle"></div>
+        <div id="resizingText"></div>
+        <strong class="vision-helper-label">Text Options for the Visually Impaired</strong>
+        <strong class="vision-helper-label">Font Size:</strong>
+        <a href="javascript:void(0)" class="vision-helper-button vision-helper-change-font-size" data-size-add="-1" title="Decrease font size">a-</a>
+        <a href="javascript:void(0)" class="vision-helper-button vision-helper-change-font-size" data-size-add="1" title="Increase font size">A+</a>
+        <strong class="vision-helper-label">Color:</strong>
+        <a href="javascript:void(0);" data-color-preference="1" class="color-preference color-1 vision-helper-button" title="Change the color of the page to white on black">A</a>
+        <a href="javascript:void(0);" data-color-preference="2" class="color-preference color-2 vision-helper-button" title="Change the color of the page to black on white">A</a>
+        <a href="javascript:void(0);" data-color-preference="3" class="color-preference color-3 vision-helper-button" title="Change the color of the page to yellow on black">A</a>
+        <a href="javascript:void(0)" title="Undo Changes" class="vision-helper-button vision-helper-revert">Revert <i class="fa fa-undo" aria-hidden="true"></i></a>
+
+        <div style="position: absolute; right: 2px; top: 0px; z-index: 20;">
+            <a href="javascript:hideVisionBar()" class="closeAlert">
+                <i class="fa fa-times" aria-hidden="true"></i><span class="obscure">Close vision bar</span>
+            </a>
+        </div>
+
+        <div style="clear: both;"></div>
+    </div>
+</div>
+
+<div class="visionBarReShow" style="position: relative; width: 100%; padding: 2px;">
+    <a style="float: right;" href="javascript:loadVisionBar()" class="openAlert">
+        <i class="fa fa-exclamation-circle" aria-hidden="true"></i><span class="obscure">Open vision bar</span>
+    </a>
+
+    <div style="clear: both;"></div>
+</div>
+
+<style type="text/css">
+    .visionBardiv
+    {
+        display: none;
+    }
+
+    .visonBarReShow
+    {
+        display: none;
+    }
+
+    #helperStyle,
+    #resizingText
+    {
+        display: none;
+    }
+
+    .vision-helper-wrapper
+    {
+        line-height: 25px !important;
+        font-size: 20px !important;
+        z-index: 10;
+        position: relative;
+        font-weight: normal;
+        background: #fff;
+        border-bottom: solid 1px gainsboro;
+        padding: 10px 15px;
+    }
+
+    .vision-helper-button
+    {
+        border: solid 1px gainsboro;
+    }
+
+    .vision-helper-button,
+    .vision-helper-button > i
+    {
+        line-height: 25px !important;
+        font-size: 20px !important;
+        display: inline-block;
+        padding: 0px 10px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .vision-helper-button:hover,
+    .vision-helper-button:active
+    {
+        border: solid 1px #333;
+        cursor: pointer;
+        color: black;
+        text-decoration: none;
+    }
+
+    .vision-helper-label
+    {
+        line-height: 25px !important;
+        font-size: 20px !important;
+        display: inline-block;
+        padding: 0px 10px;
+        text-decoration: none;
+        color: black;
+    }
+
+    .vision-helper-revert
+    {
+        float: right;
+        border: solid 1px transparent;
+        margin-right: 10px;
+    }
+
+    a.color-1
+    {
+        color: #fff !important;
+        background: #000 !important;
+    }
+
+    a.color-2
+    {
+        color: #000 !important;
+        background: #fff !important;
+    }
+
+    a.color-3
+    {
+        color: #FFFF00 !important;
+        background: #000 !important;
+    }
+
+    a.color-4
+    {
+        color: #fff !important;
+        background: #fe0000 !important;
+    }
+</style>
+<script type="text/javascript" src="/admin/js/visionbar/visionBar.js"></script><script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: 'ILxAaM2Kec' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><div class="headerback">
+            <header id="site-head" class="container"><div class="row">
+                    
+    
+        
+
+<div class="col-xs-12 col-sm-9 col-md-10 col-lg-10">
+	<div class="NavBack">
+		<div class="navigation">
+			<nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+						<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+					</button>
+					<a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome3" class="navbar-brand hidden-lg hidden-md " href="/"><span id="ctl00_ctl00_header_header_ctl00_schoolName">Sebring Local Schools</span></a>
+				</div>
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav top-nav-links">
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="School Websites">School Websites  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/" title="District">District</a></li>
+<li class="without-image"><a href="/2/home" title="BL Miller Elementary">BL Miller Elementary</a></li>
+<li class="without-image"><a href="/1/home" title="McKinley Jr/SR High">McKinley Jr/SR High</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Athletics">Athletics  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://trojannation.org/" target="_blank" title="Trojan Nation Website">Trojan Nation Website</a></li>
+<li class="without-image"><a href="/Content/20220" title="Hall of Fame Nomination Form">Hall of Fame Nomination Form</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/how%20to%20sign%20up%20for%20sebring%20sports%20alerts.pdf?id=16832" title="How to get Sebring Sports Alerts">How to get Sebring Sports Alerts</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/administration/20" title="Care Team">Care Team</a></li>
+<li class="without-image"><a href="/Content/20164" title="Compliance officer">Compliance officer</a></li>
+<li class="without-image"><a href="/Administration/6" title="Curriculum">Curriculum</a></li>
+<li class="without-image"><a href="/Administration/10" title="Federal Programs">Federal Programs</a></li>
+<li class="without-image"><a href="/Administration/14" title="Food Service">Food Service</a></li>
+<li class="without-image"><a href="/Administration/8" title="Gifted Education">Gifted Education</a></li>
+<li class="without-image"><a href="/Administration/12" target="_blank" title="Guidance Office">Guidance Office</a></li>
+<li class="without-image"><a href="#" title="Online Academy">Online Academy</a></li>
+<li class="without-image"><a href="/Administration/2" target="_blank" title="Special Education">Special Education</a></li>
+<li class="without-image"><a href="/Content/26" target="_blank" title="Technology">Technology</a></li>
+<li class="without-image"><a href="/administration/16" title="Treasurer">Treasurer</a></li>
+<li class="without-image"><a href="/Content/20218" title="Superintendent">Superintendent</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Student/Parent Log-In ">Student/Parent Log-In   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://login.i-ready.com/" title="iReady Login">iReady Login</a></li>
+<li class="without-image"><a href="https://www.measuringuplive2.com/" title="Measure Up">Measure Up</a></li>
+<li class="without-image"><a href="https://accounts.google.com/ServiceLogin?continue=https%3A%2F%2Fmail.google.com%2Fa%2Fstudent.sebring.k12.oh.us%2F&amp;ltmpl=default&amp;hd=student.sebring.k12.oh.us&amp;service=mail&amp;sacu=1&amp;rip=1#identifier" title="Login Student Google Email Account">Login Student Google Email Account</a></li>
+<li class="without-image"><a href="https://test.mapnwea.org/" title="Login Student MAP Testing Site">Login Student MAP Testing Site</a></li>
+<li class="without-image"><a href="https://parentaccess.access-k12.org/" title="Login Student Grades Progress Book ">Login Student Grades Progress Book </a></li>
+<li class="without-image"><a href="https://sso.rumba.pearsoncmg.com/sso/login?profile=realize&amp;k12int=true&amp;service=https%3A%2F%2Fwww.pearsonrealize.com%2Fcommunity%2Fj_spring_cas_security_check" title="History Person Login">History Person Login</a></li>
+<li class="without-image"><a href="https://sebring.illuminatehc.com/login" title="Illuminate Education Login">Illuminate Education Login</a></li>
+<li class="without-image"><a href="https://my.hrw.com/index.jsp" title="Math Holt McDougal Login ">Math Holt McDougal Login </a></li>
+<li class="without-image"><a href="https://www.khanacademy.org/" title="Math Khan Academy Login">Math Khan Academy Login</a></li>
+<li class="without-image"><a href="https://www.mobymax.com/oh168" title="Math Moby Max Login">Math Moby Max Login</a></li>
+<li class="without-image"><a href="https://www-k6.thinkcentral.com/ePC/start.do" title="Math Think Central Login">Math Think Central Login</a></li>
+<li class="without-image"><a href="https://www.explorelearning.com/" title="Science Gizmos Login">Science Gizmos Login</a></li>
+<li class="without-image"><a href="https://student.freckle.com/#login" title="Freckle">Freckle</a></li>
+<li class="without-image"><a href="https://www.typing.com/student/login" title="Typing.com">Typing.com</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Student/Parents Resources">Student/Parents Resources  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/userfiles/80/my%20files/student%20hand%20book%2019-20%20(1).pdf?id=18274" title="Student Handbook: BL Miller ">Student Handbook: BL Miller </a></li>
+<li class="without-image"><a href="/userfiles/80/my%20files/sebring%20handbook%202019-20%20final.pdf?id=18376" title="Student Handbook: McKinley ">Student Handbook: McKinley </a></li>
+<li class="without-image"><a href="/Content/20202" title="Accident Insurance Policy">Accident Insurance Policy</a></li>
+<li class="without-image"><a href="http://access.infohio.org/opac/SEBR/SBME/" title="CAT BL Miller Info Ohio Catalog">CAT BL Miller Info Ohio Catalog</a></li>
+<li class="without-image"><a href="http://access.infohio.org/opac/SEBR/SBHS/" title="CAT McKinley Info Ohio Catalog">CAT McKinley Info Ohio Catalog</a></li>
+<li class="without-image"><a href="https://sw-tron.s3.amazonaws.com/Yb5VQhftxgbLKB9cr3yGDKgw?response-content-disposition=inline%3B%20filename%3D%22sebring%20mckinley%20course%20catalog%202019-2020.pdf%22%3B%20filename%2A%3DUTF-8%27%27sebring%2520mckinley%2520course%2520catalog%25202019-2020.pdf&amp;response-content-type=application%2Fpdf&amp;X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAI4PGXKZUITUGAN3A%2F20191014%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20191014T143048Z&amp;X-Amz-Expires=300&amp;X-Amz-SignedHeaders=host&amp;X-Amz-Signature=220b46e9627cfe7680e7b4022991a69330f36b1266e30ac59c08151ab9b4fce4" title="McKinley Course Catalog">McKinley Course Catalog</a></li>
+<li class="without-image"><a href="http://www.classzone.com/books/hs/ca/sc/bio_07/virtual_labs/virtualLabs.html" title="Science Small Labs Classzone">Science Small Labs Classzone</a></li>
+<li class="without-image"><a href="http://www.sebring.k12.oh.us/Content/seniors" title="Senior Updates">Senior Updates</a></li>
+<li class="without-image"><a href="http://sebringtrojans.shutterflystorefront.com" title="Shutterfly Discount">Shutterfly Discount</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/start%20talking%20explanation%20doc%202018%20(1).pdf?id=17081" title="Start Talking">Start Talking</a></li>
+<li class="without-image"><a href="https://www.understood.org/en" title="Understood for Learning &amp; Attention Issues">Understood for Learning &amp; Attention Issues</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Voluntary Student Accident Program">Voluntary Student Accident Program  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/forms/accident%20protection/reccletter.pdf?id=18786" target="_blank" aria-label="" title="Parent Letter">Parent Letter</a></li>
+<li class="without-image"><a href="/docs/district/forms/accident%20protection/gb-oh-20-k-12%20sales%20brochure.pdf?id=18787" target="_blank" aria-label="" title="Brochure">Brochure</a></li>
+<li class="without-image"><a href="/docs/district/forms/accident%20protection/k-12%20voluntary%20application%20-%20ga-15-kv-oh%20-%20(2020-21).pdf?id=18788" target="_blank" aria-label="" title="Application">Application</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Staff Links">Staff Links  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://oh.sso.airast.org/auth/XUI/#login/&amp;realm=/ohio&amp;forward=true&amp;spEntityID=SP_OHIO_TESTADMIN_PROD&amp;goto=%2FSSORedirect%2FmetaAlias%2Fohio%2Fidp%3FReqID%3DS26C0ADEC69FE0FC36C3EB34C7D0176939AA2C603D%26index%3Dnull%26acsURL%3D%26spEntityID%3DSP_OHIO_TESTADMIN_PROD%26binding%3D&amp;AIRSSO-DFW-PROD4-prod-AUTH=" title="AIR Teacher Login">AIR Teacher Login</a></li>
+<li class="without-image"><a href="http://www.sebring.k12.oh.us/login.aspx" title="CMS Webpage Login">CMS Webpage Login</a></li>
+<li class="without-image"><a href="https://dasl.access-k12.org" title="DASL">DASL</a></li>
+<li class="without-image"><a href="https://mail.google.com" title="Email for Staff">Email for Staff</a></li>
+<li class="without-image"><a href="https://samegoal.org/iep/a/sebring.k12.oh.us" title="IEP Anywhere">IEP Anywhere</a></li>
+<li class="without-image"><a href="https://sebring.illuminateed.com" title="illuminate">illuminate</a></li>
+<li class="without-image"><a href="/Login/Intranet" title="IntraNet Login for Mileage and PO's">IntraNet Login for Mileage and PO's</a></li>
+<li class="without-image"><a href="https://teach.mapnwea.org" title="Map Teacher Login">Map Teacher Login</a></li>
+<li class="without-image"><a href="http://oh.portal.airast.org/ocba/resources/?section=5-general" title="Ohio's State Grades 3-12 - Blueprints">Ohio's State Grades 3-12 - Blueprints</a></li>
+<li class="without-image"><a href="http://oh.portal.airast.org/ocba/resources/?section=5-general" title="Ohio's State Tests Math K-8 - Critical Areas of Focus">Ohio's State Tests Math K-8 - Critical Areas of Focus</a></li>
+<li class="without-image"><a href="https://central.access-k12.org" title="Progress Book">Progress Book</a></li>
+<li class="without-image"><a href="https://www.publicschoolworks.com/Pages/login.asp?di=1323&amp;dia=7vyr1&amp;signout=1&amp;0&amp;/&amp;&amp;&amp;" title="Public Schools Works Staff Training Login">Public Schools Works Staff Training Login</a></li>
+<li class="without-image"><a href="https://ws.nextera.questarai.com/admin/Accounts/Login%20" title="Teacher Login Questar">Questar Teacher Login</a></li>
+<li class="without-image"><a href="http://sebringtrojans.shutterflystorefront.com" title="Shutterfly Discount">Shutterfly Discount</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="https://www.myscview.com/login.aspx" title="Strategic Solutions">Strategic Solutions</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/content/128" title=" Community"> Community</a></li>
+</ul>
+<div class="collapsedLinks">
+						<ul>
+<li class="qlTitle">Quick Links</li>
+						</ul>
+<ul class="nav navbar-nav left-nav-links">
+<li class="without-image"><a href="/Staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/content/dac" aria-label="" title="All Call">All Call</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Alumni">Alumni  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/the%20alumni%20link%202020.pdf?id=18793" target="_blank" aria-label="" title="Alumni Link (2020)">Alumni Link (2020)</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/hall%20of%20fame%20nomination%20form%20updated%20june%2013%202017.pdf?id=16708" target="_blank" title="Hall of Fame Nomination Form">Hall of Fame Nomination Form</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/20226" title="Annual Notices">Annual Notices</a></li>
+<li class="without-image"><a href="/Content/20232" title="Business Advisory Council">Business Advisory Council</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar">Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/building/3/2019-2020%20opt%201%20-%20adopted.pdf?id=17661" target="_blank" title="District Calendar 2019-2020">District Calendar 2019-2020</a></li>
+<li class="without-image"><a href="/userfiles/80/my%20files/testing%20schedule%202019-20.pdf?id=18211" target="_blank" title="Testing Calendar 2019-2020">Testing Calendar 2019-2020</a></li>
+<li class="without-image"><a href="/docs/district/calendars/district(opt1)20-21.pdf?id=18783" aria-label="" title="District Cal. (Opt. 1) 2020-2021">District Cal. (Opt. 1) 2020-2021</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/20148" title="COMMENTS &amp; CONCERNS">COMMENTS &amp; CONCERNS</a></li>
+<li class="without-image"><a href="/Content/108" title="District Goals - Ohio Improvement Process">District Goals - Ohio Improvement Process</a></li>
+<li class="without-image"><a href="/Content/20186" target="_blank" title="District Profile">District Profile</a></li>
+<li class="without-image"><a href="/Communication" title="E-Communication Registration">E-Communication Registration</a></li>
+<li class="without-image"><a href="/Employment" title="Employment and Volunteer Opportunities">Employment and Volunteer Opportunities</a></li>
+<li class="without-image"><a href="/Content/20204" title="Military Support">Military Support</a></li>
+<li class="without-image"><a href="/Content/20206" title="Mission Statement">Mission Statement</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Photos">Photos  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="http://www.sebring.k12.oh.us/Content2/20174" title="Flickr Photos">Flickr Photos</a></li></ul>
+</li>
+<li class="without-image"><a href="/Content/110" title="Registration Forms">Registration Forms</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Report Card ">Report Card   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://reportcard.education.ohio.gov/district/overview/048355" title="District Report Card">District Report Card</a></li>
+<li class="without-image"><a href="https://reportcard.education.ohio.gov/school/overview/024836" title="B.L. Miller Report Card">B.L. Miller Report Card</a></li>
+<li class="without-image"><a href="https://reportcard.education.ohio.gov/school/overview/023879" title="McKinley Report Card">McKinley Report Card</a></li>
+<li class="without-image"><a href="https://education.ohio.gov/getattachment/Topics/Data/Report-Card-Resources/Report-Card-Guide.pdf.aspx" title="Report Card Guide">Report Card Guide</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/20168" title="Sebring/WB Foundation">Sebring/WB Foundation</a></li>
+<li class="without-image"><a href="/Content/106" title="State Testing">State Testing</a></li>
+<li class="without-image"><a href="/userfiles/80/my%20files/transcript%20request.docx?id=16755" title="Transcript Request">Transcript Request</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Twitter Feed">Twitter Feed  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="http://www.twitter.com/SebringLocal" target="_blank" title="SebringLocal Twitter">SebringLocal Twitter</a></li></ul>
+</li>
+<li class="without-image"><a href="/Content/20180" title="Accessibility">Accessibility</a></li>
+<li class="without-image"><a href="/ada-report" title="ADA Report">ADA Report</a></li>
+</ul>
+<ul>
+<li class="qlTitle">Resources</li>
+						</ul>
+</div>
+				</div>
+			</nav>
+</div>
+	</div>
+</div>
+
+<div class="hidden-xs col-sm-3 col-md-2 col-lg-2">
+	<div class="header-elements">
+		<div class="search">
+			<div>
+				<div valign="top" style="" class="searchPad">
+					<label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+				<div style="display: inline; float: right;" class="searchgo">
+					<a alt="Search" title="Search" class="bSearch">Search</a>
+				</div>
+			</div>
+		</div>
+
+		<div id="google_translate_element">
+		</div>
+		<script type="text/javascript">
+			function googleTranslateElementInit() {
+				new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+			}
+		</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+</div>
+
+<div class="head-logo-container">
+	<a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="logo" href="/"><span class="obscure">Logo link to home page</span></a>
+	<a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome2" class="schoolName" href="/">Sebring Local Schools</a>
+</div>
+
+
+    
+
+                </div>
+            </header>
+</div>
+
+        
+    
+    
+
+
+        <div class="headerSpace">
+            
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		var slider = $('#slideshow .slides').nivoSlider({
+			effect: 'fade',
+			pauseTime: 3500,
+			prevText: 'Prev',
+			nextText: 'Next',
+			animSpeed: 500,
+			afterLoad: function () {
+				if (typeof nivoAfterLoad === 'function' && nivoAfterLoad !== 'undefined') {
+					nivoAfterLoad();
+				}
+			},
+			beforeChange: function () {
+				if (typeof nivoBeforeChange === 'function' && nivoBeforeChange !== 'undefined') {
+					nivoBeforeChange();
+				}
+			},
+			afterChange: function () {
+				if (typeof nivoAfterChange === 'function' && nivoAfterChange !== 'undefined') {
+					nivoAfterChange();
+				}
+			}
+		});
+
+		$(".slideshow-overlay").hover(function () {
+			slider.trigger("mouseenter");
+		}, function () {
+			slider.trigger("mouseleave");
+		});
+		var slider = jQuery('.slides');
+
+		var nivoStartStopControl = jQuery('<div class="nivo-startstopNav"></div>');
+		$('#slideshow').append(nivoStartStopControl);
+        nivoStartStopControl.append('<span tabindex="0" href="#" id="nivoStart" title="Play Slideshow"><span><i class="fa fa-play" aria-hidden="true"></i></span><span class="obscure">play slideshow</span></span> <span tabindex="0" href="#" id="nivoStop" title="Pause Slideshow"><span><i class="fa fa-pause" aria-hidden="true"></i><span class="obscure">stop slideshow</span></span></span>');
+
+		jQuery('#nivoStop').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').stop();
+		});
+
+		jQuery('#nivoStart').click(function (event) {
+			event.preventDefault();
+			slider.data('nivoslider').start();
+		});
+	});
+</script><style type="text/css">
+	.nivo-startstopNav {
+		position: absolute;
+		bottom: 10px;
+		right: 10px;
+		z-index: 3;
+	}
+
+	.nivo-startstopNav .fa {
+		width: 25px;
+		height: 25px;
+		color: #000;
+		background-color: #fff;
+		border-radius: 50%;
+		font-size: 15px;
+		text-align: center;
+		line-height: 25px;
+	}
+
+	.nivo-startstopNav .fa:hover {
+		cursor: pointer;
+	}
+</style>
+<div id="slideshow" class="">
+	<div class="slides">
+		
+				<img title="We love and miss all our students! Hope everyone is staying safe &amp; healthy during this time!" alt="We love and miss all our students! Hope everyone is staying safe &amp; healthy during this time!" src="/images/full//userfiles/2020-04/71190d11-60fa-4516-b2a1-478777421a5f.jpg"><img title="Everyone at McKinley worked together to raise $3,367.67 for #HopeForBrenden this year! " alt="Everyone at McKinley worked together to raise $3,367.67 for #HopeForBrenden this year! " src="/images/full//userfiles/2020-02/6b760fe8-6bed-4c31-931b-f08270a5b601.jpg"><img title="" alt="Sebring Local Schools" src="/images/full//userfiles/2020-01/a61e47dc-00e9-423b-887d-8279920c855e.png"><img title="The classes at B.L. Miller were filled with extra lots of love and kindness during our Valentine's Day parties!" alt="The classes at B.L. Miller were filled with extra lots of love and kindness during our Valentine's Day parties!" src="/images/full//userfiles/2020-02/aa11afd0-72fd-4434-808a-df78a78fd188.jpg"><img title="Thank you to Stanley Leone for speaking to our students, staff and family members throughout the school year on the subject of trauma. " alt="Thank you to Stanley Leone for speaking to our students, staff and family members throughout the school year on the subject of trauma. " src="/images/full//userfiles/2020-02/da8ad1e1-f61a-4fc3-9024-3f49b1ad4020.jpg"><img title="Our Kindergarten classes are 100 days smarter! " alt="Our Kindergarten classes are 100 days smarter! " src="/images/full//userfiles/2020-02/85c64842-b100-4c51-8404-ad45fa2e34a7.jpg"><img title="What a festive holiday lunch with students and staff at McKinley!" alt="What a festive holiday lunch with students and staff at McKinley!" src="/images/full//userfiles/2020-02/cc459c6e-b979-4aca-9ae6-1b9a6aa3ee55.jpg"><img title="Our 2nd Grade Classes had lots of fun interviewing with Santa for an Elf job at the North Pole! " alt="Our 2nd Grade Classes had lots of fun interviewing with Santa for an Elf job at the North Pole! " src="/images/full//userfiles/2020-02/5c58396a-9a1a-4f5d-a344-81ddff233117.jpg"><img title="A job well done to all of this year's Spelling Bee participants! " alt="A job well done to all of this year's Spelling Bee participants! " src="/images/full//userfiles/2020-02/377c110f-39e5-44e6-ae17-b0de9845cda6.jpg"><img title="Our students learned a lot about fire safety and how to be prepared in school and at home! " alt="Our students learned a lot about fire safety and how to be prepared in school and at home! " src="/images/full//userfiles/2019-12/b5bd2a2b-9f88-482a-8d33-d3f18dc509f1.jpg"><img title="Thank you to everyone who helped make our Trick or Treat for Turkeys Fundraiser a huge success this year! " alt="Thank you to everyone who helped make our Trick or Treat for Turkeys Fundraiser a huge success this year! " src="/images/full//userfiles/2019-12/72bd2950-721a-4be6-87e3-3ea06de13619.jpg"><img title="Our 2nd graders put on a delightful Harvest program for families and our PTO provided a delicious Thanksgiving lunch! " alt="Our 2nd graders put on a delightful Harvest program for families and our PTO provided a delicious Thanksgiving lunch! " src="/images/full//userfiles/2019-12/435a17a6-9cdc-4d49-ad55-f7555a5e73e5.jpg"><img title='Thank you to everyone who attended our "Dinner at Our House" Family Night! ' alt='Thank you to everyone who attended our "Dinner at Our House" Family Night! ' src="/images/full//userfiles/2019-12/5fc00770-95cb-4472-ac7e-9e1390c73c02.jpg"><img title="Our McKinley staff put together a wonderful Harvest lunch for our students! " alt="Our McKinley staff put together a wonderful Harvest lunch for our students! " src="/images/full//userfiles/2019-12/3221c634-75da-4604-9ac6-64044be92a39.jpg"><img title="Our Kindergartners enjoyed dressing up as turkeys and eating a delicious Thanksgiving lunch! " alt="Our Kindergartners enjoyed dressing up as turkeys and eating a delicious Thanksgiving lunch! " src="/images/full//userfiles/2019-12/892c49b9-ce05-47a2-8d9f-916faca7ca23.jpeg"><img title="Thank you veterans for your dedication and service to our country." alt="Thank you veterans for your dedication and service to our country. " src="/images/full//userfiles/2019-11/db01a605-2de5-4b75-9221-d07f883fcfd7.jpg"><img title="Millcreek Metro Parks Farm taught our 3rd grade students about harvesting and the very first Thanksgiving! " alt="Millcreek Metro Parks Farm taught our 3rd grade students about harvesting and the very first Thanksgiving! " src="/images/full//userfiles/2019-11/be8e9f34-617e-4b3e-8e1f-7f9c571126a0.jpg"><img title="Seventh &amp; Eighth grade students enjoyed a slime making experiment in class!" alt="Seventh &amp; Eighth grade students enjoyed a slime making experiment in class!" src="/images/full//userfiles/2019-11/92f34616-5955-4a5d-86f8-1fa2a197e6ee.jpg"><img title="Spanish 3 students put on Skeleton Puppet Shows in celebration of Day of the Dead!" alt="Spanish 3 students put on Skeleton Puppet Shows in celebration of Day of the Dead!" src="/images/full//userfiles/2019-11/5f857c64-b3e0-47b5-893d-ca7e1d0ef5c7.jpg"><img title="Our Spanish students celebrated Day of the Dead! " alt="Our Spanish students celebrated Day of the Dead! " src="/images/full//userfiles/2019-11/20c7d711-366e-4b44-a342-06384af70282.jpg"><img title="Thank you to Catherine Bosley for speaking with our students about the importance of social media awareness. " alt="Thank you to Catherine Bosley for speaking with our students about the importance of social media awareness. " src="/images/full//userfiles/2019-11/f6f235c9-4abd-44c2-91ae-22caf73c7916.jpg"><img title="Congratulations to our newly elected 5th grade Student Senate! " alt="Congratulations to our newly elected 5th grade Student Senate! " src="/images/full//userfiles/2019-11/5e91d0d0-ac49-4fa9-8480-2bf4494f6f6c.jpg"><img title="We have Trojan Spirit everyday, but especially during Spirit Week! " alt="We have Trojan Spirit everyday, but especially during Spirit Week! " src="/images/full//userfiles/2019-11/19aee571-cff7-44fe-b77d-8f4446890fe1.jpg"><img title="Our kindergarten classes enjoyed their apple orchard tour on a field trip to White House Fruit Farm. " alt="Our kindergarten classes enjoyed their apple orchard tour on a field trip to White House Fruit Farm. " src="/images/full//userfiles/2019-10/652047c4-0236-4bcf-9e8f-256b5fc67483.jpg"><img title="Thank you so much to our All Star Alumni George Clark, Christopher Clemens, Destinee Green, Emma Holodnak and Zane Twaddle for sharing their stories with our students!" alt="Thank you so much to our All Star Alumni George Clark, Christopher Clemens, Destinee Green, Emma Holodnak and Zane Twaddle for sharing their stories with our students!" src="/images/full//userfiles/2019-10/939e2ea0-5732-4915-9ea0-eb354fcf77f5.jpg"><img title="Two groups of McKinley students attended the first Skilled Trades Expo held at the Canfield Fairgrounds. " alt="Two groups of McKinley students attended the first Skilled Trades Expo held at the Canfield Fairgrounds. " src="/images/full//userfiles/2019-10/63ed1c93-08e3-44a4-b06d-8656bd921018.jpg"><img title="Our students did an awesome job with their summer reading logs and enjoyed our picnic celebration! " alt="Our students did an awesome job with their summer reading logs and enjoyed our picnic celebration! " src="/images/full//userfiles/2019-09/589338d7-1216-4f32-ac4f-1fee70d3dcd3.jpg"><img title="The high school marching band had an awesome performance at the Canfield Fair this year! " alt="The high school marching band had an awesome performance at the Canfield Fair this year! " src="/images/full//userfiles/2019-09/dd3cf14a-1a71-4fbd-bfcd-b158252280d8.jpg"><img title="Our Cheerleaders did an awesome job representing Sebring in the Canfield Fair Cheerleading Demonstration! " alt="Our Cheerleaders did an awesome job representing Sebring in the Canfield Fair Cheerleading Demonstration! " src="/images/full//userfiles/2019-09/faf97886-5047-4f5b-bd1e-b5a090b040c3.jpg"><img title="Alex Sheen, Founder of Because I Said I Would, spoke with McKinley students about his inspirational journey and how the concept of promise cards came to be. " alt="Alex Sheen, Founder of Because I Said I Would, spoke with McKinley students about his inspirational journey and how the concept of promise cards came to be. " src="/images/full//userfiles/2019-08/cbd1cf81-d86b-450a-989b-8ede9982c480.jpg"><img title="Our elementary students are ready to learn and looking forward to the 2019-2020 school year!" alt="Our elementary students are ready to learn and looking forward to the 2019-2020 school year!" src="/images/full//userfiles/2019-08/b4667e57-797d-4655-a642-b95ef1ba6cfe.jpg"><img title="Our students are ready to discover their story this school year, as part of our McKinley school theme - What's Your Story? " alt="Our students are ready to discover their story this school year, as part of our McKinley school theme - What's Your Story? " src="/images/full//userfiles/2019-08/b9385d6f-1a3e-4446-8056-e6afd20f5293.jpg"><img title="Sebring McKinley Junior High School offers robotics." alt="Sebring McKinley Junior High School offers robotics." src="/images/full//userfiles/2018-10/69bec2d1-a283-4c53-aa56-dede77b6a24f.jpg"><img title="Sebring McKinley has a talented and passionate staff, who are dedicated to the students they teach." alt="Sebring McKinley has a talented and passionate staff, who are dedicated to the students they teach." src="/images/full//userfiles/2019-01/09c0f04a-7d0c-4112-8b09-39aa10001e4e.jpg"><img title="Sebring Local Schools are 1 to 1 in technology, meaning each student has his/her own Chromebook." alt="Sebring Local Schools are 1 to 1 in technology, meaning each student has his/her own Chromebook." src="/images/full//userfiles/2018-11/7970b8df-7990-41a8-befe-d3e31466ed5a.jpg"><img title="Smaller class sizes means more personalized instruction for Sebring students." alt="Students in Mrs. Walsh's kindergarten class eat their breakfast and work on a project." src="/images/full//userfiles/2018-09/f9141a7e-d0dc-460e-8da3-2d3d8c20cf27.jpg"><img title="Positive messages can be seen throughout the walls inside both school buildings." alt="Positive messages can be seen throughout the walls inside both school buildings." src="/images/full//userfiles/2019-08/6645650c-ebcc-48a1-912b-7360163b660f.jpg"><img title="Admin Building" alt="Sebring Administration Building" src="/images/full/DSC1973-1.jpg"><img title="BL Miller Elementary" alt="BL Miller School Entrance" src="/images/full/DSC2449-17-0.jpg"><img title="McKinley High School" alt="McKinley Main Entrance" src="/images/full/DSC1981-3-0.jpg">
+</div>
+	
+</div>
+
+        </div>
+
+        <div class="content-wrapper">
+            
+
+            <div class="body-content-container">
+                <div class="container">
+                    <div class="masterC alignment-stretch">
+                        <div class="row">
+                            
+    <div class="hidden-xs col-sm-4 col-md-3 col-lg-3 backgroundcolor">
+        <div class="clearfix panel content">
+            
+                <h1>Quick Links</h1>
+                <ul class="nav navbar-nav left-nav-links">
+<li class="without-image"><a href="/Staff" title="Staff Directory">Staff Directory</a></li>
+<li class="without-image"><a href="/content/dac" aria-label="" title="All Call">All Call</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Alumni">Alumni  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/district/the%20alumni%20link%202020.pdf?id=18793" target="_blank" aria-label="" title="Alumni Link (2020)">Alumni Link (2020)</a></li>
+<li class="without-image"><a href="/userfiles/2/my%20files/hall%20of%20fame%20nomination%20form%20updated%20june%2013%202017.pdf?id=16708" target="_blank" title="Hall of Fame Nomination Form">Hall of Fame Nomination Form</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/20226" title="Annual Notices">Annual Notices</a></li>
+<li class="without-image"><a href="/Content/20232" title="Business Advisory Council">Business Advisory Council</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Calendar">Calendar  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/docs/building/3/2019-2020%20opt%201%20-%20adopted.pdf?id=17661" target="_blank" title="District Calendar 2019-2020">District Calendar 2019-2020</a></li>
+<li class="without-image"><a href="/userfiles/80/my%20files/testing%20schedule%202019-20.pdf?id=18211" target="_blank" title="Testing Calendar 2019-2020">Testing Calendar 2019-2020</a></li>
+<li class="without-image"><a href="/docs/district/calendars/district(opt1)20-21.pdf?id=18783" aria-label="" title="District Cal. (Opt. 1) 2020-2021">District Cal. (Opt. 1) 2020-2021</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/20148" title="COMMENTS &amp; CONCERNS">COMMENTS &amp; CONCERNS</a></li>
+<li class="without-image"><a href="/Content/108" title="District Goals - Ohio Improvement Process">District Goals - Ohio Improvement Process</a></li>
+<li class="without-image"><a href="/Content/20186" target="_blank" title="District Profile">District Profile</a></li>
+<li class="without-image"><a href="/Communication" title="E-Communication Registration">E-Communication Registration</a></li>
+<li class="without-image"><a href="/Employment" title="Employment and Volunteer Opportunities">Employment and Volunteer Opportunities</a></li>
+<li class="without-image"><a href="/Content/20204" title="Military Support">Military Support</a></li>
+<li class="without-image"><a href="/Content/20206" title="Mission Statement">Mission Statement</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Photos">Photos  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="http://www.sebring.k12.oh.us/Content2/20174" title="Flickr Photos">Flickr Photos</a></li></ul>
+</li>
+<li class="without-image"><a href="/Content/110" title="Registration Forms">Registration Forms</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Report Card ">Report Card   <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="https://reportcard.education.ohio.gov/district/overview/048355" title="District Report Card">District Report Card</a></li>
+<li class="without-image"><a href="https://reportcard.education.ohio.gov/school/overview/024836" title="B.L. Miller Report Card">B.L. Miller Report Card</a></li>
+<li class="without-image"><a href="https://reportcard.education.ohio.gov/school/overview/023879" title="McKinley Report Card">McKinley Report Card</a></li>
+<li class="without-image"><a href="https://education.ohio.gov/getattachment/Topics/Data/Report-Card-Resources/Report-Card-Guide.pdf.aspx" title="Report Card Guide">Report Card Guide</a></li>
+</ul>
+</li>
+<li class="without-image"><a href="/Content/20168" title="Sebring/WB Foundation">Sebring/WB Foundation</a></li>
+<li class="without-image"><a href="/Content/106" title="State Testing">State Testing</a></li>
+<li class="without-image"><a href="/userfiles/80/my%20files/transcript%20request.docx?id=16755" title="Transcript Request">Transcript Request</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Twitter Feed">Twitter Feed  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="http://www.twitter.com/SebringLocal" target="_blank" title="SebringLocal Twitter">SebringLocal Twitter</a></li></ul>
+</li>
+<li class="without-image"><a href="/Content/20180" title="Accessibility">Accessibility</a></li>
+<li class="without-image"><a href="/ada-report" title="ADA Report">ADA Report</a></li>
+</ul>
+</div>
+        
+            
+<div class="clearfix LeftImages" style="height: 100%;">
+    
+
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+
+        
+
+        
+        
+    </div>
+
+    <div class="col-xs-12 col-sm-8 col-md-5 col-lg-5 backgroundcolor">
+        
+
+
+
+        <div class="clearfix panel content maincontent">
+            
+	<div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+	<h1>District News</h1>
+
+	<div class="news">
+		
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+	</style>
+<section id="news-list"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkImage" class="news-image" href="/News/cv19"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_articleImage" src="/docs/_Thumb_/building/3/images/cv19.png?id=18781&amp;thumbwidth=190&amp;fullwidth=500" alt="CV19" style="border-width:0px;"></a>
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/cv19">Coronavirus Disease (COVID-19) Bulletin</a>
+				<span class="news-post-date">
+					Posted On: Wednesday, March 11, 2020</span>
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lblSummary" class="news-summary">Update and resources regarding the Coronavirus Disease (COVID-19) and message from the Mahoning County Health Department. </span>
+				</div>
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkViewAll" class="view-all" href="/News/cv19">Read More <span class="sr-only">about Coronavirus Disease (COVID-19) Bulletin</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkImage" class="news-image" href="/News/621"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_articleImage" src="/docs/_Thumb_/district/2018_2019%20photos/download.png?id=17152&amp;thumbwidth=190&amp;fullwidth=500" alt="Trojan" style="border-width:0px;"></a>
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/621">TROJAN TALK</a>
+				<span class="news-post-date">
+					Posted On: Monday, May 27, 2019</span>
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lblSummary" class="news-summary">TROJAN TALK 
+04/26 TO 05/02</span>
+				</div>
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkViewAll" class="view-all" href="/News/621">Read More <span class="sr-only">about TROJAN TALK</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkImage" class="news-image" href="/News/580"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_articleImage" src="/docs/_Thumb_/district/2018_2019%20photos/release.jpg?id=17671&amp;thumbwidth=190&amp;fullwidth=500" alt="Press Release" style="border-width:0px;"></a>
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/580">PRESS RELEASES</a>
+				<span class="news-post-date">
+					Posted On: Monday, August 20, 2018</span>
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lblSummary" class="news-summary">SEBRING LOCAL SCHOOLS
+
+PRESS RELEASE
+
+FOR IMMEDIATE RELEASE 
+
+March 2, 2020
+
+Families are Invited to Enjoy Family Night and Dinner at Sebring McKinley</span>
+				</div>
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkViewAll" class="view-all" href="/News/580">Read More <span class="sr-only">about PRESS RELEASES</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkImage" class="news-image" href="/News/721"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_articleImage" src="/docs/_Thumb_/district/2019-2020%20photos/img_9565.jpg?id=18789&amp;thumbwidth=190&amp;fullwidth=500" alt="SCARP Tutoring" style="border-width:0px;"></a>
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/721">What is SCARP?</a>
+				<span class="news-post-date">
+					Posted On: Tuesday, March 31, 2020</span>
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lblSummary" class="news-summary">What is SCARP?
+
+SCARP is B.L. Miller's after school tutoring program. SCARP is an 8-week commitment to improve students' learning in reading and/or math. Students in grades 3-5 are invited ...</span>
+				</div>
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkViewAll" class="view-all" href="/News/721">Read More <span class="sr-only">about What is SCARP?</span></a>
+				</div>
+			</div>
+		
+			<div class="clr">
+			</div>
+			</section>
+</div>
+
+	<a href="/districtNewsArticles.aspx" class="view-all-news">View All News</a>
+
+	<div class="clr"></div>
+
+        </div>
+
+        
+	<div class="gallerybox panel">
+		
+
+<style type="text/css">
+    .ucGalleryCategories,
+    .galleryBoxTitle {
+        text-align: center;
+    }
+
+    .ucGalleryCategory {
+        float: left;
+        width: 23%;
+        margin: 5px 1%;
+        padding: 5px;
+        border: solid 1px #CCCCCC;
+        background-color: #FFF;
+        text-align: center;
+        overflow: hidden;
+        box-shadow: 0 0 3px rgba(0,0,0,.5);
+    }
+
+    .ucGalleryCategoryImage a {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 140px;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto 5px;
+    }
+
+    .ucGalleryCategoryImage img {
+        height: 100%;
+        min-width: 100%;
+        display: block;
+    }
+
+    .ucGalleryCategoryTitle a {
+        font-weight: bold;
+        color: #000;
+    }
+
+    @media (max-width: 991px) {
+        .ucGalleryCategory {
+            width: 31%;
+        }
+    }
+
+    @media (max-width: 767px) {
+        .ucGalleryCategory {
+            width: 48%;
+        }
+    }
+</style>
+<script>
+    // Run 3 times to ensure it sets the min height correctly.
+    function matchCategoryHeight(x) {
+        if (x < 3) {
+            var maxHeight = 0;
+
+            $('.ucGalleryCategory').each(function () {
+                maxHeight = (maxHeight < $(this).outerHeight()) ? $(this).outerHeight() : maxHeight;
+            });
+
+            $('.ucGalleryCategory').css({ 'min-height': maxHeight + 'px' });
+            setTimeout(function () { matchCategoryHeight(x + 1) }, 300);
+        }
+    }
+
+    $(function () {
+        matchCategoryHeight(0);
+    });
+
+    $(window).on('resize', function() {
+        $('.ucGalleryCategory').css({ 'min-height': '' });
+        matchCategoryHeight(2);
+    });
+</script><div>
+        <div class="galleryBoxTitle">Photo Gallery</div>
+    </div>
+
+    
+            <div class="ucGalleryCategories">
+        
+            <div class="ucGalleryCategory">
+                <div class="ucGalleryCategoryImage">
+                    <a id="ctl00_ctl00_MasterContent_ContentColumnMiddleBottom_ctl00_rptCategories_ctl01_lnkCategory" href="/DistrictGallery.aspx?CategoryId=268&amp;schoolid=0"><img src="/images/gallery/_full_/userfiles/127/my%20files/2019-20%20school%20year/img_2257.jpg?id=18447&amp;thumbwidth=100&amp;fullwidth=600" alt="Sebring McKinley welcomed back five graduates from the Class of 2015 for the first Alumni Series of the year. " style="border-width:0px;"></a>
+                </div>
+
+                <div class="ucGalleryCategoryTitle">
+                    <a id="ctl00_ctl00_MasterContent_ContentColumnMiddleBottom_ctl00_rptCategories_ctl01_hlCategoryName" href="/DistrictGallery.aspx?CategoryID=268&amp;schoolID=0" style="text-decoration:none;">Alumni Series October 2nd</a>
+                </div>
+            </div>
+        
+            <div class="ucGalleryCategory">
+                <div class="ucGalleryCategoryImage">
+                    <a id="ctl00_ctl00_MasterContent_ContentColumnMiddleBottom_ctl00_rptCategories_ctl02_lnkCategory" href="/DistrictGallery.aspx?CategoryId=252&amp;schoolid=0"><img src="/images/gallery/_full_/docs/district/2019-2020%20photos/69118702_2956357907712567_2939129644881805312_n.jpg?id=18326&amp;thumbwidth=100&amp;fullwidth=600" alt="The 2019 Sebring Cheerleading Squads" style="border-width:0px;"></a>
+                </div>
+
+                <div class="ucGalleryCategoryTitle">
+                    <a id="ctl00_ctl00_MasterContent_ContentColumnMiddleBottom_ctl00_rptCategories_ctl02_hlCategoryName" href="/DistrictGallery.aspx?CategoryID=252&amp;schoolID=0" style="text-decoration:none;">2019 Canfield Fair</a>
+                </div>
+            </div>
+        
+            <div class="ucGalleryCategory">
+                <div class="ucGalleryCategoryImage">
+                    <a id="ctl00_ctl00_MasterContent_ContentColumnMiddleBottom_ctl00_rptCategories_ctl03_lnkCategory" href="/DistrictGallery.aspx?CategoryId=256&amp;schoolid=0"><img src="/images/gallery/_full_/docs/district/2019-2020%20photos/img_0850.jpg?id=18373&amp;thumbwidth=100&amp;fullwidth=600" alt="Students got to take part in a Meet &amp; Greet with Alex Sheen, founder of Because I Said I Would." style="border-width:0px;"></a>
+                </div>
+
+                <div class="ucGalleryCategoryTitle">
+                    <a id="ctl00_ctl00_MasterContent_ContentColumnMiddleBottom_ctl00_rptCategories_ctl03_hlCategoryName" href="/DistrictGallery.aspx?CategoryID=256&amp;schoolID=0" style="text-decoration:none;">Because I Said I Would</a>
+                </div>
+            </div>
+        
+            </div>
+           
+            <div class="clr"></div>
+        
+
+
+
+
+
+
+		<a href="/0/gallery">View All Galleries</a>
+	</div>
+
+	
+<div class="feature-content gallerybox panel">
+    
+    <h1 class="feature-content-title title">
+        Videos
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>Check out our YouTube Channel: <a href="http://bit.ly/2Tv596X">http://bit.ly/2Tv596X</a></p>
+
+<p>What is SCARP?</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/l-x9sgoXo5E" width="412"></iframe></p>
+
+<p>No Place Like Hope by Stanley Leone</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/k2lm2bnsYOE" width="412"></iframe></p>
+
+<p>Welcome to kindergarten at B.L. Miller Elementary School</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/WE21NKzuMX0" width="412"></iframe></p>
+
+<p>Valentine's Day</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/SKPvKvmkV7s" width="412"></iframe></p>
+
+<p>B.L. Miller Preschool</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/ZHwXqQVqQSU" width="412"></iframe></p>
+
+<p>100th Day of Kindergarten</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/ZCGRhU8r_QA" width="412"></iframe></p>
+
+<p>Happy Holidays!</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/N1YfPyiPDb4" width="412"></iframe></p>
+
+<p>Stanley Leone, Jr. - Inspirational Speaker </p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/eoVXAzoRYmw" width="412"></iframe></p>
+
+<p>Alumni Series on November 22nd </p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/nogSoPC6ZUQ" width="412"></iframe></p>
+
+<p>Watch the latest recap video</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/oenqF_pSvsA" width="412"></iframe></p>
+
+<p>Happy Veterans Day!</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/dMK9b5Xb7jk" width="412"></iframe></p>
+
+<p>Watch the latest recap video</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/HZT07qgP9gU" width="412"></iframe></p>
+
+<p>Bedtime Stories</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/S40wGAIJOUQ" width="412"></iframe></p>
+
+<p>Fall Fun in Kindergarten </p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/IeChcMaDyNw" width="412"></iframe></p>
+
+<p>Alumni Series on October 2nd </p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/OcdPM7LgU5Q" width="412"></iframe></p>
+
+<p>Watch the latest recap video</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/9_xhC9txxUo" width="412"></iframe></p>
+
+<p>Watch the latest recap video</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/WiH5eSEntMI" width="412"></iframe></p>
+
+<p>Because I Said I Would Speaker </p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/eKgVI4Gvnu0" width="412"></iframe></p>
+
+<p>First Day of School </p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/Bn0IeLls1_U" width="412"></iframe></p>
+
+<p>Sebring Local Schools, This Is Home</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/NN1d2ybgmeo" width="412"></iframe></p>
+
+<p>All-Star Alumni Series</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/CM_qp1NcLfg" width="412"></iframe></p>
+
+<p>Ohio Department of Education Superintendent visits Sebring</p>
+
+<p><iframe allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" frameborder="0" height="300" scrolling="no" src="https://www.youtube.com/embed/doKVlDGEJXM" width="412"></iframe></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 backgroundcolor ">
+        <div class="clearfix panel content maincontent">
+            
+	<h1>Calendar &amp; Events</h1>
+	
+		<section id="upcoming-events"><ul>
+<li class="upcoming-events-event event-23335">
+			<div class="event-date">
+				May<div class="event-date-number"> 1</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=23335" title="B.L. Snicket sale">
+					B.L. Snicket sale
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-23334">
+			<div class="event-date">
+				May<div class="event-date-number"> 3 -  8</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=23334" title="Teacher Appreciation Week">
+					Teacher Appreciation Week
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-23441">
+			<div class="event-date">
+				May<div class="event-date-number"> 11</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=23441" title="5th gr. Picnic &amp; Orientation">
+					5th gr. Picnic &amp; Orientation
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-23442">
+			<div class="event-date">
+				May<div class="event-date-number"> 11</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=23442" title="5th gr. Graduation">
+					5th gr. Graduation
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				6:00 PM — 7:00 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-23333">
+			<div class="event-date">
+				May<div class="event-date-number"> 13 -  15</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=23333" title="5th Gr. to Camp">
+					5th Gr. to Camp
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		<li class="upcoming-events-event event-23623">
+			<div class="event-date">
+				May<div class="event-date-number"> 14</div>
+			</div>
+			<div class="event-link">
+				<a href="/calendarWeekView.aspx?schools=0,1,2,3&amp;schoolid=0&amp;types=&amp;eventID=23623" title="Senior Showcase">
+					Senior Showcase
+				</a>
+			</div>
+			<div class="event-location">
+				
+			</div>
+			<div class="event-time">
+				5:00 PM — 6:30 PM
+			</div>
+			<div id="eventDivider"></div>
+
+		</li>
+	
+		</ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_hl_viewAllEvents" class="view-all" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/29/2020">View All</a>
+</footer><style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7365')" style="color:Black" title="Go to the previous month">&lt;<span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7426')" style="color:Black" title="Go to the next month">&gt;<span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">Sun</th>
+<th align="center" abbr="Monday" scope="col">Mon</th>
+<th align="center" abbr="Tuesday" scope="col">Tue</th>
+<th align="center" abbr="Wednesday" scope="col">Wed</th>
+<th align="center" abbr="Thursday" scope="col">Thu</th>
+<th align="center" abbr="Friday" scope="col">Fri</th>
+<th align="center" abbr="Saturday" scope="col">Sat</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=3/29/2020">29</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=3/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=3/31/2020">31</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/1/2020">1</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/2/2020">2</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/3/2020">3</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/5/2020">5</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/6/2020">6</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/7/2020">7</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/8/2020">8</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/9/2020">9</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/10/2020">10</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/12/2020">12</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/13/2020">13</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/14/2020">14</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/15/2020">15</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/16/2020">16</a></td>
+<td class=" with-event" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/19/2020">19</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/20/2020">20</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/21/2020">21</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/23/2020">23</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/26/2020">26</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/27/2020">27</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/28/2020">28</a></td>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/29/2020">29</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32,53,54,55,56,57&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+
+        
+        
+    </div>
+    <div class="clr">
+    </div>
+
+                        </div>
+                        <div class="clr">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="row">
+    	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+		<div id="social-links-bottom">
+                
+                              <a class="fa fa-sign-in" href="/login.aspx">
+                                   <span class="obscure"></span>
+                              </a>
+                    
+                              <a class="fa fa-twitter" href="http://www.twitter.com/SebringLocal">
+                                   <span class="obscure">SebringLocal Twitter</span>
+                              </a>
+                    
+		</div>
+	</div>
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footerinfo">
+		
+				<div class="footerName">
+				
+				</div>
+				<div>
+						Sebring Local Schools  |  510 North 14th Street  |  Sebring, OH 44672       
+				</div>
+        	<div>
+				
+			Phone:(330) 938-6165  |  Fax:(330) 938-4701
+                	</div>
+        				<div>
+					<a href="http://maps.google.com/maps?q=510%20North%2014th%20Street+Sebring+OH+44672%20%20%20%20%20%20%20">
+						View Map &amp; Directions
+					</a>
+				</div>
+		
+	</div>
+
+</div>
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-35237635-20', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><div class="footer-branding-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <a href="http://www.schoolpointe.com" target="_blank" class="pull-right sp-footer-logo" alt="SchoolPointe">
+                                <img alt="SchoolPointe" src="https://cdn.schoolpointe.com/images/new/SPwhite.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__SCROLLPOSITIONX" id="__SCROLLPOSITIONX" value="0"><input type="hidden" name="__SCROLLPOSITIONY" id="__SCROLLPOSITIONY" value="0"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC0r4uSWwF4F/S5tBfqjrYneiDHydsK03lx8Xtjj8McOnhM1E/Z+4AtYfBLjoqzHUNzx8re9P49CESeNcN+aUYUYylAVjuf883gda9qxPWJdWzlAW1I7BexV+czOzRObl3d50nMhilDDHAwFxGIx0wbFChwQ4Ex0vxOTS+4GFwX5O7kl0Ub38BaDmMgKQcEKVqNSQD67gQzTXdB4A0BTQX56TjzPdP4KgmIAJFo6XWNsVobKscM9xAMf7wwexMr1VQr6eny5cHvWE8n08cMlPMX4UUsMkilD+ZSI9iMjU0yDuCD8GsnLDl6GsgBmi45cgSxLOQJb0r0B03brVHI2aRHj1HX4bsgg9FALGXgdAnz+3fPXHQkoFYN6AHzJTqhMhgIUZHRyIop27ZqiAc5YtJ2CBmWGVEJRDuOVtSdk96ZySIM7oQRKLNMMfuEaYBPHf7UnvwclkPDJBJa1wKztDi6ksAKSxkS0J9AQoAbRkhRLYupP5UfZtzYMcETdrtRuebqUFNAgBxTdrc7p3lb5cG87gm7gyuj+DfF4g5gBMII5vbFKWePuk/HCjfYquEX2jQfetIrU0FyvbBObo1CEWr8JkkUFRwOfzMDwGZIdDlEZh0FsPpuONYQUyNniCyMIahBgL9N5WPrxm7gqXxJSO3bUUENDE9dXDnHAyMxZUeTfBuKQjtJNZCvgL3hOtBgN53JKgunZuEj8FebONNvrKSLQqlYIB6TKJFENEjsUkBLzAOx9UysQWNNGqUBe0wmZ11N1yVx/jqgB2/mbAHkazISKTMuizNiXiSwyoHGDIcvBxXS9J1pDBfJ5u5J2HPiBBN+Xr4uuDR+WtbHcMYtsYms3xHSKYhMkeSMxWk7MMjQy2jqouDmyradb3nBLSPm24J8mLJQ9K5ToZmSewp0Qk2VvFiQDTVcI9Q9wgwvj0GaEsvuvDOI+IORDvkjx+dyMqFWk6sHB/QItYgHo4Z4D0EAPLt8glQ==">
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+
+theForm.oldSubmit = theForm.submit;
+theForm.submit = WebForm_SaveScrollPositionSubmit;
+
+theForm.oldOnSubmit = theForm.onsubmit;
+theForm.onsubmit = WebForm_SaveScrollPositionOnSubmit;
+//]]>
+</script>
+</form>
+</body>
+</html>

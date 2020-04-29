@@ -1,0 +1,1045 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Union County School District</title>
+<meta name="Keywords" content="Union County School District">
+<meta name="Description" content="Union County School District">
+<meta name="Author" content="Union County School District">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta property="og:image" content="http://images.schoolinsites.com/images/education.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="200">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/css.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/demo4/style.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src="JavaScripts/jquery-1.8.3.min.js"></script><link href="/CommonTemplates/SiteElements/Styles/Include-Styles.asp" type="text/css" rel="stylesheet">
+<link href="http://images.pcmac.org/Websites/UnionCountySD/UnionCountySD/Styles.css" rel="stylesheet" type="text/css">
+<!--script src="http://images.pcmac.org/Websites/UnionCountySD/UnionCountySD/JavaScripts.js" type="text/javascript"></script--><script type="text/javascript">
+	//-----------------------------------------------------------------------------------------------
+	//Edit CSS, currently set up for Pirobox fix
+	//-----------------------------------------------------------------------------------------------
+		function getCSSRule(ruleName, deleteFlag) {               // Return requested style obejct
+		   ruleName=ruleName.toLowerCase();    
+		   
+			if (document.styleSheets) {                            
+				for (var i=0; i<document.styleSheets.length; i++) { 
+					var styleSheet=document.styleSheets[i];
+					var styleSheetHref = styleSheet.href;
+					if ((styleSheetHref != null) && (styleSheetHref.indexOf("pirobox") != -1))
+						piroStyle = i;
+				}
+
+				var styleSheet=document.styleSheets[piroStyle];
+				 var ii=0;                                        // Initialize subCounter.
+				 var cssRule=false;                               // Initialize cssRule. 
+
+				 do {                                             // For each rule in stylesheet
+					if (styleSheet.cssRules) {                    // Browser uses cssRules?
+					   cssRule = styleSheet.cssRules[ii];         // Yes --Mozilla Style
+					} else {                                      // Browser usses rules?
+					   cssRule = styleSheet.rules[ii];            // Yes IE style. 
+					}                                             // End IE check.
+
+					if (cssRule)  {                               // If we found a rule...
+					   if ((typeof(cssRule.selectorText) != 'undefined') && (cssRule.selectorText.toLowerCase()==ruleName)) { //  match ruleName?
+						  if (deleteFlag=='delete') {             // Yes.  Are we deleteing?
+							 if (styleSheet.cssRules) {           // Yes, deleting...
+								styleSheet.deleteRule(ii);        // Delete rule, Moz Style
+							 } else {                             // Still deleting.
+								styleSheet.removeRule(ii);        // Delete rule IE style.
+							 }                                    // End IE check.
+							 return true;                         // return true, class deleted.
+						  } else {                                // found and not deleting.
+							 return cssRule;                      // return the style object.
+						  }                                       // End delete Check
+					   }                                          // End found rule name
+					}                                             // end found cssRule
+					ii++;                                         // Increment sub-counter
+				 } while (cssRule)  
+			}
+			return false;
+		}
+
+
+		function killCSSRule(ruleName) {                          // Delete a CSS rule   
+		   return getCSSRule(ruleName,'delete');                  // just call getCSSRule w/delete flag.
+		}                                                         // end killCSSRule
+
+		function addCSSRule(ruleName) {                           // Create a new css rule
+		   if (document.styleSheets) {                            // Can browser do styleSheets?
+			  if (!getCSSRule(ruleName)) {                        // if rule doesn't exist...
+				 if (document.styleSheets[0].addRule) {           // Browser is IE?
+					document.styleSheets[0].addRule(ruleName, null,0);      // Yes, add IE style
+				 } else {                                         // Browser is IE?
+					document.styleSheets[0].insertRule(ruleName+' { }', 0); // Yes, add Moz style.
+				 }                                                // End browser check
+			  }                                                   // End already exist check.
+		   }                                                      // End browser ability check.
+		   return getCSSRule(ruleName);                           // return rule we just created.
+		} 
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//Get/Set cookies for mobile site
+	//-----------------------------------------------------------------------------------------------
+		function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			createCookie(name,"",-1);
+		}
+		
+		
+		
+		var fullSite = readCookie('FullSite');
+		var mobileDev = readCookie('MobileDevice');
+		var mobileNoRedirect = readCookie('MobileNoRedirect');
+		
+		if(fullSite && mobileDev) {
+			if((fullSite != 'True') && (mobileNoRedirect != '1') && (mobileDev == 'True'))
+				window.location = 'http://www.union.k12.ms.us/mobile/default.asp';
+		}
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//photo album / lightbox init
+	//-----------------------------------------------------------------------------------------------
+		$(document).ready(function() {
+			if ($("a[class^='pirobox']").length > 0) {
+				$().piroBox({
+						my_speed: 400, //animation speed
+						bg_alpha: 0.7, //background opacity
+						slideShow : true, // true == slideshow on, false == slideshow off
+						slideSpeed : 4, //slideshow duration in seconds(3 to 6 Recommended)
+						close_all : '.piro_close,.piro_overlay'// add class .piro_overlay(with comma)if you want overlay click close piroBox
+				});
+			}
+		});
+
+		var UserAgent = navigator.userAgent;
+		//alert(UserAgent);
+		if (UserAgent.indexOf("MSIE 10") != -1)
+			TheAgent = "IE10"
+		else{
+			if (UserAgent.indexOf("MSIE") != -1)
+				TheAgent = "IE"
+			else
+				TheAgent = ""
+		}
+		
+		//Pirobox + Google Translate workaround for non-IE browsers. Dynamically changes CSS for pirobox after the translate widget has loaded.
+		if (TheAgent == ""){
+			theTimeout = setTimeout('GoogleCountdown()', 2000);	
+		}
+		
+		function GoogleCountdown() {
+			var element =  document.getElementById('google_translate_element');
+			if ((typeof(element) != 'undefined') && (element != null))
+			{
+				var PiroContent = getCSSRule('.pirobox_content');
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					//x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+					
+				
+				if(y < 700)
+					PiroContent.style.top = "16%";
+				else{
+					if(y > 900)
+						PiroContent.style.top = "23%";
+					else
+						PiroContent.style.top = "20%";
+				}
+				
+			}
+		}
+	//-----------------------------------------------------------------------------------------------
+		
+		
+		//Use onClick=SlideLink() in the slide show overlay for slide links work
+		function SlideLink() {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			//figure out which div is showing and set Link var
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			//if an anchor exists store values to "h" (for HREF) and "t" (for Target)
+			if (Link.firstChild.nodeName == "A") {
+				h = Link.firstChild.href;
+				t = Link.firstChild.target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				h = Link.getElementsByTagName('A')[0].href;
+				t = Link.getElementsByTagName('A')[0].target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+		}
+		//Make sure the cursor is a link pointer when a link exists (called by function SlideCursor())
+		function SlideCursorCheck(me) {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			if (Link.firstChild.nodeName == "A") {
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.firstChild.href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.etElementsByTagName('A')[0].href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+		}
+		//Function to change cursor on slide show overlay
+		var CursorCheck = false;
+		function SlideCursor(me) {
+			Elem = me;			
+			if (CursorCheck == false) {
+				var Start_SlideCursor = setInterval("SlideCursorCheck(Elem)", 500);
+				CursorCheck = true;
+			}
+		}
+		
+		function Login()
+		{
+			var loginPage = 'https://securesite.schoolinsites.com/loginv2/common/?p=1';
+			var loginDomain = 'http://www.union.k12.ms.us';
+			loginPage = loginPage + '&login_for=' + loginDomain;
+			
+			window.location.href = loginPage;
+		}
+		
+		var imgAltTagsFix = function() {
+			$('img.gsc-branding-img').attr("alt", "Google Custom Search Branding");
+			$('input.gsc-search-button').attr('alt', "Google Custom Search Button");
+		};
+		
+		window.__gcse = {
+			callback: imgAltTagsFix
+		};
+		
+		function a11yClick(event){
+			if(event.type === 'click'){
+				return true;
+			}
+			else if(event.type === 'keypress'){
+				var code = event.charCode || event.keyCode;
+				if((code === 32)|| (code === 13)){
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	</script><style type="text/css" media="screen">
+		body{
+	margin: 0;
+	padding: 25px 0 0 0;}
+div#ToggleNav{
+	position:absolute; /* only effects browsers that cannot accept Fixed positioning */
+	top: 0; /* only effects browsers that cannot accept Fixed positioning */
+	left: 0; /* only effects browsers that cannot accept Fixed positioning */
+	background: #000 url(/images/Admin/Skins/HardCandyBlack/images/ToggleLoginBg.gif) repeat-x top left;
+	border-bottom: 0px solid #333;
+	border-top: 0px solid #FFFFFF;
+	width:100%;
+	height:25px;
+	z-index: 1000;
+	overflow:hidden;}
+div#ToggleNav td{
+	font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #9EA8C3;}
+div#ToggleNav input {
+	margin: 0;
+	padding: 0;
+	font: normal 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #303040;
+	vertical-align:middle;}
+div#ToggleNav .loginWrapper {
+	float: right;
+	height: 100%;
+}
+div#ToggleNav .formWrapper {
+	padding-right: 3px;
+	padding-left: 3px;
+	display: inline-block; 
+	*display: inline;}
+div#ToggleNav .formUsername {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/UsernameBg.gif) no-repeat top left;}
+div#ToggleNav .formPassword {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/PasswordBg.gif) no-repeat top left;}
+div#ToggleNav .formSelected {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/LoginFieldBlank.gif) repeat-x top left;}
+div#ToggleNav .formButton {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat 0 0;}
+div#ToggleNav .formButtonHover {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat -46px 0;}
+div#ToggleNav a.help:link, div#ToggleNav a.help:visited {
+	display:block;
+	height: 16px;
+	color: #D9D8E6;
+	border: 0;
+	margin: 4px 5px 0 1px;}
+div#ToggleNav a.help:hover, div#ToggleNav a.help:active {
+	display: block;
+	height: 16px;
+	border: 0;}
+body > div#ToggleNav .formUsername {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formPassword {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formSelected {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formButton {margin-bottom: 3px;}/* non-IE browsers only */
+body > div#ToggleNav .formButtonHover {margin-bottom: 3px;}/* non-IE browsers only */
+@media screen {
+	body > div#ToggleNav{
+		position:fixed;}
+}
+
+* html div#AdminDefaultIncludes{
+	position: fixed;
+	top: 25px;
+	bottom:0;
+ 	width: 100%;
+	_position: absolute;
+	_top: expression( ( 25 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+	_height: expression( ( -25 + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );}
+				* html body {
+					overflow:hidden;}
+				* html div#AdminDefaultIncludes{
+					overflow: auto;	}
+			
+	</style>
+<!--[if lte IE 9]>
+	<style type="text/css" media="screen">
+		* html body {
+			overflow:auto;}
+	</style>
+	<![endif]--><script type="text/javascript" src="/JavaScripts/JavaScripts.js"></script><script type="text/javascript">
+			TopBar = '<div class="loginWrapper">' +
+						'<div class="formWrapper"><a href="/admin1/securelogin.asp" aria-label="Log In" title="Go to Secure Login Page" alt="Log In" class="formButton" border="0" onFocus="this.className=\'formButtonHover\'"  onMouseOver="this.className=\'formButtonHover\'" onblur="this.className=\'formButton\'" onMouseOut="this.className=\'formButton\'">Login button</a></div>' +
+					 '</div>';
+		</script><script type="text/javascript">
+		if(typeof(BottomBar) == 'undefined')
+			var BottomBar = ' ';
+		$(document).ready(function() {
+			$("body").prepend('<div id="ToggleNav">' + TopBar + '</div>' + BottomBar);	
+		});
+	
+	</script><!--[if lte IE 9]>
+	<div id="AdminDefaultIncludes">
+	<![endif]--><script type="text/javascript" src="http://images.pcmac.org/Websites/UnionCountySD/UnionCountySD/js/skipnav.js"></script><link href="http://images.pcmac.org/Websites/UnionCountySD/UnionCountySD/Styles2018.css" rel="stylesheet" type="text/css">
+<script type="text/javascript"><!--//--><![CDATA[//><!--
+	startList = function() {
+		if (document.all&&document.getElementById) {
+			navRoot = document.getElementById("nav");
+			for (i=0; i<navRoot.childNodes.length; i++) {
+				node = navRoot.childNodes[i];
+				if (node.nodeName=="LI") {
+					node.onmouseover=function() {
+						this.className+=" over";
+					}
+					node.onmouseout=function() {
+						this.className=this.className.replace(" over", "");
+					}
+				}
+			}
+		}
+	}
+	window.onload=startList;
+	
+	//--><!]]></script><!-- This fixes the issue where drop down menus are hidden behind embedded YouTube videos  --><script> 
+$(document).ready(function() { 
+$("iframe").each(function(){ 
+var ifr_source = $(this).attr('src'); 
+var wmode = "wmode=transparent"; 
+if(ifr_source.indexOf('?') != -1) { 
+var getQString = ifr_source.split('?'); 
+var oldString = getQString[1]; 
+var newString = getQString[0]; 
+$(this).attr('src',newString+'?'+wmode+'&'+oldString); 
+} 
+else $(this).attr('src',ifr_source+'?'+wmode); 
+}); 
+}); 
+</script><!-- End YouTube fix --><link rel="Shortcut Icon" type="image/ico" href="http://images.pcmac.org/Websites/UnionCountySD/UnionCountySD/images/favicon.ico">
+<link rel="icon" href="http://images.pcmac.org/Websites/UnionCountySD/UnionCountySD/images/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+<div align="center">
+<table role="presentation" width="990" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" id="SiteWrapper" style=" border: 2px solid #999; border-top: 0; border-bottom: 0; ">
+<tr></tr>
+<tr>
+<td align="center" style="padding-top: 155px" height="30">
+			<div id="topnavcontainer">
+<div role="navigation" aria-label="Main menu">
+<ul class="nav">
+<li><a href="/">Home</a></li>
+         
+	<!--School Drop Down Main Link Include -->
+		<li class="TopNav">
+<a href="/?PN=Schools2">Schools</a>
+		<ul>
+<li class="DropTitle">K-12 Schools</li>
+							
+				<li><a href="http://eastunion.union.k12.ms.us" target="_blank">East Union Attendance Center</a></li>
+				
+				<li><a href="http://ingomar.union.k12.ms.us" target="_blank">Ingomar Attendance Center</a></li>
+				
+				<li><a href="http://myrtle.union.k12.ms.us" target="_blank">Myrtle Attendance Center</a></li>
+				
+				<li><a href="http://westunion.union.k12.ms.us" target="_blank">West Union Attendance Center</a></li>
+				
+		</ul>
+</li>	
+               
+    <!--Division Main Link Include -->
+	
+			<li class="TopNav">
+				<a href="?DivisionID=17413" target="" style="cursor: default;">District</a>
+				<ul>
+<li>
+									<a href="?DivisionID=17413&amp;DepartmentID=18710">
+										Union County School Board
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17413&amp;DepartmentID=18708">
+										Superintendent Message
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17413&amp;DepartmentID=18709">
+										Assistant Superintendent Message
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17413&amp;DepartmentID=18917">
+										Mission Statement
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17413&amp;DepartmentID=18820">
+										Staff Directory
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=17421" target="" style="cursor: default;">Programs</a>
+				<ul>
+<li>
+									<a href="?DivisionID=17421&amp;DepartmentID=18717">
+										Federal Programs
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17421&amp;DepartmentID=24450">
+										Literacy
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17421&amp;DepartmentID=18823">
+										Special Education 
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17421&amp;DepartmentID=18824">
+										Food Service
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17421&amp;DepartmentID=18825">
+										Gifted Program
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17421&amp;DepartmentID=18718">
+										Technology
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17421&amp;DepartmentID=20037">
+										Early Childhood Education
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17421&amp;DepartmentID=20038">
+										Curriculum &amp; Programs
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=17470" target="" style="cursor: default;">Resources</a>
+				<ul>
+<li>
+									<a href="?DivisionID=17470&amp;DepartmentID=18826">
+										Forms/Handbooks
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17470&amp;DepartmentID=18827">
+										School Board Policies
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17470&amp;DepartmentID=18828">
+										UCSD Professional Development 
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=17471" target="" style="cursor: default;">Students</a>
+				<ul>
+<li>
+									<a href="?DivisionID=17471&amp;DepartmentID=21025">
+										Active Student
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17471&amp;DepartmentID=21221">
+										Library Online Catalog
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17471&amp;DepartmentID=24546">
+										Strong Readers=Strong Leaders
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17471&amp;DepartmentID=18832">
+										Home Connect
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17471&amp;DepartmentID=18835">
+										Mississippi Colleges &amp; Universities
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17471&amp;DepartmentID=21024">
+										Scholarships
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17471&amp;DepartmentID=18829">
+										Student Handbook
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=17472" target="" style="cursor: default;">Parents</a>
+				<ul>
+<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18837">
+										Active Parent
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18838">
+										District Calendar
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18839">
+										District Report Card
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=24004">
+										Dual Enrollment/CREATE Classes
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=21222">
+										Excel By 5
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=29387">
+										Excel By 5 Resource Guide
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=29566">
+										Home and School Connection
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18841">
+										Home Connect
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18844">
+										MS Dept Of Education
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18846">
+										Parent's Right to Know
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=29567">
+										Reading Connection
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=27861">
+										Stride Academy
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18848">
+										Student Handbook
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18849">
+										Supply List
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=28773">
+										Survey
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18850">
+										Teacher Directory
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18851">
+										Testing Calendar
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17472&amp;DepartmentID=18845">
+										US Dept of Education
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=17473" target="" style="cursor: default;">Teachers</a>
+				<ul>
+<li>
+									<a href="?DivisionID=17473&amp;DepartmentID=18860">
+										District Email
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17473&amp;DepartmentID=18862">
+										Employee Benefit Center
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17473&amp;DepartmentID=18864">
+										Forms/Handbooks
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17473&amp;DepartmentID=18865">
+										Home Connect
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17473&amp;DepartmentID=18868">
+										Licensure Information
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17473&amp;DepartmentID=18870">
+										Mississippi Public Broadcasting (ETV)
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17473&amp;DepartmentID=18869">
+										Ms Dept of Education
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17473&amp;DepartmentID=18873">
+										US Dept of Education
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=17474" target="" style="cursor: default;">Lunch Menu</a>
+				<ul>
+<li>
+									<a href="?DivisionID=17474&amp;DepartmentID=20173">
+										Lunch Menu
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17474&amp;DepartmentID=20174">
+										My School Bucks
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17474&amp;DepartmentID=20175">
+										School Lunch Application for Free/Reduced Meals
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li class="TopNav">
+				<a href="?DivisionID=17475" target="" style="cursor: default;">Employment</a>
+				<ul>
+<li>
+									<a href="?DivisionID=17475&amp;DepartmentID=18876">
+										Direct Deposit
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17475&amp;DepartmentID=18875">
+										Employee Benefit Center
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17475&amp;DepartmentID=18874">
+										Employment Applications
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17475&amp;DepartmentID=25148">
+										Employment Opportunities
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17475&amp;DepartmentID=18877">
+										Know Your Benefits
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17475&amp;DepartmentID=18878">
+										Mississippi Teacher Center
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17475&amp;DepartmentID=18880">
+										Public Employees Retirement System
+									</a>
+								</li>
+								
+								<li>
+									<a href="?DivisionID=17475&amp;DepartmentID=18881">
+										State Contracts
+									</a>
+								</li>
+								
+				</ul>
+</li>
+<li><a href="Default.asp?PN=AdvancedSearch">Search</a></li>
+             
+	
+	
+</ul>
+</div>
+</div>
+		</td>
+	</tr>
+<td align="left" bgcolor="#383838">
+            <table role="presentation" width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr>
+<td align="left" valign="top">
+                    <div id="SlideShowNew">
+                        
+			<div>
+			<script src="/JavaScripts/fotorama-4.6.4/fotorama.js"></script><style>
+.fotorama__html div,
+.fotorama__html a {
+  display: block;
+  height: 100%;
+  /* Transparent links are not clickable in IE,
+     but non-existent background fixes this.
+    (Put an empty 1×1 image here to avoid
+     errors in console.)
+  background: url(_.gif); */
+}
+
+</style>
+<div class="fotorama" data-width="100%" data-fit="cover" data-maxheight="260" data-transition="crossfade" data-autoplay="5000" data-loop="true" data-transitionduration="500" data-stopautoplayontouch="false" data-arrows="true" data-click="false" data-swipe="true" data-nav="false">
+	 
+	 
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1158/e58306d31b4cd32c89a8d9ca9c58c959.jpg" data-caption="" alt="Slideshow Image 0">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1158/8e4b4e0a1bff7469c7bd8c637b8d76aa.jpg" data-caption="" alt="Slideshow Image 1">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1158/53f43c5d078f0cb936d60ea027b7a495.jpg" data-caption="" alt="Slideshow Image 2">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1158/63aed5f68d7530f5f90ee18e83b9eaaa.jpg" data-caption="" alt="Slideshow Image 3">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1158/4be785dc45c854cc0025937b80780546.jpg" data-caption="" alt="Slideshow Image 4">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1158/9494f15c7750b5b0f4f561243ddf1f93.jpg" data-caption="" alt="Slideshow Image 5">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1158/45ea96101e1e1cf5a6b1acd63a37b7bc.jpg" data-caption="" alt="Slideshow Image 6">
+		
+		</div>
+			
+</div>
+
+
+
+			</div>
+		
+                    </div>
+<div class="SlideShowOverlayNew" onclick="SlideLink();"></div>
+                  </td>
+                  <td align="left" valign="top" width="320" style="padding:10px 0 0 0; height:250; overflow:hidden;">
+                  <center><iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2Funioncountyschoolsms&amp;width=250&amp;height=230&amp;colorscheme=dark&amp;show_faces=false&amp;header=false&amp;stream=true&amp;show_border=true" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:250px; height:230px;" allowtransparency="true"></iframe></center>
+                  </td>
+                </tr></tbody></table>
+</td>
+	
+	<tr>
+<td style="padding: 0px; overflow: hidden;">
+					<div id="maincontent"></div>
+				<table role="presentation" width="990" border="0" cellspacing="0" cellpadding="0"><tr>
+<div id="maincontent"></div>
+		<td align="left" valign="top" class="Column1">
+			<div id="DefaultIncludes">
+				<span class="header" style="display:block; padding: 0; margin:0; color:#FFF;"></span>
+				<span style="color:#FFF;"><h3 style="text-align: center;"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;"><a href="https://docs.google.com/forms/d/e/1FAIpQLSc7tEHUdFtq6YGk0mHNQIitdh0y4UMzaPReR4VIcTYBGeAmYw/viewform" target="_blank">Parent Survey</a></span></h3>
+<p style="text-align: center;"><a href="https://www.google.com/url?q=https://www.myschoolapps.com/Home/DistrictRedirect/UNIONCO_MS?langid%3D1&amp;sa=D&amp;source=hangouts&amp;ust=1562949056494000&amp;usg=AFQjCNHnyjBy9i5k6iQBkGypp0bJeLsNhw" target="_blank"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;">Application for Free/Reduced Lunch</span></a></p>
+<h3 style="text-align: center;"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;"><span style="text-decoration: underline;"><a href="http://images.pcmac.org/Uploads/UnionCountySD/UnionCountySD/Departments/DocumentsCategories/Documents/2019-2020%20School%20Supply%20List_%7BSIS788F9339695D%7D.pdf">2019-2020 School Supply Lists</a><a href="http://images.pcmac.org/Uploads/UnionCountySD/UnionCountySD/Departments/DocumentsCategories/Documents/18-19%20School%20Supply%20List_%7BSISEC7CC21F39AC%7D.pdf" target="_blank"></a></span><br></span></h3>
+<h5 style="text-align: center;"><a href="https://drive.google.com/file/d/1xva3vdcIQMrWUiNr6byoYhp5nxTzRE1k/view?usp=sharing" target="_blank"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;">Student Handbook</span></a></h5>
+<h5 style="text-align: center;"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;"><a href="https://ms7300.activeparent.net/Login.aspx?ReturnUrl=%2fDefault.aspx">Active Parent</a></span></h5>
+<h5 style="text-align: center;"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;"><a href="https://ms7300.activestudent.net/Login.aspx">Active Student </a></span></h5>
+<h5 style="text-align: center;"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;"><a href="http://www.union.k12.ms.us/?DivisionID=17413&amp;DepartmentID=18820">Staff Directory</a></span></h5>
+<h5 style="text-align: center;"><span style="font-size: 16px; font-family: 'trebuchet ms', geneva;"><a href="http://unionco.msbapolicy.org">School Board Policies</a></span></h5>
+<h5 style="text-align: center;"><span style="font-size: 16px;"><a href="http://images.pcmac.org/Uploads/UnionCountySD/UnionCountySD/Departments/DocumentsCategories/Documents/E-Rate%20Cat2%20Final.pdf"><span style="font-family: 'trebuchet ms', geneva;">Category 2 E-Rate RFP</span></a></span></h5>
+<h5 style="text-align: center;"><span style="font-family: trebuchet ms,geneva; font-size: 13px;">---------------------------</span></h5>
+<h5 style="text-align: center;"><span style="font-family: trebuchet ms,geneva; font-size: 13px;"><a href="http://eastunionattendance.ms.ucc.schoolinsites.com">East Union Attendance Center</a></span></h5>
+<h5 style="text-align: center;"><span style="font-family: trebuchet ms,geneva; font-size: 13px;"><a href="http://ingomarattendance.ms.ucc.schoolinsites.com">Ingomar Attendance Center</a></span></h5>
+<h5 style="text-align: center;"><span style="font-family: trebuchet ms,geneva; font-size: 13px;"><a href="http://myrtleattendance.ms.ucc.schoolinsites.com">Myrtle  Attendance Center</a></span></h5>
+<h5 style="text-align: center;"><span style="font-family: trebuchet ms,geneva; font-size: 13px;"><a href="http://westunionattendance.ms.ucc.schoolinsites.com">West Union Attendance Center</a></span></h5></span>
+			</div>
+		</td>
+		<td align="left" valign="top" class="Column2">
+			<div style="color:#FFF;">
+				<h3 style="text-align: center;"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;"><a href="http://www.gmail.com">District Email</a></span></h3>
+<p style="text-align: center;"><a href="http://images.pcmac.org/Uploads/UnionCountySD/UnionCountySD/Departments/DocumentsCategories/Documents/SCHOOL%20CALENDAR%202019-2020%20Revised_%7BSIS7246B3BE0378%7D.pdf" target="_blank"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;">2019-2020 UCSD Calendar</span></a></p>
+<h3 style="text-align: center;"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;"><a href="http://unioncountysd.schoolinsites.com/?DivisionID=17470&amp;DepartmentID=18826">Forms/Handbooks</a></span></h3>
+<h3 style="text-align: center;"><a href="http://images.pcmac.org/Uploads/UnionCountySD/UnionCountySD/Departments/DocumentsCategories/Documents/2019-2020%20Personnel%20Handbook%20w%20Revised%20Leave%20Policy_%7BSIS41871FAF5B1E%7D.pdf" target="_blank"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;">Personnel Handbook</span></a></h3>
+<h3 style="text-align: center;"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;"><a href="https://ms7300.activeschool.net/Login.aspx?ReturnUrl=%2f">SAM Log-In</a></span></h3>
+<h3 style="text-align: center;"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;"><a href="https://hosted211.renlearn.com/89086/">AR Log-In</a></span></h3>
+<h3 style="text-align: center;"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;"><a href="http://10.20.1.26">Active Resources @ School</a></span></h3>
+<h3 style="text-align: center;"><a href="http://12.4.163.131/Login.aspx?ReturnUrl=%2f"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;">Active Resources @ Home</span></a></h3>
+<p style="text-align: center;"><span style="font-size: 13px;"><a href="http://images.pcmac.org/Uploads/UnionCountySD/UnionCountySD/Departments/DocumentsCategories/Documents/Pay%20Dates%20for%202019_%7BSIS5FD34793FE1C%7D_%7BSIS37AB82FEF006%7D.pdf" target="_blank"><strong><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;">Pay Dates for 2019 - 2020</span></strong></a><br><br><span style="color: #ffffff;">---------------------------</span></span></p>
+<h5 style="text-align: center;">
+<span><span><a href="http://images.pcmac.org/Uploads/UnionCountySD/UnionCountySD/Sites/Videos/unioncountyschooldistrict5-HD.mp4"><span style="font-family: 'trebuchet ms', geneva; font-size: 16px;">INSPIRE Promotional Video</span></a></span></span><span style="font-size: 13px;"> <br></span>
+</h5>
+<p><span style="font-size: 13px;"><video width="318" height="239" style="margin-right: auto; margin-left: auto; display: block;" preload="metadata" controls="controls" src="http://images.pcmac.org/Uploads/UnionCountySD/UnionCountySD/Sites/Videos/unioncountyschooldistrict5-HD.mp4"><object style="margin-right: auto; margin-left: auto; display: block;" width="318" height="239" classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,40,0"><param name="src" value="http://images.schoolinsites.com/videos/moxieplayer.swf">
+<param name="play" value="false">
+<param name="autoplay" value="false">
+<param name="scale" value="tofit">
+<param name="flashvars" value="url=http%3A//images.pcmac.org/Uploads/UnionCountySD/UnionCountySD/Sites/Videos/unioncountyschooldistrict5-HD.mp4&amp;poster=/Admin1/Common/EditEntry/">
+<param name="allowfullscreen" value="true">
+<param name="allowscriptaccess" value="true">
+<embed style="margin-right: auto; margin-left: auto; display: block;" width="318" height="239" type="application/x-shockwave-flash" src="http://images.schoolinsites.com/videos/moxieplayer.swf" play="false" autoplay="false" scale="tofit" flashvars="url=http%3A//images.pcmac.org/Uploads/UnionCountySD/UnionCountySD/Sites/Videos/unioncountyschooldistrict5-HD.mp4&amp;poster=/Admin1/Common/EditEntry/" allowfullscreen="true" allowscriptaccess="true"></embed></object></video></span></p>
+<p> </p>
+			</div>
+		</td>
+		<td align="left" valign="top" class="Column3">
+				<div class="IndexNewsContainer">
+					<div id="IndexNewsPortalDistrict">
+					
+	<div class="IndexNewsPortalDistrict">
+	<a href="Default.asp?PN=News2">District News</a>
+	
+		<span>
+			<a href="javascript:;" onclick="openme('news','/Common/News2/HomePagePopUps/Default.asp?ItemID=97720&amp;ISrc=District&amp;Itype=News',540,400); return false;" class="atnav">
+				2019-2020 UCSD Calendar
+			</a>
+		</span>							
+	
+	</div>
+
+					<br>
+</div>
+				</div>
+
+				<div class="IndexEventsContainer">
+					<div id="IndexNewsPortalEvents">
+					
+	<div class="IndexNewsPortalEvents">
+	<a href="Default.asp?PN=Calendar&amp;ShowNav=Yes">District Calendar</a>
+	
+	</div>
+	
+					<br>
+</div>
+				</div>
+		</td>
+	</tr></table>
+</td>
+			
+	</tr>
+<tr>
+<td style="padding: 10px 10px 10px 10px" id="bottomcolorbar">
+        250 Carter Ave | P.O Box 939 | New Albany, Ms 38652<br>
+phone: 662-534-1960 | Fax: 662-534-1961
+		</td>
+	</tr>
+<tr>
+<td style="padding: 2px 10px 5px 10px" class="LegalText">
+			<div id="Legal">
+	<a href="http://www.schoolinsites.com/"><img src="/images/SisPoweredSmall.png" id="PoweredBy" height="30" width="120" alt="Powered and Designed by SCHOOLinSITES"></a>
+	
+	<p class="right">
+		Copyright © 2020  Union County School District
+	</p>
+</div>
+
+		</td>
+	</tr>
+</table>
+</div>
+</body>
+</html>

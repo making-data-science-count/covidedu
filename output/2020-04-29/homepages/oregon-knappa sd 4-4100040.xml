@@ -1,0 +1,823 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Knappa School District</title>
+<meta name="Keywords" content="Knappa School District">
+<meta name="Description" content="Knappa School District">
+<meta name="Author" content="Knappa School District">
+<meta name="ROBOTS" content="INDEX, FOLLOW">
+<meta http-equiv="imagetoolbar" content="no">
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+<meta property="og:image" content="http://images.schoolinsites.com/images/education.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="300">
+<meta property="og:image:height" content="200">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/css.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/pirobox1.2.2/css_pirobox/demo4/style.css" rel="stylesheet" type="text/css">
+<link href="JavaScripts/fotorama-4.6.4/fotorama.css" rel="stylesheet">
+<script type="text/javascript" src="JavaScripts/jquery-1.8.3.min.js"></script><link href="/CommonTemplates/SiteElements/Styles/Include-Styles.asp" type="text/css" rel="stylesheet">
+<link href="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Styles.css" rel="stylesheet" type="text/css">
+<!--script src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/JavaScripts.js" type="text/javascript"></script--><script type="text/javascript">
+	//-----------------------------------------------------------------------------------------------
+	//Edit CSS, currently set up for Pirobox fix
+	//-----------------------------------------------------------------------------------------------
+		function getCSSRule(ruleName, deleteFlag) {               // Return requested style obejct
+		   ruleName=ruleName.toLowerCase();    
+		   
+			if (document.styleSheets) {                            
+				for (var i=0; i<document.styleSheets.length; i++) { 
+					var styleSheet=document.styleSheets[i];
+					var styleSheetHref = styleSheet.href;
+					if ((styleSheetHref != null) && (styleSheetHref.indexOf("pirobox") != -1))
+						piroStyle = i;
+				}
+
+				var styleSheet=document.styleSheets[piroStyle];
+				 var ii=0;                                        // Initialize subCounter.
+				 var cssRule=false;                               // Initialize cssRule. 
+
+				 do {                                             // For each rule in stylesheet
+					if (styleSheet.cssRules) {                    // Browser uses cssRules?
+					   cssRule = styleSheet.cssRules[ii];         // Yes --Mozilla Style
+					} else {                                      // Browser usses rules?
+					   cssRule = styleSheet.rules[ii];            // Yes IE style. 
+					}                                             // End IE check.
+
+					if (cssRule)  {                               // If we found a rule...
+					   if ((typeof(cssRule.selectorText) != 'undefined') && (cssRule.selectorText.toLowerCase()==ruleName)) { //  match ruleName?
+						  if (deleteFlag=='delete') {             // Yes.  Are we deleteing?
+							 if (styleSheet.cssRules) {           // Yes, deleting...
+								styleSheet.deleteRule(ii);        // Delete rule, Moz Style
+							 } else {                             // Still deleting.
+								styleSheet.removeRule(ii);        // Delete rule IE style.
+							 }                                    // End IE check.
+							 return true;                         // return true, class deleted.
+						  } else {                                // found and not deleting.
+							 return cssRule;                      // return the style object.
+						  }                                       // End delete Check
+					   }                                          // End found rule name
+					}                                             // end found cssRule
+					ii++;                                         // Increment sub-counter
+				 } while (cssRule)  
+			}
+			return false;
+		}
+
+
+		function killCSSRule(ruleName) {                          // Delete a CSS rule   
+		   return getCSSRule(ruleName,'delete');                  // just call getCSSRule w/delete flag.
+		}                                                         // end killCSSRule
+
+		function addCSSRule(ruleName) {                           // Create a new css rule
+		   if (document.styleSheets) {                            // Can browser do styleSheets?
+			  if (!getCSSRule(ruleName)) {                        // if rule doesn't exist...
+				 if (document.styleSheets[0].addRule) {           // Browser is IE?
+					document.styleSheets[0].addRule(ruleName, null,0);      // Yes, add IE style
+				 } else {                                         // Browser is IE?
+					document.styleSheets[0].insertRule(ruleName+' { }', 0); // Yes, add Moz style.
+				 }                                                // End browser check
+			  }                                                   // End already exist check.
+		   }                                                      // End browser ability check.
+		   return getCSSRule(ruleName);                           // return rule we just created.
+		} 
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//Get/Set cookies for mobile site
+	//-----------------------------------------------------------------------------------------------
+		function createCookie(name,value,days) {
+			if (days) {
+				var date = new Date();
+				date.setTime(date.getTime()+(days*24*60*60*1000));
+				var expires = "; expires="+date.toGMTString();
+			}
+			else var expires = "";
+			document.cookie = name+"="+value+expires+"; path=/";
+		}
+
+		function readCookie(name) {
+			var nameEQ = name + "=";
+			var ca = document.cookie.split(';');
+			for(var i=0;i < ca.length;i++) {
+				var c = ca[i];
+				while (c.charAt(0)==' ') c = c.substring(1,c.length);
+				if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+			}
+			return null;
+		}
+
+		function eraseCookie(name) {
+			createCookie(name,"",-1);
+		}
+		
+		
+		
+		var fullSite = readCookie('FullSite');
+		var mobileDev = readCookie('MobileDevice');
+		var mobileNoRedirect = readCookie('MobileNoRedirect');
+		
+		if(fullSite && mobileDev) {
+			if((fullSite != 'True') && (mobileNoRedirect != '1') && (mobileDev == 'True'))
+				window.location = 'http://www.knappa.k12.or.us/mobile/default.asp';
+		}
+	//-----------------------------------------------------------------------------------------------
+
+
+	//-----------------------------------------------------------------------------------------------
+	//photo album / lightbox init
+	//-----------------------------------------------------------------------------------------------
+		$(document).ready(function() {
+			if ($("a[class^='pirobox']").length > 0) {
+				$().piroBox({
+						my_speed: 400, //animation speed
+						bg_alpha: 0.7, //background opacity
+						slideShow : true, // true == slideshow on, false == slideshow off
+						slideSpeed : 4, //slideshow duration in seconds(3 to 6 Recommended)
+						close_all : '.piro_close,.piro_overlay'// add class .piro_overlay(with comma)if you want overlay click close piroBox
+				});
+			}
+		});
+
+		var UserAgent = navigator.userAgent;
+		//alert(UserAgent);
+		if (UserAgent.indexOf("MSIE 10") != -1)
+			TheAgent = "IE10"
+		else{
+			if (UserAgent.indexOf("MSIE") != -1)
+				TheAgent = "IE"
+			else
+				TheAgent = ""
+		}
+		
+		//Pirobox + Google Translate workaround for non-IE browsers. Dynamically changes CSS for pirobox after the translate widget has loaded.
+		if (TheAgent == ""){
+			theTimeout = setTimeout('GoogleCountdown()', 2000);	
+		}
+		
+		function GoogleCountdown() {
+			var element =  document.getElementById('google_translate_element');
+			if ((typeof(element) != 'undefined') && (element != null))
+			{
+				var PiroContent = getCSSRule('.pirobox_content');
+				var w = window,
+					d = document,
+					e = d.documentElement,
+					g = d.getElementsByTagName('body')[0],
+					//x = w.innerWidth || e.clientWidth || g.clientWidth,
+					y = w.innerHeight|| e.clientHeight|| g.clientHeight;
+					
+				
+				if(y < 700)
+					PiroContent.style.top = "16%";
+				else{
+					if(y > 900)
+						PiroContent.style.top = "23%";
+					else
+						PiroContent.style.top = "20%";
+				}
+				
+			}
+		}
+	//-----------------------------------------------------------------------------------------------
+		
+		
+		//Use onClick=SlideLink() in the slide show overlay for slide links work
+		function SlideLink() {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			//figure out which div is showing and set Link var
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			//if an anchor exists store values to "h" (for HREF) and "t" (for Target)
+			if (Link.firstChild.nodeName == "A") {
+				h = Link.firstChild.href;
+				t = Link.firstChild.target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				h = Link.getElementsByTagName('A')[0].href;
+				t = Link.getElementsByTagName('A')[0].target;
+				if (h) { (t == "_self" | t == "_top" | t == "") ? document.location.href=h : window.open(h,'SlideWindow');}
+			}
+		}
+		//Make sure the cursor is a link pointer when a link exists (called by function SlideCursor())
+		function SlideCursorCheck(me) {
+			X = document.getElementById('canvas0_0');
+			Y = document.getElementById('canvas0_1');
+			(X.style.zIndex > Y.style.zIndex) ? Link=X : Link=Y;
+			if (Link.firstChild.nodeName == "A") {
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.firstChild.href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+			if(Link.getElementsByTagName('A').length > 0){
+				me.style.cursor = 'pointer';
+				me.setAttribute('title', Link.etElementsByTagName('A')[0].href);
+			}else {
+				me.style.cursor = 'default';
+				me.setAttribute('title', "");
+			}
+		}
+		//Function to change cursor on slide show overlay
+		var CursorCheck = false;
+		function SlideCursor(me) {
+			Elem = me;			
+			if (CursorCheck == false) {
+				var Start_SlideCursor = setInterval("SlideCursorCheck(Elem)", 500);
+				CursorCheck = true;
+			}
+		}
+		
+		function Login()
+		{
+			var loginPage = 'https://securesite.schoolinsites.com/loginv2/common/?p=1';
+			var loginDomain = 'http://www.knappa.k12.or.us';
+			loginPage = loginPage + '&login_for=' + loginDomain;
+			
+			window.location.href = loginPage;
+		}
+		
+		var imgAltTagsFix = function() {
+			$('img.gsc-branding-img').attr("alt", "Google Custom Search Branding");
+			$('input.gsc-search-button').attr('alt', "Google Custom Search Button");
+		};
+		
+		window.__gcse = {
+			callback: imgAltTagsFix
+		};
+		
+		function a11yClick(event){
+			if(event.type === 'click'){
+				return true;
+			}
+			else if(event.type === 'keypress'){
+				var code = event.charCode || event.keyCode;
+				if((code === 32)|| (code === 13)){
+					return true;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+	</script><style type="text/css" media="screen">
+		body{
+	margin: 0;
+	padding: 25px 0 0 0;}
+div#ToggleNav{
+	position:absolute; /* only effects browsers that cannot accept Fixed positioning */
+	top: 0; /* only effects browsers that cannot accept Fixed positioning */
+	left: 0; /* only effects browsers that cannot accept Fixed positioning */
+	background: #000 url(/images/Admin/Skins/HardCandyBlack/images/ToggleLoginBg.gif) repeat-x top left;
+	border-bottom: 0px solid #333;
+	border-top: 0px solid #FFFFFF;
+	width:100%;
+	height:25px;
+	z-index: 1000;
+	overflow:hidden;}
+div#ToggleNav td{
+	font: bold 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #9EA8C3;}
+div#ToggleNav input {
+	margin: 0;
+	padding: 0;
+	font: normal 9px Verdana, Arial, Helvetica, sans-serif;
+	color: #303040;
+	vertical-align:middle;}
+div#ToggleNav .loginWrapper {
+	float: right;
+	height: 100%;
+}
+div#ToggleNav .formWrapper {
+	padding-right: 3px;
+	padding-left: 3px;
+	display: inline-block; 
+	*display: inline;}
+div#ToggleNav .formUsername {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/UsernameBg.gif) no-repeat top left;}
+div#ToggleNav .formPassword {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/PasswordBg.gif) no-repeat top left;}
+div#ToggleNav .formSelected {
+	height: 16px;
+	width: 106px;
+	border: none;
+	margin: 3px 1px 3px 1px;
+	padding: 2px 2px 0 3px;
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/LoginFieldBlank.gif) repeat-x top left;}
+div#ToggleNav .formButton {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat 0 0;}
+div#ToggleNav .formButtonHover {
+	height: 16px;
+	width: 46px;
+	border: 0;
+	margin: 4px 0;
+	padding: 0;
+	display: block;
+	text-indent: -9999px;
+    color: transparent; 
+	background: transparent url(/images/Admin/Skins/HardCandyBlack/images/ToggleNavGoButton.gif) no-repeat -46px 0;}
+div#ToggleNav a.help:link, div#ToggleNav a.help:visited {
+	display:block;
+	height: 16px;
+	color: #D9D8E6;
+	border: 0;
+	margin: 4px 5px 0 1px;}
+div#ToggleNav a.help:hover, div#ToggleNav a.help:active {
+	display: block;
+	height: 16px;
+	border: 0;}
+body > div#ToggleNav .formUsername {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formPassword {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formSelected {margin-top: 4px;}/* non-IE browsers only */
+body > div#ToggleNav .formButton {margin-bottom: 3px;}/* non-IE browsers only */
+body > div#ToggleNav .formButtonHover {margin-bottom: 3px;}/* non-IE browsers only */
+@media screen {
+	body > div#ToggleNav{
+		position:fixed;}
+}
+
+* html div#AdminDefaultIncludes{
+	position: fixed;
+	top: 25px;
+	bottom:0;
+ 	width: 100%;
+	_position: absolute;
+	_top: expression( ( 25 + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );
+	_height: expression( ( -25 + ( document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight ) + ( ignoreMe = document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop ) ) + 'px' );}
+				* html body {
+					overflow:hidden;}
+				* html div#AdminDefaultIncludes{
+					overflow: auto;	}
+			
+	</style>
+<!--[if lte IE 9]>
+	<style type="text/css" media="screen">
+		* html body {
+			overflow:auto;}
+	</style>
+	<![endif]--><script type="text/javascript" src="/JavaScripts/JavaScripts.js"></script><script type="text/javascript">
+			TopBar = '<div class="loginWrapper">' +
+						'<div class="formWrapper"><a href="/admin1/securelogin.asp" aria-label="Log In" title="Go to Secure Login Page" alt="Log In" class="formButton" border="0" onFocus="this.className=\'formButtonHover\'"  onMouseOver="this.className=\'formButtonHover\'" onblur="this.className=\'formButton\'" onMouseOut="this.className=\'formButton\'">Login button</a></div>' +
+					 '</div>';
+		</script><script type="text/javascript">
+		if(typeof(BottomBar) == 'undefined')
+			var BottomBar = ' ';
+		$(document).ready(function() {
+			$("body").prepend('<div id="ToggleNav">' + TopBar + '</div>' + BottomBar);	
+		});
+	
+	</script><!--[if lte IE 9]>
+	<div id="AdminDefaultIncludes">
+	<![endif]--><!--[if IE]>
+		<link href="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/StylesIE.css" rel="stylesheet" type="text/css" />
+	<![endif]--><script type="text/javascript" src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/js/skipnav.js"></script><link href="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Styles2018.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+//Show hide search drop down
+		function ShowSearch() {
+			var SearchDropDown = document.getElementById("SearchDropDown");
+			if (SearchDropDown.style.display != "block") {
+				SearchDropDown.style.display = "block";
+			}else {
+				SearchDropDown.style.display = "none";
+			}
+		}
+function MM_swapImgRestore() { //v3.0
+  var i,x,a=document.MM_sr; for(i=0;a&&i<a.length&&(x=a[i])&&x.oSrc;i++) x.src=x.oSrc;
+}
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function MM_swapImage() { //v3.0
+  var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
+   if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
+}
+    </script><!-- This fixes the issue where drop down menus are hidden behind embedded YouTube videos  --><script> 
+$(document).ready(function() { 
+$("iframe").each(function(){ 
+var ifr_source = $(this).attr('src'); 
+var wmode = "wmode=transparent"; 
+if(ifr_source.indexOf('?') != -1) { 
+var getQString = ifr_source.split('?'); 
+var oldString = getQString[1]; 
+var newString = getQString[0]; 
+$(this).attr('src',newString+'?'+wmode+'&'+oldString); 
+} 
+else $(this).attr('src',ifr_source+'?'+wmode); 
+}); 
+}); 
+</script><!-- End YouTube fix --><link rel="Shortcut Icon" type="image/ico" href="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/images/favicon.ico">
+<link rel="icon" href="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/images/favicon.ico" type="image/x-icon">
+</head>
+<body onload="MM_preloadImages('http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/facebook_rollover.png','http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/twitter_rollover.png','http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/rss_rollover.png')">
+	<div id="skiptocontent"><a href="#maincontent">skip to main content</a></div>
+<center>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" id="SiteWrapper"><tr>
+<td align="center" valign="top">
+            <table width="988" border="0" cellspacing="0" cellpadding="0" align="center" id="PageWrapper">
+<tr>
+<td align="left" valign="top">
+                	<a href="/"><img src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/images/spacer.gif" alt="banner" height="139" width="700" border="0"></a>
+                </td>
+                <td align="right" valign="top">
+                     <div style="margin-top:30px;">
+                     <form action="Default.asp?PN=AdvancedSearch&amp;Act=SearchNow" method="post" name="frmSearch" target="_top" style="margin:0; padding:0;">
+                     <div id="SearchDefaultWrapper">
+                     <div id="SearchDefault">
+                     <input name="SearchModule" type="hidden" value="0"><input name="Keyword" aria-label="Search" type="text" value="Search" id="SearchDefaultInput" style="vertical-align:middle;" onblur="if(this.value.length == 0) this.value='Search';" onclick="if(this.value == 'Search') this.value='';"><input type="image" src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/images/spacer.gif" alt="Search" width="25" height="25" style="vertical-align:middle;" name="Search" onclick="if(Keyword.length&lt;3){alert('Your Keyword has to be atleast 3 characters long.\n\nPlease enter a valid Keyword.');};" value="Go">
+</div>
+                     </div>
+                     </form>
+                     </div>
+                </td>
+              </tr>
+<tr id="TopNavBar">
+<td align="left" valign="top">
+                	<div id="topnavcontainer">
+<div role="navigation" aria-label="Main menu">
+<ul class="nav">
+<li class="TopNav"><a href="/" target="" class="Active">Home</a></li>
+         
+	<!--School Drop Down Main Link Include -->
+		<li class="TopNav">
+<a href="/?PN=Schools2">Schools</a>
+		<ul>
+<li class="DropTitle">Elementary Schools</li>
+							
+				<li><a href="http://hildalahti.or.ksd.schoolinsites.com" target="_blank">Hilda Lahti Elementary</a></li>
+				
+							<li class="DropTitle">High Schools</li>
+							
+				<li><a href="http://knappahigh.or.ksd.schoolinsites.com" target="_blank">Knappa High School</a></li>
+				
+		</ul>
+</li>	
+               
+    <!--Division Main Link Include -->
+	
+    
+	<li class="TopNav"><a href="/?PN=ParentInfo" target="">Parent Info</a></li>
+	<li class="TopNav">
+<a href="/?PN=News2">News</a>
+	</li>
+<li class="TopNav"><a href="?PN=Calendar">Calendar</a></li>	
+	<li class="TopNav"><a href="/?PN=AboutUs">About KSD</a></li>
+	<li class="TopNav"><a href="/?PN=Directory">Directory</a></li>
+	<li class="TopNav"><a href="/?PN=Contact">Contact</a></li>
+             
+
+	
+</ul>
+</div>
+</div>
+                </td>
+                <td align="center" valign="top">
+                   <div style="margin-top: 7px; margin-left: 5px; position: relative;">
+                   <a href="http://www.facebook.com" target="_blank"><img src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/facebook.png" alt="Facebook" name="facebook" border="0" width="33" height="33" id="facebook" style="padding-right: 10px;" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('facebook','','http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/facebook_rollover.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('facebook','','http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/facebook_rollover.png',1)"></a>
+                   <a href="http://www.twitter.com" target="_blank"><img src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/twitter.png" alt="Twitter" name="twitter" border="0" width="33" height="33" id="twitter" style="padding-right: 10px;" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('twitter','','http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/twitter_rollover.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('twitter','','http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/twitter_rollover.png',1)"></a>
+                   <a href="/RSS/Default.asp" target="_blank"><img src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/rss.png" alt="RSS" name="rss" border="0" width="33" height="33" id="rss" onmouseout="MM_swapImgRestore()" onmouseover="MM_swapImage('rss','','http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/rss_rollover.png',1)" onblur="MM_swapImgRestore()" onfocus="MM_swapImage('rss','','http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/rss_rollover.png',1)"></a> 
+                   </div>
+                </td>
+              </tr>
+</table>
+<!--MainPageArea --><table width="988" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="transparent"><tr>
+<td align="left" valign="top">
+                    <table cellpadding="0" cellspacing="0" align="center" id="SiteBody"><tr>
+<!-- 1) Side Navigation/Left Column td --><td align="left" valign="top" style="width:193px;">
+          <div id="SideNavContainer">
+          <div id="SideNavBG">
+          <div id="SideNavigation">
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0"><tr><td>
+
+
+	<div id="NavDivisions">
+	
+		<a href="/?DivisionID=20191" class="IncNavDivision">
+			20/21 Superintendent Search
+		</a>
+			
+		<a href="/?DivisionID=24342" class="IncNavDivision">
+			COVID 19 District Updates
+		</a>
+			
+		<a href="/?DivisionID=18788" class="IncNavDivision">
+			Superintendent's Office
+		</a>
+			
+		<a href="/?DivisionID=18789" class="IncNavDivision">
+			Business Office
+		</a>
+			
+		<a href="/?DivisionID=20105" class="IncNavDivision">
+			Knappa School Board
+		</a>
+			
+		<a href="/?DivisionID=24120" class="IncNavDivision">
+			Knappa Schools Foundation
+		</a>
+			
+		<a href="/?DivisionID=18790" class="IncNavDivision">
+			Wall of Fame
+		</a>
+			
+	</div> <!-- End: id="NavDivisions" -->
+	
+	<span id="UserLinksMenu">
+		
+	</span>
+		
+			<div id="QuickLinks">
+				
+					<div class="QuickLinksTitle"><span>Quick Links</span></div>
+				
+					<a href="http://policy.osba.org/knappa/KL/KL%20D1.PDF" target="_blank" class="QuickLinks">
+						Complaints and Appeal Policy KL
+					</a>
+					
+					<a href="http://policy.osba.org/knappa/KL/KL%20R%201%20D1.PDF" target="_blank" class="QuickLinks">
+						Complaints and Appeal Procedure Policy KL-AR
+					</a>
+					
+					<a href="http://www.ess.com/jobs" target="_blank" class="QuickLinks">
+						ESS Sub Services Website
+					</a>
+					
+					<a href="http://policy.osba.org/knappa/index.asp" target="_blank" class="QuickLinks">
+						Knappa Schools Board Policy
+					</a>
+					
+					<a href="https://sis-knappa.cascadetech.org/knappa/Login.aspx" target="_blank" class="QuickLinks">
+						Synergy
+					</a>
+					
+					<a href="https://accounts.google.com" target="_blank" class="QuickLinks">
+						Staff Email
+					</a>
+					
+					<a href="https://parent-knappa.cascadetech.org/knappa/Login_PXP.aspx?Logout=2" target="_blank" class="QuickLinks">
+						Parent/Student Vue
+					</a>
+					
+					<a href="http://hildalahti.or.ksd.schoolinsites.com/" target="_blank" class="QuickLinks">
+						Hilda Lahti Website
+					</a>
+					
+					<a href="http://knappahigh.or.ksd.schoolinsites.com/" target="_blank" class="QuickLinks">
+						Knappa High School Website
+					</a>
+					
+			</div>
+			</td></tr></table>
+</div>
+          </div>
+          </div>
+    </td>
+    <!-- End Side Navigation/Left Column td -->
+    <!-- 2) Slideshow and News Sections/Middle Column td -->
+    <td align="left" valign="top" width="600">
+             <!-- Slideshow Below -->
+              <div id="SlideshowBackground">
+              <div id="SlideShow" style="height:251px; width:573px; overflow:hidden;">
+                  
+			<div>
+			<script src="/JavaScripts/fotorama-4.6.4/fotorama.js"></script><style>
+.fotorama__html div,
+.fotorama__html a {
+  display: block;
+  height: 100%;
+  /* Transparent links are not clickable in IE,
+     but non-existent background fixes this.
+    (Put an empty 1×1 image here to avoid
+     errors in console.)
+  background: url(_.gif); */
+}
+
+</style>
+<div class="fotorama" data-width="100%" data-fit="cover" data-maxheight="251" data-transition="crossfade" data-autoplay="5000" data-loop="true" data-transitionduration="500" data-stopautoplayontouch="false" data-arrows="true" data-click="false" data-swipe="true" data-nav="false">
+	 
+	 
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1174/89fe049689a3ba5cef6616b6824b0778.jpg" data-caption="" alt="Slideshow Image 0">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1174/b6dcd7c36fb7c07557c80527dc9a1dc3.jpg" data-caption="" alt="Slideshow Image 1">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1174/88a9369160450bbc46ffe7ce3035ee61.jpg" data-caption="" alt="Slideshow Image 2">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1174/ef1a5b5cd9cd109417cbbe80173e288e.jpg" data-caption="" alt="Slideshow Image 3">
+		
+		</div>
+		
+		<!-- Slide -->
+		<div data-img="http://images.pcmac.org/cache/Site_1174/ceb5f52009efb305aa8cad5ff549a4b2.jpg" data-caption="" alt="Slideshow Image 4">
+		
+		</div>
+			
+</div>
+
+
+
+			</div>
+		
+              </div>
+<div class="SlideShowOverlay"></div>
+              </div>
+             <!-- News Section and Main Page Text Below -->
+               <table>
+<!-- News Section and Main Page Text Table --><tr>
+<td colspan="2">
+                  <div style="padding: 0 20px 0 20px; width: 550px; overflow: hidden;" id="DefaultIncludes">
+					  <div id="maincontent"></div>
+				    <span class="header" style="display:block; padding: 0; margin:0;"></span>
+				    <p style="text-align: center;"><span style="font-size: 14pt;"><a name="Survey" href="survey.pcmac.org/publicsitesurveydefault.aspx?surveyid=5271" target="_blank"></a> <span style="font-size: 16px;">KNAPPA SCHOOL DISTRICT #4 BUSINESS OFFICE 41535 Old Highway 30 Astoria OR 97103 </span></span></p>
+<p style="text-align: center;"><span style="font-size: 14pt;"><span style="font-size: 16px;">Phone: 503-458-5993 Fax: 503-458-6979</span></span></p>
+<p style="text-align: center;"><span style="font-size: 14pt;"><span style="font-size: 16px;"> NOTICE OF BUDGET COMMITTEE MEETINGS </span></span></p>
+<p style="text-align: left;"><span style="font-size: 13px;">Three public meetings of the Budget Committee of Knappa School District 4, Clatsop County, State of Oregon, to discuss the budget for the fiscal year July 1, 2020, to June 30, 2021, will be held in the month of May 2020 and June 2020. In response to the current health emergency resulting from the COVID-19 pandemic, the District facilities are currently closed to the public, and meetings are being held electronically. The first meeting will be held May 11, 2020, at 5:30 pm. The purpose of the meeting is to receive the budget message and to receive comment from the public on the budget. The second meeting is scheduled on June 1, 2020, at 5:30 pm and will take place on an as-needed basis. The third meeting will be held on June 15, 2020, at 5:30 pm for approval of the budget. Public comment will be taken in written format via email or by United States Postal Service. Written comments received by 5 pm on May 8, 2020, will be read during the public comment section of the meeting on May 11, 2020. Comments will be subject to a three-minute limit per community member. Email comments titled BUDGET MEETING COMMENTS to fresha@knappak12.org or morganj@knappak12.org or by mail to Knappa School District 4, 41535 Old Highway 30, Astoria OR 97103. A copy of the budget document may be inspected online at http://www.knappa.k12.or.us/ or obtained by email or mail on or after May 5, 2020. Email requests to fresha@knappak12.org or morganj@knappak12.org or phone request via phone message to 503-458-5993. These are public meetings where deliberation of the budget committee will take place. Any person may provide comments at the meetings. Notice of publication is also available at http://www.knappa.k12.or.us/</span></p>
+<p style="text-align: left;"><span style="font-size: 13px;">Dated this 27th day of Aprill 2020</span></p>
+<p> </p>
+<p><span style="font-size: 18px;"><strong>New!!</strong></span></p>
+<p><span style="font-size: 18px;">Free &amp; Reduced Meal application link</span></p>
+<p><span style="font-size: 18px;"><a href="https://www.ode.state.or.us/apps/FRLApp/">https://www.ode.state.or.us/apps/FRLApp/</a></span></p>
+<p> </p>
+<p><span style="font-size: 16px;">Knappa High School Counselor website!</span></p>
+<p> </p>
+<p><span style="font-size: 16px;"><a href="https://knappahighschoolcounselorpage.org/">https://knappahighschoolcounselorpage.org/</a></span></p>
+<p> </p>
+<p><span style="font-size: 16px;">~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</span></p>
+<p><span style="font-size: 16px;">Please use the following email address's for district grade level information on educational packets, meals, school closure and anything else during the COVID 19 situation.</span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;"><a href="mailto:hleinfo@knappak12.org"><strong>hleinfo@knappak12.org</strong></a></span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;"><a href="mailto:hlmsinfo@knappak12.org"><strong>hlmsinfo@knappak12.org</strong></a></span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;"><a href="mailto:khsinfo@knappak12.org"><strong>khsinfo@knappak12.org</strong></a></span></p>
+<p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+<p><span style="font-size: 16px;"><strong>PUBLIC ANNOUNCEMENT:  KNAPPA SCHOOL DISTRICT SCHOOLS &amp; PROPERTIES ARE CLOSED</strong></span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;">In our continued efforts to do our part to keep our community, our students and families safe from the threat of COVID-19, all Knappa Schools and properties are closed through April 28, 2020. Knappa continues to work alongside and support our local and state leaders in this fight. These closures are in full support of the Governor’s “Stay Home, Stay Healthy” recommendations and follow the Governor’s Executive Orders dated March 17, 2020.</span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;"><strong>COMMUNITY/STUDENT USE OF PROPERTIES</strong></span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;">It has come to our attention that community members and more specifically, young people are convening on our properties, our athletic fields, and playgrounds. It is critically important for the public to understand that the coronavirus continues to live on surfaces including playground equipment, athletic equipment, public seating areas and so much more. Until we receive information from our state and national health officials that we are no longer a community at risk of the spread of COVID, <strong>all Knappa School District properties will remain closed</strong>.</span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;"><strong>IMPORTANT INFORMATION REGARDING COVID-19 RISK TO YOUNG PEOPLE</strong></span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;">What is also critically important for the community to understand is although the effects of COVID-19 hits hardest on older and medically compromised individuals, COVID-19 <strong>does not </strong>discriminate. <strong>All ages are at risk of this virus, including young people. </strong>As of Friday, March 20, 2020, 7% of those that have tested positive for the virus in Oregon are 18 years of age or younger. Young people can also carry the virus not knowing they are infected. This can lead to the transfer of the disease to other members of the community as well as their loved ones. Young people are contracting the virus, experiencing its full effects to include hospitalization, pneumonia, permanent lung damage, and possible death.</span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;">As we continue to alter our lives to practice social distancing yet stay connected, we urge you to stay home and explore the many digital/virtual resources available to engage with family and friends. Reinvent playdates, social groups, and activities through these online resources.</span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;"><strong>REMINDER OF IMPORTANT PRACTICES AND RESOURCES</strong></span></p>
+<p style="text-align: left;"> </p>
+<p><span style="font-size: 16px;">These measures will help stop the spread of this deadly virus and save lives. If you must go out in public, stay six feet away from other individuals and do not gather in groups of more than 10. Again, please continue to follow the live-saving <a href="https://sharedsystems.dhsoha.state.or.us/DHSForms/Served//LE2356.pdf" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://sharedsystems.dhsoha.state.or.us/DHSForms/Served//LE2356.pdf&amp;source=gmail&amp;ust=1585164365863000&amp;usg=AFQjCNG3-ht00X_ueqj32raoWHtCZCu1kQ">guidance </a>of the CDC by staying home, limiting or postponing in-person social interaction and continuing the ongoing practice of the promoted hygiene guidelines. Thank you!</span></p>
+<p>~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+<p style="text-align: left;"> </p>
+<p style="text-align: center;"><span style="text-align: left;"> </span></p>
+<p> </p>
+<p style="text-align: left;"><span style="font-size: 13px;">The Knappa School District is looking for members to be part of a Bond committee. If you are interested please contact Superintendent Paulette Johnson at 503-458-5993 ext 303, or by email, johnsonp@knappak12.org. Meetings are held the first Wednesday's of the month at the high school library.</span></p>
+<p align="center"> </p>
+<p align="center"> </p>
+<p align="center"> </p>
+<p align="center"><strong style="font-size: 16px; text-align: left;"><span style="text-decoration: underline;"><span style="font-family: 'CG Omega','sans-serif'; color: black;">Education: Linking Our Past to the Present</span></span></strong></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;">Quality public education has been a priority of the Knappa Community since the late 1800’s. Knappa High School graduated it’s first class in 1919 and has contributed a steady stream of Community leaders ever since to our region and the state of Oregon.</span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;"> </span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;">In 1998 the Knappa community voted to separate from the Clatskanie Schools and form its own independent school district. In 2001 the community passed a bond measure to upgrade the district’s schools. The successful passage of a 5.7 million measure was reflective of this small community’s pride and commitment to their schools.</span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;"> </span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;">The Knappa School’s Foundation has raised over $1,000,000 to support student scholarships and mini-grants for innovative projects in the classrooms of the schools. </span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;"> </span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;">Knappa School District takes pride in being able to offer a high quality education regardless of its rural setting. The technology offered to students along with a high quality academic experience makes Knappa a great place to attend school.</span></p>
+<p style="text-align: justify;"><span style="font-size: 16px;"> </span></p>
+<p style="text-align: justify;"><span style="font-size: 16px;"><strong><span style="text-decoration: underline;"><span style="color: black;">About Our Community</span></span></strong></span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;">Knappa School District is located in a rural setting along Highway 30 just 12 miles east of Astoria and 90 miles from Portland. The school district serves the unincorporated communities of Knappa, Svensen, Brownsmead, and Burnside. The community is family oriented and represents about 2000 citizens. The proximity to the Columbia River provides year around recreational opportunities to the area.</span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;"> </span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;">The area has long been noted as a fishing and forest products center. Georgia-Pacific’s Wauna Mill is located within the district’s boundaries and employs approximately 1000 area residents. Clatsop Community College in Astoria is the favorite destination for KHS graduates, but many students also enroll in other state system universities and private schools in and out of Oregon.</span></p>
+<p style="text-align: justify;"> </p>
+<p style="text-align: justify;"> </p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;"><span>"It is the </span><strong>policy</strong><span> of the Knappa School District to ensure equal </span><strong>employment</strong><span> opportunity without </span><strong>discrimination</strong><span> or harassment on the basis of race, color, religion, sex, sexual orientation, gender identity or expression, age, disability, marital status, citizenship, genetic information, or any other characteristic protected by law."</span></span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;"> </span></p>
+<p style="text-align: justify;"><span style="font-size: 11pt; font-family: 'Times','serif'; color: black;"> </span></p>
+<p><span style="color: #222222; font-family: 'comic sans ms', sans-serif; font-size: 16px;"> </span></p>
+			      </div>
+			      </td>
+                </tr>
+<tr>
+<td align="left" valign="top">
+<!-- Top Events & School News td -->
+                  <div width="271" style="margin-left: 13px; margin-right: 3px;">
+                    <div class="IndexEventsContainer">
+                      
+	<div class="IndexNewsPortalEvents">
+	<a href="Default.asp?PN=Calendar&amp;ShowNav=Yes">Top Events</a>
+	
+	</div>
+	
+                    </div>
+                    <div style="padding-top: 12px;">
+                      <img src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/NewsHorizontalLine.png" alt="horizontal line">
+</div>
+                    <div class="IndexNewsContainer"> 
+                      
+	<div class="IndexNewsPortalSchool">
+	<a href="/?PN=News2&amp;SubP=SNews&amp;SubSubP=SchoolsNews&amp;DisplayType=Selected&amp;ShowNav=''&amp;StoryGroup=Archived">School News</a>
+	
+	</div>
+
+                    </div>
+                  </div>
+                 </td>
+<!-- End Top Events & School News td -->
+                 <td align="left" valign="top">
+<!-- District News td -->
+                    <div width="271" style="margin-left: 0px; margin-right: -10px; margin-top: 0px;">
+                      <div class="IndexNewsContainer">
+                        <span class="DistrictNewsHeader"><a href="/Default.asp?PN=News2">District News</a></span>
+                         <!--News with Photos -->
+                          <div>
+                              
+      <table><tr>
+<td>
+		
+		</td>
+  		</tr></table>
+</div>
+                      </div>
+                    </div>
+                 </td>
+<!-- End District News td -->
+                </tr>
+</table>
+<!-- End News Section Table -->
+</td>
+    <!-- End Slideshow and News Sections/Middle Column td -->
+    <!-- 3) Buttons/Right Column td -->
+    <td align="left" valign="top">
+			<table cellpadding="0" cellspacing="0" style="width:193px; overflow:hidden;"><tr>
+<td valign="top" width="193">
+			<a href="/Default.asp?PN=Pages&amp;SubP=Level1&amp;PageID=25742"><img src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/Button1.jpg" width="193" height="125" alt="Parents" border="0" style="margin-bottom: 18px"></a>
+			<a href="/Default.asp?PN=Pages&amp;SubP=Level1&amp;PageID=25743"><img src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/Button2.jpg" width="193" height="125" alt="Students" border="0" style="margin-bottom: 18px"></a>
+			<a href="/Default.asp?PN=Pages&amp;SubP=Level1&amp;PageID=27163"><img src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/Button3.jpg" width="193" height="125" alt="School Board" border="0" style="margin-bottom: 18px"></a>
+			<a href="/Default.asp?PN=Pages&amp;SubP=Level1&amp;PageID=25745"><img src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/Button4.jpg" width="193" height="125" alt="Staff" border="0" style="margin-bottom: 18px"></a>
+			<a href="/Default.asp?PN=Pages&amp;SubP=Level1&amp;PageID=25746"><img src="http://images.pcmac.org/Websites/KnappaSD/KnappaSD/Images/Button5.jpg" width="193" height="125" alt="Employment" border="0" style="margin-bottom: 18px"></a>
+			</td>
+			</tr></table>
+</td>
+    <!-- End Buttons/Right Column td -->
+  </tr></table>
+</td>
+                </tr></table>
+<!--Footer --><div id="FooterBackground" style="margin-top: 100px;">
+                     <div class="footeraddress">41535 Old HWY 30 | Astoria, Oregon 97103 | PH: 503.458.5993 EX 301</div>
+                     <div style="width: 988px; padding-top: 5px;" align="center">
+                      <div id="Legal">
+	<a href="http://www.schoolinsites.com/"><img src="/images/SisPoweredSmall.png" id="PoweredBy" height="30" width="120" alt="Powered and Designed by SCHOOLinSITES"></a>
+	
+	<p class="right">
+		Copyright © 2020  Knappa School District
+	</p>
+</div>
+
+                    </div>
+             </div>
+    </td>
+  </tr></table>
+</center>
+</body>
+</html>

@@ -1,0 +1,2086 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Buckeye Central Local School District</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700%7CStoke" rel="stylesheet" type="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Buckeye Central Local School District - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Buckeye Central High School - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Buckeye Central Middle School - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Buckeye Central Elementary School - News" href="/rssNews.ashx?schoolId=3">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "OH_BuckeyeCentralLclSD",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<style type="text/css">
+		.logo-container {
+			top: 55px;
+		}
+
+		#separator-bar {
+			height: 90px !important;
+			border-top: 10px solid #fff;
+		}
+	</style>
+<script type="text/javascript">
+		$(document).ready(function () {
+			$('#slideshow .slides').nivoSlider({ effect: 'fade' });
+		});
+	</script><link rel="icon" href="/Customers/OH/BuckeyeCentralLclSD/sysimages/custom/favicon.ico" type="image/x-icon">
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=-62135596800000">
+</head>
+<body class="school-0 index">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTEyMzk0MTIzNTIPZBYCZg9kFgJmD2QWBGYPZBYEAgMPZBYCAgEPFgIeC18hSXRlbUNvdW50AgMWBmYPZBYCZg8VAhtCdWNrZXllIENlbnRyYWwgSGlnaCBTY2hvb2wBMWQCAQ9kFgJmDxUCHUJ1Y2tleWUgQ2VudHJhbCBNaWRkbGUgU2Nob29sATJkAgIPZBYCZg8VAiFCdWNrZXllIENlbnRyYWwgRWxlbWVudGFyeSBTY2hvb2wBM2QCBg8WAh4EaHJlZgUyL3NpdGVjc3MuYXNoeD8maW50cmFuZXQ9MCZjaGVja3N1bT0tNjIxMzU1OTY4MDAwMDBkAgEPFgIeBmFjdGlvbgUBLxYKAgEPZBYGAgEPZBYKZg8PZBYCHgh0YWJpbmRleAUBMGQCAg8PZBYCHwMFATBkAgMPD2QWAh8DBQEwZAIEDw9kFgIfAwUBMGQCBQ8PZBYCHwMFATBkAgMPZBYCAgIPDxYCHgdWaXNpYmxlZ2QWAmYPFgIeBFRleHQF6QM8dWwgY2xhc3M9J2FsZXJ0TGlzdCc+PGxpPjxzcGFuIGNsYXNzPSdhbGVydERhbmdlckNvbG9yJyBzdHlsZT0nYmFja2dyb3VuZC1jb2xvcjojYWExMTExOyBjb2xvcjojZmZmZmZmJz5BbGVydDo8L3NwYW4+IDxzcGFuIGNsYXNzPSdhbGVydFRleHRJbmZvJz48cD5BdHRlbnRpb24gUGFyZW50czombmJzcDsgRmluYWwgRm9ybXMgaXMgbm93IE9QRU4gZm9yIDIwMjAtMjEgU2Nob29sIFllYXIhJm5ic3A7IFNlZSBhcnRpY2xlIGluIE5ld3MgYW5kIEFubm91bmNlbWVudHMmbmJzcDtmb3IgU3RlcC1ieS1TdGVwIEluc3RydWN0aW9ucyEmbmJzcDsgRVZFUllPTkUgbmVlZHMgdG8gY29tcGxldGUgdGhlIFRSQU5TUE9SVEFUSU9OIElORk9STUFUSU9OIEZPUk0gYnkgTWF5IDFzdCEmbmJzcDsgU29tZSBmb3JtcyByZXF1aXJlIHN0dWRlbnQgc2lnbmF0dXJlcyAobWlkZGxlIGFuZCBoaWdoIHNjaG9vbCBzdHVkZW50cyBvbmx5KSE8L3A+PC9zcGFuPjwvbGk+PC91bD5kAgcPDxYCHwRoZGQCAw9kFgICAQ9kFgICAQ9kFgQCAQ8PFgIfBQUlQnVja2V5ZSBDZW50cmFsIExvY2FsIFNjaG9vbCBEaXN0cmljdGRkAgkPDxYCHgtOYXZpZ2F0ZVVybAULL2luZGV4LmFzcHhkZAIFD2QWAgIBD2QWAgIBD2QWBGYPFgIfAAIEZAIBDxYCHwUFNjxzdHlsZT4jc2xpZGVzaG93e3Bvc2l0aW9uOnJlbGF0aXZlO3otaW5kZXg6MTs8L3N0eWxlPmQCCQ9kFgoCAQ9kFgICAQ9kFgJmDxYCHwUFzxQ8dWwgY2xhc3M9J3NmLXZlcnRpY2FsJyA+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvJyAgIHRpdGxlPSdIb21lJz5Ib21lPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC83NCcgICB0aXRsZT0nRGlzdHJpY3QgUHJvZmlsZSc+RGlzdHJpY3QgUHJvZmlsZTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0Rpc3RyaWN0bmV3c0FydGljbGVzLmFzcHgnICAgdGl0bGU9J0Rpc3RyaWN0IE5ld3MnPkRpc3RyaWN0IE5ld3M8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9jYWxNb250aFZpZXcuYXNweD9zPTAnICAgdGl0bGU9J0Rpc3RyaWN0IEV2ZW50cyc+RGlzdHJpY3QgRXZlbnRzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvc3VwZXJNc2cuYXNweCcgICB0aXRsZT0nU3VwZXJpbnRlbmRlbnQmIzM5O3MgTWVzc2FnZSc+U3VwZXJpbnRlbmRlbnQncyBNZXNzYWdlPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPSdodHRwczovL3R3aXR0ZXIuY29tL0J1Y2tleWVfQ2VudHJhbCcgICB0aXRsZT0nQnVja2V5ZSBDZW50cmFsIExvY2FsIFNjaG9vbHMgVHdpdHRlciBGZWVkJz5CdWNrZXllIENlbnRyYWwgTG9jYWwgU2Nob29scyBUd2l0dGVyIEZlZWQ8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9kaXN0cmljdEJvYXJkRWQuYXNweCcgICB0aXRsZT0nQm9hcmQgb2YgRWR1Y2F0aW9uJz5Cb2FyZCBvZiBFZHVjYXRpb248L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9Db250ZW50LzYwJyAgIHRpdGxlPSdCdWNrZXllIEJyaWVmcyc+QnVja2V5ZSBCcmllZnM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy8xL0RlcGFydG1lbnQvMTAnICAgdGl0bGU9J1NjaG9vbCBDb3Vuc2VsaW5nICc+U2Nob29sIENvdW5zZWxpbmcgPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvYXRobGV0aWNzJyAgIHRpdGxlPSdBdGhsZXRpY3MnPkF0aGxldGljczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvNTAnICAgdGl0bGU9J011c2ljJz5NdXNpYzwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2NvbnRlbnQvNDYnICAgdGl0bGU9J0VtcGxveW1lbnQgJz5FbXBsb3ltZW50IDwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbnRlbnQvNDInICAgdGl0bGU9J0x1bmNoIE1lbnVzJz5MdW5jaCBNZW51czwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0Rpc3RyaWN0R2FsbGVyeS5hc3B4JyAgIHRpdGxlPSdQaG90byBHYWxsZXJpZXMnPlBob3RvIEdhbGxlcmllczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2xpbmtzRm9ybXMuYXNweCcgICB0aXRsZT0nRm9ybXMgJmFtcDsgTGlua3MnPkZvcm1zICYgTGlua3M8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvNC9teSBmaWxlcy9yZXZpc2VkXzIwMTktMjAyMCBiYyBzeSBjYWxlbmRhcl9jb21taXR0ZV9maW5hbCAtIHNoZWV0MS5wZGY/aWQ9NDMxOCcgICB0aXRsZT0nRGlzdHJpY3QgQ2FsZW5kYXIgMjAxOSAtIDIwMjAnPkRpc3RyaWN0IENhbGVuZGFyIDIwMTkgLSAyMDIwPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvdXNlcmZpbGVzLzQvbXkgZmlsZXMvZGlzdHJpY3QgaW5mb3JtYXRpb24vMjAyMC0yMDIxIGJjIGNhbGVuZGFyX2FwcHJvdmVkX2NhbGVuZGFyIGNvbW1pdHRlZV9wZGYucGRmP2lkPTQzODgnICAgdGl0bGU9J0Rpc3RyaWN0IENhbGVuZGFyIDIwMjAgLSAyMDIxJz5EaXN0cmljdCBDYWxlbmRhciAyMDIwIC0gMjAyMTwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL0NvbW11bmljYXRpb24nICAgdGl0bGU9J0UtQ29tbXVuaWNhdGlvbnMnPkUtQ29tbXVuaWNhdGlvbnM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHBzOi8vZG9jcy5nb29nbGUuY29tL2EvYmNidWNrcy5vcmcvZm9ybXMvZC8xd1F1S2laQTVZeGJKWkZ6QUdXZTduUC1jNl9CVWFPTnNoN1l2NHMtbFRHcy92aWV3Zm9ybScgICB0aXRsZT0nSW5jaWRlbnQgUmVwb3J0Jz5JbmNpZGVudCBSZXBvcnQ8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy91c2VyZmlsZXMvNC9teSBmaWxlcy9ub3RpY2Utb2YtcHJvcG9zZWQtY2xhc3MtYWN0aW9uLXNldHRsZW1lbnQtZG9lLnBkZj9pZD00MzQ5JyAgIHRpdGxlPSdEb2Ugdi4gU3RhdGUgb2YgT2hpbyc+RG9lIHYuIFN0YXRlIG9mIE9oaW88L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9J2h0dHA6Ly93d3cuYnVja2V5ZS1jZW50cmFsLmsxMi5vaC51cy9Db250ZW50Lzg2JyAgYXJpYS1sYWJlbD0iIiB0aXRsZT0nVHJlYXN1cmVyIEluZm9ybWF0aW9uJz5UcmVhc3VyZXIgSW5mb3JtYXRpb248L2E+PC9saT48L3VsPmQCAw9kFgICAQ9kFgICAQ9kFgJmDxYCHwUFrwQ8dWwgY2xhc3M9J3NmLXZlcnRpY2FsJyA+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC8yNicgICB0aXRsZT0nICBQYXJlbnQgUmVzb3VyY2VzJz48aSBjbGFzcz0iZmEgZmEtdXNlciIgPjwvaT4gIFBhcmVudCBSZXNvdXJjZXM8L2E+PC9saT48bGkgY2xhc3M9J3dpdGhvdXQtaW1hZ2UnPjxhIGhyZWY9Jy9Db250ZW50LzI4JyAgYXJpYS1sYWJlbD0iIiB0aXRsZT0nIFN0dWRlbnQgUmVzb3VyY2VzJz48aSBjbGFzcz0iZmEgZmEtdXNlcnMiID48L2k+IFN0dWRlbnQgUmVzb3VyY2VzPC9hPjwvbGk+PGxpIGNsYXNzPSd3aXRob3V0LWltYWdlJz48YSBocmVmPScvQ29udGVudC8zMCcgIGFyaWEtbGFiZWw9IiIgdGl0bGU9JyBTdGFmZiBSZXNvdXJjZXMnPjxpIGNsYXNzPSJmYSBmYS11bml2ZXJzaXR5Ij48L2k+IFN0YWZmIFJlc291cmNlczwvYT48L2xpPjxsaSBjbGFzcz0nd2l0aG91dC1pbWFnZSc+PGEgaHJlZj0nL2NvbnRlbnQvNzAnICAgdGl0bGU9J0J1cyBEcml2ZXIgUmVzb3VyY2VzJz5CdXMgRHJpdmVyIFJlc291cmNlczwvYT48L2xpPjwvdWw+ZAIFD2QWCAIBD2QWAmYPFgIfBQWQA1dlbGNvbWUgdG8gQnVja2V5ZSBDZW50cmFsIExvY2FsIFNjaG9vbHMgJmxkcXVvO1doZXJlIFNUVURFTlRTIGNvbWUgRklSU1QhJnJkcXVvOyBUaGUgQkMgVEVBTSBrZWVwcyBlYWNoIHN0dWRlbnQgYXQgdGhlIGNlbnRlciBvZiBkYWlseSBpbnN0cnVjdGlvbiwgZXhwZXJpZW5jZXMsIGFuZCBhY3Rpb25zLiBFdmVyeSB0ZWFtIG1lbWJlciBwcm92aWRlcyB0aGVpciBhYnNvbHV0ZSBiZXN0IGFuZCBiZWxpZXZlcyB0aGVyZSBhcmUgbm8gbGltaXRzIHJlZ2FyZGluZyBvdXIgc3R1ZGVudHMmIzM5OyBwZXJzb25hbCBhbmQgYWNhZGVtaWMgZ3Jvd3RoIGFuZCBhY2hpZXZlbWVudC4NCg0KIA0KDQpPdXIgZGlzdHJpY3QgVmlzaW9uLCBNaXNzaW9uLCBhbmQgQmVsaWVmcyBjaGFydCBvdXIgcGF0aCB0byAuLi5kAgMPDxYCHwUFDU1hcmsgUm9iaW5zb25kZAIFD2QWBmYPFgIfBQUXRW5kLU9mLVRoZS1ZZWFyIFVQREFURSFkAgEPFgIfBQW5BzxwPkJ1Y2tleWUgQ2VudHJhbCBTY2hvb2xzIHBhcmVudHMgYW5kIHN0dWRlbnRzLi4uIEFzIHlvdSBrbm93IGJ5IG5vdywgR292ZXJub3IgRGVXaW5lIGNsb3NlZCBPaGlvIHNjaG9vbHMgZm9yIHRoZSByZW1haW5kZXIgb2YgdGhlIDIwMTktMjAyMCBzY2hvb2wgeWVhciB0aGlzIHBhc3QgTW9uZGF5LiBTaW5jZSBoaXMgYW5ub3VuY2VtZW50IChhbmQgZXZlbiBiZWZvcmUpLCB3ZSBoYXZlIGJlZW4gd29ya2luZyBkaWxpZ2VudGx5IHRvIGFkZHJlc3MgdGhlIG1hbnkgZW5kLW9mLXRoZS15ZWFyIHRvcGljcyB0aGF0IG11c3QgYmUgaGFuZGxlZC4gV2Ugd2lsbCBiZSBzaGFyaW5nIGluZm9ybWF0aW9uIHJlZ2FyZGluZyBncmFkdWF0aW9uLCBmaW5hbGl6aW5nIHNjaG9vbCB3b3JrLCBsb2NrZXIgY2xlYW4gb3V0LCBDaHJvbWVib29rcyBhbmQgYWxsIG90aGVyIHBlcnRpbmVudCB5ZWFyLWVuZCBpbmZvcm1hdGlvbiB3aXRoaW4gdGhlIG5leHQgY291cGxlIG9mIHdlZWtzLiBCZSBhc3N1cmVkIHRoYXQgd2UgYXJlIHdvcmtpbmcgaGFyZCBvbiBwbGFucyB0byBjb25kdWN0IGEgbWVtb3JhYmxlIGdyYWR1YXRpb24gY2VyZW1vbnkgZm9yIG91ciBTZW5pb3JzIDIwMjAuIFRoYW5rIHlvdSBmb3IgeW91ciBwYXRpZW5jZSBhbmQgc3VwcG9ydCBkdXJpbmcgdGhlc2UgY2hhbGxlbmdpbmcgYW5kIHVucHJlY2VkZW50ZWQgdGltZXMuIFRoZSBtaW51dGUgd2UgYXJlIGFibGUgdG8gZmluYWxpemUgb3VyIHBsYW5zLCB5b3Ugd2lsbCBiZSB0aGUgZmlyc3QgdG8ga25vdyEmbmJzcDs8aW1nIGFsdD0iIiBoZWlnaHQ9IjE2IiByb2xlPSJwcmVzZW50YXRpb24iIHNyYz0iaHR0cHM6Ly9zdGF0aWMueHguZmJjZG4ubmV0L2ltYWdlcy9lbW9qaS5waHAvdjkvdGE1LzEuNS8xNi8xZjY0Mi5wbmciIHdpZHRoPSIxNiIgLz4mbmJzcDtTdGF5IGhlYWx0aHkgYW5kIHNhZmUuIEJDX1N0cm9uZyE8L3A+ZAIDDw8WAh8GBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTJkZAIHD2QWBmYPFgIfBQUaV2VsY29tZSB0byBCdWNrZXllIENlbnRyYWxkAgEPFgIfBQXsBDxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LmNnaS1ydHtwb3NpdGlvbjpyZWxhdGl2ZTtwb2ludGVyLWV2ZW50czogbm9uZTtoZWlnaHQ6MzAwcHg7bWF4LWhlaWdodDo0MDZweDttYXgtd2lkdGg6NzIwcHg7fUBtZWRpYSBvbmx5IHNjcmVlbiBhbmQgKG1heC13aWR0aDogNTEwcHgpey5jZ2ktcnR7bWF4LWhlaWdodDoyNTVweDtoZWlnaHQ6MjU1cHg7fX0NCjwvc3R5bGU+DQo8ZGl2IGNsYXNzPSJjZ2ktcnQiPjxpZnJhbWUgYWxsb3c9ImF1dG9wbGF5OyBlbmNyeXB0ZWQtbWVkaWEiIGFsbG93ZnVsbHNjcmVlbj0iIiBmcmFtZWJvcmRlcj0iMCIgaWQ9InJ0cGxheWVybXJmIiBzcmM9Imh0dHBzOi8vZWxvY2FsbGluay50di9lLz92PW1yZiZhbXA7YXA9MCIgc3R5bGU9InBvaW50ZXItZXZlbnRzOiBhdXRvO3Bvc2l0aW9uOmFic29sdXRlO3RvcDowO2xlZnQ6MDt3aWR0aDoxMDAlO2hlaWdodDoxMDAlO2JvcmRlcjowO2JveC1zaXppbmc6IGJvcmRlci1ib3g7bWF4LXdpZHRoOiA3MjBweCFpbXBvcnRhbnQ7bWF4LWhlaWdodDogNDA2cHghaW1wb3J0YW50O2JhY2tncm91bmQ6IHRyYW5zcGFyZW50IWltcG9ydGFudDsiIHR5cGU9InRleHQvaHRtbCIgd2lkdGg9IjcyMCI+PC9pZnJhbWU+PC9kaXY+ZAIDDw8WAh8GBRsvZmVhdHVyZUNvbnRlbnQuYXNweD9yYW5rPTFkZAIHD2QWAgIBD2QWBGYPDxYCHwRoZGQCAg9kFgQCAw8WAh8EaGQCBQ8WAh8AAglkAg8PZBYEAgEPZBYGZg8WAh8AZmQCBA8PFgIfBgUhL2NhbE1vbnRoVmlldy5hc3B4P3M9MCZ5PTIwMjAmbT00ZGQCBg8PFgQfBgVFL2NhbGVuZGFyV2Vla1ZpZXcuYXNweD9zY2hvb2xzPTAmc2Nob29saWQ9MCZ0eXBlcz0mdmlld0RhdGU9NC8yOS8yMDIwHwUFCFZpZXcgQWxsZGQCAw9kFgRmDzwrAAoBAA8WCh4NTmV4dE1vbnRoVGV4dAUuPjxzcGFuIGNsYXNzPSdvYnNjdXJlJz5HbyB0byBuZXh0IG1vbnRoPC9zcGFuPh4CU0QWAQYAQKRC0OvXCB4LVGl0bGVGb3JtYXQLKiVTeXN0ZW0uV2ViLlVJLldlYkNvbnRyb2xzLlRpdGxlRm9ybWF0AB4NRGF5TmFtZUZvcm1hdAsqJ1N5c3RlbS5XZWIuVUkuV2ViQ29udHJvbHMuRGF5TmFtZUZvcm1hdAEeDVByZXZNb250aFRleHQFMjw8c3BhbiBjbGFzcz0nb2JzY3VyZSc+R28gdG8gcHJldmlvdXMgbW9udGg8L3NwYW4+ZGQCAQ8PFgYeBlRhcmdldAUGX2JsYW5rHwUFElZpZXcgRnVsbCBDYWxlbmRhch8GBSUvY2FsTW9udGhWaWV3LmFzcHg/cz0wJnk9MjAyMCZtPTQmdD0wZGQCDw9kFgJmDxYCHwACBBYIZg9kFgJmDxUDDWZhIGZhLXNpZ24taW4LL2xvZ2luLmFzcHgJQ01TIExvZ2luZAIBD2QWAmYPFQMNZmEgZmEtc2l0ZW1hcBQvaW50cmFuZXRfbG9naW4uYXNweA5JbnRyYW5ldCBMb2dpbmQCAg9kFgJmDxUDDmZhIGZhLWZhY2Vib29rNmh0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9CdWNrZXllQ2VudHJhbFNjaG9vbHM/ZnJlZj10cyBCdWNrZXllIENlbnRyYWwgU2Nob29scyBGYWNlYm9va2QCAw9kFgJmDxUDDWZhIGZhLXR3aXR0ZXIjaHR0cHM6Ly90d2l0dGVyLmNvbS9CdWNrZXllX0NlbnRyYWwfQnVja2V5ZSBDZW50cmFsIFNjaG9vbHMgVHdpdHRlcmRkT/ZqtnjcQzQ+mw/PSko4sxYFnBE=">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+<style type="text/css">
+    .alertdiv,
+    .alertReShow,
+    .alertList {
+        display: none;
+    }
+
+    .alertTab {
+        margin-left: 20px;
+    }
+
+    .alertTitle {
+        display: inline-block;
+        padding: 2px 5px;
+        margin-right: 5px;
+        border-radius: 3px;
+        font-size: 26px;
+        line-height: 100%;
+    }
+
+    .nextAlert {
+        background: #676767;
+        border-radius: 5px;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .alertCount {
+        position: absolute;
+        left: -115px;
+    }
+
+    .textalert {
+        color: #ffffff;
+        position: relative;
+    }
+
+    .alertBar {
+        z-index: 10;
+        font-weight: normal;
+        background: #373737;
+        background-image: -webkit-gradient(linear, left top, left bottom, from(#373737), to(#202020)); /* Saf4+, Chrome */
+        background-image: -webkit-linear-gradient(#373737, #202020); /* Chrome 10+, Saf5.1+ */
+        background-image: -moz-linear-gradient(#373737, #202020); /* FF3.6 */
+        background-image: -ms-linear-gradient(#373737, #202020); /* IE10 */
+        background-image: -o-linear-gradient(#373737, #202020); /* Opera 11.10+ */
+        background-image: linear-gradient(#373737, #202020);
+    }
+
+    a.closeAlert {
+        color: #fff;
+        font-size: 20px;
+    }
+
+    a.openAlert {
+        color: #fff;
+        font-size: 20px;
+        padding-right: 18px;
+        padding-top: 3px;
+    }
+
+    .alertDangerColor {
+        border-radius: 3px;
+        padding: 2px 5px;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .alertPrefix {
+        display: inline-block;
+        max-width: 50%;
+        padding: 5px;
+        margin: 0;
+        border-radius: 3px;
+        font-size: 18px;
+        line-height: 100%;
+        vertical-align: middle;
+    }
+
+    .alertText {
+        display: inline-block;
+        width: 100%;
+        padding-left: 10px;
+        vertical-align: middle;
+    }
+    #alertTicker > .alertTextInfo,
+    #alertTicker > .alertTextInfo > p:first-child, .alertTextInfo > span:first-child{display:inline;}
+    .popExclam {
+        text-align: center;
+        font-size: 32px;
+        font-weight: bold;
+    }
+    .dark.alertBar{color:#fff;}
+     .dark.alertBar a{color:#fff; text-decoration:underline;}
+         .light.alertBar a{ text-decoration:underline;}
+        .popExclam i {
+            color: #aa1111 !important;
+            font-size: 55px;
+        }
+        .exclamText{padding-top:15px;}
+        .bottomRightEcxlam{position:fixed;z-index:1001;bottom:55px; right:25px;display:none;}
+</style>
+<!--[if lte IE 9]>
+	<style type="text/css">
+	    .alertBar {
+            background: #202020;
+        }
+	</style>
+<![endif]--><div id="ctl00_ctl00_ctl05_ctl01_BarAlert">
+	
+    <script>
+        $(document).ready(function () {
+            var startColor = "373737";
+            if (startColor == "ffffff") {
+                $(".alertBar").addClass("light");
+            }
+            else {
+                $(".alertBar").addClass("dark");
+            }
+        });
+
+    </script><div class="alert-margin">
+        <div style="position: relative; padding: 10px 45px 10px 10px;" class="alertdiv alertBar">
+            <div style="max-width: 980px; margin: 0 auto; font-size: 18px" class="textalert">
+                
+
+                <div id="alertTicker" tabindex="0"></div>
+            </div>
+
+            <ul class="alertList"><li>
+<span class="alertDangerColor" style="background-color:#aa1111; color:#ffffff">Alert:</span> <span class="alertTextInfo"><p>Attention Parents:  Final Forms is now OPEN for 2020-21 School Year!  See article in News and Announcements for Step-by-Step Instructions!  EVERYONE needs to complete the TRANSPORTATION INFORMATION FORM by May 1st!  Some forms require student signatures (middle and high school students only)!</p></span>
+</li></ul>
+<div style="position: absolute; right: 20px; top: 5px; z-index: 20;">
+                <a href="javascript:hideAlert()" class="closeAlert">
+                    <i class="fa fa-times" aria-hidden="true"></i>
+                    <span class="obscure">Close alert</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="alertReShow alertBar" style="position: relative; width: 100%; padding: 2px;">
+            <a style="float: right;" href="javascript:loadAlert()" class="openAlert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <span class="obscure">Open alert</span>
+            </a>
+
+            <div style="clear: both;"></div>
+        </div>
+    </div>
+
+</div>
+<div>
+      <a id="exclamationAlert" class="popExclam bottomRightEcxlam"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></a>
+</div>
+<script type="text/javascript" src="/admin/js/alert/alertDown.js?version=4"></script><div class="headerback">
+            <header id="site-head"><div class="NavBack">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<div class="navigation">
+					<nav class="navbar navbar-default" role="navigation"><div class="navbar-header">
+							<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+								<span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand hidden-lg hidden-md " href="/">
+								<span id="ctl00_ctl00_header_header_ctl00_schoolName">Buckeye Central Local School District</span>
+							</a>
+						</div>
+						<!-- Collect the nav links, forms, and other content for toggling -->
+						<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+							<ul class="nav navbar-nav district-top-nav-links">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Schools">Schools  <strong class="caret"></strong></a><ul class="dropdown-menu">
+<li class="without-image"><a href="/schools" title="Our Schools">Our Schools</a></li>
+<li class="without-image"><a href="/1/Home" title="High School">High School</a></li>
+<li class="without-image"><a href="/2/Home" title="Middle School">Middle School</a></li>
+<li class="without-image"><a href="/3/home" title="Elementary School">Elementary School</a></li>
+</ul>
+</li>
+<li class="dropdown">
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" title="Departments">Departments  <strong class="caret"></strong></a><ul class="dropdown-menu"><li class="without-image"><a href="/administration" title="Our Departments">Our Departments</a></li></ul>
+</li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/content/46" title="Employment">Employment</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/staff" title="Staff Directory">Staff Directory</a></li>
+</ul>
+<ul class="nav navbar-nav left-nav-top">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/Content/74" title="District Profile">District Profile</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="https://twitter.com/Buckeye_Central" title="Buckeye Central Local Schools Twitter Feed">Buckeye Central Local Schools Twitter Feed</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/Content/60" title="Buckeye Briefs">Buckeye Briefs</a></li>
+<li class="without-image"><a href="/1/Department/10" title="School Counseling ">School Counseling </a></li>
+<li class="without-image"><a href="/athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/Content/50" title="Music">Music</a></li>
+<li class="without-image"><a href="/content/46" title="Employment ">Employment </a></li>
+<li class="without-image"><a href="/Content/42" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/userfiles/4/my%20files/revised_2019-2020%20bc%20sy%20calendar_committe_final%20-%20sheet1.pdf?id=4318" title="District Calendar 2019 - 2020">District Calendar 2019 - 2020</a></li>
+<li class="without-image"><a href="/userfiles/4/my%20files/district%20information/2020-2021%20bc%20calendar_approved_calendar%20committee_pdf.pdf?id=4388" title="District Calendar 2020 - 2021">District Calendar 2020 - 2021</a></li>
+<li class="without-image"><a href="/Communication" title="E-Communications">E-Communications</a></li>
+<li class="without-image"><a href="https://docs.google.com/a/bcbucks.org/forms/d/1wQuKiZA5YxbJZFzAGWe7nP-c6_BUaONsh7Yv4s-lTGs/viewform" title="Incident Report">Incident Report</a></li>
+<li class="without-image"><a href="/userfiles/4/my%20files/notice-of-proposed-class-action-settlement-doe.pdf?id=4349" title="Doe v. State of Ohio">Doe v. State of Ohio</a></li>
+<li class="without-image"><a href="http://www.buckeye-central.k12.oh.us/Content/86" aria-label="" title="Treasurer Information">Treasurer Information</a></li>
+</ul>
+<ul class="nav navbar-nav left-bottom-nav-top">
+<li class="without-image"><a href="/Content/26" title="  Parent Resources"><i class="fa fa-user"></i>  Parent Resources</a></li>
+<li class="without-image"><a href="/Content/28" aria-label="" title=" Student Resources"><i class="fa fa-users"></i> Student Resources</a></li>
+<li class="without-image"><a href="/Content/30" aria-label="" title=" Staff Resources"><i class="fa fa-university"></i> Staff Resources</a></li>
+<li class="without-image"><a href="/content/70" title="Bus Driver Resources">Bus Driver Resources</a></li>
+</ul>
+</div>
+					</nav><div class="search">
+						<div>
+							<div class="searchPad">
+								<label for="txtSearch" class="obscure">Search site using Google</label><input id="txtSearch" placeholder="Search" class="inputSearch" type="text">
+</div>
+							<div style="display: inline; float: right;" class="searchgo">
+								<a title="Search" class="bSearch glyphicon glyphicon-search"><span class="obscure">Search Site</span></a>
+							</div>
+						</div>
+					</div>
+					<div id="google_translate_element">
+					</div>
+
+					<script type="text/javascript">
+						function googleTranslateElementInit() {
+							new google.translate.TranslateElement({ pageLanguage: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE }, 'google_translate_element');
+						}
+					</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="head-logo-container">
+	<div class="container">
+		<div class="row">
+			<div class="hidden-xs col-sm-12 col-md-12 col-lg-12">
+				<a id="ctl00_ctl00_header_header_ctl00_lnkSchoolHome" class="logo" href="/index.aspx"><span class="obscure">Logo link to home page</span></a>
+
+				<div id="head-shape1" class="artifact"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+	
+
+            </header>
+</div>
+        
+	
+	<div class="headerSpace">
+		  
+<script type="text/javascript" src="/admin/js/Cycle2/jquery.cycle2.dev.js"></script><script src="https://player.vimeo.com/api/player.js"></script><script type="text/javascript">
+    // https://stackoverflow.com/a/51789311/5629100
+    var YoutubeVideos = (function () {
+        var playersYoutube = [],	// players array (to control players individually)
+            queueYoutube = [];		// videos queue (once api is ready, transform this into YT player)
+
+        // Constructor
+        function YoutubeVideos() { }
+
+        // Add elements to queue
+        YoutubeVideos.prototype.add = function ($video) {
+            queueYoutube.push($video);
+        };
+
+        // Finds player based on the id of the iframe element
+        YoutubeVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersYoutube.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Load Youtube API
+        YoutubeVideos.prototype.loadApi = function () {
+            $.getScript("https://www.youtube.com/iframe_api", function () {
+                window.onYouTubeIframeAPIReady = function () {
+                    queueYoutube.forEach(function ($video) {
+                        var loopBit = function () {
+                            if ($video.data('loop-video') == true) {
+                                return 1;
+                            }
+                            return 0;
+                        };
+
+                        var player = new YT.Player($video.get(0), {
+                            width: $video.data('frame-width'),
+                            height: $video.data('frame-height'),
+                            videoId: $video.data('video-id'),
+                            events: {
+                                'onStateChange': onPlayerStateChange,
+                                'onReady': onPlayerReady
+                            },
+                            playerVars: {
+                                autoplay: 0,
+                                rel: 0,
+                                enablejsapi: 1,
+                                loop: loopBit
+                            },
+                            origin: window.location.origin
+                        });
+
+                        playersYoutube.push({
+                            playerId: $video.attr('id'),
+                            player: player
+                        });
+                    });
+                };
+            });
+        };
+
+        return YoutubeVideos;
+    })();
+
+    // Modified from https://stackoverflow.com/a/51789311/5629100
+    var VimeoVideos = (function () {
+        var queueVimeo = [],		// queue of elements which will become players.
+            playersVimeo = [];		// players array (to control players individually)
+
+        // Constructor
+        function VimeoVideos() { }
+
+        // Add elements to queue
+        VimeoVideos.prototype.add = function ($video) {
+            queueVimeo.push($video);
+        };
+
+        // Converts queue to players.
+        VimeoVideos.prototype.loadPlayers = function () {
+            queueVimeo.forEach(function (item, index) {
+                var vimeoOptions = {
+                    id: $(item).data('video-id'),
+                    autoplay: false,
+                    muted: ($(item).data('autoplay') == true) ? true : false
+                };
+
+                playersVimeo[index] = {
+                    playerId: $(item).attr('id'),
+                    player: new Vimeo.Player(item, vimeoOptions)
+                };
+            });
+        };
+
+        // Finds player based on the id of the iframe element
+        VimeoVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersVimeo.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Adds listeners to the players that have been created now so they interact
+        // correctly with the header galleries.
+        VimeoVideos.prototype.bindListeners = function () {
+            playersVimeo.forEach(function (item) {
+                item.player.on('play', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+                    $wrapSlideshow.find('.cycle-pager').fadeOut();
+                    $wrapSlideshow.find('.playPause').fadeOut();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('pause', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                    $(this.element.parentNode).data('paused', true);
+                    $wrapSlideshow.find('.cycle-pager').fadeIn();
+                    $wrapSlideshow.find('.playPause').fadeIn();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('ended', function () {
+                    if ($(this.element.parentNode).data('loop-video') == true) {
+                        this.play();
+                    } else {
+                        var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                        $(this.element.parentNode).data('paused', true);
+                        $wrapSlideshow.find('.cycle-pager').fadeIn();
+                        $wrapSlideshow.find('.playPause').fadeIn();
+                        $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                    }
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.ready().then(function () {
+                    if ($(this).parents('.cycle-slide-active').length > 0 && $(this).data('autoplay') == true) {
+                        this.play();
+                    }
+                });
+            });
+        };
+
+        return VimeoVideos;
+    })();
+
+    // When the Youtube video is paused, ends, or begins, we need to either
+    // show or hide the slideshow controls and either pause or resume the
+    // slideshow. We also handle looping the Youtube videos here because the
+    // Youtube API is not 100% reliable for that function.
+    function onPlayerStateChange(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        var $wrapSlideshow = $videoElem.parents('.wrap-slideshow').first();
+        var videoState = e.data;
+
+        if (videoState == YT.PlayerState.PAUSED) {
+            $videoElem.data('paused', true);
+            $wrapSlideshow.find('.cycle-pager').fadeIn();
+            $wrapSlideshow.find('.playPause').fadeIn();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+        }
+
+        if (videoState == YT.PlayerState.ENDED) {
+            if ($videoElem.data('loop-video') == true) {
+                playYoutubePlayerById($videoElem.attr('id'));
+            } else {
+                $videoElem.siblings('.youtubeVideoThumbnail').show();
+                $videoElem.siblings('.youtubeVideoThumbnailPlay').show();
+                $wrapSlideshow.find('.cycle-pager').fadeIn();
+                $wrapSlideshow.find('.playPause').fadeIn();
+                $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+            }
+        }
+
+        if (videoState == YT.PlayerState.PLAYING) {
+            $videoElem.data('paused', false);
+            $videoElem.siblings('.youtubeVideoThumbnail').fadeOut();
+            $videoElem.siblings('.youtubeVideoThumbnailPlay').fadeOut();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+            $wrapSlideshow.find('.cycle-pager').fadeOut();
+            $wrapSlideshow.find('.playPause').fadeOut();
+        }
+    }
+
+    function onPlayerReady(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        if ($videoElem.parent('.cycle-slide-active').length > 0 && $videoElem.data('autoplay') == true) {
+            e.target.mute();
+            forcePlayYoutubePlayer(e.target);
+        }
+    }
+
+    function pauseYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            forcePauseYoutubePlayer(player);
+        }
+    }
+
+    function forcePauseYoutubePlayer(player) {
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePauseYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function playYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        forcePlayYoutubePlayer(player);
+    }
+
+    function muteYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.mute();
+    }
+
+    function forcePlayYoutubePlayer(player) {
+        player.playVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePlayYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function pauseVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.pause();
+        }
+    }
+
+    function playVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.play();
+        }
+    }
+
+    function addYouTubeStyles(videoId, containerWidth, containerHeight, videoWidth, videoHeight, videoZoom) {
+        var containerRatio = containerWidth / containerHeight;
+        var videoRatio = videoWidth / videoHeight;
+        var trueSize = $('#' + videoId).parents('.headerGalleryV2').innerWidth() / containerWidth;
+        var styles = '#' + videoId + ' {';
+
+        if (containerRatio === videoRatio) { // Video already fits the size of the container.
+            styles += 'top: 0;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+            styles += 'height: 100%;';
+        } else if (containerRatio > videoRatio) { // Container wider than video, needs to cut off top and bottom of video to scale.
+            var scale = (containerWidth / videoWidth);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateY(-' + (((videoHeight * scale) - containerHeight) / (videoHeight * scale) * 50) + '%);'
+            }
+        } else { // Container taller than video, needs to cut off left and right of video to scale.
+            var scale = (containerHeight / videoHeight);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'height: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateX(-' + (((videoWidth * scale) - containerWidth) / (videoWidth * scale) * 50) + '%);'
+            }
+        }
+
+        styles += '}';
+
+        if ($('#youtubeVideo' + videoId + 'Styles').length > 0) {
+            $('#youtubeVideo' + videoId + 'Styles').remove();
+        }
+
+        var styleTag = $('<style id="#youtubeVideo' + videoId + 'Styles"></style>')
+        $('head').append(styleTag);
+        $(styleTag).append(styles);
+    }
+
+    // Global Variables
+    var youtubes = new YoutubeVideos();
+    var vimeos = new VimeoVideos();
+
+    $(document).ready(function () {
+        $('.youtubeVideoSlide').each(function () {
+            youtubes.add($(this));
+        });
+
+        youtubes.loadApi();
+
+        $('.vimeoVideoSlide').each(function () {
+            vimeos.add($(this));
+        });
+
+        vimeos.loadPlayers();
+        vimeos.bindListeners();
+
+        $('.wrap-slideshow').on('click', '.youtubeVideoThumbnailPlay, .youtubeVideoThumbnail', function () {
+            playYoutubePlayerById($(this).data('player-id'));
+        });
+    });
+
+    $(document).on('cycle-initialized', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+        var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+        var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+        if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true) {
+            youtubeSlide.parents('.headerGalleryV2').cycle('pause');
+        }
+
+        if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true) {
+            vimeoSlide.parents('.headerGalleryV2').cycle('pause');
+            playVimeoPlayerById(vimeoSlide.attr('id'));
+        }
+
+        $('.cycle-pager > span').attr('tabindex', 0);
+    });
+
+    $(document).ready(function () {
+        // For ADA Compliance
+        $('.wrap-slideshow').on('keydown', '.prevNext > i, .cycle-pager > span, .playPause > i', function (e) {
+            if (e.keyCode === 32 || e.keyCode === 13) {
+                e.preventDefault();
+                $(this).click();
+            }
+        });
+    });
+</script><script>
+    $(document).ready(function () {
+        $slideshow = $('#slideshow').cycle({
+            'pauseOnHover': '#slideshow',
+            'slides': '> .slide',
+            'pager': '.slideshow.cycle-pager',
+            'pagerTemplate': '<span class="page"><span class="obscure">slide number {{slideNum}}</span></span>',
+            'autoHeight': '1900:400',
+            'timeout': 3000,
+            'fx': 'fade',
+            'log': false
+        });
+
+        setTimeout(function () {
+            $('.wrap-slideshow.slideshow .playPause .fa-play').on('click', function () {
+                $slideshow.cycle('resume');
+                $('#slideshow').data('paused', false);
+            });
+
+            $('.wrap-slideshow.slideshow .playPause .fa-pause').on('click', function () {
+                $slideshow.cycle('pause');
+                $('#slideshow').data('paused', true);
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-left').on('click', function () {
+                $slideshow.cycle('prev');
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-right').on('click', function () {
+                $slideshow.cycle('next');
+            });
+        }, 500);
+
+        $slideshow.on('cycle-before', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0) {
+                pauseYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0) {
+                pauseVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+        $slideshow.on('cycle-after', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true && youtubeSlide.data('paused') != true) {
+                muteYoutubePlayerById(youtubeSlide.attr('id'))
+                playYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true && vimeoSlide.data('paused') != true) {
+                playVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+	
+    });
+</script><div class="wrap-slideshow slideshow">
+    <div id="slideshow" class="headerGalleryV2">
+        
+                <div id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rptPhotos_ctl00_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2019-10/b2ea26ba-8533-46f4-ba56-e828ee49e2f2.jpg" alt="Varsity Football 2019" style="border-width:0px;"><div class="caption">
+		<div class="captionTop">
+			Varsity Football 2019
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rptPhotos_ctl01_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2017-02/fbea90d2-f78a-4b4f-afa2-c4786e36fcfc.jpg" style="border-width:0px;"><div class="caption">
+		<div class="captionTop">
+			Buckeye Central Schools - Drone's Eye View
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rptPhotos_ctl02_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/docs/district/school%20.jpg?id=326&amp;width=1600" style="border-width:0px;">
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rptPhotos_ctl03_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2016-03/41758bc6-2e8f-42c7-aa34-e2faaba2d69c.jpg" style="border-width:0px;">
+</div>
+            
+    </div>
+
+    <div class="prevNext">
+        <i class="fa fa-chevron-left" aria-label="previous slide" tabindex="0"></i>
+        <i class="fa fa-chevron-right" aria-label="next slide" tabindex="0"></i>
+    </div>
+
+    <div class="cycle-pager slideshow"></div>
+
+    <div class="playPause">
+        <i class="fa fa-play" aria-label="play, resume header gallery" tabindex="0"></i>
+        <i class="fa fa-pause" aria-label="pause, stop header gallery" tabindex="0"></i>
+    </div>
+</div>
+
+
+<style>
+    .caption {
+        position: absolute;
+        bottom: 25%;
+        left: 0;
+        width: 100%;
+        padding: 0 20%;
+        z-index: 2;
+    }
+</style>
+<style>#slideshow{position:relative;z-index:1;</style>
+<style type="text/css">
+    .wrap-slideshow {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .slide {
+        display: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide.cycle-slide-active {
+        display: block;
+        animation-name: fadeIn;
+        animation-duration: 1000ms;
+    }
+
+    .slide img {
+        width: 100%;
+        display: block;
+    }
+
+    .caption,
+    .caption a {
+        color: #fff;
+    }
+
+    .captionTop,
+    .captionBottom {
+        display: none;
+    }
+
+    .cycle-slide-active .captionTop {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        animation-name: slideInRight;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-slide-active .captionBottom {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.4);
+        text-align: center;
+        animation-name: slideInLeft;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-pager {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        z-index: 2;
+    }
+
+    .cycle-pager .page {
+        display: inline-block;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+    .cycle-pager .page:before {
+        display: inline-block;
+        content: '';
+        width: 12px;
+        height: 12px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        line-height: 1px;
+    }
+
+    .cycle-pager .page.cycle-pager-active:before {
+        background-color: white;
+    }
+
+    .playPause {
+        position: absolute;
+        bottom: 0px;
+        right: 10px;
+        padding: 0;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .playPause i {
+        margin-bottom: 3px;
+    }
+
+    .playPause i.fa-play {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 8px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause i.fa-play:before {
+        margin-top: -1px;
+        margin-right: -2px;
+    }
+
+    .playPause i.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 9px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause svg.fa-play,
+    .playPause svg.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 11px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -15px;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .prevNext svg {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+    }
+
+    .prevNext svg.fa-chevron-left {
+        padding-left: 3px;
+    }
+
+    .prevNext svg.fa-chevron-right {
+        padding-right: 3px;
+    }
+
+    .prevNext i {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext .fa-chevron-left {
+        left: 20px;
+    }
+
+    .prevNext svg:first-child,
+    .prevNext .fa-chevron-left:before {
+        margin-left: -2px;
+    }
+
+    .prevNext .fa-chevron-right {
+        right: 20px;
+    }
+
+    .prevNext svg:last-child,
+    .prevNext .fa-chevron-right:before {
+        margin-right: -2px;
+    }
+
+    .wrap-slideshow .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('');
+        background-size: contain;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+
+    .vimeoVideoSlide {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+    }
+
+    .vimeoVideoSlide iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .youtubeVideoSlide {
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide .youtubeVideoThumbnail {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        object-fit: contain;
+        object-position: center;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .youtubeVideoThumbnailPlay {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background-color: #f00;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    .youtubeVideoThumbnailPlay i {
+        margin: 0 -2px 0 0;
+        line-height: 100%;
+    }
+
+    @keyframes none {
+        from {
+            display: block;
+        }
+
+        to {
+            display: block;
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            left: 100%;
+        }
+
+        60% {
+            left: -10px;
+        }
+
+        to {
+            left: 0;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            right: 100%;
+        }
+
+        60% {
+            right: -10px;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+<style id="youtubeStyles"></style>
+</div>
+
+
+
+        <div id="separator-bar"></div>
+
+        <div class="content-wrapper">
+            <div class="TopShadowBackground"></div>
+            <div class="TopBoxBackground"></div>
+
+            
+            
+            <div class="body-content-container">
+                <div class="container">
+                    <div class="masterC alignment-stretch">
+                        <div class="row">
+                            
+	<div class="hidden-xs col-sm-4 col-md-3 col-lg-3 backgroundcolor">
+		<div class="clearfix panel content">
+			
+				<h1>Quick Links
+				</h1>
+				<ul class="sf-vertical">
+<li class="without-image"><a href="/" title="Home">Home</a></li>
+<li class="without-image"><a href="/Content/74" title="District Profile">District Profile</a></li>
+<li class="without-image"><a href="/DistrictnewsArticles.aspx" title="District News">District News</a></li>
+<li class="without-image"><a href="/Calendar/0" title="District Events">District Events</a></li>
+<li class="without-image"><a href="/Superintendent" title="Superintendent's Message">Superintendent's Message</a></li>
+<li class="without-image"><a href="https://twitter.com/Buckeye_Central" title="Buckeye Central Local Schools Twitter Feed">Buckeye Central Local Schools Twitter Feed</a></li>
+<li class="without-image"><a href="/districtBoardEd.aspx" title="Board of Education">Board of Education</a></li>
+<li class="without-image"><a href="/Content/60" title="Buckeye Briefs">Buckeye Briefs</a></li>
+<li class="without-image"><a href="/1/Department/10" title="School Counseling ">School Counseling </a></li>
+<li class="without-image"><a href="/athletics" title="Athletics">Athletics</a></li>
+<li class="without-image"><a href="/Content/50" title="Music">Music</a></li>
+<li class="without-image"><a href="/content/46" title="Employment ">Employment </a></li>
+<li class="without-image"><a href="/Content/42" title="Lunch Menus">Lunch Menus</a></li>
+<li class="without-image"><a href="/Gallery" title="Photo Galleries">Photo Galleries</a></li>
+<li class="without-image"><a href="/District/Links-Forms" title="Forms &amp; Links">Forms &amp; Links</a></li>
+<li class="without-image"><a href="/userfiles/4/my%20files/revised_2019-2020%20bc%20sy%20calendar_committe_final%20-%20sheet1.pdf?id=4318" title="District Calendar 2019 - 2020">District Calendar 2019 - 2020</a></li>
+<li class="without-image"><a href="/userfiles/4/my%20files/district%20information/2020-2021%20bc%20calendar_approved_calendar%20committee_pdf.pdf?id=4388" title="District Calendar 2020 - 2021">District Calendar 2020 - 2021</a></li>
+<li class="without-image"><a href="/Communication" title="E-Communications">E-Communications</a></li>
+<li class="without-image"><a href="https://docs.google.com/a/bcbucks.org/forms/d/1wQuKiZA5YxbJZFzAGWe7nP-c6_BUaONsh7Yv4s-lTGs/viewform" title="Incident Report">Incident Report</a></li>
+<li class="without-image"><a href="/userfiles/4/my%20files/notice-of-proposed-class-action-settlement-doe.pdf?id=4349" title="Doe v. State of Ohio">Doe v. State of Ohio</a></li>
+<li class="without-image"><a href="http://www.buckeye-central.k12.oh.us/Content/86" aria-label="" title="Treasurer Information">Treasurer Information</a></li>
+</ul>
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+		
+			
+<div class="clearfix LeftImages" style="height: 100%;">
+    <ul class="sf-vertical">
+<li class="without-image"><a href="/Content/26" title="  Parent Resources"><i class="fa fa-user"></i>  Parent Resources</a></li>
+<li class="without-image"><a href="/Content/28" aria-label="" title=" Student Resources"><i class="fa fa-users"></i> Student Resources</a></li>
+<li class="without-image"><a href="/Content/30" aria-label="" title=" Staff Resources"><i class="fa fa-university"></i> Staff Resources</a></li>
+<li class="without-image"><a href="/content/70" title="Bus Driver Resources">Bus Driver Resources</a></li>
+</ul>
+<script type="text/javascript">
+	$(document).ready(function ()
+	{
+		$('.sf-vertical').superfish({
+			animation: { height: 'show' }, delay: 500, speed: 'fast'
+		});
+	});
+</script>
+</div>
+
+		
+	</div>
+	<div class="col-xs-12 col-sm-8 col-md-5 col-lg-5 backgroundcolor">
+
+		
+    <div id="start-content"></div>
+<div id="uw_skip_to_main_content_anchor"></div>
+	<div class="panel superMsg">
+		<div class="superPanel">
+			<h1>Superintendent's Message</h1>
+
+			Welcome to Buckeye Central Local Schools “Where STUDENTS come FIRST!” The BC TEAM keeps each student at the center of daily instruction, experiences, and actions. Every team member provides their absolute best and believes there are no limits regarding our students' personal and academic growth and achievement.
+
+ 
+
+Our district Vision, Mission, and Beliefs chart our path to ...
+
+			<br><a href="/Superintendent" class="superReadMore">Read More</a>
+			<div class="SuperName">
+				<span id="ctl00_ctl00_MasterContent_ContentColumnMiddleTop_supername">Mark Robinson</span>
+			</div>
+			<div class="clr"></div>
+		</div>
+
+	</div>
+    	<div class="panel superMsg">
+    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        End-Of-The-Year UPDATE!
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p>Buckeye Central Schools parents and students... As you know by now, Governor DeWine closed Ohio schools for the remainder of the 2019-2020 school year this past Monday. Since his announcement (and even before), we have been working diligently to address the many end-of-the-year topics that must be handled. We will be sharing information regarding graduation, finalizing school work, locker clean out, Chromebooks and all other pertinent year-end information within the next couple of weeks. Be assured that we are working hard on plans to conduct a memorable graduation ceremony for our Seniors 2020. Thank you for your patience and support during these challenging and unprecedented times. The minute we are able to finalize our plans, you will be the first to know! <img alt="" height="16" role="presentation" src="https://static.xx.fbcdn.net/images/emoji.php/v9/ta5/1.5/16/1f642.png" width="16"> Stay healthy and safe. BC_Strong!</p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+            </div>
+    	<div class="panel superMsg">
+    
+<div class="feature-content ">
+    
+    <h1 class="feature-content-title title">
+        Welcome to Buckeye Central
+    </h1>
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <style type="text/css">.cgi-rt{position:relative;pointer-events: none;height:300px;max-height:406px;max-width:720px;}@media only screen and (max-width: 510px){.cgi-rt{max-height:255px;height:255px;}}
+</style>
+<div class="cgi-rt"><iframe allow="autoplay; encrypted-media" allowfullscreen="" frameborder="0" id="rtplayermrf" src="https://elocallink.tv/e/?v=mrf&amp;ap=0" style="pointer-events: auto;position:absolute;top:0;left:0;width:100%;height:100%;border:0;box-sizing: border-box;max-width: 720px!important;max-height: 406px!important;background: transparent!important;" type="text/html" width="720"></iframe></div>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+            </div>
+
+
+
+		<div class="clearfix panel content">
+			
+
+	<h1>News &amp; Announcements
+	</h1>
+	<div class="news">
+		
+
+
+	<style type="text/css">
+		.rssNewsLink {
+			float: right;
+		}
+
+		.newsSearch {
+			text-align: right;
+		}
+
+		.newsSearch .searchText {
+			padding: 3px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+		}
+
+		.newsSearch .searchButton {
+			display: inline-block;
+			margin-bottom: 0;
+			font-weight: 400;
+			text-align: center;
+			vertical-align: middle;
+			background-image: none;
+			border: 1px solid transparent;
+			white-space: nowrap;
+			padding: 4px 12px;
+			font-size: 14px;
+			line-height: 1.42857143;
+			border-radius: 4px;
+			color: #333;
+			background-color: #fff;
+			border-color: #ccc;
+			-webkit-appearance: button;
+			cursor: pointer;
+		}
+
+		.newsSearch .searchButton:before {
+			content: "\f002";
+		}
+
+		#pageNumbers li {
+			float: left;
+			margin: 2px;
+		}
+	</style>
+<section id="news-list" aria-label="news articles"><div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkTitle" class="news-title" href="/News/1221">Second Harvest Food Distribution</a>
+
+				<span class="news-post-date">Posted On: Sunday, April 26, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkImage" class="news-image" href="/News/1221"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_articleImage" src="/docs/_Thumb_/district/food%20distribution.jpg?id=4447&amp;thumbwidth=190&amp;fullwidth=500" alt="Food Distribution" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lblSummary" class="news-summary">Second Harvest Food Bank - Food Distribution, Thursday, April 30 @ 12:00 noon - Bucyrus HS Stadium parking lot.</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl01_lnkViewAll" title="Click to read more about: Second Harvest Food Distribution" class="view-all" href="/News/1221">Read More <span class="sr-only">about Second Harvest Food Distribution</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkTitle" class="news-title" href="/News/1220">BC Art Show</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 23, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkImage" class="news-image" href="/News/1220"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_articleImage" src="/docs/_Thumb_/district/images.jpeg?id=4179&amp;thumbwidth=190&amp;fullwidth=500" alt="ArtShow" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lblSummary" class="news-summary">Here's a video of all of the creative projects done in Mrs. Majoy's classes. </span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl02_lnkViewAll" title="Click to read more about: BC Art Show" class="view-all" href="/News/1220">Read More <span class="sr-only">about BC Art Show</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkTitle" class="news-title" href="/News/1216">2020 Senior Spirit Door Challenge</a>
+
+				<span class="news-post-date">Posted On: Wednesday, April 8, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lblSummary" class="news-summary">2020 Seniors - Show Your BC SPIRIT!</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl03_lnkViewAll" title="Click to read more about: 2020 Senior Spirit Door Challenge" class="view-all" href="/News/1216">Read More <span class="sr-only">about 2020 Senior Spirit Door Challenge</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkTitle" class="news-title" href="/News/1214">Grading Guidelines - 4th Quarter at Buckeye Central</a>
+
+				<span class="news-post-date">Posted On: Monday, April 6, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lblSummary" class="news-summary">Grading Guidelines - 4th Quarter... Please Review</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl04_lnkViewAll" title="Click to read more about: Grading Guidelines - 4th Quarter at Buckeye Central" class="view-all" href="/News/1214">Read More <span class="sr-only">about Grading Guidelines - 4th Quarter at Buckeye Central</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lnkTitle" class="news-title" href="/News/1213">Kindergarten Registration and Screening </a>
+
+				<span class="news-post-date">Posted On: Friday, April 3, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lnkImage" class="news-image" href="/News/1213"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_articleImage" src="/docs/_Thumb_/district/download.png?id=2869&amp;thumbwidth=190&amp;fullwidth=500" alt="kindergarten " style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lblSummary" class="news-summary">Click here for more details.</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl05_lnkViewAll" title="Click to read more about: Kindergarten Registration and Screening " class="view-all" href="/News/1213">Read More <span class="sr-only">about Kindergarten Registration and Screening </span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lnkTitle" class="news-title" href="/News/1212">HELLO.... BC Elementary Students!</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 2, 2020</span>
+
+				
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lblSummary" class="news-summary">HELLO BC Elementary Students... We Miss You!</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl06_lnkViewAll" title="Click to read more about: HELLO.... BC Elementary Students!" class="view-all" href="/News/1212">Read More <span class="sr-only">about HELLO.... BC Elementary Students!</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_lnkTitle" class="news-title" href="/News/1211">Final Forms Now OPEN For 2020-2021 School Year</a>
+
+				<span class="news-post-date">Posted On: Thursday, April 2, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_lnkImage" class="news-image" href="/News/1211"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_articleImage" src="/docs/_Thumb_/district/form%20image.jpg?id=4225&amp;thumbwidth=190&amp;fullwidth=500" alt="Final Forms Image" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_lblSummary" class="news-summary">Final Forms Now OPEN for 2020-2021 School Year - Click "Read More" for Step-by-Step Instructions!</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl07_lnkViewAll" title="Click to read more about: Final Forms Now OPEN For 2020-2021 School Year" class="view-all" href="/News/1211">Read More <span class="sr-only">about Final Forms Now OPEN For 2020-2021 School Year</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl08_lnkTitle" class="news-title" href="/News/1204">School CLOSED</a>
+
+				<span class="news-post-date">Posted On: Sunday, March 15, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl08_lnkImage" class="news-image" href="/News/1204"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl08_articleImage" src="/docs/_Thumb_/district/school-closed-clipart.jpeg?id=4404&amp;thumbwidth=190&amp;fullwidth=500" alt="School Closed" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl08_lblSummary" class="news-summary">Important UPDATE Information - Ohio Schools CLOSED through Friday, May 1, 2020</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl08_lnkViewAll" title="Click to read more about: School CLOSED" class="view-all" href="/News/1204">Read More <span class="sr-only">about School CLOSED</span></a>
+				</div>
+			</div>
+		
+			<div class="article row">
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl09_lnkTitle" class="news-title" href="/News/1205">BC Meals Schedule Changing</a>
+
+				<span class="news-post-date">Posted On: Monday, March 16, 2020</span>
+
+				<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl09_lnkImage" class="news-image" href="/News/1205"><img id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl09_articleImage" src="/docs/_Thumb_/district/bag.png?id=4407&amp;thumbwidth=190&amp;fullwidth=500" alt="Brown Bag Lunchy" style="border-width:0px;"></a>
+
+				<div class="news-summary-container">
+					<span id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl09_lblSummary" class="news-summary">BC Meals Schedule Changing Starting Monday, March 30, 2020</span>
+				</div>
+
+				<div class="view-all-link-container">
+					<a id="ctl00_ctl00_MasterContent_ContentColumnMiddle_ctl00_rep_news_ctl09_lnkViewAll" title="Click to read more about: BC Meals Schedule Changing" class="view-all" href="/News/1205">Read More <span class="sr-only">about BC Meals Schedule Changing</span></a>
+				</div>
+			</div>
+		
+			<div class="clr"></div>
+			</section>
+</div>
+	<a href="/districtNewsArticles.aspx" class="view-all-news">View All News
+	</a>
+	<div class="clr">
+	</div>
+
+
+		</div>
+
+        
+		
+
+        
+		
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 backgroundcolor">
+		
+		
+
+		<div class="clearfix panel content">
+			
+	<h1>Calendar &amp; Events</h1>
+	
+		<section id="upcoming-events"><ul></ul></section><footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl00_hl_viewAllEvents" class="view-all" href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=&amp;viewDate=4/29/2020">View All</a>
+</footer><style>
+    .view-full-calendar {
+        padding-left: 10px;
+    }
+
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1),
+    section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) {
+        text-align: center;
+    }
+</style>
+<section id="calendar"><table id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_cal_events" class="calendar" cellspacing="0" cellpadding="2" role="presentation" title="Calendar" border="0" style="border-width:0px;border-collapse:collapse;">
+<tr><td colspan="7" style="background-color:Silver;"><table class="calendar" cellspacing="0" border="0" style="width:100%;border-collapse:collapse;"><tr>
+<td style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7365')" style="color:Black" title="Go to the previous month">&lt;<span class="obscure">Go to previous month</span></a></td>
+<td align="center" style="width:70%;">April</td>
+<td align="right" style="width:15%;"><a href="javascript:__doPostBack('ctl00%24ctl00%24MasterContent%24ContentColumnRight%24ctl01%24cal_events','V7426')" style="color:Black" title="Go to the next month">&gt;<span class="obscure">Go to next month</span></a></td>
+</tr></table></td></tr>
+<tr>
+<th align="center" abbr="Sunday" scope="col">Sun</th>
+<th align="center" abbr="Monday" scope="col">Mon</th>
+<th align="center" abbr="Tuesday" scope="col">Tue</th>
+<th align="center" abbr="Wednesday" scope="col">Wed</th>
+<th align="center" abbr="Thursday" scope="col">Thu</th>
+<th align="center" abbr="Friday" scope="col">Fri</th>
+<th align="center" abbr="Saturday" scope="col">Sat</th>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/29/2020">29</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=3/31/2020">31</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/1/2020">1</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/2/2020">2</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/3/2020">3</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/4/2020">4</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/5/2020">5</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/6/2020">6</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/7/2020">7</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/8/2020">8</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/9/2020">9</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/10/2020">10</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/11/2020">11</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/12/2020">12</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/13/2020">13</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/14/2020">14</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/15/2020">15</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/16/2020">16</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/17/2020">17</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/18/2020">18</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/19/2020">19</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/20/2020">20</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/21/2020">21</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/22/2020">22</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/23/2020">23</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/24/2020">24</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/25/2020">25</a></td>
+</tr>
+<tr>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/26/2020">26</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/27/2020">27</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/28/2020">28</a></td>
+<td class=" today" align="center" style="color:White;background-color:Silver;width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/29/2020">29</a></td>
+<td class=" this-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=4/30/2020">30</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/1/2020">1</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/2/2020">2</a></td>
+</tr>
+<tr>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/3/2020">3</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/4/2020">4</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/5/2020">5</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/6/2020">6</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/7/2020">7</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/8/2020">8</a></td>
+<td class=" other-month" align="center" style="width:14%;"><a href="/calendarWeekView.aspx?schools=0&amp;schoolid=0&amp;types=1,2,24,25,26,32&amp;viewDate=5/9/2020">9</a></td>
+</tr>
+</table>
+<footer><a id="ctl00_ctl00_MasterContent_ContentColumnRight_ctl01_aCal" class="view-full-calendar" href="/calMonthView.aspx?s=0&amp;y=2020&amp;m=4&amp;t=0" target="_blank">View Full Calendar</a>
+    </footer></section><script>
+    $(document).ready(function () {
+        var $prevMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(1) a');
+        var $nextMonthLink = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(3) a');
+
+        $prevMonthLink.html('<i class="fa fa-angle-double-left" aria-hidden="true"></i><span class="sr-only">go to the previous month</span>');
+        $nextMonthLink.html('<i class="fa fa-angle-double-right" aria-hidden="true"></i><span class="sr-only">go to the next month</span>');
+
+        var $monthText = $('section#calendar table.calendar table.calendar > tbody > tr > td:nth-child(2)');
+        $monthText.attr('tabindex', 0);
+        $monthText.attr('role', 'heading');
+
+        var calendarDays = $('section#calendar > table.calendar > tbody > tr:nth-child(n + 2) > td > a');
+
+        var prevMonth = 'March';
+        var currentMonth = 'April';
+        var nextMonth = 'May';
+        var i = 0;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + prevMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+        if ($(calendarDays[i]).parent().hasClass('with-event')) {
+            $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+        }
+
+        i++;
+
+        while (parseInt($(calendarDays[i]).text(), 10) > 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + currentMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        while (i < calendarDays.length - 1) {
+            $(calendarDays[i]).html('<span class="sr-only">' + nextMonth + ' </span>' + $(calendarDays[i]).text());
+
+            if ($(calendarDays[i]).parent().hasClass('with-event')) {
+                $(calendarDays[i]).html($(calendarDays[i]).html() + '<span class="sr-only">, has event</span>');
+            }
+
+            i++;
+        }
+
+        $('section#calendar').trigger('ADACalendarFixesLoaded');
+    });
+</script>
+</div>
+	</div>
+	<div class="clr">
+	</div>
+
+                        </div>
+                        <div class="clr">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+        </div>
+
+        
+
+        <div class="footerwrapper">
+            <footer id="site-foot" class="container"><div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div id="social-links">
+            
+                    <a class="fa fa-sign-in" href="/login.aspx"><i class="fa"></i>
+                        <span class="obscure">CMS Login</span>
+                    </a>
+                
+                    <a class="fa fa-sitemap" href="/Login/Intranet"><i class="fa"></i>
+                        <span class="obscure">Intranet Login</span>
+                    </a>
+                
+                    <a class="fa fa-facebook" href="https://www.facebook.com/BuckeyeCentralSchools?fref=ts"><i class="fa"></i>
+                        <span class="obscure">Buckeye Central Schools Facebook</span>
+                    </a>
+                
+                    <a class="fa fa-twitter" href="https://twitter.com/Buckeye_Central"><i class="fa"></i>
+                        <span class="obscure">Buckeye Central Schools Twitter</span>
+                    </a>
+                
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 footerinfo">
+        
+        <div class="footerName">
+        </div>
+        <div>
+            Buckeye Central Local School District  |  938 South Kibler St.  |  New Washington, OH 44854
+        </div>
+        <div>
+            
+			Phone:419-492-2864  
+        </div>
+        <div>
+            <a href="http://maps.google.com/maps?q=938%20South%20Kibler%20St.+New%20Washington+OH+44854">View Map &amp; Directions
+            </a>
+        </div>
+        
+    </div>
+
+</div>
+
+<script>
+
+	if (typeof ga === "undefined") {
+		(function (i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date(); a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+	}
+
+	
+	ga('create', 'UA-66591572-13', 'auto', { 'name': 'SchoolPointeTracker0' });
+	ga('SchoolPointeTracker0.send', 'pageview');
+	
+
+    /*
+	* Function that tracks a click on an outbound link in Analytics.
+	* This function takes a valid URL string as an argument, and uses that URL string
+	* as the event label. Setting the transport method to 'beacon' lets the hit be sent
+	* using 'navigator.sendBeacon' in browser that support it.
+	*/
+
+	var trackOutboundLink = function (url) {
+		ga('send', 'event', 'outbound', 'click', url, {
+			'transport': 'beacon',
+			'hitCallback': function () { document.location = url; }
+		});
+	}
+</script></footer><div class="footer-branding-container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <a href="http://www.schoolpointe.com" target="_blank" class="pull-right" alt="SchoolPointe">
+                                <img alt="SchoolPointe" src="%5Csysimages%5CSP-Footer-Logo.png"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+<div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987"><input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAC2CGRU0wBR02DZeVD+dpLLqiDHydsK03lx8Xtjj8McOnhM1E/Z+4AtYfBLjoqzHUNzx8re9P49CESeNcN+aUYUYylAVjuf883gda9qxPWJdWzlAW1I7BexV+czOzRObl3d50nMhilDDHAwFxGIx0wbFChwQ4Ex0vxOTS+4GFwX5O7kl0Ub38BaDmMgKQcEKVqNSQD67gQzTXdB4A0BTQX56TjzPdP4KgmIAJFo6XWNsVobKscM9xAMf7wwexMr1VQr6eny5cHvWE8n08cMlPMX4UUsMkilD+ZSI9iMjU0yDuCD8GsnLDl6GsgBmi45cgSxLOQJb0r0B03brVHI2aRHj1HX4bsgg9FALGXgdAnz+3fPXHQkoFYN6AHzJTqhMhgIUZHRyIop27ZqiAc5YtJ2CBmWGVEJRDuOVtSdk96ZySIM7oQRKLNMMfuEaYBPHf7UnvwclkPDJBJa1wKztDi6ksAKSxkS0J9AQoAbRkhRLYupP5UfZtzYMcETdrtRuebqUFNAgBxTdrc7p3lb5cG87gm7gyuj+DfF4g5gBMII5vbFKWePuk/HCjfYquEX2jQfetIrU0FyvbBObo1CEWr8JkkUFRwOfzMDwGZIdDlEZh0FsPpuONYQUyNniCyMIahBgL9N5WPrxm7gqXxJSO3bUUENDE9dXDnHAyMxZUeTfBuKQjtJNZCvgL3hOtBgN53JKgunZuEj8FebONNvrKSLQqlYIB6TKJFENEjsUkBLzAOx9UysQWNNGqUBe0wmZ11N1yVx/jqgB2/mbAHkazISKTMuizNiXiSwyoHGDIcvBxXS9J1pDBfJ5u5J2HPiBBN+Xr4uuDR+WtbHcMYtsYms3xHSKYhMkeSMxWk7MMjQy2jqouDmyradb3nBLSPm24J8mLJQ9K5ToZmSewp0Qk2VvFiQDTVcI9Q9wgwvj0GaEsvuvDOI+IORDvkjx+dyMqFUp9f2yxaTv9Cmu1w9ksPxAlAWwgg==">
+</div>
+</form>
+</body>
+</html>

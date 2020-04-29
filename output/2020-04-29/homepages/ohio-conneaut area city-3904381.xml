@@ -1,0 +1,1511 @@
+<!DOCTYPE HTML>
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><!--[if IE 7]>    <html class="no-js lt-ie9" lang="en"> <![endif]--><html lang="en">
+<head id="ctl00_ctl00_Head1">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Home - Conneaut Schools Central Offices </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="SI" content="/admin/districthome.aspx">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/admin/css/social-links.css">
+<link rel="stylesheet" href="/admin/IconFonts/icomoon%20package/style.css">
+<link href="https://cdn.schoolpointe.com/js/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/jquery-ui/1.8.9/css/smoothness/jquery-ui.css" rel="stylesheet" type="text/css">
+<script src="https://cdn.schoolpointe.com/js/jquery-1.11.1.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/hoverIntent.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/superfish.1.7.js" type="text/javascript"></script><link href="/Content/bootstrap.min.css" rel="stylesheet">
+<script src="/Scripts/bootstrap.min.js"></script><script src="/js/Bootstrap.dropdown.Override.js"></script><link href="https://cdn.schoolpointe.com/js/bootstrapAccessibility/css/bootstrap-accessibility.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/bootstrapAccessibility/js/bootstrap-accessibility.min.js"></script><script src="https://cdn.schoolpointe.com/js/moment.min.js"></script><link rel="stylesheet" href="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.css">
+<script src="https://cdn.schoolpointe.com/js/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script><script src="https://cdn.schoolpointe.com/js/jquery.dropshadow.js" type="text/javascript"></script><script src="/admin/js/search/cdn/SearchEngine.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.guid.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.dotimeout.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/querystring.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.shadowon.min.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/nivo-slider/jquery.nivo.slider.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu-collapsed.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/menu.js" type="text/javascript"></script><script src="https://cdn.schoolpointe.com/js/jquery.easing.1.3.js" type="text/javascript"></script><!-- <script src="https://cdn.schoolpointe.com/jquery-ui/1.8.9/js/jquery-ui.min.js" type="text/javascript"></script> --><script src="/admin/js/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript"></script><!--[if IE]>
+    <script src="https://cdn.schoolpointe.com/js/html5-ie.js" type="text/javascript" language="javascript"></script>
+    <![endif]--><link href="https://cdn.schoolpointe.com/js/video-js-5.11.7/video-js.min.css" rel="stylesheet">
+<script src="https://cdn.schoolpointe.com/js/video-js-5.11.7/video.min.v.adaFixes.js"></script><style type="text/css">
+    .vjs-volume-menu-button.vjs-menu-button-inline .vjs-menu {
+        opacity: 1;
+    }
+</style>
+<script type="text/javascript">
+    function loadVideo(guid, playlist) {
+        videojs(guid, playlist, function () {
+            var origWidth = jQuery('#' + guid).parent().data('width');
+            var origHeight = jQuery('#' + guid).parent().data('height');
+
+            var actualWidth = jQuery('#' + guid).parent().width();
+            if (origWidth > actualWidth) {
+                this.height(origHeight * (actualWidth / origWidth));
+                this.width(actualWidth);
+
+                //Retroactively fixes an issue with resizing videos
+                //the style attribute shouldn't be on the parent
+                jQuery('#' + guid).parent().removeAttr('style');
+
+            } else {
+                this.height(origHeight);
+                this.width(origWidth);
+            }
+            if (playlist != '{}') {
+                this.on('ended', function () {
+                    this.playlist.next();
+                });
+            }
+
+            //fixes issue in IE when going full screen
+            //video would be behind other content on the page
+            this.on('enterFullWindow', function () {
+                $(this.el).parents().not('html,body').each(function () {
+                    $(this)
+                        .data('oldzindex', $(this).css('z-index'))
+                        .css('z-index', 99999)
+                        .addClass('forcedzindex');
+                });
+            });
+            this.on('exitFullWindow', function () {
+                $('.forcedzindex').each(function () {
+                    $(this)
+                        .css('z-index', $(this).data('oldzindex'))
+                        .removeClass('forcedzindex')
+                        .removeData('oldzindex');
+                });
+
+            });
+        });
+    }
+
+    jQuery(window).load(function () {
+
+        //Create the input element
+        var reCaptchinput = $('#recaptcha_response_field');
+        if (reCaptchinput != "") {
+            reCaptchinput.wrapAll("<label class=''  associatedcontrolid='recaptcha_response_field' text='recaptcha'>recaptcha </label>");
+        }
+
+
+        jQuery.browser = {}; (function () {
+            jQuery.browser.msie = false;
+            jQuery.browser.version = 0; if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+                jQuery.browser.msie = true; jQuery.browser.version = RegExp.$1;
+            }
+        })();
+        if (jQuery.browser.msie && jQuery.browser.version <= 7) {
+            //we could do something else here...
+            console.log("You should really update your browser");
+        }
+
+        videojs.options.flash.iFrameMode = true;
+        jQuery('.videoplayer > .video-js').each(function () {
+            var guid = this.id;
+            var playlist = jQuery('#' + guid).parent().data('playlist');
+            if (playlist === undefined || playlist === null) {
+                playlist = '{}';
+                loadVideo(guid, playlist);
+            }
+        });
+    });
+</script><!--IE 8 and below Bootstrapfix--><!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+
+	<style tyoe="text/css">
+	    .quicklinks{ display: none !important;}
+	</style>
+<![endif]--><!-- Bootstrap --><script type="text/javascript">
+
+    // needed for jquery bbq, needs jQuery.browser that had been deprecated.
+
+    jQuery.browser = {};
+    (function () {
+        jQuery.browser.msie = false;
+        jQuery.browser.version = 0;
+        if (navigator.userAgent.match(/MSIE ([0-9]+)\./)) {
+            jQuery.browser.msie = true;
+            jQuery.browser.version = RegExp.$1;
+        }
+    })();
+
+</script><script src="https://cdn.schoolpointe.com/js/jquery.blockUI.js"></script><link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/frontierCalendar/jquery-frontier-cal-1.3.2.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.schoolpointe.com/js/jquery-frontier-cal-1.3.2/css/colorpicker/colorpicker.css">
+<link rel="Stylesheet" type="text/css" href="https://cdn.schoolpointe.com/css/CalendarPopupStyle.css">
+<link href="https://cdn.schoolpointe.com/css/schoolpointe.css?version=1.3" rel="stylesheet" type="text/css">
+<link href="https://cdn.schoolpointe.com/css/bully-report.css" rel="stylesheet" type="text/css">
+<link rel="alternate" type="application/rss+xml" title="Conneaut Schools Central Offices  - News" href="/rssNews.ashx">
+<link rel="alternate" type="application/rss+xml" title="Conneaut High - News" href="/rssNews.ashx?schoolId=1">
+<link rel="alternate" type="application/rss+xml" title="Conneaut Middle - News" href="/rssNews.ashx?schoolId=2">
+<link rel="alternate" type="application/rss+xml" title="Gateway Elementary - News" href="/rssNews.ashx?schoolId=3">
+<link rel="alternate" type="application/rss+xml" title="Lakeshore Primary - News" href="/rssNews.ashx?schoolId=4">
+<link rel="alternate" type="application/rss+xml" title="Board of Education - News" href="/rssNews.ashx?schoolId=10">
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-58503126-1', 'auto');
+    ga('send', 'pageview');
+</script><script src="https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/HTMLCS.js"></script><script>
+
+    if (!Array.prototype.indexOf)
+        Array.prototype.indexOf = function (searchValue, index) {
+            // In non-strict-mode, if the `this` variable is null
+            // or undefined, then it is set the the window object.
+            // Else, `this` is automaticly converted to an object.
+            var len = this.length >>> 0; // convert ot number or 0
+
+            index |= 0;              // rounds and NaN-checks
+            if (index < 0)             // check if negative start
+                index = Math.max(len - index, 0);
+            else if (index >= len) // else, check if too big
+                return -1;
+
+            if (searchValue === undefined)
+                // Because searchValue is undefined, keys that
+                // don't exist will have the same value as the
+                // searchValue, and thus do need to be checked.
+                do {
+                    if (index in this && this[index] === undefined)
+                        return index;
+                } while (++index !== len)
+            else
+                // Because searchValue is not undefined, there's no
+                // need to check if the current key is in the array
+                // because if the key isn't in the array, then it's
+                // undefined which is not equal to the searchValue.
+                do {
+                    if (this[index] === searchValue)
+                        return index;
+                } while (++index !== len)
+
+            // if nothing was found, then simply return -1
+            return -1;
+        };
+
+    window['HtmlCodeSniffer_Done'] = false;
+
+    $(document).ready(function () {
+        $('#goog-gt-tt .logo > img').attr('alt', 'Google tanslate icon');
+
+        var submitErrors = function () {
+            try {
+                var options = {
+                    path: "https://cdn.schoolpointe.com/HTML_CodeSniffer-2.0.7/build/"
+                };
+
+                HTMLCS.process("WCAG2AA", document,
+                    function (data) {
+                        var messages = HTMLCS.getMessages();
+                        var length = messages.length;
+
+                        if (length > 0) {
+                            messages = messages.filter(function (a) {
+                                return a.type == 1;
+                            });
+
+                            var filterOut = [
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.AlignAttr',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G18.Fail',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_1.F77',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.InputHidden.Name',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F68',
+                                'WCAG2AA.Principle1.Guideline1_4.1_4_3.G145.Fail',
+                                'WCAG2AA.Principle3.Guideline3_2.3_2_2.H32.2',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Font',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.NoContent',
+                                //'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.G1,G123,G124.NoSuchID',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H67.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Center',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_2.H25.1.EmptyTitle',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Big',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H39.3.LayoutTable',
+                                'WCAG2AA.Principle1.Guideline1_1.1_1_1.H53,ARIA6',
+                                'WCAG2AA.Principle2.Guideline2_4.2_4_1.H64.1',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.F92,ARIA4',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Tt',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43,H63',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H49.Strike',
+                                'WCAG2AA.Principle1.Guideline1_3.1_3_1.H43.HeadersRequired',
+                                'WCAG2AA.Principle4.Guideline4_1.4_1_2.H91.A.EmptyNoId'
+
+                            ];
+
+                            messages = messages.filter(function (a) {
+                                return filterOut.indexOf(a.code) == -1;
+                            });
+
+                            var count = messages.length;
+
+                            console.log(messages);
+
+                            window['HtmlCodeSniffer_Errors'] = count;
+
+                            if (count > 0) {
+                                $("#AdaErrorCount").text("ADA errors: " + count);
+                                var url = "http://wave.webaim.org/report#/" + window.location.href;
+                                $("#AdaErrorCount").attr("href", url);
+                            }
+                            else {
+                                $("#AdaErrorCount").remove();
+                            }
+
+                            var data = {
+                                districtId: "OH_ConneautAreaCitySD",
+                                url: "/index.aspx",
+                                errorCount: count,
+                                value: parseInt("0", 10),
+                                forceUpdate: 'false' === 'true'
+                            };
+
+                            try {
+                                var methodUrl = "/admin/shared/AdaLog.asmx/RecordLog";
+                                $.ajax({
+                                    type: "POST",
+                                    url: methodUrl,
+                                    data: JSON.stringify(data),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json",
+                                    success: function (msg) {
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    },
+                                    error: function (e) {
+                                        console.log(e);
+                                        window['HtmlCodeSniffer_Done'] = true;
+                                    }
+                                });
+                            } catch (ex) {
+                                window['HtmlCodeSniffer_Done'] = true;
+                            }
+
+                        }
+
+                    }, function (error) {
+                        console.log(error)
+                    });
+            } catch (ex) {
+                console.log(ex);
+            }
+        };
+
+        submitErrors();
+    });
+</script><script>
+    function updateFacebookIframe(element) {
+        var linkSrc = $(element).attr('src');
+
+        if (linkSrc.indexOf('href=') > 0) {
+            linkSrc = linkSrc.substring(linkSrc.indexOf('href=') + 5);
+        }
+
+        if (linkSrc.indexOf('&') > 0) {
+            linkSrc = linkSrc.substring(0, linkSrc.indexOf('&'));
+        }
+
+        linkSrc = decodeURIComponent(linkSrc);
+
+        $(element).before('<a href="' + decodeURIComponent(linkSrc) + '" class="sr-only">visit facebook.com to view embeded facebook feed</a>');
+        $(element).prop('tabindex', -1);
+    }
+
+    var timeoutFindIframe = null;
+    function findAndUpdateFacebookIframe(element) {
+        timeoutFindIframe = setTimeout(function () {
+            var iframe = $(element).find('iframe');
+
+            if (iframe.length > 0) {
+                clearTimeout(timeoutFindIframe);
+                updateFacebookIframe(iframe);
+            } else {
+                findAndUpdateFacebookIframe(element);
+            }
+        }, 200);
+    }
+
+    $(document).ready(function () {
+        if ($('iframe[src*="facebook.com"]').length > 0) {
+            $('iframe[src*="facebook.com"]').each(function (index, element) {
+                updateFacebookIframe(element);
+            });
+        } else if ($('div.fb-page[data-href*="facebook.com"]').length > 0) {
+            $('div.fb-page[data-href*="facebook.com"]').each(function (index, element) {
+                findAndUpdateFacebookIframe(element);
+            });
+        }
+    });
+</script><style type="text/css">
+    #expandQuickLink1, expandQuickLink2 {
+        color: #000;
+    }
+
+    .quickLinkHamburger1, .quickLinkHamburger2 {
+        display: none;
+    }
+
+    .quickLinkHamburgerShow1, .quickLinkHamburgerShow2 {
+        display: block;
+    }
+
+    @media only screen and (max-width: 767px) {
+        #MobileNav a:focus,
+        #MobileNav button:focus,
+        a.MobileName:focus,
+        a.mobileName:focus {
+            outline: 2px dotted #000;
+        }
+    }
+</style>
+<link id="ctl00_ctl00_SiteCSS" rel="stylesheet" type="text/css" href="/sitecss.ashx?&amp;intranet=0&amp;checksum=1565616355310">
+<script src="https://use.typekit.net/vpj1nru.js"></script><script>try { Typekit.load({ async: true }); } catch (e) { }</script><link href="https://fonts.googleapis.com/css?family=Arvo:400,400i,700,700i%7COpen+Sans:400,400i,700,700i" rel="stylesheet">
+</head>
+<body class="school-0 index ">
+    <form name="aspnetForm" method="post" action="/" id="aspnetForm">
+<div>
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="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aG9vbGlkPTEwIj48c3BhbiBzdHlsZT0iZm9udC1zaXplOjIwcHg7Ij48c3Ryb25nPkNvbm5lYXV0IFNjaG9vbHMgQ2FyZWVyIE9wcG9ydHVuaXRpZXM8L3N0cm9uZz48L3NwYW4+PC9hPjwvcD4NCg0KPHAgc3R5bGU9InRleHQtYWxpZ246IGNlbnRlcjsiPjxzcGFuIHN0eWxlPSJjb2xvcjogcmdiKDAsIDAsIDApOyBmb250LWZhbWlseTogQXJpYWwsIEhlbHZldGljYSwgJ0xpYmVyYXRpb24gU2FucycsIEZyZWVTYW5zLCBzYW5zLXNlcmlmOyBmb250LXNpemU6IDEycHg7IGxpbmUtaGVpZ2h0OiAyMHB4OyI+JnF1b3Q7Q29ubmVhdXQgQXJlYSBDaXR5IFNjaG9vbHMgaXMgYW4gZXF1YWwgb3Bwb3J0dW5pdHkgZW1wbG95ZXIgd2hvIGZ1bGx5IGFuZCBhY3RpdmVseSBzdXBwb3J0cyBlcXVhbCBhY2Nlc3MgZm9yIGFsbCBwZW9wbGUsIHJlZ2FyZGxlc3Mgb2YgUmFjZSwgQ29sb3IsIFJlbGlnaW9uLCBHZW5kZXIsIEFnZSwgU2V4dWFsIE9yaWVudGF0aW9uLCBHZW5kZXIgSWRlbnRpdHksIFZldGVyYW4gU3RhdHVzLCBOYXRpb25hbCBPcmlnaW4gb3IgRGlzYWJpbGl0eS4gV2Ugc3VwcG9ydCB0aGUgaGlyaW5nIGFuZCBhZHZhbmNlbWVudCBvZiBhbGwgbWlub3JpdGllcy4mcXVvdDs8L3NwYW4+PC9wPmQCAw8PFgIfBQUbL2ZlYXR1cmVDb250ZW50LmFzcHg/cmFuaz0xZGQCBQ9kFgJmDxYCHwECAxYGZg9kFgJmDxUFP2h0dHBzOi8vd3d3LmZhY2Vib29rLmNvbS9jb25uZWF1dHNjaG9vbHMvP21vZGFsPWFkbWluX3RvZG9fdG91chpDb25uZWF1dCBBcmVhIENpdHkgU2Nob29scwVfc2VsZiU8c3BhbiBjbGFzcz0nb2JzY3VyZSc+RmFjZWJvb2s8L3NwYW4+DmZhIGZhLWZhY2Vib29rZAIBD2QWAmYPFQULL2xvZ2luLmFzcHgrQ29ubmVhdXQgU2Nob29scyBDZW50cmFsIE9mZmljZXMgIENNUyBMb2dpbgVfc2VsZiY8c3BhbiBjbGFzcz0nb2JzY3VyZSc+Q01TIExvZ2luPC9zcGFuPg1mYSBmYS1zaWduLWluZAICD2QWAmYPFQULL2FkYS1yZXBvcnQNQURBIFJlcG9ydGluZwZfYmxhbmslPHNwYW4gY2xhc3M9J29ic2N1cmUnPkFEQSBMaW5rPC9zcGFuPhZmYSBmYS11bml2ZXJzYWwtYWNjZXNzZGTRE8Kb5UFXv31H7s+qfZqnt6KymQ==">
+</div>
+
+        
+
+<a id="skip-link" class="obscure" href="#start-content">Skip to main content</a>
+
+
+
+
+
+
+<script type="text/javascript">var _userway_config = { position: 3, /*color: '#053e67', language: 'en', */ account: '10trxb7job' };</script><script type="text/javascript" src="https://cdn.userway.org/widget.js"></script><script>
+    var firstTab = true;
+
+    document.addEventListener("userway:render_completed", function (event) {
+        var userway = document.querySelector('div.userway');
+
+        if (userway) {
+            $('body').prepend('<a tabindex="0" class="sr-only" href="javascript:void(0);" id="showUserWayWidget">enable keyboard access to userway accessibility widget</a>');
+
+            $('div.userway').wrap('<div id="wrap-userway" tabindex="-1" />');
+            $('div.userway *').prop('tabindex', '-1');
+        }
+    });
+
+    function enableTabToUserWay() {
+        $('div.userway *').prop('tabindex', '0');
+    }
+
+    $('body').on('click', '#showUserWayWidget', function () {
+        enableTabToUserWay();
+    });
+
+    $('body').on('keydown', '#showUserWayWidget', function (e) {
+        if (e.keyCode === 13 || e.keyCode === 32) {
+            enableTabToUserWay();
+        }
+    });
+
+    $('body').on('keydown', function (e) {
+        if (e.keyCode === 9) {
+            if (firstTab) {
+                e.preventDefault();
+                firstTab = false;
+                $('#showUserWayWidget').focus();
+            }
+        }
+    });
+</script><header id="site-head"><div class="container-fluid">
+                
+                    
+
+<div class="row">
+    <div class="hidden-xs col-sm-12 col-md-4 col-lg-4 topLeft">
+        <a id="ctl00_ctl00_header_ctl00_LogoLink2" class="logo2" href="/index.aspx">
+			<span class="obscure">Link to Homepage</span>
+        </a>
+        <a id="ctl00_ctl00_header_ctl00_LogoLink" class="logo" href="/index.aspx">
+			<span class="obscure">Link to Homepage</span>
+        </a>
+        <a id="ctl00_ctl00_header_ctl00_NameLink" class="nameLink" href="/index.aspx"><span class="top">Conneaut Area</span><span class="bottom">City Schools</span></a>
+    </div>
+    <div class="hidden-xs col-sm-12 col-md-8 col-lg-8 topRight">
+        <div class="row">
+            <div class="hidden-xs col-sm-12 col-md-12 col-lg-12">
+                                <nav id="head-SocialLinks"><a href="https://www.facebook.com/conneautschools/?modal=admin_todo_tour" title="Conneaut Area City Schools" target="_self">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="/login.aspx" title="Conneaut Schools Central Offices  CMS Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_blank">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+                                 
+                </nav><nav id="VeryTopNav" class="topNavigation"><ul class="">
+<li class="without-image"><a href="https://www.cacsk12.org/Content2/354" aria-label="" title="Covid-19 Info Share">Covid-19 Info Share</a></li>
+<li class="without-image"><a href="/" title="District ">District <i class="fa fa-home" aria-hidden="true"></i></a></li>
+<li class="without-image"><a href="/athletics" title="Athletics ">Athletics <i class="fa fa-futbol-o" aria-hidden="true"></i></a></li>
+<li class="without-image"><a href="/calendar" title="Calendar ">Calendar <i class="fa fa-calendar" aria-hidden="true"></i></a></li>
+<li class="without-image"><a href="http://www.cacsk12.org/Content/366" aria-label="" title="Office365 ">Office365 <i class="fa fa-windows" aria-hidden="true"></i></a></li>
+<li class="without-image"><a href="https://accounts.google.com" title="Google ">Google <i class="fa fa-google" aria-hidden="true"></i></a></li>
+<li class="without-image"><a href="https://studentparentportal.neomin.org/district/cnnt" title="Parent Access ">Parent Access <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
+</ul></nav>
+</div>
+        </div>
+        <div class="row">
+            <div>
+                <nav id="TopNav"><ul class="">
+<li class="without-image"><a href="/10/home" title="Central Office">Central Office</a></li>
+<li class="without-image"><a href="/1/home" title="High School">High School</a></li>
+<li class="without-image"><a href="/2/home" title="Middle School">Middle School</a></li>
+<li class="without-image"><a href="/3/home" title="Gateway Elementary">Gateway Elementary</a></li>
+<li class="without-image"><a href="/4/home" title="Lakeshore Primary">Lakeshore Primary</a></li>
+<li class="without-image"><a href="https://www.cacsk12.org/Staff" title="Directory">Directory</a></li>
+<li class="without-image"><a href="https://zoom.us/signin" aria-label="" title="Zoom Login">Zoom Login</a></li>
+</ul></nav>
+</div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="mobileC" class="hidden-sm hidden-md hidden-lg row">
+	<div class="col-xs-12">
+		<div class="row marginFix">
+			<div class="col-xs-10">
+				<a id="ctl00_ctl00_header_ctl00_MobileName" class="mobileName" href="/index.aspx">Conneaut Schools Central Offices </a>
+			</div>
+
+			<div class="col-xs-2">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#MobileNavBar">
+					<i class="fa fa-bars" aria-hidden="true"></i>
+					<span class="obscure">Open Menu</span>
+				</button>
+			</div>
+		</div>
+
+		<div id="MobileNavBar" class="row collapse navbar-collapse">
+			<nav id="MobileNav"><h2>Navigation</h2>
+				<ul class="">
+<li class="without-image"><a href="https://www.cacsk12.org/Content2/354" aria-label="" title="Covid-19 Info Share">Covid-19 Info Share</a></li>
+<li class="without-image"><a href="/" title="District ">District <i class="fa fa-home" aria-hidden="true"></i></a></li>
+<li class="without-image"><a href="/athletics" title="Athletics ">Athletics <i class="fa fa-futbol-o" aria-hidden="true"></i></a></li>
+<li class="without-image"><a href="/calendar" title="Calendar ">Calendar <i class="fa fa-calendar" aria-hidden="true"></i></a></li>
+<li class="without-image"><a href="http://www.cacsk12.org/Content/366" aria-label="" title="Office365 ">Office365 <i class="fa fa-windows" aria-hidden="true"></i></a></li>
+<li class="without-image"><a href="https://accounts.google.com" title="Google ">Google <i class="fa fa-google" aria-hidden="true"></i></a></li>
+<li class="without-image"><a href="https://studentparentportal.neomin.org/district/cnnt" title="Parent Access ">Parent Access <i class="fa fa-user-circle" aria-hidden="true"></i></a></li>
+</ul>
+<h2>Building Links</h2>
+                
+
+				<ul class="">
+<li class="without-image"><a href="/10/home" title="Central Office">Central Office</a></li>
+<li class="without-image"><a href="/1/home" title="High School">High School</a></li>
+<li class="without-image"><a href="/2/home" title="Middle School">Middle School</a></li>
+<li class="without-image"><a href="/3/home" title="Gateway Elementary">Gateway Elementary</a></li>
+<li class="without-image"><a href="/4/home" title="Lakeshore Primary">Lakeshore Primary</a></li>
+<li class="without-image"><a href="https://www.cacsk12.org/Staff" title="Directory">Directory</a></li>
+<li class="without-image"><a href="https://zoom.us/signin" aria-label="" title="Zoom Login">Zoom Login</a></li>
+</ul></nav>
+</div>
+	</div>
+</div>
+
+                
+            </div>
+        </header><div id="site-slideshow">
+            <div class="container-fluid">
+                <div class="row">
+                    
+    
+        
+<script type="text/javascript" src="/admin/js/Cycle2/jquery.cycle2.dev.js"></script><script src="https://player.vimeo.com/api/player.js"></script><script type="text/javascript">
+    // https://stackoverflow.com/a/51789311/5629100
+    var YoutubeVideos = (function () {
+        var playersYoutube = [],	// players array (to control players individually)
+            queueYoutube = [];		// videos queue (once api is ready, transform this into YT player)
+
+        // Constructor
+        function YoutubeVideos() { }
+
+        // Add elements to queue
+        YoutubeVideos.prototype.add = function ($video) {
+            queueYoutube.push($video);
+        };
+
+        // Finds player based on the id of the iframe element
+        YoutubeVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersYoutube.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Load Youtube API
+        YoutubeVideos.prototype.loadApi = function () {
+            $.getScript("https://www.youtube.com/iframe_api", function () {
+                window.onYouTubeIframeAPIReady = function () {
+                    queueYoutube.forEach(function ($video) {
+                        var loopBit = function () {
+                            if ($video.data('loop-video') == true) {
+                                return 1;
+                            }
+                            return 0;
+                        };
+
+                        var player = new YT.Player($video.get(0), {
+                            width: $video.data('frame-width'),
+                            height: $video.data('frame-height'),
+                            videoId: $video.data('video-id'),
+                            events: {
+                                'onStateChange': onPlayerStateChange,
+                                'onReady': onPlayerReady
+                            },
+                            playerVars: {
+                                autoplay: 0,
+                                rel: 0,
+                                enablejsapi: 1,
+                                loop: loopBit
+                            },
+                            origin: window.location.origin
+                        });
+
+                        playersYoutube.push({
+                            playerId: $video.attr('id'),
+                            player: player
+                        });
+                    });
+                };
+            });
+        };
+
+        return YoutubeVideos;
+    })();
+
+    // Modified from https://stackoverflow.com/a/51789311/5629100
+    var VimeoVideos = (function () {
+        var queueVimeo = [],		// queue of elements which will become players.
+            playersVimeo = [];		// players array (to control players individually)
+
+        // Constructor
+        function VimeoVideos() { }
+
+        // Add elements to queue
+        VimeoVideos.prototype.add = function ($video) {
+            queueVimeo.push($video);
+        };
+
+        // Converts queue to players.
+        VimeoVideos.prototype.loadPlayers = function () {
+            queueVimeo.forEach(function (item, index) {
+                var vimeoOptions = {
+                    id: $(item).data('video-id'),
+                    autoplay: false,
+                    muted: ($(item).data('autoplay') == true) ? true : false
+                };
+
+                playersVimeo[index] = {
+                    playerId: $(item).attr('id'),
+                    player: new Vimeo.Player(item, vimeoOptions)
+                };
+            });
+        };
+
+        // Finds player based on the id of the iframe element
+        VimeoVideos.prototype.findPlayer = function (id) {
+            var playerObj = null;
+
+            playersVimeo.forEach(function (item) {
+                if (item.playerId == id) {
+                    playerObj = item.player;
+                }
+            });
+
+            return playerObj;
+        };
+
+        // Adds listeners to the players that have been created now so they interact
+        // correctly with the header galleries.
+        VimeoVideos.prototype.bindListeners = function () {
+            playersVimeo.forEach(function (item) {
+                item.player.on('play', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+                    $wrapSlideshow.find('.cycle-pager').fadeOut();
+                    $wrapSlideshow.find('.playPause').fadeOut();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('pause', function () {
+                    var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                    $(this.element.parentNode).data('paused', true);
+                    $wrapSlideshow.find('.cycle-pager').fadeIn();
+                    $wrapSlideshow.find('.playPause').fadeIn();
+                    $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.on('ended', function () {
+                    if ($(this.element.parentNode).data('loop-video') == true) {
+                        this.play();
+                    } else {
+                        var $wrapSlideshow = $(this.element.parentNode).parents('.wrap-slideshow');
+
+                        $(this.element.parentNode).data('paused', true);
+                        $wrapSlideshow.find('.cycle-pager').fadeIn();
+                        $wrapSlideshow.find('.playPause').fadeIn();
+                        $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+                    }
+                });
+            });
+
+            playersVimeo.forEach(function (item) {
+                item.player.ready().then(function () {
+                    if ($(this).parents('.cycle-slide-active').length > 0 && $(this).data('autoplay') == true) {
+                        this.play();
+                    }
+                });
+            });
+        };
+
+        return VimeoVideos;
+    })();
+
+    // When the Youtube video is paused, ends, or begins, we need to either
+    // show or hide the slideshow controls and either pause or resume the
+    // slideshow. We also handle looping the Youtube videos here because the
+    // Youtube API is not 100% reliable for that function.
+    function onPlayerStateChange(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        var $wrapSlideshow = $videoElem.parents('.wrap-slideshow').first();
+        var videoState = e.data;
+
+        if (videoState == YT.PlayerState.PAUSED) {
+            $videoElem.data('paused', true);
+            $wrapSlideshow.find('.cycle-pager').fadeIn();
+            $wrapSlideshow.find('.playPause').fadeIn();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+        }
+
+        if (videoState == YT.PlayerState.ENDED) {
+            if ($videoElem.data('loop-video') == true) {
+                playYoutubePlayerById($videoElem.attr('id'));
+            } else {
+                $videoElem.siblings('.youtubeVideoThumbnail').show();
+                $videoElem.siblings('.youtubeVideoThumbnailPlay').show();
+                $wrapSlideshow.find('.cycle-pager').fadeIn();
+                $wrapSlideshow.find('.playPause').fadeIn();
+                $wrapSlideshow.find('.headerGalleryV2').cycle('resume');
+            }
+        }
+
+        if (videoState == YT.PlayerState.PLAYING) {
+            $videoElem.data('paused', false);
+            $videoElem.siblings('.youtubeVideoThumbnail').fadeOut();
+            $videoElem.siblings('.youtubeVideoThumbnailPlay').fadeOut();
+            $wrapSlideshow.find('.headerGalleryV2').cycle('pause');
+            $wrapSlideshow.find('.cycle-pager').fadeOut();
+            $wrapSlideshow.find('.playPause').fadeOut();
+        }
+    }
+
+    function onPlayerReady(e) {
+        var $videoElem = null;
+
+        $.each(e.target, function (index, value) {
+            if (typeof value === 'object' && $(value).is('iframe')) {
+                $videoElem = $(value);
+            }
+        });
+
+        if ($videoElem.parent('.cycle-slide-active').length > 0 && $videoElem.data('autoplay') == true) {
+            e.target.mute();
+            forcePlayYoutubePlayer(e.target);
+        }
+    }
+
+    function pauseYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            forcePauseYoutubePlayer(player);
+        }
+    }
+
+    function forcePauseYoutubePlayer(player) {
+        player.pauseVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePauseYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function playYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        forcePlayYoutubePlayer(player);
+    }
+
+    function muteYoutubePlayerById(id) {
+        var player = youtubes.findPlayer(id);
+        player.mute();
+    }
+
+    function forcePlayYoutubePlayer(player) {
+        player.playVideo();
+
+        if (player.getPlayerState() == 1) {
+            setTimeout(function () {
+                forcePlayYoutubePlayer(player);
+            }, 100);
+        }
+    }
+
+    function pauseVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.pause();
+        }
+    }
+
+    function playVimeoPlayerById(id) {
+        var player = vimeos.findPlayer(id);
+
+        if (player != null) {
+            player.play();
+        }
+    }
+
+    function addYouTubeStyles(videoId, containerWidth, containerHeight, videoWidth, videoHeight, videoZoom) {
+        var containerRatio = containerWidth / containerHeight;
+        var videoRatio = videoWidth / videoHeight;
+        var trueSize = $('#' + videoId).parents('.headerGalleryV2').innerWidth() / containerWidth;
+        var styles = '#' + videoId + ' {';
+
+        if (containerRatio === videoRatio) { // Video already fits the size of the container.
+            styles += 'top: 0;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+            styles += 'height: 100%;';
+        } else if (containerRatio > videoRatio) { // Container wider than video, needs to cut off top and bottom of video to scale.
+            var scale = (containerWidth / videoWidth);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'width: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'height: ' + (Math.floor((videoHeight * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateY(-' + (((videoHeight * scale) - containerHeight) / (videoHeight * scale) * 50) + '%);'
+            }
+        } else { // Container taller than video, needs to cut off left and right of video to scale.
+            var scale = (containerHeight / videoHeight);
+
+            styles += 'position: absolute;';
+            styles += 'left: 0;';
+            styles += 'height: 100%;';
+
+            if (videoZoom === 'nozoom') {
+                styles += 'top: 0;';
+                styles += 'height: 100%;';
+            } else if (videoZoom === 'zoomtop') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoombottom') {
+                styles += 'bottom: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+            } else if (videoZoom === 'zoommiddle') {
+                styles += 'top: 0;';
+                styles += 'width: ' + (Math.floor((videoWidth * scale) * trueSize)) + 'px;';
+                styles += 'transform: translateX(-' + (((videoWidth * scale) - containerWidth) / (videoWidth * scale) * 50) + '%);'
+            }
+        }
+
+        styles += '}';
+
+        if ($('#youtubeVideo' + videoId + 'Styles').length > 0) {
+            $('#youtubeVideo' + videoId + 'Styles').remove();
+        }
+
+        var styleTag = $('<style id="#youtubeVideo' + videoId + 'Styles"></style>')
+        $('head').append(styleTag);
+        $(styleTag).append(styles);
+    }
+
+    // Global Variables
+    var youtubes = new YoutubeVideos();
+    var vimeos = new VimeoVideos();
+
+    $(document).ready(function () {
+        $('.youtubeVideoSlide').each(function () {
+            youtubes.add($(this));
+        });
+
+        youtubes.loadApi();
+
+        $('.vimeoVideoSlide').each(function () {
+            vimeos.add($(this));
+        });
+
+        vimeos.loadPlayers();
+        vimeos.bindListeners();
+
+        $('.wrap-slideshow').on('click', '.youtubeVideoThumbnailPlay, .youtubeVideoThumbnail', function () {
+            playYoutubePlayerById($(this).data('player-id'));
+        });
+    });
+
+    $(document).on('cycle-initialized', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+        var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+        var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+        if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true) {
+            youtubeSlide.parents('.headerGalleryV2').cycle('pause');
+        }
+
+        if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true) {
+            vimeoSlide.parents('.headerGalleryV2').cycle('pause');
+            playVimeoPlayerById(vimeoSlide.attr('id'));
+        }
+
+        $('.cycle-pager > span').attr('tabindex', 0);
+    });
+
+    $(document).ready(function () {
+        // For ADA Compliance
+        $('.wrap-slideshow').on('keydown', '.prevNext > i, .cycle-pager > span, .playPause > i', function (e) {
+            if (e.keyCode === 32 || e.keyCode === 13) {
+                e.preventDefault();
+                $(this).click();
+            }
+        });
+    });
+</script><script>
+    $(document).ready(function () {
+        $slideshow = $('#slideshow').cycle({
+            'pauseOnHover': '#slideshow',
+            'slides': '> .slide',
+            'pager': '.slideshow.cycle-pager',
+            'pagerTemplate': '<span class="page"><span class="obscure">slide number {{slideNum}}</span></span>',
+            'autoHeight': '1900:630',
+            'timeout': 5000,
+            'fx': 'fade',
+            'log': false
+        });
+
+        setTimeout(function () {
+            $('.wrap-slideshow.slideshow .playPause .fa-play').on('click', function () {
+                $slideshow.cycle('resume');
+                $('#slideshow').data('paused', false);
+            });
+
+            $('.wrap-slideshow.slideshow .playPause .fa-pause').on('click', function () {
+                $slideshow.cycle('pause');
+                $('#slideshow').data('paused', true);
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-left').on('click', function () {
+                $slideshow.cycle('prev');
+            });
+
+            $('.wrap-slideshow.slideshow .prevNext .fa-chevron-right').on('click', function () {
+                $slideshow.cycle('next');
+            });
+        }, 500);
+
+        $slideshow.on('cycle-before', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0) {
+                pauseYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0) {
+                pauseVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+        $slideshow.on('cycle-after', function (event, optionHash, outgoingSlideEl, incomingSlideEl, forwardFlag) {
+            var youtubeSlide = $('#slideshow .cycle-slide-active').children('.youtubeVideoSlide');
+            var vimeoSlide = $('#slideshow .cycle-slide-active').children('.vimeoVideoSlide');
+
+            if (youtubeSlide.length > 0 && youtubeSlide.data('autoplay') == true && youtubeSlide.data('paused') != true) {
+                muteYoutubePlayerById(youtubeSlide.attr('id'))
+                playYoutubePlayerById(youtubeSlide.attr('id'));
+            }
+
+            if (vimeoSlide.length > 0 && vimeoSlide.data('autoplay') == true && vimeoSlide.data('paused') != true) {
+                playVimeoPlayerById(vimeoSlide.attr('id'));
+            }
+        });
+
+	
+    });
+</script><div class="wrap-slideshow slideshow">
+    <div id="slideshow" class="headerGalleryV2">
+        
+                <div id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rptPhotos_ctl00_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/c53fa99d-1d5f-4680-a36d-5a5b90c408b2.jpg" alt="Thinking About You!" style="border-width:0px;"><div class="caption">
+		<div class="captionTop">
+			<a href="https://www.cacsk12.org/2/Content2/372" target="">We Miss You!</a>
+		</div>
+<div class="captionBottom">
+			<a href="https://www.cacsk12.org/2/Content2/372" target="">Click Here!  We are thinking about all of you!</a>
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rptPhotos_ctl01_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-04/03bfde07-73c4-436c-b3bd-833726b6eeb5.jpg" alt="8th Grade Scheduling" style="border-width:0px;"><div class="caption">
+		<div class="captionTop">
+			<a href="http://www.cacsk12.org/Content/368" target="">8th Grade Students</a>
+		</div>
+<div class="captionBottom">
+			<a href="http://www.cacsk12.org/Content/368" target="">2020/2021 CHS Online Scheduling Request Form - Click Here</a>
+		</div>
+	</div>
+</div>
+            
+                <div id="ctl00_ctl00_MasterNews_MasterNews_ctl00_rptPhotos_ctl02_repeaterSlide" class="slide">
+	<img class="sliderImage" src="/userfiles/2020-03/8e4b9402-cb77-46bd-9395-d673f4f504c5.png" alt="District Information" style="border-width:0px;"><div class="caption">
+		<div class="captionTop">
+			<a href="http://www.cacsk12.org/Content/354" target="">Information Share</a>
+		</div>
+<div class="captionBottom">
+			<a href="http://www.cacsk12.org/Content/354" target="">Please check this site and Conneaut Schools on Facebook for district information as it becomes available. Click Here</a>
+		</div>
+	</div>
+</div>
+            
+    </div>
+
+    <div class="prevNext">
+        <i class="fa fa-chevron-left" aria-label="previous slide" tabindex="0"></i>
+        <i class="fa fa-chevron-right" aria-label="next slide" tabindex="0"></i>
+    </div>
+
+    <div class="cycle-pager slideshow"></div>
+
+    <div class="playPause">
+        <i class="fa fa-play" aria-label="play, resume header gallery" tabindex="0"></i>
+        <i class="fa fa-pause" aria-label="pause, stop header gallery" tabindex="0"></i>
+    </div>
+</div>
+
+
+<style>
+    .caption {
+        position: absolute;
+        bottom: 25%;
+        left: 0;
+        width: 100%;
+        padding: 0 20%;
+        z-index: 2;
+    }
+</style>
+<style>#slideshow{position:relative;z-index:1;</style>
+<style type="text/css">
+    .wrap-slideshow {
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .slide {
+        display: none;
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide.cycle-slide-active {
+        display: block;
+        animation-name: fadeIn;
+        animation-duration: 1000ms;
+    }
+
+    .slide img {
+        width: 100%;
+        display: block;
+    }
+
+    .caption,
+    .caption a {
+        color: #fff;
+    }
+
+    .captionTop,
+    .captionBottom {
+        display: none;
+    }
+
+    .cycle-slide-active .captionTop {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        animation-name: slideInRight;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-slide-active .captionBottom {
+        display: block;
+        position: relative;
+        background-color: rgba(0,0,0,0.4);
+        text-align: center;
+        animation-name: slideInLeft;
+        animation-duration: 1000ms;
+    }
+
+    .cycle-pager {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(0,0,0,0.5);
+        text-align: center;
+        z-index: 2;
+    }
+
+    .cycle-pager .page {
+        display: inline-block;
+        margin: 3px;
+        cursor: pointer;
+    }
+
+    .cycle-pager .page:before {
+        display: inline-block;
+        content: '';
+        width: 12px;
+        height: 12px;
+        background-color: transparent;
+        border: 1px solid #fff;
+        border-radius: 50%;
+        line-height: 1px;
+    }
+
+    .cycle-pager .page.cycle-pager-active:before {
+        background-color: white;
+    }
+
+    .playPause {
+        position: absolute;
+        bottom: 0px;
+        right: 10px;
+        padding: 0;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .playPause i {
+        margin-bottom: 3px;
+    }
+
+    .playPause i.fa-play {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 8px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause i.fa-play:before {
+        margin-top: -1px;
+        margin-right: -2px;
+    }
+
+    .playPause i.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 9px;
+        text-align: center;
+        line-height: 12px;
+        cursor: pointer;
+    }
+
+    .playPause svg.fa-play,
+    .playPause svg.fa-pause {
+        width: 18px;
+        height: 18px;
+        padding: 4px;
+        background-color: #000;
+        border-radius: 50%;
+        font-size: 11px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        margin-top: -15px;
+        color: #fff;
+        z-index: 2;
+    }
+
+    .prevNext svg {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 32px;
+        cursor: pointer;
+    }
+
+    .prevNext svg.fa-chevron-left {
+        padding-left: 3px;
+    }
+
+    .prevNext svg.fa-chevron-right {
+        padding-right: 3px;
+    }
+
+    .prevNext i {
+        position: absolute;
+        top: 0;
+        width: 30px !important;
+        height: 30px;
+        padding: 5px;
+        background-color: rgba(0,0,0,0.5);
+        border-radius: 50%;
+        font-size: 18px;
+        text-align: center;
+        line-height: 20px;
+        cursor: pointer;
+    }
+
+    .prevNext .fa-chevron-left {
+        left: 20px;
+    }
+
+    .prevNext svg:first-child,
+    .prevNext .fa-chevron-left:before {
+        margin-left: -2px;
+    }
+
+    .prevNext .fa-chevron-right {
+        right: 20px;
+    }
+
+    .prevNext svg:last-child,
+    .prevNext .fa-chevron-right:before {
+        margin-right: -2px;
+    }
+
+    .wrap-slideshow .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url('');
+        background-size: contain;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        z-index: 1;
+    }
+
+    .vimeoVideoSlide {
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+    }
+
+    .vimeoVideoSlide iframe {
+        width: 100%;
+        height: 100%;
+    }
+
+    .youtubeVideoSlide {
+        width: 100%;
+        height: 100%;
+    }
+
+    .slide .youtubeVideoThumbnail {
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #000;
+        object-fit: contain;
+        object-position: center;
+        cursor: pointer;
+        z-index: 2;
+    }
+
+    .youtubeVideoThumbnailPlay {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background-color: #f00;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 40px;
+        cursor: pointer;
+        z-index: 3;
+    }
+
+    .youtubeVideoThumbnailPlay i {
+        margin: 0 -2px 0 0;
+        line-height: 100%;
+    }
+
+    @keyframes none {
+        from {
+            display: block;
+        }
+
+        to {
+            display: block;
+        }
+    }
+
+    @keyframes slideInRight {
+        from {
+            left: 100%;
+        }
+
+        60% {
+            left: -10px;
+        }
+
+        to {
+            left: 0;
+        }
+    }
+
+    @keyframes slideInLeft {
+        from {
+            right: 100%;
+        }
+
+        60% {
+            right: -10px;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+</style>
+<style id="youtubeStyles"></style>
+</div>
+            </div>
+        </div>
+
+        
+
+        <div id="site-body">
+            <div class="container-fluid">
+                <div class="row">
+                    <div id="start-content"></div>
+                    <div id="uw_skip_to_main_content_anchor"></div>
+                    
+                </div>
+
+                <div class="row">
+                    
+
+    <style>
+        #site-body {
+            padding: 0;
+            margin:0;
+        }
+    </style>
+</div>
+            </div>
+        </div>
+
+        
+<div class="feature-content homepageSchoolsList">
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <ul class="schoolHome">
+<li><a href="/10/home"><img alt="Board of Education" src="/docs/district/footer/board.jpg?id=40311&amp;width=200" style="width: 200px; height: 113px;"> District &amp; Board<br>
+	440.593.7200</a></li>
+	<li>
+<a href="/1/home"><img alt="high school" src="/userfiles/-16/my%20files/hs.jpg?id=40319&amp;width=200" style="width: 200px; height: 113px;"><span>Conneaut High<br>
+	440.593.7210</span></a> </li>
+	<li><a href="/2/home"><img alt="middle school" src="/userfiles/-16/my%20files/ms.jpg?id=40301&amp;width=200" style="width: 200px; height: 113px;"><span>Conneaut Middle<br>
+	440.593.7240</span></a></li>
+	<li><a href="/3/home"><img alt="gateway elem" src="/userfiles/-16/my%20files/ge.jpg?id=40320&amp;width=200" style="width: 200px; height: 113px;"><span>Gateway Elementary<br>
+	440.593.7280</span></a></li>
+	<li><a href="/4/home"><img alt="lakeshore " src="/userfiles/-16/my%20files/lp.jpg?id=40321&amp;width=200" style="width: 200px; height: 113px;"><span>Lakeshore Primary<br>
+	440.593.7250</span></a></li>
+</ul>
+</div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+
+        
+        
+
+        <footer id="site-foot"><div class="container-fluid">
+                <div class="row">
+                    
+<div class="col-xs-12 col-sm-3">
+    <h2 class="heading">Contact Us</h2>
+
+    <div class="address">
+        <span id="ctl00_ctl00_ctl06_BuildingName" class="buildingName">Conneaut Schools Central Offices </span>
+        <span id="ctl00_ctl00_ctl06_BuildingAddress" class="buildingAddress">230 Gateway Ave. Suite B <br>Conneaut, OH 44030</span>
+    </div>
+
+    <div class="contact">
+        <span id="ctl00_ctl00_ctl06_BuildingPhone" class="buildingPhone"><b>Phone</b>: 440-593-7200     Fax: 440-593-6253</span>
+        
+    </div>
+</div>
+<div class="col-xs-12 col-sm-6">
+    
+<div class="feature-content ">
+    
+
+    <div class="feature-content-body content">
+        
+        <div class="feature-content-content">
+            <p style="text-align: center;"><a href="https://www.cacsk12.org/Employment.aspx?schoolid=10"><span style="font-size:20px;"><strong>Conneaut Schools Career Opportunities</strong></span></a></p>
+
+<p style="text-align: center;"><span style="color: rgb(0, 0, 0); font-family: Arial, Helvetica, 'Liberation Sans', FreeSans, sans-serif; font-size: 12px; line-height: 20px;">"Conneaut Area City Schools is an equal opportunity employer who fully and actively supports equal access for all people, regardless of Race, Color, Religion, Gender, Age, Sexual Orientation, Gender Identity, Veteran Status, National Origin or Disability. We support the hiring and advancement of all minorities."</span></p>
+        </div>
+        
+    </div>
+    <div style="clear: both;"></div>
+
+</div>
+
+</div>
+<div class="col-xs-12 col-sm-3">
+    <div class="row">
+
+
+        <div class="col-xs-12 col-sm-12 marginFix talignR">
+            <h2 class="heading">Stay Connected</h2>
+
+            <div id="foot-SocialLinks">
+                
+        <a href="https://www.facebook.com/conneautschools/?modal=admin_todo_tour" title="Conneaut Area City Schools" target="_self">
+            <span class="obscure">Facebook</span>
+            <i class="fa fa-facebook"></i>
+        </a>
+    
+        <a href="/login.aspx" title="Conneaut Schools Central Offices  CMS Login" target="_self">
+            <span class="obscure">CMS Login</span>
+            <i class="fa fa-sign-in"></i>
+        </a>
+    
+        <a href="/ada-report" title="ADA Reporting" target="_blank">
+            <span class="obscure">ADA Link</span>
+            <i class="fa fa-universal-access"></i>
+        </a>
+    
+
+            </div>
+               
+
+<div class="search-box">
+	<label for="txtSearchBox" class="obscure">Search site using Google</label><input id="txtSearchBox" type="text" class="search-box-input" placeholder="Search" onkeyup="return tableInputKeyPress(event)"><i class="search-box-go fa fa-search bSearch3"></i>
+</div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xs-12">
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 copyright">
+            © Copyright 2020 Conneaut Schools 
+        </div>
+
+        <div class="col-xs-12 col-sm-6 talignR">
+            <a href="http://www.schoolpointe.com/" class="pull-right">
+                <img src="https://cdn.schoolpointe.com/images/new/SPWhite.png" alt="SchoolPointe Logo"><span class="obscure">SchoolPointe Logo Link</span>
+            </a>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    /*<![CDATA[*/
+    (function () {
+        var sz = document.createElement('script'); sz.type = 'text/javascript'; sz.async = true;
+        sz.src = '//siteimproveanalytics.com/js/siteanalyze_6134085.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sz, s);
+    })();
+/*]]>*/
+</script>
+</div>
+            </div>
+        </footer><div>
+
+	<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987">
+</div>
+</form>
+</body>
+</html>
