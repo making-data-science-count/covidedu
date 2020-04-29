@@ -207,8 +207,8 @@ create_summary_table <- function(proc_table_of_output) {
     # rename(link = list_of_links_containing_search_term)
 }
 
-proc_my_date <- function(my_date = NULL) {
-  if (is.null(my_date)) {
+proc_my_date <- function(my_date = "") {
+  if (my_date == "") {
     my_date <- Sys.Date()
     return(my_date)
   } else {
