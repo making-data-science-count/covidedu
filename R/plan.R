@@ -22,13 +22,13 @@ table_of_output = scrape_and_process_sites(
 
 table_of_links_proc = proc_table_of_output(table_of_output)
  
-summary_of_table_of_links = create_summary_table(table_of_links_proc)
+summary_of_table_of_links = create_summary_table(table_of_output)
 
 write_csv(summary_of_table_of_links, str_c("output/", my_date, "summary_of_table_of_links.csv"))
 
 scraped_links = proc_links_and_attachments(table_of_links_proc, 
                                            my_date,
-                                           which_to_scrape = "both")
+                                           which_to_scrape = "both") # scrape links and attachments
 
 write_csv(scraped_links, str_c("output/", my_date, "scraped_links.csv"))
 
