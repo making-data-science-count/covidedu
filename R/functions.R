@@ -18,10 +18,10 @@ access_site <- function(my_date, name, state, id, url, search_term) {
     
     print(str_c(state," ", name, " already exists; reading instead"))
     
-    h <-  read_html(file_path)
+    h <- file_path %>% GET(., timeout(10)) %>% read_html()
     
   } else {
-    h <- read_html(url)
+    h <- url %>% GET(., timeout(10)) %>% read_html()
     
     write_xml(h, file_path)
   }
@@ -94,7 +94,7 @@ scrape_and_process_sites <- function(my_date, list_of_args, search_term) {
 
 download_link <- function(link, district, state, nces_id, my_date, page_number) {
   print(str_c("accessing link ", link, "from ", nces_id))
-  h <- read_html(link)
+  h <- link %>% GET(., timeout(10)) %>% read_html()
   
   base_dir <- str_c("output/", my_date, "/links/")
   
