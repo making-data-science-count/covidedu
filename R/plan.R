@@ -11,12 +11,18 @@ processed_data = read_data('district-data-to-scrape.csv')
 processed_data %>% 
   count(state)
 
-# for testing - just selecting two states
+# select certain states
 processed_data <- processed_data %>% 
-  filter(state %in% c("michigan", "tennessee"))
-
-# # just for testing
-# processed_data <- processed_data[1:25, ]
+  filter(state %in% c(c("alabama", "alaska", "arizona", "arkansas", "california", 
+                        "colorado", "connecticut", "delaware", "district of columbia", 
+                        "florida", "georgia", "hawaii", "idaho", "illinois", "indiana", 
+                        "iowa", "kansas", "kentucky", "louisiana", "maine", "maryland", 
+                        "massachusetts", "michigan", "minnesota", "mississippi", "missouri",
+                        "montana", "nebraska", "nevada", "new hampshire", "new jersey", 
+                        "new mexico", "new york", "north carolina", "north dakota", "ohio", 
+                        "oklahoma", "oregon", "pennsylvania", "rhode island", "south carolina", 
+                        "south dakota", "tennessee", "texas", "utah", "vermont", "virginia",
+                        "washington", "west virginia", "wisconsin", "wyoming")))
 
 my_date_proc = proc_my_date(my_date)
 

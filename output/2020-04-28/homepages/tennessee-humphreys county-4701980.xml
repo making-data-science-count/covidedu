@@ -1,0 +1,330 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<!-- InstanceBegin template="/Templates/humphreys_4.dwt" codeOutsideHTMLIsLocked="false" --><head>
+<meta name="verify-v1" content="/y8yhGIa0XtnBKX/nGdwZ9pZpEAGlFMMeYBS1tneJ1o=">
+<script type="text/javascript">
+ 
+ 
+var fadeimages=new Array()
+//SET IMAGE PATHS. Extend or contract array as needed
+fadeimages[0]=["../courthouse_header.jpg", "", ""] //plain image syntax
+fadeimages[1]=["../loretta_header.jpg"] //image with link syntax
+fadeimages[2]=["../golf_header.jpg"] //image with link and target syntax
+fadeimages[3]=["../marina_header.jpg"] //image with link and target syntax
+
+
+var fadebgcolor="white"
+
+////NO need to edit beyond here/////////////
+ 
+var fadearray=new Array() //array to cache fadeshow instances
+var fadeclear=new Array() //array to cache corresponding clearinterval pointers
+ 
+var dom=(document.getElementById) //modern dom browsers
+var iebrowser=document.all
+ 
+function fadeshow(theimages, fadewidth, fadeheight, borderwidth, delay, pause, displayorder){
+this.pausecheck=pause
+this.mouseovercheck=0
+this.delay=delay
+this.degree=10 //initial opacity degree (10%)
+this.curimageindex=0
+this.nextimageindex=1
+fadearray[fadearray.length]=this
+this.slideshowid=fadearray.length-1
+this.canvasbase="canvas"+this.slideshowid
+this.curcanvas=this.canvasbase+"_0"
+if (typeof displayorder!="undefined")
+theimages.sort(function() {return 0.5 - Math.random();}) //thanks to Mike (aka Mwinter) :)
+this.theimages=theimages
+this.imageborder=parseInt(borderwidth)
+this.postimages=new Array() //preload images
+for (p=0;p<theimages.length;p++){
+this.postimages[p]=new Image()
+this.postimages[p].src=theimages[p][0]
+}
+ 
+var fadewidth=fadewidth+this.imageborder*2
+var fadeheight=fadeheight+this.imageborder*2
+ 
+if (iebrowser&&dom||dom) //if IE5+ or modern browsers (ie: Firefox)
+document.write('<div id="master'+this.slideshowid+'" style="position:relative;width:'+fadewidth+'px;height:'+fadeheight+'px;overflow:hidden;"><div id="'+this.canvasbase+'_0" style="position:absolute;width:'+fadewidth+'px;height:'+fadeheight+'px;top:0;left:0;filter:progid:DXImageTransform.Microsoft.alpha(opacity=10);opacity:0.1;-moz-opacity:0.1;-khtml-opacity:0.1;background-color:'+fadebgcolor+'"></div><div id="'+this.canvasbase+'_1" style="position:absolute;width:'+fadewidth+'px;height:'+fadeheight+'px;top:0;left:0;filter:progid:DXImageTransform.Microsoft.alpha(opacity=10);opacity:0.1;-moz-opacity:0.1;-khtml-opacity:0.1;background-color:'+fadebgcolor+'"></div></div>')
+else
+document.write('<div><img name="defaultslide'+this.slideshowid+'" src="'+this.postimages[0].src+'"></div>')
+ 
+if (iebrowser&&dom||dom) //if IE5+ or modern browsers such as Firefox
+this.startit()
+else{
+this.curimageindex++
+setInterval("fadearray["+this.slideshowid+"].rotateimage()", this.delay)
+}
+}
+
+function fadepic(obj){
+if (obj.degree<100){
+obj.degree+=10
+if (obj.tempobj.filters&&obj.tempobj.filters[0]){
+if (typeof obj.tempobj.filters[0].opacity=="number") //if IE6+
+obj.tempobj.filters[0].opacity=obj.degree
+else //else if IE5.5-
+obj.tempobj.style.filter="alpha(opacity="+obj.degree+")"
+}
+else if (obj.tempobj.style.MozOpacity)
+obj.tempobj.style.MozOpacity=obj.degree/101
+else if (obj.tempobj.style.KhtmlOpacity)
+obj.tempobj.style.KhtmlOpacity=obj.degree/100
+else if (obj.tempobj.style.opacity&&!obj.tempobj.filters)
+obj.tempobj.style.opacity=obj.degree/101
+}
+else{
+clearInterval(fadeclear[obj.slideshowid])
+obj.nextcanvas=(obj.curcanvas==obj.canvasbase+"_0")? obj.canvasbase+"_0" : obj.canvasbase+"_1"
+obj.tempobj=iebrowser? iebrowser[obj.nextcanvas] : document.getElementById(obj.nextcanvas)
+obj.populateslide(obj.tempobj, obj.nextimageindex)
+obj.nextimageindex=(obj.nextimageindex<obj.postimages.length-1)? obj.nextimageindex+1 : 0
+setTimeout("fadearray["+obj.slideshowid+"].rotateimage()", obj.delay)
+}
+}
+ 
+fadeshow.prototype.populateslide=function(picobj, picindex){
+var slideHTML=""
+if (this.theimages[picindex][1]!="") //if associated link exists for image
+slideHTML='<a href="'+this.theimages[picindex][1]+'" target="'+this.theimages[picindex][2]+'">'
+slideHTML+='<img src="'+this.postimages[picindex].src+'" border="'+this.imageborder+'px">'
+if (this.theimages[picindex][1]!="") //if associated link exists for image
+slideHTML+='</a>'
+picobj.innerHTML=slideHTML
+}
+ 
+ 
+fadeshow.prototype.rotateimage=function(){
+if (this.pausecheck==1) //if pause onMouseover enabled, cache object
+var cacheobj=this
+if (this.mouseovercheck==1)
+setTimeout(function(){cacheobj.rotateimage()}, 100)
+else if (iebrowser&&dom||dom){
+this.resetit()
+var crossobj=this.tempobj=iebrowser? iebrowser[this.curcanvas] : document.getElementById(this.curcanvas)
+crossobj.style.zIndex++
+fadeclear[this.slideshowid]=setInterval("fadepic(fadearray["+this.slideshowid+"])",50)
+this.curcanvas=(this.curcanvas==this.canvasbase+"_0")? this.canvasbase+"_1" : this.canvasbase+"_0"
+}
+else{
+var ns4imgobj=document.images['defaultslide'+this.slideshowid]
+ns4imgobj.src=this.postimages[this.curimageindex].src
+}
+this.curimageindex=(this.curimageindex<this.postimages.length-1)? this.curimageindex+1 : 0
+}
+ 
+fadeshow.prototype.resetit=function(){
+this.degree=10
+var crossobj=iebrowser? iebrowser[this.curcanvas] : document.getElementById(this.curcanvas)
+if (crossobj.filters&&crossobj.filters[0]){
+if (typeof crossobj.filters[0].opacity=="number") //if IE6+
+crossobj.filters(0).opacity=this.degree
+else //else if IE5.5-
+crossobj.style.filter="alpha(opacity="+this.degree+")"
+}
+else if (crossobj.style.MozOpacity)
+crossobj.style.MozOpacity=this.degree/101
+else if (crossobj.style.KhtmlOpacity)
+crossobj.style.KhtmlOpacity=this.degree/100
+else if (crossobj.style.opacity&&!crossobj.filters)
+crossobj.style.opacity=this.degree/101
+}
+ 
+ 
+fadeshow.prototype.startit=function(){
+var crossobj=iebrowser? iebrowser[this.curcanvas] : document.getElementById(this.curcanvas)
+this.populateslide(crossobj, this.curimageindex)
+if (this.pausecheck==1){ //IF SLIDESHOW SHOULD PAUSE ONMOUSEOVER
+var cacheobj=this
+var crossobjcontainer=iebrowser? iebrowser["master"+this.slideshowid] : document.getElementById("master"+this.slideshowid)
+crossobjcontainer.onmouseover=function(){cacheobj.mouseovercheck=1}
+crossobjcontainer.onmouseout=function(){cacheobj.mouseovercheck=0}
+}
+this.rotateimage()
+}
+
+</script><!-- #BeginEditable "doctitle" --><title>Humphreys County, TN</title>
+<!-- #EndEditable --><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script language="Javascript"><!--
+
+var message="Sorry, this function is disabled";
+function click(e)
+   {
+   if (document.all) {
+      if (event.button == 2) {
+         alert(message);
+         return false;
+      }
+   }
+   if (document.layers) {
+      if (e.which == 3) {
+         alert(message);
+         return false;
+      }
+   }
+   }
+   if (document.layers) {
+      document.captureEvents(Event.MOUSEDOWN);
+   }
+   document.onmousedown=click;
+// --></script><script language="JavaScript">
+<!--
+function MM_reloadPage(init) {  //reloads the window if Nav4 resized
+  if (init==true) with (navigator) {if ((appName=="Netscape")&&(parseInt(appVersion)==4)) {
+    document.MM_pgW=innerWidth; document.MM_pgH=innerHeight; onresize=MM_reloadPage; }}
+  else if (innerWidth!=document.MM_pgW || innerHeight!=document.MM_pgH) location.reload();
+}
+MM_reloadPage(true);
+// -->
+</script><script language="Javascript">
+<!--
+if (self.screen) {     // for NN4 and IE4
+        width = screen.width
+        height = screen.height
+// Testing this first prevents firing the slow Java of NN4
+}
+else if (self.java) {   // for NN3 with enabled Java
+       var jkit = java.awt.Toolkit.getDefaultToolkit();
+       var scrsize = jkit.getScreenSize();       
+       width = scrsize.width; 
+       height = scrsize.height; 
+}
+else{
+ width = height = '?' // N2, E3, N3 w/Java off, probably Opera and WebTV
+
+}
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script><link href="stylesheet.css" rel="stylesheet" type="text/css">
+<meta name="description" content="Welcome to Humphreys County, Tennessee, a county rich in history, natural resources, industry and family entertainment. ">
+<meta name="keywords" content="Humphreys County, TN, Waverly, TN, Tennessee Anytime">
+<link href="stylesheet.css" rel="stylesheet" type="text/css">
+</head>
+<body bgcolor="#999966" text="#000000" vlink="#003366" leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0">
+<table width="702" border="1" cellspacing="0" cellpadding="0" align="center" bordercolor="#0B1D2B"><tr>
+<td width="779" height="299"><table width="700" border="0" cellspacing="0" cellpadding="0" align="center">
+<tr>
+<td width="700" height="52" valign="top" bgcolor="#FFFFFF"><img src="top_menu.gif" width="700" height="43" border="0" usemap="#Map"></td>
+        </tr>
+<tr>
+<td height="36" valign="top" bgcolor="#FFFFFF">
+<table width="100%" border="0" cellspacing="0" cellpadding="1"><tr>
+<td width="56%"><img src="humphreys_county.gif" width="389" height="71"></td>
+              <td width="44%"><img src="icons.gif" width="180" height="56" border="0" usemap="#Map2"></td>
+            </tr></table>
+<script type="text/javascript">
+//new fadeshow(IMAGES_ARRAY_NAME, slideshow_width, slideshow_height, borderwidth, delay, pause (0=no, 1=yes), optionalRandomOrder)
+new fadeshow(fadeimages, 700, 280, 0, 3000, 1)
+
+ 
+</script><script type="text/javascript">
+    rotateText(document.getElementById("imgs"), "imgs");
+    //rotateText(document.getElementById("authors"), "authors");
+    //rotateText(document.getElementById("restaurants"), "restaurants");
+  </script>
+</td>
+        </tr>
+<tr>
+<td height="53" valign="top" bgcolor="#FFFFFF"><img src="mid%5D.gif" width="700" height="57" border="0" usemap="#Map3"></td>
+        </tr>
+<tr>
+<td height="55" valign="top" bgcolor="#FFFFFF"><table width="95%" border="0" align="center" cellpadding="1" cellspacing="0">
+<tr>
+<td width="3%"> </td>
+              <td width="97%"> </td>
+            </tr>
+<tr>
+<td> </td>
+              <td valign="top">
+<!-- InstanceBeginEditable name="body" -->
+                <p class="text"><img src="welcome.gif" width="150" height="51"></p>
+                <p class="text">Welcome to Humphreys County, Tennessee, a county rich in history,natural resources, industry and family entertainment. "The Land of Three  Rivers" offers the natural beauty of the Tennessee River, the Duck River  and the Buffalo River. Taking advantage of the friendly, hometown atmosphere, visitors travel from all over the country to enjoy  boating, fishing, camping and a variety of other recreational activities. </p>
+              <p class="text">The middle Tennessee area is easily accessible from Interstate 40, Exit  143, which accesses Hwy. 13 and leads north to the county seat of Waverly. U.S.  Highway 70 runs through the three major cities in the county. Waverly, the  largest city and center of the county is flanked on the east by McEwen, which  is rich in Irish heritage, and New Johnsonville on the west, which is rich in  Civil War history. </p>
+              <p class="text">One of Humphreys County's largest attractions is <a href="https://www.lorettalynnranch.net/main/" target="_blank">Loretta Lynn's Ranch</a>  and Family Campground near Hurricane Mills. Visitors are allowed a glimpse into  the personal life of country music legend, Loretta Lynn, with family  entertainment from April through November of each year. The museum and gift  shop depict various aspects of Lynn's life. The ranch also sponsors the AMA  National Motocross Championship as well as concerts, trail rides and other  activities throughout the year. </p>
+              <p class="text">In McEwen, St. Patrick's Irish Picnic and Homecoming, held the last  Friday and Saturday in July, is one of the world's largest outdoor barbeque  events. Drawing thousands of visitors each year, St. Patrick's famous barbequed  pork, chickens, sauce and fixings keep visitors coming back for more. </p>
+              <p class="text">Ready access to transportation via railroad, waterways, highways and  interstates has facilitated the growth of several types of industry in  Humphreys County. A small airport, located in Waverly, serves private aircraft. </p>
+              <p class="text">Blue Creek Nature Center, located just outside Waverly and the  Tennessee National Wildlife Refuge, which runs along Duck River, encompasses  more than 52,000 acres and is perfect for observing a look at untouched  wildlife. The peaceful blue waters and many marinas make these popular getaways  for the entire family. Avid fishermen and hunters find a paradise along the  refuge with organized hunts and fishing tournaments. </p>
+              <p class="text">Humphreys County is rich in history with Civil War artifacts,  antebellum homes and more. The Johnsonville Historic State Park, Humphreys  County Museum and Civil War Fort, Nolan House, McAdoo House, Enoch's Mill and  one of only two old Greyhound bus stations found in the state offer a backward  glance into the history of Humphreys County. </p>
+              <p class="text">The following pages and sites offer further information on the  resources found in Humphreys County, the heart of the “Volunteer State”.</p>
+            <!-- InstanceEndEditable -->
+</td>
+            </tr>
+<tr>
+<td> </td>
+              <td valign="top"> </td>
+            </tr>
+<tr>
+<td> </td>
+              <td valign="top">
+<!-- InstanceBeginEditable name="body2" -->
+                <table width="100%" border="0" cellspacing="0" cellpadding="0"><tr>
+<td width="48%" align="center">
+<p><span class="heading">ADA Grievance Procedure &amp; Transition Plan</span><br><span class="text">(<a href="ada_grievance_transition.pdf">Click to Enlarge</a>)</span></p>
+<p><a href="ada_grievance_transition.pdf"><img src="ada.jpg" alt="" width="300" height="219" border="0"></a></p>
+</td>
+                    <td width="5%" align="center"> </td>
+                    <td width="47%" align="center">
+<table width="78%" height="25" border="0" align="center" cellpadding="1" cellspacing="0"><tr>
+<td align="center" bgcolor="#CCCCCC"><table width="100%" height="25" border="0" align="right" cellpadding="1" cellspacing="0"><tr>
+<td bgcolor="#CCCCCC"><table width="100%" height="419" border="0" align="center" cellpadding="1" cellspacing="0">
+<tr>
+<td valign="top" bgcolor="#FFFFFF" class="humphreys_text"><div align="center" class="text"><img src="hurricane_mills.jpg" width="159" height="120"></div></td>
+                              </tr>
+<tr>
+<td valign="top" bgcolor="#FFFFFF" class="humphreys_text"><p align="center" class="text"><strong>Hurricane Mills Dam at <br><a href="https://www.lorettalynnranch.net/main/" target="_blank">Loretta Lynn  Ranch</a></strong><br><a href="https://www.humphreyscountychamberofcommerce.com/" target="_blank">Humphreys County Chamber of Commerce</a> is supported by many  area businesses and individuals. <br></p></td>
+                              </tr>
+<tr>
+<td valign="top" bgcolor="#FFFFFF" class="humphreys_text"><div align="center" class="text"><img src="flag.jpg" width="159" height="120"></div></td>
+                              </tr>
+<tr>
+<td height="54" valign="top" bgcolor="#FFFFFF" class="humphreys_text"><div align="center" class="text">
+<strong>Local Weekly Newspaper </strong><br><a href="http://www.thenews-democrat.com/" target="_blank">The News Democrat</a> keeps citizens informed  of area news  <br><br>
+</div></td>
+                              </tr>
+</table></td>
+                          </tr></table></td>
+                      </tr></table>
+<br>
+</td>
+                  </tr></table>
+<!-- InstanceEndEditable -->
+</td>
+            </tr>
+</table></td>
+        </tr>
+<tr>
+<td height="2" valign="top" bgcolor="#FFFFFF"><hr></td>
+        </tr>
+<tr>
+<td height="26" valign="top" bgcolor="#FFFFFF" class="humphreys_text"><div align="center">
+            <p><span class="text"><a href="index.html">Home</a> | <a href="county_executive/index.html">Message from the County Executive</a> | <a href="economic_dev/index.html">Economic Development</a> | <a href="officials/index.html">County Offices</a> | <a href="education/index.html">Education</a> |<a href="heathcare/index.html"> Healthcare</a></span></p>
+            <table width="70%" border="0" cellspacing="0" cellpadding="0"><tr>
+<td align="center"><span class="text">102 Thompson Street | 
+                  Waverly, TN 37185  
+                    <br>
+                    (931) 296-7795<br></span></td>
+                </tr></table>
+<p><br></p>
+          </div></td>
+        </tr>
+</table></td>
+  </tr></table>
+<map name="Map"><area shape="rect" coords="20,7,63,26" href="index.html" alt="Home">
+<area shape="rect" coords="74,9,282,25" href="county_executive/index.html" alt="Message from the County Exec">
+<area shape="rect" coords="439,8,531,27" href="officials/index.html" alt="County Offices">
+<area shape="rect" coords="609,8,679,28" href="heathcare/index.html" alt="Healthcare">
+<area shape="rect" coords="291,9,431,25" href="economic_dev/index.html" alt="Economic Development">
+<area shape="rect" coords="537,8,600,27" href="education/index.html" alt="Education"></map><map name="Map2"><area shape="circle" coords="27,27,17" href="mailto:dgreenwell@humphreystn.com?subject=Email%20From%20Humphreys%20County%20Website" alt="Email Us">
+<area shape="circle" coords="146,27,19" href="https://www.mapquest.com/maps?city=Waverly&amp;state=TN" target="_blank" alt="Map &amp; Directions">
+<area shape="circle" coords="89,25,18" href="officials/index.html" alt="Call Us"></map><map name="Map3"><area shape="rect" coords="44,5,216,44" href="https://www.census.gov/quickfacts/table/PST045215/47085,00" target="_blank" alt="County Facts">
+<area shape="rect" coords="231,4,430,48" href="area_attractions/index.html" alt="Area Attractions">
+<area shape="rect" coords="452,6,662,47" href="https://www.visithumphreys.com/" target="_blank" alt="Upcoming Events"></map>
+</body>
+<!-- InstanceEnd -->
+</html>

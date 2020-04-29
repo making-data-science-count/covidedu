@@ -146,7 +146,8 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
                                        otherwise = tibble(link = NA, district = NA, state = NA, nces_id = NA, 
                                                           page_number = NA,
                                                           type = "ATTACHMENT", found = FALSE)))
-      attachment_df <- map_df(attachment_output, ~.)
+    attachment_df <- map_df(attachment_output, ~.)
+    attachment_df <- select(attachment_df, -found)
     
   }
   
@@ -164,9 +165,10 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
                                                     type = "LINK", found = FALSE)))
     
     link_df <- map_df(link_output, ~.)
+    link_df <- select(link_df, -found)
     
   }
-
+  
   if (which_to_scrape == "both") {
     return(bind_rows(link_df, attachment_df))
   } else if (which_to_scrape == "attachments") {
@@ -177,7 +179,10 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
 }
 
 proc_table_of_output <- function(table_of_output) {
+  is_logical <- table_of_output$link %>% map_lgl(is.logical)
+  
   table_of_output_out <- table_of_output %>% 
+    filter(!is_logical) %>% 
     unnest(link) %>% 
     group_by(district_name, state, nces_id) %>% 
     mutate(page_number = row_number()) %>% 
@@ -203,8 +208,8 @@ create_summary_table <- function(proc_table_of_output) {
   out$any_link_found <- if_else(out$n_links_found > 0, TRUE, FALSE)
   out %>% 
     select(district_name, state, nces_id, url, any_link_found, n_links_found)
-    # unnest(list_of_links_containing_search_term) %>% 
-    # rename(link = list_of_links_containing_search_term)
+  # unnest(list_of_links_containing_search_term) %>% 
+  # rename(link = list_of_links_containing_search_term)
 }
 
 proc_my_date <- function(my_date = "") {
