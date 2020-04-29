@@ -18,10 +18,10 @@ access_site <- function(my_date, name, state, id, url, search_term) {
     
     print(str_c(state," ", name, " already exists; reading instead"))
     
-    h <-  read_html(file_path)
+    h <- file_path %>% GET(., timeout(10)) %>% read_html()
     
   } else {
-    h <- read_html(url)
+    h <- url %>% GET(., timeout(10)) %>% read_html()
     
     write_xml(h, file_path)
   }
@@ -52,7 +52,7 @@ access_site <- function(my_date, name, state, id, url, search_term) {
   
   link_urls <- link_urls[link_logical_to_index]
   
-  print(str_c("Processed ", base_dir, "-", state, "-", name, "-", id, "; ",
+  print(str_c("Processed ", base_dir, "", state, "-", name, "-", id, "; ",
               "found ", search_term, ": ", str_detect(tolower(t), search_term)))
   
   tibble(district_name = name, state = state, nces_id = id, url = url,
@@ -93,8 +93,8 @@ scrape_and_process_sites <- function(my_date, list_of_args, search_term) {
 }
 
 download_link <- function(link, district, state, nces_id, my_date, page_number) {
-  print(str_c("processing link", link, "from ", nces_id))
-  h <- read_html(link)
+  print(str_c("accessing link ", link, "from ", nces_id))
+  h <- link %>% GET(., timeout(10)) %>% read_html()
   
   base_dir <- str_c("output/", my_date, "/links/")
   
@@ -110,11 +110,12 @@ download_link <- function(link, district, state, nces_id, my_date, page_number) 
 }
 
 download_attachment <- function(link, district, state, nces_id, page_number, my_date) {
-  print(str_c("processing attachment", link, "from ", nces_id))
+  print(str_c("accessing attachment ", link, "from ", nces_id))
   file_ext <- tools::file_ext(link)
   base_dir <- str_c("output/", my_date, "/attachments/")
   
-  f <-str_c(base_dir, "ATTACHMENT-", state, "-", district, "-", nces_id, "-", page_number, ".", file_ext)
+  f <- str_c(base_dir, "ATTACHMENT-", state, "-", district, "-", nces_id, "-", page_number, ".", file_ext)
+  print(f)
   if (!fs::file_exists(f)) {
     download.file(link, destfile = f)
     print("downloaded ", file_ext)
@@ -131,6 +132,7 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
   table_of_output$file_ext <- tools::file_ext(table_of_output$link)
   
   attachments <- filter(table_of_output, file_ext %in% c("pdf", ".docx", ".png", ".doc"))
+  
   all_other <- filter(table_of_output, !file_ext %in% c("pdf", ".docx", ".png", ".doc"))
   
   if (which_to_scrape == "attachments" | which_to_scrape == "both") {
@@ -144,7 +146,8 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
                                        otherwise = tibble(link = NA, district = NA, state = NA, nces_id = NA, 
                                                           page_number = NA,
                                                           type = "ATTACHMENT", found = FALSE)))
-      attachment_df <- map_df(attachment_output, ~.)
+    attachment_df <- map_df(attachment_output, ~.)
+    attachment_df <- select(attachment_df, -found)
     
   }
   
@@ -162,11 +165,12 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
                                                     type = "LINK", found = FALSE)))
     
     link_df <- map_df(link_output, ~.)
+    link_df <- select(link_df, -found)
     
   }
-
+  
   if (which_to_scrape == "both") {
-    return(list(link_df, attachment_df))
+    return(bind_rows(link_df, attachment_df))
   } else if (which_to_scrape == "attachments") {
     return(attachment_df)
   } else {
@@ -175,32 +179,44 @@ proc_links_and_attachments <- function(table_of_output, my_date, which_to_scrape
 }
 
 proc_table_of_output <- function(table_of_output) {
-  table_of_output <- table_of_output %>% 
+  is_logical <- table_of_output$link %>% map_lgl(is.logical)
+  
+  table_of_output_out <- table_of_output %>% 
+    filter(!is_logical) %>% 
+    unnest(link) %>% 
     group_by(district_name, state, nces_id) %>% 
     mutate(page_number = row_number()) %>% 
     ungroup() %>% 
-    spread(search_term_found, link_found) %>% 
-    mutate_if(is.logical, replace_na, FALSE) %>% 
-    select(-`<NA>`) %>% 
-    filter(!is.na(district_name))
+    # spread(search_term_found, link_found) %>% 
+    # mutate_if(is.logical, replace_na, FALSE) %>% 
+    #select(-`<NA>`) %>% 
+    filter(!is.na(district_name),
+           !is.na(link)) %>% 
+    distinct(nces_id, link, .keep_all = TRUE) %>% 
+    select(-search_term_found, -scraping_failed, -link_found)
+  
+  table_of_output_out
 }
 
 create_summary_table <- function(proc_table_of_output) {
   out <- proc_table_of_output %>% 
     select(district_name:link) %>% 
     distinct(district_name, nces_id, state, .keep_all = TRUE) %>% 
-    select(-scraping_failed) %>% 
     rename(list_of_links_containing_search_term = link)
   
   out$n_links_found <- map_int(out$list_of_links_containing_search_term, length)
   out$any_link_found <- if_else(out$n_links_found > 0, TRUE, FALSE)
   out %>% 
-    select(district_name, state, nces_id, url, any_link_found, n_links_found, list_of_links_containing_search_term)
+    select(district_name, state, nces_id, url, any_link_found, n_links_found)
+  # unnest(list_of_links_containing_search_term) %>% 
+  # rename(link = list_of_links_containing_search_term)
 }
 
-proc_my_date <- function(my_date) {
+proc_my_date <- function(my_date = "") {
   if (my_date == "") {
     my_date <- Sys.Date()
-  } 
-  my_date
+    return(my_date)
+  } else {
+    return(my_date)
+  }
 }
