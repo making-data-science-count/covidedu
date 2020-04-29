@@ -52,7 +52,7 @@ access_site <- function(my_date, name, state, id, url, search_term) {
   
   link_urls <- link_urls[link_logical_to_index]
   
-  print(str_c("Processed ", base_dir, "-", state, "-", name, "-", id, "; ",
+  print(str_c("Processed ", base_dir, "", state, "-", name, "-", id, "; ",
               "found ", search_term, ": ", str_detect(tolower(t), search_term)))
   
   tibble(district_name = name, state = state, nces_id = id, url = url,
