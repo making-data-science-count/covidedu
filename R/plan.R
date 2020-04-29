@@ -7,8 +7,16 @@ search_term = c("covid*", "coron*", "closure")
 
 processed_data = read_data('district-data-to-scrape.csv')
 
-# just for testing
-processed_data <- processed_data[1:25, ]
+# all states
+processed_data %>% 
+  count(state)
+
+# for testing - just selecting two states
+processed_data <- processed_data %>% 
+  filter(state %in% c("michigan", "tennessee"))
+
+# # just for testing
+# processed_data <- processed_data[1:25, ]
 
 my_date_proc = proc_my_date(my_date)
 
